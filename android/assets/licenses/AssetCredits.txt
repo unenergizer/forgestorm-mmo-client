@@ -1,0 +1,111 @@
+Asset Credits
+
+Contents:
+    I. Fonts
+    II. Music
+    III. Sound Effects
+    IV. Sprite Visual Effects
+    V. Sprites and Icons
+    VI. Tile Sets
+
+
+I. Fonts:
+
+    1. DPcomic by codeman38
+        License: (Custom License) Free for commercial use if author is credited and linked.
+        Website: http://www.zone38.net/font/ or http://www.1001fonts.com/dpcomic-font.html
+
+    2. Squarebit by VOID
+        License: Attribution 4.0 International (CC BY 4.0)
+        Website: https://arcade.itch.io/squarebit
+
+    3. Awkward by VOID
+        License: Attribution 4.0 International (CC BY 4.0)
+        Website: https://arcade.itch.io/awkward
+
+    4. Heartbit by VOID
+        License: Attribution 4.0 International (CC BY 4.0)
+        Website: https://arcade.itch.io/heartbit
+
+
+II. Music:
+
+
+III. Sound Effects:
+
+
+IV. Sprite Special Effects:
+
+    1. Pixel Effects by Henry Software
+        License: CC0 1.0 Universal (CC0 1.0)
+        Website: https://henrysoftware.itch.io/pixel-effects
+
+    2. Will's Magic Pixel Particle Effects by unTied Games
+        License:
+        Website: https://untiedgames.itch.io/wills-magic-pixel-particle-effects
+
+
+V. Sprites and Icons:
+
+    1. Pixel Item! by Henry Software
+        License: CC0 1.0 Universal (CC0 1.0)
+        Website: https://henrysoftware.itch.io/pixel-item
+
+    2. Pixel Mob! by Henry Software
+        License: CC0 1.0 Universal (CC0 1.0)
+        Website: https://henrysoftware.itch.io/pixel-mob
+
+    3. Free Pixel Food! by Henry Software
+        License: CC0 1.0 Universal (CC0 1.0)
+        Website: https://henrysoftware.itch.io/pixel-food
+
+    4. Free Pixel Gear by Henry Software
+        License: CC0 1.0 Universal (CC0 1.0)
+        Website: https://henrysoftware.itch.io/free-pixel-gear
+
+    5. Pixeltier's RPG Icon Pack by Pixeltier
+        License: Free for commercial use
+        Website: https://pixeltier.itch.io/pixeltiers-16x16-rpg-icon-pack
+
+
+VI. Tile Sets:
+
+    1. 16x16 Dungeon Tileset by 0x72
+        License: CC0
+        Website: https://0x72.itch.io/16x16-dungeon-tileset
+
+    2. Pixel Level by Henry Software
+        License: CC0 1.0 Universal (CC0 1.0)
+        Website: https://henrysoftware.itch.io/pixel-level
+
+    3. Free Pixel Level by Henry Software
+          License: CC0 1.0 Universal (CC0 1.0)
+          Website: https://henrysoftware.itch.io/pixel-level-free
+
+    4. Tiny 16 by Sharm
+        License: Attribution 4.0 International (CC BY 4.0)
+        Website: https://sharm.itch.io/tiny16
+
+    5. Dungeon Tileset by Pita
+        License:
+        Website: https://pita.itch.io/rpg-dungeon-tileset
+
+    6. 16x16 Indoor RPG Tileset: The Baseline by Stephen Challener (Redshrike)
+        License: Attribution 3.0 Unported (CC BY 3.0)
+        Website: https://opengameart.org/content/16x16-indoor-rpg-tileset-the-baseline
+
+    7. Classical Temple Tiles by surt
+        License: Multiple, see website
+        Website: https://opengameart.org/content/classical-temple-tiles
+
+    8. Town Tiles by surt
+        License: CCO
+        Website: https://opengameart.org/content/town-tiles
+
+    9. 16x16 Snowy Town Tiles by Sharm and surt
+        License: Multiple, see website.
+        Website: https://opengameart.org/content/16x16-snowy-town-tiles
+
+    10. Sewer Tileset by MrBeast
+        License: CC-BY 3.0
+        Website: https://opengameart.org/content/sewer-tileset

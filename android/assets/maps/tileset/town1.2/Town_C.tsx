@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tileset name="[Town] Town_C" tilewidth="16" tileheight="16" tilecount="315" columns="15">
+ <image source="../../textures/town1.2/town_C.png" width="240" height="336"/>
+ <terraintypes>
+  <terrain name="Wood Floor 1" tile="0"/>
+  <terrain name="Decorative Floor 1" tile="0"/>
+  <terrain name="Decorative Floor 2" tile="0"/>
+  <terrain name="Decorative Floor 3" tile="0"/>
+  <terrain name="Decorative Floor 4" tile="0"/>
+  <terrain name="Decorative Floor 5" tile="0"/>
+  <terrain name="Decorative Floor 6" tile="0"/>
+  <terrain name="Carpet 1" tile="0"/>
+  <terrain name="Carpet 2" tile="0"/>
+  <terrain name="Carpet 3" tile="0"/>
+  <terrain name="Carpet 4" tile="0"/>
+  <terrain name="Carpet 5" tile="0"/>
+  <terrain name="Carpet 6" tile="0"/>
+  <terrain name="Carpet 7" tile="0"/>
+ </terraintypes>
+ <tile id="0" terrain=",,,0"/>
+ <tile id="1" terrain=",,0,0"/>
+ <tile id="2" terrain=",,0,"/>
+ <tile id="3" terrain="0,0,0,"/>
+ <tile id="4" terrain="0,0,,0"/>
+ <tile id="15" terrain=",0,,0"/>
+ <tile id="16" terrain="0,0,0,0"/>
+ <tile id="17" terrain="0,,0,"/>
+ <tile id="18" terrain="0,,0,0"/>
+ <tile id="19" terrain=",0,0,0"/>
+ <tile id="30" terrain=",0,,"/>
+ <tile id="31" terrain="0,0,,"/>
+ <tile id="32" terrain="0,,,"/>
+ <tile id="60" terrain=",,,1"/>
+ <tile id="61" terrain=",,1,1"/>
+ <tile id="62" terrain=",,1,"/>
+ <tile id="63" terrain="1,1,1,"/>
+ <tile id="64" terrain="1,1,,1"/>
+ <tile id="65" terrain=",,,2"/>
+ <tile id="66" terrain=",,2,2"/>
+ <tile id="67" terrain=",,2,"/>
+ <tile id="68" terrain="2,2,2,"/>
+ <tile id="69" terrain="2,2,,2"/>
+ <tile id="70" terrain=",,,3"/>
+ <tile id="71" terrain=",,3,3"/>
+ <tile id="72" terrain=",,3,"/>
+ <tile id="73" terrain="3,3,3,"/>
+ <tile id="74" terrain="3,3,,3"/>
+ <tile id="75" terrain=",1,,1"/>
+ <tile id="76" terrain="1,1,1,1"/>
+ <tile id="77" terrain="1,,1,"/>
+ <tile id="78" terrain="1,,1,1"/>
+ <tile id="79" terrain=",1,1,1"/>
+ <tile id="80" terrain=",2,,2"/>
+ <tile id="81" terrain="2,2,2,2"/>
+ <tile id="82" terrain="2,,2,"/>
+ <tile id="83" terrain="2,,2,2"/>
+ <tile id="84" terrain=",2,2,2"/>
+ <tile id="85" terrain=",3,,3"/>
+ <tile id="86" terrain="3,3,3,3"/>
+ <tile id="87" terrain="3,,3,"/>
+ <tile id="88" terrain="3,,3,3"/>
+ <tile id="89" terrain=",3,3,3"/>
+ <tile id="90" terrain=",1,,"/>
+ <tile id="91" terrain="1,1,,"/>
+ <tile id="92" terrain="1,,,"/>
+ <tile id="95" terrain=",2,,"/>
+ <tile id="96" terrain="2,2,,"/>
+ <tile id="97" terrain="2,,,"/>
+ <tile id="100" terrain=",3,,"/>
+ <tile id="101" terrain="3,3,,"/>
+ <tile id="102" terrain="3,,,"/>
+ <tile id="105" terrain=",,,4"/>
+ <tile id="106" terrain=",,4,4"/>
+ <tile id="107" terrain=",,4,"/>
+ <tile id="108" terrain="4,4,4,"/>
+ <tile id="109" terrain="4,4,,4"/>
+ <tile id="110" terrain=",,,5"/>
+ <tile id="111" terrain=",,5,5"/>
+ <tile id="112" terrain=",,5,"/>
+ <tile id="113" terrain="5,5,5,"/>
+ <tile id="114" terrain="5,5,,5"/>
+ <tile id="115" terrain=",,,6"/>
+ <tile id="116" terrain=",,6,6"/>
+ <tile id="117" terrain=",,6,"/>
+ <tile id="118" terrain="6,6,6,"/>
+ <tile id="119" terrain="6,6,,6"/>
+ <tile id="120" terrain=",4,,4"/>
+ <tile id="121" terrain="4,4,4,4"/>
+ <tile id="122" terrain="4,,4,"/>
+ <tile id="123" terrain="4,,4,4"/>
+ <tile id="124" terrain=",4,4,4"/>
+ <tile id="125" terrain=",5,,5"/>
+ <tile id="126" terrain="5,5,5,5"/>
+ <tile id="127" terrain="5,,5,"/>
+ <tile id="128" terrain="5,,5,5"/>
+ <tile id="129" terrain=",5,5,5"/>
+ <tile id="130" terrain=",6,,6"/>
+ <tile id="131" terrain="6,6,6,6"/>
+ <tile id="132" terrain="6,,6,"/>
+ <tile id="133" terrain="6,,6,6"/>
+ <tile id="134" terrain=",6,6,6"/>
+ <tile id="135" terrain=",4,,"/>
+ <tile id="136" terrain="4,4,,"/>
+ <tile id="137" terrain="4,,,"/>
+ <tile id="140" terrain=",5,,"/>
+ <tile id="141" terrain="5,5,,"/>
+ <tile id="142" terrain="5,,,"/>
+ <tile id="145" terrain=",6,,"/>
+ <tile id="146" terrain="6,6,,"/>
+ <tile id="147" terrain="6,,,"/>
+ <tile id="150" terrain=",,,7"/>
+ <tile id="151" terrain=",,7,7"/>
+ <tile id="152" terrain=",,7,"/>
+ <tile id="153" terrain="7,7,7,"/>
+ <tile id="154" terrain="7,7,,7"/>
+ <tile id="155" terrain=",,,8"/>
+ <tile id="156" terrain=",,8,8"/>
+ <tile id="157" terrain=",,8,"/>
+ <tile id="158" terrain="8,8,8,"/>
+ <tile id="159" terrain="8,8,,8"/>
+ <tile id="160" terrain=",,,9"/>
+ <tile id="161" terrain=",,9,9"/>
+ <tile id="162" terrain=",,9,"/>
+ <tile id="163" terrain="9,9,9,"/>
+ <tile id="164" terrain="9,9,,9"/>
+ <tile id="165" terrain=",7,,7"/>
+ <tile id="166" terrain="7,7,7,7"/>
+ <tile id="167" terrain="7,,7,"/>
+ <tile id="168" terrain="7,,7,7"/>
+ <tile id="169" terrain=",7,7,7"/>
+ <tile id="170" terrain=",8,,8"/>
+ <tile id="171" terrain="8,8,8,8"/>
+ <tile id="172" terrain="8,,8,"/>
+ <tile id="173" terrain="8,,8,8"/>
+ <tile id="174" terrain=",8,8,8"/>
+ <tile id="175" terrain=",9,,9"/>
+ <tile id="176" terrain="9,9,9,9"/>
+ <tile id="177" terrain="9,,9,"/>
+ <tile id="178" terrain="9,,9,9"/>
+ <tile id="179" terrain=",9,9,9"/>
+ <tile id="180" terrain=",7,,"/>
+ <tile id="181" terrain="7,7,,"/>
+ <tile id="182" terrain="7,,,"/>
+ <tile id="185" terrain=",8,,"/>
+ <tile id="186" terrain="8,8,,"/>
+ <tile id="187" terrain="8,,,"/>
+ <tile id="190" terrain=",9,,"/>
+ <tile id="191" terrain="9,9,,"/>
+ <tile id="192" terrain="9,,,"/>
+ <tile id="195" terrain=",,,10"/>
+ <tile id="196" terrain=",,10,10"/>
+ <tile id="197" terrain=",,10,"/>
+ <tile id="198" terrain="10,10,10,"/>
+ <tile id="199" terrain="10,10,,10"/>
+ <tile id="200" terrain=",,,11"/>
+ <tile id="201" terrain=",,11,11"/>
+ <tile id="202" terrain=",,11,"/>
+ <tile id="203" terrain="11,11,11,"/>
+ <tile id="204" terrain="11,11,,11"/>
+ <tile id="205" terrain=",,,12"/>
+ <tile id="206" terrain=",,12,12"/>
+ <tile id="207" terrain=",,12,"/>
+ <tile id="208" terrain="12,12,12,"/>
+ <tile id="209" terrain="12,12,,12"/>
+ <tile id="210" terrain=",10,,10"/>
+ <tile id="211" terrain="10,10,10,10"/>
+ <tile id="212" terrain="10,,10,"/>
+ <tile id="213" terrain="10,,10,10"/>
+ <tile id="214" terrain=",10,10,10"/>
+ <tile id="215" terrain=",11,,11"/>
+ <tile id="216" terrain="11,11,11,11"/>
+ <tile id="217" terrain="11,,11,"/>
+ <tile id="218" terrain="11,,11,11"/>
+ <tile id="219" terrain=",11,11,11"/>
+ <tile id="220" terrain=",12,,12"/>
+ <tile id="221" terrain="12,12,12,12"/>
+ <tile id="222" terrain="12,,12,"/>
+ <tile id="223" terrain="12,,12,12"/>
+ <tile id="224" terrain=",12,12,12"/>
+ <tile id="225" terrain=",10,,"/>
+ <tile id="226" terrain="10,10,,"/>
+ <tile id="227" terrain="10,,,"/>
+ <tile id="230" terrain=",11,,"/>
+ <tile id="231" terrain="11,11,,"/>
+ <tile id="232" terrain="11,,,"/>
+ <tile id="235" terrain=",12,,"/>
+ <tile id="236" terrain="12,12,,"/>
+ <tile id="237" terrain="12,,,"/>
+ <tile id="240" terrain=",,,13"/>
+ <tile id="241" terrain=",,13,13"/>
+ <tile id="242" terrain=",,13,"/>
+ <tile id="243" terrain="13,13,13,"/>
+ <tile id="244" terrain="13,13,,13"/>
+ <tile id="255" terrain=",13,,13"/>
+ <tile id="256" terrain="13,13,13,13"/>
+ <tile id="257" terrain="13,,13,"/>
+ <tile id="258" terrain="13,,13,13"/>
+ <tile id="259" terrain=",13,13,13"/>
+ <tile id="270" terrain=",13,,"/>
+ <tile id="271" terrain="13,13,,"/>
+ <tile id="272" terrain="13,,,"/>
+</tileset>
