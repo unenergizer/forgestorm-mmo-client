@@ -1,6 +1,5 @@
 package com.valenguard.client.entities;
 
-import com.valenguard.client.constants.Direction;
 import com.valenguard.client.maps.data.Location;
 
 import lombok.Getter;
@@ -40,5 +39,12 @@ public class Entity {
     /**
      * The direction the entity intends to move in the future.
      */
-    private Direction futureDirection;
+    private Direction predictedDirection;
+
+
+    /**
+     * The direction the entity is facing. Is not always the same direction
+     * as they are moving because the move direction can be STOP.
+     */
+    private Direction facingDirection;
 }

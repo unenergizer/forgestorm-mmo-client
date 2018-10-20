@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.assets.GameTexture;
-import com.valenguard.client.constants.ClientConstants;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.network.ClientConnection;
 
 public class LoginScreenUI implements AbstractUI, Disposable {

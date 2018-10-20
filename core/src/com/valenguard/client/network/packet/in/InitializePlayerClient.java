@@ -5,10 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.assets.GameMap;
-import com.valenguard.client.constants.ClientConstants;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.entities.PlayerClient;
-import com.valenguard.client.maps.data.Location;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -33,28 +31,20 @@ public class InitializePlayerClient implements PacketListener {
 
         // PACKET READ START
         final boolean loginSuccess = clientHandler.readBoolean();
-        final int entityID3 = clientHandler.readInt();
-        final short entityID = 0;
+        final short entityID = clientHandler.readShort();
         final String mapName = clientHandler.readString();
-        final int x = clientHandler.readInt();
-        final int y = clientHandler.readInt();
         // PACKET READ END
 
         Gdx.app.debug(TAG, "[PACKET] loginSuccess: " + loginSuccess
                 + " , EntityID: " + entityID
-                + " , Map: " + mapName
-                + " , X: " + x
-                + " , Y: " + y);
+                + " , Map: " + mapName);
+
 
         PlayerClient playerClient = new PlayerClient();
         playerClient.setEntityId(entityID);
-        playerClient.setMapName(mapName);
-        playerClient.setCurrentMapLocation(new Location(mapName, x, y));
-        playerClient.setFutureMapLocation(new Location(mapName, x, y));
-        playerClient.setDrawX(x * ClientConstants.TILE_SIZE);
-        playerClient.setDrawY(y * ClientConstants.TILE_SIZE);
 
-        EntityManager.getInstance().addEntity(PlayerClient.class, entityID, playerClient);
+        // todo move the mapName to a more static context
+        playerClient.setMapName(mapName);
 
         // Setup the player client entity
         EntityManager.getInstance().setPlayerClient(playerClient);

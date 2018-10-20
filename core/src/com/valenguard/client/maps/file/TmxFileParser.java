@@ -2,8 +2,8 @@ package com.valenguard.client.maps.file;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.valenguard.client.constants.ClientConstants;
-import com.valenguard.client.constants.Direction;
+import com.valenguard.client.ClientConstants;
+import com.valenguard.client.entities.Direction;
 import com.valenguard.client.maps.data.Tile;
 import com.valenguard.client.maps.data.TmxMap;
 import com.valenguard.client.maps.data.Warp;

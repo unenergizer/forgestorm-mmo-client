@@ -14,7 +14,8 @@ import com.valenguard.client.assets.FileManager;
 import com.valenguard.client.assets.GameMap;
 import com.valenguard.client.assets.GameTexture;
 import com.valenguard.client.assets.GameUI;
-import com.valenguard.client.constants.ClientConstants;
+import com.valenguard.client.ClientConstants;
+import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.screens.stage.GameScreenDebugText;
 import com.valenguard.client.screens.stage.UiManager;
@@ -109,7 +110,12 @@ public class GameScreen implements Screen {
         }
 
         spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMovementManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMovementManager().getMouseTileY() * ClientConstants.TILE_SIZE);
-        spriteBatch.draw(playerTexture, EntityManager.getInstance().getPlayerClient().getDrawX(), EntityManager.getInstance().getPlayerClient().getDrawY());
+
+        for (Entity entity : EntityManager.getInstance().getEntities().values()) {
+            spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
+        }
+
+
         spriteBatch.end();
 
         // Render UI

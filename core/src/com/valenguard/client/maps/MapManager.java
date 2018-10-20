@@ -3,7 +3,7 @@ package com.valenguard.client.maps;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
-import com.valenguard.client.constants.ClientConstants;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.maps.data.TmxMap;
 import com.valenguard.client.maps.file.TmxFileParser;
 

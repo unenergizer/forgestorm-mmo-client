@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.valenguard.client.constants.ClientConstants;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.entities.Entity;
 
 public class AttachableCamera extends OrthographicCamera {

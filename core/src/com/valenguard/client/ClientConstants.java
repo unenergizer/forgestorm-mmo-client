@@ -1,4 +1,4 @@
-package com.valenguard.client.constants;
+package com.valenguard.client;
 
 public class ClientConstants {
     public static final String GAME_VERSION = "0.1.0";

@@ -41,7 +41,7 @@ public class GameScreenDebugText implements AbstractUI, Refreshable {
         infoTable.add(ms).left();
         infoTable.row();
 
-        if (client != null) {
+        if (client != null && client.getCurrentMapLocation() != null) {
             Label uuid, playerTile, playerPixel, zoom, cursorTile, cursorTileClick;
             uuid = new Label("UUID: " + client.getEntityId(), uiManager.skin);
             playerTile = new Label("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName(), uiManager.skin);

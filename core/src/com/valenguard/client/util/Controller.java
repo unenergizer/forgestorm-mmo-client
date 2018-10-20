@@ -1,11 +1,12 @@
 package com.valenguard.client.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.constants.ClientConstants;
-import com.valenguard.client.constants.Direction;
+import com.valenguard.client.ClientConstants;
+import com.valenguard.client.entities.Direction;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.movement.MovementManager;
@@ -17,6 +18,8 @@ public class Controller implements InputProcessor {
     private Vector3 clickLocation = new Vector3();
 
     public boolean keyDown(int keycode) {
+
+        System.out.println("KEY DOWN");
         //  System.out.println("keyDOWN: " + keycode);
         if (keycode == Input.Keys.F3) {
             if (showDebug) {
@@ -31,14 +34,25 @@ public class Controller implements InputProcessor {
     }
 
     public boolean keyUp(int keycode) {
-        //  System.out.println("keyUP: " + keycode);
+        MovementManager movementManager = Valenguard.getInstance().getMovementManager();
+        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
-
+        if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.W)) {
+            movementManager.playerMove(playerClient, 0, 0, Direction.STOP);
+        }
 
         return false;
     }
 
+    // PULSING
     public boolean keyTyped(char character) {
+
+        performKeyTypeMovement(character);
+
+        return false;
+    }
+
+    private void performKeyTypeMovement(char character) {
         MovementManager movementManager = Valenguard.getInstance().getMovementManager();
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
@@ -56,8 +70,6 @@ public class Controller implements InputProcessor {
                 movementManager.playerMove(playerClient, 1, 0, Direction.RIGHT);
                 break;
         }
-
-        return false;
     }
 
     public boolean touchDown(int x, int y, int pointer, int button) {

@@ -34,4 +34,10 @@ public class Location {
         this.x = location.x;
         this.y = location.y;
     }
+
+    public void set(String mapName, int tileX, int tileY) {
+        this.mapName = mapName;
+        this.x = tileX;
+        this.y = tileY;
+    }
 }

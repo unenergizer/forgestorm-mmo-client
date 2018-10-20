@@ -1,6 +1,6 @@
 package com.valenguard.client.maps.data;
 
-import com.valenguard.client.constants.Direction;
+import com.valenguard.client.entities.Direction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

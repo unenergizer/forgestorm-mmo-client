@@ -8,7 +8,9 @@ import com.valenguard.client.maps.MapManager;
 import com.valenguard.client.movement.MovementManager;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.PingManager;
+import com.valenguard.client.network.packet.in.EntityDespawn;
 import com.valenguard.client.network.packet.in.EntityMoveUpdate;
+import com.valenguard.client.network.packet.in.EntitySpawn;
 import com.valenguard.client.network.packet.in.InitializePlayerClient;
 import com.valenguard.client.network.packet.in.PingIn;
 import com.valenguard.client.network.shared.EventBus;
@@ -94,6 +96,8 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new PingIn());
                         eventBus.registerListener(new InitializePlayerClient());
                         eventBus.registerListener(new EntityMoveUpdate());
+                        eventBus.registerListener(new EntitySpawn());
+                        eventBus.registerListener(new EntityDespawn());
                     }
                 });
     }
