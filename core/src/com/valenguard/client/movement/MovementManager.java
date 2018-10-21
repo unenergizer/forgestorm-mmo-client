@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.entities.Direction;
+import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.maps.MapUtil;
@@ -14,7 +15,12 @@ import com.valenguard.client.network.packet.out.PlayerMove;
 import com.valenguard.client.util.pathfinding.PathFinding;
 
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
+import javax.xml.bind.SchemaOutputResolver;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 public class MovementManager {
@@ -24,8 +30,6 @@ public class MovementManager {
     // todo : this number relates to how fast the client moves
     // todo: this should be read in from the server so we will change this at a later date
     private static final float MAX_TIME = .5f;
-    private float walkTime;
-    private boolean walking = false;
 
     @Getter // Live mouse movement updates
     private int mouseTileX, mouseTileY;
@@ -33,6 +37,41 @@ public class MovementManager {
     private int clickTileX, clickTileY;
     @Getter
     private List<PathFinding.MoveNode> moveNodes;
+
+    @AllArgsConstructor
+    private class MovementInfo {
+        private Entity entity;
+        private float walkTime;
+    }
+
+    private Queue<MovementInfo> movingEntities = new ConcurrentLinkedQueue<MovementInfo>();
+
+    public void addEntityToMove(Entity entity, Direction direction) {
+        if (entity.isMoving()) {
+
+            predictEntityMovement(entity, direction);
+        } else {
+            int amountX = 0;
+            int amountY = 0;
+            if (direction == Direction.DOWN) amountY = -1;
+            if (direction == Direction.UP) amountY = 1;
+            if (direction == Direction.LEFT) amountX = -1;
+            if (direction == Direction.RIGHT) amountX = 1;
+            startEntityMovement(entity, direction, amountX, amountY);
+        }
+
+    }
+
+    private void startEntityMovement(Entity entity, Direction direction, int amountX, int amountY) {
+        entity.setMoveDirection(direction);
+        entity.setPredictedDirection(Direction.STOP);
+        entity.getFutureMapLocation().add(amountX, amountY);
+        movingEntities.add(new MovementInfo(entity, 0));
+    }
+
+    private void predictEntityMovement(Entity entity, Direction direction) {
+        entity.setPredictedDirection(direction);
+    }
 
     public void mouseMove(int x, int y) {
         this.mouseTileX = x;
@@ -53,14 +92,14 @@ public class MovementManager {
 
         TmxMap tmxMap = Valenguard.getInstance().getMapManager().getTmxMap(playerClient.getMapName());
 
-        if (walking) {
-            return predictFutureMovement(playerClient, tmxMap, amountX, amountY, direction);
+        if (playerClient.isMoving()) {
+            return predictFuturePlayerMovement(playerClient, tmxMap, amountX, amountY, direction);
         } else {
-            return createNewMovement(tmxMap, playerClient, amountX, amountY, direction);
+            return createNewPlayerMovement(tmxMap, playerClient, amountX, amountY, direction);
         }
     }
 
-    private boolean predictFutureMovement(PlayerClient playerClient, TmxMap tmxMap, int amountX, int amountY, Direction predictedDirection) {
+    private boolean predictFuturePlayerMovement(PlayerClient playerClient, TmxMap tmxMap, int amountX, int amountY, Direction predictedDirection) {
 
         Location futureMapLocation = playerClient.getFutureMapLocation();
 
@@ -76,7 +115,7 @@ public class MovementManager {
 
         // Todo: check map warps
 
-        playerClient.setPredictedDirection(predictedDirection);
+        predictEntityMovement(playerClient, predictedDirection);
 
         // Telling the server where the player plans on moving.
         new PlayerMove(predictedDirection).sendPacket();
@@ -84,9 +123,7 @@ public class MovementManager {
         return true;
     }
 
-    private boolean createNewMovement(TmxMap tmxMap, PlayerClient playerClient, int amountX, int amountY, Direction direction) {
-
-        System.err.println("## CREATE NEW MOVEMENT  ###################################");
+    private boolean createNewPlayerMovement(TmxMap tmxMap, PlayerClient playerClient, int amountX, int amountY, Direction direction) {
 
         // Not a valid direction for beginning movement.
         if (direction == Direction.STOP) return false;
@@ -108,13 +145,9 @@ public class MovementManager {
         }
 
         // Setting the player's direction for movement.
-        playerClient.setMoveDirection(direction);
+        startEntityMovement(playerClient, direction, amountX, amountY);
 
-        // TODO: Send move packet
         new PlayerMove(direction).sendPacket();
-
-        playerClient.getFutureMapLocation().add(amountX, amountY);
-        walking = true;
 
          return true;
     }
@@ -134,58 +167,85 @@ public class MovementManager {
         return true;
     }
 
-    private void finishPlayerMove() {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
-
-        //
-        playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
-        playerClient.setDrawY(playerClient.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);
-
-        playerClient.setPredictedDirection(Direction.STOP);
-
-        walkTime = 0;
-        walking = false;
-    }
-
     public void tick(float delta) {
-        if (walking) {
-            walkTime += delta;
-            PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-
-            int currentX = playerClient.getCurrentMapLocation().getX();
-            int currentY = playerClient.getCurrentMapLocation().getY();
-
-            int futureX = playerClient.getFutureMapLocation().getX();
-            int futureY = playerClient.getFutureMapLocation().getY();
-
-            playerClient.setDrawX(Interpolation.linear.apply(currentX, futureX, walkTime / MAX_TIME) * ClientConstants.TILE_SIZE);
-            playerClient.setDrawY(Interpolation.linear.apply(currentY, futureY, walkTime / MAX_TIME) * ClientConstants.TILE_SIZE);
-
-            if (walkTime <= MAX_TIME) return;
-
-            if (playerClient.getPredictedDirection() == Direction.STOP) {
-                finishPlayerMove();
-            } else {
-
-                // Change player directional information for continuing movement.
-                playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
-                playerClient.setMoveDirection(playerClient.getPredictedDirection());
-
-                if (playerClient.getPredictedDirection() == Direction.UP)
-                    playerClient.getFutureMapLocation().add(0, 1);
-                if (playerClient.getPredictedDirection() == Direction.DOWN)
-                    playerClient.getFutureMapLocation().add(0, -1);
-                if (playerClient.getPredictedDirection() == Direction.LEFT)
-                    playerClient.getFutureMapLocation().add(-1, 0);
-                if (playerClient.getPredictedDirection() == Direction.RIGHT)
-                    playerClient.getFutureMapLocation().add(1, 0);
-
-                playerClient.setPredictedDirection(Direction.STOP);
-
-                walkTime = 0;
-            }
+        for (MovementInfo movementInfo : movingEntities) {
+            moveEntity(movementInfo, delta);
         }
     }
 
+    private void moveEntity(MovementInfo movementInfo, float delta) {
+        Entity entity = movementInfo.entity;
+
+        if (!entity.isMoving()) return;
+
+        // roughly 1.0f / 60.0f
+        movementInfo.walkTime += delta;
+
+        int currentX = entity.getCurrentMapLocation().getX();
+        int currentY = entity.getCurrentMapLocation().getY();
+
+        int futureX = entity.getFutureMapLocation().getX();
+        int futureY = entity.getFutureMapLocation().getY();
+
+        entity.setDrawX(Interpolation.linear.apply(currentX, futureX, movementInfo.walkTime / MAX_TIME) * ClientConstants.TILE_SIZE);
+        entity.setDrawY(Interpolation.linear.apply(currentY, futureY, movementInfo.walkTime / MAX_TIME) * ClientConstants.TILE_SIZE);
+
+        if (movementInfo.walkTime <= MAX_TIME) return;
+
+        if (entity.getPredictedDirection() == Direction.STOP) {
+            finishEntityMove(movementInfo);
+        } else {
+            continueEntityMove(movementInfo);
+        }
+    }
+
+    private void finishEntityMove(MovementInfo movementInfo) {
+
+        Entity entity = movementInfo.entity;
+
+        entity.getCurrentMapLocation().set(entity.getFutureMapLocation());
+
+        //
+        entity.setDrawX(entity.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
+        entity.setDrawY(entity.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);
+
+        // The player is no longer moving.
+        entity.setMoveDirection(Direction.STOP);
+        entity.setPredictedDirection(Direction.STOP);
+
+        movingEntities.remove(movementInfo);
+    }
+
+    private void continueEntityMove(MovementInfo movementInfo) {
+
+        Entity entity = movementInfo.entity;
+        Direction predictedDirection = movementInfo.entity.getPredictedDirection();
+
+        // Change player directional information for continuing movement.
+        entity.getCurrentMapLocation().set(entity.getFutureMapLocation());
+        entity.setMoveDirection(entity.getPredictedDirection());
+
+        System.out.println("continueEntityMove()");
+        if (entity.getPredictedDirection() == Direction.UP) entity.getFutureMapLocation().add(0, 1);
+        if (entity.getPredictedDirection() == Direction.DOWN) entity.getFutureMapLocation().add(0, -1);
+        if (entity.getPredictedDirection() == Direction.LEFT) entity.getFutureMapLocation().add(-1, 0);
+        if (entity.getPredictedDirection() == Direction.RIGHT) entity.getFutureMapLocation().add(1, 0);
+
+        // todo abstract this logic out
+        int amountX = 0;
+        int amountY = 0;
+        if (predictedDirection == Direction.DOWN) amountY = -1;
+        if (predictedDirection == Direction.UP) amountY = 1;
+        if (predictedDirection == Direction.LEFT) amountX = -1;
+        if (predictedDirection == Direction.RIGHT) amountX = 1;
+
+        // todo check map warps thing?
+
+        if (!isMovable(movementInfo.entity.getCurrentMapLocation().getMapData(),
+                entity.getFutureMapLocation().getX() + amountX, entity.getFutureMapLocation().getY() + amountY)) {
+            entity.setPredictedDirection(Direction.STOP);
+        }
+
+        movementInfo.walkTime = 0;
+    }
 }

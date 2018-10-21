@@ -14,5 +14,5 @@ public class Opcodes {
 
     // ONLY ADDED TO REMOVE ERRORS. DELETE THESE!
     public static final byte MOVE_REQUEST = 0x04;
-    public static final byte ENTITY_MOVE_UPDATE = 0x04;
+    public static final byte ENTITY_MOVE_UPDATE = 0x05;
 }

@@ -30,4 +30,8 @@ public class EntityManager {
         entities.remove(entityId);
     }
 
+    public Entity getEntity(short entityId) {
+        return entities.get(entityId);
+    }
+
 }

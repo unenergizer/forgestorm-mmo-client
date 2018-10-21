@@ -47,4 +47,8 @@ public class Entity {
      * as they are moving because the move direction can be STOP.
      */
     private Direction facingDirection;
+
+    public boolean isMoving() {
+        return moveDirection != Direction.STOP;
+    }
 }

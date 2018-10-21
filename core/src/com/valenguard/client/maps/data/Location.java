@@ -25,6 +25,7 @@ public class Location {
     }
 
     public void add(int x, int y) {
+        System.out.println("Location.add(int, int)");
         this.x = this.x + x;
         this.y = this.y + y;
     }
