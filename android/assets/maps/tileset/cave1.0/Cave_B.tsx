@@ -9,7 +9,11 @@
  <tile id="2" terrain=",,0,"/>
  <tile id="3" terrain="0,0,0,"/>
  <tile id="4" terrain="0,0,,0"/>
- <tile id="16" terrain=",0,,0"/>
+ <tile id="16" terrain=",0,,0">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
  <tile id="17" terrain="0,0,0,0"/>
  <tile id="18" terrain="0,,0,"/>
  <tile id="19" terrain="0,,0,0"/>

@@ -46,17 +46,65 @@
  <tile id="40" terrain=",2,,"/>
  <tile id="41" terrain="2,2,,"/>
  <tile id="42" terrain="2,,,"/>
- <tile id="45" terrain=",,,3"/>
- <tile id="46" terrain=",,3,3"/>
- <tile id="47" terrain=",,3,"/>
- <tile id="48" terrain="3,3,3,"/>
- <tile id="49" terrain="3,3,,3"/>
- <tile id="50" terrain=",3,,3"/>
+ <tile id="45" terrain=",,,3">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="46" terrain=",,3,3">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="47" terrain=",,3,">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="48" terrain="3,3,3,">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="49" terrain="3,3,,3">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="50" terrain=",3,,3">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
  <tile id="51" terrain="3,3,3,3"/>
- <tile id="52" terrain="3,,3,"/>
- <tile id="53" terrain="3,,3,3"/>
- <tile id="54" terrain=",3,3,3"/>
- <tile id="55" terrain=",3,,"/>
- <tile id="56" terrain="3,3,,"/>
- <tile id="57" terrain="3,,,"/>
+ <tile id="52" terrain="3,,3,">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="53" terrain="3,,3,3">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="54" terrain=",3,3,3">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="55" terrain=",3,,">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="56" terrain="3,3,,">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
+ <tile id="57" terrain="3,,,">
+  <properties>
+   <property name="collision" type="bool" value="true"/>
+  </properties>
+ </tile>
 </tileset>
