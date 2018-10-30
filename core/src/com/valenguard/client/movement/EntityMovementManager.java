@@ -18,7 +18,7 @@ public class EntityMovementManager {
     }
 
     public void updateEntityFutureLocation(Entity entity, Location futureLocation) {
-        entity.setWalkTime(0f);
+        //entity.setWalkTime(0f);
         entity.setFutureMapLocation(futureLocation);
     }
 

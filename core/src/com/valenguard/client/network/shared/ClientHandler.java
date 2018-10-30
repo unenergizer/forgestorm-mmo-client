@@ -85,10 +85,10 @@ public class ClientHandler {
     }
 
     public long readLong() {
-        return (Integer) readIn(new Reader() {
+        return (Long) readIn(new Reader() {
             @Override
-            public Integer accept() throws IOException {
-                return inputStream.readInt();
+            public Long accept() throws IOException {
+                return inputStream.readLong();
             }
         });
     }

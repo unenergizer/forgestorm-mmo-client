@@ -18,13 +18,38 @@ public class EntityMoveUpdate implements PacketListener {
         short entityId = clientHandler.readShort();
         int futureX = clientHandler.readInt();
         int futureY = clientHandler.readInt();
+        int packetId = clientHandler.readInt();
+        long serverMilliseconds = clientHandler.readLong();
 
         Entity entity = EntityManager.getInstance().getEntity(entityId);
         MoveDirection moveDirection = MoveUtil.getMoveDirection(entity.getCurrentMapLocation().getX(), entity.getCurrentMapLocation().getY(), futureX, futureY);
 
-        System.out.println("ENTITY: " + entity);
-        System.out.println("MOVE DIRECTION: " + moveDirection);
-        System.out.println("X: " + futureX + ", Y:" + futureY);
+
+        long deltaPacketTime = System.currentTimeMillis() - serverMilliseconds;
+
+        float delay = (deltaPacketTime / 1000f);
+
+        System.out.println(packetId + " -> [" + futureX + ", " + futureY + "] , [" + deltaPacketTime + "," + delay + "]");
+
+        //
+//        System.out.println("MOVE DIRECTION: " + moveDirection);
+//        System.out.println("X: " + futureX + ", Y:" + futureY);
+
+        int currentX = entity.getCurrentMapLocation().getX();
+        int currentY = entity.getCurrentMapLocation().getY();
+
+        int difX = Math.abs(currentX - futureX);
+        int difY = Math.abs(currentY - futureY);
+
+        int totalDifference = difX + difY;
+
+        if (totalDifference == 0) {
+            System.out.println("For some reason we got a difference of 0");
+        }
+
+        if (totalDifference > 1) {
+            System.err.println("Out of sync by a difference of: " + totalDifference);
+        }
 
         if (MoveUtil.isEntityMoving(entity)) {
 
@@ -35,6 +60,7 @@ public class EntityMoveUpdate implements PacketListener {
 
             entity.setFutureLocationRequest(new Location(entity.getMapName(), futureX, futureY));
         } else {
+            entity.setWalkTime(delay);
             Valenguard.getInstance().getEntityMovementManager().updateEntityFutureLocation(entity, new Location(entity.getMapName(), futureX, futureY));
         }
     }

@@ -225,7 +225,7 @@ public class ClientPlayerMovementManager {
         // todo check map warps thing?
 
         if (!isMovable(attemptLocation.add(addToLocation))) {
-            playerClient.setPredictedMoveDirection(MoveDirection.NONE);
+            finishPlayerMove(playerClient);
         } else {
             playerClient.setFutureMapLocation(attemptLocation);
             new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
