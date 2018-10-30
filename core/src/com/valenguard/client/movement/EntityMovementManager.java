@@ -12,6 +12,7 @@ public class EntityMovementManager {
     public void tick(float delta) {
         for (Entity entity : EntityManager.getInstance().getEntities().values()) {
             if (!MoveUtil.isEntityMoving(entity)) continue;
+            // Do not allow the PlayerClientEntity to be interpolated here and in movement manager.
             if (entity instanceof PlayerClient) continue;
             updateEntitiesPosition(entity, delta);
         }
@@ -48,15 +49,12 @@ public class EntityMovementManager {
     }
 
     private void finishMove(Entity entity) {
-        System.out.println("Finished move [" + entity.getFutureMapLocation().getX() + ", " + entity.getFutureMapLocation().getY() + "]");
-        if (entity.getFutureLocationRequest() != null) System.err.println("future locaiton request was not null when finishing a player move");
         entity.getCurrentMapLocation().set(entity.getFutureMapLocation());
         entity.setDrawY(entity.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
         entity.setDrawY(entity.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);
     }
 
     private void continueMove(Entity entity) {
-        System.out.println("Continuing a move for an entity [" + entity.getFutureMapLocation().getX() + ", " + entity.getFutureMapLocation().getY() + "]");
         entity.getCurrentMapLocation().set(entity.getFutureMapLocation());
         entity.setFutureMapLocation(entity.getFutureLocationRequest());
         entity.setWalkTime(0f);
