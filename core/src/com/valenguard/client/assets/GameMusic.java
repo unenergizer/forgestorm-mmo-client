@@ -4,7 +4,7 @@ package com.valenguard.client.assets;
 public enum GameMusic {
     LOGIN_SCREEN_THEME("10112013.ogg");
 
-    private String filePath;
+    private final String filePath;
 
     GameMusic(String filePath) {
         this.filePath = filePath;

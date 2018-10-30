@@ -20,14 +20,13 @@ public class MouseManager {
     private int clickTileX, clickTileY;
     private int mouseTileX, mouseTileY;
 
-    public boolean mouseMove(int screenX, int screenY) {
+    public void mouseMove(int screenX, int screenY) {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.mouseTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.mouseTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
-        return true;
     }
 
-    public boolean mouseClick(int screenX, int screenY) {
+    public void mouseClick(int screenX, int screenY) {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.clickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.clickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
@@ -35,10 +34,9 @@ public class MouseManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         moveNodes = pathFinding.findPath(playerClient.getCurrentMapLocation().getX(), playerClient.getCurrentMapLocation().getY(), clickTileX, clickTileY);
 
-        if (moveNodes == null) return false;
+        if (moveNodes == null) return;
         // TODO: Toggle a UI or Entity click event
         System.out.println("TODO: Toggle a UI or Entity click event");
-        return true;
     }
 
     private Vector3 cameraXYtoTiledMapXY(int screenX, int screenY) {

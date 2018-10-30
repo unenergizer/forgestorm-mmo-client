@@ -19,7 +19,7 @@ public class MovementManager {
     // todo: this should be read in from the server so we will change this at a later date
     private static final float MAX_TIME = .5f;
 
-    private MoveDirection[] moveKeys = new MoveDirection[4];
+    private final MoveDirection[] moveKeys = new MoveDirection[4];
 
     public void keyDown(int keycode) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
@@ -45,7 +45,7 @@ public class MovementManager {
                 break;
         }
 
-        if (moveDirection != null) {
+        if (moveDirection != null && moveLocation != null) {
             addMoveKey(moveDirection);
             playerMove(playerClient, moveLocation.getX(), moveLocation.getY(), moveDirection);
         }
@@ -76,7 +76,8 @@ public class MovementManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         if (moveDirection != null) {
             Location location = MoveUtil.getLocation(playerClient.getTmxMap(), moveDirection);
-            playerMove(playerClient, location.getX(), location.getY(), moveDirection);
+            if (location != null)
+                playerMove(playerClient, location.getX(), location.getY(), moveDirection);
         } else {
             playerMove(playerClient, 0, 0, MoveDirection.NONE);
         }
@@ -112,49 +113,42 @@ public class MovementManager {
         return null;
     }
 
-    private boolean playerMove(PlayerClient playerClient, int amountX, int amountY, MoveDirection moveDirection) {
+    private void playerMove(PlayerClient playerClient, int amountX, int amountY, MoveDirection moveDirection) {
 
         TmxMap tmxMap = Valenguard.getInstance().getMapManager().getTmxMap(playerClient.getMapName());
 
         if (MoveUtil.isEntityMoving(playerClient)) {
-            return predictFuturePlayerMovement(playerClient, tmxMap, amountX, amountY, moveDirection);
+            predictFuturePlayerMovement(playerClient, tmxMap, amountX, amountY, moveDirection);
         } else {
-            return createNewPlayerMovement(tmxMap, playerClient, amountX, amountY, moveDirection);
+            createNewPlayerMovement(tmxMap, playerClient, amountX, amountY, moveDirection);
         }
     }
 
-    private boolean predictFuturePlayerMovement(PlayerClient playerClient, TmxMap tmxMap, int amountX, int amountY, MoveDirection predictedMoveDirection) {
+    private void predictFuturePlayerMovement(PlayerClient playerClient, TmxMap tmxMap, int amountX, int amountY, MoveDirection predictedMoveDirection) {
 
         Location futureMapLocation = playerClient.getFutureMapLocation();
 
         // Already predicting that the player will move in that direction.
-        if (playerClient.getPredictedMoveDirection() == predictedMoveDirection) {
-            return false;
-        }
+        if (playerClient.getPredictedMoveDirection() == predictedMoveDirection) return;
 
         // The predicted movement is not possible based on input.
-        if (!isMovable(tmxMap, futureMapLocation.getX() + amountX, futureMapLocation.getY() + amountY)) {
-            return false;
-        }
+        if (!isMovable(tmxMap, futureMapLocation.getX() + amountX, futureMapLocation.getY() + amountY))
+            return;
 
         // Todo: check map warps
 
         playerClient.setPredictedMoveDirection(predictedMoveDirection);
-
-        return true;
     }
 
-    private boolean createNewPlayerMovement(TmxMap tmxMap, PlayerClient playerClient, int amountX, int amountY, MoveDirection moveDirection) {
+    private void createNewPlayerMovement(TmxMap tmxMap, PlayerClient playerClient, int amountX, int amountY, MoveDirection moveDirection) {
 
         // Not a valid moveDirection for beginning movement.
-        if (moveDirection == MoveDirection.NONE) return false;
+        if (moveDirection == MoveDirection.NONE) return;
 
         int currentX = playerClient.getCurrentMapLocation().getX();
         int currentY = playerClient.getCurrentMapLocation().getY();
 
-        if (!isMovable(tmxMap, currentX + amountX, currentY + amountY)) {
-            return false;
-        }
+        if (!isMovable(tmxMap, currentX + amountX, currentY + amountY)) return;
 
         if (MapUtil.hasWarp(tmxMap, currentX + amountX, currentY + amountY)) {
             // Play sound or something
@@ -171,8 +165,6 @@ public class MovementManager {
         playerClient.setWalkTime(0f);
 
         new PlayerMove(moveDirection).sendPacket();
-
-        return true;
     }
 
     private boolean isMovable(TmxMap tmxMap, int x, int y) {
@@ -182,12 +174,7 @@ public class MovementManager {
             return false;
         }
 
-        if (MapUtil.isOutOfBounds(tmxMap, x, y)) {
-            // Play sound or something
-            return false;
-        }
-
-        return true;
+        return !MapUtil.isOutOfBounds(tmxMap, x, y);
     }
 
     private boolean isMovable(Location location) {

@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 
 public class PlayerMove extends ClientOutPacket {
 
-    private MoveDirection moveDirection;
+    private final MoveDirection moveDirection;
 
     public PlayerMove(MoveDirection moveDirection) {
         super(Opcodes.MOVE_REQUEST);

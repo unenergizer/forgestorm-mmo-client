@@ -54,8 +54,7 @@ public class EntitySpawn implements PacketListener {
 
     private Entity getEntityByType(short entityId) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Entity entity = playerClient.getServerEntityID() == entityId ? playerClient : new Entity();
-        return entity;
+        return playerClient.getServerEntityID() == entityId ? playerClient : new Entity();
     }
 
 }

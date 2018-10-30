@@ -23,7 +23,8 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return Valenguard.getInstance().getMouseManager().mouseClick(screenX, screenY);
+        Valenguard.getInstance().getMouseManager().mouseClick(screenX, screenY);
+        return false;
     }
 
     @Override
@@ -38,7 +39,8 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        return Valenguard.getInstance().getMouseManager().mouseMove(screenX, screenY);
+        Valenguard.getInstance().getMouseManager().mouseMove(screenX, screenY);
+        return false;
     }
 
     @Override

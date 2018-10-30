@@ -12,13 +12,13 @@ import lombok.Getter;
 
 public class PathFinding {
 
-    private List<MoveNode> closedSet = new ArrayList<MoveNode>();
-    private List<MoveNode> openSet = new ArrayList<MoveNode>();
+    private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
+    private final List<MoveNode> openSet = new ArrayList<MoveNode>();
 
     private final int ALGORITHM_RADIUS = 15;
     private final int GRID_LENGTH = (ALGORITHM_RADIUS * 2) + 1;
 
-    private MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];
+    private final MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];
 
     private int calculateHeuristic(int ax, int ay, int bx, int by) {
         return Math.abs(bx - ax) + Math.abs(by - ay);
@@ -150,7 +150,8 @@ public class PathFinding {
         private int heuristic;
         private int costG;
         private int costF;
-        private int i, j;
+        private final int i;
+        private final int j;
 
         private @Getter
         int worldX, worldY;

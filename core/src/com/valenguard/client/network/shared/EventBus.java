@@ -34,7 +34,7 @@ public class EventBus {
     }
 
     /**
-     * Prepares the server to listen to a paticular packet.
+     * Prepares the server to listen to a particular packet.
      * Registers Opcodes found via annotations in the PacketListener class.
      *
      * @param packetListener The PacketListener we will listen for.

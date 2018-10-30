@@ -1,5 +1,6 @@
 package com.valenguard.client.assets;
 
+@SuppressWarnings("SpellCheckingInspection")
 public enum GameTexture {
     REDTILE("redtile.png"),
     LOGO_BIG("logo_big.png"),
@@ -7,7 +8,7 @@ public enum GameTexture {
     TEMP_PLAYER_IMG("player/player.png"),
     TEMP_OTHER_PLAYER_IMG("player/smile.png");
 
-    private String filePath;
+    private final String filePath;
 
     GameTexture(String filePath) {
         this.filePath = filePath;

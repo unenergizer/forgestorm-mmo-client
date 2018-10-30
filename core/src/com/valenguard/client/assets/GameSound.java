@@ -4,7 +4,7 @@ package com.valenguard.client.assets;
 public enum GameSound {
     EAT("17661_SFX_HumanEatingPotatoChips1.wav");
 
-    private String filePath;
+    private final String filePath;
 
     GameSound(String filePath) {
         this.filePath = filePath;

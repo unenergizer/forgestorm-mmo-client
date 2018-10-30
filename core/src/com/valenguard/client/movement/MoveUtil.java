@@ -1,6 +1,5 @@
 package com.valenguard.client.movement;
 
-
 import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.MoveDirection;
 import com.valenguard.client.maps.data.Location;

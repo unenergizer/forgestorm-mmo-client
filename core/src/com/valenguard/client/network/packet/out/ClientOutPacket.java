@@ -12,14 +12,14 @@ public abstract class ClientOutPacket {
     /**
      * Opcode to send with the out-going packet.
      */
-    protected byte opcode;
+    private final byte opcode;
 
     /**
      * Used to easily send out packets to the server.
      */
-    protected ClientHandler clientHandler = ClientConnection.getInstance().getClientHandler();
+    private final ClientHandler clientHandler = ClientConnection.getInstance().getClientHandler();
 
-    public ClientOutPacket(byte opcode) {
+    ClientOutPacket(byte opcode) {
         this.opcode = opcode;
     }
 

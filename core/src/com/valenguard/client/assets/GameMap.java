@@ -1,6 +1,6 @@
 package com.valenguard.client.assets;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public enum GameMap {
     MAIN_TOWN("maintown"),
     SOUTH("south"),
