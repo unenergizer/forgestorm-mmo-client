@@ -79,5 +79,6 @@ public class LoginScreen extends ScreenAdapter {
         if (skin != null) skin.dispose();
         if (stage != null) stage.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
+        fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
     }
 }

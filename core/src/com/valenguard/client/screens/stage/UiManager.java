@@ -43,6 +43,6 @@ public class UiManager implements Disposable {
             ((Disposable) abstractUI).dispose();
             disposable = false;
         }
-        stage.clear();
+        if (stage != null) stage.clear();
     }
 }

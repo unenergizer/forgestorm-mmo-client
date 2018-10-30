@@ -129,7 +129,6 @@ public class GameScreen implements Screen {
             }
         }
 
-
         spriteBatch.end();
 
         // Render UI
@@ -164,6 +163,10 @@ public class GameScreen implements Screen {
         if (spriteBatch != null) spriteBatch.dispose();
         if (stage != null) stage.dispose();
         if (skin != null) skin.dispose();
+        FileManager fileManager = Valenguard.getInstance().getFileManager();
+        fileManager.unloadAsset(GameTexture.TEMP_PLAYER_IMG.getFilePath());
+        fileManager.unloadAsset(GameTexture.TEMP_OTHER_PLAYER_IMG.getFilePath());
+        fileManager.unloadAsset(GameTexture.REDTILE.getFilePath());
     }
 
     /**

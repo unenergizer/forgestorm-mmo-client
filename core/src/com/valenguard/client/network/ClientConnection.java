@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
+import com.valenguard.client.screens.ScreenType;
 import com.valenguard.client.screens.stage.ConnectionMessageUI;
 import com.valenguard.client.screens.stage.LoginScreenUI;
 import com.valenguard.client.util.Consumer;
@@ -159,7 +160,7 @@ public class ClientConnection {
                 Timer.schedule(new Timer.Task() {
                     @Override
                     public void run() {
-                        Valenguard.getInstance().getUiManager().show(new LoginScreenUI());
+                        Valenguard.getInstance().setScreen(ScreenType.LOGIN);
                     }
                 }, 5);
             }
