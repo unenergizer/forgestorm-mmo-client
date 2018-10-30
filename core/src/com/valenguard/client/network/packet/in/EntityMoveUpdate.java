@@ -1,8 +1,11 @@
 package com.valenguard.client.network.packet.in;
 
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.entities.MoveDirection;
+import com.valenguard.client.maps.data.Location;
+import com.valenguard.client.movement.MoveUtil;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -19,6 +22,12 @@ public class EntityMoveUpdate implements PacketListener {
         System.out.println("ENTITY: " + entity);
         System.out.println("MOVE DIRECTION: " + moveDirection);
 
-//        Valenguard.getInstance().getMovementManager().addEntityToMove(entity, moveDirection);
+        if (MoveUtil.isEntityMoving(entity)) {
+            entity.setFutureMoveRequest(moveDirection);
+        } else {
+            Location addToLocation = MoveUtil.getLocation(entity.getTmxMap(), moveDirection);
+            Location futureLocation = new Location(entity.getFutureMapLocation()).add(addToLocation);
+            Valenguard.getInstance().getEntityMovementManager().updateEntityFutureLocation(entity, futureLocation);
+        }
     }
 }

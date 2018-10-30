@@ -91,7 +91,8 @@ public class GameScreen implements Screen {
         GraphicsUtils.clearScreen(.05f, 0f, .12f, 1);
 
         // Update game logic
-        Valenguard.getInstance().getMovementManager().tick(delta);
+        Valenguard.getInstance().getClientPlayerMovementManager().tick(delta);
+        Valenguard.getInstance().getEntityMovementManager().tick(delta);
 
         if (mapRenderer != null && tiledMap != null) {
             // Update camera

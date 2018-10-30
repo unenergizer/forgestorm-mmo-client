@@ -13,11 +13,7 @@ import com.valenguard.client.maps.data.TmxMap;
 import com.valenguard.client.maps.data.Warp;
 import com.valenguard.client.network.packet.out.PlayerMove;
 
-public class MovementManager {
-
-    // todo : this number relates to how fast the client moves
-    // todo: this should be read in from the server so we will change this at a later date
-    private static final float MAX_TIME = .5f;
+public class ClientPlayerMovementManager {
 
     private final MoveDirection[] moveKeys = new MoveDirection[4];
 
@@ -56,19 +52,19 @@ public class MovementManager {
         switch (keycode) {
             case KeyBinds.UP:
             case KeyBinds.UP_ALT:
-                Valenguard.getInstance().getMovementManager().removeMoveKey(MoveDirection.UP);
+                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.UP);
                 break;
             case KeyBinds.DOWN:
             case KeyBinds.DOWN_ALT:
-                Valenguard.getInstance().getMovementManager().removeMoveKey(MoveDirection.DOWN);
+                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.DOWN);
                 break;
             case KeyBinds.LEFT:
             case KeyBinds.LEFT_ALT:
-                Valenguard.getInstance().getMovementManager().removeMoveKey(MoveDirection.LEFT);
+                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.LEFT);
                 break;
             case KeyBinds.RIGHT:
             case KeyBinds.RIGHT_ALT:
-                Valenguard.getInstance().getMovementManager().removeMoveKey(MoveDirection.RIGHT);
+                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.RIGHT);
                 break;
         }
 
@@ -182,11 +178,11 @@ public class MovementManager {
     }
 
     public void tick(float delta) {
+
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
         if (!MoveUtil.isEntityMoving(playerClient)) return;
 
-        // roughly 1.0f / 60.0f
         playerClient.setWalkTime(playerClient.getWalkTime() + delta);
 
         int currentX = playerClient.getCurrentMapLocation().getX();
@@ -195,20 +191,21 @@ public class MovementManager {
         int futureX = playerClient.getFutureMapLocation().getX();
         int futureY = playerClient.getFutureMapLocation().getY();
 
-        playerClient.setDrawX(Interpolation.linear.apply(currentX, futureX, playerClient.getWalkTime() / MAX_TIME) * ClientConstants.TILE_SIZE);
-        playerClient.setDrawY(Interpolation.linear.apply(currentY, futureY, playerClient.getWalkTime() / MAX_TIME) * ClientConstants.TILE_SIZE);
+        playerClient.setDrawX(Interpolation.linear.apply(currentX, futureX, playerClient.getWalkTime() / playerClient.getMoveSpeed()) * ClientConstants.TILE_SIZE);
+        playerClient.setDrawY(Interpolation.linear.apply(currentY, futureY, playerClient.getWalkTime() / playerClient.getMoveSpeed()) * ClientConstants.TILE_SIZE);
 
-        if (playerClient.getWalkTime() <= MAX_TIME) return;
+        // TODO: Better names
+        if (playerClient.getWalkTime() <= playerClient.getMoveSpeed()) return;
 
         // If they are not predicting to move then stop them.
         if (playerClient.getPredictedMoveDirection() == MoveDirection.NONE) {
-            finishEntityMove(playerClient);
+            finishPlayerMove(playerClient);
         } else {
             continuePlayerMove(playerClient);
         }
     }
 
-    private void finishEntityMove(PlayerClient playerClient) {
+    private void finishPlayerMove(PlayerClient playerClient) {
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
         playerClient.setDrawY(playerClient.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);
@@ -223,14 +220,15 @@ public class MovementManager {
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
 
         Location addToLocation = MoveUtil.getLocation(playerClient.getTmxMap(), playerClient.getPredictedMoveDirection());
-        Location futureLocation = new Location(playerClient.getFutureMapLocation());
+        Location attemptLocation = new Location(playerClient.getFutureMapLocation());
 
         // todo check map warps thing?
 
-        if (!isMovable(futureLocation.add(addToLocation))) {
+        if (!isMovable(attemptLocation.add(addToLocation))) {
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
         } else {
-            playerClient.setFutureMapLocation(futureLocation);
+            playerClient.setFutureMapLocation(attemptLocation);
+            new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
         }
 
         playerClient.setWalkTime(0f);

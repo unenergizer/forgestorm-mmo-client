@@ -20,6 +20,7 @@ public class EntitySpawn implements PacketListener {
         final int tileY = clientHandler.readInt();
         final String name = clientHandler.readString();
         final MoveDirection facingMoveDirection = MoveDirection.getDirection(clientHandler.readByte());
+        final float moveSpeed = clientHandler.readFloat();
         // todo add entity types and some crazy attribute stuff and feel good and give ourselves a coke
         final short entityType = clientHandler.readShort();
 
@@ -33,21 +34,15 @@ public class EntitySpawn implements PacketListener {
         System.out.println("Tile X: " + tileX);
         System.out.println("Tile Y: " + tileY);
         System.out.println("entity name : " + name);
+        System.out.println("Move Speed : " + moveSpeed);
 
-        // facingMoveDirection = inputStream.getDirection();
-        // if (facingMoveDirection != MoveDirection.NONE) then they must be moving
-        // ...
-        // float realX = inputStream.readFloat();
-        // float realY = inputStream.readFloat();
-        // ...
-        // MovementSystem.addEntity(entity);
-
-        // todo: exchange for actual map getting
+        entity.setMapName(playerClient.getMapName());
         entity.setCurrentMapLocation(new Location(playerClient.getMapName(), tileX, tileY));
         entity.setFutureMapLocation(new Location(playerClient.getMapName(), tileX, tileY));
         entity.setDrawX(tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(tileY * ClientConstants.TILE_SIZE);
         entity.setFacingMoveDirection(facingMoveDirection);
+        entity.setMoveSpeed(moveSpeed);
 
         EntityManager.getInstance().addEntity(entityId, entity);
     }

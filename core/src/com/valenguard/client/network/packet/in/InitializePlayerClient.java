@@ -33,6 +33,7 @@ public class InitializePlayerClient implements PacketListener {
         final boolean loginSuccess = clientHandler.readBoolean();
         final short entityID = clientHandler.readShort();
         final String mapName = clientHandler.readString();
+//        final float moveSpeed = clientHandler.readFloat();
         // PACKET READ END
 
         Gdx.app.debug(TAG, "[PACKET] loginSuccess: " + loginSuccess

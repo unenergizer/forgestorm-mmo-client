@@ -5,8 +5,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.valenguard.client.assets.FileManager;
 import com.valenguard.client.maps.MapManager;
+import com.valenguard.client.movement.ClientPlayerMovementManager;
+import com.valenguard.client.movement.EntityMovementManager;
 import com.valenguard.client.movement.MouseManager;
-import com.valenguard.client.movement.MovementManager;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.PingManager;
 import com.valenguard.client.network.packet.in.EntityDespawn;
@@ -37,7 +38,8 @@ public class Valenguard extends Game {
     private MapManager mapManager;
     private UiManager uiManager;
     private PingManager pingManager;
-    private MovementManager movementManager;
+    private ClientPlayerMovementManager clientPlayerMovementManager;
+    private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
 
     private Valenguard() {
@@ -57,7 +59,8 @@ public class Valenguard extends Game {
         mapManager = new MapManager();
         uiManager = new UiManager();
         pingManager = new PingManager();
-        movementManager = new MovementManager();
+        clientPlayerMovementManager = new ClientPlayerMovementManager();
+        entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
 
         // init screens

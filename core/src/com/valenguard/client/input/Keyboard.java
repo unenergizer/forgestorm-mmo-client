@@ -22,12 +22,12 @@ public class Keyboard implements InputProcessor {
             return false;
         }
 
-        Valenguard.getInstance().getMovementManager().keyDown(keycode);
+        Valenguard.getInstance().getClientPlayerMovementManager().keyDown(keycode);
         return false;
     }
 
     public boolean keyUp(int keycode) {
-        Valenguard.getInstance().getMovementManager().keyUp(keycode);
+        Valenguard.getInstance().getClientPlayerMovementManager().keyUp(keycode);
         return false;
     }
 

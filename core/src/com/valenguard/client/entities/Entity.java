@@ -39,7 +39,11 @@ public class Entity {
      */
     private MoveDirection facingMoveDirection;
 
+    private float moveSpeed;
+
     private float walkTime = 0;
+
+    private MoveDirection futureMoveRequest;
 
     public TmxMap getTmxMap() {
         return Valenguard.getInstance().getMapManager().getTmxMap(mapName);
