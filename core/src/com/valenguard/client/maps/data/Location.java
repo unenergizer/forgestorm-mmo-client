@@ -36,7 +36,6 @@ public class Location {
     }
 
     public Location add(int x, int y) {
-        System.out.println("Location.add(int, int)");
         this.x = this.x + x;
         this.y = this.y + y;
         return this;
