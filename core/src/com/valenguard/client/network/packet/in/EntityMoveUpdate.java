@@ -3,7 +3,6 @@ package com.valenguard.client.network.packet.in;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
-import com.valenguard.client.entities.MoveDirection;
 import com.valenguard.client.maps.data.Location;
 import com.valenguard.client.movement.MoveUtil;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -19,13 +18,10 @@ public class EntityMoveUpdate implements PacketListener {
         int futureX = clientHandler.readInt();
         int futureY = clientHandler.readInt();
         int packetId = clientHandler.readInt();
-        long serverMilliseconds = clientHandler.readLong();
 
         Entity entity = EntityManager.getInstance().getEntity(entityId);
-        MoveDirection moveDirection = MoveUtil.getMoveDirection(entity.getCurrentMapLocation().getX(), entity.getCurrentMapLocation().getY(), futureX, futureY);
 
-
-        long deltaPacketTime = System.currentTimeMillis() - serverMilliseconds;
+        long deltaPacketTime = System.currentTimeMillis() - Valenguard.getInstance().getPing();
 
         float delay = (deltaPacketTime / 1000f);
 

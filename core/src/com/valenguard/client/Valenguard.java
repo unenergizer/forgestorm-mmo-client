@@ -24,6 +24,7 @@ import com.valenguard.client.screens.stage.UiManager;
 import com.valenguard.client.util.Consumer;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Valenguard extends Game {
@@ -41,6 +42,10 @@ public class Valenguard extends Game {
     private ClientPlayerMovementManager clientPlayerMovementManager;
     private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
+
+    // TODO: RELOCATE
+    @Setter
+    private long ping = 0;
 
     private Valenguard() {
     }

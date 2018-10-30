@@ -29,7 +29,7 @@ public class GameScreenDebugText implements AbstractUI, Refreshable {
         // create version widgets
         Label delta = new Label("DeltaTime: " + Math.round(Gdx.graphics.getDeltaTime() * 100000.0) / 100000.0, uiManager.skin);
         Label fps = new Label("FPS: " + Gdx.graphics.getFramesPerSecond(), uiManager.skin);
-        Label ms = new Label("MS: " + Valenguard.getInstance().getPingManager().getLatency(), uiManager.skin);
+        Label ms = new Label("MS: " + Valenguard.getInstance().getPing(), uiManager.skin);
 
         wrapperTable.add(infoTable).expand().left().top().pad(10);
 

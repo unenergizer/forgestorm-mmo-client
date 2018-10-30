@@ -1,6 +1,7 @@
 package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.network.packet.out.PingOut;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -10,6 +11,9 @@ public class PingIn implements PacketListener {
 
     @Opcode(getOpcode = Opcodes.PING)
     public void onIncomingPing(ClientHandler clientHandler) {
-        Valenguard.getInstance().getPingManager().pingIn();
+        long serverCalcPing = clientHandler.readLong();
+        Valenguard.getInstance().setPing(serverCalcPing);
+        System.out.println("Ping: " + serverCalcPing);
+        new PingOut().sendPacket();
     }
 }
