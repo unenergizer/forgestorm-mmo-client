@@ -13,7 +13,7 @@ public class PingIn implements PacketListener {
     public void onIncomingPing(ClientHandler clientHandler) {
         long serverCalcPing = clientHandler.readLong();
         Valenguard.getInstance().setPing(serverCalcPing);
-        System.out.println("Ping: " + serverCalcPing);
+//        System.out.println("Ping: " + serverCalcPing);
         new PingOut().sendPacket();
     }
 }

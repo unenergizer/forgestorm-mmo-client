@@ -21,11 +21,9 @@ public class EntityMoveUpdate implements PacketListener {
 
         Entity entity = EntityManager.getInstance().getEntity(entityId);
 
-        long deltaPacketTime = System.currentTimeMillis() - Valenguard.getInstance().getPing();
+        float delay = (Valenguard.getInstance().getPing() / 1000f);
 
-        float delay = (deltaPacketTime / 1000f);
-
-        System.out.println(packetId + " -> [" + futureX + ", " + futureY + "] , [" + deltaPacketTime + "," + delay + "]");
+        System.out.println(packetId + " -> [" + futureX + ", " + futureY + "] , [" + Valenguard.getInstance().getPing() + "," + delay + "]");
 
         //
 //        System.out.println("MOVE DIRECTION: " + moveDirection);
