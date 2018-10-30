@@ -1,6 +1,7 @@
 package com.valenguard.client.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,18 +10,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.assets.FileManager;
 import com.valenguard.client.assets.GameMap;
 import com.valenguard.client.assets.GameTexture;
 import com.valenguard.client.assets.GameUI;
-import com.valenguard.client.ClientConstants;
 import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
+import com.valenguard.client.input.Keyboard;
+import com.valenguard.client.input.Mouse;
 import com.valenguard.client.screens.stage.GameScreenDebugText;
 import com.valenguard.client.screens.stage.UiManager;
 import com.valenguard.client.util.AttachableCamera;
-import com.valenguard.client.util.Controller;
 import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.pathfinding.PathFinding;
 
@@ -78,7 +80,10 @@ public class GameScreen implements Screen {
         uiManager.show(new GameScreenDebugText());
 
         // Setup input controls
-        Gdx.input.setInputProcessor(new Controller());
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(new Keyboard());
+        multiplexer.addProcessor(new Mouse());
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -102,14 +107,14 @@ public class GameScreen implements Screen {
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
 
-        List<PathFinding.MoveNode> p = Valenguard.getInstance().getMovementManager().getMoveNodes();
+        List<PathFinding.MoveNode> p = Valenguard.getInstance().getMouseManager().getMoveNodes();
         if (p != null) {
             for (PathFinding.MoveNode penisNode : p) {
                 spriteBatch.draw(redTileTexture, penisNode.getWorldX() * ClientConstants.TILE_SIZE, penisNode.getWorldY() * ClientConstants.TILE_SIZE);
             }
         }
 
-        spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMovementManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMovementManager().getMouseTileY() * ClientConstants.TILE_SIZE);
+        spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMouseManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMouseManager().getMouseTileY() * ClientConstants.TILE_SIZE);
 
         for (Entity entity : EntityManager.getInstance().getEntities().values()) {
             spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());

@@ -41,7 +41,7 @@ public class InitializePlayerClient implements PacketListener {
 
 
         PlayerClient playerClient = new PlayerClient();
-        playerClient.setEntityId(entityID);
+        playerClient.setServerEntityID(entityID);
 
         // todo move the mapName to a more static context
         playerClient.setMapName(mapName);

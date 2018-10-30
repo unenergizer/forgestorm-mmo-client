@@ -1,6 +1,8 @@
 package com.valenguard.client.entities;
 
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.maps.data.Location;
+import com.valenguard.client.maps.data.TmxMap;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +16,7 @@ public class Entity {
     /**
      * A unique ID given to this entity by the server.
      */
-    private int entityId;
+    private int serverEntityID;
 
     /**
      * The map this entity was last seen on.
@@ -32,23 +34,14 @@ public class Entity {
     private float drawX, drawY;
 
     /**
-     * The current direction the entity is moving in.
-     */
-    private Direction moveDirection;
-
-    /**
-     * The direction the entity intends to move in the future.
-     */
-    private Direction predictedDirection;
-
-
-    /**
      * The direction the entity is facing. Is not always the same direction
-     * as they are moving because the move direction can be STOP.
+     * as they are moving because the move direction can be NONE.
      */
-    private Direction facingDirection;
+    private MoveDirection facingMoveDirection;
 
-    public boolean isMoving() {
-        return moveDirection != Direction.STOP;
+    private float walkTime = 0;
+
+    public TmxMap getTmxMap() {
+        return Valenguard.getInstance().getMapManager().getTmxMap(mapName);
     }
 }

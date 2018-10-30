@@ -43,11 +43,11 @@ public class GameScreenDebugText implements AbstractUI, Refreshable {
 
         if (client != null && client.getCurrentMapLocation() != null) {
             Label uuid, playerTile, playerPixel, zoom, cursorTile, cursorTileClick;
-            uuid = new Label("UUID: " + client.getEntityId(), uiManager.skin);
+            uuid = new Label("UUID: " + client.getServerEntityID(), uiManager.skin);
             playerTile = new Label("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName(), uiManager.skin);
             playerPixel = new Label("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY(), uiManager.skin);
-            cursorTileClick = new Label("Click X: " + Valenguard.getInstance().getMovementManager().getClickTileX() + ", Y: " + Valenguard.getInstance().getMovementManager().getClickTileY(), uiManager.skin);
-            cursorTile = new Label("Cursor X: " + Valenguard.getInstance().getMovementManager().getMouseTileX() + ", Y: " + Valenguard.getInstance().getMovementManager().getMouseTileY(), uiManager.skin);
+            cursorTileClick = new Label("Click X: " + Valenguard.getInstance().getMouseManager().getClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getClickTileY(), uiManager.skin);
+            cursorTile = new Label("Cursor X: " + Valenguard.getInstance().getMouseManager().getMouseTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getMouseTileY(), uiManager.skin);
             zoom = new Label("Zoom: " + Valenguard.gameScreen.getCamera().zoom, uiManager.skin);
 
             infoTable.add(uuid).left();

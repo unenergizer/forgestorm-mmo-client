@@ -1,6 +1,6 @@
 package com.valenguard.client.maps.data;
 
-import com.valenguard.client.entities.Direction;
+import com.valenguard.client.entities.MoveDirection;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,5 +11,5 @@ public class Warp {
     private String destinationMapName;
     private int x;
     private int y;
-    private Direction directionToFace;
+    private MoveDirection moveDirectionToFace;
 }

@@ -1,9 +1,9 @@
 package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.entities.Direction;
 import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
+import com.valenguard.client.entities.MoveDirection;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.maps.data.Location;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -19,12 +19,12 @@ public class EntitySpawn implements PacketListener {
         final int tileX = clientHandler.readInt();
         final int tileY = clientHandler.readInt();
         final String name = clientHandler.readString();
-        final Direction facingDirection = Direction.getDirection(clientHandler.readByte());
+        final MoveDirection facingMoveDirection = MoveDirection.getDirection(clientHandler.readByte());
         // todo add entity types and some crazy attribute stuff and feel good and give ourselves a coke
         final short entityType = clientHandler.readShort();
 
         Entity entity = getEntityByType(entityId);
-        entity.setEntityId(entityId);
+        entity.setServerEntityID(entityId);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
@@ -34,8 +34,8 @@ public class EntitySpawn implements PacketListener {
         System.out.println("Tile Y: " + tileY);
         System.out.println("entity name : " + name);
 
-        // moveDirection = inputStream.getDirection();
-        // if (moveDirection != Direction.STOP) then they must be moving
+        // facingMoveDirection = inputStream.getDirection();
+        // if (facingMoveDirection != MoveDirection.NONE) then they must be moving
         // ...
         // float realX = inputStream.readFloat();
         // float realY = inputStream.readFloat();
@@ -45,18 +45,16 @@ public class EntitySpawn implements PacketListener {
         // todo: exchange for actual map getting
         entity.setCurrentMapLocation(new Location(playerClient.getMapName(), tileX, tileY));
         entity.setFutureMapLocation(new Location(playerClient.getMapName(), tileX, tileY));
-        entity.setMoveDirection(Direction.STOP);
-        entity.setPredictedDirection(Direction.STOP);
         entity.setDrawX(tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(tileY * ClientConstants.TILE_SIZE);
-        entity.setFacingDirection(facingDirection);
+        entity.setFacingMoveDirection(facingMoveDirection);
 
         EntityManager.getInstance().addEntity(entityId, entity);
     }
 
     private Entity getEntityByType(short entityId) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Entity entity = playerClient.getEntityId() == entityId ? playerClient : new Entity();
+        Entity entity = playerClient.getServerEntityID() == entityId ? playerClient : new Entity();
         return entity;
     }
 

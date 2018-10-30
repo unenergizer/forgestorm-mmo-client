@@ -3,7 +3,7 @@ package com.valenguard.client.maps.file;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.entities.Direction;
+import com.valenguard.client.entities.MoveDirection;
 import com.valenguard.client.maps.data.Tile;
 import com.valenguard.client.maps.data.TmxMap;
 import com.valenguard.client.maps.data.Warp;
@@ -182,7 +182,7 @@ public class TmxFileParser {
                     // warp to another map
                     int warpX = -1;
                     int warpY = -1;
-                    Direction direction = Direction.DOWN;
+                    MoveDirection moveDirection = MoveDirection.DOWN;
 
 //                    System.out.println("[WARP #" + j + "] X: " + x + ", Y: " + y + ", Width: " + width + ", Height: " + height);
 
@@ -211,9 +211,9 @@ public class TmxFileParser {
 //                            System.out.println("Y: " + warpY);
                         }
 
-                        // Get map facing direction:
-                        if (propertyElement.getAttribute("name").equals("direction")) {
-                            direction = Direction.valueOf(propertyElement.getAttribute("value"));
+                        // Get map facing moveDirection:
+                        if (propertyElement.getAttribute("name").equals("moveDirection")) {
+                            moveDirection = MoveDirection.valueOf(propertyElement.getAttribute("value"));
 //                            System.out.println("Y: " + warpY);
                         }
 
@@ -221,7 +221,7 @@ public class TmxFileParser {
                         for (int ii = y; ii < y + height; ii++) {
                             for (int jj = x; jj < x + width; jj++) {
                                 Tile tile = map[jj][mapHeight - ii - 1];
-                                tile.setWarp(new Warp(warpMapName + ".tmx", warpX, warpY, direction));
+                                tile.setWarp(new Warp(warpMapName + ".tmx", warpX, warpY, moveDirection));
 //                                System.out.println(tile.getWarp().getDestinationMapName());
 //                                System.out.println(tile.getWarp().getMouseTileX());
 //                                System.out.println(tile.getWarp().getMouseTileY());
