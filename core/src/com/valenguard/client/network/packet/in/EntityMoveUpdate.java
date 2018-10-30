@@ -16,18 +16,26 @@ public class EntityMoveUpdate implements PacketListener {
     @Opcode(getOpcode = Opcodes.ENTITY_MOVE_UPDATE)
     public void onEntityMoveUpdate(ClientHandler clientHandler) {
         short entityId = clientHandler.readShort();
+        int futureX = clientHandler.readInt();
+        int futureY = clientHandler.readInt();
+
         Entity entity = EntityManager.getInstance().getEntity(entityId);
-        MoveDirection moveDirection = MoveDirection.getDirection(clientHandler.readByte());
+        MoveDirection moveDirection = MoveUtil.getMoveDirection(entity.getCurrentMapLocation().getX(), entity.getCurrentMapLocation().getY(), futureX, futureY);
 
         System.out.println("ENTITY: " + entity);
         System.out.println("MOVE DIRECTION: " + moveDirection);
+        System.out.println("X: " + futureX + ", Y:" + futureY);
 
         if (MoveUtil.isEntityMoving(entity)) {
-            entity.setFutureMoveRequest(moveDirection);
+
+            // Client and server are off...
+            if (entity.getFutureLocationRequest() != null) {
+                System.out.println("Server/Client are no longer in sync");
+            }
+
+            entity.setFutureLocationRequest(new Location(entity.getMapName(), futureX, futureY));
         } else {
-            Location addToLocation = MoveUtil.getLocation(entity.getTmxMap(), moveDirection);
-            Location futureLocation = new Location(entity.getFutureMapLocation()).add(addToLocation);
-            Valenguard.getInstance().getEntityMovementManager().updateEntityFutureLocation(entity, futureLocation);
+            Valenguard.getInstance().getEntityMovementManager().updateEntityFutureLocation(entity, new Location(entity.getMapName(), futureX, futureY));
         }
     }
 }

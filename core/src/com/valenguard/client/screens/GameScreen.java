@@ -18,6 +18,7 @@ import com.valenguard.client.assets.GameTexture;
 import com.valenguard.client.assets.GameUI;
 import com.valenguard.client.entities.Entity;
 import com.valenguard.client.entities.EntityManager;
+import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.input.Keyboard;
 import com.valenguard.client.input.Mouse;
 import com.valenguard.client.screens.stage.GameScreenDebugText;
@@ -49,6 +50,7 @@ public class GameScreen implements Screen {
 
     // TODO: RELOCATE
     private Texture playerTexture;
+    private Texture otherPlayerTexture;
     private Texture redTileTexture;
 
     @Override
@@ -71,6 +73,8 @@ public class GameScreen implements Screen {
         skin = new Skin(Gdx.files.internal(GameUI.UI_SKIN.getFilePath()));
         Valenguard.getInstance().getFileManager().loadTexture(GameTexture.TEMP_PLAYER_IMG);
         playerTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.TEMP_PLAYER_IMG);
+        Valenguard.getInstance().getFileManager().loadTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
+        otherPlayerTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
         Valenguard.getInstance().getFileManager().loadTexture(GameTexture.REDTILE);
         redTileTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.REDTILE);
 
@@ -118,7 +122,11 @@ public class GameScreen implements Screen {
         spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMouseManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMouseManager().getMouseTileY() * ClientConstants.TILE_SIZE);
 
         for (Entity entity : EntityManager.getInstance().getEntities().values()) {
-            spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
+            if (entity instanceof PlayerClient) {
+                spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
+            } else {
+                spriteBatch.draw(otherPlayerTexture, entity.getDrawX(), entity.getDrawY());
+            }
         }
 
 
