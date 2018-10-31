@@ -21,6 +21,7 @@ public class MouseManager {
 
     @Setter
     private Queue<PathFinding.MoveNode> moveNodes;
+
     private Vector3 clickLocation = new Vector3();
     private int clickTileX, clickTileY;
     private int mouseTileX, mouseTileY;
@@ -42,6 +43,10 @@ public class MouseManager {
         if (testMoveNodes == null) return;
         // TODO: Toggle a UI or Entity click event
         System.out.println("TODO: Toggle a UI or Entity click event");
+
+        if (moveNodes != null) {
+            Valenguard.getInstance().getClientPlayerMovementManager().setProcessingNodes(false);
+        }
 
         moveNodes = testMoveNodes;
 

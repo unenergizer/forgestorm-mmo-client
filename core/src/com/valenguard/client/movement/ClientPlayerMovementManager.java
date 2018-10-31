@@ -18,10 +18,13 @@ import com.valenguard.client.util.pathfinding.PathFinding;
 
 import java.util.Queue;
 
+import lombok.Setter;
+
 public class ClientPlayerMovementManager {
 
     private final MoveDirection[] moveKeys = new MoveDirection[4];
-    ///
+
+    @Setter
     private boolean processingNodes = false;
 
     public void keyDown(int keycode) {
@@ -216,7 +219,7 @@ public class ClientPlayerMovementManager {
         if (playerClient.getWalkTime() <= playerClient.getMoveSpeed()) return;
 
         if (processingNodes) {
-            processNewNode(moveNodes, playerClient, currentX, currentY);
+            processNextNode(moveNodes, playerClient);
             return;
         }
 
@@ -230,7 +233,8 @@ public class ClientPlayerMovementManager {
 
     private void startProcessingNodes(Queue<PathFinding.MoveNode> moveNodes, PlayerClient playerClient, int currentX, int currentY) {
         PathFinding.MoveNode nextNode = moveNodes.remove();
-        System.out.println("X: " + nextNode.getWorldX() + ", Y: " + nextNode.getWorldY());
+        System.out.println();
+        System.out.println("Start => [" + currentX + ", " + currentY + "] <-> [" + nextNode.getWorldX() + ", " + nextNode.getWorldY() + "]");
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
         Location moveLocation = MoveUtil.getLocation(playerClient.getTmxMap(), moveDirection);
 
@@ -238,7 +242,7 @@ public class ClientPlayerMovementManager {
         sendNewMovementInfo(playerClient, moveDirection, moveLocation.getX(), moveLocation.getY());
     }
 
-    private void processNewNode(Queue<PathFinding.MoveNode> moveNodes, PlayerClient playerClient, int currentX, int currentY) {
+    private void processNextNode(Queue<PathFinding.MoveNode> moveNodes, PlayerClient playerClient) {
         // We have arrived.
         if (moveNodes.isEmpty()) {
             Valenguard.getInstance().getMouseManager().setMoveNodes(null);
@@ -247,20 +251,22 @@ public class ClientPlayerMovementManager {
             return;
         }
 
+        playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
+        int currentX = playerClient.getCurrentMapLocation().getX();
+        int currentY = playerClient.getCurrentMapLocation().getY();
+
         PathFinding.MoveNode nextNode = moveNodes.remove();
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
-        if (moveDirection == MoveDirection.NONE) {
-            processNewNode(moveNodes, playerClient, currentX, currentY);
-            return;
-        }
 
-        playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
+        System.out.println("Next => [" + currentX + ", " + currentY + "] <-> [" + nextNode.getWorldX() + ", " + nextNode.getWorldY() + "]");
+
         playerClient.setFutureMapLocation(new Location(playerClient.getMapName(), nextNode.getWorldX(), nextNode.getWorldY()));
         new PlayerMove(moveDirection).sendPacket();
         playerClient.setWalkTime(0f);
     }
 
     private void finishPlayerMove(PlayerClient playerClient) {
+        System.out.println("Finished a move");
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
         playerClient.setDrawY(playerClient.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);

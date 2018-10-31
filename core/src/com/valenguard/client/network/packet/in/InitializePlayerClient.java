@@ -57,15 +57,15 @@ public class InitializePlayerClient implements PacketListener {
                 // Set map to show client
                 // TODO: Remove this call here and put in game screen. Use client player data to get map name.
                 Valenguard.gameScreen.setGameMap(GameMap.getMapByName(mapName));
-
-                // Now switch to the game screen!
-                Timer.schedule(new Timer.Task() {
-                    @Override
-                    public void run() {
-                        // Wait a few seconds to show the connected message
-                        Valenguard.getInstance().setScreen(ScreenType.GAME);
-                    }
-                }, 1);
+                Valenguard.getInstance().setScreen(ScreenType.GAME);
+//                // Now switch to the game screen!
+//                Timer.schedule(new Timer.Task() {
+//                    @Override
+//                    public void run() {
+//                        // Wait a few seconds to show the connected message
+//                        Valenguard.getInstance().setScreen(ScreenType.GAME);
+//                    }
+//                }, 1);
             }
         });
     }
