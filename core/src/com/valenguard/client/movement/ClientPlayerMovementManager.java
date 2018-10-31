@@ -249,6 +249,10 @@ public class ClientPlayerMovementManager {
 
         PathFinding.MoveNode nextNode = moveNodes.remove();
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
+        if (moveDirection == MoveDirection.NONE) {
+            processNewNode(moveNodes, playerClient, currentX, currentY);
+            return;
+        }
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setFutureMapLocation(new Location(playerClient.getMapName(), nextNode.getWorldX(), nextNode.getWorldY()));

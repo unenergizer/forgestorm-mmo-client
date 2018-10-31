@@ -37,11 +37,13 @@ public class MouseManager {
         this.clickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        moveNodes = pathFinding.findPath(playerClient.getFutureMapLocation().getX(), playerClient.getFutureMapLocation().getY(), clickTileX, clickTileY);
+        Queue<PathFinding.MoveNode> testMoveNodes = pathFinding.findPath(playerClient.getFutureMapLocation().getX(), playerClient.getFutureMapLocation().getY(), clickTileX, clickTileY);
 
-        if (moveNodes == null) return;
+        if (testMoveNodes == null) return;
         // TODO: Toggle a UI or Entity click event
         System.out.println("TODO: Toggle a UI or Entity click event");
+
+        moveNodes = testMoveNodes;
 
         // Canceling predictions for movement.
         playerClient.setPredictedMoveDirection(MoveDirection.NONE);
