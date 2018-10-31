@@ -28,6 +28,7 @@ import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.pathfinding.PathFinding;
 
 import java.util.List;
+import java.util.Queue;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -112,10 +113,10 @@ public class GameScreen implements Screen {
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
 
-        List<PathFinding.MoveNode> p = Valenguard.getInstance().getMouseManager().getMoveNodes();
+        Queue<PathFinding.MoveNode> p = Valenguard.getInstance().getMouseManager().getMoveNodes();
         if (p != null) {
-            for (PathFinding.MoveNode penisNode : p) {
-                spriteBatch.draw(redTileTexture, penisNode.getWorldX() * ClientConstants.TILE_SIZE, penisNode.getWorldY() * ClientConstants.TILE_SIZE);
+            for (PathFinding.MoveNode pathNodes : p) {
+                spriteBatch.draw(redTileTexture, pathNodes.getWorldX() * ClientConstants.TILE_SIZE, pathNodes.getWorldY() * ClientConstants.TILE_SIZE);
             }
         }
 

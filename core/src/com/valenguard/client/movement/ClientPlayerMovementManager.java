@@ -1,5 +1,7 @@
 package com.valenguard.client.movement;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
@@ -12,10 +14,15 @@ import com.valenguard.client.maps.data.Location;
 import com.valenguard.client.maps.data.TmxMap;
 import com.valenguard.client.maps.data.Warp;
 import com.valenguard.client.network.packet.out.PlayerMove;
+import com.valenguard.client.util.pathfinding.PathFinding;
+
+import java.util.Queue;
 
 public class ClientPlayerMovementManager {
 
     private final MoveDirection[] moveKeys = new MoveDirection[4];
+    ///
+    private boolean processingNodes = false;
 
     public void keyDown(int keycode) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
@@ -43,6 +50,8 @@ public class ClientPlayerMovementManager {
 
         if (moveDirection != null && moveLocation != null) {
             addMoveKey(moveDirection);
+            processingNodes = false;
+            Valenguard.getInstance().getMouseManager().setMoveNodes(null);
             playerMove(playerClient, moveLocation.getX(), moveLocation.getY(), moveDirection);
         }
     }
@@ -52,19 +61,19 @@ public class ClientPlayerMovementManager {
         switch (keycode) {
             case KeyBinds.UP:
             case KeyBinds.UP_ALT:
-                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.UP);
+                removeMoveKey(MoveDirection.UP);
                 break;
             case KeyBinds.DOWN:
             case KeyBinds.DOWN_ALT:
-                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.DOWN);
+                removeMoveKey(MoveDirection.DOWN);
                 break;
             case KeyBinds.LEFT:
             case KeyBinds.LEFT_ALT:
-                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.LEFT);
+                removeMoveKey(MoveDirection.LEFT);
                 break;
             case KeyBinds.RIGHT:
             case KeyBinds.RIGHT_ALT:
-                Valenguard.getInstance().getClientPlayerMovementManager().removeMoveKey(MoveDirection.RIGHT);
+                removeMoveKey(MoveDirection.RIGHT);
                 break;
         }
 
@@ -110,13 +119,10 @@ public class ClientPlayerMovementManager {
     }
 
     private void playerMove(PlayerClient playerClient, int amountX, int amountY, MoveDirection moveDirection) {
-
-        TmxMap tmxMap = Valenguard.getInstance().getMapManager().getTmxMap(playerClient.getMapName());
-
         if (MoveUtil.isEntityMoving(playerClient)) {
-            predictFuturePlayerMovement(playerClient, tmxMap, amountX, amountY, moveDirection);
+            predictFuturePlayerMovement(playerClient, playerClient.getTmxMap(), amountX, amountY, moveDirection);
         } else {
-            createNewPlayerMovement(tmxMap, playerClient, amountX, amountY, moveDirection);
+            createNewPlayerMovement(playerClient.getTmxMap(), playerClient, amountX, amountY, moveDirection);
         }
     }
 
@@ -155,8 +161,12 @@ public class ClientPlayerMovementManager {
                     + ", Y: " + warp.getY());
         }
 
-        // Setting the player's moveDirection for movement.
         playerClient.setPredictedMoveDirection(moveDirection);
+        sendNewMovementInfo(playerClient, moveDirection, amountX, amountY);
+    }
+
+    private void sendNewMovementInfo(PlayerClient playerClient, MoveDirection moveDirection, int amountX, int amountY) {
+        // Setting the player's moveDirection for movement.
         playerClient.getFutureMapLocation().add(amountX, amountY);
         playerClient.setWalkTime(0f);
 
@@ -181,15 +191,23 @@ public class ClientPlayerMovementManager {
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
-        if (!MoveUtil.isEntityMoving(playerClient)) return;
-
-        playerClient.setWalkTime(playerClient.getWalkTime() + delta);
-
         int currentX = playerClient.getCurrentMapLocation().getX();
         int currentY = playerClient.getCurrentMapLocation().getY();
 
         int futureX = playerClient.getFutureMapLocation().getX();
         int futureY = playerClient.getFutureMapLocation().getY();
+
+        boolean isMoving = MoveUtil.isEntityMoving(playerClient);
+        Queue<PathFinding.MoveNode> moveNodes = Valenguard.getInstance().getMouseManager().getMoveNodes();
+
+        if (!isMoving && moveNodes == null) return;
+
+        if (!isMoving && !processingNodes) {
+            startProcessingNodes(moveNodes, playerClient, currentX, currentY);
+            return;
+        }
+
+        playerClient.setWalkTime(playerClient.getWalkTime() + delta);
 
         playerClient.setDrawX(Interpolation.linear.apply(currentX, futureX, playerClient.getWalkTime() / playerClient.getMoveSpeed()) * ClientConstants.TILE_SIZE);
         playerClient.setDrawY(Interpolation.linear.apply(currentY, futureY, playerClient.getWalkTime() / playerClient.getMoveSpeed()) * ClientConstants.TILE_SIZE);
@@ -197,12 +215,45 @@ public class ClientPlayerMovementManager {
         // TODO: Better names
         if (playerClient.getWalkTime() <= playerClient.getMoveSpeed()) return;
 
+        if (processingNodes) {
+            processNewNode(moveNodes, playerClient, currentX, currentY);
+            return;
+        }
+
         // If they are not predicting to move then stop them.
         if (playerClient.getPredictedMoveDirection() == MoveDirection.NONE) {
             finishPlayerMove(playerClient);
         } else {
             continuePlayerMove(playerClient);
         }
+    }
+
+    private void startProcessingNodes(Queue<PathFinding.MoveNode> moveNodes, PlayerClient playerClient, int currentX, int currentY) {
+        PathFinding.MoveNode nextNode = moveNodes.remove();
+        System.out.println("X: " + nextNode.getWorldX() + ", Y: " + nextNode.getWorldY());
+        MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
+        Location moveLocation = MoveUtil.getLocation(playerClient.getTmxMap(), moveDirection);
+
+        processingNodes = true;
+        sendNewMovementInfo(playerClient, moveDirection, moveLocation.getX(), moveLocation.getY());
+    }
+
+    private void processNewNode(Queue<PathFinding.MoveNode> moveNodes, PlayerClient playerClient, int currentX, int currentY) {
+        // We have arrived.
+        if (moveNodes.isEmpty()) {
+            Valenguard.getInstance().getMouseManager().setMoveNodes(null);
+            finishPlayerMove(playerClient);
+            processingNodes = false;
+            return;
+        }
+
+        PathFinding.MoveNode nextNode = moveNodes.remove();
+        MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
+
+        playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
+        playerClient.setFutureMapLocation(new Location(playerClient.getMapName(), nextNode.getWorldX(), nextNode.getWorldY()));
+        new PlayerMove(moveDirection).sendPacket();
+        playerClient.setWalkTime(0f);
     }
 
     private void finishPlayerMove(PlayerClient playerClient) {
@@ -220,15 +271,41 @@ public class ClientPlayerMovementManager {
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
 
         Location addToLocation = MoveUtil.getLocation(playerClient.getTmxMap(), playerClient.getPredictedMoveDirection());
-        Location attemptLocation = new Location(playerClient.getFutureMapLocation());
+        Location attemptLocation = new Location(playerClient.getFutureMapLocation()).add(addToLocation);
 
         // todo check map warps thing?
 
-        if (!isMovable(attemptLocation.add(addToLocation))) {
+        if (!isMovable(attemptLocation)) {
             finishPlayerMove(playerClient);
         } else {
-            playerClient.setFutureMapLocation(attemptLocation);
-            new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
+
+            MoveDirection moveDirection = MoveUtil.getMoveDirection(playerClient.getCurrentMapLocation(), attemptLocation);
+            if ((moveDirection == MoveDirection.UP && !Gdx.input.isKeyPressed(Input.Keys.W)) ||
+                    (moveDirection == MoveDirection.DOWN && !Gdx.input.isKeyPressed(Input.Keys.S)) ||
+                    (moveDirection == MoveDirection.LEFT && !Gdx.input.isKeyPressed(Input.Keys.A)) ||
+                    (moveDirection == MoveDirection.RIGHT && !Gdx.input.isKeyPressed(Input.Keys.D))) {
+
+                MoveDirection newMoveDirection = getRemainingMoveKey();
+
+                if (newMoveDirection == null) {
+                    finishPlayerMove(playerClient);
+                    return;
+                }
+
+                Location newAddToLocation = MoveUtil.getLocation(playerClient.getTmxMap(), newMoveDirection);
+                Location newAttemptLocation = new Location(playerClient.getFutureMapLocation()).add(newAddToLocation);
+
+                if (!isMovable(newAttemptLocation)) {
+                    finishPlayerMove(playerClient);
+                } else {
+                    playerClient.setFutureMapLocation(newAttemptLocation);
+                    playerClient.setPredictedMoveDirection(newMoveDirection);
+                    new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
+                }
+            } else {
+                playerClient.setFutureMapLocation(attemptLocation);
+                new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
+            }
         }
 
         playerClient.setWalkTime(0f);

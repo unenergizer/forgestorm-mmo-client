@@ -6,7 +6,10 @@ import com.valenguard.client.maps.data.Location;
 import com.valenguard.client.maps.data.Tile;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import lombok.Getter;
 
@@ -101,7 +104,7 @@ public class PathFinding {
         }
     }
 
-    public List<MoveNode> findPath(int startX, int startY, int finalX, int finalY) {
+    public Queue<MoveNode> findPath(int startX, int startY, int finalX, int finalY) {
 
         if (!initialConditions(startX, startY, finalX, finalY)) return null;
 
@@ -117,7 +120,7 @@ public class PathFinding {
 
             if (current.equals(goalNode)) {
 
-                List<MoveNode> pathFound = new ArrayList<MoveNode>();
+                List<MoveNode> pathFound = new LinkedList<MoveNode>();
                 MoveNode iterateNode = current;
 
                 pathFound.add(iterateNode);
@@ -127,7 +130,10 @@ public class PathFinding {
                 }
 
                 finish();
-                return pathFound;
+                Collections.reverse(pathFound);
+                Queue queuePath = (Queue) pathFound;
+                queuePath.remove(); // Removing the node the player is standing on.
+                return queuePath;
             }
 
             openSet.remove(current);

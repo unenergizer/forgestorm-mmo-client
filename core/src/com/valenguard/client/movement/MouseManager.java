@@ -4,18 +4,23 @@ import com.badlogic.gdx.math.Vector3;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.entities.EntityManager;
+import com.valenguard.client.entities.MoveDirection;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.util.pathfinding.PathFinding;
 
 import java.util.List;
+import java.util.Queue;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class MouseManager {
 
     private final PathFinding pathFinding = new PathFinding();
-    private List<PathFinding.MoveNode> moveNodes;
+
+    @Setter
+    private Queue<PathFinding.MoveNode> moveNodes;
     private Vector3 clickLocation = new Vector3();
     private int clickTileX, clickTileY;
     private int mouseTileX, mouseTileY;
@@ -32,11 +37,14 @@ public class MouseManager {
         this.clickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        moveNodes = pathFinding.findPath(playerClient.getCurrentMapLocation().getX(), playerClient.getCurrentMapLocation().getY(), clickTileX, clickTileY);
+        moveNodes = pathFinding.findPath(playerClient.getFutureMapLocation().getX(), playerClient.getFutureMapLocation().getY(), clickTileX, clickTileY);
 
         if (moveNodes == null) return;
         // TODO: Toggle a UI or Entity click event
         System.out.println("TODO: Toggle a UI or Entity click event");
+
+        // Canceling predictions for movement.
+        playerClient.setPredictedMoveDirection(MoveDirection.NONE);
     }
 
     private Vector3 cameraXYtoTiledMapXY(int screenX, int screenY) {

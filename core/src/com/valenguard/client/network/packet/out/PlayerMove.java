@@ -17,6 +17,7 @@ public class PlayerMove extends ClientOutPacket {
 
     @Override
     protected void createPacket(ObjectOutputStream write) throws IOException {
+        if (moveDirection == MoveDirection.NONE) throw new RuntimeException("Move direction was none.");
         write.writeByte(moveDirection.getDirectionByte());
     }
 }

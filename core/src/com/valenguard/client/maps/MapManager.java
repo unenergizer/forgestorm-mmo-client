@@ -47,6 +47,8 @@ public class MapManager implements Disposable {
     public TmxMap getTmxMap(String mapName) throws RuntimeException {
         if (tmxMaps.containsKey(mapName)) {
             return tmxMaps.get(mapName);
+        } else if (tmxMaps.containsKey(mapName.replace(".tmx", ""))) {
+            return tmxMaps.get(mapName.replace(".tmx", ""));
         } else {
             throw new RuntimeException("Tried to get the map " + mapName + ", but it doesn't exist or was not loaded.");
         }
