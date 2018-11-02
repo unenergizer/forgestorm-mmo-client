@@ -2,9 +2,7 @@ package com.valenguard.client.network.packet.in;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.assets.GameMap;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.network.ClientConnection;
@@ -56,7 +54,7 @@ public class InitializePlayerClient implements PacketListener {
             public void run() {
                 // Set map to show client
                 // TODO: Remove this call here and put in game screen. Use client player data to get map name.
-                Valenguard.gameScreen.setGameMap(GameMap.getMapByName(mapName));
+                Valenguard.gameScreen.setGameMapNameFromServer(mapName);
                 Valenguard.getInstance().setScreen(ScreenType.GAME);
 //                // Now switch to the game screen!
 //                Timer.schedule(new Timer.Task() {

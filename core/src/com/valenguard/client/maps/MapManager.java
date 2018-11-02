@@ -1,12 +1,16 @@
 package com.valenguard.client.maps;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.maps.data.TmxMap;
+import com.valenguard.client.maps.file.ResourceList;
 import com.valenguard.client.maps.file.TmxFileParser;
 
+import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,21 +22,31 @@ public class MapManager implements Disposable {
 
     private final Map<String, TmxMap> tmxMaps = new HashMap<String, TmxMap>();
 
-    public MapManager() {
-        loadAllMaps();
+    public MapManager(boolean ideRun) {
+        if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS || ideRun) {
+            loadMobile();
+        } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            loadDesktopJar();
+        }
     }
 
-    /**
-     * This will dynamically load all TMX maps for the game.
-     *
-     * @throws RuntimeException No maps were found.
-     */
-    private void loadAllMaps() {
+    private void loadDesktopJar() {
+        Collection<String> files = ResourceList.getMapResources(ClientConstants.MAP_DIRECTORY, ".tmx");
+
+        for (String fileName : files) {
+            String mapName = fileName.substring(ClientConstants.MAP_DIRECTORY.length() + 1);
+            FileHandle fileHandle = Gdx.files.internal(ClientConstants.MAP_DIRECTORY + File.separator + mapName);
+            tmxMaps.put(mapName.replace(".tmx", ""), TmxFileParser.loadXMLFile(fileHandle));
+        }
+    }
+
+    private void loadMobile() {
         FileHandle fileHandle = Gdx.files.internal(ClientConstants.MAP_DIRECTORY);
         for (FileHandle entry : fileHandle.list()) {
             // make sure were only adding tmx files
-            if (entry.path().endsWith(".tmx"))
+            if (entry.path().endsWith(".tmx")) {
                 tmxMaps.put(entry.name().replace(".tmx", ""), TmxFileParser.loadXMLFile(entry));
+            }
         }
     }
 

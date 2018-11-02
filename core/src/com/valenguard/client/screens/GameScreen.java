@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.assets.FileManager;
-import com.valenguard.client.assets.GameMap;
 import com.valenguard.client.assets.GameTexture;
 import com.valenguard.client.assets.GameUI;
 import com.valenguard.client.entities.Entity;
@@ -27,7 +26,6 @@ import com.valenguard.client.util.AttachableCamera;
 import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.pathfinding.PathFinding;
 
-import java.util.List;
 import java.util.Queue;
 
 import lombok.Getter;
@@ -45,7 +43,7 @@ public class GameScreen implements Screen {
     private Skin skin;
 
     @Setter
-    private GameMap gameMap;
+    private String gameMapNameFromServer;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer mapRenderer;
 
@@ -68,7 +66,8 @@ public class GameScreen implements Screen {
         camera.zoom = ClientConstants.ZOOM_DEFAULT;
 
         // Map setup
-        setTiledMap(gameMap);
+        String mapFilePath = ClientConstants.MAP_DIRECTORY + "/" + gameMapNameFromServer + ".tmx";
+        setTiledMap(mapFilePath);
 
         // Load assets
         skin = new Skin(Gdx.files.internal(GameUI.UI_SKIN.getFilePath()));
@@ -173,18 +172,19 @@ public class GameScreen implements Screen {
     /**
      * Sets the tiled map to be rendered.
      *
-     * @param gameMap The tiled map based on name
+     * @param mapFilePath The tiled map based on name
      */
-    private void setTiledMap(GameMap gameMap) {
-        if (gameMap == null) return;
+    private void setTiledMap(String mapFilePath) {
+        if (mapFilePath == null) return;
+
         FileManager fileManager = Valenguard.getInstance().getFileManager();
-        fileManager.loadTiledMap(gameMap);
-        tiledMap = fileManager.getTiledMap(gameMap);
+        fileManager.loadTiledMap(mapFilePath);
+        tiledMap = fileManager.getTiledMap(mapFilePath);
 
         if (mapRenderer == null) {
             mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         } else {
-            mapRenderer.setMap(fileManager.getTiledMap(gameMap));
+            mapRenderer.setMap(fileManager.getTiledMap(mapFilePath));
         }
     }
 }

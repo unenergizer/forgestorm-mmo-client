@@ -1,6 +1,5 @@
 package com.valenguard.client.assets;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
@@ -14,9 +13,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 @SuppressWarnings("unused")
 public class FileManager {
-
-
-    private static final String TAG = FileManager.class.getSimpleName();
 
     private AssetManager assetManager = new AssetManager();
     private InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
@@ -42,8 +38,7 @@ public class FileManager {
      * @param filePath The file to check for.
      * @return True if loaded, false if otherwise.
      */
-    @SuppressWarnings("WeakerAccess")
-    public boolean isFileLoaded(String filePath) {
+    private boolean isFileLoaded(String filePath) {
         return assetManager.isLoaded(filePath);
     }
 
@@ -56,7 +51,7 @@ public class FileManager {
         if (isFileLoaded(filePath)) {
             assetManager.unload(filePath);
         } else {
-            Gdx.app.debug(TAG, "Asset " + filePath + " not loaded. Nothing to unload.");
+            System.err.println("Asset " + filePath + " not loaded. Nothing to unload.");
         }
     }
 
@@ -68,7 +63,7 @@ public class FileManager {
     public void loadMusic(GameMusic gameMusic) {
         // check if already loaded
         if (isFileLoaded(gameMusic.getFilePath())) {
-            Gdx.app.debug(TAG, "Music already loaded: " + gameMusic.getFilePath());
+            System.err.println("Music already loaded: " + gameMusic.getFilePath());
             return;
         }
 
@@ -78,7 +73,7 @@ public class FileManager {
             assetManager.load(gameMusic.getFilePath(), Music.class);
             assetManager.finishLoadingAsset(gameMusic.getFilePath());
         } else {
-            Gdx.app.debug(TAG, "Music doesn't exist: " + gameMusic.getFilePath());
+            System.err.println("Music doesn't exist: " + gameMusic.getFilePath());
         }
     }
 
@@ -94,7 +89,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameMusic.getFilePath())) {
             music = assetManager.get(gameMusic.getFilePath(), Music.class);
         } else {
-            Gdx.app.debug(TAG, "Music not loaded: " + gameMusic.getFilePath());
+            System.err.println("Music not loaded: " + gameMusic.getFilePath());
         }
 
         return music;
@@ -108,7 +103,7 @@ public class FileManager {
     public void loadSound(GameSound gameSound) {
         // check if already loaded
         if (isFileLoaded(gameSound.getFilePath())) {
-            Gdx.app.debug(TAG, "Sound already loaded: " + gameSound.getFilePath());
+            System.err.println("Sound already loaded: " + gameSound.getFilePath());
             return;
         }
 
@@ -118,7 +113,7 @@ public class FileManager {
             assetManager.load(gameSound.getFilePath(), Sound.class);
             assetManager.finishLoadingAsset(gameSound.getFilePath());
         } else {
-            Gdx.app.debug(TAG, "Sound doesn't exist: " + gameSound.getFilePath());
+            System.err.println("Sound doesn't exist: " + gameSound.getFilePath());
         }
 
     }
@@ -135,7 +130,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameSound.getFilePath())) {
             sound = assetManager.get(gameSound.getFilePath(), Sound.class);
         } else {
-            Gdx.app.debug(TAG, "Sound not loaded: " + gameSound.getFilePath());
+            System.err.println("Sound not loaded: " + gameSound.getFilePath());
         }
 
         return sound;
@@ -149,7 +144,7 @@ public class FileManager {
     public void loadTexture(GameTexture gameTexture) {
         // check if already loaded
         if (isFileLoaded(gameTexture.getFilePath())) {
-            Gdx.app.debug(TAG, "Texture already loaded: " + gameTexture.getFilePath());
+            System.err.println("Texture already loaded: " + gameTexture.getFilePath());
             return;
         }
 
@@ -159,7 +154,7 @@ public class FileManager {
             assetManager.load(gameTexture.getFilePath(), Texture.class);
             assetManager.finishLoadingAsset(gameTexture.getFilePath());
         } else {
-            Gdx.app.debug(TAG, "Texture doesn't exist: " + gameTexture.getFilePath());
+            System.err.println("Texture doesn't exist: " + gameTexture.getFilePath());
         }
     }
 
@@ -175,7 +170,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameTexture.getFilePath())) {
             texture = assetManager.get(gameTexture.getFilePath(), Texture.class);
         } else {
-            Gdx.app.debug(TAG, "Texture not loaded: " + gameTexture.getFilePath());
+            System.err.println("Texture not loaded: " + gameTexture.getFilePath());
         }
 
         return texture;
@@ -184,38 +179,37 @@ public class FileManager {
     /**
      * Attempts to load a TMX map file.
      *
-     * @param gameMap The tmx map file to load.
+     * @param mapFilePath The tmx map file to load.
      */
-    public void loadTiledMap(GameMap gameMap) {
+    public void loadTiledMap(String mapFilePath) {
         // check if already loaded
-        if (isFileLoaded(gameMap.getFilePath())) {
-            Gdx.app.debug(TAG, "TmxMap already loaded: " + gameMap.getFilePath());
+        if (isFileLoaded(mapFilePath)) {
             return;
         }
 
         // load asset
-        if (filePathResolver.resolve(gameMap.getFilePath()).exists()) {
+        if (filePathResolver.resolve(mapFilePath).exists()) {
             assetManager.setLoader(TiledMap.class, new TmxMapLoader(filePathResolver));
-            assetManager.load(gameMap.getFilePath(), TiledMap.class);
-            assetManager.finishLoadingAsset(gameMap.getFilePath());
+            assetManager.load(mapFilePath, TiledMap.class);
+            assetManager.finishLoadingAsset(mapFilePath);
         } else {
-            Gdx.app.debug(TAG, "TmxMap doesn't exist: " + gameMap.getFilePath());
+            System.err.println("TmxMap doesn't exist: " + mapFilePath);
         }
     }
 
     /**
      * Attempts to get a loaded TMX map from the asset manager.
      *
-     * @param gameMap The TMX map to retrieve.
+     * @param mapFilePath The TMX map to retrieve.
      * @return A TMX tiled map.
      */
-    public TiledMap getTiledMap(GameMap gameMap) {
+    public TiledMap getTiledMap(String mapFilePath) {
         TiledMap tiledMap = null;
 
-        if (assetManager.isLoaded(gameMap.getFilePath())) {
-            tiledMap = assetManager.get(gameMap.getFilePath(), TiledMap.class);
+        if (assetManager.isLoaded(mapFilePath)) {
+            tiledMap = assetManager.get(mapFilePath, TiledMap.class);
         } else {
-            Gdx.app.debug(TAG, "TiledMap not loaded: " + gameMap.getFilePath());
+            System.err.println("TiledMap not loaded: " + mapFilePath);
         }
 
         return tiledMap;

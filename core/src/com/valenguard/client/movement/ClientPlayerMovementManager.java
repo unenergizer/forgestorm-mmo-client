@@ -158,10 +158,10 @@ public class ClientPlayerMovementManager {
         if (MapUtil.hasWarp(tmxMap, currentX + amountX, currentY + amountY)) {
             // Play sound or something
             Warp warp = MapUtil.getWarp(tmxMap, currentX + amountX, currentY + amountY);
-            System.out.println("[WARP] Map: " + warp.getDestinationMapName()
-                    + ", FaceDirection: " + warp.getMoveDirectionToFace().toString()
-                    + ", X: " + warp.getX()
-                    + ", Y: " + warp.getY());
+//            System.out.println("[WARP] Map: " + warp.getDestinationMapName()
+//                    + ", FaceDirection: " + warp.getMoveDirectionToFace().toString()
+//                    + ", X: " + warp.getX()
+//                    + ", Y: " + warp.getY());
         }
 
         playerClient.setPredictedMoveDirection(moveDirection);
@@ -233,8 +233,8 @@ public class ClientPlayerMovementManager {
 
     private void startProcessingNodes(Queue<PathFinding.MoveNode> moveNodes, PlayerClient playerClient, int currentX, int currentY) {
         PathFinding.MoveNode nextNode = moveNodes.remove();
-        System.out.println();
-        System.out.println("Start => [" + currentX + ", " + currentY + "] <-> [" + nextNode.getWorldX() + ", " + nextNode.getWorldY() + "]");
+//        System.out.println();
+//        System.out.println("Start => [" + currentX + ", " + currentY + "] <-> [" + nextNode.getWorldX() + ", " + nextNode.getWorldY() + "]");
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
         Location moveLocation = MoveUtil.getLocation(playerClient.getTmxMap(), moveDirection);
 
@@ -258,7 +258,7 @@ public class ClientPlayerMovementManager {
         PathFinding.MoveNode nextNode = moveNodes.remove();
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentX, currentY, nextNode.getWorldX(), nextNode.getWorldY());
 
-        System.out.println("Next => [" + currentX + ", " + currentY + "] <-> [" + nextNode.getWorldX() + ", " + nextNode.getWorldY() + "]");
+//        System.out.println("Next => [" + currentX + ", " + currentY + "] <-> [" + nextNode.getWorldX() + ", " + nextNode.getWorldY() + "]");
 
         playerClient.setFutureMapLocation(new Location(playerClient.getMapName(), nextNode.getWorldX(), nextNode.getWorldY()));
         new PlayerMove(moveDirection).sendPacket();
@@ -266,7 +266,7 @@ public class ClientPlayerMovementManager {
     }
 
     private void finishPlayerMove(PlayerClient playerClient) {
-        System.out.println("Finished a move");
+//        System.out.println("Finished a move");
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
         playerClient.setDrawY(playerClient.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);

@@ -47,6 +47,9 @@ public class Valenguard extends Game {
     @Setter
     private long ping = 0;
 
+    @Setter
+    private boolean ideRun;
+
     private Valenguard() {
     }
 
@@ -61,7 +64,7 @@ public class Valenguard extends Game {
 
         // init managers
         fileManager = new FileManager();
-        mapManager = new MapManager();
+        mapManager = new MapManager(ideRun);
         uiManager = new UiManager();
         pingManager = new PingManager();
         clientPlayerMovementManager = new ClientPlayerMovementManager();
