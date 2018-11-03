@@ -173,6 +173,7 @@ public class ClientPlayerMovementManager {
         playerClient.setWalkTime(0f);
 
         new PlayerMove(moveDirection).sendPacket();
+        playerClient.setFacingDirection(moveDirection);
     }
 
     private boolean isMovable(TmxMap tmxMap, int x, int y) {
@@ -263,6 +264,7 @@ public class ClientPlayerMovementManager {
         playerClient.setFutureMapLocation(new Location(playerClient.getMapName(), nextNode.getWorldX(), nextNode.getWorldY()));
         new PlayerMove(moveDirection).sendPacket();
         playerClient.setWalkTime(0f);
+        playerClient.setFacingDirection(moveDirection);
     }
 
     private void finishPlayerMove(PlayerClient playerClient) {
@@ -311,10 +313,12 @@ public class ClientPlayerMovementManager {
                     playerClient.setFutureMapLocation(newAttemptLocation);
                     playerClient.setPredictedMoveDirection(newMoveDirection);
                     new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
+                    playerClient.setFacingDirection(moveDirection);
                 }
             } else {
                 playerClient.setFutureMapLocation(attemptLocation);
                 new PlayerMove(playerClient.getPredictedMoveDirection()).sendPacket();
+                playerClient.setFacingDirection(moveDirection);
             }
         }
 

@@ -41,8 +41,10 @@ public class EntitySpawn implements PacketListener {
         entity.setFutureMapLocation(new Location(playerClient.getMapName(), tileX, tileY));
         entity.setDrawX(tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(tileY * ClientConstants.TILE_SIZE);
-        entity.setFacingMoveDirection(facingMoveDirection);
+        entity.setFacingDirection(facingMoveDirection);
         entity.setMoveSpeed(moveSpeed);
+
+        entity.initAnimation();
 
         EntityManager.getInstance().addEntity(entityId, entity);
     }

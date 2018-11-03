@@ -3,7 +3,9 @@ package com.valenguard.client.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -51,10 +53,16 @@ public class GameScreen implements Screen {
     private Texture playerTexture;
     private Texture otherPlayerTexture;
     private Texture redTileTexture;
+    private BitmapFont font;
 
     @Override
     public void show() {
         spriteBatch = new SpriteBatch();
+//        font = new BitmapFont(Gdx.files.internal("font/testfont.fnt"), false);
+        Valenguard.getInstance().getFileManager().loadFont("font/testfont.fnt");
+        font = Valenguard.getInstance().getFileManager().getFont("font/testfont.fnt");
+
+        Valenguard.getInstance().getFileManager().loadAtlas("atlas/running.atlas");
 
         // Setup camera
         camera = new AttachableCamera(ClientConstants.SCREEN_WIDTH, ClientConstants.SCREEN_HEIGHT, ClientConstants.ZOOM_DEFAULT);
@@ -122,12 +130,27 @@ public class GameScreen implements Screen {
         spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMouseManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMouseManager().getMouseTileY() * ClientConstants.TILE_SIZE);
 
         for (Entity entity : EntityManager.getInstance().getEntities().values()) {
-            if (entity instanceof PlayerClient) {
+            if (!(entity instanceof PlayerClient)) {
 
-                spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
+                entity.animate(delta, spriteBatch);
+
+                float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
+                float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
+
+
+                font.setColor(Color.YELLOW);
+                font.draw(spriteBatch, Integer.toString(entity.getServerEntityID()), x, y);
+
             } else {
 
-                spriteBatch.draw(otherPlayerTexture, entity.getDrawX(), entity.getDrawY());
+                //spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
+                entity.animate(delta, spriteBatch);
+
+                float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
+                float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
+
+                font.setColor(Color.CORAL);
+                font.draw(spriteBatch, Integer.toString(entity.getServerEntityID()), x, y);
             }
         }
 

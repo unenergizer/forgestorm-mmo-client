@@ -1,13 +1,17 @@
 package com.valenguard.client.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
+import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -213,5 +217,64 @@ public class FileManager {
         }
 
         return tiledMap;
+    }
+
+    public void loadFont(String fontPath) {
+        // check if already loaded
+        if (isFileLoaded(fontPath)) {
+            System.err.println("Sound already loaded: " + fontPath);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(fontPath).exists()) {
+            assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(filePathResolver));
+            assetManager.load(fontPath, BitmapFont.class);
+            assetManager.finishLoadingAsset(fontPath);
+        } else {
+            System.err.println("Font doesn't exist: " + fontPath);
+        }
+
+    }
+
+    public BitmapFont getFont(String fontPath) {
+        BitmapFont bitmapFont = null;
+
+        if (assetManager.isLoaded(fontPath)) {
+            bitmapFont = assetManager.get(fontPath, BitmapFont.class);
+        } else {
+            System.err.println("Font not loaded: " + fontPath);
+        }
+
+        return bitmapFont;
+    }
+
+    public void loadAtlas(String atlasPath) {
+        // check if already loaded
+        if (isFileLoaded(atlasPath)) {
+            System.err.println("Atlas already loaded: " + atlasPath);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(atlasPath).exists()) {
+            assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(filePathResolver));
+            assetManager.load(atlasPath, TextureAtlas.class);
+            assetManager.finishLoadingAsset(atlasPath);
+        } else {
+            System.err.println("Atlas doesn't exist: " + atlasPath);
+        }
+    }
+
+    public TextureAtlas getAtlas(String atlasPath) {
+        TextureAtlas textureAtlas = null;
+
+        if (assetManager.isLoaded(atlasPath)) {
+            textureAtlas = assetManager.get(atlasPath, TextureAtlas.class);
+        } else {
+            System.err.println("Atlas not loaded: " + atlasPath);
+        }
+
+        return textureAtlas;
     }
 }

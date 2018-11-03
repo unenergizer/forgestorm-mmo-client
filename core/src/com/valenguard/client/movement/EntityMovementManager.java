@@ -21,6 +21,7 @@ public class EntityMovementManager {
     public void updateEntityFutureLocation(Entity entity, Location futureLocation) {
         entity.setWalkTime(0f);
         entity.setFutureMapLocation(futureLocation);
+        entity.setFacingDirection(MoveUtil.getMoveDirection(entity.getCurrentMapLocation(), futureLocation));
     }
 
     private void updateEntitiesPosition(Entity entity, float delta) {
@@ -57,6 +58,7 @@ public class EntityMovementManager {
     private void continueMove(Entity entity) {
         entity.getCurrentMapLocation().set(entity.getFutureMapLocation());
         entity.setFutureMapLocation(entity.getFutureLocationRequests().remove());
+        entity.setFacingDirection(MoveUtil.getMoveDirection(entity.getCurrentMapLocation(), entity.getFutureMapLocation()));
         entity.setWalkTime(0f);
     }
 

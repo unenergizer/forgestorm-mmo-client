@@ -100,6 +100,7 @@ public class Valenguard extends Game {
     }
 
     public void initializeNetwork() {
+        Valenguard.getInstance().getFileManager().loadAtlas("atlas/running.atlas"); // TODO : RELOCATE
         outputStreamManager = new OutputStreamManager();
         ClientConnection.getInstance().openConnection(
                 ServerConstants.SERVER_ADDRESS,
