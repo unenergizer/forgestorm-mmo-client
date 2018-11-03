@@ -8,7 +8,6 @@ import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.screens.ScreenType;
 import com.valenguard.client.screens.stage.ConnectionMessageUI;
-import com.valenguard.client.screens.stage.LoginScreenUI;
 import com.valenguard.client.util.Consumer;
 
 import java.io.IOException;
@@ -30,6 +29,7 @@ public class ClientConnection {
     private final int SECONDS_TO_TIMEOUT = 10;
     @Getter
     private ClientHandler clientHandler;
+
     @Getter
     private boolean connected;
 
@@ -82,6 +82,14 @@ public class ClientConnection {
                 }
 
                 connected = true;
+
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Thread(Valenguard.getInstance().getOutputStreamManager(), "OutputStream Thread").start();
+                    }
+                });
+
                 registerListeners.accept(eventBus);
                 receivePackets(socket);
 

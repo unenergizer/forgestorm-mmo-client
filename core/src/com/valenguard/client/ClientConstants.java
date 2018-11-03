@@ -14,4 +14,5 @@ public class ClientConstants {
     public static final String WEB_LOST_PASSWORD = "http://valenguard.com/lost-password/";
     public static final int TILE_SIZE = 16;
     public static final String MAP_DIRECTORY = "maps";
+    public static final int namePlateDistanceInPixels = 5;
 }

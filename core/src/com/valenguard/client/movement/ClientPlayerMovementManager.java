@@ -84,8 +84,7 @@ public class ClientPlayerMovementManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         if (moveDirection != null) {
             Location location = MoveUtil.getLocation(playerClient.getTmxMap(), moveDirection);
-            if (location != null)
-                playerMove(playerClient, location.getX(), location.getY(), moveDirection);
+            playerMove(playerClient, location.getX(), location.getY(), moveDirection);
         } else {
             playerMove(playerClient, 0, 0, MoveDirection.NONE);
         }
@@ -186,6 +185,7 @@ public class ClientPlayerMovementManager {
         return !MapUtil.isOutOfBounds(tmxMap, x, y);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isMovable(Location location) {
         return isMovable(location.getMapData(), location.getX(), location.getY());
     }

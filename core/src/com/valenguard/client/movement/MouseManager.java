@@ -8,7 +8,6 @@ import com.valenguard.client.entities.MoveDirection;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.util.pathfinding.PathFinding;
 
-import java.util.List;
 import java.util.Queue;
 
 import lombok.Getter;

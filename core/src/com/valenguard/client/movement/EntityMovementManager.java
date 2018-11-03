@@ -37,7 +37,7 @@ public class EntityMovementManager {
 
         if (entity.getWalkTime() <= entity.getMoveSpeed()) return;
 
-        if (entity.getFutureLocationRequest() == null) {
+        if (entity.getFutureLocationRequests().isEmpty()) {
 
             // If the server is running really slow it's possible we may need to wait
             // on another packet for movement. That or the entity just isn't requesting to
@@ -56,9 +56,8 @@ public class EntityMovementManager {
 
     private void continueMove(Entity entity) {
         entity.getCurrentMapLocation().set(entity.getFutureMapLocation());
-        entity.setFutureMapLocation(entity.getFutureLocationRequest());
+        entity.setFutureMapLocation(entity.getFutureLocationRequests().remove());
         entity.setWalkTime(0f);
-        entity.setFutureLocationRequest(null);
     }
 
 }

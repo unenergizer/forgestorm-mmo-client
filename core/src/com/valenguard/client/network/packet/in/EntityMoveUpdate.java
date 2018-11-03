@@ -21,7 +21,7 @@ public class EntityMoveUpdate implements PacketListener {
         Entity entity = EntityManager.getInstance().getEntity(entityId);
 
         if (MoveUtil.isEntityMoving(entity))
-            entity.setFutureLocationRequest(new Location(entity.getMapName(), futureX, futureY));
+            entity.addLocationToFutureQueue(new Location(entity.getMapName(), futureX, futureY));
         else
             Valenguard.getInstance().getEntityMovementManager().updateEntityFutureLocation(entity, new Location(entity.getMapName(), futureX, futureY));
     }

@@ -9,12 +9,12 @@ import com.valenguard.client.movement.ClientPlayerMovementManager;
 import com.valenguard.client.movement.EntityMovementManager;
 import com.valenguard.client.movement.MouseManager;
 import com.valenguard.client.network.ClientConnection;
-import com.valenguard.client.network.PingManager;
 import com.valenguard.client.network.packet.in.EntityDespawn;
 import com.valenguard.client.network.packet.in.EntityMoveUpdate;
 import com.valenguard.client.network.packet.in.EntitySpawn;
 import com.valenguard.client.network.packet.in.InitializePlayerClient;
 import com.valenguard.client.network.packet.in.PingIn;
+import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
 import com.valenguard.client.screens.GameScreen;
@@ -38,10 +38,10 @@ public class Valenguard extends Game {
     private FileManager fileManager;
     private MapManager mapManager;
     private UiManager uiManager;
-    private PingManager pingManager;
     private ClientPlayerMovementManager clientPlayerMovementManager;
     private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
+    private OutputStreamManager outputStreamManager;
 
     // TODO: RELOCATE
     @Setter
@@ -66,7 +66,6 @@ public class Valenguard extends Game {
         fileManager = new FileManager();
         mapManager = new MapManager(ideRun);
         uiManager = new UiManager();
-        pingManager = new PingManager();
         clientPlayerMovementManager = new ClientPlayerMovementManager();
         entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
@@ -101,6 +100,7 @@ public class Valenguard extends Game {
     }
 
     public void initializeNetwork() {
+        outputStreamManager = new OutputStreamManager();
         ClientConnection.getInstance().openConnection(
                 ServerConstants.SERVER_ADDRESS,
                 ServerConstants.SERVER_PORT,

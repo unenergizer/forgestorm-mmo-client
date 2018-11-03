@@ -4,6 +4,9 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.maps.data.Location;
 import com.valenguard.client.maps.data.TmxMap;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +15,11 @@ import lombok.Setter;
 public class Entity {
 
     private static final String TAG = Entity.class.getSimpleName();
+
+    /**
+     * The display name of this entity.
+     */
+    private String entityName;
 
     /**
      * A unique ID given to this entity by the server.
@@ -43,7 +51,11 @@ public class Entity {
 
     private float walkTime = 0;
 
-    private Location futureLocationRequest;
+    private Queue<Location> futureLocationRequests = new LinkedList<Location>();
+
+    public void addLocationToFutureQueue(Location location) {
+        futureLocationRequests.add(location);
+    }
 
     public TmxMap getTmxMap() {
         return Valenguard.getInstance().getMapManager().getTmxMap(mapName);

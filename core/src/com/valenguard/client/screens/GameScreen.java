@@ -123,8 +123,10 @@ public class GameScreen implements Screen {
 
         for (Entity entity : EntityManager.getInstance().getEntities().values()) {
             if (entity instanceof PlayerClient) {
+
                 spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
             } else {
+
                 spriteBatch.draw(otherPlayerTexture, entity.getDrawX(), entity.getDrawY());
             }
         }

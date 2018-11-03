@@ -131,7 +131,7 @@ public class PathFinding {
 
                 finish();
                 Collections.reverse(pathFound);
-                Queue queuePath = (Queue) pathFound;
+                Queue<MoveNode> queuePath = (Queue<MoveNode>) pathFound;
                 queuePath.remove(); // Removing the node the player is standing on.
                 return queuePath;
             }

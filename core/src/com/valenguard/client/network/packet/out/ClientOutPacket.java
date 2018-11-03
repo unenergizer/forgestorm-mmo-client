@@ -1,5 +1,6 @@
 package com.valenguard.client.network.packet.out;
 
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Write;
@@ -27,6 +28,10 @@ public abstract class ClientOutPacket {
      * Sends the packet to the player.
      */
     public void sendPacket() {
+        Valenguard.getInstance().getOutputStreamManager().addClientOutPacket(this);
+    }
+
+    void writeData() {
         clientHandler.write(opcode, new Write() {
             @Override
             public void accept(ObjectOutputStream write) throws IOException {

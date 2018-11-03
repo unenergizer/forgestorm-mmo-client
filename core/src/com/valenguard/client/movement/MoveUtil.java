@@ -26,7 +26,8 @@ public class MoveUtil {
         if (direction == MoveDirection.UP) return new Location(tmxMap.getMapName(), 0, 1);
         if (direction == MoveDirection.LEFT) return new Location(tmxMap.getMapName(), -1, 0);
         if (direction == MoveDirection.RIGHT) return new Location(tmxMap.getMapName(), 1, 0);
-        return null;
+        if (direction == MoveDirection.NONE) return new Location(tmxMap.getMapName(), 0, 0);
+        throw new RuntimeException("Tried to get a location, but direction could not be determined. MapName: " + tmxMap.getMapName() + ", MoveDirection: " + direction);
     }
 
     public static boolean isEntityMoving(Entity entity) {
