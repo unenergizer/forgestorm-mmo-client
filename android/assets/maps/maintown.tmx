@@ -403,16 +403,16 @@
    <properties>
     <property name="direction" value="UP"/>
     <property name="mapname" value="pub_dining"/>
-    <property name="x" type="int" value="10"/>
-    <property name="y" type="int" value="20"/>
+    <property name="x" type="int" value="26"/>
+    <property name="y" type="int" value="33"/>
    </properties>
   </object>
   <object id="16" x="304" y="320" width="16" height="16">
    <properties>
     <property name="direction" value="LEFT"/>
     <property name="mapname" value="pub_rooms"/>
-    <property name="x" type="int" value="15"/>
-    <property name="y" type="int" value="3"/>
+    <property name="x" type="int" value="31"/>
+    <property name="y" type="int" value="16"/>
    </properties>
   </object>
  </objectgroup>
