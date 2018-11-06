@@ -24,7 +24,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class TmxFileParser {
 
     private static final String TAG = TmxFileParser.class.getSimpleName();
-    private static final boolean PRINT_MAP = false;
+    private static final boolean PRINT_MAP = true;
 
     /**
      * This takes in a TMX map and gets the collision elements from it and builds a collision
@@ -194,26 +194,26 @@ public class TmxFileParser {
                         Element propertyElement = (Element) properties.item(k);
 
                         // Get map name:
-                        if (propertyElement.getAttribute("name").equals("map")) {
+                        if (propertyElement.getAttribute("name").equals("mapname")) {
                             warpMapName = propertyElement.getAttribute("value");
 //                            System.out.println("TmxMap: " + warpMapName);
                         }
 
                         // Get map X:
-                        if (propertyElement.getAttribute("name").equals("X")) {
+                        if (propertyElement.getAttribute("name").equals("x")) {
                             warpX = Integer.parseInt(propertyElement.getAttribute("value"));
 //                            System.out.println("X: " + warpX);
                         }
 
                         // Get map Y:
-                        if (propertyElement.getAttribute("name").equals("Y")) {
+                        if (propertyElement.getAttribute("name").equals("y")) {
                             warpY = Integer.parseInt(propertyElement.getAttribute("value"));
 //                            System.out.println("Y: " + warpY);
                         }
 
                         // Get map facing moveDirection:
-                        if (propertyElement.getAttribute("name").equals("moveDirection")) {
-                            moveDirection = MoveDirection.valueOf(propertyElement.getAttribute("value"));
+                        if (propertyElement.getAttribute("name").equals("direction")) {
+                            moveDirection = MoveDirection.valueOf(propertyElement.getAttribute("value").toUpperCase());
 //                            System.out.println("Y: " + warpY);
                         }
 

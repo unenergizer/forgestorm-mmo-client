@@ -8,6 +8,8 @@ import com.valenguard.client.network.shared.Write;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import lombok.NonNull;
+
 public abstract class ClientOutPacket {
 
     /**
@@ -20,7 +22,7 @@ public abstract class ClientOutPacket {
      */
     private final ClientHandler clientHandler = ClientConnection.getInstance().getClientHandler();
 
-    ClientOutPacket(byte opcode) {
+    ClientOutPacket(@NonNull byte opcode) {
         this.opcode = opcode;
     }
 

@@ -7,7 +7,7 @@ import com.valenguard.client.screens.stage.GameScreenDebugText;
 
 public class Keyboard implements InputProcessor {
 
-    private boolean showDebug;
+    private boolean showDebug = true;
 
     public boolean keyDown(int keycode) {
         // Screen debug toggle

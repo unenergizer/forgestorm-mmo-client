@@ -2,6 +2,8 @@ package com.valenguard.client.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -23,8 +25,10 @@ public class LoginScreen extends ScreenAdapter {
 
     private static final String TAG = LoginScreen.class.getSimpleName();
 
-    private SpriteBatch spriteBatch;
+    private UiManager uiManager;
     private FileManager fileManager;
+
+    private SpriteBatch spriteBatch;
     private Stage stage;
     private Skin skin;
 
@@ -39,9 +43,14 @@ public class LoginScreen extends ScreenAdapter {
         // Load assets
         skin = new Skin(Gdx.files.internal(GameUI.UI_SKIN.getFilePath()));
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
+        fileManager.loadPixmap("cursor1.png");
+
+        Pixmap pixmap = fileManager.getPixmap("cursor1.png");
+        Cursor customCursor = Gdx.graphics.newCursor(pixmap, pixmap.getWidth() / 2, pixmap.getHeight() / 2);
+        Gdx.graphics.setCursor(customCursor);
 
         // Show UI
-        UiManager uiManager = Valenguard.getInstance().getUiManager();
+        uiManager = Valenguard.getInstance().getUiManager();
         uiManager.setup(stage, skin);
         uiManager.show(new LoginScreenUI());
 
@@ -59,7 +68,7 @@ public class LoginScreen extends ScreenAdapter {
         spriteBatch.end();
 
         // Render UI
-        Valenguard.getInstance().getUiManager().refreshAbstractUi();
+        uiManager.refreshAbstractUi();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
@@ -75,7 +84,7 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        Valenguard.getInstance().getUiManager().dispose();
+        uiManager.dispose();
         if (skin != null) skin.dispose();
         if (stage != null) stage.dispose();
         if (spriteBatch != null) spriteBatch.dispose();

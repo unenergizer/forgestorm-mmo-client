@@ -10,10 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.assets.GameTexture;
-import com.valenguard.client.ClientConstants;
 import com.valenguard.client.network.ClientConnection;
+import com.valenguard.client.network.PlayerSession;
 
 public class LoginScreenUI implements AbstractUI, Disposable {
 
@@ -191,7 +192,7 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         passwordField.setText("");
 
         if (!ClientConnection.getInstance().isConnected())
-            Valenguard.getInstance().initializeNetwork();
+            Valenguard.getInstance().initializeNetwork(new PlayerSession(username, password));
     }
 
     /*****************************************************************

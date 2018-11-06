@@ -49,11 +49,12 @@ public class ClientConnection {
     /**
      * Attempts to establish a connection with the server.
      *
+     * @param playerSession           The clients provided playerSession details.
      * @param address           The address of the remote server we want to connect to.
      * @param port              The port of the remote server.
      * @param registerListeners Packets that we will listen for from the server.
      */
-    public void openConnection(final String address, final short port, final Consumer<EventBus> registerListeners) {
+    public void openConnection(final PlayerSession playerSession, final String address, final short port, final Consumer<EventBus> registerListeners) {
         Gdx.app.debug(TAG, "Attempting network connection...");
         threadSafeConnectionMessage("Attempting network connection...", Color.YELLOW);
 

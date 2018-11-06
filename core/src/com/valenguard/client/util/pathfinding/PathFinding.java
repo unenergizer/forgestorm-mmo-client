@@ -1,5 +1,6 @@
 package com.valenguard.client.util.pathfinding;
 
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.maps.MapUtil;
 import com.valenguard.client.maps.data.Location;
@@ -18,7 +19,7 @@ public class PathFinding {
     private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
     private final List<MoveNode> openSet = new ArrayList<MoveNode>();
 
-    private final int ALGORITHM_RADIUS = 15;
+    private final int ALGORITHM_RADIUS = ClientConstants.CLICK_RADIUS; // Original value: 15
     private final int GRID_LENGTH = (ALGORITHM_RADIUS * 2) + 1;
 
     private final MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];

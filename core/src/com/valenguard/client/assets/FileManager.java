@@ -3,12 +3,14 @@ package com.valenguard.client.assets;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
+import com.badlogic.gdx.assets.loaders.PixmapLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -276,5 +278,34 @@ public class FileManager {
         }
 
         return textureAtlas;
+    }
+
+    public void loadPixmap(String pixmapPath) {
+        // check if already loaded
+        if (isFileLoaded(pixmapPath)) {
+            System.err.println("Pixmap already loaded: " + pixmapPath);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(pixmapPath).exists()) {
+            assetManager.setLoader(Pixmap.class, new PixmapLoader(filePathResolver));
+            assetManager.load(pixmapPath, Pixmap.class);
+            assetManager.finishLoadingAsset(pixmapPath);
+        } else {
+            System.err.println("Pixmap doesn't exist: " + pixmapPath);
+        }
+    }
+
+    public Pixmap getPixmap(String pixmapPath) {
+        Pixmap pixmap = null;
+
+        if (assetManager.isLoaded(pixmapPath)) {
+            pixmap = assetManager.get(pixmapPath, Pixmap.class);
+        } else {
+            System.err.println("Pixmap not loaded: " + pixmapPath);
+        }
+
+        return pixmap;
     }
 }

@@ -9,6 +9,7 @@ import com.valenguard.client.movement.ClientPlayerMovementManager;
 import com.valenguard.client.movement.EntityMovementManager;
 import com.valenguard.client.movement.MouseManager;
 import com.valenguard.client.network.ClientConnection;
+import com.valenguard.client.network.PlayerSession;
 import com.valenguard.client.network.packet.in.EntityDespawn;
 import com.valenguard.client.network.packet.in.EntityMoveUpdate;
 import com.valenguard.client.network.packet.in.EntitySpawn;
@@ -24,6 +25,7 @@ import com.valenguard.client.screens.stage.UiManager;
 import com.valenguard.client.util.Consumer;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
@@ -99,10 +101,11 @@ public class Valenguard extends Game {
         loginScreen.dispose();
     }
 
-    public void initializeNetwork() {
+    public void initializeNetwork(@NonNull PlayerSession playerSession) {
         Valenguard.getInstance().getFileManager().loadAtlas("atlas/running.atlas"); // TODO : RELOCATE
         outputStreamManager = new OutputStreamManager();
         ClientConnection.getInstance().openConnection(
+                playerSession,
                 ServerConstants.SERVER_ADDRESS,
                 ServerConstants.SERVER_PORT,
                 new Consumer<EventBus>() {

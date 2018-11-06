@@ -29,6 +29,10 @@ public class UiManager implements Disposable {
         if (abstractUI instanceof Disposable) disposable = true;
     }
 
+    public boolean notNull() {
+        return abstractUI == null;
+    }
+
     public void refreshAbstractUi() {
         if (refreshable) {
             stage.clear();

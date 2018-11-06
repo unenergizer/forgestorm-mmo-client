@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -22,7 +23,6 @@ import com.valenguard.client.entities.EntityManager;
 import com.valenguard.client.entities.PlayerClient;
 import com.valenguard.client.input.Keyboard;
 import com.valenguard.client.input.Mouse;
-import com.valenguard.client.screens.stage.GameScreenDebugText;
 import com.valenguard.client.screens.stage.UiManager;
 import com.valenguard.client.util.AttachableCamera;
 import com.valenguard.client.util.GraphicsUtils;
@@ -35,6 +35,8 @@ import lombok.Setter;
 
 @Getter
 public class GameScreen implements Screen {
+
+    private FileManager fileManager;
 
     private SpriteBatch spriteBatch;
 
@@ -57,12 +59,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        fileManager = Valenguard.getInstance().getFileManager();
         spriteBatch = new SpriteBatch();
 //        font = new BitmapFont(Gdx.files.internal("font/testfont.fnt"), false);
-        Valenguard.getInstance().getFileManager().loadFont("font/testfont.fnt");
-        font = Valenguard.getInstance().getFileManager().getFont("font/testfont.fnt");
+        fileManager.loadFont("font/testfont.fnt");
+        font = fileManager.getFont("font/testfont.fnt");
 
-        Valenguard.getInstance().getFileManager().loadAtlas("atlas/running.atlas");
+        fileManager.loadAtlas("atlas/running.atlas");
 
         // Setup camera
         camera = new AttachableCamera(ClientConstants.SCREEN_WIDTH, ClientConstants.SCREEN_HEIGHT, ClientConstants.ZOOM_DEFAULT);
@@ -79,17 +82,19 @@ public class GameScreen implements Screen {
 
         // Load assets
         skin = new Skin(Gdx.files.internal(GameUI.UI_SKIN.getFilePath()));
-        Valenguard.getInstance().getFileManager().loadTexture(GameTexture.TEMP_PLAYER_IMG);
-        playerTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.TEMP_PLAYER_IMG);
-        Valenguard.getInstance().getFileManager().loadTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
-        otherPlayerTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
-        Valenguard.getInstance().getFileManager().loadTexture(GameTexture.REDTILE);
-        redTileTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.REDTILE);
+        fileManager.loadTexture(GameTexture.TEMP_PLAYER_IMG);
+        playerTexture = fileManager.getTexture(GameTexture.TEMP_PLAYER_IMG);
+        fileManager.loadTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
+        otherPlayerTexture = fileManager.getTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
+        fileManager.loadTexture(GameTexture.REDTILE);
+        redTileTexture = fileManager.getTexture(GameTexture.REDTILE);
+        fileManager.loadPixmap("cursor1.png");
+        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap("cursor1.png"), 0, 0));
 
         // Show UI
         UiManager uiManager = Valenguard.getInstance().getUiManager();
         uiManager.setup(stage, skin);
-        uiManager.show(new GameScreenDebugText());
+//        uiManager.show(new GameScreenDebugText()); // DEBUG
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -102,9 +107,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         GraphicsUtils.clearScreen(.05f, 0f, .12f, 1);
 
-        // Update game logic
-        Valenguard.getInstance().getClientPlayerMovementManager().tick(delta);
-        Valenguard.getInstance().getEntityMovementManager().tick(delta);
 
         if (mapRenderer != null && tiledMap != null) {
             // Update camera
@@ -127,7 +129,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMouseManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMouseManager().getMouseTileY() * ClientConstants.TILE_SIZE);
+//        spriteBatch.draw(redTileTexture, Valenguard.getInstance().getMouseManager().getMouseTileX() * ClientConstants.TILE_SIZE, Valenguard.getInstance().getMouseManager().getMouseTileY() * ClientConstants.TILE_SIZE);
 
         for (Entity entity : EntityManager.getInstance().getEntities().values()) {
             if (!(entity instanceof PlayerClient)) {
@@ -136,21 +138,22 @@ public class GameScreen implements Screen {
 
                 float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
                 float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-
-
+                final GlyphLayout layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
                 font.setColor(Color.YELLOW);
-                font.draw(spriteBatch, Integer.toString(entity.getServerEntityID()), x, y);
-
+                font.draw(spriteBatch, layout, x - (layout.width / 2), y);
+//                font.setColor(Color.YELLOW);
+//                font.draw(spriteBatch, layout, x - (layout.width / 2) - 1, y + 1);
             } else {
 
-                //spriteBatch.draw(playerTexture, entity.getDrawX(), entity.getDrawY());
                 entity.animate(delta, spriteBatch);
 
                 float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
                 float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-
-                font.setColor(Color.CORAL);
-                font.draw(spriteBatch, Integer.toString(entity.getServerEntityID()), x, y);
+                final GlyphLayout layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
+                font.setColor(Color.YELLOW);
+                font.draw(spriteBatch, layout, x - (layout.width / 2), y);
+//                font.setColor(Color.YELLOW);
+//                font.draw(spriteBatch, layout, x - (layout.width / 2) - 1, y + 1);
             }
         }
 
@@ -160,6 +163,11 @@ public class GameScreen implements Screen {
         Valenguard.getInstance().getUiManager().refreshAbstractUi();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+
+
+        // Update game logic
+        Valenguard.getInstance().getClientPlayerMovementManager().tick(delta);
+        Valenguard.getInstance().getEntityMovementManager().tick(delta);
     }
 
     @Override
@@ -188,7 +196,6 @@ public class GameScreen implements Screen {
         if (spriteBatch != null) spriteBatch.dispose();
         if (stage != null) stage.dispose();
         if (skin != null) skin.dispose();
-        FileManager fileManager = Valenguard.getInstance().getFileManager();
         fileManager.unloadAsset(GameTexture.TEMP_PLAYER_IMG.getFilePath());
         fileManager.unloadAsset(GameTexture.TEMP_OTHER_PLAYER_IMG.getFilePath());
         fileManager.unloadAsset(GameTexture.REDTILE.getFilePath());
@@ -199,10 +206,8 @@ public class GameScreen implements Screen {
      *
      * @param mapFilePath The tiled map based on name
      */
-    private void setTiledMap(String mapFilePath) {
-        if (mapFilePath == null) return;
-
-        FileManager fileManager = Valenguard.getInstance().getFileManager();
+    public void setTiledMap(String mapFilePath) {
+        System.out.println("[GameScreen] settingTiledMap[" + mapFilePath + "]");
         fileManager.loadTiledMap(mapFilePath);
         tiledMap = fileManager.getTiledMap(mapFilePath);
 
