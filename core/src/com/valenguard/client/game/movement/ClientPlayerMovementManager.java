@@ -123,12 +123,7 @@ public class ClientPlayerMovementManager {
     }
 
     private boolean isMovable(GameMap gameMap, int x, int y) {
-
-        if (!MapUtil.isTraversable(gameMap, x, y)) {
-            // Play sound or something
-            return false;
-        }
-
+        if (!MapUtil.isTraversable(gameMap, x, y)) return false;
         return !MapUtil.isOutOfBounds(gameMap, x, y);
     }
 
