@@ -3,15 +3,10 @@ package com.valenguard.client.network.shared;
 import com.valenguard.client.util.Log;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import lombok.AllArgsConstructor;
 
 public class EventBus {
 
@@ -28,11 +23,13 @@ public class EventBus {
         boolean foundAnnotation = false;
         for (Annotation annotation : packetListener.getClass().getAnnotations()) {
             if (!annotation.annotationType().equals(Opcode.class)) continue;
-            if (foundAnnotation) throw new RuntimeException("Cannot have more than one annotation for packet listeners: " + packetListener);
+            if (foundAnnotation)
+                throw new RuntimeException("Cannot have more than one annotation for packet listeners: " + packetListener);
             foundAnnotation = true;
             packetListenerMap.put(((Opcode) annotation).getOpcode(), packetListener);
         }
-        if (!foundAnnotation) throw new RuntimeException("Could not find an annotation for the packet listener: " + packetListener);
+        if (!foundAnnotation)
+            throw new RuntimeException("Could not find an annotation for the packet listener: " + packetListener);
     }
 
     public void decodeListenerOnNetworkThread(byte opcode, ClientHandler clientHandler) {

@@ -16,6 +16,7 @@ public class MapUtil {
      * @param y       The Y grid coordinate a entity is attempting to playerMove to.
      * @return True if the tile/coordinate is walkable. False otherwise.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isTraversable(GameMap gameMap, int x, int y) {
         if (isOutOfBounds(gameMap, x, y)) return false;
         return gameMap.getMap()[x][y].isTraversable();

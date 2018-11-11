@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.MoveUtil;
@@ -52,7 +52,7 @@ public class MovingEntity extends Entity {
     private TextureAtlas textureAtlas;
 
     public void initAnimation() {
-        textureAtlas = Valenguard.getInstance().getFileManager().getAtlas("atlas/running.atlas");
+        textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.MAIN_ATLAS);
         walkDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_down"), Animation.PlayMode.LOOP);
         walkUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_up"), Animation.PlayMode.LOOP);
         walkLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_left"), Animation.PlayMode.LOOP);
@@ -89,12 +89,5 @@ public class MovingEntity extends Entity {
 
     public void addLocationToFutureQueue(Location location) {
         futureLocationRequests.add(location);
-    }
-
-    public void setTileLocation(String mapName, int x, int y) {
-        currentMapLocation.set(mapName, x, y);
-        futureMapLocation.set(mapName, x, y);
-        setDrawX(x * ClientConstants.TILE_SIZE);
-        setDrawY(y * ClientConstants.TILE_SIZE);
     }
 }

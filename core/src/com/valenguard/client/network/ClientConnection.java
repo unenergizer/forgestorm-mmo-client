@@ -22,7 +22,6 @@ import java.net.SocketTimeoutException;
 import lombok.Getter;
 
 public class ClientConnection {
-    private static final String TAG = ClientConnection.class.getSimpleName();
 
     private static ClientConnection instance;
 
@@ -57,6 +56,7 @@ public class ClientConnection {
      * @param registerListeners Packets that we will listen for from the server.
      */
     public void openConnection(final PlayerSession playerSession, final String address, final short port, final Consumer<EventBus> registerListeners) {
+        Log.println(getClass(), "TODO: User player session! UN: " + playerSession.getUsername() + ", PW: " + playerSession.getPassword());
         Log.println(getClass(), "Attempting network connection...");
         threadSafeConnectionMessage("Attempting network connection...", Color.YELLOW);
 

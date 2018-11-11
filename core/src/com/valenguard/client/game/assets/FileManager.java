@@ -200,7 +200,7 @@ public class FileManager {
             assetManager.load(mapFilePath, TiledMap.class);
             assetManager.finishLoadingAsset(mapFilePath);
         } else {
-            throw new RuntimeException("GameMap Doesn't exist: "  + mapFilePath);
+            throw new RuntimeException("GameMap Doesn't exist: " + mapFilePath);
         }
     }
 
@@ -222,89 +222,89 @@ public class FileManager {
         return tiledMap;
     }
 
-    public void loadFont(String fontPath) {
+    public void loadFont(GameFont gameFont) {
         // check if already loaded
-        if (isFileLoaded(fontPath)) {
-            Log.println(getClass(), "Sound already loaded: " + fontPath, true);
+        if (isFileLoaded(gameFont.getFilePath())) {
+            Log.println(getClass(), "Sound already loaded: " + gameFont, true);
             return;
         }
 
         // load asset
-        if (filePathResolver.resolve(fontPath).exists()) {
+        if (filePathResolver.resolve(gameFont.getFilePath()).exists()) {
             assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(filePathResolver));
-            assetManager.load(fontPath, BitmapFont.class);
-            assetManager.finishLoadingAsset(fontPath);
+            assetManager.load(gameFont.getFilePath(), BitmapFont.class);
+            assetManager.finishLoadingAsset(gameFont.getFilePath());
         } else {
-            Log.println(getClass(), "Font doesn't exist: " + fontPath, true);
+            Log.println(getClass(), "Font doesn't exist: " + gameFont.getFilePath(), true);
         }
 
     }
 
-    public BitmapFont getFont(String fontPath) {
+    public BitmapFont getFont(GameFont gameFont) {
         BitmapFont bitmapFont = null;
 
-        if (assetManager.isLoaded(fontPath)) {
-            bitmapFont = assetManager.get(fontPath, BitmapFont.class);
+        if (assetManager.isLoaded(gameFont.getFilePath())) {
+            bitmapFont = assetManager.get(gameFont.getFilePath(), BitmapFont.class);
         } else {
-            Log.println(getClass(), "Font not loaded: " + fontPath, true);
+            Log.println(getClass(), "Font not loaded: " + gameFont, true);
         }
 
         return bitmapFont;
     }
 
-    public void loadAtlas(String atlasPath) {
+    public void loadAtlas(GameAtlas gameAtlas) {
         // check if already loaded
-        if (isFileLoaded(atlasPath)) {
-            Log.println(getClass(),"Atlas already loaded: " + atlasPath, true);
+        if (isFileLoaded(gameAtlas.getFilePath())) {
+            Log.println(getClass(), "Atlas already loaded: " + gameAtlas, true);
             return;
         }
 
         // load asset
-        if (filePathResolver.resolve(atlasPath).exists()) {
+        if (filePathResolver.resolve(gameAtlas.getFilePath()).exists()) {
             assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(filePathResolver));
-            assetManager.load(atlasPath, TextureAtlas.class);
-            assetManager.finishLoadingAsset(atlasPath);
+            assetManager.load(gameAtlas.getFilePath(), TextureAtlas.class);
+            assetManager.finishLoadingAsset(gameAtlas.getFilePath());
         } else {
-            Log.println(getClass(),"Atlas doesn't exist: " + atlasPath, true);
+            Log.println(getClass(), "Atlas doesn't exist: " + gameAtlas.getFilePath(), true);
         }
     }
 
-    public TextureAtlas getAtlas(String atlasPath) {
+    public TextureAtlas getAtlas(GameAtlas gameAtlas) {
         TextureAtlas textureAtlas = null;
 
-        if (assetManager.isLoaded(atlasPath)) {
-            textureAtlas = assetManager.get(atlasPath, TextureAtlas.class);
+        if (assetManager.isLoaded(gameAtlas.getFilePath())) {
+            textureAtlas = assetManager.get(gameAtlas.getFilePath(), TextureAtlas.class);
         } else {
-            Log.println(getClass(),"Atlas not loaded: " + atlasPath, true);
+            Log.println(getClass(), "Atlas not loaded: " + gameAtlas.getFilePath(), true);
         }
 
         return textureAtlas;
     }
 
-    public void loadPixmap(String pixmapPath) {
+    public void loadPixmap(GamePixmap gamePixmap) {
         // check if already loaded
-        if (isFileLoaded(pixmapPath)) {
-            Log.println(getClass(),"Pixmap already loaded: " + pixmapPath, true);
+        if (isFileLoaded(gamePixmap.getFilePath())) {
+            Log.println(getClass(), "Pixmap already loaded: " + gamePixmap.getFilePath(), true);
             return;
         }
 
         // load asset
-        if (filePathResolver.resolve(pixmapPath).exists()) {
+        if (filePathResolver.resolve(gamePixmap.getFilePath()).exists()) {
             assetManager.setLoader(Pixmap.class, new PixmapLoader(filePathResolver));
-            assetManager.load(pixmapPath, Pixmap.class);
-            assetManager.finishLoadingAsset(pixmapPath);
+            assetManager.load(gamePixmap.getFilePath(), Pixmap.class);
+            assetManager.finishLoadingAsset(gamePixmap.getFilePath());
         } else {
-            Log.println(getClass(),"Pixmap doesn't exist: " + pixmapPath, true);
+            Log.println(getClass(), "Pixmap doesn't exist: " + gamePixmap.getFilePath(), true);
         }
     }
 
-    public Pixmap getPixmap(String pixmapPath) {
+    public Pixmap getPixmap(GamePixmap gamePixmap) {
         Pixmap pixmap = null;
 
-        if (assetManager.isLoaded(pixmapPath)) {
-            pixmap = assetManager.get(pixmapPath, Pixmap.class);
+        if (assetManager.isLoaded(gamePixmap.getFilePath())) {
+            pixmap = assetManager.get(gamePixmap.getFilePath(), Pixmap.class);
         } else {
-            Log.println(getClass(),"Pixmap not loaded: " + pixmapPath, true);
+            Log.println(getClass(), "Pixmap not loaded: " + gamePixmap, true);
         }
 
         return pixmap;

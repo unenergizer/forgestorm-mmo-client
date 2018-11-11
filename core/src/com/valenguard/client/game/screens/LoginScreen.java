@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
+import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.assets.GameUI;
 import com.valenguard.client.game.screens.stage.UiManager;
@@ -21,8 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginScreen extends ScreenAdapter {
-
-    private static final String TAG = LoginScreen.class.getSimpleName();
 
     private UiManager uiManager;
     private FileManager fileManager;
@@ -42,9 +41,10 @@ public class LoginScreen extends ScreenAdapter {
         // Load assets
         skin = new Skin(Gdx.files.internal(GameUI.UI_SKIN.getFilePath()));
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
-        fileManager.loadPixmap("cursor1.png");
 
-        Pixmap pixmap = fileManager.getPixmap("cursor1.png");
+        // Change cursor
+        fileManager.loadPixmap(GamePixmap.CURSOR_1);
+        Pixmap pixmap = fileManager.getPixmap(GamePixmap.CURSOR_1);
         Cursor customCursor = Gdx.graphics.newCursor(pixmap, pixmap.getWidth() / 2, pixmap.getHeight() / 2);
         Gdx.graphics.setCursor(customCursor);
 

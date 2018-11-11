@@ -1,6 +1,6 @@
 package com.valenguard.client.game.assets;
 
-@SuppressWarnings("SameParameterValue")
+@SuppressWarnings("unused")
 public enum GameMusic {
     LOGIN_SCREEN_THEME("10112013.ogg");
 

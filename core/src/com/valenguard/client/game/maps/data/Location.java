@@ -32,7 +32,7 @@ public class Location {
      * @return The map data that relates to this location object.
      */
     public GameMap getMapData() {
-        return Valenguard.getInstance().getMapManager().getTmxMap(mapName);
+        return Valenguard.getInstance().getMapManager().getGameMap(mapName);
     }
 
     public Location add(int x, int y) {

@@ -2,6 +2,7 @@ package com.valenguard.client;
 
 import com.badlogic.gdx.Game;
 import com.valenguard.client.game.assets.FileManager;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -107,7 +108,7 @@ public class Valenguard extends Game {
     }
 
     public void initializeNetwork(PlayerSession playerSession) {
-        Valenguard.getInstance().getFileManager().loadAtlas("atlas/running.atlas"); // TODO : RELOCATE
+        Valenguard.getInstance().getFileManager().loadAtlas(GameAtlas.MAIN_ATLAS); // TODO : RELOCATE
         outputStreamManager = new OutputStreamManager();
         ClientConnection.getInstance().openConnection(
                 playerSession,

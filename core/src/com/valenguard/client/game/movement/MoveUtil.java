@@ -7,12 +7,12 @@ import com.valenguard.client.game.maps.data.Location;
 
 public class MoveUtil {
 
-    public static MoveDirection getMoveDirection(Location currentLocation, Location futureLocation) {
+    static MoveDirection getMoveDirection(Location currentLocation, Location futureLocation) {
         return getMoveDirection(currentLocation.getX(), currentLocation.getY(),
                 futureLocation.getX(), futureLocation.getY());
     }
 
-    public static MoveDirection getMoveDirection(int currentX, int currentY, int futureX, int futureY) {
+    private static MoveDirection getMoveDirection(int currentX, int currentY, int futureX, int futureY) {
         if (currentX > futureX) return MoveDirection.LEFT;
         else if (currentX < futureX) return MoveDirection.RIGHT;
         else if (currentY > futureY) return MoveDirection.DOWN;
@@ -20,7 +20,7 @@ public class MoveUtil {
         return MoveDirection.NONE;
     }
 
-    public static Location getLocation(GameMap gameMap, MoveDirection direction) {
+    static Location getLocation(GameMap gameMap, MoveDirection direction) {
         if (direction == MoveDirection.DOWN) return new Location(gameMap.getMapName(), 0, -1);
         if (direction == MoveDirection.UP) return new Location(gameMap.getMapName(), 0, 1);
         if (direction == MoveDirection.LEFT) return new Location(gameMap.getMapName(), -1, 0);

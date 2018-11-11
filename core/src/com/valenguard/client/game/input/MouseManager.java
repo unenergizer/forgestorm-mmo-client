@@ -8,6 +8,7 @@ import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
+import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
@@ -18,6 +19,8 @@ import lombok.Setter;
 
 @Getter
 public class MouseManager {
+
+    public static final boolean PRINT_DEBUG = false;
 
     private final PathFinding pathFinding = new PathFinding();
 
@@ -30,7 +33,7 @@ public class MouseManager {
     @Setter
     private boolean invalidate = true;
 
-    public void mouseMove(final int screenX, final int screenY) {
+    void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.mouseTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.mouseTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
@@ -38,7 +41,7 @@ public class MouseManager {
         this.mouseScreenY = tiledMapCoordinates.y;
     }
 
-    public void mouseClick(final int screenX, final int screenY, final int button) {
+    void mouseClick(final int screenX, final int screenY, final int button) {
 
         if (invalidate) return;
 
@@ -65,13 +68,12 @@ public class MouseManager {
 
         if (testMoveNodes == null) return;
 
-        Valenguard.getInstance().getClientMovementProcessor().preprocessMovement(
-                new InputData(
-                        ClientMovementProcessor.MovementInput.MOUSE,
-                        testMoveNodes));
+        Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes));
     }
 
     private void middle(final int screenX, final int screenY) {
+        Log.println(getClass(), "Middle Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
     private void right(final int screenX, final int screenY) {
@@ -81,9 +83,11 @@ public class MouseManager {
     }
 
     private void forward(final int screenX, final int screenY) {
+        Log.println(getClass(), "Forward Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
     private void back(final int screenX, final int screenY) {
+        Log.println(getClass(), "Back Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
     public void invalidateMouse() {

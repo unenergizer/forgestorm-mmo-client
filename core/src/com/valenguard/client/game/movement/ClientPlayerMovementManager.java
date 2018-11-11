@@ -1,7 +1,6 @@
 package com.valenguard.client.game.movement;
 
 import com.badlogic.gdx.math.Interpolation;
-import com.google.common.base.Preconditions;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.PlayerClient;
@@ -18,6 +17,8 @@ import java.util.Queue;
 
 import lombok.Getter;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class ClientPlayerMovementManager {
 
     private static final boolean PRINT_DEBUG = false;
@@ -25,20 +26,19 @@ public class ClientPlayerMovementManager {
     @Getter
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
 
-    public void playerMove(PlayerClient playerClient, Queue<MoveNode> nodes) {
-        Preconditions.checkArgument(!nodes.isEmpty(), "Tried to tell the player to move nowhere.");
+    void playerMove(PlayerClient playerClient, Queue<MoveNode> nodes) {
+        checkArgument(!nodes.isEmpty(), "Tried to tell the player to move nowhere.");
         movements = nodes;
         // todo: consider checking to see if they're moving
 
         if (!checkSingleNode(playerClient)) return;
-
         if (!MoveUtil.isEntityMoving(playerClient)) processNextNode(playerClient);
     }
 
     private boolean checkSingleNode(PlayerClient playerClient) {
         if (movements.size() == 1) {
             MoveNode node = movements.peek();
-            if (!isMovable(playerClient.getTmxMap(), node.getWorldX(), node.getWorldY())) {
+            if (!isMovable(playerClient.getGameMap(), node.getWorldX(), node.getWorldY())) {
                 movements.clear();
                 playerClient.setPredictedMoveDirection(MoveDirection.NONE);
                 return false;
@@ -48,9 +48,6 @@ public class ClientPlayerMovementManager {
     }
 
     private void processNextNode(PlayerClient playerClient) {
-
-        System.out.println("------------------------------------------");
-
         MoveNode nextNode = movements.remove();
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
@@ -59,25 +56,20 @@ public class ClientPlayerMovementManager {
         playerClient.setFutureMapLocation(futureLocation);
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentLocation, futureLocation);
 
-        System.out.println("Current Location: " + currentLocation);
-        System.out.println("Future Location: " + futureLocation);
+        Log.println(getClass(), "Current Location: " + currentLocation, false, PRINT_DEBUG);
+        Log.println(getClass(), "Future Location: " + futureLocation, false, PRINT_DEBUG);
 
-        int difx = Math.abs(playerClient.getCurrentMapLocation().getX() - playerClient.getFutureMapLocation().getX());
-        int dify = Math.abs(playerClient.getCurrentMapLocation().getY() - playerClient.getFutureMapLocation().getY());
-        if (difx + dify != 1) {
-            throw new RuntimeException("The total difference in movement was not equal to one : " + difx + dify);
-        }
+        int differenceX = Math.abs(playerClient.getCurrentMapLocation().getX() - playerClient.getFutureMapLocation().getX());
+        int differenceY = Math.abs(playerClient.getCurrentMapLocation().getY() - playerClient.getFutureMapLocation().getY());
 
-        if (moveDirection == MoveDirection.NONE) {
-            throw new RuntimeException("The move direction cannot be NONE");
-        }
+        checkArgument(differenceX + differenceY == 1, "The total difference in movement was not equal to one : " + differenceX + differenceY);
+        checkArgument(moveDirection != MoveDirection.NONE, "The move direction cannot be NONE");
 
         playerClient.setFacingDirection(moveDirection);
         playerClient.setWalkTime(0f);
 
-        if (MapUtil.isWarp(playerClient.getTmxMap(), futureLocation.getX(), futureLocation.getY())) {
-
-            Log.println(getClass(), "We hit a tile that is a warp.", true);
+        if (MapUtil.isWarp(playerClient.getGameMap(), futureLocation.getX(), futureLocation.getY())) {
+            Log.println(getClass(), "We hit a tile that is a warp.", false, PRINT_DEBUG);
 
             movements.clear();
             playerClient.setWarping(true);
@@ -85,7 +77,6 @@ public class ClientPlayerMovementManager {
         }
 
         new PlayerMove(moveDirection).sendPacket();
-
     }
 
     public void processMoveNodes(PlayerClient playerClient, float delta) {
@@ -111,9 +102,11 @@ public class ClientPlayerMovementManager {
 
                 MoveDirection predictedDirection = playerClient.getPredictedMoveDirection();
 
-                System.out.println("Predicted to move  the player: " + predictedDirection);
+                Log.println(getClass(), "Predicted to move  the player: " + predictedDirection, false, PRINT_DEBUG);
 
-
+                // Setting the future here to prevent the snapping forward of
+                // the player on the next tick.
+                playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
                 Queue<MoveNode> singleMoveNode = Valenguard.getInstance().getClientMovementProcessor().getNodeForDirection(
                         playerClient,
                         playerClient.getFutureMapLocation(),

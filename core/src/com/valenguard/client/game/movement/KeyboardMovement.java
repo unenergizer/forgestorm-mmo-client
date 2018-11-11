@@ -13,6 +13,8 @@ import java.util.Queue;
 
 import lombok.Setter;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class KeyboardMovement {
 
     private final MoveDirection[] moveKeys = new MoveDirection[4];
@@ -58,9 +60,10 @@ public class KeyboardMovement {
 
         MoveNode node = futureMoveNode.peek();
 
+        checkNotNull(node, "The node cannot be null!");
         Log.println(getClass(), "MoveNode being sent from keyboard: " + new Location("Unsure", node.getWorldX(), node.getWorldY()));
 
-        clientMovementProcessor.preprocessMovement(
+        clientMovementProcessor.preProcessMovement(
                 new InputData(
                         ClientMovementProcessor.MovementInput.KEYBOARD,
                         futureMoveNode
@@ -105,7 +108,7 @@ public class KeyboardMovement {
                 letOffDirection == MoveDirection.DOWN && playerClient.getPredictedMoveDirection() == MoveDirection.DOWN ||
                 letOffDirection == MoveDirection.LEFT && playerClient.getPredictedMoveDirection() == MoveDirection.LEFT ||
                 letOffDirection == MoveDirection.RIGHT && playerClient.getPredictedMoveDirection() == MoveDirection.RIGHT) {
-             playerClient.setPredictedMoveDirection(remainingMoveDirection);
+            playerClient.setPredictedMoveDirection(remainingMoveDirection);
         }
 
     }
@@ -140,7 +143,7 @@ public class KeyboardMovement {
         return null;
     }
 
-    public void invalidateKeys() {
+    void invalidateKeys() {
         for (int i = 0; i < moveKeys.length; i++) {
             moveKeys[i] = null;
         }

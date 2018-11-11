@@ -8,8 +8,6 @@ import com.valenguard.client.network.shared.Write;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import lombok.NonNull;
-
 public abstract class ClientOutPacket {
 
     /**

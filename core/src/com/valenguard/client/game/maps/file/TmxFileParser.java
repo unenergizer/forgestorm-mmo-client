@@ -19,7 +19,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class TmxFileParser {
 
     private static final boolean PRINT_MAP = false;
@@ -116,20 +116,14 @@ public class TmxFileParser {
                     map[currentX][currentY] = new Tile();
 
                     // Check for tile ID and add it to collision map
-                    if (tileType != 0) {
-                        map[currentX][currentY].setTraversable(false); // Not traversable
-                        //System.out.print("#");
-                    } else {
-                        map[currentX][currentY].setTraversable(true); // Is traversable
-                        //System.out.print(" ");
-                    }
+                    if (tileType != 0) map[currentX][currentY].setTraversable(false);
+                    else map[currentX][currentY].setTraversable(true);
 
                     // Increment x horizontal value
                     currentX++;
 
                     // Check for end of map width
                     if (currentX == mapWidth) {
-                        //Log.println(TmxFileParser.class,("");
                         currentX = 0; // reset x counter
                         currentY--; // decrement y value
                     }
@@ -160,12 +154,9 @@ public class TmxFileParser {
                     int tmxFileWidth = Integer.parseInt(objectTagElement.getAttribute("width")) / ClientConstants.TILE_SIZE;
                     int tmxFileHeight = Integer.parseInt(objectTagElement.getAttribute("height")) / ClientConstants.TILE_SIZE;
 
-                    String warpMapName = null;
-                    // Set to negative one to let the server know that the warp is an outbound
-                    // warp to another map
-                    int warpX = -1;
-                    int warpY = -1;
-                    MoveDirection moveDirection = null;
+                    String warpMapName;
+                    int warpX, warpY;
+                    MoveDirection moveDirection;
                     NodeList properties = objectTagElement.getElementsByTagName("properties").item(0).getChildNodes();
 
                     Log.println(TmxFileParser.class, "", false, PRINT_MAP);

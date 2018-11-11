@@ -1,10 +1,8 @@
 package com.valenguard.client.network.packet.in;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.PlayerSessionData;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -12,7 +10,6 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
-import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.util.Log;
 
 import lombok.AllArgsConstructor;

@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class MapManager implements Disposable {
 
-    private final Map<String, GameMap> tmxMaps = new HashMap<String, GameMap>();
+    private final Map<String, GameMap> gameMaps = new HashMap<String, GameMap>();
 
     public MapManager(boolean ideRun) {
         if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS || ideRun) {
@@ -36,7 +36,7 @@ public class MapManager implements Disposable {
         for (String fileName : files) {
             String mapName = fileName.substring(ClientConstants.MAP_DIRECTORY.length() + 1);
             FileHandle fileHandle = Gdx.files.internal(ClientConstants.MAP_DIRECTORY + File.separator + mapName);
-            tmxMaps.put(mapName.replace(".tmx", ""), TmxFileParser.loadXMLFile(fileHandle));
+            gameMaps.put(mapName.replace(".tmx", ""), TmxFileParser.loadXMLFile(fileHandle));
         }
     }
 
@@ -45,24 +45,24 @@ public class MapManager implements Disposable {
         for (FileHandle entry : fileHandle.list()) {
             // make sure were only adding tmx files
             if (entry.path().endsWith(".tmx")) {
-                tmxMaps.put(entry.name().replace(".tmx", ""), TmxFileParser.loadXMLFile(entry));
+                gameMaps.put(entry.name().replace(".tmx", ""), TmxFileParser.loadXMLFile(entry));
             }
         }
     }
 
     /**
-     * Gets the tmx map associated with a map name. The map name is determined by
+     * Gets the tmx game map associated with a map name. The map name is determined by
      * the file name of the TMX map file.
      *
      * @param mapName The name of the TMX map.
      * @return GameMap that contains information about this map.
      * @throws RuntimeException Requested map could not be found or was not loaded.
      */
-    public GameMap getTmxMap(String mapName) throws RuntimeException {
-        if (tmxMaps.containsKey(mapName)) {
-            return tmxMaps.get(mapName);
-        } else if (tmxMaps.containsKey(mapName.replace(".tmx", ""))) {
-            return tmxMaps.get(mapName.replace(".tmx", ""));
+    public GameMap getGameMap(String mapName) throws RuntimeException {
+        if (gameMaps.containsKey(mapName)) {
+            return gameMaps.get(mapName);
+        } else if (gameMaps.containsKey(mapName.replace(".tmx", ""))) {
+            return gameMaps.get(mapName.replace(".tmx", ""));
         } else {
             throw new RuntimeException("Tried to get the map " + mapName + ", but it doesn't exist or was not loaded.");
         }
@@ -70,6 +70,6 @@ public class MapManager implements Disposable {
 
     @Override
     public void dispose() {
-        tmxMaps.clear();
+        gameMaps.clear();
     }
 }

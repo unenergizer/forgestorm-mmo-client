@@ -12,8 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import lombok.Getter;
-
 public class PathFinding {
 
     private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
@@ -30,7 +28,8 @@ public class PathFinding {
 
     private MoveNode getCurrentNode() {
         MoveNode current = openSet.get(0);
-        for (MoveNode openNode : openSet) if (current.getCostF() > openNode.getCostF()) current = openNode;
+        for (MoveNode openNode : openSet)
+            if (current.getCostF() > openNode.getCostF()) current = openNode;
         return current;
     }
 
@@ -61,23 +60,17 @@ public class PathFinding {
     }
 
     private boolean initialConditions(int startX, int startY, int finalX, int finalY) {
-
         if (startX == finalX && startY == finalY) return false;
 
         Tile startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
         Tile endTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), finalX, finalY));
 
         if (startTile == null || !startTile.isTraversable()) return false;
-
         if (endTile == null || !endTile.isTraversable()) return false;
-
-        if (Math.abs(finalX - startX) > ALGORITHM_RADIUS || Math.abs(finalY - startY) > ALGORITHM_RADIUS) return false;
-
-        return true;
+        return Math.abs(finalX - startX) <= ALGORITHM_RADIUS && Math.abs(finalY - startY) <= ALGORITHM_RADIUS;
     }
 
     private void evaluateNeighbors(MoveNode current, MoveNode goalNode) {
-
         for (MoveNode neighbor : current.getNeighbors()) {
             if (neighbor == null) continue;
 
@@ -99,7 +92,6 @@ public class PathFinding {
     }
 
     public Queue<MoveNode> findPath(int startX, int startY, int finalX, int finalY, String mapName) {
-
         if (!initialConditions(startX, startY, finalX, finalY)) return null;
 
         initializeGrid(startX, startY, mapName);
@@ -125,7 +117,7 @@ public class PathFinding {
 
                 finish();
                 Collections.reverse(pathFound);
-                Queue<MoveNode> queuePath = (Queue<MoveNode>) pathFound;
+                @SuppressWarnings("unchecked") Queue<MoveNode> queuePath = (Queue<MoveNode>) pathFound;
                 queuePath.remove(); // Removing the node the player is standing on.
                 return queuePath;
             }
