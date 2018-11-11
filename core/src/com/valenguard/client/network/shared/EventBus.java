@@ -1,37 +1,22 @@
 package com.valenguard.client.network.shared;
 
+import com.valenguard.client.util.Log;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import lombok.AllArgsConstructor;
 
 public class EventBus {
 
-    /**
-     * Contains opcodes and the associated class/method combinations to listen for.
-     * <p>
-     * TmxMap:
-     * Byte: Packet Opcode
-     * CallbackData: Class and Method reference.
-     */
-    private final Map<Byte, CallbackData> packetListenerMap = new HashMap<Byte, CallbackData>();
-
-    @AllArgsConstructor
-    private class CallbackData {
-
-        /**
-         * The PacketListener class associated with this callback data.
-         */
-        private PacketListener packetListener;
-
-        /**
-         * The method to invoke when a packet is received.
-         */
-        private Method method;
-    }
+    private final Map<Byte, PacketListener> packetListenerMap = new ConcurrentHashMap<Byte, PacketListener>();
+    private final Queue<PacketData> decodedPackets = new ConcurrentLinkedQueue<PacketData>();
 
     /**
      * Prepares the server to listen to a particular packet.
@@ -40,41 +25,42 @@ public class EventBus {
      * @param packetListener The PacketListener we will listen for.
      */
     public void registerListener(PacketListener packetListener) {
-        for (Method method : packetListener.getClass().getMethods()) {
-            for (Annotation opcodeAnnotation : method.getAnnotations()) {
-                if (!opcodeAnnotation.annotationType().equals(Opcode.class)) continue;
-                Class<?>[] params = method.getParameterTypes();
-                String error = "PacketListener: " + packetListener;
-                if (params.length != 1)
-                    throw new RuntimeException(error + " must have 1 parameters.");
-                if (!params[0].equals(ClientHandler.class))
-                    throw new RuntimeException(error + " first parameter must be of type ClientHandler");
-                packetListenerMap.put(((Opcode) opcodeAnnotation).getOpcode(), new CallbackData(packetListener, method));
-            }
+        boolean foundAnnotation = false;
+        for (Annotation annotation : packetListener.getClass().getAnnotations()) {
+            if (!annotation.annotationType().equals(Opcode.class)) continue;
+            if (foundAnnotation) throw new RuntimeException("Cannot have more than one annotation for packet listeners: " + packetListener);
+            foundAnnotation = true;
+            packetListenerMap.put(((Opcode) annotation).getOpcode(), packetListener);
+        }
+        if (!foundAnnotation) throw new RuntimeException("Could not find an annotation for the packet listener: " + packetListener);
+    }
+
+    public void decodeListenerOnNetworkThread(byte opcode, ClientHandler clientHandler) {
+        PacketListener packetListener = getPacketListener(opcode);
+        if (packetListener == null) return;
+        PacketData packetData = packetListener.decodePacket(clientHandler);
+        packetData.setOpcode(opcode);
+        decodedPackets.add(packetData);
+    }
+
+    private PacketListener getPacketListener(byte opcode) {
+        PacketListener packetListener = packetListenerMap.get(opcode);
+        if (packetListener == null)
+            Log.println(getClass(), "Callback data was null for " + opcode + ". Is the event registered?", true);
+        return packetListener;
+    }
+
+    public void gameThreadPublish() {
+        PacketData packetData;
+        while ((packetData = decodedPackets.poll()) != null) {
+            publishOnGameThread(packetData);
         }
     }
 
-    /**
-     * When a packet is received we attempt to invoke methods that listen for its Opcode.
-     *
-     * @param opcode        Determines what class and methods to invoke.
-     * @param clientHandler The client the packet was received from.
-     */
-    public void publish(byte opcode, ClientHandler clientHandler) {
-        CallbackData callbackData = packetListenerMap.get(opcode);
-        if (callbackData == null) {
-            System.out.println("Callback data was null for " + opcode + ". Is the event registered?");
-            return;
-        }
-        try {
-            // Opcode exists and PacketListener is registered, now lets invoke its methods.
-            callbackData.method.invoke(callbackData.packetListener, clientHandler);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+    private void publishOnGameThread(PacketData packetData) {
+        PacketListener packetListener = getPacketListener(packetData.getOpcode());
+        if (packetListener == null) return;
+        //noinspection unchecked
+        packetListener.onEvent(packetData);
     }
 }

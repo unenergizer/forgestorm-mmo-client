@@ -6,16 +6,21 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.entities.Entity;
+import com.valenguard.client.game.entities.Entity;
+
+import lombok.Getter;
 
 public class AttachableCamera extends OrthographicCamera {
 
+    @Getter
+    private float lastZoomLevel;
     private Entity following;
 
     public AttachableCamera(float width, float height, float zoom) {
         super.setToOrtho(false, width, height);
         super.update();
         this.zoom = zoom;
+        this.lastZoomLevel = zoom;
     }
 
     public void attachEntity(Entity following) {
@@ -46,5 +51,6 @@ public class AttachableCamera extends OrthographicCamera {
         }
 
         zoom = (float) change;
+        lastZoomLevel = (float)  change;
     }
 }

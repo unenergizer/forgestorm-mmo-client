@@ -1,21 +1,17 @@
 package com.valenguard.client.network.packet.out;
 
-import com.valenguard.client.network.ClientConnection;
-
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class OutputStreamManager implements Runnable {
+public class OutputStreamManager {
 
-    private final Queue<ClientOutPacket> outputContexts = new ConcurrentLinkedQueue<ClientOutPacket>();
+    private final Queue<ClientOutPacket> outputContexts = new LinkedList<ClientOutPacket>();
 
-    @Override
-    public void run() {
-        while (ClientConnection.getInstance().isConnected()) {
-            ClientOutPacket clientOutPacket;
-            while ((clientOutPacket = outputContexts.poll()) != null) {
-                clientOutPacket.writeData();
-            }
+    public void sendPackets() {
+        ClientOutPacket clientOutPacket;
+        while ((clientOutPacket = outputContexts.poll()) != null) {
+            clientOutPacket.writeData();
         }
     }
 

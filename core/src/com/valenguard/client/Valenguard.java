@@ -1,37 +1,35 @@
 package com.valenguard.client;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.valenguard.client.assets.FileManager;
-import com.valenguard.client.maps.MapManager;
-import com.valenguard.client.movement.ClientPlayerMovementManager;
-import com.valenguard.client.movement.EntityMovementManager;
-import com.valenguard.client.movement.MouseManager;
+import com.valenguard.client.game.assets.FileManager;
+import com.valenguard.client.game.input.MouseManager;
+import com.valenguard.client.game.maps.MapManager;
+import com.valenguard.client.game.movement.ClientMovementProcessor;
+import com.valenguard.client.game.movement.ClientPlayerMovementManager;
+import com.valenguard.client.game.movement.EntityMovementManager;
+import com.valenguard.client.game.screens.GameScreen;
+import com.valenguard.client.game.screens.LoginScreen;
+import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.stage.UiManager;
 import com.valenguard.client.network.ClientConnection;
+import com.valenguard.client.network.Consumer;
 import com.valenguard.client.network.PlayerSession;
 import com.valenguard.client.network.packet.in.EntityDespawn;
 import com.valenguard.client.network.packet.in.EntityMoveUpdate;
 import com.valenguard.client.network.packet.in.EntitySpawn;
-import com.valenguard.client.network.packet.in.InitializePlayerClient;
+import com.valenguard.client.network.packet.in.InitializeClientSession;
+import com.valenguard.client.network.packet.in.InitializeGameMap;
 import com.valenguard.client.network.packet.in.PingIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
-import com.valenguard.client.screens.GameScreen;
-import com.valenguard.client.screens.LoginScreen;
-import com.valenguard.client.screens.ScreenType;
-import com.valenguard.client.screens.stage.UiManager;
-import com.valenguard.client.util.Consumer;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 public class Valenguard extends Game {
 
-    private static final String TAG = Valenguard.class.getSimpleName();
     private static Valenguard valenguard;
 
     public static GameScreen gameScreen;
@@ -40,6 +38,7 @@ public class Valenguard extends Game {
     private FileManager fileManager;
     private MapManager mapManager;
     private UiManager uiManager;
+    private ClientMovementProcessor clientMovementProcessor;
     private ClientPlayerMovementManager clientPlayerMovementManager;
     private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
@@ -62,12 +61,11 @@ public class Valenguard extends Game {
 
     @Override
     public void create() {
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
-
         // init managers
         fileManager = new FileManager();
         mapManager = new MapManager(ideRun);
         uiManager = new UiManager();
+        clientMovementProcessor = new ClientMovementProcessor();
         clientPlayerMovementManager = new ClientPlayerMovementManager();
         entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
@@ -90,6 +88,13 @@ public class Valenguard extends Game {
     }
 
     @Override
+    public void render() {
+        if (ClientConnection.getInstance().isConnected()) ClientConnection.getInstance().getEventBus().gameThreadPublish();
+        super.render();
+        if (ClientConnection.getInstance().isConnected()) outputStreamManager.sendPackets();
+    }
+
+    @Override
     public void dispose() {
         // dispose classes and assets
         fileManager.dispose();
@@ -101,7 +106,7 @@ public class Valenguard extends Game {
         loginScreen.dispose();
     }
 
-    public void initializeNetwork(@NonNull PlayerSession playerSession) {
+    public void initializeNetwork(PlayerSession playerSession) {
         Valenguard.getInstance().getFileManager().loadAtlas("atlas/running.atlas"); // TODO : RELOCATE
         outputStreamManager = new OutputStreamManager();
         ClientConnection.getInstance().openConnection(
@@ -112,10 +117,11 @@ public class Valenguard extends Game {
                     @Override
                     public void accept(EventBus eventBus) {
                         eventBus.registerListener(new PingIn());
-                        eventBus.registerListener(new InitializePlayerClient());
+                        eventBus.registerListener(new InitializeClientSession());
                         eventBus.registerListener(new EntityMoveUpdate());
                         eventBus.registerListener(new EntitySpawn());
                         eventBus.registerListener(new EntityDespawn());
+                        eventBus.registerListener(new InitializeGameMap());
                     }
                 });
     }

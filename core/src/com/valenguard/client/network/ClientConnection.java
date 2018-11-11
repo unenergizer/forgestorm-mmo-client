@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.stage.ConnectionMessageUI;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
-import com.valenguard.client.screens.ScreenType;
-import com.valenguard.client.screens.stage.ConnectionMessageUI;
-import com.valenguard.client.util.Consumer;
+import com.valenguard.client.util.Log;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,6 +25,8 @@ public class ClientConnection {
     private static final String TAG = ClientConnection.class.getSimpleName();
 
     private static ClientConnection instance;
+
+    @Getter
     private final EventBus eventBus = new EventBus();
     private final int SECONDS_TO_TIMEOUT = 10;
     @Getter
@@ -49,13 +51,13 @@ public class ClientConnection {
     /**
      * Attempts to establish a connection with the server.
      *
-     * @param playerSession           The clients provided playerSession details.
+     * @param playerSession     The clients provided playerSession details.
      * @param address           The address of the remote server we want to connect to.
      * @param port              The port of the remote server.
      * @param registerListeners Packets that we will listen for from the server.
      */
     public void openConnection(final PlayerSession playerSession, final String address, final short port, final Consumer<EventBus> registerListeners) {
-        Gdx.app.debug(TAG, "Attempting network connection...");
+        Log.println(getClass(), "Attempting network connection...");
         threadSafeConnectionMessage("Attempting network connection...", Color.YELLOW);
 
         new Thread(new Runnable() {
@@ -66,14 +68,14 @@ public class ClientConnection {
                     socket = new Socket();
                     socket.connect(new InetSocketAddress(address, port), 1000 * SECONDS_TO_TIMEOUT);
                 } catch (SocketTimeoutException e) {
-                    Gdx.app.debug(TAG, "Failed to connect! SocketTimeoutException");
+                    Log.println(getClass(), "Failed to connect! SocketTimeoutException");
                     threadSafeConnectionMessage("Failed to connect! SocketTimeoutException", Color.RED);
                     closeConnection();
                     return;
                 } catch (IOException e) {
                     // Failed to openConnection
                     if (e instanceof ConnectException) {
-                        Gdx.app.debug(TAG, "Failed to connect! IOException");
+                        Log.println(getClass(), "Failed to connect! IOException");
                         threadSafeConnectionMessage("Failed to connect! IOException", Color.RED);
                         closeConnection();
                         return;
@@ -83,13 +85,6 @@ public class ClientConnection {
                 }
 
                 connected = true;
-
-                Gdx.app.postRunnable(new Runnable() {
-                    @Override
-                    public void run() {
-                        new Thread(Valenguard.getInstance().getOutputStreamManager(), "OutputStream Thread").start();
-                    }
-                });
 
                 registerListeners.accept(eventBus);
                 receivePackets(socket);
@@ -112,19 +107,19 @@ public class ClientConnection {
             inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
         } catch (SocketException e1) {
-            Gdx.app.debug(TAG, "The server appears to be down! SocketException");
+            Log.println(getClass(), "The server appears to be down! SocketException");
             threadSafeConnectionMessage("The server appears to be down! SocketException", Color.RED);
             closeConnection();
             return;
 
         } catch (SocketTimeoutException e2) {
-            Gdx.app.debug(TAG, "Connection to the server has timed out! SocketTimeoutException");
+            Log.println(getClass(), "Connection to the server has timed out! SocketTimeoutException");
             threadSafeConnectionMessage("Connection to the server has timed out! SocketTimeoutException", Color.RED);
             closeConnection();
             return;
 
         } catch (IOException e3) {
-            Gdx.app.debug(TAG, "Could not connect to server! IOException");
+            Log.println(getClass(), "Could not connect to server! IOException");
             threadSafeConnectionMessage("Could not connect to server! IOException", Color.RED);
             closeConnection();
             return;
@@ -136,11 +131,11 @@ public class ClientConnection {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Gdx.app.debug(TAG, "Connection established! Receiving packets!");
+                Log.println(getClass(), "Connection established! Receiving packets!");
                 threadSafeConnectionMessage("Connection established! Receiving packets!", Color.GREEN);
                 while (connected) {
                     try {
-                        eventBus.publish(clientHandler.getInputStream().readByte(), clientHandler);
+                        eventBus.decodeListenerOnNetworkThread(clientHandler.getInputStream().readByte(), clientHandler);
                     } catch (IOException e) {
                         // Socket closed
                         if (!(e instanceof SocketException && !connected)) {
@@ -159,7 +154,7 @@ public class ClientConnection {
      * Safely closes a network connection.
      */
     private void closeConnection() {
-        Gdx.app.debug(TAG, "Closing network connection.");
+        Log.println(getClass(), "Closing network connection.");
 
         connected = false;
         if (clientHandler != null) clientHandler.closeConnection();

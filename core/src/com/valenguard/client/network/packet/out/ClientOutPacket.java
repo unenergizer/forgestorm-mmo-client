@@ -22,7 +22,7 @@ public abstract class ClientOutPacket {
      */
     private final ClientHandler clientHandler = ClientConnection.getInstance().getClientHandler();
 
-    ClientOutPacket(@NonNull byte opcode) {
+    ClientOutPacket(byte opcode) {
         this.opcode = opcode;
     }
 
