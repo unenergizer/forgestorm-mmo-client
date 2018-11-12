@@ -5,8 +5,6 @@ import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.maps.MoveDirection;
-import com.valenguard.client.game.maps.data.Location;
-import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 
 import java.util.Queue;
@@ -61,7 +59,6 @@ public class KeyboardMovement {
         MoveNode node = futureMoveNode.peek();
 
         checkNotNull(node, "The node cannot be null!");
-        Log.println(getClass(), "MoveNode being sent from keyboard: " + new Location("Unsure", node.getWorldX(), node.getWorldY()));
 
         clientMovementProcessor.preProcessMovement(
                 new InputData(

@@ -60,9 +60,4 @@ public class Location {
         this.y = tileY;
         return this;
     }
-
-    @Override
-    public String toString() {
-        return "[" + mapName + "] -> [" + x + ", " + y + "]";
-    }
 }

@@ -24,6 +24,7 @@ import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.assets.GameUI;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.input.Keyboard;
@@ -157,8 +158,15 @@ public class GameScreen implements Screen {
             entity.animate(delta, spriteBatch);
             float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
             float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-            final GlyphLayout layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
-            font.setColor(Color.YELLOW);
+            final GlyphLayout layout;
+
+            if (entity.getEntityType() == EntityType.NPC) {
+                font.setColor(Color.LIME);
+                layout = new GlyphLayout(font, "[NPC] " + entity.getEntityName());
+            } else {
+                font.setColor(Color.YELLOW);
+                layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
+            }
             font.draw(spriteBatch, layout, x - (layout.width / 2), y);
         }
 
@@ -167,8 +175,8 @@ public class GameScreen implements Screen {
 
         float x = playerClient.getDrawX() + (playerTexture.getWidth() / 2f);
         float y = playerClient.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-        final GlyphLayout layout = new GlyphLayout(font, Integer.toString(playerClient.getServerEntityID()));
         font.setColor(Color.YELLOW);
+        final GlyphLayout layout = new GlyphLayout(font, Integer.toString(playerClient.getServerEntityID()));
         font.draw(spriteBatch, layout, x - (layout.width / 2), y);
 
         // Draw mouse

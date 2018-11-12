@@ -24,7 +24,7 @@ public class MovingEntity extends Entity {
     /**
      * The exact tile location of the entity on the tile grid.
      */
-    private Location currentMapLocation, futureMapLocation;
+    private Location futureMapLocation;
 
     /**
      * The direction the entity is facing. Is not always the same direction
@@ -51,12 +51,12 @@ public class MovingEntity extends Entity {
     private Animation<TextureRegion> walkRight;
     private TextureAtlas textureAtlas;
 
-    public void initAnimation() {
+    public void initAnimation(String regionName) {
         textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.MAIN_ATLAS);
-        walkDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_down"), Animation.PlayMode.LOOP);
-        walkUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_up"), Animation.PlayMode.LOOP);
-        walkLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_left"), Animation.PlayMode.LOOP);
-        walkRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("player_right"), Animation.PlayMode.LOOP);
+        walkDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions(regionName + "_down"), Animation.PlayMode.LOOP);
+        walkUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions(regionName + "_up"), Animation.PlayMode.LOOP);
+        walkLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions(regionName + "_left"), Animation.PlayMode.LOOP);
+        walkRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions(regionName + "_right"), Animation.PlayMode.LOOP);
     }
 
     public void animate(float delta, SpriteBatch spriteBatch) {

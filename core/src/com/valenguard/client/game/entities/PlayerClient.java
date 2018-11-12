@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PlayerClient extends MovingEntity {
+public class PlayerClient extends Player {
 
     private boolean isWarping = false;
 

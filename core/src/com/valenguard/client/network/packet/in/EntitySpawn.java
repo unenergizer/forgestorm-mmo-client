@@ -2,8 +2,11 @@ package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.entities.NPC;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
@@ -24,64 +27,100 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
+
+        EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
+        short entityId = clientHandler.readShort(); // TODO: this will be different later depending on the entity type
+        String entityName = clientHandler.readString();
+        int tileX = clientHandler.readInt();
+        int tileY = clientHandler.readInt();
+        byte directionalByte = 0;
+        float moveSpeed = 0.0f;
+
+        if (entityType == EntityType.NPC || entityType == EntityType.PLAYER || entityType == EntityType.CLIENT_PLAYER) {
+            directionalByte = clientHandler.readByte();
+            moveSpeed = clientHandler.readFloat();
+        }
+
+        Log.println(getClass(), "===================================", false, PRINT_DEBUG);
+        Log.println(getClass(), "entityType: " + entityType, false, PRINT_DEBUG);
+        Log.println(getClass(), "entityId: " + entityId, false, PRINT_DEBUG);
+        Log.println(getClass(), "entityName: " + entityName, false, PRINT_DEBUG);
+        Log.println(getClass(), "tileX: " + tileX, false, PRINT_DEBUG);
+        Log.println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
+        Log.println(getClass(), "directional Byte: " + directionalByte, false, PRINT_DEBUG);
+        Log.println(getClass(), "move speed: " + moveSpeed, false, PRINT_DEBUG);
+
         return new EntitySpawnPacket(
-                clientHandler.readShort(),
-                clientHandler.readInt(),
-                clientHandler.readInt(),
-                clientHandler.readString(),
-                clientHandler.readByte(),
-                clientHandler.readFloat(),
-                clientHandler.readShort()
+                entityType,
+                entityId,
+                entityName,
+                tileX,
+                tileY,
+                directionalByte,
+                moveSpeed
         );
     }
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
         String mapName = Valenguard.gameScreen.getGameMapNameFromServer();
-        MovingEntity entity;
-
-        Log.println(getClass(), "Game Screen: " + Valenguard.gameScreen, false, PRINT_DEBUG);
-        Log.println(getClass(), "Player Session Data: " + Valenguard.gameScreen.getPlayerSessionData(), false, PRINT_DEBUG);
-
-        if (packetData.entityId == Valenguard.gameScreen.getPlayerSessionData().getClientPlayerId()) {
-            entity = new PlayerClient();
-
-            PlayerClient playerClient = (PlayerClient) entity;
-
-            AttachableCamera camera = Valenguard.gameScreen.getCamera();
-
-            Log.println(EntitySpawn.class, "Found player. Initializing the player");
-
-            // Attach entity to camera
-            camera.attachEntity(playerClient);
-
-            EntityManager.getInstance().setPlayerClient(playerClient);
-
-            Valenguard.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
-            Valenguard.getInstance().getMouseManager().setInvalidate(false);
-
-        } else {
-            entity = new MovingEntity();
+        Entity entity = null;
+        if (packetData.entityType == EntityType.CLIENT_PLAYER) {
+            entity = spawnClientPlayer(mapName, packetData);
+        } else if (packetData.entityType == EntityType.PLAYER) {
+            entity = spawnPlayer(mapName, packetData);
+        } else if (packetData.entityType == EntityType.NPC) {
+            entity = spawnNPC(mapName, packetData);
+        } else if (packetData.entityType == EntityType.ITEM) {
+            entity = spawnItem(mapName, packetData);
         }
 
+        entity.setEntityType(packetData.entityType);
         entity.setServerEntityID(packetData.entityId);
+        entity.setEntityName(packetData.entityName);
         entity.setMapName(mapName);
-
-        Log.println(getClass(), "entity type : " + entity.getClass().getSimpleName(), false, PRINT_DEBUG);
-        Log.println(getClass(), "entity id : " + packetData.entityId, false, PRINT_DEBUG);
-        Log.println(getClass(), "Tile X: " + packetData.tileX, false, PRINT_DEBUG);
-        Log.println(getClass(), "Tile Y: " + packetData.tileY, false, PRINT_DEBUG);
-        Log.println(getClass(), "entity entityName : " + packetData.entityName, false, PRINT_DEBUG);
-        Log.println(getClass(), "Move Speed : " + packetData.moveSpeed, false, PRINT_DEBUG);
-        Log.println(getClass(), "Map Name: " + mapName, false, PRINT_DEBUG);
-
-        Log.println(getClass(),"Setting the current and future map locations to: " + new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
-
         entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
-        entity.setFutureMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
+    }
 
+    private Entity spawnClientPlayer(String mapName, EntitySpawnPacket packetData) {
+        Entity entity = new PlayerClient();
+
+        PlayerClient playerClient = (PlayerClient) entity;
+        AttachableCamera camera = Valenguard.gameScreen.getCamera();
+        Log.println(EntitySpawn.class, "Found player. Initializing the player");
+
+        // Attach entity to camera
+        camera.attachEntity(playerClient);
+
+        Valenguard.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
+        Valenguard.getInstance().getMouseManager().setInvalidate(false);
+
+        setMovingEntityVars((MovingEntity) entity, mapName, packetData);
+
+        EntityManager.getInstance().setPlayerClient(playerClient);
+        return entity;
+    }
+
+    private Entity spawnPlayer(String mapName, EntitySpawnPacket packetData) {
+        Entity entity = new MovingEntity();
+        setMovingEntityVars((MovingEntity) entity, mapName, packetData);
+        return entity;
+    }
+
+    private Entity spawnNPC(String mapName, EntitySpawnPacket packetData) {
+        Entity entity = new NPC();
+        setMovingEntityVars((MovingEntity) entity, mapName, packetData);
+        return entity;
+    }
+
+    private Entity spawnItem(String mapName, EntitySpawnPacket packetData) {
+        return null;
+    }
+
+    private void setMovingEntityVars(MovingEntity entity, String mapName, EntitySpawnPacket packetData) {
+        entity.setFutureMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         MoveDirection facingDirection = MoveDirection.getDirection(packetData.facingMoveDirectionByte);
 
         if (facingDirection == MoveDirection.NONE) {
@@ -91,7 +130,17 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         entity.setFacingDirection(facingDirection);
         entity.setMoveSpeed(packetData.moveSpeed);
 
-        entity.initAnimation();
+        switch (packetData.entityType) {
+            case CLIENT_PLAYER:
+                entity.initAnimation("player");
+                break;
+            case PLAYER:
+                entity.initAnimation("player");
+                break;
+            case NPC:
+                entity.initAnimation("npc");
+                break;
+        }
 
         if (!(entity instanceof PlayerClient))
             EntityManager.getInstance().addEntity(packetData.entityId, entity);
@@ -99,12 +148,12 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
 
     @AllArgsConstructor
     class EntitySpawnPacket extends PacketData {
-        private final short entityId;
+        private EntityType entityType;
+        private short entityId;
+        private String entityName;
         private final int tileX;
         private final int tileY;
-        private final String entityName;
         private final byte facingMoveDirectionByte;
         private final float moveSpeed;
-        private final short entityType;
     }
 }

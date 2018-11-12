@@ -2,9 +2,7 @@ package com.valenguard.client.game.entities;
 
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.maps.data.GameMap;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.valenguard.client.game.maps.data.Location;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +11,12 @@ import lombok.Setter;
 @Getter
 public class Entity {
 
-    private Map<Class<?>, Object> attributes = new HashMap<Class<?>, Object>();
+    private EntityType entityType;
+
+    /**
+     * A unique ID given to this entity by the server.
+     */
+    private int serverEntityID;
 
     /**
      * The display name of this entity.
@@ -21,9 +24,9 @@ public class Entity {
     private String entityName;
 
     /**
-     * A unique ID given to this entity by the server.
+     * Spawn location of the entity
      */
-    private int serverEntityID;
+    private Location currentMapLocation;
 
     /**
      * The map this entity was last seen on.
