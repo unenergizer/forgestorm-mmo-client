@@ -66,13 +66,13 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         String mapName = Valenguard.gameScreen.getGameMapNameFromServer();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-            entity = spawnClientPlayer(mapName, packetData);
+            entity = spawnClientPlayer(packetData);
         } else if (packetData.entityType == EntityType.PLAYER) {
-            entity = spawnPlayer(mapName, packetData);
+            entity = spawnPlayer(packetData);
         } else if (packetData.entityType == EntityType.NPC) {
-            entity = spawnNPC(mapName, packetData);
+            entity = spawnNPC(packetData);
         } else if (packetData.entityType == EntityType.ITEM) {
-            entity = spawnItem(mapName, packetData);
+            entity = spawnItem(packetData);
         }
 
         entity.setEntityType(packetData.entityType);
@@ -84,7 +84,7 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
     }
 
-    private Entity spawnClientPlayer(String mapName, EntitySpawnPacket packetData) {
+    private Entity spawnClientPlayer(EntitySpawnPacket packetData) {
         Entity entity = new PlayerClient();
 
         PlayerClient playerClient = (PlayerClient) entity;
@@ -97,29 +97,29 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         Valenguard.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
         Valenguard.getInstance().getMouseManager().setInvalidate(false);
 
-        setMovingEntityVars((MovingEntity) entity, mapName, packetData);
+        setMovingEntityVars((MovingEntity) entity, packetData);
 
         EntityManager.getInstance().setPlayerClient(playerClient);
         return entity;
     }
 
-    private Entity spawnPlayer(String mapName, EntitySpawnPacket packetData) {
+    private Entity spawnPlayer(EntitySpawnPacket packetData) {
         Entity entity = new MovingEntity();
-        setMovingEntityVars((MovingEntity) entity, mapName, packetData);
+        setMovingEntityVars((MovingEntity) entity, packetData);
         return entity;
     }
 
-    private Entity spawnNPC(String mapName, EntitySpawnPacket packetData) {
+    private Entity spawnNPC(EntitySpawnPacket packetData) {
         Entity entity = new NPC();
-        setMovingEntityVars((MovingEntity) entity, mapName, packetData);
+        setMovingEntityVars((MovingEntity) entity, packetData);
         return entity;
     }
 
-    private Entity spawnItem(String mapName, EntitySpawnPacket packetData) {
+    private Entity spawnItem(EntitySpawnPacket packetData) {
         return null;
     }
 
-    private void setMovingEntityVars(MovingEntity entity, String mapName, EntitySpawnPacket packetData) {
+    private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData) {
         entity.setFutureMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         MoveDirection facingDirection = MoveDirection.getDirection(packetData.facingMoveDirectionByte);
 

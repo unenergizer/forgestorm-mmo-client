@@ -1,7 +1,6 @@
 package com.valenguard.client.network.packet.out;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Write;
 
@@ -18,7 +17,7 @@ public abstract class ClientOutPacket {
     /**
      * Used to easily send out packets to the server.
      */
-    private final ClientHandler clientHandler = ClientConnection.getInstance().getClientHandler();
+    private final ClientHandler clientHandler = Valenguard.clientConnection.getClientHandler();
 
     ClientOutPacket(byte opcode) {
         this.opcode = opcode;

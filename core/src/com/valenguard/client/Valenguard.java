@@ -2,7 +2,6 @@ package com.valenguard.client;
 
 import com.badlogic.gdx.Game;
 import com.valenguard.client.game.assets.FileManager;
-import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -32,9 +31,9 @@ import lombok.Setter;
 public class Valenguard extends Game {
 
     private static Valenguard valenguard;
-
     public static GameScreen gameScreen;
     public static LoginScreen loginScreen;
+    public static ClientConnection clientConnection;
 
     private FileManager fileManager;
     private MapManager mapManager;
@@ -45,9 +44,8 @@ public class Valenguard extends Game {
     private MouseManager mouseManager;
     private OutputStreamManager outputStreamManager;
 
-    // TODO: RELOCATE
     @Setter
-    private long ping = 0;
+    private long ping = 0; // TODO: RELOCATE
 
     @Setter
     private boolean ideRun;
@@ -63,6 +61,8 @@ public class Valenguard extends Game {
     @Override
     public void create() {
         // init managers
+        outputStreamManager = new OutputStreamManager();
+        clientConnection = new ClientConnection();
         fileManager = new FileManager();
         mapManager = new MapManager(ideRun);
         uiManager = new UiManager();
@@ -90,27 +90,22 @@ public class Valenguard extends Game {
 
     @Override
     public void render() {
-        if (ClientConnection.getInstance().isConnected()) ClientConnection.getInstance().getEventBus().gameThreadPublish();
+        if (clientConnection.isConnected()) clientConnection.getEventBus().gameThreadPublish();
         super.render();
-        if (ClientConnection.getInstance().isConnected()) outputStreamManager.sendPackets();
+        if (clientConnection.isConnected()) outputStreamManager.sendPackets();
     }
 
     @Override
     public void dispose() {
-        // dispose classes and assets
         fileManager.dispose();
         mapManager.dispose();
-        uiManager.dispose();
 
-        // dispose screens
         gameScreen.dispose();
         loginScreen.dispose();
     }
 
     public void initializeNetwork(PlayerSession playerSession) {
-        Valenguard.getInstance().getFileManager().loadAtlas(GameAtlas.MAIN_ATLAS); // TODO : RELOCATE
-        outputStreamManager = new OutputStreamManager();
-        ClientConnection.getInstance().openConnection(
+        clientConnection.openConnection(
                 playerSession,
                 ServerConstants.SERVER_ADDRESS,
                 ServerConstants.SERVER_PORT,

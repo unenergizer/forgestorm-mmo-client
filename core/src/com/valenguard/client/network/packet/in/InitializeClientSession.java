@@ -25,7 +25,7 @@ public class InitializeClientSession implements PacketListener<InitializeClientS
     @Override
     public void onEvent(InitClientSessionPacket packetData) {
 
-        final ClientConnection client = ClientConnection.getInstance();
+        final ClientConnection client = Valenguard.clientConnection;
 
         // TODO: Check for authentication
 

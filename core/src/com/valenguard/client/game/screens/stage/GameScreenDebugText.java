@@ -1,13 +1,15 @@
 package com.valenguard.client.game.screens.stage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 
-public class GameScreenDebugText implements com.valenguard.client.game.screens.stage.AbstractUI, com.valenguard.client.game.screens.stage.Refreshable {
+public class GameScreenDebugText extends AbstractUI implements Refreshable {
 
     private static final boolean DEBUG_STAGE = false;
     private Label delta, fps, ms, uuid, playerTile, playerPixel, zoom, cursorTile, leftCursorTileClick, rightCursorTileClick;
@@ -33,24 +35,30 @@ public class GameScreenDebugText implements com.valenguard.client.game.screens.s
     }
 
     @Override
-    public void build(com.valenguard.client.game.screens.stage.UiManager uiManager) {
+    public void build(Skin skin) {
 
         PlayerClient client = EntityManager.getInstance().getPlayerClient();
+
+        Group group = new Group();
+        group.setName("debug");
+
 
         Table wrapperTable = new Table();
         wrapperTable.setFillParent(true);
         wrapperTable.setDebug(DEBUG_STAGE);
-        uiManager.stage.addActor(wrapperTable);
+        addActor(wrapperTable);
 
         Table infoTable = new Table();
         infoTable.setFillParent(false);
         infoTable.setDebug(DEBUG_STAGE);
-        uiManager.stage.addActor(infoTable);
+        addActor(infoTable);
+
+        group.addActor(infoTable);
 
         // create version widgets
-        delta = new Label("DeltaTime: " + Math.round(Gdx.graphics.getDeltaTime() * 100000.0) / 100000.0, uiManager.skin);
-        fps = new Label("FPS: " + Gdx.graphics.getFramesPerSecond(), uiManager.skin);
-        ms = new Label("MS: " + Valenguard.getInstance().getPing(), uiManager.skin);
+        delta = new Label("DeltaTime: " + Math.round(Gdx.graphics.getDeltaTime() * 100000.0) / 100000.0, skin);
+        fps = new Label("FPS: " + Gdx.graphics.getFramesPerSecond(), skin);
+        ms = new Label("MS: " + Valenguard.getInstance().getPing(), skin);
 
         wrapperTable.add(infoTable).expand().left().top().pad(10);
 
@@ -62,13 +70,13 @@ public class GameScreenDebugText implements com.valenguard.client.game.screens.s
         infoTable.row();
 
         if (client != null && client.getCurrentMapLocation() != null) {
-            uuid = new Label("UUID: " + client.getServerEntityID(), uiManager.skin);
-            playerTile = new Label("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName(), uiManager.skin);
-            playerPixel = new Label("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY(), uiManager.skin);
-            cursorTile = new Label("Cursor-Tile X: " + Valenguard.getInstance().getMouseManager().getMouseTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getMouseTileY(), uiManager.skin);
-            leftCursorTileClick = new Label("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY(), uiManager.skin);
-            rightCursorTileClick = new Label("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY(), uiManager.skin);
-            zoom = new Label("Zoom: " + Valenguard.gameScreen.getCamera().zoom, uiManager.skin);
+            uuid = new Label("UUID: " + client.getServerEntityID(), skin);
+            playerTile = new Label("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName(), skin);
+            playerPixel = new Label("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY(), skin);
+            cursorTile = new Label("Cursor-Tile X: " + Valenguard.getInstance().getMouseManager().getMouseTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getMouseTileY(), skin);
+            leftCursorTileClick = new Label("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY(), skin);
+            rightCursorTileClick = new Label("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY(), skin);
+            zoom = new Label("Zoom: " + Valenguard.gameScreen.getCamera().zoom, skin);
 
             infoTable.add(uuid).left();
             infoTable.row();
@@ -84,5 +92,10 @@ public class GameScreenDebugText implements com.valenguard.client.game.screens.s
             infoTable.row();
             infoTable.add(zoom).left();
         }
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }

@@ -12,8 +12,6 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
@@ -21,8 +19,8 @@ import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.assets.GameFont;
 import com.valenguard.client.game.assets.GamePixmap;
+import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.assets.GameTexture;
-import com.valenguard.client.game.assets.GameUI;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
@@ -48,15 +46,12 @@ public class GameScreen implements Screen {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private UiManager uiManager;
     private FileManager fileManager;
     private SpriteBatch spriteBatch;
 
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
-
-    // TODO: RELOCATE
-    private Stage stage;
-    private Skin skin;
 
     @Setter
     private String gameMapNameFromServer;
@@ -80,13 +75,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
+
         fileManager = Valenguard.getInstance().getFileManager();
         spriteBatch = new SpriteBatch();
 
         // Setup camera
         camera = new AttachableCamera(ClientConstants.SCREEN_WIDTH, ClientConstants.SCREEN_HEIGHT, ClientConstants.ZOOM_DEFAULT);
         screenViewport = new ScreenViewport();
-        stage = new Stage(screenViewport);
 
         // Load assets
         fileManager.loadFont(GameFont.TEST_FONT);
@@ -108,9 +104,8 @@ public class GameScreen implements Screen {
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // Show UI
-        skin = new Skin(Gdx.files.internal(GameUI.UI_SKIN.getFilePath()));
-        UiManager uiManager = Valenguard.getInstance().getUiManager();
-        uiManager.setup(stage, skin);
+        uiManager = Valenguard.getInstance().getUiManager();
+        uiManager.setup(screenViewport, GameSkin.DEFAULT);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -161,7 +156,7 @@ public class GameScreen implements Screen {
             final GlyphLayout layout;
 
             if (entity.getEntityType() == EntityType.NPC) {
-                font.setColor(Color.LIME);
+                font.setColor(Color.ORANGE);
                 layout = new GlyphLayout(font, "[NPC] " + entity.getEntityName());
             } else {
                 font.setColor(Color.YELLOW);
@@ -196,10 +191,7 @@ public class GameScreen implements Screen {
         }
         mapRenderer.getBatch().end();
 
-        // Render UI
-        Valenguard.getInstance().getUiManager().refreshAbstractUi();
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
+        Valenguard.getInstance().getUiManager().render(delta);
     }
 
     private void tickGameLogic(float delta) {
@@ -211,9 +203,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        screenViewport.update(width, height, true);
+        Log.println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         camera.setToOrtho(false, width, height);
-        stage.getViewport().update(width, height, true);
+        uiManager.resize(width, height);
     }
 
     @Override
@@ -230,14 +222,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        Valenguard.getInstance().getUiManager().dispose();
+        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         if (mapRenderer != null) mapRenderer.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
-        if (stage != null) stage.dispose();
-        if (skin != null) skin.dispose();
-        fileManager.unloadAsset(GameTexture.TEMP_PLAYER_IMG.getFilePath());
-        fileManager.unloadAsset(GameTexture.TEMP_OTHER_PLAYER_IMG.getFilePath());
-        fileManager.unloadAsset(GameTexture.TILE_PATH.getFilePath());
+        if (uiManager != null) uiManager.removeAllUi();
+        if (fileManager != null) fileManager.dispose();
     }
 
     /**

@@ -68,6 +68,7 @@ public class KeyboardMovement {
     }
 
     public void keyUp(int keycode) {
+        if (invalidated) return;
 
         // Player movement input release
         MoveDirection letOffDirection = null;

@@ -23,8 +23,6 @@ import lombok.Getter;
 
 public class ClientConnection {
 
-    private static ClientConnection instance;
-
     @Getter
     private final EventBus eventBus = new EventBus();
     private final int SECONDS_TO_TIMEOUT = 10;
@@ -33,19 +31,6 @@ public class ClientConnection {
 
     @Getter
     private boolean connected;
-
-    private ClientConnection() {
-    }
-
-    /**
-     * Gets the main instance of this class.
-     *
-     * @return A singleton instance of this class.
-     */
-    public static ClientConnection getInstance() {
-        if (instance == null) instance = new ClientConnection();
-        return instance;
-    }
 
     /**
      * Attempts to establish a connection with the server.
@@ -182,7 +167,7 @@ public class ClientConnection {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                Valenguard.getInstance().getUiManager().show(new ConnectionMessageUI(infoMessage, color));
+                Valenguard.getInstance().getUiManager().addUi("infoMessage", new ConnectionMessageUI(infoMessage, color), true);
             }
         });
     }

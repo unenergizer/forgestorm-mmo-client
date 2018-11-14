@@ -18,10 +18,12 @@ public class Keyboard implements InputProcessor {
         if (keycode == KeyBinds.PRINT_DEBUG) {
             if (showDebug) {
                 showDebug = false;
-                Valenguard.getInstance().getUiManager().show(new GameScreenDebugText());
+                if (!Valenguard.getInstance().getUiManager().exist("debug"))
+                    Valenguard.getInstance().getUiManager().addUi("debug", new GameScreenDebugText(), true);
+                Valenguard.getInstance().getUiManager().show("debug");
             } else {
                 showDebug = true;
-                Valenguard.getInstance().getUiManager().show(null);
+                Valenguard.getInstance().getUiManager().hide("debug");
             }
             return false;
         }

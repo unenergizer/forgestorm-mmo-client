@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.PixmapLoader;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
@@ -16,11 +17,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.valenguard.client.util.Log;
 
 @SuppressWarnings("unused")
 public class FileManager {
 
+    private static final boolean PRINT_DEBUG = false;
+    
     private AssetManager assetManager = new AssetManager();
     private InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
 
@@ -58,7 +62,7 @@ public class FileManager {
         if (isFileLoaded(filePath)) {
             assetManager.unload(filePath);
         } else {
-            Log.println(getClass(), "Asset " + filePath + " not loaded. Nothing to unload.", true);
+            Log.println(getClass(), "Asset " + filePath + " not loaded. Nothing to unload.", true, PRINT_DEBUG);
         }
     }
 
@@ -70,7 +74,7 @@ public class FileManager {
     public void loadMusic(GameMusic gameMusic) {
         // check if already loaded
         if (isFileLoaded(gameMusic.getFilePath())) {
-            Log.println(getClass(), "Music already loaded: " + gameMusic.getFilePath(), true);
+            Log.println(getClass(), "Music already loaded: " + gameMusic.getFilePath(), true, PRINT_DEBUG);
             return;
         }
 
@@ -80,7 +84,7 @@ public class FileManager {
             assetManager.load(gameMusic.getFilePath(), Music.class);
             assetManager.finishLoadingAsset(gameMusic.getFilePath());
         } else {
-            Log.println(getClass(), "Music doesn't exist: " + gameMusic.getFilePath(), true);
+            Log.println(getClass(), "Music doesn't exist: " + gameMusic.getFilePath(), true, PRINT_DEBUG);
         }
     }
 
@@ -96,7 +100,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameMusic.getFilePath())) {
             music = assetManager.get(gameMusic.getFilePath(), Music.class);
         } else {
-            Log.println(getClass(), "Music not loaded: " + gameMusic.getFilePath(), true);
+            Log.println(getClass(), "Music not loaded: " + gameMusic.getFilePath(), true, PRINT_DEBUG);
         }
 
         return music;
@@ -110,7 +114,7 @@ public class FileManager {
     public void loadSound(GameSound gameSound) {
         // check if already loaded
         if (isFileLoaded(gameSound.getFilePath())) {
-            Log.println(getClass(), "Sound already loaded: " + gameSound.getFilePath(), true);
+            Log.println(getClass(), "Sound already loaded: " + gameSound.getFilePath(), true, PRINT_DEBUG);
             return;
         }
 
@@ -120,7 +124,7 @@ public class FileManager {
             assetManager.load(gameSound.getFilePath(), Sound.class);
             assetManager.finishLoadingAsset(gameSound.getFilePath());
         } else {
-            Log.println(getClass(), "Sound doesn't exist: " + gameSound.getFilePath(), true);
+            Log.println(getClass(), "Sound doesn't exist: " + gameSound.getFilePath(), true, PRINT_DEBUG);
         }
 
     }
@@ -137,7 +141,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameSound.getFilePath())) {
             sound = assetManager.get(gameSound.getFilePath(), Sound.class);
         } else {
-            Log.println(getClass(), "Sound not loaded: " + gameSound.getFilePath(), true);
+            Log.println(getClass(), "Sound not loaded: " + gameSound.getFilePath(), true, PRINT_DEBUG);
         }
 
         return sound;
@@ -151,7 +155,7 @@ public class FileManager {
     public void loadTexture(GameTexture gameTexture) {
         // check if already loaded
         if (isFileLoaded(gameTexture.getFilePath())) {
-            Log.println(getClass(), "Texture already loaded: " + gameTexture.getFilePath(), true);
+            Log.println(getClass(), "Texture already loaded: " + gameTexture.getFilePath(), true, PRINT_DEBUG);
             return;
         }
 
@@ -161,7 +165,7 @@ public class FileManager {
             assetManager.load(gameTexture.getFilePath(), Texture.class);
             assetManager.finishLoadingAsset(gameTexture.getFilePath());
         } else {
-            Log.println(getClass(), "Texture doesn't exist: " + gameTexture.getFilePath(), true);
+            Log.println(getClass(), "Texture doesn't exist: " + gameTexture.getFilePath(), true, PRINT_DEBUG);
         }
     }
 
@@ -177,7 +181,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameTexture.getFilePath())) {
             texture = assetManager.get(gameTexture.getFilePath(), Texture.class);
         } else {
-            Log.println(getClass(), "Texture not loaded: " + gameTexture.getFilePath(), true);
+            Log.println(getClass(), "Texture not loaded: " + gameTexture.getFilePath(), true, PRINT_DEBUG);
         }
 
         return texture;
@@ -216,7 +220,7 @@ public class FileManager {
         if (assetManager.isLoaded(mapFilePath)) {
             tiledMap = assetManager.get(mapFilePath, TiledMap.class);
         } else {
-            Log.println(getClass(), "TiledMap not loaded: " + mapFilePath, true);
+            Log.println(getClass(), "TiledMap not loaded: " + mapFilePath, true, PRINT_DEBUG);
         }
 
         return tiledMap;
@@ -225,7 +229,7 @@ public class FileManager {
     public void loadFont(GameFont gameFont) {
         // check if already loaded
         if (isFileLoaded(gameFont.getFilePath())) {
-            Log.println(getClass(), "Sound already loaded: " + gameFont, true);
+            Log.println(getClass(), "Sound already loaded: " + gameFont.getFilePath(), true, PRINT_DEBUG);
             return;
         }
 
@@ -235,7 +239,7 @@ public class FileManager {
             assetManager.load(gameFont.getFilePath(), BitmapFont.class);
             assetManager.finishLoadingAsset(gameFont.getFilePath());
         } else {
-            Log.println(getClass(), "Font doesn't exist: " + gameFont.getFilePath(), true);
+            Log.println(getClass(), "Font doesn't exist: " + gameFont.getFilePath(), true, PRINT_DEBUG);
         }
 
     }
@@ -246,7 +250,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameFont.getFilePath())) {
             bitmapFont = assetManager.get(gameFont.getFilePath(), BitmapFont.class);
         } else {
-            Log.println(getClass(), "Font not loaded: " + gameFont, true);
+            Log.println(getClass(), "Font not loaded: " + gameFont.getFilePath(), true, PRINT_DEBUG);
         }
 
         return bitmapFont;
@@ -255,7 +259,7 @@ public class FileManager {
     public void loadAtlas(GameAtlas gameAtlas) {
         // check if already loaded
         if (isFileLoaded(gameAtlas.getFilePath())) {
-            Log.println(getClass(), "Atlas already loaded: " + gameAtlas, true);
+            Log.println(getClass(), "Atlas already loaded: " + gameAtlas.getFilePath(), true, PRINT_DEBUG);
             return;
         }
 
@@ -265,7 +269,7 @@ public class FileManager {
             assetManager.load(gameAtlas.getFilePath(), TextureAtlas.class);
             assetManager.finishLoadingAsset(gameAtlas.getFilePath());
         } else {
-            Log.println(getClass(), "Atlas doesn't exist: " + gameAtlas.getFilePath(), true);
+            Log.println(getClass(), "Atlas doesn't exist: " + gameAtlas.getFilePath(), true, PRINT_DEBUG);
         }
     }
 
@@ -275,7 +279,7 @@ public class FileManager {
         if (assetManager.isLoaded(gameAtlas.getFilePath())) {
             textureAtlas = assetManager.get(gameAtlas.getFilePath(), TextureAtlas.class);
         } else {
-            Log.println(getClass(), "Atlas not loaded: " + gameAtlas.getFilePath(), true);
+            Log.println(getClass(), "Atlas not loaded: " + gameAtlas.getFilePath(), true, PRINT_DEBUG);
         }
 
         return textureAtlas;
@@ -284,7 +288,7 @@ public class FileManager {
     public void loadPixmap(GamePixmap gamePixmap) {
         // check if already loaded
         if (isFileLoaded(gamePixmap.getFilePath())) {
-            Log.println(getClass(), "Pixmap already loaded: " + gamePixmap.getFilePath(), true);
+            Log.println(getClass(), "Pixmap already loaded: " + gamePixmap.getFilePath(), true, PRINT_DEBUG);
             return;
         }
 
@@ -294,7 +298,7 @@ public class FileManager {
             assetManager.load(gamePixmap.getFilePath(), Pixmap.class);
             assetManager.finishLoadingAsset(gamePixmap.getFilePath());
         } else {
-            Log.println(getClass(), "Pixmap doesn't exist: " + gamePixmap.getFilePath(), true);
+            Log.println(getClass(), "Pixmap doesn't exist: " + gamePixmap.getFilePath(), true, PRINT_DEBUG);
         }
     }
 
@@ -304,9 +308,38 @@ public class FileManager {
         if (assetManager.isLoaded(gamePixmap.getFilePath())) {
             pixmap = assetManager.get(gamePixmap.getFilePath(), Pixmap.class);
         } else {
-            Log.println(getClass(), "Pixmap not loaded: " + gamePixmap, true);
+            Log.println(getClass(), "Pixmap not loaded: " + gamePixmap.getFilePath(), true, PRINT_DEBUG);
         }
 
         return pixmap;
+    }
+
+    public void loadSkin(GameSkin gameSkin) {
+        // check if already loaded
+        if (isFileLoaded(gameSkin.getFilePath())) {
+            Log.println(getClass(), "GameSkin already loaded: " + gameSkin.getFilePath(), true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(gameSkin.getFilePath()).exists()) {
+            assetManager.setLoader(Skin.class, new SkinLoader(filePathResolver));
+            assetManager.load(gameSkin.getFilePath(), Skin.class);
+            assetManager.finishLoadingAsset(gameSkin.getFilePath());
+        } else {
+            Log.println(getClass(), "GameSkin doesn't exist: " + gameSkin.getFilePath(), true, PRINT_DEBUG);
+        }
+    }
+
+    public Skin getSkin(GameSkin gameSkin) {
+        Skin skin = null;
+
+        if (assetManager.isLoaded(gameSkin.getFilePath())) {
+            skin = assetManager.get(gameSkin.getFilePath(), Skin.class);
+        } else {
+            Log.println(getClass(), "Skin not loaded: " + gameSkin.getFilePath(), true, PRINT_DEBUG);
+        }
+
+        return skin;
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -13,10 +14,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameTexture;
-import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.PlayerSession;
 
-public class LoginScreenUI implements AbstractUI, Disposable {
+public class LoginScreenUI extends AbstractUI implements Disposable {
 
     private static final boolean DEBUG_STAGE = false;
 
@@ -24,7 +24,7 @@ public class LoginScreenUI implements AbstractUI, Disposable {
     private TextField passwordField = null;
 
     @Override
-    public void build(com.valenguard.client.game.screens.stage.UiManager uiManager) {
+    public void build(Skin skin) {
         /*
          * SETUP LOGIN
          */
@@ -32,32 +32,32 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         loginTable.setFillParent(true);
         loginTable.setDebug(DEBUG_STAGE);
         loginTable.setColor(Color.RED);
-        uiManager.stage.addActor(loginTable);
+        addActor(loginTable);
 
         // create login widgets
         Valenguard.getInstance().getFileManager().loadTexture(GameTexture.LOGO_BIG);
         Image logo = new Image(Valenguard.getInstance().getFileManager().getTexture(GameTexture.LOGO_BIG));
-        Label accountLabel = new Label("Username", uiManager.skin);
-        Label passwordLabel = new Label("Password", uiManager.skin);
+        Label accountLabel = new Label("Username", skin);
+        Label passwordLabel = new Label("Password", skin);
 
         // If the account field existed before a stage rebuild, keep its contents.
         // Basically if the player tries to connect but fails, keep their login id.
         if (accountField == null) {
-            accountField = new TextField(null, uiManager.skin);
+            accountField = new TextField(null, skin);
             accountField.setFocusTraversal(false);
             accountField.setMaxLength(12);
         }
 
-        passwordField = new TextField(null, uiManager.skin);
+        passwordField = new TextField(null, skin);
         passwordField.setFocusTraversal(false);
         passwordField.setPasswordMode(true);
         passwordField.setPasswordCharacter('#');
         passwordField.setMaxLength(16);
 
-        TextButton loginButton = new TextButton("Login", uiManager.skin);
+        TextButton loginButton = new TextButton("Login", skin);
         loginButton.pad(3, 10, 3, 10);
 
-        // add widgets to table
+        // addUi widgets to table
         loginTable.add(logo).colspan(2).pad(0, 0, 30, 0);
         loginTable.row().pad(10);
         loginTable.add(accountLabel);
@@ -87,10 +87,10 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         Table versionTable = new Table();
         versionTable.setFillParent(true);
         versionTable.setDebug(DEBUG_STAGE);
-        uiManager.stage.addActor(versionTable);
+        addActor(versionTable);
 
         // create version widgets
-        Label versionLabel = new Label("ClientConnection version " + ClientConstants.GAME_VERSION, uiManager.skin);
+        Label versionLabel = new Label("ClientConnection version " + ClientConstants.GAME_VERSION, skin);
         versionLabel.setFontScale(.8f);
 
         // init client version in lower left hand corner
@@ -102,10 +102,10 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         Table copyrightTable = new Table();
         copyrightTable.setFillParent(true);
         copyrightTable.setDebug(DEBUG_STAGE);
-        uiManager.stage.addActor(copyrightTable);
+        addActor(copyrightTable);
 
         // create copyright widgets
-        Label copyrightLabel = new Label("Copyright © 2017-2018 Valenguard MMO. All Rights Reserved.", uiManager.skin);
+        Label copyrightLabel = new Label("Copyright © 2017-2018 Valenguard MMO. All Rights Reserved.", skin);
         copyrightLabel.setFontScale(.8f);
 
         // init client version in bottom middle of the screen
@@ -117,21 +117,21 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         Table buttonTable = new Table();
         buttonTable.setFillParent(false);
         buttonTable.setDebug(DEBUG_STAGE);
-        uiManager.stage.addActor(buttonTable);
+        addActor(buttonTable);
 
         Table buttonTableWrapper = new Table();
         buttonTableWrapper.setFillParent(true);
         buttonTableWrapper.setDebug(DEBUG_STAGE);
-        uiManager.stage.addActor(buttonTableWrapper);
+        addActor(buttonTableWrapper);
 
         // create help widgets
-        TextButton registerButton = new TextButton("New Account", uiManager.skin);
+        TextButton registerButton = new TextButton("New Account", skin);
         registerButton.pad(3, 10, 3, 10);
-        TextButton forgotPasswordButton = new TextButton("Forgot Password", uiManager.skin);
+        TextButton forgotPasswordButton = new TextButton("Forgot Password", skin);
         forgotPasswordButton.pad(3, 10, 3, 10);
-        TextButton settingsButton = new TextButton("Settings", uiManager.skin);
+        TextButton settingsButton = new TextButton("Settings", skin);
         settingsButton.pad(3, 10, 3, 10);
-        TextButton exitButton = new TextButton("Exit", uiManager.skin);
+        TextButton exitButton = new TextButton("Exit", skin);
         registerButton.pad(3, 10, 3, 10);
 
         float buttonWidth = 150;
@@ -145,7 +145,7 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         buttonTable.row();
         buttonTable.add(exitButton).pad(3, 0, 3, 0).width(buttonWidth);
 
-        // add button table to the button table wrapper
+        // addUi button table to the button table wrapper
         buttonTableWrapper.add(buttonTable).expand().bottom().right().pad(10);
 
         // opens up web page for player registration
@@ -191,7 +191,7 @@ public class LoginScreenUI implements AbstractUI, Disposable {
         // Clear password filed.
         passwordField.setText("");
 
-        if (!ClientConnection.getInstance().isConnected())
+        if (!Valenguard.clientConnection.isConnected())
             Valenguard.getInstance().initializeNetwork(new PlayerSession(username, password));
     }
 
@@ -209,7 +209,7 @@ public class LoginScreenUI implements AbstractUI, Disposable {
             // user hit enter/tab/etc, lets playerMove to next text field
             if (c == '\n' || c == '\r' || c == '\t') {
                 // TODO: EVALUATE FOR BUGS!
-                Valenguard.getInstance().getUiManager().stage.setKeyboardFocus(passwordField);
+                Valenguard.getInstance().getUiManager().getStage().setKeyboardFocus(passwordField);
             }
         }
     }

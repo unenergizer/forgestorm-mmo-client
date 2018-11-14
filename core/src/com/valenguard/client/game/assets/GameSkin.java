@@ -1,12 +1,13 @@
 package com.valenguard.client.game.assets;
 
 @SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
-public enum GameUI {
-    UI_SKIN("uiskin.json");
+public enum GameSkin {
+
+    DEFAULT("uiskin.json");
 
     private final String filePath;
 
-    GameUI(String filePath) {
+    GameSkin(String filePath) {
         this.filePath = filePath;
     }
 
