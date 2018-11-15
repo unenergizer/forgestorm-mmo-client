@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.stage;
+package com.valenguard.client.game.screens.stage.login;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameTexture;
+import com.valenguard.client.game.screens.stage.AbstractUI;
 import com.valenguard.client.network.PlayerSession;
 
 public class LoginScreenUI extends AbstractUI implements Disposable {

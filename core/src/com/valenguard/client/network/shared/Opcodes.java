@@ -6,6 +6,7 @@ public class Opcodes {
      * SHARED
      */
     public static final byte PING = 0x00;
+    public static final byte CHAT = 0x0A;
 
     /**
      * SERVER -> CLIENT

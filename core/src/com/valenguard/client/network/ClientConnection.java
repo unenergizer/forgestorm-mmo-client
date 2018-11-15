@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
-import com.valenguard.client.game.screens.stage.ConnectionMessageUI;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.util.Log;
@@ -164,11 +163,11 @@ public class ClientConnection {
      * @param color       The color of the message we are sending.
      */
     public void threadSafeConnectionMessage(final String infoMessage, final Color color) {
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run() {
-                Valenguard.getInstance().getUiManager().addUi("infoMessage", new ConnectionMessageUI(infoMessage, color), true);
-            }
-        });
+//        Gdx.app.postRunnable(new Runnable() {
+//            @Override
+//            public void run() {
+//                Valenguard.getInstance().getUiManager().addUi("infoMessage", new ConnectionMessageUI(infoMessage, color), true);
+//            }
+//        });
     }
 }

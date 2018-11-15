@@ -1,5 +1,5 @@
 package com.valenguard.client.game.screens.stage;
 
-interface Refreshable {
+public interface Refreshable {
     void refresh();
 }

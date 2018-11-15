@@ -58,6 +58,14 @@ public class UiManager implements Disposable {
         }
     }
 
+    public AbstractUI getAbstractUI(String name) {
+        AbstractUI abstractUI = null;
+        for (Actor actor : stage.getActors()) {
+            if (actor.getName().equals(name)) abstractUI = (AbstractUI) actor;
+        }
+        return abstractUI;
+    }
+
     public void show(String name) {
         uiMap.get(name).setVisible(true);
     }

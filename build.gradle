@@ -95,7 +95,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
-        compileOnly 'org.projectlombok:lombok:1.18.2'
+        compileOnly 'org.projectlombok:lombok:1.18.4'
     }
 }
 

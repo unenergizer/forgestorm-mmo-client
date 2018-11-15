@@ -11,8 +11,8 @@ import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.assets.GameTexture;
-import com.valenguard.client.game.screens.stage.LoginScreenUI;
 import com.valenguard.client.game.screens.stage.UiManager;
+import com.valenguard.client.game.screens.stage.login.LoginScreenUI;
 import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.Log;
 

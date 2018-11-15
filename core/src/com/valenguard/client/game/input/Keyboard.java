@@ -3,7 +3,7 @@ package com.valenguard.client.game.input;
 import com.badlogic.gdx.InputProcessor;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.movement.KeyboardMovement;
-import com.valenguard.client.game.screens.stage.GameScreenDebugText;
+import com.valenguard.client.game.screens.stage.game.GameScreenDebugText;
 
 import lombok.Getter;
 

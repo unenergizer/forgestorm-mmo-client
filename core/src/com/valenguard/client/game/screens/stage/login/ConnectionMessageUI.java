@@ -1,9 +1,10 @@
-package com.valenguard.client.game.screens.stage;
+package com.valenguard.client.game.screens.stage.login;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.valenguard.client.game.screens.stage.AbstractUI;
 
 public class ConnectionMessageUI extends AbstractUI {
 

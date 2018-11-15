@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.stage;
+package com.valenguard.client.game.screens.stage.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.screens.stage.AbstractUI;
+import com.valenguard.client.game.screens.stage.Refreshable;
 
 public class GameScreenDebugText extends AbstractUI implements Refreshable {
 

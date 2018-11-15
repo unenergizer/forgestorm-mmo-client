@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import lombok.Getter;
 
-abstract class AbstractUI extends WidgetGroup implements Disposable {
+public abstract class AbstractUI extends WidgetGroup implements Disposable {
 
     @Getter
     private boolean refreshable = false;
@@ -18,5 +18,5 @@ abstract class AbstractUI extends WidgetGroup implements Disposable {
         setName(name);
     }
 
-    abstract void build(Skin skin);
+    public abstract void build(Skin skin);
 }

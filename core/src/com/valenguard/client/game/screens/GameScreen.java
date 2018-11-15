@@ -30,6 +30,7 @@ import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.maps.MapUtil;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.screens.stage.UiManager;
+import com.valenguard.client.game.screens.stage.game.ChatBox;
 import com.valenguard.client.network.PlayerSessionData;
 import com.valenguard.client.util.AttachableCamera;
 import com.valenguard.client.util.GraphicsUtils;
@@ -106,6 +107,7 @@ public class GameScreen implements Screen {
         // Show UI
         uiManager = Valenguard.getInstance().getUiManager();
         uiManager.setup(screenViewport, GameSkin.DEFAULT);
+        uiManager.addUi("chatbox", new ChatBox(), true);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -119,6 +121,8 @@ public class GameScreen implements Screen {
         GraphicsUtils.clearScreen(21f, 21f, 21f, 0);
 
         if (EntityManager.getInstance().getPlayerClient() == null) return;
+
+//        ((ChatBox)Valenguard.getInstance().getUiManager().getAbstractUI("chatbox")).updateChatBox("delta: " + delta);
 
         tickGameLogic(delta);
 
@@ -153,26 +157,27 @@ public class GameScreen implements Screen {
             entity.animate(delta, spriteBatch);
             float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
             float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-            final GlyphLayout layout;
+            GlyphLayout layout = null;
 
             if (entity.getEntityType() == EntityType.NPC) {
-                font.setColor(Color.ORANGE);
-                layout = new GlyphLayout(font, "[NPC] " + entity.getEntityName());
-            } else {
-                font.setColor(Color.YELLOW);
-                layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
+                font.setColor(Color.GOLD);
+                layout = new GlyphLayout(font, entity.getEntityName());
             }
+//            else {
+//                font.setColor(Color.YELLOW);
+//                layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
+//            }
             font.draw(spriteBatch, layout, x - (layout.width / 2), y);
         }
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         playerClient.animate(delta, spriteBatch);
 
-        float x = playerClient.getDrawX() + (playerTexture.getWidth() / 2f);
-        float y = playerClient.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-        font.setColor(Color.YELLOW);
-        final GlyphLayout layout = new GlyphLayout(font, Integer.toString(playerClient.getServerEntityID()));
-        font.draw(spriteBatch, layout, x - (layout.width / 2), y);
+//        float x = playerClient.getDrawX() + (playerTexture.getWidth() / 2f);
+//        float y = playerClient.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
+//        font.setColor(Color.YELLOW);
+//        final GlyphLayout layout = new GlyphLayout(font, Integer.toString(playerClient.getServerEntityID()));
+//        font.draw(spriteBatch, layout, x - (layout.width / 2), y);
 
         // Draw mouse
         if (!MapUtil.isTraversable(playerClient.getGameMap(), Valenguard.getInstance().getMouseManager().getMouseTileX(), Valenguard.getInstance().getMouseManager().getMouseTileY())) {

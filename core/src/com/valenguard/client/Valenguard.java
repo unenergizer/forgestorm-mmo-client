@@ -20,6 +20,7 @@ import com.valenguard.client.network.packet.in.EntitySpawn;
 import com.valenguard.client.network.packet.in.InitializeClientSession;
 import com.valenguard.client.network.packet.in.InitializeGameMap;
 import com.valenguard.client.network.packet.in.PingIn;
+import com.valenguard.client.network.packet.in.ReceiveChatMessage;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
@@ -118,6 +119,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new EntitySpawn());
                         eventBus.registerListener(new EntityDespawn());
                         eventBus.registerListener(new InitializeGameMap());
+                        eventBus.registerListener(new ReceiveChatMessage());
                     }
                 });
     }
