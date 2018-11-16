@@ -21,6 +21,7 @@ import com.valenguard.client.game.assets.GameFont;
 import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.assets.GameTexture;
+import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
@@ -113,8 +114,10 @@ public class GameScreen implements Screen {
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(keyboard);
         multiplexer.addProcessor(new Mouse());
+        multiplexer.addProcessor(uiManager.getStage());
         Gdx.input.setInputProcessor(multiplexer);
     }
+
 
     @Override
     public void render(float delta) {
@@ -155,19 +158,7 @@ public class GameScreen implements Screen {
 
         for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
             entity.animate(delta, spriteBatch);
-            float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
-            float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
-            GlyphLayout layout = null;
-
-            if (entity.getEntityType() == EntityType.NPC) {
-                font.setColor(Color.GOLD);
-                layout = new GlyphLayout(font, entity.getEntityName());
-            }
-//            else {
-//                font.setColor(Color.YELLOW);
-//                layout = new GlyphLayout(font, Integer.toString(entity.getServerEntityID()));
-//            }
-            font.draw(spriteBatch, layout, x - (layout.width / 2), y);
+            drawEntityName(entity);
         }
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
@@ -197,6 +188,33 @@ public class GameScreen implements Screen {
         mapRenderer.getBatch().end();
 
         Valenguard.getInstance().getUiManager().render(delta);
+    }
+
+    private GlyphLayout layout1 = null;
+    private GlyphLayout layout2 = null;
+
+    private void drawEntityName(Entity entity) {
+        float x = entity.getDrawX() + (playerTexture.getWidth() / 2f);
+        float y = entity.getDrawY() + (playerTexture.getHeight() + ClientConstants.namePlateDistanceInPixels);
+
+
+        if (entity.getEntityType() == EntityType.NPC) {
+            font.setColor(Color.BLACK);
+            layout2 = new GlyphLayout(font, entity.getEntityName());
+            font.setColor(Color.LIME);
+            layout1 = new GlyphLayout(font, entity.getEntityName());
+        } else {
+            font.setColor(Color.BLACK);
+            layout2 = new GlyphLayout(font, entity.getEntityName());
+            font.setColor(Color.GOLD);
+            layout1 = new GlyphLayout(font, entity.getEntityName());
+        }
+
+        font.setColor(Color.BLACK);
+        font.draw(spriteBatch, layout2, x - (layout2.width / 2) + .8f, y - .8f);
+
+        font.setColor(Color.GOLD);
+        font.draw(spriteBatch, layout1, x - (layout1.width / 2), y);
     }
 
     private void tickGameLogic(float delta) {

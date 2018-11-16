@@ -7,6 +7,7 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
+import com.valenguard.client.util.Log;
 
 import lombok.AllArgsConstructor;
 
@@ -20,6 +21,7 @@ public class ReceiveChatMessage implements PacketListener<ReceiveChatMessage.Cha
 
     @Override
     public void onEvent(ChatMessagePacket packetData) {
+        Log.println(getClass(), packetData.chatMessage);
         ((ChatBox) Valenguard.getInstance().getUiManager().getAbstractUI("chatbox")).updateChatBox(packetData.chatMessage);
     }
 

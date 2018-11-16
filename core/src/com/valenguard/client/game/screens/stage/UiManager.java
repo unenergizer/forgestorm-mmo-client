@@ -47,6 +47,7 @@ public class UiManager implements Disposable {
         abstractUI.build(skin);
         abstractUI.setVisible(displayNow);
         stage.addActor(abstractUI);
+//        stage.addListener()
         uiMap.put(name, abstractUI);
     }
 
