@@ -51,21 +51,24 @@ public class MovingEntity extends Entity {
     private TextureAtlas textureAtlas;
 
     @Getter
-    private int headId = 0;
+    private short headId = 0;
     private Animation<TextureRegion> headDown;
     private Animation<TextureRegion> headUp;
     private Animation<TextureRegion> headLeft;
     private Animation<TextureRegion> headRight;
 
     @Getter
-    private int bodyId = 0;
+    private short bodyId = 0;
     private Animation<TextureRegion> walkDown;
     private Animation<TextureRegion> walkUp;
     private Animation<TextureRegion> walkLeft;
     private Animation<TextureRegion> walkRight;
 
-
     public void setBodyParts(int headId, int bodyId) {
+        setBodyParts((short) headId, (short) bodyId);
+    }
+
+    public void setBodyParts(short headId, short bodyId) {
         this.headId = headId;
         this.bodyId = bodyId;
         textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.MAIN_ATLAS);

@@ -11,6 +11,7 @@ import com.valenguard.client.game.movement.KeyboardMovement;
 import com.valenguard.client.game.screens.stage.UiManager;
 import com.valenguard.client.game.screens.stage.game.ChatBox;
 import com.valenguard.client.game.screens.stage.game.GameScreenDebugText;
+import com.valenguard.client.network.packet.out.AppearanceChange;
 
 import lombok.Getter;
 
@@ -25,26 +26,35 @@ public class Keyboard implements InputProcessor {
     public boolean keyDown(int keycode) {
 
         // change appearance
+        boolean changed = false;
         if (keycode == Input.Keys.NUMPAD_4) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             if (playerClient.getHeadId() - 1 < 0)
-                playerClient.setHeadId(ClientConstants.HUMAN_MAX_HEADS + 1);
+                playerClient.setHeadId((short) (ClientConstants.HUMAN_MAX_HEADS + 1));
             playerClient.setBodyParts(playerClient.getHeadId() - 1, playerClient.getBodyId());
+            changed = true;
         } else if (keycode == Input.Keys.NUMPAD_5) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             if (playerClient.getHeadId() + 1 > ClientConstants.HUMAN_MAX_HEADS)
-                playerClient.setHeadId(-1);
+                playerClient.setHeadId((short) -1);
             playerClient.setBodyParts(playerClient.getHeadId() + 1, playerClient.getBodyId());
+            changed = true;
         } else if (keycode == Input.Keys.NUMPAD_1) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             if (playerClient.getBodyId() - 1 < 0)
-                playerClient.setBodyId(ClientConstants.HUMAN_MAX_BODIES + 1);
+                playerClient.setBodyId((short) (ClientConstants.HUMAN_MAX_BODIES + 1));
             playerClient.setBodyParts(playerClient.getHeadId(), playerClient.getBodyId() - 1);
+            changed = true;
         } else if (keycode == Input.Keys.NUMPAD_2) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             if (playerClient.getBodyId() + 1 > ClientConstants.HUMAN_MAX_BODIES)
-                playerClient.setBodyId(-1);
+                playerClient.setBodyId((short) -1);
             playerClient.setBodyParts(playerClient.getHeadId(), playerClient.getBodyId() + 1);
+            changed = true;
+        }
+        if (changed) {
+            PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+            new AppearanceChange(playerClient.getHeadId(), playerClient.getBodyId()).sendPacket();
         }
 
         // Screen debug toggle

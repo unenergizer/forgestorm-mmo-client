@@ -13,8 +13,8 @@ public class ClientConstants {
     public static final String WEB_LOST_PASSWORD = "http://valenguard.com/lost-password/";
     public static final int TILE_SIZE = 16;
     public static final String MAP_DIRECTORY = "maps";
-    public static final int namePlateDistanceInPixels = 8;
+    public static final float namePlateDistanceInPixels = 8;
 
-    public static final int HUMAN_MAX_HEADS = 79;
-    public static final int HUMAN_MAX_BODIES = 59;
+    public static final short HUMAN_MAX_HEADS = 79;
+    public static final short HUMAN_MAX_BODIES = 59;
 }
