@@ -21,4 +21,9 @@ public class KeyBinds {
      * DEV
      */
     public static final int PRINT_DEBUG = Input.Keys.F3;
+
+    /*
+     * CHAT
+     */
+    public static final int CHAT_BOX_FOCUS = Input.Keys.ENTER;
 }

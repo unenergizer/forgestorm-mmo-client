@@ -4,7 +4,8 @@ public enum EntityType {
     CLIENT_PLAYER,
     PLAYER,
     NPC,
-    ITEM;
+    ITEM,
+    MONSTER;
 
     public static EntityType getEntityType(byte entityTypeByte) {
         for (EntityType entityType : EntityType.values()) {

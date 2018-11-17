@@ -158,7 +158,7 @@ public class GameScreen implements Screen {
 
         for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
             entity.animate(delta, spriteBatch);
-            drawEntityName(entity);
+//            drawEntityName(entity);
         }
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();

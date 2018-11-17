@@ -35,6 +35,22 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         int tileY = clientHandler.readInt();
         byte directionalByte = 0;
         float moveSpeed = 0.0f;
+        short[] textureIds = null;
+
+        switch (entityType) {
+            case CLIENT_PLAYER:
+            case PLAYER:
+            case NPC:
+                textureIds = new short[2];
+                textureIds[0] = clientHandler.readShort();
+                textureIds[1] = clientHandler.readShort();
+                break;
+            case MONSTER:
+            case ITEM:
+                textureIds = new short[1];
+                textureIds[0] = clientHandler.readShort();
+                break;
+        }
 
         if (entityType == EntityType.NPC || entityType == EntityType.PLAYER || entityType == EntityType.CLIENT_PLAYER) {
             directionalByte = clientHandler.readByte();
@@ -56,6 +72,7 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
                 entityName,
                 tileX,
                 tileY,
+                textureIds,
                 directionalByte,
                 moveSpeed
         );
@@ -82,6 +99,18 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
+
+        switch (packetData.entityType) {
+            case CLIENT_PLAYER:
+            case PLAYER:
+            case NPC:
+                ((MovingEntity) entity).setBodyParts(packetData.textureIds[0], packetData.textureIds[1]);
+                break;
+            case MONSTER:
+            case ITEM: // TODO: JOSEPH COMPLAINED THIS IS NOT A MOVING ENTITY VAR... NO SHIT
+//                entity.setHeadId(packetData.textureIds[0]);
+                break;
+        }
     }
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData) {
@@ -130,18 +159,6 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         entity.setFacingDirection(facingDirection);
         entity.setMoveSpeed(packetData.moveSpeed);
 
-        switch (packetData.entityType) {
-            case CLIENT_PLAYER:
-                entity.initAnimation("player");
-                break;
-            case PLAYER:
-                entity.initAnimation("player");
-                break;
-            case NPC:
-                entity.initAnimation("npc");
-                break;
-        }
-
         if (!(entity instanceof PlayerClient))
             EntityManager.getInstance().addEntity(packetData.entityId, entity);
     }
@@ -153,6 +170,7 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         private String entityName;
         private final int tileX;
         private final int tileY;
+        private final short[] textureIds;
         private final byte facingMoveDirectionByte;
         private final float moveSpeed;
     }

@@ -17,8 +17,20 @@ public class SendChatMessage extends ClientOutPacket {
 
     @Override
     protected void createPacket(ObjectOutputStream write) throws IOException {
+        if (chatMessage == null) return;
         if (chatMessage.isEmpty()) return;
-        write.writeUTF(chatMessage);
+        if (chatMessage.contains(Character.toString('\n'))) return; // enter
+        if (chatMessage.contains(Character.toString('\r'))) return; // tab
+
+
+        Log.println(getClass(), "Characters before trimming: " + chatMessage);
+        String newMessage = chatMessage.trim();
+        Log.println(getClass(), "Characters after trimming: " + newMessage);
+        if (newMessage.isEmpty()) return;
+
+        Log.println(getClass(), "Sending message: " + newMessage + " with length: " + newMessage.length() + " across the wire");
+
+        write.writeUTF(newMessage);
         Log.println(getClass(), chatMessage);
     }
 }

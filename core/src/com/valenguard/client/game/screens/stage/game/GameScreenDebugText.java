@@ -14,7 +14,7 @@ import com.valenguard.client.game.screens.stage.Refreshable;
 public class GameScreenDebugText extends AbstractUI implements Refreshable {
 
     private static final boolean DEBUG_STAGE = false;
-    private Label delta, fps, ms, uuid, playerTile, playerPixel, zoom, cursorTile, leftCursorTileClick, rightCursorTileClick;
+    private Label delta, fps, ms, uuid, playerTile, playerPixel, zoom, cursorTile, leftCursorTileClick, rightCursorTileClick, bodyParts;
 
     @Override
     public void refresh() {
@@ -33,6 +33,7 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             leftCursorTileClick.setText("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY());
             rightCursorTileClick.setText("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY());
             zoom.setText("Zoom: " + Valenguard.gameScreen.getCamera().zoom);
+            bodyParts.setText("HeadID: " + client.getHeadId() + ", BodyID: " + client.getBodyId());
         }
     }
 
@@ -79,6 +80,7 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             leftCursorTileClick = new Label("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY(), skin);
             rightCursorTileClick = new Label("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY(), skin);
             zoom = new Label("Zoom: " + Valenguard.gameScreen.getCamera().zoom, skin);
+            bodyParts = new Label("HeadID: " + client.getHeadId() + ", BodyID: " + client.getBodyId(), skin);
 
             infoTable.add(uuid).left();
             infoTable.row();
@@ -93,6 +95,8 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             infoTable.add(rightCursorTileClick).left();
             infoTable.row();
             infoTable.add(zoom).left();
+            infoTable.row();
+            infoTable.add(bodyParts).left();
         }
     }
 

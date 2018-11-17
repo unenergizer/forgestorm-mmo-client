@@ -21,7 +21,7 @@ import javax.xml.parsers.ParserConfigurationException;
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class TmxFileParser {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     /**
      * This takes in a TMX map and gets the collision elements from it and builds a collision
