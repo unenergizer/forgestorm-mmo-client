@@ -39,7 +39,8 @@ public class EntityManager {
 
     public void drawEntities(float delta, SpriteBatch spriteBatch) {
         for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
-            entity.animate(delta, spriteBatch);
+            entity.getEntityAnimation().animate(delta, spriteBatch);
+            entity.drawEntityName();
         }
     }
 

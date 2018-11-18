@@ -1,5 +1,6 @@
 package com.valenguard.client.network.packet.in;
 
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
@@ -12,25 +13,25 @@ import com.valenguard.client.network.shared.PacketListener;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.APPEARANCE)
-public class EntityAppearenceChange implements PacketListener<EntityAppearenceChange.EntityAppearencePacket> {
+public class EntityAppearanceChange implements PacketListener<EntityAppearanceChange.EntityAppearancePacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        return new EntityAppearencePacket(
+        return new EntityAppearancePacket(
                 clientHandler.readShort(),
                 new short[]{clientHandler.readShort(), clientHandler.readShort()}
         );
     }
 
     @Override
-    public void onEvent(EntityAppearencePacket packetData) {
+    public void onEvent(EntityAppearancePacket packetData) {
         Entity entity = EntityManager.getInstance().getEntity(packetData.entityId);
         MovingEntity movingEntity = (MovingEntity) entity; // TODO generalize
-        movingEntity.setBodyParts(packetData.textureIds[0], packetData.textureIds[1]);
+        movingEntity.getEntityAnimation().loadAll(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
     }
 
     @AllArgsConstructor
-    class EntityAppearencePacket extends PacketData {
+    class EntityAppearancePacket extends PacketData {
         private final short entityId;
         private final short[] textureIds;
     }

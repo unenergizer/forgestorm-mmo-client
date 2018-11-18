@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="20">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="22">
  <tileset firstgid="1" source="tileset/cave1.0/Cave_A.tsx"/>
  <tileset firstgid="61" source="tileset/cave1.0/Cave_B.tsx"/>
  <tileset firstgid="285" source="tileset/desert1.0/Desert_A.tsx"/>
@@ -354,9 +354,18 @@
   </object>
  </objectgroup>
  <objectgroup id="9" name="entity">
-  <object id="19" name="Trapped Guy" type="NPC" x="336" y="448" width="16" height="16">
+  <object id="19" name="Concerned Guy" type="NPC" x="336" y="352" width="16" height="16">
    <properties>
     <property name="speed" type="float" value="0.3"/>
+   </properties>
+  </object>
+  <object id="21" name="Evil Joseph" type="MONSTER" x="336" y="448" width="16" height="16">
+   <properties>
+    <property name="atlasBodyId" type="int" value="0"/>
+    <property name="direction" value="DOWN"/>
+    <property name="probabilityStill" type="float" value="0.3"/>
+    <property name="probabilityWalkStart" type="float" value="0.7"/>
+    <property name="speed" type="float" value="0.4"/>
    </properties>
   </object>
  </objectgroup>

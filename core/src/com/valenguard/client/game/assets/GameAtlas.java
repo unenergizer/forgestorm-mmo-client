@@ -2,7 +2,8 @@ package com.valenguard.client.game.assets;
 
 @SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
 public enum GameAtlas {
-    MAIN_ATLAS("running.atlas");
+    ENTITY_CHARACTER("running.atlas"),
+    ENTITY_MONSTER("monster.atlas");
 
     private final String filePath;
 

@@ -2,12 +2,15 @@ package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.NPC;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.entities.animations.HumanAnimation;
+import com.valenguard.client.game.entities.animations.MonsterAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -52,7 +55,7 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
                 break;
         }
 
-        if (entityType == EntityType.NPC || entityType == EntityType.PLAYER || entityType == EntityType.CLIENT_PLAYER) {
+        if (entityType != EntityType.ITEM) {
             directionalByte = clientHandler.readByte();
             moveSpeed = clientHandler.readFloat();
         }
@@ -65,6 +68,9 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         Log.println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
         Log.println(getClass(), "directional Byte: " + directionalByte, false, PRINT_DEBUG);
         Log.println(getClass(), "move speed: " + moveSpeed, false, PRINT_DEBUG);
+        for (int i = 0; i < textureIds.length; i++) {
+            Log.println(getClass(), "textureIds #" + i + ": " + textureIds[i], false, PRINT_DEBUG);
+        }
 
         return new EntitySpawnPacket(
                 entityType,
@@ -90,6 +96,8 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
             entity = spawnNPC(packetData);
         } else if (packetData.entityType == EntityType.ITEM) {
             entity = spawnItem(packetData);
+        } else if (packetData.entityType == EntityType.MONSTER) {
+            entity = spawnNPC(packetData);
         }
 
         entity.setEntityType(packetData.entityType);
@@ -104,9 +112,15 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
             case CLIENT_PLAYER:
             case PLAYER:
             case NPC:
-                ((MovingEntity) entity).setBodyParts(packetData.textureIds[0], packetData.textureIds[1]);
+                MovingEntity humanEntity = (MovingEntity) entity;
+                humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
+                humanEntity.getEntityAnimation().loadAll(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
                 break;
             case MONSTER:
+                MovingEntity monsterEntity = (MovingEntity) entity;
+                monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
+                monsterEntity.getEntityAnimation().loadAll(GameAtlas.ENTITY_MONSTER, packetData.textureIds);
+                break;
             case ITEM: // TODO: JOSEPH COMPLAINED THIS IS NOT A MOVING ENTITY VAR... NO SHIT
 //                entity.setHeadId(packetData.textureIds[0]);
                 break;

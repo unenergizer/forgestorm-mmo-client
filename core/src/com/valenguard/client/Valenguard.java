@@ -14,7 +14,7 @@ import com.valenguard.client.game.screens.stage.UiManager;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.Consumer;
 import com.valenguard.client.network.PlayerSession;
-import com.valenguard.client.network.packet.in.EntityAppearenceChange;
+import com.valenguard.client.network.packet.in.EntityAppearanceChange;
 import com.valenguard.client.network.packet.in.EntityDespawn;
 import com.valenguard.client.network.packet.in.EntityMoveUpdate;
 import com.valenguard.client.network.packet.in.EntitySpawn;
@@ -121,7 +121,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new EntityDespawn());
                         eventBus.registerListener(new InitializeGameMap());
                         eventBus.registerListener(new ReceiveChatMessage());
-                        eventBus.registerListener(new EntityAppearenceChange());
+                        eventBus.registerListener(new EntityAppearanceChange());
                     }
                 });
     }

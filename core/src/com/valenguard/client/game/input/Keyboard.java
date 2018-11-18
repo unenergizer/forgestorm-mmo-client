@@ -5,8 +5,10 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.movement.KeyboardMovement;
 import com.valenguard.client.game.screens.stage.UiManager;
 import com.valenguard.client.game.screens.stage.game.ChatBox;
@@ -35,32 +37,37 @@ public class Keyboard implements InputProcessor {
         boolean changed = false;
         if (keycode == Input.Keys.NUMPAD_4) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            if (playerClient.getHeadId() - 1 < 0)
-                playerClient.setHeadId((short) (ClientConstants.HUMAN_MAX_HEADS + 1));
-            playerClient.setBodyParts(playerClient.getHeadId() - 1, playerClient.getBodyId());
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            if (humanAnimation.getHeadId() - 1 < 0)
+                humanAnimation.setHeadId((short) (ClientConstants.HUMAN_MAX_HEADS + 1));
+            humanAnimation.loadAllVarArgs(GameAtlas.ENTITY_CHARACTER, (short) (humanAnimation.getHeadId() - 1), humanAnimation.getBodyId());
             changed = true;
         } else if (keycode == Input.Keys.NUMPAD_5) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            if (playerClient.getHeadId() + 1 > ClientConstants.HUMAN_MAX_HEADS)
-                playerClient.setHeadId((short) -1);
-            playerClient.setBodyParts(playerClient.getHeadId() + 1, playerClient.getBodyId());
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            if (humanAnimation.getHeadId() + 1 > ClientConstants.HUMAN_MAX_HEADS)
+                humanAnimation.setHeadId((short) -1);
+            humanAnimation.loadAllVarArgs(GameAtlas.ENTITY_CHARACTER, (short) (humanAnimation.getHeadId() + 1), humanAnimation.getBodyId());
             changed = true;
         } else if (keycode == Input.Keys.NUMPAD_1) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            if (playerClient.getBodyId() - 1 < 0)
-                playerClient.setBodyId((short) (ClientConstants.HUMAN_MAX_BODIES + 1));
-            playerClient.setBodyParts(playerClient.getHeadId(), playerClient.getBodyId() - 1);
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            if (humanAnimation.getBodyId() - 1 < 0)
+                humanAnimation.setBodyId((short) (ClientConstants.HUMAN_MAX_BODIES + 1));
+            humanAnimation.loadAllVarArgs(GameAtlas.ENTITY_CHARACTER, humanAnimation.getHeadId(), (short) (humanAnimation.getBodyId() - 1));
             changed = true;
         } else if (keycode == Input.Keys.NUMPAD_2) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            if (playerClient.getBodyId() + 1 > ClientConstants.HUMAN_MAX_BODIES)
-                playerClient.setBodyId((short) -1);
-            playerClient.setBodyParts(playerClient.getHeadId(), playerClient.getBodyId() + 1);
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            if (humanAnimation.getBodyId() + 1 > ClientConstants.HUMAN_MAX_BODIES)
+                humanAnimation.setBodyId((short) -1);
+            humanAnimation.loadAllVarArgs(GameAtlas.ENTITY_CHARACTER, humanAnimation.getHeadId(), (short) (humanAnimation.getBodyId() + 1));
             changed = true;
         }
         if (changed) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            new AppearanceChange(playerClient.getHeadId(), playerClient.getBodyId()).sendPacket();
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            new AppearanceChange(humanAnimation.getHeadId(), humanAnimation.getBodyId()).sendPacket();
             return true;
         }
 

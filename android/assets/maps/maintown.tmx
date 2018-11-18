@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="21">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="22">
  <tileset firstgid="1" source="tileset/cave1.0/Cave_A.tsx"/>
  <tileset firstgid="61" source="tileset/cave1.0/Cave_B.tsx"/>
  <tileset firstgid="285" source="tileset/desert1.0/Desert_A.tsx"/>
@@ -426,7 +426,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5067,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5069,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -526,6 +526,21 @@
     <property name="direction" value="UP"/>
     <property name="x" type="int" value="34"/>
     <property name="y" type="int" value="30"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="14" name="entity">
+  <object id="21" name="Slime" type="MONSTER" x="288" y="448" width="16" height="16">
+   <properties>
+    <property name="atlasBodyId" type="int" value="2"/>
+    <property name="bounds1x" type="int" value="0"/>
+    <property name="bounds1y" type="int" value="0"/>
+    <property name="bounds2x" type="int" value="49"/>
+    <property name="bounds2y" type="int" value="49"/>
+    <property name="direction" value="DOWN"/>
+    <property name="probabilityStill" type="float" value="0.1"/>
+    <property name="probabilityWalkStart" type="float" value="0.5"/>
+    <property name="speed" type="float" value="0.7"/>
    </properties>
   </object>
  </objectgroup>

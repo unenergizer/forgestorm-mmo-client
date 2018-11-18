@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.screens.stage.AbstractUI;
 import com.valenguard.client.game.screens.stage.Refreshable;
 
@@ -26,6 +27,7 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
         ms.setText("MS: " + Valenguard.getInstance().getPing());
 
         if (client != null && client.getCurrentMapLocation() != null) {
+            HumanAnimation humanAnimation = (HumanAnimation) client.getEntityAnimation();
             uuid.setText("UUID: " + client.getServerEntityID());
             playerTile.setText("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName());
             playerPixel.setText("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY());
@@ -33,7 +35,7 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             leftCursorTileClick.setText("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY());
             rightCursorTileClick.setText("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY());
             zoom.setText("Zoom: " + Valenguard.gameScreen.getCamera().zoom);
-            bodyParts.setText("HeadID: " + client.getHeadId() + ", BodyID: " + client.getBodyId());
+            bodyParts.setText("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getBodyId());
         }
     }
 
@@ -73,6 +75,7 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
         infoTable.row();
 
         if (client != null && client.getCurrentMapLocation() != null) {
+            HumanAnimation humanAnimation = (HumanAnimation) client.getEntityAnimation();
             uuid = new Label("UUID: " + client.getServerEntityID(), skin);
             playerTile = new Label("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName(), skin);
             playerPixel = new Label("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY(), skin);
@@ -80,7 +83,7 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             leftCursorTileClick = new Label("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY(), skin);
             rightCursorTileClick = new Label("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY(), skin);
             zoom = new Label("Zoom: " + Valenguard.gameScreen.getCamera().zoom, skin);
-            bodyParts = new Label("HeadID: " + client.getHeadId() + ", BodyID: " + client.getBodyId(), skin);
+            bodyParts = new Label("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getBodyId(), skin);
 
             infoTable.add(uuid).left();
             infoTable.row();

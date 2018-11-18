@@ -45,8 +45,6 @@ public class GameScreen implements Screen {
     private MapRenderer mapRenderer = new MapRenderer();
 
     // TODO: RELOCATE
-    private Texture playerTexture;
-    private Texture otherPlayerTexture;
     private Texture tilePathTexture;
     private Texture invalidMoveLocation;
     private Texture warpLocation;
@@ -74,12 +72,11 @@ public class GameScreen implements Screen {
         fileManager.loadFont(GameFont.TEST_FONT);
         font = fileManager.getFont(GameFont.TEST_FONT);
         font.setUseIntegerPositions(false);
-        fileManager.loadAtlas(GameAtlas.MAIN_ATLAS);
-        fileManager.loadTexture(GameTexture.TEMP_PLAYER_IMG);
-        playerTexture = fileManager.getTexture(GameTexture.TEMP_PLAYER_IMG);
-        fileManager.loadTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
-        otherPlayerTexture = fileManager.getTexture(GameTexture.TEMP_OTHER_PLAYER_IMG);
+
+        fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
+        fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
         fileManager.loadTexture(GameTexture.TILE_PATH);
+
         tilePathTexture = fileManager.getTexture(GameTexture.TILE_PATH);
         fileManager.loadTexture(GameTexture.INVALID_MOVE);
         invalidMoveLocation = fileManager.getTexture(GameTexture.INVALID_MOVE);
@@ -122,7 +119,8 @@ public class GameScreen implements Screen {
         spriteBatch.begin();
         Valenguard.getInstance().getMouseManager().drawMoveNodes(spriteBatch, tilePathTexture);
         EntityManager.getInstance().drawEntities(delta, spriteBatch);
-        playerClient.animate(delta, spriteBatch);
+        playerClient.getEntityAnimation().animate(delta, spriteBatch);
+        playerClient.drawEntityName();
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();
