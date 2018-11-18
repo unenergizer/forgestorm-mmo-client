@@ -30,7 +30,7 @@ public class InitializeGameMap implements PacketListener<InitializeGameMap.InitG
         Log.println(InitializeGameMap.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
         EntityManager.getInstance().setPlayerClient(null);
         EntityManager.getInstance().getEntities().clear();
-        Valenguard.gameScreen.setTiledMap(packetData.gameMap);
+        Valenguard.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);
     }
 
     @AllArgsConstructor

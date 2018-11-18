@@ -120,9 +120,9 @@ public class MovingEntity extends Entity {
         drawEntityName();
     }
 
-
-    private GlyphLayout layout1 = null;
-    private GlyphLayout layout2 = null;
+    private boolean deleteMeLater = false;
+    private GlyphLayout layout1 = new GlyphLayout();
+    private GlyphLayout layout2 = new GlyphLayout();
 
     private void drawEntityName() {
         float x = getDrawX() + 8;
@@ -130,20 +130,23 @@ public class MovingEntity extends Entity {
 
         BitmapFont font = Valenguard.gameScreen.getFont();
 
-        if (getEntityType() == EntityType.NPC) {
-            font.setColor(Color.BLACK);
-            layout2 = new GlyphLayout(font, getEntityName());
-            font.setColor(Color.LIME);
-            layout1 = new GlyphLayout(font, getEntityName());
-        } else {
-            font.setColor(Color.BLACK);
-            layout2 = new GlyphLayout(font, getEntityName());
-            font.setColor(Color.GOLD);
-            layout1 = new GlyphLayout(font, getEntityName());
+        if (!deleteMeLater) {
+            if (getEntityType() == EntityType.NPC) {
+                font.setColor(Color.BLACK);
+                layout2.setText(font, getEntityName());
+                font.setColor(Color.LIME);
+                layout1.setText(font, getEntityName());
+            } else {
+                font.setColor(Color.BLACK);
+                layout2.setText(font, getEntityName());
+                font.setColor(Color.GOLD);
+                layout1.setText(font, getEntityName());
+            }
+            deleteMeLater = true;
         }
 
         font.setColor(Color.BLACK);
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), layout2, x - (layout2.width / 2) + .8f, y - .8f);
+        font.draw(Valenguard.gameScreen.getSpriteBatch(), layout2, x - (layout2.width / 2) + .5f, y - .5f);
 
         font.setColor(Color.GOLD);
         font.draw(Valenguard.gameScreen.getSpriteBatch(), layout1, x - (layout1.width / 2), y);

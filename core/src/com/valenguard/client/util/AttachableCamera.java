@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.entities.Entity;
@@ -52,5 +53,9 @@ public class AttachableCamera extends OrthographicCamera {
 
         zoom = (float) change;
         lastZoomLevel = (float)  change;
+    }
+
+    public Vector3 unprojectCamera(final float screenX, final float screenY) {
+        return unproject(new Vector3(screenX, screenY, 0));
     }
 }

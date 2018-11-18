@@ -327,13 +327,13 @@
   </object>
   <object id="26" name="Busy Waitor" type="NPC" x="400" y="448" width="16" height="16">
    <properties>
-    <property name="bounds1x" type="int" value="20"/>
-    <property name="bounds1y" type="int" value="25"/>
-    <property name="bounds2x" type="int" value="31"/>
-    <property name="bounds2y" type="int" value="31"/>
-    <property name="probabilityStill" type="float" value="0"/>
-    <property name="probabilityWalkStart" type="float" value="1"/>
-    <property name="speed" type="float" value="0.1"/>
+    <property name="bounds1x" type="int" value="23"/>
+    <property name="bounds1y" type="int" value="26"/>
+    <property name="bounds2x" type="int" value="30"/>
+    <property name="bounds2y" type="int" value="30"/>
+    <property name="probabilityStill" type="float" value="0.1"/>
+    <property name="probabilityWalkStart" type="float" value="0.9"/>
+    <property name="speed" type="float" value="0.2"/>
    </properties>
   </object>
   <object id="27" name="Bob the Cook" type="NPC" x="336" y="288" width="16" height="16">

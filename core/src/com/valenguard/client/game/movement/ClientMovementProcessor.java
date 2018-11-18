@@ -1,10 +1,12 @@
 package com.valenguard.client.game.movement;
 
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 
 import java.util.LinkedList;
@@ -30,6 +32,11 @@ public class ClientMovementProcessor {
 
     public void processMovement(PlayerClient playerClient) {
         if (inputData == null) return;
+
+        Log.println(getClass(), "=======================================", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "inputInfo: type = " + inputData.getMovementInput() + " , nodesSize = " + inputData.getMoveNodes(), true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "currentMovementInput = " + currentMovementInput, true, ClientConstants.MINITOR_MOVEMENT_BUG);
+
         if (playerClient.isWarping()) return;
 
         if (MoveUtil.isEntityMoving(playerClient)) continueMove(playerClient);
@@ -43,6 +50,9 @@ public class ClientMovementProcessor {
     }
 
     private void startNewMove(PlayerClient playerClient) {
+
+        Log.println(getClass(), "Starting a new move", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+
         // Since the keyboard is the type of input and the player is stopped with will
         // predicted that the player is also moving to the location after the tile they
         // are moving toward to start us off
@@ -63,6 +73,9 @@ public class ClientMovementProcessor {
     }
 
     private void continueMove(PlayerClient playerClient) {
+
+        Log.println(getClass(), "Continuing a move", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+
         if (inputData.getMovementInput() == MovementInput.KEYBOARD) {
             checkArgument(inputData.getMoveNodes().size() == 1, "The input nodes was not one for keyboard input.");
             checkArgument(currentMovementInput != MovementInput.NONE, "Tried to continue a move but the current movement type was NONE.");

@@ -1,5 +1,7 @@
 package com.valenguard.client.game.entities;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -8,7 +10,8 @@ import lombok.Setter;
 
 public class EntityManager {
 
-    private EntityManager() {}
+    private EntityManager() {
+    }
 
     // TODO: REMOVE TEST CLIENT! Add the correct way.
     @Getter
@@ -32,6 +35,12 @@ public class EntityManager {
 
     public MovingEntity getEntity(short entityId) {
         return entities.get(entityId);
+    }
+
+    public void drawEntities(float delta, SpriteBatch spriteBatch) {
+        for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
+            entity.animate(delta, spriteBatch);
+        }
     }
 
 }

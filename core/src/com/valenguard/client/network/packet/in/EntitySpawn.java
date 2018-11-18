@@ -80,7 +80,7 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
-        String mapName = Valenguard.gameScreen.getGameMapNameFromServer();
+        String mapName = Valenguard.gameScreen.getMapRenderer().getGameMapNameFromServer();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             entity = spawnClientPlayer(packetData);

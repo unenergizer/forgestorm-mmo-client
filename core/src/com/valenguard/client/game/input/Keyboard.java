@@ -12,6 +12,7 @@ import com.valenguard.client.game.screens.stage.UiManager;
 import com.valenguard.client.game.screens.stage.game.ChatBox;
 import com.valenguard.client.game.screens.stage.game.GameScreenDebugText;
 import com.valenguard.client.network.packet.out.AppearanceChange;
+import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 
@@ -24,6 +25,11 @@ public class Keyboard implements InputProcessor {
     private boolean showDebug = true;
 
     public boolean keyDown(int keycode) {
+
+        if (keycode == Input.Keys.F4) {
+            ClientConstants.MINITOR_MOVEMENT_BUG = !ClientConstants.MINITOR_MOVEMENT_BUG;
+            Log.println(getClass(), "Toggled walking debug: " + ClientConstants.MINITOR_MOVEMENT_BUG, true);
+        }
 
         // change appearance
         boolean changed = false;
@@ -55,6 +61,7 @@ public class Keyboard implements InputProcessor {
         if (changed) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             new AppearanceChange(playerClient.getHeadId(), playerClient.getBodyId()).sendPacket();
+            return true;
         }
 
         // Screen debug toggle
@@ -68,7 +75,7 @@ public class Keyboard implements InputProcessor {
                 showDebug = true;
                 uiManager.hide("debug");
             }
-            return false;
+            return true;
         }
 
         // Chat box and movement crap

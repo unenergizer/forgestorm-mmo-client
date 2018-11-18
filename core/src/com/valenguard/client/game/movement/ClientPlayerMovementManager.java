@@ -48,6 +48,9 @@ public class ClientPlayerMovementManager {
     }
 
     private void processNextNode(PlayerClient playerClient) {
+
+        Log.println(getClass(), "Processing next node", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+
         MoveNode nextNode = movements.remove();
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
@@ -128,6 +131,9 @@ public class ClientPlayerMovementManager {
     }
 
     private void finishMove(PlayerClient playerClient) {
+
+        Log.println(getClass(), "Finished Movement", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);
         playerClient.setDrawY(playerClient.getFutureMapLocation().getY() * ClientConstants.TILE_SIZE);
