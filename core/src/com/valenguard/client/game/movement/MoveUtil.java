@@ -13,18 +13,18 @@ public class MoveUtil {
     }
 
     private static MoveDirection getMoveDirection(int currentX, int currentY, int futureX, int futureY) {
-        if (currentX > futureX) return MoveDirection.LEFT;
-        else if (currentX < futureX) return MoveDirection.RIGHT;
-        else if (currentY > futureY) return MoveDirection.DOWN;
-        else if (currentY < futureY) return MoveDirection.UP;
+        if (currentX > futureX) return MoveDirection.WEST;
+        else if (currentX < futureX) return MoveDirection.EAST;
+        else if (currentY > futureY) return MoveDirection.SOUTH;
+        else if (currentY < futureY) return MoveDirection.NORTH;
         return MoveDirection.NONE;
     }
 
     static Location getLocation(GameMap gameMap, MoveDirection direction) {
-        if (direction == MoveDirection.DOWN) return new Location(gameMap.getMapName(), 0, -1);
-        if (direction == MoveDirection.UP) return new Location(gameMap.getMapName(), 0, 1);
-        if (direction == MoveDirection.LEFT) return new Location(gameMap.getMapName(), -1, 0);
-        if (direction == MoveDirection.RIGHT) return new Location(gameMap.getMapName(), 1, 0);
+        if (direction == MoveDirection.SOUTH) return new Location(gameMap.getMapName(), 0, -1);
+        if (direction == MoveDirection.NORTH) return new Location(gameMap.getMapName(), 0, 1);
+        if (direction == MoveDirection.WEST) return new Location(gameMap.getMapName(), -1, 0);
+        if (direction == MoveDirection.EAST) return new Location(gameMap.getMapName(), 1, 0);
         if (direction == MoveDirection.NONE) return new Location(gameMap.getMapName(), 0, 0);
         throw new RuntimeException("Tried to get a location, but direction could not be determined. MapName: " + gameMap.getMapName() + ", MoveDirection: " + direction);
     }

@@ -60,8 +60,8 @@ public class MovingEntity extends Entity {
         float y = getDrawY() + (16 + ClientConstants.namePlateDistanceInPixels);
 
         BitmapFont font = Valenguard.gameScreen.getFont();
-
         if (!glyphInitialized) {
+            font.getData().setScale(.5f);
             if (getEntityType() == EntityType.NPC) {
                 font.setColor(Color.BLACK);
                 shadowText.setText(font, getEntityName());

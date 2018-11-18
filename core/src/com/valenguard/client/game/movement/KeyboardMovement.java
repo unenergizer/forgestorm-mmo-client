@@ -29,19 +29,19 @@ public class KeyboardMovement {
         switch (keycode) {
             case KeyBinds.UP:
             case KeyBinds.UP_ALT:
-                moveDirection = MoveDirection.UP;
+                moveDirection = MoveDirection.NORTH;
                 break;
             case KeyBinds.DOWN:
             case KeyBinds.DOWN_ALT:
-                moveDirection = MoveDirection.DOWN;
+                moveDirection = MoveDirection.SOUTH;
                 break;
             case KeyBinds.LEFT:
             case KeyBinds.LEFT_ALT:
-                moveDirection = MoveDirection.LEFT;
+                moveDirection = MoveDirection.WEST;
                 break;
             case KeyBinds.RIGHT:
             case KeyBinds.RIGHT_ALT:
-                moveDirection = MoveDirection.RIGHT;
+                moveDirection = MoveDirection.EAST;
                 break;
         }
 
@@ -75,19 +75,19 @@ public class KeyboardMovement {
         switch (keycode) {
             case KeyBinds.UP:
             case KeyBinds.UP_ALT:
-                removeMoveKey(letOffDirection = MoveDirection.UP);
+                removeMoveKey(letOffDirection = MoveDirection.NORTH);
                 break;
             case KeyBinds.DOWN:
             case KeyBinds.DOWN_ALT:
-                removeMoveKey(letOffDirection = MoveDirection.DOWN);
+                removeMoveKey(letOffDirection = MoveDirection.SOUTH);
                 break;
             case KeyBinds.LEFT:
             case KeyBinds.LEFT_ALT:
-                removeMoveKey(letOffDirection = MoveDirection.LEFT);
+                removeMoveKey(letOffDirection = MoveDirection.WEST);
                 break;
             case KeyBinds.RIGHT:
             case KeyBinds.RIGHT_ALT:
-                removeMoveKey(letOffDirection = MoveDirection.RIGHT);
+                removeMoveKey(letOffDirection = MoveDirection.EAST);
                 break;
         }
 
@@ -102,10 +102,10 @@ public class KeyboardMovement {
             return;
         }
 
-        if (letOffDirection == MoveDirection.UP && playerClient.getPredictedMoveDirection() == MoveDirection.UP ||
-                letOffDirection == MoveDirection.DOWN && playerClient.getPredictedMoveDirection() == MoveDirection.DOWN ||
-                letOffDirection == MoveDirection.LEFT && playerClient.getPredictedMoveDirection() == MoveDirection.LEFT ||
-                letOffDirection == MoveDirection.RIGHT && playerClient.getPredictedMoveDirection() == MoveDirection.RIGHT) {
+        if (letOffDirection == MoveDirection.NORTH && playerClient.getPredictedMoveDirection() == MoveDirection.NORTH ||
+                letOffDirection == MoveDirection.SOUTH && playerClient.getPredictedMoveDirection() == MoveDirection.SOUTH ||
+                letOffDirection == MoveDirection.WEST && playerClient.getPredictedMoveDirection() == MoveDirection.WEST ||
+                letOffDirection == MoveDirection.EAST && playerClient.getPredictedMoveDirection() == MoveDirection.EAST) {
             playerClient.setPredictedMoveDirection(remainingMoveDirection);
         }
 

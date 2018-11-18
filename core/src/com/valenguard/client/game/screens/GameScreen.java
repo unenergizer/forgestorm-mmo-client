@@ -45,6 +45,7 @@ public class GameScreen implements Screen {
     private MapRenderer mapRenderer = new MapRenderer();
 
     // TODO: RELOCATE
+    private Texture parrallaxBackground;
     private Texture tilePathTexture;
     private Texture invalidMoveLocation;
     private Texture warpLocation;
@@ -75,8 +76,11 @@ public class GameScreen implements Screen {
 
         fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
-        fileManager.loadTexture(GameTexture.TILE_PATH);
 
+        fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
+        parrallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
+        parrallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        fileManager.loadTexture(GameTexture.TILE_PATH);
         tilePathTexture = fileManager.getTexture(GameTexture.TILE_PATH);
         fileManager.loadTexture(GameTexture.INVALID_MOVE);
         invalidMoveLocation = fileManager.getTexture(GameTexture.INVALID_MOVE);
@@ -100,6 +104,8 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(multiplexer);
     }
 
+    int srcX = 0;
+    int srcY = 0;
 
     @Override
     public void render(float delta) {
@@ -113,13 +119,24 @@ public class GameScreen implements Screen {
         camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
         camera.update();
 
+        if (mapRenderer.getGameMapNameFromServer().equals("floating_island")) {
+            spriteBatch.begin();
+            srcX += 2;
+            srcY -= 3;
+            if (srcX >= parrallaxBackground.getWidth()) srcX = 0;
+            if (srcY <= -parrallaxBackground.getHeight()) srcY = 0;
+            spriteBatch.draw(parrallaxBackground, 0, 0, srcX, srcY, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            spriteBatch.end();
+        }
+
         mapRenderer.renderBottomMapLayers(camera);
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         Valenguard.getInstance().getMouseManager().drawMoveNodes(spriteBatch, tilePathTexture);
-        EntityManager.getInstance().drawEntities(delta, spriteBatch);
+        EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
+        EntityManager.getInstance().drawEntityNames(delta, spriteBatch);
         playerClient.drawEntityName();
         spriteBatch.end();
 

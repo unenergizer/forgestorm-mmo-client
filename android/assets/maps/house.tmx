@@ -347,7 +347,7 @@
  <objectgroup id="7" name="warp">
   <object id="18" name="maintown" type="Warp" x="544" y="496" width="16" height="16">
    <properties>
-    <property name="direction" value="DOWN"/>
+    <property name="direction" value="SOUTH"/>
     <property name="x" type="int" value="36"/>
     <property name="y" type="int" value="26"/>
    </properties>
@@ -356,6 +356,8 @@
  <objectgroup id="9" name="entity">
   <object id="24" name="The Kid" type="NPC" x="176" y="592" width="16" height="16">
    <properties>
+    <property name="atlasBodyId" type="int" value="55"/>
+    <property name="atlasHeadId" type="int" value="3"/>
     <property name="bounds1x" type="int" value="5"/>
     <property name="bounds1y" type="int" value="32"/>
     <property name="bounds2x" type="int" value="24"/>
@@ -365,6 +367,8 @@
   </object>
   <object id="25" name="The Father" type="NPC" x="528" y="320" width="16" height="16">
    <properties>
+    <property name="atlasBodyId" type="int" value="54"/>
+    <property name="atlasHeadId" type="int" value="79"/>
     <property name="bounds1x" type="int" value="29"/>
     <property name="bounds1y" type="int" value="17"/>
     <property name="bounds2x" type="int" value="38"/>
@@ -374,6 +378,8 @@
   </object>
   <object id="26" name="The Mother" type="NPC" x="128" y="336" width="16" height="16">
    <properties>
+    <property name="atlasBodyId" type="int" value="48"/>
+    <property name="atlasHeadId" type="int" value="36"/>
     <property name="bounds1x" type="int" value="6"/>
     <property name="bounds1y" type="int" value="18"/>
     <property name="bounds2x" type="int" value="14"/>

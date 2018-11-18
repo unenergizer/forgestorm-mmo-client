@@ -32,8 +32,8 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             playerTile.setText("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName());
             playerPixel.setText("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY());
             cursorTile.setText("Cursor-Tile X: " + Valenguard.getInstance().getMouseManager().getMouseTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getMouseTileY());
-            leftCursorTileClick.setText("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY());
-            rightCursorTileClick.setText("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY());
+            leftCursorTileClick.setText("WEST-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY());
+            rightCursorTileClick.setText("EAST-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY());
             zoom.setText("Zoom: " + Valenguard.gameScreen.getCamera().zoom);
             bodyParts.setText("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getBodyId());
         }
@@ -80,8 +80,8 @@ public class GameScreenDebugText extends AbstractUI implements Refreshable {
             playerTile = new Label("Player X: " + client.getCurrentMapLocation().getX() + ", Y: " + client.getCurrentMapLocation().getY() + ", map: " + client.getCurrentMapLocation().getMapName(), skin);
             playerPixel = new Label("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY(), skin);
             cursorTile = new Label("Cursor-Tile X: " + Valenguard.getInstance().getMouseManager().getMouseTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getMouseTileY(), skin);
-            leftCursorTileClick = new Label("LEFT-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY(), skin);
-            rightCursorTileClick = new Label("RIGHT-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY(), skin);
+            leftCursorTileClick = new Label("WEST-Click X: " + Valenguard.getInstance().getMouseManager().getLeftClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getLeftClickTileY(), skin);
+            rightCursorTileClick = new Label("EAST-Click X: " + Valenguard.getInstance().getMouseManager().getRightClickTileX() + ", Y: " + Valenguard.getInstance().getMouseManager().getRightClickTileY(), skin);
             zoom = new Label("Zoom: " + Valenguard.gameScreen.getCamera().zoom, skin);
             bodyParts = new Label("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getBodyId(), skin);
 

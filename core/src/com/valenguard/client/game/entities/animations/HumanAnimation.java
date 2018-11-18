@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.util.RandomUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,10 @@ public class HumanAnimation extends EntityAnimation {
     private Animation<TextureRegion> bodyLeft;
     private Animation<TextureRegion> bodyRight;
 
+    private final int idleAnimationWaitMax = RandomUtil.getNewRandom(150, 500);
+    private int idleAnimationWaitTime = 0;
+    private int currentFramesRendered = 0;
+
     public HumanAnimation(MovingEntity movingEntity) {
         super(movingEntity);
     }
@@ -44,6 +49,71 @@ public class HumanAnimation extends EntityAnimation {
         bodyUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_up_" + bodyId), Animation.PlayMode.LOOP);
         bodyLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_left_" + bodyId), Animation.PlayMode.LOOP);
         bodyRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_right_" + bodyId), Animation.PlayMode.LOOP);
+    }
+
+    @Override
+    TextureRegion[] actIdle(float stateTime) {
+        if (idleAnimationWaitTime >= idleAnimationWaitMax) {
+
+            if (currentFramesRendered >= 4) {
+                idleAnimationWaitTime = 0;
+                currentFramesRendered = 0;
+            } else {
+                currentFramesRendered++;
+            }
+
+            switch (movingEntity.getFacingDirection()) {
+                case NORTH:
+                    return new TextureRegion[]{
+                            headUp.getKeyFrame(stateTime, true),
+                            bodyUp.getKeyFrame(0, false)
+                    };
+                case SOUTH:
+                    return new TextureRegion[]{
+                            headDown.getKeyFrame(stateTime, true),
+                            bodyDown.getKeyFrame(0, false)
+                    };
+                case WEST:
+                    return new TextureRegion[]{
+                            headLeft.getKeyFrame(stateTime, true),
+                            bodyLeft.getKeyFrame(0, false)
+                    };
+                case EAST:
+                    return new TextureRegion[]{
+                            headRight.getKeyFrame(stateTime, true),
+                            bodyRight.getKeyFrame(0, false)
+                    };
+                case NONE:
+                    return null;
+            }
+        } else {
+            idleAnimationWaitTime++;
+            switch (movingEntity.getFacingDirection()) {
+                case NORTH:
+                    return new TextureRegion[]{
+                            headUp.getKeyFrame(0, false),
+                            bodyUp.getKeyFrame(0, false)
+                    };
+                case SOUTH:
+                    return new TextureRegion[]{
+                            headDown.getKeyFrame(0, false),
+                            bodyDown.getKeyFrame(0, false)
+                    };
+                case WEST:
+                    return new TextureRegion[]{
+                            headLeft.getKeyFrame(0, false),
+                            bodyLeft.getKeyFrame(0, false)
+                    };
+                case EAST:
+                    return new TextureRegion[]{
+                            headRight.getKeyFrame(0, false),
+                            bodyRight.getKeyFrame(0, false)
+                    };
+                case NONE:
+                    return null;
+            }
+        }
+        return null;
     }
 
     @Override

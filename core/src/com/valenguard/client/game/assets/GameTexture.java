@@ -8,7 +8,8 @@ public enum GameTexture {
     TEMP_PLAYER_IMG("player/player.png"),
     TEMP_OTHER_PLAYER_IMG("player/smile.png"),
     INVALID_MOVE("buttons_242.png"),
-    WARP_LOCATION("warp_door.png");
+    WARP_LOCATION("warp_door.png"),
+    PARALLAX_BACKGROUND("background/background-purple.png");
 
     private final String filePath;
 

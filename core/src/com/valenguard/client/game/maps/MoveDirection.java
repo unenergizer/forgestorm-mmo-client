@@ -1,10 +1,10 @@
 package com.valenguard.client.game.maps;
 
 public enum MoveDirection {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST,
     NONE;
 
     public static MoveDirection getDirection(byte directionByte) {

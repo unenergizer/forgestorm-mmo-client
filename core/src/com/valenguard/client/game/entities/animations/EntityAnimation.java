@@ -10,13 +10,14 @@ import com.valenguard.client.game.movement.MoveUtil;
 
 public abstract class EntityAnimation {
 
-    protected static final float WALK_INTERVAL = 0.25f;
+    static final float WALK_INTERVAL = 0.25f;
 
-    private final MovingEntity movingEntity;
+    protected final MovingEntity movingEntity;
 
-    private float stateTime = 1f;
+    private float movingStateTime = 1f;
+    private float idleStateTime = 1f;
 
-    public EntityAnimation(MovingEntity movingEntity) {
+    EntityAnimation(MovingEntity movingEntity) {
         this.movingEntity = movingEntity;
     }
 
@@ -30,6 +31,8 @@ public abstract class EntityAnimation {
 
     abstract void load(TextureAtlas textureAtlas, short[] textureIds);
 
+    abstract TextureRegion[] actIdle(float stateTime);
+
     abstract TextureRegion[] actMoveUp(float stateTime);
 
     abstract TextureRegion[] actMoveDown(float stateTime);
@@ -39,33 +42,41 @@ public abstract class EntityAnimation {
     abstract TextureRegion[] actMoveRight(float stateTime);
 
     public void animate(float delta, SpriteBatch spriteBatch) {
+        TextureRegion[] frames;
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
-            stateTime += delta;
+            movingStateTime += delta;
+            idleStateTime = 0f;
+            frames = movingAnimation();
         } else {
-            stateTime = 0f;
+            movingStateTime = 0f;
+            idleStateTime += delta;
+            frames = idleAnimation();
         }
 
-        TextureRegion[] frames = null;
-        switch (movingEntity.getFacingDirection()) {
-            case UP:
-                frames = actMoveUp(stateTime);
-                break;
-            case DOWN:
-                frames = actMoveDown(stateTime);
-                break;
-            case LEFT:
-                frames = actMoveLeft(stateTime);
-                break;
-            case RIGHT:
-                frames = actMoveRight(stateTime);
-                break;
-            case NONE:
-                throw new RuntimeException("Facing direction cannot be NONE.");
-        }
-
+        if (frames == null) return;
         for (TextureRegion frame : frames) {
             spriteBatch.draw(frame, movingEntity.getDrawX(), movingEntity.getDrawY());
         }
+    }
+
+    private TextureRegion[] movingAnimation() {
+        switch (movingEntity.getFacingDirection()) {
+            case NORTH:
+                return actMoveUp(movingStateTime);
+            case SOUTH:
+                return actMoveDown(movingStateTime);
+            case WEST:
+                return actMoveLeft(movingStateTime);
+            case EAST:
+                return actMoveRight(movingStateTime);
+            case NONE:
+                throw new RuntimeException("Facing direction cannot be NONE.");
+        }
+        return null;
+    }
+
+    private TextureRegion[] idleAnimation() {
+        return actIdle(idleStateTime);
     }
 }

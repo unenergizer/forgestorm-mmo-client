@@ -347,7 +347,7 @@
  <objectgroup id="7" name="warp">
   <object id="17" name="pub_dining" type="Warp" x="464" y="336" width="16" height="16">
    <properties>
-    <property name="direction" value="LEFT"/>
+    <property name="direction" value="WEST"/>
     <property name="x" type="int" value="31"/>
     <property name="y" type="int" value="17"/>
    </properties>
@@ -356,13 +356,15 @@
  <objectgroup id="9" name="entity">
   <object id="19" name="Concerned Guy" type="NPC" x="336" y="352" width="16" height="16">
    <properties>
+    <property name="atlasBodyId" type="int" value="19"/>
+    <property name="atlasHeadId" type="int" value="2"/>
     <property name="speed" type="float" value="0.3"/>
    </properties>
   </object>
   <object id="21" name="Evil Joseph" type="MONSTER" x="336" y="448" width="16" height="16">
    <properties>
     <property name="atlasBodyId" type="int" value="0"/>
-    <property name="direction" value="DOWN"/>
+    <property name="direction" value="SOUTH"/>
     <property name="probabilityStill" type="float" value="0.3"/>
     <property name="probabilityWalkStart" type="float" value="0.7"/>
     <property name="speed" type="float" value="0.4"/>
