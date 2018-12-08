@@ -1,20 +1,18 @@
 package com.valenguard.client.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.assets.GamePixmap;
-import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.assets.GameTexture;
-import com.valenguard.client.game.screens.stage.UiManager;
-import com.valenguard.client.game.screens.stage.login.LoginScreenUI;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.util.GraphicsUtils;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,20 +21,16 @@ import lombok.Setter;
 @Setter
 public class LoginScreen extends ScreenAdapter {
 
-    private static final boolean PRINT_DEBUG = false;
-
-    private UiManager uiManager;
-    private FileManager fileManager;
+    private final FileManager fileManager = Valenguard.getInstance().getFileManager();
+    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private SpriteBatch spriteBatch;
 
     @Override
     public void show() {
-        Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
-
         spriteBatch = new SpriteBatch();
-        fileManager = Valenguard.getInstance().getFileManager();
 
         // Load assets
+        fileManager.loadAtlas(GameAtlas.ITEM_TEXTURES);
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
 
         // Change cursor
@@ -46,13 +40,18 @@ public class LoginScreen extends ScreenAdapter {
         Gdx.graphics.setCursor(customCursor);
 
         // Show UI
-        uiManager = Valenguard.getInstance().getUiManager();
-        uiManager.setup(new ScreenViewport(), GameSkin.DEFAULT);
-        uiManager.addUi("login", new LoginScreenUI(), true);
-        uiManager.show("login");
+        stageHandler.init();
+        stageHandler.getLoginTable().setVisible(true);
+        stageHandler.getButtonTable().setVisible(true);
+        stageHandler.getCopyrightTable().setVisible(true);
+        stageHandler.getVersionTable().setVisible(true);
 
         // Setup input controls
-        Gdx.input.setInputProcessor(uiManager.getStage());
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stageHandler.getPreStageEvent());
+        multiplexer.addProcessor(stageHandler.getStage());
+        multiplexer.addProcessor(stageHandler.getPostStageEvent());
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -65,13 +64,12 @@ public class LoginScreen extends ScreenAdapter {
         spriteBatch.end();
 
         // Render UI
-        uiManager.render(delta);
+        stageHandler.render(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-        Log.println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
-        uiManager.resize(width, height);
+        stageHandler.resize(width, height);
     }
 
     @Override
@@ -80,9 +78,9 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
-        if (uiManager != null) uiManager.removeAllUi();
-        if (spriteBatch != null) spriteBatch.dispose();
-        if (fileManager != null) fileManager.dispose();
+        if (spriteBatch != null) {
+            fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
+            spriteBatch.dispose();
+        }
     }
 }

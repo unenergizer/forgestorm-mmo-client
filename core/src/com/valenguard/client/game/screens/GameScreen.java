@@ -13,15 +13,13 @@ import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.assets.GameFont;
 import com.valenguard.client.game.assets.GamePixmap;
-import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.input.Keyboard;
 import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.maps.MapRenderer;
-import com.valenguard.client.game.screens.stage.UiManager;
-import com.valenguard.client.game.screens.stage.game.ChatBox;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.PlayerSessionData;
 import com.valenguard.client.util.AttachableCamera;
 import com.valenguard.client.util.GraphicsUtils;
@@ -33,19 +31,18 @@ import lombok.Setter;
 @Getter
 public class GameScreen implements Screen {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
-    private UiManager uiManager;
-    private FileManager fileManager;
-    private SpriteBatch spriteBatch;
+    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
+    private final FileManager fileManager = Valenguard.getInstance().getFileManager();
 
+    private MapRenderer mapRenderer = new MapRenderer();
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
 
-    private MapRenderer mapRenderer = new MapRenderer();
-
     // TODO: RELOCATE
-    private Texture parrallaxBackground;
+    private SpriteBatch spriteBatch;
+    private Texture parallaxBackground;
     private Texture tilePathTexture;
     private Texture invalidMoveLocation;
     private Texture warpLocation;
@@ -61,8 +58,6 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
-
-        fileManager = Valenguard.getInstance().getFileManager();
         spriteBatch = new SpriteBatch();
 
         // Setup camera
@@ -78,8 +73,8 @@ public class GameScreen implements Screen {
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
 
         fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
-        parrallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
-        parrallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
+        parallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         fileManager.loadTexture(GameTexture.TILE_PATH);
         tilePathTexture = fileManager.getTexture(GameTexture.TILE_PATH);
         fileManager.loadTexture(GameTexture.INVALID_MOVE);
@@ -92,15 +87,20 @@ public class GameScreen implements Screen {
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // Show UI
-        uiManager = Valenguard.getInstance().getUiManager();
-        uiManager.setup(screenViewport, GameSkin.DEFAULT);
-        uiManager.addUi("chatbox", new ChatBox(), true);
+        stageHandler.getLoginTable().setVisible(false);
+        stageHandler.getButtonTable().setVisible(false);
+        stageHandler.getCopyrightTable().setVisible(false);
+        stageHandler.getVersionTable().setVisible(false);
+        stageHandler.getMainSettingsWindow().setVisible(false);
+        stageHandler.getChatWindow().fadeIn().setVisible(true);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stageHandler.getPreStageEvent());
+        multiplexer.addProcessor(stageHandler.getStage());
+        multiplexer.addProcessor(stageHandler.getPostStageEvent());
         multiplexer.addProcessor(keyboard);
         multiplexer.addProcessor(new Mouse());
-        multiplexer.addProcessor(uiManager.getStage());
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -123,9 +123,9 @@ public class GameScreen implements Screen {
             spriteBatch.begin();
             srcX += 2;
             srcY -= 3;
-            if (srcX >= parrallaxBackground.getWidth()) srcX = 0;
-            if (srcY <= -parrallaxBackground.getHeight()) srcY = 0;
-            spriteBatch.draw(parrallaxBackground, 0, 0, srcX, srcY, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            if (srcX >= parallaxBackground.getWidth()) srcX = 0;
+            if (srcY <= -parallaxBackground.getHeight()) srcY = 0;
+            spriteBatch.draw(parallaxBackground, 0, 0, srcX, srcY, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             spriteBatch.end();
         }
 
@@ -142,7 +142,7 @@ public class GameScreen implements Screen {
 
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch, invalidMoveLocation, warpLocation);
-        Valenguard.getInstance().getUiManager().render(delta);
+        Valenguard.getInstance().getStageHandler().render(delta);
     }
 
     private void tickGameLogic(float delta) {
@@ -155,7 +155,7 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         Log.println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         camera.setToOrtho(false, width, height);
-        uiManager.resize(width, height);
+        stageHandler.resize(width, height);
     }
 
     @Override
@@ -175,7 +175,5 @@ public class GameScreen implements Screen {
         Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         if (mapRenderer != null) mapRenderer.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
-        if (uiManager != null) uiManager.removeAllUi();
-        if (fileManager != null) fileManager.dispose();
     }
 }

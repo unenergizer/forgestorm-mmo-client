@@ -3,7 +3,7 @@ package com.valenguard.client.game.assets;
 @SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
 public enum GameSkin {
 
-    DEFAULT("uiskin.json");
+    DEFAULT("tixel/x1/tixel.json");
 
     private final String filePath;
 

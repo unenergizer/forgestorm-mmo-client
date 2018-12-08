@@ -4,6 +4,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Write;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -33,7 +34,7 @@ public abstract class ClientOutPacket {
     void writeData() {
         clientHandler.write(opcode, new Write() {
             @Override
-            public void accept(ObjectOutputStream write) throws IOException {
+            public void accept(DataOutputStream write) throws IOException {
                 createPacket(write);
             }
         });
@@ -42,5 +43,5 @@ public abstract class ClientOutPacket {
     /**
      * Creates the packet.
      */
-    protected abstract void createPacket(ObjectOutputStream write) throws IOException;
+    protected abstract void createPacket(DataOutputStream write) throws IOException;
 }

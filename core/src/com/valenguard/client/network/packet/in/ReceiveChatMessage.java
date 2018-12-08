@@ -1,7 +1,6 @@
 package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.stage.game.ChatBox;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -22,7 +21,7 @@ public class ReceiveChatMessage implements PacketListener<ReceiveChatMessage.Cha
     @Override
     public void onEvent(ChatMessagePacket packetData) {
         Log.println(getClass(), packetData.chatMessage);
-        ((ChatBox) Valenguard.getInstance().getUiManager().getAbstractUI("chatbox")).updateChatBox(packetData.chatMessage);
+        Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage(packetData.chatMessage);
     }
 
     @AllArgsConstructor

@@ -1,5 +1,7 @@
 package com.valenguard.client.network.shared;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,8 +15,8 @@ import lombok.Getter;
 @Getter
 public class ClientHandler {
     private Socket socket;
-    private ObjectOutputStream outputStream;
-    private ObjectInputStream inputStream;
+    private DataOutputStream outputStream;
+    private DataInputStream inputStream;
 
     @FunctionalInterface
     private interface Reader {
@@ -89,20 +91,6 @@ public class ClientHandler {
             @Override
             public Long accept() throws IOException {
                 return inputStream.readLong();
-            }
-        });
-    }
-
-    public Object readObject() {
-        return readIn(new Reader() {
-            @Override
-            public Object accept() throws IOException {
-                try {
-                    return inputStream.readObject();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                return null;
             }
         });
     }

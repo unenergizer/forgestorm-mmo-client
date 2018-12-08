@@ -3,6 +3,7 @@ package com.valenguard.client.network.packet.out;
 import com.valenguard.client.network.PlayerSession;
 import com.valenguard.client.network.shared.Opcodes;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -16,7 +17,7 @@ public class ClientLogin extends ClientOutPacket {
     }
 
     @Override
-    protected void createPacket(ObjectOutputStream write) throws IOException {
+    protected void createPacket(DataOutputStream write) throws IOException {
         write.writeUTF(playerSession.getUsername());
         write.writeUTF(playerSession.getPassword());
     }

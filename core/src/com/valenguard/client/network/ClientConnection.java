@@ -9,6 +9,9 @@ import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.util.Log;
 
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -83,13 +86,13 @@ public class ClientConnection {
      * @param socket The connection to the remote server.
      */
     private void receivePackets(Socket socket) {
-        ObjectInputStream inputStream;
-        ObjectOutputStream outputStream;
+        DataInputStream inputStream;
+        DataOutputStream outputStream;
 
         // Try to establish a input and output streams.
         try {
-            inputStream = new ObjectInputStream(socket.getInputStream());
-            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new DataInputStream(socket.getInputStream());
+            outputStream = new DataOutputStream(socket.getOutputStream());
         } catch (SocketException e1) {
             Log.println(getClass(), "The server appears to be down! SocketException");
             threadSafeConnectionMessage("The server appears to be down! SocketException", Color.RED);

@@ -16,7 +16,7 @@ import org.robovm.apple.uikit.UIApplication;
  * Original File Date: 12/20/2017 @ 12:10 AM
  * ______________________________________________________
  *
- * Copyright © 2017 Valenguard.com. All Rights Reserved.
+ * CopyrightTable © 2017 Valenguard.com. All Rights Reserved.
  *
  * No part of this project and/or code and/or source code
  * and/or source may be reproduced, distributed, or

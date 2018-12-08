@@ -1,9 +1,10 @@
 package com.valenguard.client.network.shared;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 @FunctionalInterface
 public interface Write {
-    void accept(ObjectOutputStream outStream) throws IOException;
+    void accept(DataOutputStream outStream) throws IOException;
 }
