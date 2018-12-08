@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors;
+package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,8 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
-import com.valenguard.client.game.screens.ui.Buildable;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 public class InventorySlot extends Stack implements Buildable {
 

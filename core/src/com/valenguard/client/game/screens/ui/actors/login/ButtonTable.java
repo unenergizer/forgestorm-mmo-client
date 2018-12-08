@@ -7,7 +7,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.Buildable;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
 
 public class ButtonTable extends VisTable implements Buildable {

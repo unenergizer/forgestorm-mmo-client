@@ -12,8 +12,9 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.valenguard.client.game.screens.ui.Buildable;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.network.packet.out.SendChatMessage;
 import com.valenguard.client.util.Log;
 
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Getter
 public class ChatWindow extends VisWindow implements Buildable, Focusable {
 
-    private final StageHandler stageHandler;
+    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private TextArea messagesDisplay;
     private VisTextField messageInput;
 
@@ -42,9 +43,8 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
      */
     private boolean displayEmpty = true;
 
-    public ChatWindow(StageHandler stageHandler) {
+    public ChatWindow() {
         super("");
-        this.stageHandler = stageHandler;
     }
 
     @Override

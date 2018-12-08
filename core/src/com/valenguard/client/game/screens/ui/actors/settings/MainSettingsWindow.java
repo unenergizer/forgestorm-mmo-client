@@ -1,6 +1,8 @@
 package com.valenguard.client.game.screens.ui.actors.settings;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -9,8 +11,8 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
-import com.valenguard.client.game.screens.ui.Buildable;
-import com.valenguard.client.game.screens.ui.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 
 import lombok.Getter;
 
@@ -58,6 +60,13 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
         tabbedPane.add(controls);
         tabbedPane.add(social);
         tabbedPane.switchTab(0);
+
+        addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
 
 //		debugAll();
         setSize(350, 200);

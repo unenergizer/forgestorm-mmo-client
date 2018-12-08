@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.game.screens.ui.Buildable;
-import com.valenguard.client.game.screens.ui.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 public class CopyrightTable extends VisTable implements Buildable {
 

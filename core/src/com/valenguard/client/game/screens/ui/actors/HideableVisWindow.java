@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui;
+package com.valenguard.client.game.screens.ui.actors;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;

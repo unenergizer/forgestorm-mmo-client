@@ -30,7 +30,6 @@ public class ClientConnection {
     private ClientHandler clientHandler;
     private boolean connected;
 
-
     /**
      * Attempts to establish a connection with the server.
      *
@@ -54,14 +53,14 @@ public class ClientConnection {
                 } catch (SocketTimeoutException e) {
                     Log.println(ClientConnection.class, "Failed to connect! SocketTimeoutException");
                     threadSafeConnectionMessage("Failed to connect! SocketTimeoutException", Color.RED);
-                    closeConnection();
+                    logout();
                     return;
                 } catch (IOException e) {
                     // Failed to openConnection
                     if (e instanceof ConnectException) {
                         Log.println(ClientConnection.class, "Failed to connect! IOException");
                         threadSafeConnectionMessage("Failed to connect! IOException", Color.RED);
-                        closeConnection();
+                        logout();
                         return;
                     } else {
                         e.printStackTrace();
@@ -93,19 +92,19 @@ public class ClientConnection {
         } catch (SocketException e1) {
             Log.println(ClientConnection.class, "The server appears to be down! SocketException");
             threadSafeConnectionMessage("The server appears to be down! SocketException", Color.RED);
-            closeConnection();
+            logout();
             return;
 
         } catch (SocketTimeoutException e2) {
             Log.println(ClientConnection.class, "Connection to the server has timed out! SocketTimeoutException");
             threadSafeConnectionMessage("Connection to the server has timed out! SocketTimeoutException", Color.RED);
-            closeConnection();
+            logout();
             return;
 
         } catch (IOException e3) {
             Log.println(ClientConnection.class, "Could not connect to server! IOException");
             threadSafeConnectionMessage("Could not connect to server! IOException", Color.RED);
-            closeConnection();
+            logout();
             return;
         }
 
@@ -126,7 +125,7 @@ public class ClientConnection {
                     } catch (IOException e) {
                         // Socket closed
                         if (!(e instanceof SocketException && !connected)) {
-                            closeConnection();
+                            logout();
                             break;
                         }
                     }
@@ -138,13 +137,10 @@ public class ClientConnection {
     }
 
     /**
-     * Safely closes a network connection.
+     * Sends the player back to the login screen.
      */
-    public void closeConnection() {
-        Log.println(ClientConnection.class, "Closing network connection.");
-
-        connected = false;
-        if (clientHandler != null) clientHandler.closeConnection();
+    public void logout() {
+        disconnect();
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
@@ -152,6 +148,15 @@ public class ClientConnection {
                 Valenguard.getInstance().create();
             }
         });
+    }
+
+    /**
+     * Safely closes a network connection.
+     */
+    public void disconnect() {
+        Log.println(ClientConnection.class, "Closing network connection.");
+        connected = false;
+        if (clientHandler != null) clientHandler.closeConnection();
     }
 
     /**

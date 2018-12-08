@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui;
+package com.valenguard.client.game.screens.ui.actors;
 
 public interface VisabilityToggle {
     void show();

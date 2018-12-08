@@ -50,6 +50,14 @@ public class PreStageEvent implements InputProcessor {
         }
 
         /*
+         * Toggle Game Debug
+         */
+        if (keycode == Input.Keys.F3 && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+            stageHandler.getDebugTable().setVisible(!stageHandler.getDebugTable().isVisible());
+            return true;
+        }
+
+        /*
          * Toggle UI Debug
          */
         if (keycode == Input.Keys.F12) {

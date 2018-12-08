@@ -148,7 +148,8 @@ public class GameScreen implements Screen {
 
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch, invalidMoveLocation, warpLocation);
-        Valenguard.getInstance().getStageHandler().render(delta);
+        stageHandler.getDebugTable().refresh(delta);
+        stageHandler.render(delta);
     }
 
     private void tickGameLogic(float delta) {

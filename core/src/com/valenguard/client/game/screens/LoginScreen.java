@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
@@ -49,6 +50,8 @@ public class LoginScreen extends ScreenAdapter {
         stageHandler.getButtonTable().setVisible(true);
         stageHandler.getCopyrightTable().setVisible(true);
         stageHandler.getVersionTable().setVisible(true);
+        FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getLoginTable().getAccountField());
+        stageHandler.getStage().setKeyboardFocus(stageHandler.getLoginTable().getAccountField());
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();

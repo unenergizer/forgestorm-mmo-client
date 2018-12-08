@@ -1,12 +1,14 @@
-package com.valenguard.client.game.screens.ui.actors;
+package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.LinkLabel;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.game.screens.ui.Buildable;
-import com.valenguard.client.game.screens.ui.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 
 public class HelpWindow extends HideableVisWindow implements Buildable {
 
@@ -29,6 +31,13 @@ public class HelpWindow extends HideableVisWindow implements Buildable {
         mainTable.add(new LinkLabel("https://discord.gg/NhtvMgR")).row();
 
         add(mainTable);
+
+        addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
 
         pack();
         centerWindow();

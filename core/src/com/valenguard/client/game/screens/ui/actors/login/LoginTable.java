@@ -13,21 +13,19 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameTexture;
-import com.valenguard.client.game.screens.ui.Buildable;
-import com.valenguard.client.game.screens.ui.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.network.PlayerSession;
 
+import lombok.Getter;
+
+@Getter
 public class LoginTable extends VisTable implements Buildable, Disposable {
 
-    private StageHandler stageHandler;
+    private StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private VisTextField accountField = null;
     private VisTextField passwordField = null;
-
-    public LoginTable(StageHandler stageHandler) {
-//        super("");
-        this.stageHandler = stageHandler;
-    }
 
     @Override
     public Actor build() {
@@ -103,7 +101,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
      * This will start Netty and attempt to login to the network.
      */
     private void attemptLogin() {
-        Gdx.input.setOnscreenKeyboardVisible(false); // closeConnection the android keyboard
+        Gdx.input.setOnscreenKeyboardVisible(false); // logout the android keyboard
 
         // TODO: Use these details for user authentication
         String username = accountField.getText();
@@ -128,7 +126,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
     private class AccountInput implements VisTextField.TextFieldListener {
         @Override
         public void keyTyped(VisTextField textField, char c) {
-            // user hit enter/tab/etc, lets playerMove to next text field
+            // user hit enter/tab/etc, lets move to password text field
             if (c == '\n' || c == '\r' || c == '\t') {
                 FocusManager.switchFocus(stageHandler.getStage(), passwordField);
                 stageHandler.getStage().setKeyboardFocus(passwordField);
@@ -140,9 +138,11 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         @Override
         public void keyTyped(VisTextField textField, char c) {
             if (c == '\t') {
+                // user hit tab, lets playerMove to account text field
                 FocusManager.switchFocus(stageHandler.getStage(), accountField);
                 stageHandler.getStage().setKeyboardFocus(accountField);
-            } else if (c == '\n' || c == '\r') { // user hit enter, try login
+            } else if (c == '\n' || c == '\r') {
+                // user hit enter, try login
                 attemptLogin();
             }
         }

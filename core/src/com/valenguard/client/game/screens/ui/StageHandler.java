@@ -8,11 +8,14 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.game.assets.GameSkin;
-import com.valenguard.client.game.screens.ui.actors.CreditsWindow;
-import com.valenguard.client.game.screens.ui.actors.EscapeWindow;
-import com.valenguard.client.game.screens.ui.actors.HelpWindow;
-import com.valenguard.client.game.screens.ui.actors.InventoryWindow;
+import com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
+import com.valenguard.client.game.screens.ui.actors.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
+import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
+import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
+import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
+import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
+import com.valenguard.client.game.screens.ui.actors.game.InventoryWindow;
 import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
 import com.valenguard.client.game.screens.ui.actors.login.LoginTable;
@@ -40,6 +43,7 @@ public class StageHandler implements Disposable {
     private ChatWindow chatWindow;
     private InventoryWindow inventoryWindow;
     private MainSettingsWindow mainSettingsWindow;
+    private DebugTable debugTable;
 
     public void init() {
         if (initialized) return;
@@ -49,13 +53,14 @@ public class StageHandler implements Disposable {
         buttonTable = new ButtonTable();
         versionTable = new VersionTable();
         copyrightTable = new CopyrightTable();
-        loginTable = new LoginTable(this);
+        loginTable = new LoginTable();
         helpWindow = new HelpWindow();
         creditsWindow = new CreditsWindow();
-        escapeWindow = new EscapeWindow(this);
-        chatWindow = new ChatWindow(this);
-        inventoryWindow = new InventoryWindow(this);
+        escapeWindow = new EscapeWindow();
+        chatWindow = new ChatWindow();
+        inventoryWindow = new InventoryWindow();
         mainSettingsWindow = new MainSettingsWindow();
+        debugTable = new DebugTable();
 
         stage.addActor(buttonTable.build());
         stage.addActor(versionTable.build());
@@ -72,8 +77,9 @@ public class StageHandler implements Disposable {
     }
 
     public void setVisible(Actor actor, boolean visible) {
-        boolean isInstance = actor instanceof VisabilityToggle;
-        if (visible && isInstance) ((VisabilityToggle) actor).show();
+        boolean isInstance = actor instanceof com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
+        if (visible && isInstance)
+            ((com.valenguard.client.game.screens.ui.actors.VisabilityToggle) actor).show();
         if (!visible && isInstance) ((VisabilityToggle) actor).hide();
         actor.setVisible(visible);
     }

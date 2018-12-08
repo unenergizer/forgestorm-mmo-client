@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.valenguard.client.game.screens.ui;
+package com.valenguard.client.game.screens.ui.actors;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -30,5 +30,3 @@ public abstract class WindowResizeListener implements EventListener {
     public abstract void resize();
 }
 
-class WindowResizeEvent extends Event {
-}
