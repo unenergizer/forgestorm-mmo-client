@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
 import com.valenguard.client.game.screens.ui.actors.WindowResizeEvent;
+import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
@@ -33,16 +34,22 @@ public class StageHandler implements Disposable {
 
     private boolean initialized = false;
 
+    // shared
+    private MainSettingsWindow mainSettingsWindow;
+
+    // login
     private ButtonTable buttonTable;
     private VersionTable versionTable;
     private CopyrightTable copyrightTable;
     private LoginTable loginTable;
+
+    // game
     private HelpWindow helpWindow;
     private CreditsWindow creditsWindow;
     private EscapeWindow escapeWindow;
     private ChatWindow chatWindow;
     private InventoryWindow inventoryWindow;
-    private MainSettingsWindow mainSettingsWindow;
+    private ButtonBar buttonBar;
     private DebugTable debugTable;
 
     public void init() {
@@ -50,28 +57,36 @@ public class StageHandler implements Disposable {
         initialized = true;
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
+        // shared
+        mainSettingsWindow = new MainSettingsWindow();
+        stage.addActor(mainSettingsWindow.build());
+
+        // login
         buttonTable = new ButtonTable();
         versionTable = new VersionTable();
         copyrightTable = new CopyrightTable();
         loginTable = new LoginTable();
-        helpWindow = new HelpWindow();
-        creditsWindow = new CreditsWindow();
-        escapeWindow = new EscapeWindow();
-        chatWindow = new ChatWindow();
-        inventoryWindow = new InventoryWindow();
-        mainSettingsWindow = new MainSettingsWindow();
-        debugTable = new DebugTable();
 
         stage.addActor(buttonTable.build());
         stage.addActor(versionTable.build());
         stage.addActor(copyrightTable.build());
         stage.addActor(loginTable.build());
+
+        // game
+        helpWindow = new HelpWindow();
+        creditsWindow = new CreditsWindow();
+        escapeWindow = new EscapeWindow();
+        chatWindow = new ChatWindow();
+        inventoryWindow = new InventoryWindow();
+        buttonBar = new ButtonBar();
+        debugTable = new DebugTable();
+
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
         stage.addActor(chatWindow.build());
         stage.addActor(inventoryWindow.build());
         stage.addActor(escapeWindow.build());
-        stage.addActor(mainSettingsWindow.build());
+        stage.addActor(buttonBar.build());
 
         FocusManager.resetFocus(stage); // Clear focus after building windows
     }
@@ -85,6 +100,7 @@ public class StageHandler implements Disposable {
     }
 
     public void render(float delta) {
+        debugTable.refresh(delta);
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
     }

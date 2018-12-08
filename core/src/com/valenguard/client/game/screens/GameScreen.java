@@ -50,7 +50,6 @@ public class GameScreen implements Screen {
     private BitmapFont font;
 
     @Setter
-    @Getter
     private PlayerSessionData playerSessionData;
 
     // TODO: RELOCATE
@@ -99,6 +98,7 @@ public class GameScreen implements Screen {
 
         // --- show ui ---
         stageHandler.getChatWindow().fadeIn().setVisible(true);
+        stageHandler.getButtonBar().setVisible(true);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -110,8 +110,8 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(multiplexer);
     }
 
-    int srcX = 0;
-    int srcY = 0;
+    private int srcX = 0; //TODO RELOCATE PARALLAX BG
+    private int srcY = 0; //TODO RELOCATE PARALLAX BG
 
     @Override
     public void render(float delta) {
@@ -148,7 +148,6 @@ public class GameScreen implements Screen {
 
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch, invalidMoveLocation, warpLocation);
-        stageHandler.getDebugTable().refresh(delta);
         stageHandler.render(delta);
     }
 
