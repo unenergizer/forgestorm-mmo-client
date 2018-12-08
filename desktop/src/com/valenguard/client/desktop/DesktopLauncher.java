@@ -1,6 +1,5 @@
 package com.valenguard.client.desktop;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -29,7 +28,6 @@ public class DesktopLauncher {
         Valenguard valenguard = Valenguard.getInstance();
         valenguard.setIdeRun(ideRun);
 
-        Application application = new LwjglApplication(valenguard, config);
-        application.setLogLevel(Application.LOG_DEBUG);
+        new LwjglApplication(valenguard, config);
     }
 }

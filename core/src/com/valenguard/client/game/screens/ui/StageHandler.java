@@ -28,6 +28,8 @@ public class StageHandler implements Disposable {
     private final PreStageEvent preStageEvent = new PreStageEvent(this);
     private final PostStageEvent postStageEvent = new PostStageEvent(this);
 
+    private boolean initialized = false;
+
     private ButtonTable buttonTable;
     private VersionTable versionTable;
     private CopyrightTable copyrightTable;
@@ -40,6 +42,8 @@ public class StageHandler implements Disposable {
     private MainSettingsWindow mainSettingsWindow;
 
     public void init() {
+        if (initialized) return;
+        initialized = true;
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
         buttonTable = new ButtonTable();

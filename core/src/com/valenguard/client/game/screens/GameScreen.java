@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
@@ -86,12 +87,17 @@ public class GameScreen implements Screen {
         fileManager.loadPixmap(GamePixmap.CURSOR_1);
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
-        // Show UI
+        // User Interface
+        FocusManager.resetFocus(stageHandler.getStage());
+
+        // --- hide ui ---
         stageHandler.getLoginTable().setVisible(false);
         stageHandler.getButtonTable().setVisible(false);
         stageHandler.getCopyrightTable().setVisible(false);
         stageHandler.getVersionTable().setVisible(false);
         stageHandler.getMainSettingsWindow().setVisible(false);
+
+        // --- show ui ---
         stageHandler.getChatWindow().fadeIn().setVisible(true);
 
         // Setup input controls

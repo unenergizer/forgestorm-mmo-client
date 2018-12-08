@@ -1,11 +1,14 @@
 package com.valenguard.client.network.shared;
 
+import com.valenguard.client.util.Log;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -107,6 +110,8 @@ public class ClientHandler {
     private Object readIn(Reader reader) {
         try {
             return reader.accept();
+        } catch (SocketException e) {
+            Log.println(getClass(), "Tried to read data, but socket closed!", true);
         } catch (IOException e) {
             e.printStackTrace();
         }

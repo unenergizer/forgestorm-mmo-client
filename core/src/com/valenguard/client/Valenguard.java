@@ -26,12 +26,15 @@ import com.valenguard.client.network.packet.in.ReceiveChatMessage;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
+import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 public class Valenguard extends Game {
+
+    private static final boolean PRINT_DEBUG = true;
 
     private static Valenguard valenguard;
     public static GameScreen gameScreen;
@@ -50,9 +53,6 @@ public class Valenguard extends Game {
     private ScreenType screenType;
 
     @Setter
-    private long ping = 0; // TODO: RELOCATE
-
-    @Setter
     private boolean ideRun;
 
     private Valenguard() {
@@ -65,6 +65,8 @@ public class Valenguard extends Game {
 
     @Override
     public void create() {
+        Log.println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
+
         // init managers
         outputStreamManager = new OutputStreamManager();
         clientConnection = new ClientConnection();
@@ -103,15 +105,19 @@ public class Valenguard extends Game {
 
     @Override
     public void dispose() {
+        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         fileManager.dispose();
         mapManager.dispose();
         stageHandler.dispose();
 
         gameScreen.dispose();
+        gameScreen = null;
         loginScreen.dispose();
+        loginScreen = null;
     }
 
     public void initializeNetwork(PlayerSession playerSession) {
+        Log.println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
         clientConnection.openConnection(
                 playerSession,
                 ServerConstants.SERVER_ADDRESS,

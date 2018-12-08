@@ -13,6 +13,7 @@ import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.util.GraphicsUtils;
+import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,12 +22,15 @@ import lombok.Setter;
 @Setter
 public class LoginScreen extends ScreenAdapter {
 
+    private static final boolean PRINT_DEBUG = true;
+
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private SpriteBatch spriteBatch;
 
     @Override
     public void show() {
+        Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
 
         // Load assets
@@ -39,7 +43,7 @@ public class LoginScreen extends ScreenAdapter {
         Cursor customCursor = Gdx.graphics.newCursor(pixmap, pixmap.getWidth() / 2, pixmap.getHeight() / 2);
         Gdx.graphics.setCursor(customCursor);
 
-        // Show UI
+        // User Interface
         stageHandler.init();
         stageHandler.getLoginTable().setVisible(true);
         stageHandler.getButtonTable().setVisible(true);
@@ -69,6 +73,7 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
+        Log.println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         stageHandler.resize(width, height);
     }
 
@@ -78,6 +83,7 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         if (spriteBatch != null) {
             fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
             spriteBatch.dispose();

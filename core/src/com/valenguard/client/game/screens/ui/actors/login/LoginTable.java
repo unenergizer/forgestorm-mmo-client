@@ -33,7 +33,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
     public Actor build() {
         VisTable mainTable = new VisTable(true);
         VisTable logoTable = new VisTable(true);
-        HideableVisWindow loginWindow = new HideableVisWindow("Game Login:");
+        HideableVisWindow loginWindow = new HideableVisWindow("");
+        loginWindow.pad(3);
         loginWindow.setMovable(false);
         VisTable loginTable = new VisTable(true);
 
@@ -130,6 +131,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
             // user hit enter/tab/etc, lets playerMove to next text field
             if (c == '\n' || c == '\r' || c == '\t') {
                 FocusManager.switchFocus(stageHandler.getStage(), passwordField);
+                stageHandler.getStage().setKeyboardFocus(passwordField);
             }
         }
     }
@@ -137,8 +139,10 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
     private class PasswordInput implements VisTextField.TextFieldListener {
         @Override
         public void keyTyped(VisTextField textField, char c) {
-            if (c == '\t') return; // cancel tab
-            if (c == '\n' || c == '\r') { // user hit enter, try login
+            if (c == '\t') {
+                FocusManager.switchFocus(stageHandler.getStage(), accountField);
+                stageHandler.getStage().setKeyboardFocus(accountField);
+            } else if (c == '\n' || c == '\r') { // user hit enter, try login
                 attemptLogin();
             }
         }

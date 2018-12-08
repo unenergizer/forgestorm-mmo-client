@@ -15,7 +15,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
  * Original File Date: 12/20/2017 @ 12:14 AM
  * ______________________________________________________
  *
- * CopyrightTable © 2017 Valenguard.com. All Rights Reserved.
+ * Copyright © 2017 Valenguard.com. All Rights Reserved.
  *
  * No part of this project and/or code and/or source code
  * and/or source may be reproduced, distributed, or

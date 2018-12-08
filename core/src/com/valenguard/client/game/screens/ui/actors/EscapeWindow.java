@@ -9,6 +9,7 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.Buildable;
 import com.valenguard.client.game.screens.ui.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -80,6 +81,13 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 fadeOut();
                 stageHandler.getMainSettingsWindow().fadeIn().setVisible(true);
+                return true;
+            }
+        });
+
+        logout.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.clientConnection.closeConnection();
                 return true;
             }
         });
