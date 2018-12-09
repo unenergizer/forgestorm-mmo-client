@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.ClientConstants;
@@ -40,6 +41,8 @@ public class GameScreen implements Screen {
     private MapRenderer mapRenderer = new MapRenderer();
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
+
+    private boolean gameFocused = true;
 
     // TODO: RELOCATE
     private SpriteBatch spriteBatch;
@@ -166,14 +169,30 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
+        gameFocused = false;
+        Log.println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
     }
 
     @Override
     public void resume() {
+        /*
+         * Here we set up a timer to return the game focus after a very short amount of time.
+         * The reason we are doing this is to prevent a mouse click action from happening
+         * right when the game window is resumed. This, prevents things like click-to-walk
+         * movement when you click the game window to regan focus.
+         */
+        new Timer().scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                Log.println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
+                gameFocused = true;
+            }
+        }, 0.1f);
     }
 
     @Override
     public void hide() {
+        Log.println(getClass(), "Invoked: hide()", false, PRINT_DEBUG);
     }
 
     @Override
