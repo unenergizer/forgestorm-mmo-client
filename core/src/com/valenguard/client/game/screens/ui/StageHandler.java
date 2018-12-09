@@ -34,9 +34,6 @@ public class StageHandler implements Disposable {
 
     private boolean initialized = false;
 
-    // shared
-    private MainSettingsWindow mainSettingsWindow;
-
     // login
     private ButtonTable buttonTable;
     private VersionTable versionTable;
@@ -52,14 +49,13 @@ public class StageHandler implements Disposable {
     private ButtonBar buttonBar;
     private DebugTable debugTable;
 
+    // shared
+    private MainSettingsWindow mainSettingsWindow;
+
     public void init() {
         if (initialized) return;
         initialized = true;
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
-
-        // shared
-        mainSettingsWindow = new MainSettingsWindow();
-        stage.addActor(mainSettingsWindow.build());
 
         // login
         buttonTable = new ButtonTable();
@@ -87,6 +83,10 @@ public class StageHandler implements Disposable {
         stage.addActor(inventoryWindow.build());
         stage.addActor(escapeWindow.build());
         stage.addActor(buttonBar.build());
+
+        // shared
+        mainSettingsWindow = new MainSettingsWindow();
+        stage.addActor(mainSettingsWindow.build());
 
         FocusManager.resetFocus(stage); // Clear focus after building windows
     }

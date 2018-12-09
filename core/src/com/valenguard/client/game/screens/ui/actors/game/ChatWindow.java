@@ -44,7 +44,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
     private boolean displayEmpty = true;
 
     public ChatWindow() {
-        super("");
+        super("", "chat-box");
     }
 
     @Override
@@ -56,10 +56,11 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
         setWidth(350);
         setHeight(150);
 
-        messagesDisplay = new TextArea(null, VisUI.getSkin());
+        messagesDisplay = new TextArea(null, VisUI.getSkin(), "chat-box");
         ScrollPane scrollPane = new ScrollPane(messagesDisplay, VisUI.getSkin());
-        messageInput = new VisTextField(null);
+        messageInput = new VisTextField(null, "chat-box");
         messageInput.setFocusTraversal(false);
+        messageInput.setMaxLength(256);
 
         scrollPane.setOverscroll(false, false);
         scrollPane.setFlickScroll(false);
@@ -128,7 +129,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
             }
         });
 
-        add(scrollPane).grow().expand().fill();
+        add(messagesDisplay).grow().expand().fill();
         row();
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
