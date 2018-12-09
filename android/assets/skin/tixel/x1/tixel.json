@@ -20,6 +20,7 @@
     t-medium-dark: { r: 0.15, g: 0.15, b: 0.15, a: 1 },
     t-dark: { r: 0.1, g: 0.1, b: 0.1, a: 1 },
     t-alpha: { r: 0, g: 0, b: 0, a: 0.5 },
+    t-alpha-light: { r: 0, g: 0, b: 0, a: 0.3 },
     t-chat-box: t-white,
     black: t-black,
     white: t-white,
@@ -244,11 +245,11 @@
     },
     chatbox-input: {
       name: t-base,
-      color: t-alpha
+      color: t-alpha-light
     },
     chatbox-input-over: {
       name: t-base,
-      color: t-dark
+      color: t-alpha
     },
     tooltip-bg: {
       name: t-dot,
@@ -348,7 +349,7 @@
     },
     window-chat-box: {
       name: t-window-resize,
-      color: t-alpha
+      color: t-alpha-light
     }
   },
   com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
@@ -699,12 +700,9 @@
       disabledFontColor: grey
     },
     chat-box: {
-      focusBorder: border,
-      errorBorder: border-error,
       font: small-font,
       fontColor: t-chat-box,
       disabledFontColor: grey,
-      selection: selection,
       background: chatbox-input,
       backgroundOver: chatbox-input-over,
       cursor: cursor

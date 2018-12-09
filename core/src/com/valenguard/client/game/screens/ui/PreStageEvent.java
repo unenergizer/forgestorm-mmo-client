@@ -27,6 +27,7 @@ public class PreStageEvent implements InputProcessor {
                 FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getChatWindow().getMessageInput());
                 stageHandler.getStage().setKeyboardFocus(stageHandler.getChatWindow().getMessageInput());
                 stageHandler.getChatWindow().setChatToggled(true);
+                stageHandler.getChatWindow().getMessageInput().setText("");
                 return true;
             }
         }

@@ -23,12 +23,13 @@ public class CreditsWindow extends HideableVisWindow implements Buildable {
         addCloseButton();
         setResizable(false);
 
+        Color titleColor = new Color(125 / 255f, 242 / 255f, 207 / 255f, 1f);
         VisTable mainTable = new VisTable();
         mainTable.pad(3);
 
         // Programmers:
         VisLabel titleLabel = new VisLabel("Programming:");
-        titleLabel.setColor(Color.LIME);
+        titleLabel.setColor(titleColor);
         mainTable.add(titleLabel).left().padBottom(5).row();
 
         VisTable table = new VisTable(true);
@@ -38,7 +39,7 @@ public class CreditsWindow extends HideableVisWindow implements Buildable {
 
         // Graphics:
         titleLabel = new VisLabel("Graphics:");
-        titleLabel.setColor(Color.MAGENTA);
+        titleLabel.setColor(titleColor);
         mainTable.add(titleLabel).left().padBottom(5).row();
 
         table = new VisTable(true);
@@ -47,7 +48,7 @@ public class CreditsWindow extends HideableVisWindow implements Buildable {
 
         // Libraries:
         titleLabel = new VisLabel("Programming Libraries:");
-        titleLabel.setColor(Color.SKY);
+        titleLabel.setColor(titleColor);
         mainTable.add(titleLabel).left().padBottom(5).row();
 
         table = new VisTable(true);

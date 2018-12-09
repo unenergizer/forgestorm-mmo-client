@@ -24,6 +24,7 @@ import lombok.Setter;
 @Getter
 public class ChatWindow extends VisWindow implements Buildable, Focusable {
 
+    private static final String ENTER_MESSAGE = "Press Enter to send a message...";
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private TextArea messagesDisplay;
     private VisTextField messageInput;
@@ -58,7 +59,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
 
         messagesDisplay = new TextArea(null, VisUI.getSkin(), "chat-box");
         ScrollPane scrollPane = new ScrollPane(messagesDisplay, VisUI.getSkin());
-        messageInput = new VisTextField(null, "chat-box");
+        messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
         messageInput.setMaxLength(256);
 
@@ -106,9 +107,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
                         // We also clear the message input
                         String message = messageInput.getText();
                         if (!message.isEmpty()) new SendChatMessage(message).sendPacket();
-                        messageInput.setText("");
-//                        scrollPane.setScrollPercentY(scrollPane.getMaxY());
-
+                        messageInput.setText(ENTER_MESSAGE);
                         chatToggled = false;
                         Gdx.input.setOnscreenKeyboardVisible(false);
                         FocusManager.resetFocus(stageHandler.getStage());
