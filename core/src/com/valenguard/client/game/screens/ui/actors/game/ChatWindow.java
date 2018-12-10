@@ -2,17 +2,22 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.network.packet.out.SendChatMessage;
@@ -57,6 +62,10 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
         setWidth(350);
         setHeight(150);
 
+        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
+        TextureRegion textureRegion = textureAtlas.findRegion("skill_156");
+        VisImageButton chatMenu = new VisImageButton(new TextureRegionDrawable(textureRegion), "Chat Menu");
+
         messagesDisplay = new TextArea(null, VisUI.getSkin(), "chat-box");
         ScrollPane scrollPane = new ScrollPane(messagesDisplay, VisUI.getSkin());
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
@@ -91,6 +100,21 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 chatToggled = true;
+                messageInput.setText("");
+                FocusManager.switchFocus(stageHandler.getStage(), messageInput);
+                stageHandler.getStage().setKeyboardFocus(messageInput);
+                return true;
+            }
+        });
+
+        // Toggled chat button click
+        chatMenu.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // TODO: Remove lines below. Add pop-up menu like wow to interact with chat.
+                chatToggled = true;
+                messageInput.setText("");
+                FocusManager.switchFocus(stageHandler.getStage(), messageInput);
                 stageHandler.getStage().setKeyboardFocus(messageInput);
                 return true;
             }
@@ -128,8 +152,9 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
             }
         });
 
-        add(messagesDisplay).grow().expand().fill();
+        add(messagesDisplay).colspan(2).grow().expand().fill();
         row();
+        add(chatMenu).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
         return this;

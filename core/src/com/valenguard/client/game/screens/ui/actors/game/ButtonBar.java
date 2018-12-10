@@ -1,11 +1,15 @@
 package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 public class ButtonBar extends VisTable implements Buildable {
@@ -14,15 +18,21 @@ public class ButtonBar extends VisTable implements Buildable {
     public Actor build() {
 
         VisTable buttonTable = new VisTable();
-        VisTextButton settingsButton = new VisTextButton("E");
-        VisTextButton inventoryButton = new VisTextButton("I");
 
-        buttonTable.add(settingsButton).width(30).height(30).padRight(10);
-        buttonTable.add(inventoryButton).width(30).height(30);
+
+        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
+        TextureRegion escMenuTexture = textureAtlas.findRegion("quest_001");
+        TextureRegion inventoryTexture = textureAtlas.findRegion("quest_121");
+
+        VisImageButton escMenuButton = new VisImageButton(new TextureRegionDrawable(escMenuTexture), "Main Menu");
+        final VisImageButton inventoryButton = new VisImageButton(new TextureRegionDrawable(inventoryTexture), "Inventory");
+
+        buttonTable.add(escMenuButton).padRight(10);
+        buttonTable.add(inventoryButton);
 
         add(buttonTable);
 
-        settingsButton.addListener(new ChangeListener() {
+        escMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 EscapeWindow escapeWindow = Valenguard.getInstance().getStageHandler().getEscapeWindow();
