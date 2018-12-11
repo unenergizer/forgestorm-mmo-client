@@ -25,7 +25,7 @@ public class ButtonBar extends VisTable implements Buildable {
         TextureRegion inventoryTexture = textureAtlas.findRegion("quest_121");
 
         VisImageButton escMenuButton = new VisImageButton(new TextureRegionDrawable(escMenuTexture), "Main Menu");
-        final VisImageButton inventoryButton = new VisImageButton(new TextureRegionDrawable(inventoryTexture), "Inventory");
+        VisImageButton inventoryButton = new VisImageButton(new TextureRegionDrawable(inventoryTexture), "Inventory");
 
         buttonTable.add(escMenuButton).padRight(10);
         buttonTable.add(inventoryButton);
