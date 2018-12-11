@@ -20,11 +20,10 @@ import lombok.Getter;
 public class MainSettingsWindow extends HideableVisWindow implements Buildable, Focusable {
 
     private TestTab gameMechanics = new TestTab("Game Mechanics");
-    private TestTab graphics = new TestTab("Graphics");
+    private GraphicsTab graphics = new GraphicsTab();
     private TestTab audio = new TestTab("Audio");
     private TestTab controls = new TestTab("Controls");
     private TestTab social = new TestTab("Social");
-
 
     public MainSettingsWindow() {
         super("Client Settings");

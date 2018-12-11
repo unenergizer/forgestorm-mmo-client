@@ -10,6 +10,7 @@ import com.valenguard.client.game.movement.EntityMovementManager;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.LoginScreen;
 import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.Consumer;
@@ -41,6 +42,7 @@ public class Valenguard extends Game {
     public static LoginScreen loginScreen;
     public static ClientConnection clientConnection;
 
+    private WindowManager windowManager;
     private StageHandler stageHandler;
     private FileManager fileManager;
     private MapManager mapManager;
@@ -77,6 +79,7 @@ public class Valenguard extends Game {
         clientPlayerMovementManager = new ClientPlayerMovementManager();
         entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
+        windowManager = new WindowManager();
 
         // init screens
         gameScreen = new GameScreen();
