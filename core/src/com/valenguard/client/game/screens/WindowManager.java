@@ -9,8 +9,14 @@ import lombok.Getter;
 @Getter
 public class WindowManager {
 
+    private boolean useVSync = false;
     private WindowModes currentWindowMode = WindowModes.WINDOW;
     private ScreenResolutions currentWindowResolution = ScreenResolutions.DESKTOP_1024_600;
+
+    public void setUseVSync(boolean useVSync) {
+        this.useVSync = useVSync;
+        Gdx.graphics.setVSync(useVSync);
+    }
 
     public void setWindowMode(WindowModes windowMode, ScreenResolutions screenResolutions) {
         currentWindowResolution = screenResolutions;

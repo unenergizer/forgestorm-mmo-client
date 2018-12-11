@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.WindowManager;
+import com.valenguard.client.game.screens.ui.actors.WindowModes;
 
 public class PreStageEvent implements InputProcessor {
 
@@ -55,6 +57,17 @@ public class PreStageEvent implements InputProcessor {
          */
         if (keycode == Input.Keys.F3 && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             stageHandler.getDebugTable().setVisible(!stageHandler.getDebugTable().isVisible());
+            return true;
+        }
+
+        /*
+         * Toggle Full Screen
+         */
+        if (keycode == Input.Keys.F11) {
+            WindowManager windowManager = Valenguard.getInstance().getWindowManager();
+            if (windowManager.getCurrentWindowMode() != WindowModes.WINDOW)
+                windowManager.setWindowMode(WindowModes.WINDOW);
+            else windowManager.setWindowMode(WindowModes.FULL_SCREEN_NO_WINDOW);
             return true;
         }
 
