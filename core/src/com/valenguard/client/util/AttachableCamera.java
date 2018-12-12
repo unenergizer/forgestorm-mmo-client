@@ -55,6 +55,11 @@ public class AttachableCamera extends OrthographicCamera {
         lastZoomLevel = (float)  change;
     }
 
+    public void changeZoomLevel(float amount) {
+        zoom = amount;
+        lastZoomLevel = amount;
+    }
+
     public Vector3 unprojectCamera(final float screenX, final float screenY) {
         return unproject(new Vector3(screenX, screenY, 0));
     }

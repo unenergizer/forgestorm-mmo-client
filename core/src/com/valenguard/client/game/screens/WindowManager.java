@@ -32,6 +32,7 @@ public class WindowManager {
                 System.setProperty("org.lwjgl.opengl.Window.undecorated", "false");
                 Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
                 Gdx.graphics.setFullscreenMode(mode);
+                break;
             case FULL_SCREEN_WINDOWED:
                 System.setProperty("org.lwjgl.opengl.Window.undecorated", "true");
                 Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);

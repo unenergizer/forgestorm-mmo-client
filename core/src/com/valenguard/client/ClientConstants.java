@@ -5,7 +5,7 @@ public class ClientConstants {
     public static final int SCREEN_WIDTH = 1024;
     public static final int SCREEN_HEIGHT = SCREEN_WIDTH / 16 * 9;
     public static final float ZOOM_DEFAULT = 0.25f;
-    public static final float ZOOM_CHANGE = 0.25f;
+    public static final float ZOOM_CHANGE = 0.025f;
     public static final float ZOOM_LIMIT_OUT = 0.5f;
     public static final float ZOOM_LIMIT_IN = 0.025f;
     public static final int CLICK_RADIUS = 40;

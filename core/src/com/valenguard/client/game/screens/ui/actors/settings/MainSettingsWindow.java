@@ -68,7 +68,7 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
         });
 
 //		debugAll();
-        setSize(350, 200);
+        setSize(380, 200);
         centerWindow();
         setVisible(false);
         return this;
@@ -89,16 +89,16 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
 
         TestTab(String title) {
             super(false, false);
-            this.title = title;
+            this.title = " " + title + " ";
             content = new VisTable();
-            content.add(new VisLabel(title));
+            content.add(new VisLabel(title + ": Coming soon!"));
         }
 
         TestTab(String title, boolean closeableByUser) {
             super(false, closeableByUser);
-            this.title = title;
+            this.title = " " + title + " ";
             content = new VisTable();
-            content.add(new VisLabel(title));
+            content.add(new VisLabel(title + ": Coming soon!"));
         }
 
         @Override
