@@ -24,6 +24,7 @@ import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
 import com.valenguard.client.game.screens.ui.actors.login.LoginTable;
 import com.valenguard.client.game.screens.ui.actors.login.VersionTable;
+import com.valenguard.client.game.screens.ui.actors.settings.FPSTable;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
 
 import lombok.Getter;
@@ -51,6 +52,7 @@ public class StageHandler implements Disposable {
     private InventoryWindow inventoryWindow;
     private ButtonBar buttonBar;
     private DebugTable debugTable;
+    private FPSTable fpsTable;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -108,6 +110,7 @@ public class StageHandler implements Disposable {
         inventoryWindow = new InventoryWindow();
         buttonBar = new ButtonBar();
         debugTable = new DebugTable();
+        fpsTable = new FPSTable();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -115,6 +118,7 @@ public class StageHandler implements Disposable {
         stage.addActor(inventoryWindow.build());
         stage.addActor(escapeWindow.build());
         stage.addActor(buttonBar.build());
+        stage.addActor(fpsTable.build());
 
         chatWindow.fadeIn().setVisible(true);
         buttonBar.setVisible(true);
@@ -137,6 +141,7 @@ public class StageHandler implements Disposable {
 
     public void render(float delta) {
 //        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) debugTable.refresh(delta);
+        if (fpsTable != null && fpsTable.isVisible()) fpsTable.refresh();
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
     }

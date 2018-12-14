@@ -20,16 +20,15 @@ public class ButtonTable extends VisTable implements Buildable {
     public Actor build() {
         VisTable buttonTable = new VisTable();
 
-
         /*
          * Play Login Screen Music Toggle
          */
         VisTable musicTable = new VisTable();
         final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
-        final VisCheckBox playLoginMusicRadioButton = new VisCheckBox("");
-        playLoginMusicRadioButton.setChecked(musicManager.getAudioPreferences().isPlayLoginScreenMusic());
+        final VisCheckBox playLoginMusicCheckBox = new VisCheckBox("");
+        playLoginMusicCheckBox.setChecked(musicManager.getAudioPreferences().isPlayLoginScreenMusic());
         musicTable.add(new VisLabel("Play Music")).padRight(3).right();
-        musicTable.add(playLoginMusicRadioButton);
+        musicTable.add(playLoginMusicCheckBox);
 
         // create help widgets
         VisTextButton registerButton = new VisTextButton("New Account");
@@ -53,11 +52,11 @@ public class ButtonTable extends VisTable implements Buildable {
         add(buttonTable);
 
         // stops or plays music
-        playLoginMusicRadioButton.addListener(new ChangeListener() {
+        playLoginMusicCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                musicManager.getAudioPreferences().setPlayLoginScreenMusic(playLoginMusicRadioButton.isChecked());
-                if (!playLoginMusicRadioButton.isChecked()) {
+                musicManager.getAudioPreferences().setPlayLoginScreenMusic(playLoginMusicCheckBox.isChecked());
+                if (!playLoginMusicCheckBox.isChecked()) {
                     musicManager.stopSong(true);
                     musicManager.getAudioPreferences().setPlayLoginScreenMusic(false);
                 } else {

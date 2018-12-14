@@ -55,14 +55,14 @@ public class GraphicsTab extends Tab {
         /*
          * VSync Toggle
          */
-        final VisCheckBox vSyncRadioButton = new VisCheckBox("");
-        vSyncRadioButton.setChecked(windowManager.isUseVSync());
+        final VisCheckBox vSyncCheckBox = new VisCheckBox("");
+        vSyncCheckBox.setChecked(windowManager.isUseVSync());
 
         content.row();
         content.add(new VisLabel("Toggle VSync")).padRight(3);
-        content.add(vSyncRadioButton).left();
+        content.add(vSyncCheckBox).left();
 
-        vSyncRadioButton.addListener(new ChangeListener() {
+        vSyncCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 windowManager.setUseVSync(!windowManager.isUseVSync());
