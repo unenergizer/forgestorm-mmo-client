@@ -39,7 +39,7 @@ public class AttachableCamera extends OrthographicCamera {
         position.y = MathUtils.clamp(following.getDrawY() + (ClientConstants.TILE_SIZE / 2), cameraMinY, cameraMaxY);
     }
 
-    public void changeZoomLevel(double amount) {
+    public void scrollZoomLevel(double amount) {
         final double zoomLimitIn = ClientConstants.ZOOM_LIMIT_IN;
         final double zoomLimitOut = ClientConstants.ZOOM_LIMIT_OUT;
         double current = zoom * 10;

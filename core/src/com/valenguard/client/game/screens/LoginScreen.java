@@ -10,8 +10,10 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.assets.GameMusic;
 import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameTexture;
+import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.Log;
@@ -28,6 +30,8 @@ public class LoginScreen extends ScreenAdapter {
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private SpriteBatch spriteBatch;
+    private Pixmap cursorPixmap;
+    private Cursor cursor;
 
     @Override
     public void show() {
@@ -40,12 +44,12 @@ public class LoginScreen extends ScreenAdapter {
 
         // Change cursor
         fileManager.loadPixmap(GamePixmap.CURSOR_1);
-        Pixmap pixmap = fileManager.getPixmap(GamePixmap.CURSOR_1);
-        Cursor customCursor = Gdx.graphics.newCursor(pixmap, pixmap.getWidth() / 2, pixmap.getHeight() / 2);
-        Gdx.graphics.setCursor(customCursor);
+        cursorPixmap = fileManager.getPixmap(GamePixmap.CURSOR_1);
+        cursor = Gdx.graphics.newCursor(cursorPixmap, cursorPixmap.getWidth() / 2, cursorPixmap.getHeight() / 2);
+        Gdx.graphics.setCursor(cursor);
 
         // User Interface
-        stageHandler.init();
+        stageHandler.init(null);
         stageHandler.getLoginTable().setVisible(true);
         stageHandler.getButtonTable().setVisible(true);
         stageHandler.getCopyrightTable().setVisible(true);
@@ -59,6 +63,9 @@ public class LoginScreen extends ScreenAdapter {
         multiplexer.addProcessor(stageHandler.getStage());
         multiplexer.addProcessor(stageHandler.getPostStageEvent());
         Gdx.input.setInputProcessor(multiplexer);
+
+        // Play audio
+        Valenguard.getInstance().getMusicManager().playSong(GameMusic.LOGIN_SCREEN_THEME_1);
     }
 
     @Override
@@ -81,6 +88,19 @@ public class LoginScreen extends ScreenAdapter {
     }
 
     @Override
+    public void pause() {
+        Log.println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
+        Valenguard.getInstance().getMusicManager().pauseMusic();
+    }
+
+    @Override
+    public void resume() {
+        Log.println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
+        final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) musicManager.resumeMusic();
+    }
+
+    @Override
     public void hide() {
     }
 
@@ -91,5 +111,8 @@ public class LoginScreen extends ScreenAdapter {
             fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
             spriteBatch.dispose();
         }
+        Valenguard.getInstance().getStageHandler().dispose();
+        cursorPixmap.dispose();
+        cursor.dispose();
     }
 }

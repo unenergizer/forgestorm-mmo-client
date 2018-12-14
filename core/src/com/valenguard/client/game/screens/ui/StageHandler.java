@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameSkin;
+import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
 import com.valenguard.client.game.screens.ui.actors.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
@@ -28,9 +31,9 @@ import lombok.Getter;
 @Getter
 public class StageHandler implements Disposable {
 
-    private final Stage stage = new Stage();
-    private final PreStageEvent preStageEvent = new PreStageEvent(this);
-    private final PostStageEvent postStageEvent = new PostStageEvent(this);
+    private Stage stage;
+    private PreStageEvent preStageEvent;
+    private PostStageEvent postStageEvent;
 
     private boolean initialized = false;
 
@@ -52,37 +55,45 @@ public class StageHandler implements Disposable {
     // shared
     private MainSettingsWindow mainSettingsWindow;
 
-    public void init() {
+    public void init(Viewport viewport) {
         if (initialized) return;
         initialized = true;
+        if (viewport != null) stage = new Stage(viewport);
+        else stage = new Stage();
+        preStageEvent = new PreStageEvent(this);
+        postStageEvent = new PostStageEvent(this);
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
         // login
-        buttonTable = new ButtonTable();
-        versionTable = new VersionTable();
-        copyrightTable = new CopyrightTable();
-        loginTable = new LoginTable();
+        if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) {
+            buttonTable = new ButtonTable();
+            versionTable = new VersionTable();
+            copyrightTable = new CopyrightTable();
+            loginTable = new LoginTable();
 
-        stage.addActor(buttonTable.build());
-        stage.addActor(versionTable.build());
-        stage.addActor(copyrightTable.build());
-        stage.addActor(loginTable.build());
+            stage.addActor(buttonTable.build());
+            stage.addActor(versionTable.build());
+            stage.addActor(copyrightTable.build());
+            stage.addActor(loginTable.build());
+        }
 
         // game
-        helpWindow = new HelpWindow();
-        creditsWindow = new CreditsWindow();
-        escapeWindow = new EscapeWindow();
-        chatWindow = new ChatWindow();
-        inventoryWindow = new InventoryWindow();
-        buttonBar = new ButtonBar();
-        debugTable = new DebugTable();
+        if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) {
+            helpWindow = new HelpWindow();
+            creditsWindow = new CreditsWindow();
+            escapeWindow = new EscapeWindow();
+            chatWindow = new ChatWindow();
+            inventoryWindow = new InventoryWindow();
+            buttonBar = new ButtonBar();
+            debugTable = new DebugTable();
 
-        stage.addActor(helpWindow.build());
-        stage.addActor(creditsWindow.build());
-        stage.addActor(chatWindow.build());
-        stage.addActor(inventoryWindow.build());
-        stage.addActor(escapeWindow.build());
-        stage.addActor(buttonBar.build());
+            stage.addActor(helpWindow.build());
+            stage.addActor(creditsWindow.build());
+            stage.addActor(chatWindow.build());
+            stage.addActor(inventoryWindow.build());
+            stage.addActor(escapeWindow.build());
+            stage.addActor(buttonBar.build());
+        }
 
         // shared
         mainSettingsWindow = new MainSettingsWindow();
@@ -116,6 +127,8 @@ public class StageHandler implements Disposable {
 
     @Override
     public void dispose() {
+
+        initialized = false;
         VisUI.dispose();
         stage.dispose();
     }

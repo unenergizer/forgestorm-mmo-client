@@ -2,6 +2,7 @@ package com.valenguard.client;
 
 import com.badlogic.gdx.Game;
 import com.valenguard.client.game.assets.FileManager;
+import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -42,6 +43,7 @@ public class Valenguard extends Game {
     public static LoginScreen loginScreen;
     public static ClientConnection clientConnection;
 
+    private MusicManager musicManager;
     private WindowManager windowManager;
     private StageHandler stageHandler;
     private FileManager fileManager;
@@ -80,6 +82,7 @@ public class Valenguard extends Game {
         entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
         windowManager = new WindowManager();
+        musicManager = new MusicManager();
 
         // init screens
         gameScreen = new GameScreen();

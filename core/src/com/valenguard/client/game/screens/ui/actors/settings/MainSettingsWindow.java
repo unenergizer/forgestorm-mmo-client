@@ -21,7 +21,7 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
 
     private TestTab gameMechanics = new TestTab("Game Mechanics");
     private GraphicsTab graphics = new GraphicsTab();
-    private TestTab audio = new TestTab("Audio");
+    private AudioTab audio = new AudioTab();
     private TestTab controls = new TestTab("Controls");
     private TestTab social = new TestTab("Social");
 
