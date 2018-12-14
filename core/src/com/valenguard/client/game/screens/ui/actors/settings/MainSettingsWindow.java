@@ -19,11 +19,12 @@ import lombok.Getter;
 @Getter
 public class MainSettingsWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    private TestTab gameMechanics = new TestTab("Game Mechanics");
-    private GraphicsTab graphics = new GraphicsTab();
-    private AudioTab audio = new AudioTab();
-    private TestTab controls = new TestTab("Controls");
-    private TestTab social = new TestTab("Social");
+    private WelcomeTab welcomeTab = new WelcomeTab();
+    private TestTab gameMechanicsTab = new TestTab("Game Mechanics");
+    private GraphicsTab graphicsTab = new GraphicsTab();
+    private AudioTab audioTab = new AudioTab();
+    private TestTab controlsTab = new TestTab("Controls");
+    private TestTab socialTab = new TestTab("Social");
 
     public MainSettingsWindow() {
         super("Client Settings");
@@ -52,12 +53,12 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
         row();
         add(mainTable).expand().fill();
 
-        tabbedPane.add(new TestTab("Welcome!", true));
-        tabbedPane.add(gameMechanics);
-        tabbedPane.add(graphics);
-        tabbedPane.add(audio);
-        tabbedPane.add(controls);
-        tabbedPane.add(social);
+        tabbedPane.add(welcomeTab);
+        tabbedPane.add(gameMechanicsTab);
+        tabbedPane.add(graphicsTab);
+        tabbedPane.add(audioTab);
+        tabbedPane.add(controlsTab);
+        tabbedPane.add(socialTab);
         tabbedPane.switchTab(0);
 
         addListener(new InputListener() {
