@@ -127,9 +127,9 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
         }
 
         // TODO REMOVE/RELOCATE
-        if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-            Valenguard.getInstance().getStageHandler().getStage().addActor(Valenguard.getInstance().getStageHandler().getDebugTable().build());
-        }
+//        if (packetData.entityType == EntityType.CLIENT_PLAYER) {
+//            Valenguard.getInstance().getStageHandler().getStage().addActor(Valenguard.getInstance().getStageHandler().getDebugTable().build());
+//        }
     }
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData) {

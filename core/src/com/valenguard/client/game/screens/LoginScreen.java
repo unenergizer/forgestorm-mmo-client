@@ -6,7 +6,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
@@ -50,12 +49,6 @@ public class LoginScreen extends ScreenAdapter {
 
         // User Interface
         stageHandler.init(null);
-        stageHandler.getLoginTable().setVisible(true);
-        stageHandler.getButtonTable().setVisible(true);
-        stageHandler.getCopyrightTable().setVisible(true);
-        stageHandler.getVersionTable().setVisible(true);
-        FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getLoginTable().getAccountField());
-        stageHandler.getStage().setKeyboardFocus(stageHandler.getLoginTable().getAccountField());
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -107,7 +100,6 @@ public class LoginScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
-        Valenguard.getInstance().getStageHandler().dispose();
         if (spriteBatch != null) {
             fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
             spriteBatch.dispose();
@@ -117,5 +109,6 @@ public class LoginScreen extends ScreenAdapter {
             cursor.dispose();
             cursor = null;
         }
+        Valenguard.getInstance().getStageHandler().dispose();
     }
 }

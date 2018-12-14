@@ -89,18 +89,8 @@ public class GameScreen implements Screen {
         Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // User Interface
+        stageHandler.dispose();
         stageHandler.init(screenViewport);
-
-        // --- hide ui ---
-        stageHandler.getLoginTable().setVisible(false);
-        stageHandler.getButtonTable().setVisible(false);
-        stageHandler.getCopyrightTable().setVisible(false);
-        stageHandler.getVersionTable().setVisible(false);
-        stageHandler.getMainSettingsWindow().setVisible(false);
-
-        // --- show ui ---
-        stageHandler.getChatWindow().fadeIn().setVisible(true);
-        stageHandler.getButtonBar().setVisible(true);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();

@@ -65,43 +65,68 @@ public class StageHandler implements Disposable {
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
         // login
-        if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) {
-            buttonTable = new ButtonTable();
-            versionTable = new VersionTable();
-            copyrightTable = new CopyrightTable();
-            loginTable = new LoginTable();
-
-            stage.addActor(buttonTable.build());
-            stage.addActor(versionTable.build());
-            stage.addActor(copyrightTable.build());
-            stage.addActor(loginTable.build());
-        }
+        if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) buildLoginScreenUI();
 
         // game
-        if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) {
-            helpWindow = new HelpWindow();
-            creditsWindow = new CreditsWindow();
-            escapeWindow = new EscapeWindow();
-            chatWindow = new ChatWindow();
-            inventoryWindow = new InventoryWindow();
-            buttonBar = new ButtonBar();
-            debugTable = new DebugTable();
-
-            stage.addActor(helpWindow.build());
-            stage.addActor(creditsWindow.build());
-            stage.addActor(chatWindow.build());
-            stage.addActor(inventoryWindow.build());
-            stage.addActor(escapeWindow.build());
-            stage.addActor(buttonBar.build());
-        }
+        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) buildGameScreenUI();
 
         // shared
-        mainSettingsWindow = new MainSettingsWindow();
-        stage.addActor(mainSettingsWindow.build());
+        buildSharedActorsUI();
 
         FocusManager.resetFocus(stage); // Clear focus after building windows
     }
 
+    private void buildLoginScreenUI() {
+        buttonTable = new ButtonTable();
+        versionTable = new VersionTable();
+        copyrightTable = new CopyrightTable();
+        loginTable = new LoginTable();
+
+        stage.addActor(buttonTable.build());
+        stage.addActor(versionTable.build());
+        stage.addActor(copyrightTable.build());
+        stage.addActor(loginTable.build());
+
+        buttonTable.setVisible(true);
+        versionTable.setVisible(true);
+        copyrightTable.setVisible(true);
+        loginTable.setVisible(true);
+        FocusManager.switchFocus(stage, loginTable.getAccountField());
+        stage.setKeyboardFocus(loginTable.getAccountField());
+    }
+
+    private void buildGameScreenUI() {
+        buttonTable.setVisible(false);
+        versionTable.setVisible(false);
+        copyrightTable.setVisible(false);
+        loginTable.setVisible(false);
+
+        helpWindow = new HelpWindow();
+        creditsWindow = new CreditsWindow();
+        escapeWindow = new EscapeWindow();
+        chatWindow = new ChatWindow();
+        inventoryWindow = new InventoryWindow();
+        buttonBar = new ButtonBar();
+        debugTable = new DebugTable();
+
+        stage.addActor(helpWindow.build());
+        stage.addActor(creditsWindow.build());
+        stage.addActor(chatWindow.build());
+        stage.addActor(inventoryWindow.build());
+        stage.addActor(escapeWindow.build());
+        stage.addActor(buttonBar.build());
+
+        chatWindow.fadeIn().setVisible(true);
+        buttonBar.setVisible(true);
+    }
+
+    private void buildSharedActorsUI() {
+        mainSettingsWindow = new MainSettingsWindow();
+
+        stage.addActor(mainSettingsWindow.build());
+    }
+
+    // TODO: REMOVE OR CONTINUE TO IMPLEMENT???????????????????
     public void setVisible(Actor actor, boolean visible) {
         boolean isInstance = actor instanceof com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
         if (visible && isInstance)
@@ -111,7 +136,7 @@ public class StageHandler implements Disposable {
     }
 
     public void render(float delta) {
-        debugTable.refresh(delta);
+//        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) debugTable.refresh(delta);
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
     }
