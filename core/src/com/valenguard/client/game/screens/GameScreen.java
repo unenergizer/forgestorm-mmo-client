@@ -110,6 +110,9 @@ public class GameScreen implements Screen {
         multiplexer.addProcessor(keyboard);
         multiplexer.addProcessor(new Mouse());
         Gdx.input.setInputProcessor(multiplexer);
+
+        // Handle Music
+        Valenguard.getInstance().getMusicManager().stopSong(true);
     }
 
     private int srcX = 0; //TODO RELOCATE PARALLAX BG
