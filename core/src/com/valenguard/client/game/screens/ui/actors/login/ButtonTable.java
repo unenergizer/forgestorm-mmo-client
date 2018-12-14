@@ -59,8 +59,10 @@ public class ButtonTable extends VisTable implements Buildable {
                 musicManager.getAudioPreferences().setPlayLoginScreenMusic(playLoginMusicRadioButton.isChecked());
                 if (!playLoginMusicRadioButton.isChecked()) {
                     musicManager.stopSong(true);
+                    musicManager.getAudioPreferences().setPlayLoginScreenMusic(false);
                 } else {
                     musicManager.playSong(musicManager.getLastPlayedSong());
+                    musicManager.getAudioPreferences().setPlayLoginScreenMusic(true);
                 }
                 event.handle();
             }
