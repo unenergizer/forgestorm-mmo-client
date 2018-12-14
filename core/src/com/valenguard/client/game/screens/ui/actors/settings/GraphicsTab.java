@@ -1,8 +1,11 @@
 package com.valenguard.client.game.screens.ui.actors.settings;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
@@ -39,6 +42,16 @@ public class GraphicsTab extends Tab {
 
         content.add(new VisLabel("Zoom Level")).padRight(3);
         content.add(slider).left();
+
+        slider.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (Valenguard.getInstance().getScreenType() != ScreenType.GAME) {
+                    Dialogs.showOKDialog(Valenguard.getInstance().getStageHandler().getStage(), "Error!", "Option can only be set in-game.");
+                    return true;
+                }
+                return false;
+            }
+        });
 
         slider.addListener(new ChangeListener() {
             @Override
