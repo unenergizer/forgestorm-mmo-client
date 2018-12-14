@@ -107,12 +107,15 @@ public class LoginScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
+        Valenguard.getInstance().getStageHandler().dispose();
         if (spriteBatch != null) {
             fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
             spriteBatch.dispose();
+            spriteBatch = null;
         }
-        Valenguard.getInstance().getStageHandler().dispose();
-        cursorPixmap.dispose();
-        cursor.dispose();
+        if (cursor != null) {
+            cursor.dispose();
+            cursor = null;
+        }
     }
 }

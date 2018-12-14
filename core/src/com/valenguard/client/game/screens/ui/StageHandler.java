@@ -127,9 +127,11 @@ public class StageHandler implements Disposable {
 
     @Override
     public void dispose() {
-
         initialized = false;
         VisUI.dispose();
-        stage.dispose();
+        if (stage != null) {
+            stage.dispose();
+            stage = null;
+        }
     }
 }
