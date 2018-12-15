@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameMusic;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
@@ -60,7 +61,7 @@ public class ButtonTable extends VisTable implements Buildable {
                     musicManager.stopSong(true);
                     musicManager.getAudioPreferences().setPlayLoginScreenMusic(false);
                 } else {
-                    musicManager.playSong(musicManager.getLastPlayedSong());
+                    musicManager.playSong(GameMusic.LOGIN_SCREEN_THEME_1);
                     musicManager.getAudioPreferences().setPlayLoginScreenMusic(true);
                 }
                 event.handle();

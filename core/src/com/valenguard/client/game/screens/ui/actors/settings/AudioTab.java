@@ -60,7 +60,7 @@ public class AudioTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 audioPreferences.setMusicVolume(musicVolumeSlider.getValue());
-                musicManager.getCurrentSong().setVolume(musicVolumeSlider.getValue());
+                musicManager.setVolume(musicVolumeSlider.getValue());
                 event.handle();
             }
         });

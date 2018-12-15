@@ -26,7 +26,7 @@ public class WelcomeTab extends Tab {
         content = new VisTable(true);
 
         TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
-        TextureRegion textureRegion = textureAtlas.findRegion("quest_098");
+        TextureRegion textureRegion = textureAtlas.findRegion("skill_165");
         VisImage visImage = new VisImage(new TextureRegionDrawable(textureRegion));
 
         VisTable labelTable = new VisTable(true);

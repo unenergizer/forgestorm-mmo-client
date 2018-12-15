@@ -36,6 +36,7 @@ public class LoginScreen extends ScreenAdapter {
     public void show() {
         Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
+        MusicManager musicManager = Valenguard.getInstance().getMusicManager();
 
         // Load assets
         fileManager.loadAtlas(GameAtlas.ITEM_TEXTURES);
@@ -58,7 +59,8 @@ public class LoginScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(multiplexer);
 
         // Play audio
-        Valenguard.getInstance().getMusicManager().playSong(GameMusic.LOGIN_SCREEN_THEME_1);
+        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
+            musicManager.playSong(GameMusic.LOGIN_SCREEN_THEME_1);
     }
 
     @Override
