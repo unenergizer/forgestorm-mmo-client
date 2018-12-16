@@ -16,5 +16,6 @@ public class ItemStack {
         // TODO get isStackable based on the item type / inventory type such as bank/player inventory ect..
         this.amount = amount;
         this.textureRegion = Valenguard.getInstance().getItemManager().getItemName(itemId);
+        System.out.println("TEXTURE REGION = " + textureRegion);
     }
 }

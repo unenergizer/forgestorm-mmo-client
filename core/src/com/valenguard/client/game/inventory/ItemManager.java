@@ -45,6 +45,12 @@ public class ItemManager {
         for (int i = 0; i < itemNames.size(); i++)
             this.itemNames[i] = itemNames.get(i);
 
+        // FileHandle fileHandle = Gdx.files.internal("items");
+        //        itemNames = fileHandle.readString().split("\n");
+        //
+        //        for (String line : itemNames) {
+        //            System.out.println("LINE = " + line);
+        //        }
     }
 
     public String getItemName(int itemId) {

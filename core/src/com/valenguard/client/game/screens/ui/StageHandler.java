@@ -3,6 +3,7 @@ package com.valenguard.client.game.screens.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.FocusManager;
@@ -19,7 +20,8 @@ import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
-import com.valenguard.client.game.screens.ui.actors.game.inventory.InventoryWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.CharacterWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.InventoryWindow;
 import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
 import com.valenguard.client.game.screens.ui.actors.login.LoginTable;
@@ -35,7 +37,7 @@ public class StageHandler implements Disposable {
     private Stage stage;
     private PreStageEvent preStageEvent;
     private PostStageEvent postStageEvent;
-
+    private DragAndDrop dragAndDrop = new DragAndDrop();
     private boolean initialized = false;
 
     // login
@@ -50,6 +52,7 @@ public class StageHandler implements Disposable {
     private EscapeWindow escapeWindow;
     private ChatWindow chatWindow;
     private InventoryWindow inventoryWindow;
+    private CharacterWindow characterWindow;
     private ButtonBar buttonBar;
     private DebugTable debugTable;
     private FPSTable fpsTable;
@@ -66,13 +69,9 @@ public class StageHandler implements Disposable {
         postStageEvent = new PostStageEvent(this);
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
-        // login
+        // Build actors
         if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) buildLoginScreenUI();
-
-        // game
         if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) buildGameScreenUI();
-
-        // shared
         buildSharedActorsUI();
 
         FocusManager.resetFocus(stage); // Clear focus after building windows
@@ -108,6 +107,7 @@ public class StageHandler implements Disposable {
         escapeWindow = new EscapeWindow();
         chatWindow = new ChatWindow();
         inventoryWindow = new InventoryWindow();
+        characterWindow = new CharacterWindow();
         buttonBar = new ButtonBar();
         debugTable = new DebugTable();
         fpsTable = new FPSTable();
@@ -116,6 +116,7 @@ public class StageHandler implements Disposable {
         stage.addActor(creditsWindow.build());
         stage.addActor(chatWindow.build());
         stage.addActor(inventoryWindow.build());
+        stage.addActor(characterWindow.build());
         stage.addActor(escapeWindow.build());
         stage.addActor(buttonBar.build());
         stage.addActor(fpsTable.build());

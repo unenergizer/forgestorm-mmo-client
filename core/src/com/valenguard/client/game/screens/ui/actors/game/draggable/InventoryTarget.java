@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors.game.inventory;
+package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.valenguard.client.game.inventory.ItemStack;

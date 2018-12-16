@@ -2,14 +2,11 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
@@ -18,6 +15,7 @@ import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.network.packet.out.SendChatMessage;
@@ -62,9 +60,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
         setWidth(350);
         setHeight(150);
 
-        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
-        TextureRegion textureRegion = textureAtlas.findRegion("skill_156");
-        VisImageButton chatMenu = new VisImageButton(new TextureRegionDrawable(textureRegion), "Chat Menu");
+        VisImageButton chatMenu = new VisImageButton(new ImageBuilder(GameAtlas.ITEM_TEXTURES, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
         messagesDisplay = new TextArea(null, VisUI.getSkin(), "chat-box");
         ScrollPane scrollPane = new ScrollPane(messagesDisplay, VisUI.getSkin());

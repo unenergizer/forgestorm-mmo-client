@@ -1,6 +1,5 @@
-package com.valenguard.client.game.screens.ui.actors.game.inventory;
+package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -56,13 +55,11 @@ public class InventorySource extends DragAndDrop.Source {
         inventoryPayload.setDragActor(image);
         dragManager.setDragActorPosition(image.getWidth() / 2, -image.getHeight() / 2);
 
-        image = new VisImage(textureRegion);
-        image.setColor(Color.GREEN);
-        inventoryPayload.setValidDragActor(image);
-
-        image = new VisImage(textureRegion);
-        image.setColor(Color.RED);
-        inventoryPayload.setInvalidDragActor(image);
+//        image = new VisImage(textureRegion);
+//        inventoryPayload.setValidDragActor(image);
+//
+//        image = new VisImage(textureRegion);
+//        inventoryPayload.setInvalidDragActor(image);
 
         return inventoryPayload;
     }

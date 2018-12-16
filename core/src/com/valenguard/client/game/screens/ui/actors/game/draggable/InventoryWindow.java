@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors.game.inventory;
+package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -16,16 +16,16 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
-    private DragAndDrop dragManager = new DragAndDrop();
-
     private InventorySlot[] inventorySlots = new InventorySlot[NUM_ROWS * NUM_COLUMNS];
 
     public InventoryWindow() {
-        super("Bag 1");
+        super("Inventory");
     }
 
     @Override
     public Actor build() {
+        DragAndDrop dragManager = Valenguard.getInstance().getStageHandler().getDragAndDrop();
+        dragManager.setDragTime(0);
         addCloseButton();
         setResizable(false);
 
@@ -34,7 +34,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
             InventorySlot inventorySlot = new InventorySlot(null);
 
             inventorySlot.build();
-            add(inventorySlot).width(16).height(16).expand().fill();
+            add(inventorySlot);
             dragManager.addSource(new InventorySource(inventorySlot, dragManager));
             dragManager.addTarget(new InventoryTarget(inventorySlot, i));
 

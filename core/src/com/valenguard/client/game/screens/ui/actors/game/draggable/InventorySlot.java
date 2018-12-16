@@ -1,13 +1,11 @@
-package com.valenguard.client.game.screens.ui.actors.game.inventory;
+package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.inventory.ItemStack;
+import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import lombok.Getter;
@@ -16,9 +14,7 @@ public class InventorySlot extends VisTable implements Buildable {
 
     @Getter
     private ItemStack itemStack;
-
     private VisImage imageItem;
-
     private VisImage clearImage;
 
     InventorySlot(ItemStack itemStack) {
@@ -27,14 +23,12 @@ public class InventorySlot extends VisTable implements Buildable {
 
     @Override
     public Actor build() {
-        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
-        TextureRegion textureRegionClear = textureAtlas.findRegion("clear");
-        clearImage = new VisImage(textureRegionClear);
+        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32);
+        clearImage = imageBuilder.setRegionName("clear").buildVisImage();
         if (itemStack == null) {
             add(clearImage);
         } else {
-            TextureRegion textureRegionItem = textureAtlas.findRegion(itemStack.getTextureRegion());
-            imageItem = new VisImage(textureRegionItem);
+            imageItem = imageBuilder.setRegionName(itemStack.getTextureRegion()).buildVisImage();
             add(imageItem);
         }
         return this;
@@ -58,9 +52,7 @@ public class InventorySlot extends VisTable implements Buildable {
         if (imageItem != null) imageItem.remove();
         this.itemStack = itemStack;
         clearImage.remove();
-        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
-        TextureRegion textureRegion = textureAtlas.findRegion(itemStack.getTextureRegion());
-        imageItem = new VisImage(textureRegion);
+        imageItem = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
         add(imageItem);
     }
 }

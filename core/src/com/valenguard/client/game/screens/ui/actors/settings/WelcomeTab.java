@@ -1,15 +1,12 @@
 package com.valenguard.client.game.screens.ui.actors.settings;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.screens.ui.ImageBuilder;
 
 public class WelcomeTab extends Tab {
 
@@ -24,10 +21,7 @@ public class WelcomeTab extends Tab {
 
     private void build() {
         content = new VisTable(true);
-
-        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEM_TEXTURES);
-        TextureRegion textureRegion = textureAtlas.findRegion("skill_165");
-        VisImage visImage = new VisImage(new TextureRegionDrawable(textureRegion));
+        VisImage visImage = new ImageBuilder(GameAtlas.ITEM_TEXTURES, "skill_165", 16 * 3).buildVisImage();
 
         VisTable labelTable = new VisTable(true);
         VisLabel visTextArea1 = new VisLabel("Click the tabs above to change your games settings.");
@@ -37,7 +31,7 @@ public class WelcomeTab extends Tab {
         labelTable.row();
         labelTable.add(visTextArea2).left();
 
-        content.add(visImage).expand().width(16 * 3).height(16 * 3).padRight(3);
+        content.add(visImage).padRight(3);
         content.add(labelTable);
         content.center();
     }

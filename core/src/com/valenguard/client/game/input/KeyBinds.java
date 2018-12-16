@@ -18,12 +18,20 @@ public class KeyBinds {
     public static final int RIGHT_ALT = Input.Keys.RIGHT;
 
     /*
-     * DEV
+     * DEBUG
      */
-    public static final int PRINT_DEBUG = Input.Keys.F3;
+    public static final int GAME_DEBUG = Input.Keys.F3;
+    public static final int SCENE2D_DEBUG = Input.Keys.F12;
 
     /*
      * CHAT
      */
     public static final int CHAT_BOX_FOCUS = Input.Keys.ENTER;
+
+    /*
+     * WINDOWS
+     */
+    public static final int FULLSCREEN = Input.Keys.F11;
+    public static final int INVENTORY_WINDOW = Input.Keys.I;
+    public static final int CHARACTER_WINDOW = Input.Keys.C;
 }
