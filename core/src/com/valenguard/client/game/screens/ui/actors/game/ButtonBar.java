@@ -11,6 +11,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.game.inventory.InventoryWindow;
 
 public class ButtonBar extends VisTable implements Buildable {
 

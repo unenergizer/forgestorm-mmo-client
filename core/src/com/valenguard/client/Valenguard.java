@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.input.MouseManager;
+import com.valenguard.client.game.inventory.ItemManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.ClientPlayerMovementManager;
@@ -53,6 +54,7 @@ public class Valenguard extends Game {
     private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
     private OutputStreamManager outputStreamManager;
+    private ItemManager itemManager;
 
     private ScreenType screenType;
 
@@ -83,6 +85,8 @@ public class Valenguard extends Game {
         mouseManager = new MouseManager();
         windowManager = new WindowManager();
         musicManager = new MusicManager();
+        itemManager = new ItemManager();
+        itemManager.readItems();
 
         // init screens
         gameScreen = new GameScreen();

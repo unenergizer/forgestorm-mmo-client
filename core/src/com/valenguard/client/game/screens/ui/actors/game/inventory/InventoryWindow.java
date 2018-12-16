@@ -1,11 +1,10 @@
-package com.valenguard.client.game.screens.ui.actors.game;
+package com.valenguard.client.game.screens.ui.actors.game.inventory;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
-import com.kotcrab.vis.ui.util.TableUtils;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -17,22 +16,29 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
+    private DragAndDrop dragManager = new DragAndDrop();
+
+    private InventorySlot[] inventorySlots = new InventorySlot[NUM_ROWS * NUM_COLUMNS];
+
     public InventoryWindow() {
         super("Bag 1");
     }
 
     @Override
     public Actor build() {
-        TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(false);
 
         int columnCount = 0;
-        for (int i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
-            InventorySlot inventorySlot = new InventorySlot(stageHandler);
-            inventorySlot.build();
-            add(inventorySlot);
+        for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
+            InventorySlot inventorySlot = new InventorySlot(null);
 
+            inventorySlot.build();
+            add(inventorySlot).width(16).height(16).expand().fill();
+            dragManager.addSource(new InventorySource(inventorySlot, dragManager));
+            dragManager.addTarget(new InventoryTarget(inventorySlot, i));
+
+            inventorySlots[i] = inventorySlot;
             columnCount++;
 
             if (columnCount == NUM_COLUMNS) {
@@ -40,13 +46,6 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
                 columnCount = 0;
             }
         }
-
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
 
         pack();
         setPosition(stageHandler.getStage().getViewport().getScreenWidth() - this.getWidth(), 0);
@@ -62,5 +61,13 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
     @Override
     public void focusGained() {
 
+    }
+
+    public void addItemStack(ItemStack itemStack) {
+        for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
+            if (inventorySlots[i].getItemStack() != null) continue;
+            inventorySlots[i].setStack(itemStack);
+            return;
+        }
     }
 }

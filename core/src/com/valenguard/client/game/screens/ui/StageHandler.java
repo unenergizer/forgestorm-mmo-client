@@ -19,7 +19,7 @@ import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
-import com.valenguard.client.game.screens.ui.actors.game.InventoryWindow;
+import com.valenguard.client.game.screens.ui.actors.game.inventory.InventoryWindow;
 import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
 import com.valenguard.client.game.screens.ui.actors.login.LoginTable;

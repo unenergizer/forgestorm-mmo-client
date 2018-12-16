@@ -13,7 +13,6 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.assets.GameFont;
-import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
@@ -85,8 +84,8 @@ public class GameScreen implements Screen {
         warpLocation = fileManager.getTexture(GameTexture.WARP_LOCATION);
 
         // Change mouse cursor
-        fileManager.loadPixmap(GamePixmap.CURSOR_1);
-        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
+//        fileManager.loadPixmap(GamePixmap.CURSOR_1);
+//        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // User Interface
         stageHandler.dispose();
@@ -144,6 +143,7 @@ public class GameScreen implements Screen {
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch, invalidMoveLocation, warpLocation);
         stageHandler.render(delta);
+
     }
 
     private void tickGameLogic(float delta) {

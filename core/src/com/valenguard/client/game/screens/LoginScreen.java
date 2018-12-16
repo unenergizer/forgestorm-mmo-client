@@ -10,7 +10,6 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.assets.GameMusic;
-import com.valenguard.client.game.assets.GamePixmap;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -43,10 +42,10 @@ public class LoginScreen extends ScreenAdapter {
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
 
         // Change cursor
-        fileManager.loadPixmap(GamePixmap.CURSOR_1);
-        cursorPixmap = fileManager.getPixmap(GamePixmap.CURSOR_1);
-        cursor = Gdx.graphics.newCursor(cursorPixmap, cursorPixmap.getWidth() / 2, cursorPixmap.getHeight() / 2);
-        Gdx.graphics.setCursor(cursor);
+//        fileManager.loadPixmap(GamePixmap.CURSOR_1);
+//        cursorPixmap = fileManager.getPixmap(GamePixmap.CURSOR_1);
+//        cursor = Gdx.graphics.newCursor(cursorPixmap, cursorPixmap.getWidth() / 2, cursorPixmap.getHeight() / 2);
+//        Gdx.graphics.setCursor(cursor);
 
         // User Interface
         stageHandler.init(null);

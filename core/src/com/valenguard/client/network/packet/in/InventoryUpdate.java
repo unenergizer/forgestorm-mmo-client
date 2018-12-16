@@ -1,6 +1,8 @@
 package com.valenguard.client.network.packet.in;
 
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.InventoryActions;
+import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -33,7 +35,10 @@ public class InventoryUpdate implements PacketListener<InventoryUpdate.Inventory
         if (packetData.inventoryAction == InventoryActions.GIVE) {
             Log.println(getClass(), "Giving the player an item with id: " + packetData.itemId);
             Log.println(getClass(), "Giving the player " + packetData.itemAmount + " of those items");
-//            Valenguard.gameScreen.getPlayerInventory().addItemStack(new ItemStack(packetData.itemId, packetData.itemAmount));
+
+            ItemStack itemStack = new ItemStack(packetData.itemId, packetData.itemAmount);
+            Valenguard.getInstance().getStageHandler().getInventoryWindow().addItemStack(itemStack);
+
         }
 
     }
