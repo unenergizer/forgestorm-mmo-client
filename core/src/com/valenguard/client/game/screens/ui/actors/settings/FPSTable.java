@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class FPSTable extends VisTable implements Buildable {
 
@@ -14,6 +15,13 @@ public class FPSTable extends VisTable implements Buildable {
     public Actor build() {
         fpsLabel = new VisLabel("FPS: 999");
         add(fpsLabel);
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition(10, Gdx.graphics.getHeight() - getHeight() - 10);
+            }
+        });
 
         pack();
         setPosition(10, Gdx.graphics.getHeight() - getHeight() - 10);

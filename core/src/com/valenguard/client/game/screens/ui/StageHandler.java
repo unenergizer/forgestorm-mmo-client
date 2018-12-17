@@ -12,8 +12,7 @@ import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.screens.ScreenType;
-import com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
-import com.valenguard.client.game.screens.ui.actors.WindowResizeEvent;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
@@ -37,7 +36,7 @@ public class StageHandler implements Disposable {
     private Stage stage;
     private PreStageEvent preStageEvent;
     private PostStageEvent postStageEvent;
-    private DragAndDrop dragAndDrop = new DragAndDrop();
+    private DragAndDrop dragAndDrop;
     private boolean initialized = false;
 
     // login
@@ -67,14 +66,13 @@ public class StageHandler implements Disposable {
         else stage = new Stage();
         preStageEvent = new PreStageEvent(this);
         postStageEvent = new PostStageEvent(this);
+        dragAndDrop = new DragAndDrop();
+        dragAndDrop.setDragTime(0);
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
         // Build actors
         if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) buildLoginScreenUI();
         if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) buildGameScreenUI();
-        buildSharedActorsUI();
-
-        FocusManager.resetFocus(stage); // Clear focus after building windows
     }
 
     private void buildLoginScreenUI() {
@@ -92,6 +90,9 @@ public class StageHandler implements Disposable {
         versionTable.setVisible(true);
         copyrightTable.setVisible(true);
         loginTable.setVisible(true);
+
+        buildSharedActorsUI();
+
         FocusManager.switchFocus(stage, loginTable.getAccountField());
         stage.setKeyboardFocus(loginTable.getAccountField());
     }
@@ -123,6 +124,10 @@ public class StageHandler implements Disposable {
 
         chatWindow.fadeIn().setVisible(true);
         buttonBar.setVisible(true);
+
+        buildSharedActorsUI();
+
+        FocusManager.resetFocus(stage); // Clear focus after building windows
     }
 
     private void buildSharedActorsUI() {
@@ -131,17 +136,7 @@ public class StageHandler implements Disposable {
         stage.addActor(mainSettingsWindow.build());
     }
 
-    // TODO: REMOVE OR CONTINUE TO IMPLEMENT???????????????????
-    public void setVisible(Actor actor, boolean visible) {
-        boolean isInstance = actor instanceof com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
-        if (visible && isInstance)
-            ((com.valenguard.client.game.screens.ui.actors.VisabilityToggle) actor).show();
-        if (!visible && isInstance) ((VisabilityToggle) actor).hide();
-        actor.setVisible(visible);
-    }
-
     public void render(float delta) {
-//        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) debugTable.refresh(delta);
         if (fpsTable != null && fpsTable.isVisible()) fpsTable.refresh();
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();

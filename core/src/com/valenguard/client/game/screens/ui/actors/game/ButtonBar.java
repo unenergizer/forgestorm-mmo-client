@@ -10,6 +10,7 @@ import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.CharacterWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.InventoryWindow;
 
@@ -74,6 +75,13 @@ public class ButtonBar extends VisTable implements Buildable {
                 } else if (inventoryWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     inventoryWindow.fadeOut();
                 }
+            }
+        });
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), 10);
             }
         });
 

@@ -2,7 +2,8 @@ package com.valenguard.client.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
-import com.valenguard.client.game.screens.ui.actors.WindowModes;
+import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
+import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
 import lombok.Getter;
 

@@ -13,6 +13,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameMusic;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
 
 public class ButtonTable extends VisTable implements Buildable {
@@ -99,6 +100,13 @@ public class ButtonTable extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.exit();
+            }
+        });
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition(Gdx.graphics.getWidth() - getWidth() - 10, 10);
             }
         });
 

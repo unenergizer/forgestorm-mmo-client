@@ -5,12 +5,20 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class VersionTable extends VisTable implements Buildable {
 
     @Override
     public Actor build() {
         add(new VisLabel("ClientConnection version " + ClientConstants.GAME_VERSION));
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition(10, 10);
+            }
+        });
 
         pack();
         setPosition(10, 10);

@@ -8,6 +8,7 @@ import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class InventoryWindow extends HideableVisWindow implements Buildable, Focusable {
 
@@ -24,8 +25,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
     @Override
     public Actor build() {
-        DragAndDrop dragManager = Valenguard.getInstance().getStageHandler().getDragAndDrop();
-        dragManager.setDragTime(0);
+        DragAndDrop dragAndDrop = Valenguard.getInstance().getStageHandler().getDragAndDrop();
         addCloseButton();
         setResizable(false);
 
@@ -35,8 +35,8 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
             inventorySlot.build();
             add(inventorySlot);
-            dragManager.addSource(new InventorySource(inventorySlot, dragManager));
-            dragManager.addTarget(new InventoryTarget(inventorySlot, i));
+            dragAndDrop.addSource(new InventorySource(inventorySlot, dragAndDrop));
+            dragAndDrop.addTarget(new InventoryTarget(inventorySlot, i));
 
             inventorySlots[i] = inventorySlot;
             columnCount++;
@@ -47,8 +47,15 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
             }
         }
 
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+            }
+        });
+
         pack();
-        setPosition(stageHandler.getStage().getViewport().getScreenWidth() - this.getWidth(), 0);
+        setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
         setVisible(false);
         return this;
     }

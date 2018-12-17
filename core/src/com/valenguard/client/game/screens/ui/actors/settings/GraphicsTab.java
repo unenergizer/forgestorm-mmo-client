@@ -14,10 +14,10 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ScreenResolutions;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
-import com.valenguard.client.game.screens.ui.actors.WindowModes;
+import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
+import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
 public class GraphicsTab extends Tab {
 

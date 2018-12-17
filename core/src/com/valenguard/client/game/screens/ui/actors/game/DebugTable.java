@@ -9,6 +9,7 @@ import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class DebugTable extends VisTable implements Buildable {
 
@@ -58,6 +59,14 @@ public class DebugTable extends VisTable implements Buildable {
         infoTable.add(bodyParts).left();
 
         add(infoTable);
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition(10, Gdx.graphics.getHeight() - getHeight() - 10);
+            }
+        });
+
         pack();
         setPosition(10, Gdx.graphics.getHeight() - getHeight() - 10);
         setVisible(false);

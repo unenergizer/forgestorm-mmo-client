@@ -16,6 +16,7 @@ import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.network.PlayerSession;
 
 import lombok.Getter;
@@ -84,6 +85,13 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 attemptLogin();
+            }
+        });
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), (Gdx.graphics.getHeight() / 2) - (getHeight() / 2));
             }
         });
 

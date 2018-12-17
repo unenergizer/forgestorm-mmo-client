@@ -12,10 +12,9 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
-import com.valenguard.client.game.screens.ui.actors.VisabilityToggle;
-import com.valenguard.client.util.Log;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
-public class EscapeWindow extends HideableVisWindow implements Buildable, Focusable, VisabilityToggle {
+public class EscapeWindow extends HideableVisWindow implements Buildable, Focusable {
 
     public EscapeWindow() {
         super("");
@@ -56,6 +55,13 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
         centerWindow();
 
         setVisible(false);
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                centerWindow();
+            }
+        });
 
         help.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -122,15 +128,5 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
     @Override
     public void focusGained() {
 
-    }
-
-    @Override
-    public void show() {
-        Log.println(getClass(), "show");
-    }
-
-    @Override
-    public void hide() {
-        Log.println(getClass(), "hide");
     }
 }

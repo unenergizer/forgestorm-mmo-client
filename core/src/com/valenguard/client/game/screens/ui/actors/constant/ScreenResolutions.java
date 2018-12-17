@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens;
+package com.valenguard.client.game.screens.ui.actors.constant;
 
 import com.badlogic.gdx.Application;
 

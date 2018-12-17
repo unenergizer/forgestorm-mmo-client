@@ -8,7 +8,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
-import com.valenguard.client.game.screens.ui.actors.WindowModes;
+import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
 public class PreStageEvent implements InputProcessor {
 

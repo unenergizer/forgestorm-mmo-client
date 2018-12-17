@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class CreditsWindow extends HideableVisWindow implements Buildable {
 
@@ -63,6 +64,13 @@ public class CreditsWindow extends HideableVisWindow implements Buildable {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
+            }
+        });
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                centerWindow();
             }
         });
 

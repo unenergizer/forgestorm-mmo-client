@@ -17,7 +17,7 @@ public class InventorySource extends DragAndDrop.Source {
     private InventorySlot inventorySlot;
     private DragAndDrop dragManager;
 
-    public InventorySource(InventorySlot inventorySlot, DragAndDrop dragManager) {
+    InventorySource(InventorySlot inventorySlot, DragAndDrop dragManager) {
         super(inventorySlot);
         this.inventorySlot = inventorySlot;
         this.dragManager = dragManager;

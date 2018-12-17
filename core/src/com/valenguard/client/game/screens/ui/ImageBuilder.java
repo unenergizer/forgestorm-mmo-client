@@ -1,6 +1,5 @@
 package com.valenguard.client.game.screens.ui;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.widget.VisImage;
@@ -13,7 +12,6 @@ public class ImageBuilder {
     private GameAtlas gameAtlas;
     private float width = 0;
     private float height = 0;
-    private Color tint;
 
     public ImageBuilder() {
     }
@@ -71,22 +69,14 @@ public class ImageBuilder {
         return this;
     }
 
-    public ImageBuilder setTint(Color tint) {
-        this.tint = tint;
-        return this;
-    }
-
     public TextureRegionDrawable buildTextureRegionDrawable() {
         if (gameAtlas == null) throw new RuntimeException("GameAtlas must be defined.");
         if (regionName == null || regionName.isEmpty())
             throw new RuntimeException("Region Name must be defined.");
+
         Valenguard.getInstance().getFileManager().loadAtlas(gameAtlas);
         TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(gameAtlas);
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(regionName));
-
-//        if (tint != null) {
-//            textureRegionDrawable = new TextureRegionDrawable(textureRegionDrawable.tint(tint));
-//        }
 
         if (width > 0) textureRegionDrawable.setMinWidth(width);
         if (height > 0) textureRegionDrawable.setMinHeight(height);
