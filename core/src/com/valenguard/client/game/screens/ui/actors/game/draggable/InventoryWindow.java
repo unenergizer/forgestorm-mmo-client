@@ -17,7 +17,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
-    private InventorySlot[] inventorySlots = new InventorySlot[NUM_ROWS * NUM_COLUMNS];
+    private ItemStackSlot[] itemStackSlots = new ItemStackSlot[NUM_ROWS * NUM_COLUMNS];
 
     public InventoryWindow() {
         super("Inventory");
@@ -31,14 +31,14 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
         int columnCount = 0;
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
-            InventorySlot inventorySlot = new InventorySlot(null);
+            ItemStackSlot itemStackSlot = new ItemStackSlot();
 
-            inventorySlot.build();
-            add(inventorySlot);
-            dragAndDrop.addSource(new InventorySource(inventorySlot, dragAndDrop));
-            dragAndDrop.addTarget(new InventoryTarget(inventorySlot, i));
+            itemStackSlot.build();
+            add(itemStackSlot);
+            dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
+            dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
-            inventorySlots[i] = inventorySlot;
+            itemStackSlots[i] = itemStackSlot;
             columnCount++;
 
             if (columnCount == NUM_COLUMNS) {
@@ -72,8 +72,8 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
     public void addItemStack(ItemStack itemStack) {
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
-            if (inventorySlots[i].getItemStack() != null) continue;
-            inventorySlots[i].setStack(itemStack);
+            if (itemStackSlots[i].getItemStack() != null) continue;
+            itemStackSlots[i].setStack(itemStack);
             return;
         }
     }

@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class ItemStack {
+    private ItemStackType itemStackType;
     private boolean isStackable;
     private String textureRegion;
     private int itemId;
@@ -16,6 +17,7 @@ public class ItemStack {
         // TODO get isStackable based on the item type / inventory type such as bank/player inventory ect..
         this.amount = amount;
         this.textureRegion = Valenguard.getInstance().getItemManager().getItemName(itemId);
+        this.itemStackType = ItemStackType.SWORD; // TODO: Get type from ConfigFile
         System.out.println("TEXTURE REGION = " + textureRegion);
     }
 }
