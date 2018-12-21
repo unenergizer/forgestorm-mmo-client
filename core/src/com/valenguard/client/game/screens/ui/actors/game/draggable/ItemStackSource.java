@@ -12,6 +12,8 @@ import lombok.Getter;
 
 public class ItemStackSource extends DragAndDrop.Source {
 
+    private static final int DRAG_IMAGE_SIZE = 24;
+
     @Getter
     private ItemStackSlot itemStackSlot;
     private DragAndDrop dragManager;
@@ -33,15 +35,15 @@ public class ItemStackSource extends DragAndDrop.Source {
 
         if (itemStack == null) return null;
 
-        itemStackSlot.setClearImage();
+        itemStackSlot.setEmptyCellImage();
 
         DragAndDrop.Payload inventoryPayload = new DragAndDrop.Payload();
         inventoryPayload.setObject(itemStack);
 
-        VisImage image = new ImageBuilder(GameAtlas.ITEM_TEXTURES, itemStack.getTextureRegion()).buildVisImage();
+        VisImage image = new ImageBuilder(GameAtlas.ITEM_TEXTURES, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         inventoryPayload.setDragActor(image);
 
-        image = new ImageBuilder(GameAtlas.ITEM_TEXTURES, itemStack.getTextureRegion()).buildVisImage();
+        image = new ImageBuilder(GameAtlas.ITEM_TEXTURES, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         image.setColor(Color.RED);
         inventoryPayload.setInvalidDragActor(image);
 

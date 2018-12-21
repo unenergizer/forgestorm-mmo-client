@@ -14,12 +14,13 @@ import lombok.Getter;
 
 public class ItemStackSlot extends VisTable implements Buildable {
 
+    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32);
     @Getter
     private ItemStack itemStack;
     @Getter
     private ItemStackType itemStackType;
-    private VisImage imageItem;
-    private VisImage clearImage;
+    private VisImage itemStackImage;
+    private VisImage emptyCellImage;
 
     ItemStackSlot() {
     }
@@ -30,37 +31,80 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     @Override
     public Actor build() {
-        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32);
-        clearImage = imageBuilder.setRegionName("clear").buildVisImage();
-        clearImage.setColor(Color.GREEN);
         if (itemStack == null) {
-            add(clearImage);
+            initEmptyCellImage();
+            add(emptyCellImage);
         } else {
-            imageItem = imageBuilder.setRegionName(itemStack.getTextureRegion()).buildVisImage();
-            add(imageItem);
+            itemStackImage = imageBuilder.setRegionName(itemStack.getTextureRegion()).buildVisImage();
+            add(itemStackImage);
         }
         return this;
+    }
+
+    private void initEmptyCellImage() {
+        if (itemStackType != null) {
+            switch (itemStackType) {
+                case HELM:
+                    emptyCellImage = imageBuilder.setRegionName("helmet_08").buildVisImage();
+                    break;
+                case CHEST:
+                    emptyCellImage = imageBuilder.setRegionName("armor_001").buildVisImage();
+                    break;
+                case BOOTS:
+                    emptyCellImage = imageBuilder.setRegionName("boot_02").buildVisImage();
+                    break;
+                case CAPE:
+                    emptyCellImage = imageBuilder.setRegionName("armor_035").buildVisImage();
+                    break;
+                case GLOVES:
+                    emptyCellImage = imageBuilder.setRegionName("glove_01").buildVisImage();
+                    break;
+                case BELT:
+                    emptyCellImage = imageBuilder.setRegionName("accessory_01").buildVisImage();
+                    break;
+                case RINGS:
+                    emptyCellImage = imageBuilder.setRegionName("ring_001").buildVisImage();
+                    break;
+                case NECKLACE:
+                    emptyCellImage = imageBuilder.setRegionName("accessory_04").buildVisImage();
+                    break;
+                case SWORD:
+                case BOW:
+                    emptyCellImage = imageBuilder.setRegionName("weapon_sword_01").buildVisImage();
+                    break;
+                case SHIELD:
+                    emptyCellImage = imageBuilder.setRegionName("shield_01").buildVisImage();
+                    break;
+                case ARROW:
+                    emptyCellImage = imageBuilder.setRegionName("weapon_arrow_01").buildVisImage();
+                    break;
+            }
+            emptyCellImage.setColor(new Color(1, 1, 1, .1f));
+        } else {
+            emptyCellImage = imageBuilder.setRegionName("clear").buildVisImage();
+        }
     }
 
     void deleteStack() {
         itemStack = null;
     }
 
-    void setClearImage() {
-        if (imageItem != null) imageItem.remove();
-        add(clearImage);
+    void setEmptyCellImage() {
+        if (itemStackImage != null) itemStackImage.remove();
+        if (emptyCellImage == null) initEmptyCellImage();
+        add(emptyCellImage);
     }
 
     void setItemImage() {
-        clearImage.remove();
-        add(imageItem);
+        emptyCellImage.remove();
+        add(itemStackImage);
     }
 
     void setStack(ItemStack itemStack) {
-        if (imageItem != null) imageItem.remove();
+        if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
-        clearImage.remove();
-        imageItem = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
-        add(imageItem);
+        emptyCellImage.remove();
+        itemStackImage = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
+        add(itemStackImage);
     }
 }

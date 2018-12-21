@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
-import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.ItemStackType;
@@ -23,7 +22,6 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
 
     @Override
     public Actor build() {
-        TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(false);
 
@@ -32,7 +30,7 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
         this.row();
 
         // main table (body etc)
-        VisTable mainTable = new VisTable(true);
+        VisTable mainTable = new VisTable();
 
         mainTable.add(buildSlot(ItemStackType.ARROW));
         mainTable.add(buildSlot(ItemStackType.NECKLACE));
@@ -51,7 +49,7 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
         this.row();
 
         // main hand/off hand
-        VisTable weaponTable = new VisTable(true);
+        VisTable weaponTable = new VisTable();
         weaponTable.add(buildSlot(ItemStackType.SWORD));
         weaponTable.add(buildSlot(ItemStackType.SHIELD));
         add(weaponTable);
