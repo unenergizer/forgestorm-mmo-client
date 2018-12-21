@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.Entity;
 
 import lombok.Getter;
@@ -53,11 +54,13 @@ public class AttachableCamera extends OrthographicCamera {
 
         zoom = (float) change;
         lastZoomLevel = (float)  change;
+        Valenguard.getInstance().getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
     }
 
     public void changeZoomLevel(float amount) {
         zoom = amount;
         lastZoomLevel = amount;
+        Valenguard.getInstance().getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
     }
 
     public Vector3 unprojectCamera(final float screenX, final float screenY) {

@@ -21,6 +21,8 @@ import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
 public class GraphicsTab extends Tab {
 
+    private final VisSlider slider = new VisSlider(ClientConstants.ZOOM_LIMIT_IN, ClientConstants.ZOOM_LIMIT_OUT, ClientConstants.ZOOM_CHANGE, false);
+
     private String title;
     private Table content;
 
@@ -37,7 +39,6 @@ public class GraphicsTab extends Tab {
         /*
          * Zoom Level
          */
-        final VisSlider slider = new VisSlider(ClientConstants.ZOOM_LIMIT_IN, ClientConstants.ZOOM_LIMIT_OUT, ClientConstants.ZOOM_CHANGE, false);
         slider.setValue(ClientConstants.ZOOM_DEFAULT);
 
         content.add(new VisLabel("Zoom Level")).padRight(3);
@@ -120,6 +121,10 @@ public class GraphicsTab extends Tab {
                 event.handle();
             }
         });
+    }
+
+    public void setZoomLevel(float zoomLevel) {
+        slider.setValue(zoomLevel);
     }
 
     @Override
