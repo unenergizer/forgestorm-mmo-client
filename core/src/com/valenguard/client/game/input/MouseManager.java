@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
@@ -37,12 +38,25 @@ public class MouseManager {
     @Setter
     private boolean invalidate = true;
 
+    private Timer.Task mouseFadeTask;
+
     void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.mouseTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.mouseTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
         this.mouseScreenX = tiledMapCoordinates.x;
         this.mouseScreenY = tiledMapCoordinates.y;
+
+        if (mouseFadeTask != null) {
+            mouseFadeTask.cancel();
+        }
+
+        mouseFadeTask = Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                Log.println(MouseManager.class, "The mouse is now going to fade.");
+            }
+        }, 3);
     }
 
     void mouseClick(final int screenX, final int screenY, final int button) {
