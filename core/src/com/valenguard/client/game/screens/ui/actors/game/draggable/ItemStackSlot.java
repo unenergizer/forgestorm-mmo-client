@@ -28,17 +28,22 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private ItemStack itemStack;
     @Getter
     private ItemStackType itemStackType;
+    @Getter
+    private byte inventoryIndex;
     private VisImage itemStackImage;
     private VisImage emptyCellImage;
     private ItemStackToolTip itemStackToolTip = new ItemStackToolTip();
+    private Vector2 localCords = new Vector2(0, 0);
 
-    ItemStackSlot(InventoryType inventoryType) {
+    ItemStackSlot(InventoryType inventoryType, byte inventoryIndex) {
         this.inventoryType = inventoryType;
+        this.inventoryIndex = inventoryIndex;
         this.itemStackSlot = this;
     }
 
-    ItemStackSlot(InventoryType inventoryType, ItemStackType itemStackType) {
+    ItemStackSlot(InventoryType inventoryType, byte inventoryIndex, ItemStackType itemStackType) {
         this.inventoryType = inventoryType;
+        this.inventoryIndex = inventoryIndex;
         this.itemStackType = itemStackType;
         this.itemStackSlot = this;
     }
@@ -124,8 +129,8 @@ public class ItemStackSlot extends VisTable implements Buildable {
         addToolTipListener();
     }
 
-    public static Vector2 getStageLocation(Actor actor) {
-        return actor.localToStageCoordinates(new Vector2(0, 0));
+    private Vector2 getStageLocation(Actor actor) {
+        return actor.localToStageCoordinates(localCords.set(0, 0));
     }
 
     private void addToolTipListener() {

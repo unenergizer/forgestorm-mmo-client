@@ -11,22 +11,20 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 public class ItemStackToolTip extends HideableVisWindow implements Buildable {
 
     private VisTable toolTipTable = new VisTable();
-    private VisLabel uuidLabel = new VisLabel();
-    private VisLabel typeLabel = new VisLabel();
     private VisLabel nameLabel = new VisLabel();
+    private VisLabel typeLabel = new VisLabel();
     private VisTextArea descTextArea = new VisTextArea();
 
-    public ItemStackToolTip() {
+    ItemStackToolTip() {
         super("");
     }
 
     @Override
     public Actor build() {
         pad(3);
-        toolTipTable.add(uuidLabel).row();
-        toolTipTable.add(typeLabel).row();
-        toolTipTable.add(nameLabel).row();
-        toolTipTable.add(descTextArea).row();
+        toolTipTable.add(nameLabel).padBottom(3).row();
+        toolTipTable.add(typeLabel).left().row();
+        toolTipTable.add(descTextArea).left().row();
         add(toolTipTable);
         pack();
         setVisible(false);
@@ -34,10 +32,9 @@ public class ItemStackToolTip extends HideableVisWindow implements Buildable {
     }
 
     void updateToolTipText(ItemStack itemStack) {
-        uuidLabel.setText("ID: " + Integer.toString(itemStack.getItemId()));
-        typeLabel.setText("Type: " + itemStack.getItemStackType().name());
-        nameLabel.setText("Name: " + itemStack.getName());
-        descTextArea.setText("Description: " + itemStack.getDescription());
+        nameLabel.setText("[ID: " + Integer.toString(itemStack.getItemId()) + "] " + itemStack.getName());
+        typeLabel.setText(itemStack.getItemStackType().name());
+        descTextArea.setText(itemStack.getDescription());
         descTextArea.setPrefRows(3);
         pack();
     }

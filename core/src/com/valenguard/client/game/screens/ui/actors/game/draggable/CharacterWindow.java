@@ -27,32 +27,32 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
         setResizable(false);
 
         // top table (head)
-        add(buildSlot(ItemStackType.HELM));
+        add(buildSlot(ItemStackType.HELM, (byte) 0));
         this.row();
 
         // main table (body etc)
         VisTable mainTable = new VisTable();
 
-        mainTable.add(buildSlot(ItemStackType.ARROW));
-        mainTable.add(buildSlot(ItemStackType.NECKLACE));
-        mainTable.add(buildSlot(ItemStackType.CAPE));
+        mainTable.add(buildSlot(ItemStackType.ARROW, (byte) 1));
+        mainTable.add(buildSlot(ItemStackType.NECKLACE, (byte) 2));
+        mainTable.add(buildSlot(ItemStackType.CAPE, (byte) 3));
         mainTable.row();
 
-        mainTable.add(buildSlot(ItemStackType.RINGS));
-        mainTable.add(buildSlot(ItemStackType.CHEST));
-        mainTable.add(buildSlot(ItemStackType.GLOVES));
+        mainTable.add(buildSlot(ItemStackType.RINGS, (byte) 4));
+        mainTable.add(buildSlot(ItemStackType.CHEST, (byte) 5));
+        mainTable.add(buildSlot(ItemStackType.GLOVES, (byte) 6));
         mainTable.row();
 
-        mainTable.add(buildSlot(ItemStackType.RINGS));
-        mainTable.add(buildSlot(ItemStackType.BELT));
-        mainTable.add(buildSlot(ItemStackType.BOOTS));
+        mainTable.add(buildSlot(ItemStackType.RINGS, (byte) 7));
+        mainTable.add(buildSlot(ItemStackType.BELT, (byte) 8));
+        mainTable.add(buildSlot(ItemStackType.BOOTS, (byte) 9));
         add(mainTable);
         this.row();
 
         // main hand/off hand
         VisTable weaponTable = new VisTable();
-        weaponTable.add(buildSlot(ItemStackType.SWORD));
-        weaponTable.add(buildSlot(ItemStackType.SHIELD));
+        weaponTable.add(buildSlot(ItemStackType.SWORD, (byte) 10));
+        weaponTable.add(buildSlot(ItemStackType.SHIELD, (byte) 11));
         add(weaponTable);
 
         addListener(new InputListener() {
@@ -75,8 +75,8 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
         return this;
     }
 
-    private ItemStackSlot buildSlot(ItemStackType acceptedType) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.CHARACTER, acceptedType);
+    private ItemStackSlot buildSlot(ItemStackType acceptedType, byte inventoryIndex) {
+        ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.CHARACTER, inventoryIndex, acceptedType);
         itemStackSlot.build();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));

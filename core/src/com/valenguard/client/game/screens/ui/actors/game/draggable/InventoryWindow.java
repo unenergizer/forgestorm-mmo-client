@@ -32,7 +32,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
         int columnCount = 0;
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
-            ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG, i);
 
             itemStackSlot.build();
             add(itemStackSlot);

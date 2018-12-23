@@ -20,19 +20,22 @@ public class InventoryActions {
     private byte inventoryActionType;
 
     @Getter
-    private byte clickedPosition;
+    private byte fromPosition;
 
     @Getter
     private byte toPosition;
 
-    public InventoryActions(byte inventoryActionType, byte clickedPosition) {
-        this.inventoryActionType = inventoryActionType;
-        this.clickedPosition = clickedPosition;
-    }
+    @Getter
+    private byte fromWindow;
 
-    public InventoryActions(byte inventoryActionType, byte clickedPosition, byte toPosition) {
+    @Getter
+    private byte toWindow;
+
+    public InventoryActions(byte inventoryActionType, InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
         this.inventoryActionType = inventoryActionType;
-        this.clickedPosition = clickedPosition;
+        this.fromWindow = (byte) fromWindow.ordinal();
+        this.toWindow = (byte) toWindow.ordinal();
+        this.fromPosition = fromPosition;
         this.toPosition = toPosition;
     }
 }
