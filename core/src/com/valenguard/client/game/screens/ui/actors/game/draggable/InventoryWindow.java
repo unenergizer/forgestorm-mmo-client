@@ -74,7 +74,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
     public void addItemStack(ItemStack itemStack) {
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
             if (itemStackSlots[i].getItemStack() != null) continue;
-            itemStackSlots[i].setStack(itemStack);
+            itemStackSlots[i].setItemStack(itemStack);
             return;
         }
     }

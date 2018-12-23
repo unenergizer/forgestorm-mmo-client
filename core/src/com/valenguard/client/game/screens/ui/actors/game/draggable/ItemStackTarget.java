@@ -57,8 +57,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
     private void swapItemAction(ItemStack sourceItemStack, ItemStack targetItemStack, ItemStackSlot sourceItemStackSlot) {
 
-        targetItemStackSlot.setStack(sourceItemStack);
-        sourceItemStackSlot.setStack(targetItemStack);
+        targetItemStackSlot.setItemStack(sourceItemStack);
+        sourceItemStackSlot.setItemStack(targetItemStack);
         // todo inform the server of our actions
 
         // From the character menu to the inventory.
@@ -77,7 +77,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
     private void setItemAction(ItemStack sourceItemStack, ItemStackSlot sourceItemStackSlot) {
 
-        targetItemStackSlot.setStack(sourceItemStack);
+        targetItemStackSlot.setItemStack(sourceItemStack);
         sourceItemStackSlot.deleteStack();
         // todo inform the server of our actions
 

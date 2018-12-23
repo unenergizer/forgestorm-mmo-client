@@ -1,5 +1,5 @@
 "0":
-   name: "Basic Leather Helm"
+   name: "Leather Helm"
    desc: "Made from general quality leather hide."
    type: HELM
    atlas: ITEMS
@@ -21,7 +21,31 @@
    wearable: 2
 "3":
    name: "Sword of Holy Light"
-   desc: "This does something bad to enimies."
+   desc: "This does something bad to enemies."
    type: SWORD
    atlas: ITEMS
    region: weapon_sword_01
+"4":
+   name: "Bent Belt"
+   desc: "Could use a better belt someday."
+   type: BELT
+   atlas: ITEMS
+   region: accessory_03
+"5":
+   name: "Topaz Necklace"
+   desc: "A shiny topaz necklace."
+   type: NECKLACE
+   atlas: ITEMS
+   region: accessory_22
+"6":
+   name: "Leather Boots"
+   desc: "Basic leather boots."
+   type: BOOTS
+   atlas: ITEMS
+   region: boot_02
+"7":
+   name: "Round Wooden Shield"
+   desc: "A dusty old wooden shield."
+   type: SHIELD
+   atlas: ITEMS
+   region: shield_01

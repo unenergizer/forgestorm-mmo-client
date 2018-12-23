@@ -14,10 +14,10 @@ import java.util.Map;
 
 public class ItemLoader {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     public List<ItemStack> loadItems() {
-        FileHandle fileHandle = Gdx.files.internal("data" + File.separator + "item" + File.separator + "items.yaml");
+        FileHandle fileHandle = Gdx.files.internal("data" + File.separator + "item" + File.separator + "Items.yaml");
         Yaml yaml = new Yaml();
         Map<String, Map<String, Object>> root = yaml.load(fileHandle.read());
 
