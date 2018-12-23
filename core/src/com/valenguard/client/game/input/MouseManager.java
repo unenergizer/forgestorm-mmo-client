@@ -13,6 +13,8 @@ import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.maps.MapUtil;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
+import com.valenguard.client.util.FadeOut;
+import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
@@ -27,6 +29,8 @@ public class MouseManager {
 
     public static final boolean PRINT_DEBUG = false;
 
+    public static final int NUM_TICKS_TO_FADE_MOUSE = 60;
+
     private final PathFinding pathFinding = new PathFinding();
 
     private Vector3 clickLocation = new Vector3();
@@ -38,7 +42,10 @@ public class MouseManager {
     @Setter
     private boolean invalidate = true;
 
-    private Timer.Task mouseFadeTask;
+    private Timer.Task waitForMouseFadeTask;
+
+    @Getter
+    private FadeOut fadeOut = new FadeOut();
 
     void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
@@ -47,16 +54,20 @@ public class MouseManager {
         this.mouseScreenX = tiledMapCoordinates.x;
         this.mouseScreenY = tiledMapCoordinates.y;
 
-        if (mouseFadeTask != null) {
-            mouseFadeTask.cancel();
+        if (waitForMouseFadeTask != null) {
+            waitForMouseFadeTask.cancel();
         }
 
-        mouseFadeTask = Timer.schedule(new Timer.Task() {
+        fadeOut.cancelFade();
+
+        waitForMouseFadeTask = Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
-                Log.println(MouseManager.class, "The mouse is now going to fade.");
+                if (!fadeOut.isFading()) {
+                    fadeOut.startFade(NUM_TICKS_TO_FADE_MOUSE);
+                }
             }
-        }, 3);
+        }, 2);
     }
 
     void mouseClick(final int screenX, final int screenY, final int button) {
@@ -115,11 +126,11 @@ public class MouseManager {
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch, Texture invalidMoveLocation, Texture warpLocation) {
         spriteBatch.begin();
         if (!MapUtil.isTraversable(playerClient.getGameMap(), mouseTileX, mouseTileY)) {
-            spriteBatch.draw(invalidMoveLocation, mouseScreenX - 8, mouseScreenY - 8);
+            fadeOut.draw(spriteBatch, invalidMoveLocation, mouseScreenX - 8, mouseScreenY - 8);
         } else if (MapUtil.isWarp(playerClient.getGameMap(), mouseTileX, mouseTileY)) {
-            spriteBatch.draw(warpLocation, mouseScreenX - 8, mouseScreenY - 8);
+            fadeOut.draw(spriteBatch, warpLocation, mouseScreenX - 8, mouseScreenY - 8);
         } else if (MapUtil.isOutOfBounds(playerClient.getGameMap(), mouseTileX, mouseTileY)) {
-            spriteBatch.draw(invalidMoveLocation, mouseScreenX - 8, mouseScreenY - 8);
+            fadeOut.draw(spriteBatch, invalidMoveLocation, mouseScreenX - 8, mouseScreenY - 8);
         }
         spriteBatch.end();
     }

@@ -4,11 +4,13 @@ import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.maps.MapUtil;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.network.packet.out.PlayerMove;
+import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 
@@ -49,7 +51,7 @@ public class ClientPlayerMovementManager {
 
     private void processNextNode(PlayerClient playerClient) {
 
-        Log.println(getClass(), "Processing next node", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "Processing next node", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         MoveNode nextNode = movements.remove();
 
@@ -85,6 +87,12 @@ public class ClientPlayerMovementManager {
     public void processMoveNodes(PlayerClient playerClient, float delta) {
 
         if (!MoveUtil.isEntityMoving(playerClient)) return;
+
+        // Fades the mouse out as soon as the player starts moving.
+        FadeOut mouseFadeOut = Valenguard.getInstance().getMouseManager().getFadeOut();
+        if (!mouseFadeOut.isFading()) {
+            mouseFadeOut.startFade(MouseManager.NUM_TICKS_TO_FADE_MOUSE);
+        }
 
         int currentX = playerClient.getCurrentMapLocation().getX();
         int currentY = playerClient.getCurrentMapLocation().getY();
@@ -132,7 +140,7 @@ public class ClientPlayerMovementManager {
 
     private void finishMove(PlayerClient playerClient) {
 
-        Log.println(getClass(), "Finished Movement", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "Finished Movement", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);

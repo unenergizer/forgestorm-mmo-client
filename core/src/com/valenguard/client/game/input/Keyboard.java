@@ -26,8 +26,8 @@ public class Keyboard implements InputProcessor {
          * Movement Debug
          */
         if (keycode == Input.Keys.F4) {
-            ClientConstants.MINITOR_MOVEMENT_BUG = !ClientConstants.MINITOR_MOVEMENT_BUG;
-            Log.println(getClass(), "Toggled walking debug: " + ClientConstants.MINITOR_MOVEMENT_BUG, true);
+            ClientConstants.MONITOR_MOVEMENT_CHECKS = !ClientConstants.MONITOR_MOVEMENT_CHECKS;
+            Log.println(getClass(), "Toggled walking debug: " + ClientConstants.MONITOR_MOVEMENT_CHECKS, true);
         }
 
         /*

@@ -18,5 +18,5 @@ public class ClientConstants {
     public static final short HUMAN_MAX_HEADS = 79;
     public static final short HUMAN_MAX_BODIES = 59;
 
-    public static boolean MINITOR_MOVEMENT_BUG = false;
+    public static boolean MONITOR_MOVEMENT_CHECKS = false;
 }

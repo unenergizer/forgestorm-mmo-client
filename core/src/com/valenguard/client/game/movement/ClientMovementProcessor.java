@@ -33,9 +33,9 @@ public class ClientMovementProcessor {
     public void processMovement(PlayerClient playerClient) {
         if (inputData == null) return;
 
-        Log.println(getClass(), "=======================================", true, ClientConstants.MINITOR_MOVEMENT_BUG);
-        Log.println(getClass(), "inputInfo: type = " + inputData.getMovementInput() + " , nodesSize = " + inputData.getMoveNodes(), true, ClientConstants.MINITOR_MOVEMENT_BUG);
-        Log.println(getClass(), "currentMovementInput = " + currentMovementInput, true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "=======================================", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
+        Log.println(getClass(), "inputInfo: type = " + inputData.getMovementInput() + " , nodesSize = " + inputData.getMoveNodes(), true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
+        Log.println(getClass(), "currentMovementInput = " + currentMovementInput, true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         if (playerClient.isWarping()) return;
 
@@ -51,7 +51,7 @@ public class ClientMovementProcessor {
 
     private void startNewMove(PlayerClient playerClient) {
 
-        Log.println(getClass(), "Starting a new move", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "Starting a new move", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         // Since the keyboard is the type of input and the player is stopped with will
         // predicted that the player is also moving to the location after the tile they
@@ -74,7 +74,7 @@ public class ClientMovementProcessor {
 
     private void continueMove(PlayerClient playerClient) {
 
-        Log.println(getClass(), "Continuing a move", true, ClientConstants.MINITOR_MOVEMENT_BUG);
+        Log.println(getClass(), "Continuing a move", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         if (inputData.getMovementInput() == MovementInput.KEYBOARD) {
             checkArgument(inputData.getMoveNodes().size() == 1, "The input nodes was not one for keyboard input.");
