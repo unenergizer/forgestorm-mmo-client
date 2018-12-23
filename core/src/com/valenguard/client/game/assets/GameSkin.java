@@ -12,6 +12,6 @@ public enum GameSkin {
     }
 
     public String getFilePath() {
-        return "skin/" + filePath;
+        return "graphics/skin/" + filePath;
     }
 }

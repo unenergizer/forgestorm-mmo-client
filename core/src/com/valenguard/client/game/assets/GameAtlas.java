@@ -13,6 +13,6 @@ public enum GameAtlas {
     }
 
     public String getFilePath() {
-        return "atlas/" + filePath;
+        return "graphics/atlas/" + filePath;
     }
 }

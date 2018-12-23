@@ -16,6 +16,7 @@ public class FadeOut {
     public void draw(SpriteBatch spriteBatch, Texture texture, float x, float y) {
         if (isFading) {
             alpha -= fadePerTick;
+            if (alpha < 0.0f) alpha = 0.0f;
             spriteBatch.setColor(1.0f, 1.0f, 1.0f, alpha);
             spriteBatch.draw(texture, x, y);
             spriteBatch.setColor(1.0f, 1.0f, 1.0f, 1.0f);

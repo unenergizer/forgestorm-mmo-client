@@ -2,13 +2,11 @@ package com.valenguard.client.game.assets;
 
 @SuppressWarnings("SpellCheckingInspection")
 public enum GameTexture {
-    TILE_PATH("redtile.png"),
-    LOGO_BIG("logo_big.png"),
+    LOGO_BIG("misc/logo_big.png"),
+    TILE_PATH("misc/PathFinding.png"),
+    RED_X("misc/RED-X.png"),
+    WARP_LOCATION("misc/warp_door.png"),
     LOGIN_BACKGROUND("background/background.jpg"),
-    TEMP_PLAYER_IMG("player/player.png"),
-    TEMP_OTHER_PLAYER_IMG("player/smile.png"),
-    INVALID_MOVE("buttons_242.png"),
-    WARP_LOCATION("warp_door.png"),
     PARALLAX_BACKGROUND("background/background-purple.png");
 
     private final String filePath;
@@ -18,6 +16,6 @@ public enum GameTexture {
     }
 
     public String getFilePath() {
-        return filePath;
+        return "graphics/" + filePath;
     }
 }

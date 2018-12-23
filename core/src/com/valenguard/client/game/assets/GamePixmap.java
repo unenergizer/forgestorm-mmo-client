@@ -12,6 +12,6 @@ public enum GamePixmap {
     }
 
     public String getFilePath() {
-        return "pixmap/" + filePath;
+        return "graphics/pixmap/" + filePath;
     }
 }

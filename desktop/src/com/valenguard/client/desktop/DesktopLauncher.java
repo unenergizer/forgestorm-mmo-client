@@ -21,9 +21,9 @@ public class DesktopLauncher {
         config.width = ClientConstants.SCREEN_WIDTH;
         config.height = ClientConstants.SCREEN_HEIGHT;
 
-        config.addIcon("icon-128.png", Files.FileType.Internal);
-        config.addIcon("icon-32.png", Files.FileType.Internal);
-        config.addIcon("icon-16.png", Files.FileType.Internal);
+        config.addIcon("graphics/misc/icon-128.png", Files.FileType.Internal);
+        config.addIcon("graphics/misc/icon-32.png", Files.FileType.Internal);
+        config.addIcon("graphics/misc/icon-16.png", Files.FileType.Internal);
 
         Valenguard valenguard = Valenguard.getInstance();
         valenguard.setIdeRun(ideRun);

@@ -11,6 +11,6 @@ public enum GameFont {
     }
 
     public String getFilePath() {
-        return "font/" + filePath;
+        return "graphics/font/" + filePath;
     }
 }

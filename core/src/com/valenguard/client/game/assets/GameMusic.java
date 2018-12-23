@@ -12,6 +12,6 @@ public enum GameMusic {
     }
 
     public String getFilePath() {
-        return "music/" + filePath;
+        return "audio/music/" + filePath;
     }
 }

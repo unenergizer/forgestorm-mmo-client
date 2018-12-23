@@ -78,8 +78,8 @@ public class GameScreen implements Screen {
         parallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         fileManager.loadTexture(GameTexture.TILE_PATH);
         tilePathTexture = fileManager.getTexture(GameTexture.TILE_PATH);
-        fileManager.loadTexture(GameTexture.INVALID_MOVE);
-        invalidMoveLocation = fileManager.getTexture(GameTexture.INVALID_MOVE);
+        fileManager.loadTexture(GameTexture.RED_X);
+        invalidMoveLocation = fileManager.getTexture(GameTexture.RED_X);
         fileManager.loadTexture(GameTexture.WARP_LOCATION);
         warpLocation = fileManager.getTexture(GameTexture.WARP_LOCATION);
 
