@@ -40,10 +40,10 @@ public class ItemStackSource extends DragAndDrop.Source {
         DragAndDrop.Payload inventoryPayload = new DragAndDrop.Payload();
         inventoryPayload.setObject(itemStack);
 
-        VisImage image = new ImageBuilder(GameAtlas.ITEM_TEXTURES, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
+        VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         inventoryPayload.setDragActor(image);
 
-        image = new ImageBuilder(GameAtlas.ITEM_TEXTURES, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
+        image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         image.setColor(Color.RED);
         inventoryPayload.setInvalidDragActor(image);
 

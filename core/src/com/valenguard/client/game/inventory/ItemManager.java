@@ -1,59 +1,33 @@
 package com.valenguard.client.game.inventory;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemManager {
 
-    private String[] itemNames;
+    private ItemStack[] itemStacks;
 
-    public void readItems() {
-
-        List<String> itemNames = new ArrayList<String>();
-
-        FileHandle fileHandle = Gdx.files.internal("items");
-
-        BufferedReader bufferedReader = null;
-        try {
-
-            bufferedReader = new BufferedReader(new FileReader(fileHandle.file()));
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                itemNames.add(line);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        this.itemNames = new String[itemNames.size()];
-        for (int i = 0; i < itemNames.size(); i++)
-            this.itemNames[i] = itemNames.get(i);
-
-        // FileHandle fileHandle = Gdx.files.internal("items");
-        //        itemNames = fileHandle.readString().split("\n");
-        //
-        //        for (String line : itemNames) {
-        //            System.out.println("LINE = " + line);
-        //        }
+    public ItemManager() {
+        init();
     }
 
-    public String getItemName(int itemId) {
-        return itemNames[itemId];
+    private void init() {
+        ItemLoader itemLoader = new ItemLoader();
+        List<ItemStack> loadedItemStacks = itemLoader.loadItems();
+        itemStacks = new ItemStack[loadedItemStacks.size()];
+        loadedItemStacks.toArray(itemStacks);
+    }
+
+    public ItemStack makeItemStack(int id, int amount) {
+        ItemStack itemStack = null;
+        try {
+
+            itemStack = (ItemStack) itemStacks[id].clone();
+
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        itemStack.setAmount(amount);
+        return itemStack;
     }
 }

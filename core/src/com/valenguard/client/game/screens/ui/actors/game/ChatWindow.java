@@ -60,7 +60,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
         setWidth(350);
         setHeight(150);
 
-        VisImageButton chatMenu = new VisImageButton(new ImageBuilder(GameAtlas.ITEM_TEXTURES, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
+        VisImageButton chatMenu = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
         messagesDisplay = new TextArea(null, VisUI.getSkin(), "chat-box");
         ScrollPane scrollPane = new ScrollPane(messagesDisplay, VisUI.getSkin());

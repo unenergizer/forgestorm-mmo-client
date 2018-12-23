@@ -38,7 +38,7 @@ public class LoginScreen extends ScreenAdapter {
         MusicManager musicManager = Valenguard.getInstance().getMusicManager();
 
         // Load assets
-        fileManager.loadAtlas(GameAtlas.ITEM_TEXTURES);
+        fileManager.loadAtlas(GameAtlas.ITEMS);
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
 
         // Change cursor

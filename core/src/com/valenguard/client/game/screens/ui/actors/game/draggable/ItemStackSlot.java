@@ -14,7 +14,7 @@ import lombok.Getter;
 
 public class ItemStackSlot extends VisTable implements Buildable {
 
-    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32);
+    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
     @Getter
     private ItemStack itemStack;
     @Getter
@@ -104,7 +104,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
         emptyCellImage.remove();
-        itemStackImage = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
+        itemStackImage = new ImageBuilder(GameAtlas.ITEMS, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
         add(itemStackImage);
     }
 }

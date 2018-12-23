@@ -36,7 +36,7 @@ public class InventoryUpdate implements PacketListener<InventoryUpdate.Inventory
             Log.println(getClass(), "Giving the player an item with id: " + packetData.itemId);
             Log.println(getClass(), "Giving the player " + packetData.itemAmount + " of those items");
 
-            ItemStack itemStack = new ItemStack(packetData.itemId, packetData.itemAmount);
+            ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(packetData.itemId, packetData.itemAmount);
             Valenguard.getInstance().getStageHandler().getInventoryWindow().addItemStack(itemStack);
 
         }

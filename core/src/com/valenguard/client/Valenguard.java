@@ -73,7 +73,7 @@ public class Valenguard extends Game {
     public void create() {
         Log.println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
 
-        // init managers
+        // loadItems managers
         outputStreamManager = new OutputStreamManager();
         clientConnection = new ClientConnection();
         fileManager = new FileManager();
@@ -86,9 +86,8 @@ public class Valenguard extends Game {
         windowManager = new WindowManager();
         musicManager = new MusicManager();
         itemManager = new ItemManager();
-        itemManager.readItems();
 
-        // init screens
+        // loadItems screens
         gameScreen = new GameScreen();
         loginScreen = new LoginScreen();
         setScreen(ScreenType.LOGIN);

@@ -23,7 +23,7 @@ public class ButtonBar extends VisTable implements Buildable {
 
         final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
-        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEM_TEXTURES, 32);
+        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
         VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_076").buildTextureRegionDrawable(), "Character");
         VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("quest_001").buildTextureRegionDrawable(), "Main Menu");
         VisImageButton inventoryButton = new VisImageButton(imageBuilder.setRegionName("quest_121").buildTextureRegionDrawable(), "Inventory");

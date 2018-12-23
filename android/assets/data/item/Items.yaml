@@ -1,0 +1,12 @@
+"0":
+   name: "Sword of Holy Light"
+   desc: "This does something bad to enimies."
+   type: SWORD
+   atlas: ITEMS
+   region: weapon_sword_01
+"1":
+   name: "Sword of Holy SHIT"
+   desc: "This does something amazing to enimies."
+   type: SWORD
+   atlas: ITEMS
+   region: weapon_sword_02

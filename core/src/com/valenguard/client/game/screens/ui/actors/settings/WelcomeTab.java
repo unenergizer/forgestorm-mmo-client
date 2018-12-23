@@ -21,7 +21,7 @@ public class WelcomeTab extends Tab {
 
     private void build() {
         content = new VisTable(true);
-        VisImage visImage = new ImageBuilder(GameAtlas.ITEM_TEXTURES, "skill_165", 16 * 3).buildVisImage();
+        VisImage visImage = new ImageBuilder(GameAtlas.ITEMS, "skill_165", 16 * 3).buildVisImage();
 
         VisTable labelTable = new VisTable(true);
         VisLabel visTextArea1 = new VisLabel("Click the tabs above to change your games settings.");
