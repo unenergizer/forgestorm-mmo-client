@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
@@ -15,6 +16,9 @@ import lombok.Getter;
 public class ItemStackSlot extends VisTable implements Buildable {
 
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+
+    @Getter
+    private InventoryType inventoryType;
     @Getter
     private ItemStack itemStack;
     @Getter
@@ -22,10 +26,12 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private VisImage itemStackImage;
     private VisImage emptyCellImage;
 
-    ItemStackSlot() {
+    ItemStackSlot(InventoryType inventoryType) {
+        this.inventoryType = inventoryType;
     }
 
-    ItemStackSlot(ItemStackType itemStackType) {
+    ItemStackSlot(InventoryType inventoryType, ItemStackType itemStackType) {
+        this.inventoryType = inventoryType;
         this.itemStackType = itemStackType;
     }
 

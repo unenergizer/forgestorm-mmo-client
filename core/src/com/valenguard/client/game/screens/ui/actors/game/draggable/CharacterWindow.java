@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -75,7 +76,7 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
     }
 
     private ItemStackSlot buildSlot(ItemStackType acceptedType) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(acceptedType);
+        ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.CHARACTER, acceptedType);
         itemStackSlot.build();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));

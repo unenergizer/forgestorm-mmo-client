@@ -27,7 +27,7 @@ public class EntityAppearanceChange implements PacketListener<EntityAppearanceCh
     public void onEvent(EntityAppearancePacket packetData) {
         Entity entity = EntityManager.getInstance().getEntity(packetData.entityId);
         MovingEntity movingEntity = (MovingEntity) entity; // TODO generalize
-        movingEntity.getEntityAnimation().loadAll(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
+        movingEntity.loadTextures(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
     }
 
     @AllArgsConstructor

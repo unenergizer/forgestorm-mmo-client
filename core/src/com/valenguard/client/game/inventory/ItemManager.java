@@ -18,15 +18,7 @@ public class ItemManager {
     }
 
     public ItemStack makeItemStack(int id, int amount) {
-        ItemStack itemStack = null;
-        try {
-
-            itemStack = (ItemStack) itemStacks[id].clone();
-
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-
+        ItemStack itemStack = (ItemStack) itemStacks[id].clone();
         itemStack.setAmount(amount);
         return itemStack;
     }

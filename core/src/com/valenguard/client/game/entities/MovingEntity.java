@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.animations.EntityAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
@@ -90,5 +91,9 @@ public class MovingEntity extends Entity {
 
     public void addLocationToFutureQueue(Location location) {
         futureLocationRequests.add(location);
+    }
+
+    public void loadTextures(GameAtlas gameAtlas, short[] textureIds) {
+        entityAnimation.loadAll(gameAtlas, textureIds);
     }
 }

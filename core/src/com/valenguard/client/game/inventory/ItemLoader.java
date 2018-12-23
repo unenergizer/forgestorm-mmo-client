@@ -35,6 +35,12 @@ public class ItemLoader {
             GameAtlas atlas = GameAtlas.valueOf((String) itemNode.get("atlas"));
             String region = (String) itemNode.get("region");
 
+            Integer wearable = (Integer) itemNode.get("wearable");
+            if (wearable != null) {
+                itemStack = new WearableItemStack(itemId);
+                ((WearableItemStack) itemStack).setTextureId(wearable.shortValue());
+            }
+
             itemStack.setName(name);
             itemStack.setDescription(desc);
             itemStack.setItemStackType(type);

@@ -1,12 +1,27 @@
 "0":
+   name: "Basic Leather Helm"
+   desc: "Made from general quality leather hide."
+   type: HELM
+   atlas: ITEMS
+   region: helmet_02
+   wearable: 67
+"1":
+   name: "Leather Chest"
+   desc: "Basic leather chest piece."
+   type: CHEST
+   atlas: ITEMS
+   region: armor_002
+   wearable: 42
+"2":
+   name: "Chainmail Chest"
+   desc: "Basic chainmail chest piece."
+   type: CHEST
+   atlas: ITEMS
+   region: armor_013
+   wearable: 2
+"3":
    name: "Sword of Holy Light"
    desc: "This does something bad to enimies."
    type: SWORD
    atlas: ITEMS
    region: weapon_sword_01
-"1":
-   name: "Sword of Holy SHIT"
-   desc: "This does something amazing to enimies."
-   type: SWORD
-   atlas: ITEMS
-   region: weapon_sword_02

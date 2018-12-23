@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ItemStack implements Cloneable {
 
-    private int itemId;
+    protected int itemId;
     private String name;
     private String description;
     private ItemStackType itemStackType;
@@ -21,14 +21,18 @@ public class ItemStack implements Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        ItemStack itemStack = new ItemStack(itemId);
+    public Object clone() {
+        ItemStack itemStack = generateCloneableInstance();
         itemStack.setName(name);
         itemStack.setDescription(description);
         itemStack.setItemStackType(itemStackType);
         itemStack.setGameAtlas(gameAtlas);
         itemStack.setStackable(isStackable);
         itemStack.setTextureRegion(textureRegion);
-        return super.clone();
+        return itemStack;
+    }
+
+    protected ItemStack generateCloneableInstance() {
+        return new ItemStack(itemId);
     }
 }

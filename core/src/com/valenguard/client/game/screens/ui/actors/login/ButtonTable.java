@@ -40,7 +40,7 @@ public class ButtonTable extends VisTable implements Buildable {
 
         float buttonWidth = 150;
 
-        // init help buttons in lower right hand corner
+        // loadItems help buttons in lower right hand corner
         buttonTable.add(musicTable).pad(3, 0, 3, 0).width(buttonWidth).align(Align.right);
         buttonTable.row();
         buttonTable.add(registerButton).pad(3, 0, 3, 0).width(buttonWidth);

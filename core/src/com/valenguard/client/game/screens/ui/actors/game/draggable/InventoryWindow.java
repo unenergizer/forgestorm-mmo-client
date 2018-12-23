@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -31,7 +32,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
         int columnCount = 0;
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
-            ItemStackSlot itemStackSlot = new ItemStackSlot();
+            ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG);
 
             itemStackSlot.build();
             add(itemStackSlot);

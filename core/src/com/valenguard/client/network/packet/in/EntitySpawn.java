@@ -114,12 +114,12 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
             case NPC:
                 MovingEntity humanEntity = (MovingEntity) entity;
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
-                humanEntity.getEntityAnimation().loadAll(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
+                humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
                 break;
             case MONSTER:
                 MovingEntity monsterEntity = (MovingEntity) entity;
                 monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
-                monsterEntity.getEntityAnimation().loadAll(GameAtlas.ENTITY_MONSTER, packetData.textureIds);
+                monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER, packetData.textureIds);
                 break;
             case ITEM: // TODO: JOSEPH COMPLAINED THIS IS NOT A MOVING ENTITY VAR... NO SHIT
 //                entity.setHeadId(packetData.textureIds[0]);
