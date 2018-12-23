@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -141,10 +142,24 @@ public class ItemStackSlot extends VisTable implements Buildable {
              * @param fromActor May be null.
              * @see InputEvent */
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                Vector2 vec = getStageLocation(itemStackSlot);
+                if (itemStackToolTip.isVisible()) return;
+                Vector2 stageLocation = getStageLocation(itemStackSlot);
                 itemStackToolTip.toFront();
                 itemStackToolTip.fadeIn().setVisible(true);
-                itemStackToolTip.setPosition(vec.x - itemStackToolTip.getWidth(), vec.y + itemStackSlot.getHeight());
+
+                // Setting X location
+                if (stageLocation.x > Gdx.graphics.getWidth() / 2) {
+                    itemStackToolTip.setX(stageLocation.x - itemStackToolTip.getWidth());
+                } else {
+                    itemStackToolTip.setX(stageLocation.x + itemStackSlot.getWidth());
+                }
+
+                // Setting Y location
+                if (stageLocation.y > Gdx.graphics.getHeight() / 2) {
+                    itemStackToolTip.setY(stageLocation.y - itemStackToolTip.getHeight());
+                } else {
+                    itemStackToolTip.setY(stageLocation.y + itemStackSlot.getHeight());
+                }
             }
 
             /** Called any time the mouse cursor or a finger touch is moved out of an actor. On the desktop, this event occurs even when no
@@ -152,7 +167,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
              * @param toActor May be null.
              * @see InputEvent */
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                itemStackToolTip.fadeOut();
+                if (itemStackToolTip.isVisible()) itemStackToolTip.fadeOut();
             }
         });
     }
