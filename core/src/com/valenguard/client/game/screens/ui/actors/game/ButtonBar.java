@@ -11,8 +11,8 @@ import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.CharacterWindow;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.InventoryWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
 
 public class ButtonBar extends VisTable implements Buildable {
 
@@ -37,11 +37,11 @@ public class ButtonBar extends VisTable implements Buildable {
         characterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                CharacterWindow characterWindow = stageHandler.getCharacterWindow();
-                if (!characterWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    characterWindow.fadeIn().setVisible(true);
-                } else if (characterWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    characterWindow.fadeOut();
+                EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
+                if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    equipmentWindow.fadeIn().setVisible(true);
+                } else if (equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    equipmentWindow.fadeOut();
                 }
             }
         });
@@ -54,8 +54,8 @@ public class ButtonBar extends VisTable implements Buildable {
 
                     // Close all open windows
                     stageHandler.getMainSettingsWindow().setVisible(false);
-                    stageHandler.getInventoryWindow().setVisible(false);
-                    stageHandler.getCharacterWindow().setVisible(false);
+                    stageHandler.getBagWindow().setVisible(false);
+                    stageHandler.getEquipmentWindow().setVisible(false);
                     stageHandler.getHelpWindow().setVisible(false);
                     stageHandler.getCreditsWindow().setVisible(false);
 
@@ -69,11 +69,11 @@ public class ButtonBar extends VisTable implements Buildable {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                InventoryWindow inventoryWindow = stageHandler.getInventoryWindow();
-                if (!inventoryWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    inventoryWindow.fadeIn().setVisible(true);
-                } else if (inventoryWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    inventoryWindow.fadeOut();
+                BagWindow bagWindow = stageHandler.getBagWindow();
+                if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    bagWindow.fadeIn().setVisible(true);
+                } else if (bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    bagWindow.fadeOut();
                 }
             }
         });

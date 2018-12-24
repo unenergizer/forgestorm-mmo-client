@@ -8,7 +8,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public abstract class ClientOutPacket {
+public abstract class ClientAbstractOutPacket {
 
     /**
      * Opcode to send with the out-going packet.
@@ -20,7 +20,7 @@ public abstract class ClientOutPacket {
      */
     private final ClientHandler clientHandler = Valenguard.clientConnection.getClientHandler();
 
-    ClientOutPacket(byte opcode) {
+    ClientAbstractOutPacket(byte opcode) {
         this.opcode = opcode;
     }
 

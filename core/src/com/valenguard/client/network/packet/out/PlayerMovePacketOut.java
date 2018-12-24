@@ -5,13 +5,12 @@ import com.valenguard.client.network.shared.Opcodes;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
-public class PlayerMove extends ClientOutPacket {
+public class PlayerMovePacketOut extends ClientAbstractOutPacket {
 
     private final MoveDirection moveDirection;
 
-    public PlayerMove(MoveDirection moveDirection) {
+    public PlayerMovePacketOut(MoveDirection moveDirection) {
         super(Opcodes.MOVE_REQUEST);
         this.moveDirection = moveDirection;
     }

@@ -11,7 +11,7 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
-public class InventoryWindow extends HideableVisWindow implements Buildable, Focusable {
+public class BagWindow extends HideableVisWindow implements Buildable, Focusable {
 
     private static final int NUM_ROWS = 6;
     private static final int NUM_COLUMNS = 5;
@@ -20,7 +20,7 @@ public class InventoryWindow extends HideableVisWindow implements Buildable, Foc
 
     private ItemStackSlot[] itemStackSlots = new ItemStackSlot[NUM_ROWS * NUM_COLUMNS];
 
-    public InventoryWindow() {
+    public BagWindow() {
         super("Inventory");
     }
 

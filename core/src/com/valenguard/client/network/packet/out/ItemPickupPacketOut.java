@@ -4,13 +4,12 @@ import com.valenguard.client.network.shared.Opcodes;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
-public class ItemPickup extends ClientOutPacket {
+public class ItemPickupPacketOut extends ClientAbstractOutPacket {
 
     private int pickupX, pickupY;
 
-    public ItemPickup(int pickupX, int pickupY) {
+    public ItemPickupPacketOut(int pickupX, int pickupY) {
         super(Opcodes.CLIENT_LOGIN);
         this.pickupX = pickupX;
         this.pickupY = pickupY;

@@ -5,13 +5,12 @@ import com.valenguard.client.network.shared.Opcodes;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
-public class ClientLogin extends ClientOutPacket {
+public class ClientLoginPacketOut extends ClientAbstractOutPacket {
 
     private final PlayerSession playerSession;
 
-    public ClientLogin(PlayerSession playerSession) {
+    public ClientLoginPacketOut(PlayerSession playerSession) {
         super(Opcodes.CLIENT_LOGIN);
         this.playerSession = playerSession;
     }

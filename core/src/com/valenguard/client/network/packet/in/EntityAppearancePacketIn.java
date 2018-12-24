@@ -13,7 +13,7 @@ import com.valenguard.client.network.shared.PacketListener;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.APPEARANCE)
-public class EntityAppearanceChange implements PacketListener<EntityAppearanceChange.EntityAppearancePacket> {
+public class EntityAppearancePacketIn implements PacketListener<EntityAppearancePacketIn.EntityAppearancePacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

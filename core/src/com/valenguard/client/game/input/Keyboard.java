@@ -8,7 +8,7 @@ import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.movement.KeyboardMovement;
-import com.valenguard.client.network.packet.out.AppearanceChange;
+import com.valenguard.client.network.packet.out.PlayerAppearancePacketOut;
 import com.valenguard.client.util.ColorList;
 import com.valenguard.client.util.Log;
 
@@ -89,7 +89,7 @@ public class Keyboard implements InputProcessor {
         if (changed) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
-            new AppearanceChange(humanAnimation.getHeadId(), humanAnimation.getBodyId()).sendPacket();
+            new PlayerAppearancePacketOut(humanAnimation.getHeadId(), humanAnimation.getBodyId()).sendPacket();
             return true;
         }
 

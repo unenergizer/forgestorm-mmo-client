@@ -15,7 +15,7 @@ import com.valenguard.client.network.shared.PacketListener;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.ENTITY_MOVE_UPDATE)
-public class EntityMoveUpdate implements PacketListener<EntityMoveUpdate.EntityMovePacket> {
+public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.EntityMovePacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

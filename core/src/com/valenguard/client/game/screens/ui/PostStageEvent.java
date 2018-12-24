@@ -38,12 +38,12 @@ public class PostStageEvent implements InputProcessor {
                 stageHandler.getCreditsWindow().fadeOut();
                 openWindowFound = true;
             }
-            if (stageHandler.getInventoryWindow().isVisible()) {
-                stageHandler.getInventoryWindow().fadeOut();
+            if (stageHandler.getBagWindow().isVisible()) {
+                stageHandler.getBagWindow().fadeOut();
                 openWindowFound = true;
             }
-            if (stageHandler.getCharacterWindow().isVisible()) {
-                stageHandler.getCharacterWindow().fadeOut();
+            if (stageHandler.getEquipmentWindow().isVisible()) {
+                stageHandler.getEquipmentWindow().fadeOut();
                 openWindowFound = true;
             }
             if (stageHandler.getMainSettingsWindow().isVisible()) {

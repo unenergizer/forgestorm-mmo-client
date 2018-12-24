@@ -10,7 +10,7 @@ import com.valenguard.client.network.shared.PacketListener;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.ENTITY_DESPAWN)
-public class EntityDespawn implements PacketListener<EntityDespawn.EntityDespawnPacket> {
+public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacketIn.EntityDespawnPacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

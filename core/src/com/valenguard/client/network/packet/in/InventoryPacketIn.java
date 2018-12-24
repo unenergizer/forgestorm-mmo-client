@@ -13,7 +13,7 @@ import com.valenguard.client.util.Log;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
-public class InventoryUpdate implements PacketListener<InventoryUpdate.InventoryActionsPacket> {
+public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -37,7 +37,7 @@ public class InventoryUpdate implements PacketListener<InventoryUpdate.Inventory
             Log.println(getClass(), "Giving the player " + packetData.itemAmount + " of those items");
 
             ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-            Valenguard.getInstance().getStageHandler().getInventoryWindow().addItemStack(itemStack);
+            Valenguard.getInstance().getStageHandler().getBagWindow().addItemStack(itemStack);
 
         }
 

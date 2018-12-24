@@ -9,7 +9,7 @@ import com.valenguard.client.game.maps.MapUtil;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Location;
-import com.valenguard.client.network.packet.out.PlayerMove;
+import com.valenguard.client.network.packet.out.PlayerMovePacketOut;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
@@ -81,7 +81,7 @@ public class ClientPlayerMovementManager {
             Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
         }
 
-        new PlayerMove(moveDirection).sendPacket();
+        new PlayerMovePacketOut(moveDirection).sendPacket();
     }
 
     public void processMoveNodes(PlayerClient playerClient, float delta) {

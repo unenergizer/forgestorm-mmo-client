@@ -33,5 +33,5 @@ public class KeyBinds {
      */
     public static final int FULLSCREEN = Input.Keys.F11;
     public static final int INVENTORY_WINDOW = Input.Keys.I;
-    public static final int CHARACTER_WINDOW = Input.Keys.C;
+    public static final int EQUIPMENT_WINDOW = Input.Keys.C;
 }

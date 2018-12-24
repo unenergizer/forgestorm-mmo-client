@@ -13,11 +13,11 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
-public class CharacterWindow extends HideableVisWindow implements Buildable, Focusable {
+public class EquipmentWindow extends HideableVisWindow implements Buildable, Focusable {
 
     private DragAndDrop dragAndDrop = Valenguard.getInstance().getStageHandler().getDragAndDrop();
 
-    public CharacterWindow() {
+    public EquipmentWindow() {
         super("Character");
     }
 
@@ -76,7 +76,7 @@ public class CharacterWindow extends HideableVisWindow implements Buildable, Foc
     }
 
     private ItemStackSlot buildSlot(ItemStackType acceptedType, byte inventoryIndex) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.CHARACTER, inventoryIndex, acceptedType);
+        ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.EQUIPMENT, inventoryIndex, acceptedType);
         itemStackSlot.build();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));

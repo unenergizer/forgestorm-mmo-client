@@ -5,13 +5,12 @@ import com.valenguard.client.util.Log;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
-public class SendChatMessage extends ClientOutPacket {
+public class ChatMessagePacketOut extends ClientAbstractOutPacket {
 
     private final String chatMessage;
 
-    public SendChatMessage(String chatMessage) {
+    public ChatMessagePacketOut(String chatMessage) {
         super(Opcodes.CHAT);
         this.chatMessage = chatMessage;
     }

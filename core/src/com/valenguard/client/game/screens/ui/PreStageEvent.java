@@ -35,36 +35,36 @@ public class PreStageEvent implements InputProcessor {
         }
 
         /*
-         * Open Player Inventory
+         * Open Player Bag
          */
         if (keycode == KeyBinds.INVENTORY_WINDOW) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-                if (!stageHandler.getInventoryWindow().isVisible()) {
-                    stageHandler.getInventoryWindow().fadeIn().setVisible(true);
-                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getInventoryWindow());
+                if (!stageHandler.getBagWindow().isVisible()) {
+                    stageHandler.getBagWindow().fadeIn().setVisible(true);
+                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
                 } else {
-                    stageHandler.getInventoryWindow().fadeOut();
+                    stageHandler.getBagWindow().fadeOut();
                 }
                 return true;
             }
         }
 
         /*
-         * Open Character Window
+         * Open Equipment Window
          */
-        if (keycode == KeyBinds.CHARACTER_WINDOW) {
+        if (keycode == KeyBinds.EQUIPMENT_WINDOW) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-                if (!stageHandler.getCharacterWindow().isVisible()) {
-                    stageHandler.getCharacterWindow().fadeIn().setVisible(true);
-                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getCharacterWindow());
+                if (!stageHandler.getEquipmentWindow().isVisible()) {
+                    stageHandler.getEquipmentWindow().fadeIn().setVisible(true);
+                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());
                 } else {
-                    stageHandler.getCharacterWindow().fadeOut();
+                    stageHandler.getEquipmentWindow().fadeOut();
                 }
                 return true;
             }

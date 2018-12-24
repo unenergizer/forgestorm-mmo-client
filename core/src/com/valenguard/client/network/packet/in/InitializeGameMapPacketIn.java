@@ -12,7 +12,7 @@ import com.valenguard.client.util.Log;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.INIT_MAP)
-public class InitializeGameMap implements PacketListener<InitializeGameMap.InitGameMapPacket> {
+public class InitializeGameMapPacketIn implements PacketListener<InitializeGameMapPacketIn.InitGameMapPacket> {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -27,7 +27,7 @@ public class InitializeGameMap implements PacketListener<InitializeGameMap.InitG
         Log.println(getClass(), "================== [ NEW MAP INIT ] ===================", false, PRINT_DEBUG);
         Log.println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
 
-        Log.println(InitializeGameMap.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
+        Log.println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
         EntityManager.getInstance().setPlayerClient(null);
         EntityManager.getInstance().getEntities().clear();
         Valenguard.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);

@@ -4,13 +4,12 @@ import com.valenguard.client.network.shared.Opcodes;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
-public class AppearanceChange extends ClientOutPacket {
+public class PlayerAppearancePacketOut extends ClientAbstractOutPacket {
 
     private final short headId, bodyId;
 
-    public AppearanceChange(short headId, short bodyId) {
+    public PlayerAppearancePacketOut(short headId, short bodyId) {
         super(Opcodes.APPEARANCE);
         this.headId = headId;
         this.bodyId = bodyId;

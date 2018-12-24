@@ -24,7 +24,7 @@ import com.valenguard.client.util.Log;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
-public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket> {
+public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -137,7 +137,7 @@ public class EntitySpawn implements PacketListener<EntitySpawn.EntitySpawnPacket
 
         PlayerClient playerClient = (PlayerClient) entity;
         AttachableCamera camera = Valenguard.gameScreen.getCamera();
-        Log.println(EntitySpawn.class, "Found player. Initializing the player");
+        Log.println(EntitySpawnPacketIn.class, "Found player. Initializing the player");
 
         // Attach entity to camera
         camera.attachEntity(playerClient);

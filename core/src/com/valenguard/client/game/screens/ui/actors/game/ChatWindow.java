@@ -18,7 +18,7 @@ import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
-import com.valenguard.client.network.packet.out.SendChatMessage;
+import com.valenguard.client.network.packet.out.ChatMessagePacketOut;
 import com.valenguard.client.util.Log;
 
 import lombok.Getter;
@@ -126,7 +126,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
                         // The player hit the enter key, his message will now be sent!
                         // We also clear the message input
                         String message = messageInput.getText();
-                        if (!message.isEmpty()) new SendChatMessage(message).sendPacket();
+                        if (!message.isEmpty()) new ChatMessagePacketOut(message).sendPacket();
                         messageInput.setText(ENTER_MESSAGE);
                         chatToggled = false;
                         Gdx.input.setOnscreenKeyboardVisible(false);

@@ -5,16 +5,16 @@ import java.util.Queue;
 
 public class OutputStreamManager {
 
-    private final Queue<ClientOutPacket> outputContexts = new LinkedList<ClientOutPacket>();
+    private final Queue<ClientAbstractOutPacket> outputContexts = new LinkedList<ClientAbstractOutPacket>();
 
     public void sendPackets() {
-        ClientOutPacket clientOutPacket;
-        while ((clientOutPacket = outputContexts.poll()) != null) {
-            clientOutPacket.writeData();
+        ClientAbstractOutPacket clientAbstractOutPacket;
+        while ((clientAbstractOutPacket = outputContexts.poll()) != null) {
+            clientAbstractOutPacket.writeData();
         }
     }
 
-    void addClientOutPacket(ClientOutPacket clientOutPacket) {
-        outputContexts.add(clientOutPacket);
+    void addClientOutPacket(ClientAbstractOutPacket clientAbstractOutPacket) {
+        outputContexts.add(clientAbstractOutPacket);
     }
 }

@@ -17,15 +17,15 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.Consumer;
 import com.valenguard.client.network.PlayerSession;
-import com.valenguard.client.network.packet.in.EntityAppearanceChange;
-import com.valenguard.client.network.packet.in.EntityDespawn;
-import com.valenguard.client.network.packet.in.EntityMoveUpdate;
-import com.valenguard.client.network.packet.in.EntitySpawn;
-import com.valenguard.client.network.packet.in.InitializeClientSession;
-import com.valenguard.client.network.packet.in.InitializeGameMap;
-import com.valenguard.client.network.packet.in.InventoryUpdate;
-import com.valenguard.client.network.packet.in.PingIn;
-import com.valenguard.client.network.packet.in.ReceiveChatMessage;
+import com.valenguard.client.network.packet.in.EntityAppearancePacketIn;
+import com.valenguard.client.network.packet.in.EntityDespawnPacketIn;
+import com.valenguard.client.network.packet.in.EntityMovePacketIn;
+import com.valenguard.client.network.packet.in.EntitySpawnPacketIn;
+import com.valenguard.client.network.packet.in.InitializeClientSessionPacketIn;
+import com.valenguard.client.network.packet.in.InitializeGameMapPacketIn;
+import com.valenguard.client.network.packet.in.InventoryPacketIn;
+import com.valenguard.client.network.packet.in.PingPacketIn;
+import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
@@ -134,15 +134,15 @@ public class Valenguard extends Game {
                 new Consumer<EventBus>() {
                     @Override
                     public void accept(EventBus eventBus) {
-                        eventBus.registerListener(new PingIn());
-                        eventBus.registerListener(new InitializeClientSession());
-                        eventBus.registerListener(new EntityMoveUpdate());
-                        eventBus.registerListener(new EntitySpawn());
-                        eventBus.registerListener(new EntityDespawn());
-                        eventBus.registerListener(new InitializeGameMap());
-                        eventBus.registerListener(new ReceiveChatMessage());
-                        eventBus.registerListener(new EntityAppearanceChange());
-                        eventBus.registerListener(new InventoryUpdate());
+                        eventBus.registerListener(new PingPacketIn());
+                        eventBus.registerListener(new InitializeClientSessionPacketIn());
+                        eventBus.registerListener(new EntityMovePacketIn());
+                        eventBus.registerListener(new EntitySpawnPacketIn());
+                        eventBus.registerListener(new EntityDespawnPacketIn());
+                        eventBus.registerListener(new InitializeGameMapPacketIn());
+                        eventBus.registerListener(new ChatMessagePacketIn());
+                        eventBus.registerListener(new EntityAppearancePacketIn());
+                        eventBus.registerListener(new InventoryPacketIn());
                     }
                 });
     }

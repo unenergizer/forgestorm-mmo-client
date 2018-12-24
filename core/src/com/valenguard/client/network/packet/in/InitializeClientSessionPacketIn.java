@@ -15,7 +15,7 @@ import com.valenguard.client.util.Log;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.INIT_CLIENT_SESSION)
-public class InitializeClientSession implements PacketListener<InitializeClientSession.InitClientSessionPacket> {
+public class InitializeClientSessionPacketIn implements PacketListener<InitializeClientSessionPacketIn.InitClientSessionPacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

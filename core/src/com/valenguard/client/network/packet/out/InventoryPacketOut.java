@@ -6,11 +6,11 @@ import com.valenguard.client.network.shared.Opcodes;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class InventoryChangePacket extends ClientOutPacket {
+public class InventoryPacketOut extends ClientAbstractOutPacket {
 
     private InventoryActions inventoryAction;
 
-    public InventoryChangePacket(InventoryActions inventoryAction) {
+    public InventoryPacketOut(InventoryActions inventoryAction) {
         super(Opcodes.INVENTORY_UPDATE);
         this.inventoryAction = inventoryAction;
     }
@@ -22,10 +22,8 @@ public class InventoryChangePacket extends ClientOutPacket {
         if (action == InventoryActions.MOVE) {
             write.writeByte(inventoryAction.getFromPosition());
             write.writeByte(inventoryAction.getToPosition());
-            System.out.println("SENDING FROM WINDOW INDEX: " + inventoryAction.getFromWindow());
-            write.writeByte(inventoryAction.getFromWindow());
-            System.out.println("SENDING TO WINDOW INDEX: " + inventoryAction.getToWindow());
-            write.writeByte(inventoryAction.getToWindow());
+            byte windowsBytes = (byte) ((inventoryAction.getFromWindow() << 4) | inventoryAction.getToWindow());
+            write.writeByte(windowsBytes);
         }
     }
 }

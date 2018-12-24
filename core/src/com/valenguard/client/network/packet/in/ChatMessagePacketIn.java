@@ -11,7 +11,7 @@ import com.valenguard.client.util.Log;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.CHAT)
-public class ReceiveChatMessage implements PacketListener<ReceiveChatMessage.ChatMessagePacket> {
+public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.ChatMessagePacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
