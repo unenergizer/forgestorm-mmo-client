@@ -1,14 +1,9 @@
 package com.valenguard.client.game.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
-import com.valenguard.client.util.ColorList;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class Player extends MovingEntity {
 
@@ -17,9 +12,6 @@ public class Player extends MovingEntity {
     private short armor = -1;
     private short head;
     private short body;
-    @Setter
-    @Getter
-    private Color bodyColor = ColorList.PLAYER_DEFAULT.getColor();
 
     @Override
     public void loadTextures(GameAtlas gameAtlas, short[] textureIds) {

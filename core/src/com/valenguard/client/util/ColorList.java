@@ -55,4 +55,8 @@ public enum ColorList {
     MAROON(new Color(0xb03060ff));
 
     private Color color;
+
+    public static Color randomColor() {
+        return values()[RandomUtil.getNewRandom(0, values().length - 1)].getColor();
+    }
 }

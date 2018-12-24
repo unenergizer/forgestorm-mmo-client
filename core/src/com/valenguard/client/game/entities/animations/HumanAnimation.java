@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.util.RandomUtil;
 
 import lombok.Getter;
@@ -14,7 +13,7 @@ import lombok.Setter;
 public class HumanAnimation extends EntityAnimation {
 
     @Getter
-    private Player player;
+    private MovingEntity movingEntity;
 
     @Setter
     @Getter
@@ -46,7 +45,7 @@ public class HumanAnimation extends EntityAnimation {
 
     public HumanAnimation(MovingEntity movingEntity) {
         super(movingEntity);
-        player = (Player) movingEntity;
+        this.movingEntity = movingEntity;
     }
 
     @Override
@@ -97,29 +96,29 @@ public class HumanAnimation extends EntityAnimation {
             switch (movingEntity.getFacingDirection()) {
                 case NORTH:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadUp, stateTime, true, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyUp, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadUp, stateTime, true, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyUp, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headUp, stateTime, true, Color.WHITE),
                             getColorTextureRegion(bodyUp, 0, false, Color.WHITE)
                     };
                 case SOUTH:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadDown, stateTime, true, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyDown, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadDown, stateTime, true, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyDown, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headDown, stateTime, true, Color.WHITE),
                             getColorTextureRegion(bodyDown, 0, false, Color.WHITE)
                     };
                 case WEST:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadLeft, stateTime, true, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyLeft, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadLeft, stateTime, true, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyLeft, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headLeft, stateTime, true, Color.WHITE),
                             getColorTextureRegion(bodyLeft, 0, false, Color.WHITE)
                     };
                 case EAST:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadRight, stateTime, true, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyRight, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadRight, stateTime, true, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyRight, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headRight, stateTime, true, Color.WHITE),
                             getColorTextureRegion(bodyRight, 0, false, Color.WHITE)
                     };
@@ -131,29 +130,29 @@ public class HumanAnimation extends EntityAnimation {
             switch (movingEntity.getFacingDirection()) {
                 case NORTH:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadUp, 0, false, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyUp, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadUp, 0, false, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyUp, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headUp, 0, false, Color.WHITE),
                             getColorTextureRegion(bodyUp, 0, false, Color.WHITE)
                     };
                 case SOUTH:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadDown, 0, false, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyDown, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadDown, 0, false, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyDown, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headDown, 0, false, Color.WHITE),
                             getColorTextureRegion(bodyDown, 0, false, Color.WHITE)
                     };
                 case WEST:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadLeft, 0, false, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyLeft, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadLeft, 0, false, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyLeft, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headLeft, 0, false, Color.WHITE),
                             getColorTextureRegion(bodyLeft, 0, false, Color.WHITE)
                     };
                 case EAST:
                     return new ColoredTextureRegion[]{
-                            getColorTextureRegion(nakedHeadRight, 0, false, player.getBodyColor()),
-                            getColorTextureRegion(nakedBodyRight, 0, false, player.getBodyColor()),
+                            getColorTextureRegion(nakedHeadRight, 0, false, movingEntity.getBodyColor()),
+                            getColorTextureRegion(nakedBodyRight, 0, false, movingEntity.getBodyColor()),
                             getColorTextureRegion(headRight, 0, false, Color.WHITE),
                             getColorTextureRegion(bodyRight, 0, false, Color.WHITE)
                     };
@@ -167,8 +166,8 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     ColoredTextureRegion[] actMoveUp(float stateTime) {
         return new ColoredTextureRegion[]{
-                getColorTextureRegion(nakedHeadUp, stateTime, true, player.getBodyColor()),
-                getColorTextureRegion(nakedBodyUp, stateTime, true, player.getBodyColor()),
+                getColorTextureRegion(nakedHeadUp, stateTime, true, movingEntity.getBodyColor()),
+                getColorTextureRegion(nakedBodyUp, stateTime, true, movingEntity.getBodyColor()),
                 getColorTextureRegion(headUp, stateTime, true, Color.WHITE),
                 getColorTextureRegion(bodyUp, stateTime, true, Color.WHITE)
         };
@@ -177,8 +176,8 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     ColoredTextureRegion[] actMoveDown(float stateTime) {
         return new ColoredTextureRegion[]{
-                getColorTextureRegion(nakedHeadDown, stateTime, true, player.getBodyColor()),
-                getColorTextureRegion(nakedBodyDown, stateTime, true, player.getBodyColor()),
+                getColorTextureRegion(nakedHeadDown, stateTime, true, movingEntity.getBodyColor()),
+                getColorTextureRegion(nakedBodyDown, stateTime, true, movingEntity.getBodyColor()),
                 getColorTextureRegion(headDown, stateTime, true, Color.WHITE),
                 getColorTextureRegion(bodyDown, stateTime, true, Color.WHITE)
         };
@@ -187,8 +186,8 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     ColoredTextureRegion[] actMoveLeft(float stateTime) {
         return new ColoredTextureRegion[]{
-                getColorTextureRegion(nakedHeadLeft, stateTime, true, player.getBodyColor()),
-                getColorTextureRegion(nakedBodyLeft, stateTime, true, player.getBodyColor()),
+                getColorTextureRegion(nakedHeadLeft, stateTime, true, movingEntity.getBodyColor()),
+                getColorTextureRegion(nakedBodyLeft, stateTime, true, movingEntity.getBodyColor()),
                 getColorTextureRegion(headLeft, stateTime, true, Color.WHITE),
                 getColorTextureRegion(bodyLeft, stateTime, true, Color.WHITE)
         };
@@ -197,8 +196,8 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     ColoredTextureRegion[] actMoveRight(float stateTime) {
         return new ColoredTextureRegion[]{
-                getColorTextureRegion(nakedHeadRight, stateTime, true, player.getBodyColor()),
-                getColorTextureRegion(nakedBodyRight, stateTime, true, player.getBodyColor()),
+                getColorTextureRegion(nakedHeadRight, stateTime, true, movingEntity.getBodyColor()),
+                getColorTextureRegion(nakedBodyRight, stateTime, true, movingEntity.getBodyColor()),
                 getColorTextureRegion(headRight, stateTime, true, Color.WHITE),
                 getColorTextureRegion(bodyRight, stateTime, true, Color.WHITE)
         };
