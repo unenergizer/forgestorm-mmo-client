@@ -140,9 +140,9 @@ public class ItemStackTarget extends DragAndDrop.Target {
                 targetItemStackSlot.getInventoryIndex()
         )).sendPacket();
 
-        if (windowMovementInfo == WindowMovementInfo.FROM_CHARACTER_TO_BAG) {
+        if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_CHARACTER) {
             setWearableFromSource(sourceItemStack);
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_CHARACTER) { // Removing armor pieces
+        } else if (windowMovementInfo == WindowMovementInfo.FROM_CHARACTER_TO_BAG) { // Removing armor pieces
             if (sourceItemStackSlot.getItemStackType() == ItemStackType.CHEST) {
                 EntityManager.getInstance().getPlayerClient().removeArmor();
             } else if (sourceItemStackSlot.getItemStackType() == ItemStackType.HELM) {
