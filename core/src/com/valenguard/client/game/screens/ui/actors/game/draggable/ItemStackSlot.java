@@ -34,7 +34,8 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private VisImage itemStackImage;
     private VisImage emptyCellImage;
     private ItemStackToolTip itemStackToolTip = new ItemStackToolTip();
-    private Vector2 localCords = new Vector2(0, 0);
+    private Vector2 localCords = new Vector2();
+    private Vector2 stageLocation = new Vector2();
 
     ItemStackSlot(InventoryType inventoryType, byte inventoryIndex) {
         this.inventoryType = inventoryType;
@@ -143,7 +144,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
              * @see InputEvent */
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 if (itemStackToolTip.isVisible()) return;
-                Vector2 stageLocation = getStageLocation(itemStackSlot);
+                stageLocation = getStageLocation(itemStackSlot);
                 itemStackToolTip.toFront();
                 itemStackToolTip.fadeIn().setVisible(true);
 

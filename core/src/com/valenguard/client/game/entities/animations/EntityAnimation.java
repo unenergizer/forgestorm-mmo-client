@@ -1,5 +1,7 @@
 package com.valenguard.client.game.entities.animations;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,18 +33,18 @@ public abstract class EntityAnimation {
 
     abstract void load(TextureAtlas textureAtlas, short[] textureIds);
 
-    abstract TextureRegion[] actIdle(float stateTime);
+    abstract ColoredTextureRegion[] actIdle(float stateTime);
 
-    abstract TextureRegion[] actMoveUp(float stateTime);
+    abstract ColoredTextureRegion[] actMoveUp(float stateTime);
 
-    abstract TextureRegion[] actMoveDown(float stateTime);
+    abstract ColoredTextureRegion[] actMoveDown(float stateTime);
 
-    abstract TextureRegion[] actMoveLeft(float stateTime);
+    abstract ColoredTextureRegion[] actMoveLeft(float stateTime);
 
-    abstract TextureRegion[] actMoveRight(float stateTime);
+    abstract ColoredTextureRegion[] actMoveRight(float stateTime);
 
     public void animate(float delta, SpriteBatch spriteBatch) {
-        TextureRegion[] frames;
+        ColoredTextureRegion[] frames;
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
             movingStateTime += delta;
@@ -55,12 +57,14 @@ public abstract class EntityAnimation {
         }
 
         if (frames == null) return;
-        for (TextureRegion frame : frames) {
-            spriteBatch.draw(frame, movingEntity.getDrawX(), movingEntity.getDrawY());
+        for (ColoredTextureRegion frame : frames) {
+            spriteBatch.setColor(frame.getRegionColor());
+            spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX(), movingEntity.getDrawY());
+            spriteBatch.setColor(Color.WHITE);
         }
     }
 
-    private TextureRegion[] movingAnimation() {
+    private ColoredTextureRegion[] movingAnimation() {
         switch (movingEntity.getFacingDirection()) {
             case NORTH:
                 return actMoveUp(movingStateTime);
@@ -76,7 +80,20 @@ public abstract class EntityAnimation {
         return null;
     }
 
-    private TextureRegion[] idleAnimation() {
+    private ColoredTextureRegion[] idleAnimation() {
         return actIdle(idleStateTime);
+    }
+
+    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping) {
+        ColoredTextureRegion coloredTextureRegion = new ColoredTextureRegion();
+        coloredTextureRegion.setTextureRegion(animation.getKeyFrame(stateTime, looping));
+        return coloredTextureRegion;
+    }
+
+
+    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping, Color color) {
+        ColoredTextureRegion coloredTextureRegion = getColorTextureRegion(animation, stateTime, looping);
+        coloredTextureRegion.setRegionColor(color);
+        return coloredTextureRegion;
     }
 }

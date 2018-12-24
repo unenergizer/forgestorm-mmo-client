@@ -1,17 +1,23 @@
 package com.valenguard.client.game.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 
-class Player extends MovingEntity {
+import lombok.Getter;
+
+public class Player extends MovingEntity {
 
     private TextureAtlas characterTextureAtlas;
     private short helm = -1;
     private short armor = -1;
     private short head;
     private short body;
+    @Getter
+//    private Color bodyColor = new Color(1, .913f, .77f, 1);
+    private Color bodyColor = Color.LIME;
 
     @Override
     public void loadTextures(GameAtlas gameAtlas, short[] textureIds) {

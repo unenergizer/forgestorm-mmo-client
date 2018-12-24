@@ -28,8 +28,8 @@ public class MonsterAnimation extends EntityAnimation {
     }
 
     @Override
-    TextureRegion[] actIdle(float stateTime) {
-        return new TextureRegion[]{facingDown.getKeyFrame(stateTime, true)};
+    ColoredTextureRegion[] actIdle(float stateTime) {
+        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
 //        if (idleAnimationWaitTime >= idleAnimationWaitMax) {
 //            if (currentFramesRendered >= 2) {
 //                idleAnimationWaitTime = 0;
@@ -37,30 +37,30 @@ public class MonsterAnimation extends EntityAnimation {
 //            } else {
 //                currentFramesRendered++;
 //            }
-//            return new TextureRegion[]{facingDown.getKeyFrame(stateTime, true)};
+//            return new TextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
 //        } else {
 //            idleAnimationWaitTime++;
-//            return new TextureRegion[]{facingDown.getKeyFrame(0, false)};
+//            return new TextureRegion[]{getColorTextureRegion(facingDown, 0, false)};
 //        }
     }
 
     @Override
-    TextureRegion[] actMoveUp(float stateTime) {
-        return new TextureRegion[]{facingDown.getKeyFrame(stateTime, true)};
+    ColoredTextureRegion[] actMoveUp(float stateTime) {
+        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
     }
 
     @Override
-    TextureRegion[] actMoveDown(float stateTime) {
-        return new TextureRegion[]{facingDown.getKeyFrame(stateTime, true)};
+    ColoredTextureRegion[] actMoveDown(float stateTime) {
+        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
     }
 
     @Override
-    TextureRegion[] actMoveLeft(float stateTime) {
-        return new TextureRegion[]{facingDown.getKeyFrame(stateTime, true)};
+    ColoredTextureRegion[] actMoveLeft(float stateTime) {
+        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
     }
 
     @Override
-    TextureRegion[] actMoveRight(float stateTime) {
-        return new TextureRegion[]{facingDown.getKeyFrame(stateTime, true)};
+    ColoredTextureRegion[] actMoveRight(float stateTime) {
+        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
     }
 }
