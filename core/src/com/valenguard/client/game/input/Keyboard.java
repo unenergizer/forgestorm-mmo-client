@@ -9,6 +9,7 @@ import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.movement.KeyboardMovement;
 import com.valenguard.client.network.packet.out.AppearanceChange;
+import com.valenguard.client.util.ColorList;
 import com.valenguard.client.util.Log;
 
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Keyboard implements InputProcessor {
 
     @Getter
     private KeyboardMovement keyboardMovement = new KeyboardMovement();
-
+    private int colorIndex = 1;
 
     public boolean keyDown(int keycode) {
 
@@ -34,7 +35,29 @@ public class Keyboard implements InputProcessor {
          * Change appearance
          */
         boolean changed = false;
-        if (keycode == Input.Keys.NUMPAD_4) {
+        if (keycode == Input.Keys.NUMPAD_7) {
+            PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+
+            // Change color
+            colorIndex++;
+            if (colorIndex > ColorList.values().length - 1) colorIndex = 0;
+            playerClient.setBodyColor(ColorList.values()[colorIndex].getColor());
+
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            humanAnimation.loadAllVarArgs(GameAtlas.ENTITY_CHARACTER, humanAnimation.getHeadId(), humanAnimation.getBodyId());
+            changed = true;
+        } else if (keycode == Input.Keys.NUMPAD_8) {
+            PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+
+            // Change color
+            colorIndex--;
+            if (colorIndex < 0) colorIndex = ColorList.values().length - 1;
+            playerClient.setBodyColor(ColorList.values()[colorIndex].getColor());
+
+            HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            humanAnimation.loadAllVarArgs(GameAtlas.ENTITY_CHARACTER, humanAnimation.getHeadId(), humanAnimation.getBodyId());
+            changed = true;
+        } else if (keycode == Input.Keys.NUMPAD_4) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
             HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
             if (humanAnimation.getHeadId() - 1 < 0)
