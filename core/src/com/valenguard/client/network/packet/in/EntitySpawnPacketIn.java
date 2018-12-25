@@ -3,11 +3,13 @@ package com.valenguard.client.network.packet.in;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.NPC;
+import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.entities.animations.MonsterAnimation;
@@ -39,21 +41,31 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         byte directionalByte = 0;
         float moveSpeed = 0.0f;
         short[] textureIds = null;
+        byte colorId = -1;
 
         switch (entityType) {
-            case CLIENT_PLAYER:
-            case PLAYER:
-            case NPC:
-                textureIds = new short[2];
-                textureIds[0] = clientHandler.readShort();
-                textureIds[1] = clientHandler.readShort();
-                break;
             case MONSTER:
             case ITEM:
                 textureIds = new short[1];
-                textureIds[0] = clientHandler.readShort();
+                textureIds[Appearance.BODY] = clientHandler.readShort();
+                break;
+            case NPC:
+                colorId = clientHandler.readByte();
+                textureIds = new short[2];
+                textureIds[Appearance.BODY] = clientHandler.readShort();
+                textureIds[Appearance.HEAD] = clientHandler.readShort();
+                break;
+            case CLIENT_PLAYER:
+            case PLAYER:
+                colorId = clientHandler.readByte();
+                textureIds = new short[4];
+                textureIds[Appearance.BODY] = clientHandler.readShort();
+                textureIds[Appearance.HEAD] = clientHandler.readShort();
+                textureIds[Appearance.ARMOR] = clientHandler.readShort();
+                textureIds[Appearance.HELM] = clientHandler.readShort();
                 break;
         }
+
 
         if (entityType != EntityType.ITEM) {
             directionalByte = clientHandler.readByte();
@@ -79,6 +91,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 tileX,
                 tileY,
                 textureIds,
+                colorId,
                 directionalByte,
                 moveSpeed
         );
@@ -107,19 +120,20 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
+        entity.setAppearance(new Appearance(packetData.colorId, packetData.textureIds));
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
-            case PLAYER:
             case NPC:
+            case PLAYER:
                 MovingEntity humanEntity = (MovingEntity) entity;
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
-                humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER, packetData.textureIds);
+                humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
                 break;
             case MONSTER:
                 MovingEntity monsterEntity = (MovingEntity) entity;
                 monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
-                monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER, packetData.textureIds);
+                monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);
                 break;
             case ITEM: // TODO: JOSEPH COMPLAINED THIS IS NOT A MOVING ENTITY VAR... NO SHIT
 //                entity.setHeadId(packetData.textureIds[0]);
@@ -152,7 +166,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnPlayer(EntitySpawnPacket packetData) {
-        Entity entity = new MovingEntity();
+        Entity entity = new Player();
         setMovingEntityVars((MovingEntity) entity, packetData);
         return entity;
     }
@@ -190,6 +204,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final int tileX;
         private final int tileY;
         private final short[] textureIds;
+        private final byte colorId;
         private final byte facingMoveDirectionByte;
         private final float moveSpeed;
     }

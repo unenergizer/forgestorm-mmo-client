@@ -1,14 +1,15 @@
 package com.valenguard.client.network.shared;
 
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -113,7 +114,11 @@ public class ClientHandler {
         } catch (SocketException e) {
             Log.println(getClass(), "Tried to read data, but socket closed!", true);
         } catch (IOException e) {
-            e.printStackTrace();
+
+            if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
+                Valenguard.clientConnection.logout();
+            }
+
         }
         return null;
     }
@@ -130,6 +135,11 @@ public class ClientHandler {
             writeCallback.accept(outputStream);
             outputStream.flush();
         } catch (IOException e) {
+
+            if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
+                Valenguard.clientConnection.logout();
+            }
+
             e.printStackTrace();
         }
     }

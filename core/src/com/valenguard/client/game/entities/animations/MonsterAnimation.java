@@ -3,6 +3,7 @@ package com.valenguard.client.game.entities.animations;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.util.RandomUtil;
 
@@ -22,8 +23,8 @@ public class MonsterAnimation extends EntityAnimation {
     }
 
     @Override
-    public void load(TextureAtlas textureAtlas, short[] textureIds) {
-        this.atlasId = textureIds[0];
+    public void load(TextureAtlas textureAtlas) {
+        this.atlasId = appearance.getTextureId(Appearance.BODY);
         facingDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("monster_down_" + atlasId), Animation.PlayMode.LOOP);
     }
 

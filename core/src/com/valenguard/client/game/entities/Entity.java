@@ -1,10 +1,8 @@
 package com.valenguard.client.game.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Location;
-import com.valenguard.client.util.ColorList;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,9 +39,9 @@ public class Entity {
     private float drawX, drawY;
 
     /**
-     * Default color of a texture
+     * The appearance of the entity.
      */
-    private Color bodyColor = ColorList.randomColor();
+    private Appearance appearance;
 
     public GameMap getGameMap() {
         return Valenguard.getInstance().getMapManager().getGameMap(mapName);

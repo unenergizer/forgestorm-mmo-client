@@ -8,50 +8,50 @@ import com.valenguard.client.game.entities.animations.HumanAnimation;
 public class Player extends MovingEntity {
 
     private TextureAtlas characterTextureAtlas;
-    private short helm = -1;
-    private short armor = -1;
-    private short head;
-    private short body;
 
     @Override
-    public void loadTextures(GameAtlas gameAtlas, short[] textureIds) {
+    public void loadTextures(GameAtlas gameAtlas) {
         characterTextureAtlas = Valenguard.getInstance().getFileManager().getAtlas(gameAtlas);
-        setHeadAndBody(textureIds[0], textureIds[1]);
+        applyAppearance();
     }
 
-    private void setHeadAndBody(short headId, short bodyId) {
+    private void applyAppearance() {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        head = headId;
-        body = bodyId;
-        if (helm == -1) {
-            humanAnimation.loadHead(characterTextureAtlas, headId);
+        short[] textureIds = getAppearance().getTextureIds();
+        System.out.println("APPLYING APPEARANCE");
+        if (textureIds[Appearance.HELM] != -1) {
+            humanAnimation.loadHead(characterTextureAtlas, textureIds[Appearance.HELM]);
+        } else {
+            humanAnimation.loadHead(characterTextureAtlas, textureIds[Appearance.HEAD]);
         }
-        if (armor == -1) {
-            humanAnimation.loadBody(characterTextureAtlas, bodyId);
+        if (textureIds[Appearance.ARMOR] != -1) {
+            humanAnimation.loadBody(characterTextureAtlas, textureIds[Appearance.ARMOR]);
+        } else {
+            humanAnimation.loadBody(characterTextureAtlas, textureIds[Appearance.BODY]);
         }
     }
 
     public void setHelm(short helmId) {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        helm = helmId;
+        getAppearance().getTextureIds()[Appearance.HELM] = helmId;
         humanAnimation.loadHead(characterTextureAtlas, helmId);
     }
 
     public void setArmor(short armorId) {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        armor = armorId;
+        getAppearance().getTextureIds()[Appearance.ARMOR] = armorId;
         humanAnimation.loadBody(characterTextureAtlas, armorId);
-    }
-
-    public void removeArmor() {
-        HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        armor = -1;
-        humanAnimation.loadBody(characterTextureAtlas, body);
     }
 
     public void removeHelm() {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        helm = -1;
-        humanAnimation.loadHead(characterTextureAtlas, head);
+        getAppearance().getTextureIds()[Appearance.HELM] = -1;
+        humanAnimation.loadHead(characterTextureAtlas, getAppearance().getTextureId(Appearance.HEAD));
+    }
+
+    public void removeArmor() {
+        HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
+        getAppearance().getTextureIds()[Appearance.ARMOR] = -1;
+        humanAnimation.loadBody(characterTextureAtlas, getAppearance().getTextureId(Appearance.BODY));
     }
 }

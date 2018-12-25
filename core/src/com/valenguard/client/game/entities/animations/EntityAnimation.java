@@ -7,31 +7,34 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.movement.MoveUtil;
+
+import lombok.Getter;
 
 public abstract class EntityAnimation {
 
     static final float WALK_INTERVAL = 0.25f;
 
+    @Getter
     protected final MovingEntity movingEntity;
+
+    protected final Appearance appearance;
 
     private float movingStateTime = 1f;
     private float idleStateTime = 1f;
 
     EntityAnimation(MovingEntity movingEntity) {
         this.movingEntity = movingEntity;
+        this.appearance = movingEntity.getAppearance();
     }
 
-    public void loadAll(GameAtlas gameAtlas, short[] textureIds) {
-        load(Valenguard.getInstance().getFileManager().getAtlas(gameAtlas), textureIds);
+    public void loadAll(GameAtlas gameAtlas) {
+        load(Valenguard.getInstance().getFileManager().getAtlas(gameAtlas));
     }
 
-    public void loadAllVarArgs(GameAtlas gameAtlas, short... textureIds) {
-        load(Valenguard.getInstance().getFileManager().getAtlas(gameAtlas), textureIds);
-    }
-
-    abstract void load(TextureAtlas textureAtlas, short[] textureIds);
+    abstract void load(TextureAtlas textureAtlas);
 
     abstract ColoredTextureRegion[] actIdle(float stateTime);
 

@@ -93,7 +93,8 @@ public class MovingEntity extends Entity {
         futureLocationRequests.add(location);
     }
 
-    public void loadTextures(GameAtlas gameAtlas, short[] textureIds) {
-        entityAnimation.loadAll(gameAtlas, textureIds);
+    public void loadTextures(GameAtlas gameAtlas) {
+        System.out.println("LOADING TEXTURE FOR MOVING CHARACTER");
+        entityAnimation.loadAll(gameAtlas);
     }
 }
