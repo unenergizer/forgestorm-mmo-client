@@ -17,6 +17,21 @@
 package com.valenguard.client.game.screens.ui.actors.event;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 
-public class WindowResizeEvent extends Event {
+public class ForceCloseWindowListener implements EventListener {
+
+    @Override
+    public boolean handle(Event event) {
+        if (!(event instanceof ForceCloseWindowEvent)) return false;
+        return performWindowClose((HideableVisWindow) event.getListenerActor());
+    }
+
+    private boolean performWindowClose(HideableVisWindow hideableVisWindow) {
+        boolean visibleStatus = hideableVisWindow.isVisible();
+        if (visibleStatus) hideableVisWindow.fadeOut();
+        return visibleStatus;
+    }
 }
+

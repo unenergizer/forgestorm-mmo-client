@@ -13,6 +13,7 @@ import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 import lombok.Getter;
@@ -68,6 +69,8 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
                 return true;
             }
         });
+
+        addListener(new ForceCloseWindowListener());
 
         addListener(new WindowResizeListener() {
             @Override

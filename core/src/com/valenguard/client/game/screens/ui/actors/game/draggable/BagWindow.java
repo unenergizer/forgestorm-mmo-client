@@ -9,6 +9,7 @@ import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class BagWindow extends HideableVisWindow implements Buildable, Focusable {
@@ -47,6 +48,8 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
                 columnCount = 0;
             }
         }
+
+        addListener(new ForceCloseWindowListener());
 
         addListener(new WindowResizeListener() {
             @Override

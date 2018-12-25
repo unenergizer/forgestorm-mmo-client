@@ -11,6 +11,7 @@ import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class EquipmentWindow extends HideableVisWindow implements Buildable, Focusable {
@@ -61,6 +62,8 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
                 return true;
             }
         });
+
+        addListener(new ForceCloseWindowListener());
 
         addListener(new WindowResizeListener() {
             @Override

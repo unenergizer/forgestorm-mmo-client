@@ -12,6 +12,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class EscapeWindow extends HideableVisWindow implements Buildable, Focusable {
@@ -55,6 +56,8 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
         centerWindow();
 
         setVisible(false);
+
+        addListener(new ForceCloseWindowListener());
 
         addListener(new WindowResizeListener() {
             @Override

@@ -2,9 +2,11 @@ package com.valenguard.client.game.screens.ui;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowEvent;
 
 public class PostStageEvent implements InputProcessor {
 
@@ -21,40 +23,12 @@ public class PostStageEvent implements InputProcessor {
          */
         if (keycode == Input.Keys.ESCAPE) {
 
-            /*
-             * Tidy up and close any known stubborn windows.
-             * TODO: Abstract this out into an Exitable Window interface we can call automatically
-             */
-            boolean openWindowFound = false;
-            if (stageHandler.getEscapeWindow().isVisible()) {
-                stageHandler.getEscapeWindow().fadeOut();
-                openWindowFound = true;
-            }
-            if (stageHandler.getHelpWindow().isVisible()) {
-                stageHandler.getHelpWindow().fadeOut();
-                openWindowFound = true;
-            }
-            if (stageHandler.getCreditsWindow().isVisible()) {
-                stageHandler.getCreditsWindow().fadeOut();
-                openWindowFound = true;
-            }
-            if (stageHandler.getBagWindow().isVisible()) {
-                stageHandler.getBagWindow().fadeOut();
-                openWindowFound = true;
-            }
-            if (stageHandler.getEquipmentWindow().isVisible()) {
-                stageHandler.getEquipmentWindow().fadeOut();
-                openWindowFound = true;
-            }
-            if (stageHandler.getMainSettingsWindow().isVisible()) {
-                stageHandler.getMainSettingsWindow().fadeOut();
-                openWindowFound = true;
-            }
-            if (openWindowFound) return true; // break here, do not open escape menu!
+            // Close any current open windows on first Esc press (if no windows open, we continue).
+            ForceCloseWindowEvent forceCloseEvent = new ForceCloseWindowEvent();
+            for (Actor actor : stageHandler.getStage().getActors()) actor.fire(forceCloseEvent);
+            if (forceCloseEvent.isHandled()) return true; // break here, do not open escape menu!
 
-            /*
-             * Finally... Open the Escape menu!
-             */
+            //Finally... Open the Escape menu!
             if (!stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                 stageHandler.getEscapeWindow().fadeIn().setVisible(true);
