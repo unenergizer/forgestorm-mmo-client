@@ -82,7 +82,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 case BELT:
                     emptyCellImage = imageBuilder.setRegionName("accessory_01").buildVisImage();
                     break;
-                case RINGS:
+                case RING:
                     emptyCellImage = imageBuilder.setRegionName("ring_001").buildVisImage();
                     break;
                 case NECKLACE:

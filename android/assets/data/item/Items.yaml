@@ -49,3 +49,46 @@
    type: SHIELD
    atlas: ITEMS
    region: shield_01
+"8":
+   name: "Iron Helm"
+   desc: "Made from player sourced iron."
+   type: HELM
+   atlas: ITEMS
+   region: helmet_07
+   wearable: 22
+"9":
+   name: "Ring of Frost Resist"
+   desc: "The markings found on the ring are unreadable."
+   type: RING
+   atlas: ITEMS
+   region: ring_046
+"10":
+   name: "Ring of Fire Resist"
+   desc: "The markings found on the ring are unreadable."
+   type: RING
+   atlas: ITEMS
+   region: ring_041
+"11":
+   name: "Cape of Invisibility"
+   desc: "The guy in the market said it could make me invisible, but it hasn't worked yet."
+   type: CAPE
+   atlas: ITEMS
+   region: armor_034
+"12":
+   name: "Wooden Arrow"
+   desc: "Not the finest quality."
+   type: ARROW
+   atlas: ITEMS
+   region: weapon_arrow_05
+"13":
+   name: "Elven Bow of Thorns"
+   desc: "Protector i roven a slayer beasts.."
+   type: BOW
+   atlas: ITEMS
+   region: weapon_claw_15
+"14":
+   name: "Cooks Glove"
+   desc: "The gloves are still white, obviously the lazy cook has never used them."
+   type: GLOVES
+   atlas: ITEMS
+   region: glove_29

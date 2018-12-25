@@ -38,12 +38,12 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         mainTable.add(buildSlot(ItemStackType.CAPE, (byte) 3));
         mainTable.row();
 
-        mainTable.add(buildSlot(ItemStackType.RINGS, (byte) 4));
+        mainTable.add(buildSlot(ItemStackType.RING, (byte) 4));
         mainTable.add(buildSlot(ItemStackType.CHEST, (byte) 5));
         mainTable.add(buildSlot(ItemStackType.GLOVES, (byte) 6));
         mainTable.row();
 
-        mainTable.add(buildSlot(ItemStackType.RINGS, (byte) 7));
+        mainTable.add(buildSlot(ItemStackType.RING, (byte) 7));
         mainTable.add(buildSlot(ItemStackType.BELT, (byte) 8));
         mainTable.add(buildSlot(ItemStackType.BOOTS, (byte) 9));
         add(mainTable);

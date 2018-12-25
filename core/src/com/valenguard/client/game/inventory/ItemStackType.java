@@ -10,7 +10,7 @@ public enum ItemStackType {
     BELT,
 
     // Rings
-    RINGS,
+    RING,
     NECKLACE,
 
     // Weapons
