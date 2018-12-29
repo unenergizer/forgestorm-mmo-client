@@ -1,6 +1,5 @@
 package com.valenguard.client.game.maps;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
@@ -27,7 +26,7 @@ public class MapManager implements Disposable {
     public MapManager(boolean ideRun) {
         if (userOnMobile() || ideRun) {
             loadMobile();
-        } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+        } else {
             loadDesktopJar();
         }
     }

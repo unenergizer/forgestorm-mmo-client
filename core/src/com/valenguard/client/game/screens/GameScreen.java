@@ -125,7 +125,7 @@ public class GameScreen implements Screen {
             srcY -= 3;
             if (srcX >= parallaxBackground.getWidth()) srcX = 0;
             if (srcY <= -parallaxBackground.getHeight()) srcY = 0;
-            spriteBatch.draw(parallaxBackground, 0, 0, srcX, srcY, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            spriteBatch.draw(parallaxBackground, -parallaxBackground.getWidth(), -parallaxBackground.getHeight(), srcX, srcY, Gdx.graphics.getWidth() + parallaxBackground.getWidth() * 2, Gdx.graphics.getHeight() + parallaxBackground.getHeight() * 2);
             spriteBatch.end();
         }
 
