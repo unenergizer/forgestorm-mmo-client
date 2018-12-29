@@ -96,18 +96,11 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
 
     private class TestTab extends Tab {
 
-        private String title;
-        private Table content;
+        private final String title;
+        private final Table content;
 
         TestTab(String title) {
             super(false, false);
-            this.title = " " + title + " ";
-            content = new VisTable();
-            content.add(new VisLabel(title + ": Coming soon!"));
-        }
-
-        TestTab(String title, boolean closeableByUser) {
-            super(false, closeableByUser);
             this.title = " " + title + " ";
             content = new VisTable();
             content.add(new VisLabel(title + ": Coming soon!"));

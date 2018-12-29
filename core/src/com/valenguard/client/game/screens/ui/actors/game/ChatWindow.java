@@ -19,10 +19,11 @@ import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.network.packet.out.ChatMessagePacketOut;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class ChatWindow extends VisWindow implements Buildable, Focusable {
@@ -138,7 +139,7 @@ public class ChatWindow extends VisWindow implements Buildable, Focusable {
                         Gdx.input.setOnscreenKeyboardVisible(false);
                         FocusManager.resetFocus(stageHandler.getStage());
                     } else {
-                        Log.println(ChatWindow.class, "Something should happen here???", true);
+                        println(ChatWindow.class, "Something should happen here???", true);
 //                        chatToggled = true;
 //                        stageHandler.getStage().setKeyboardFocus(messageInput);
                     }

@@ -8,9 +8,9 @@ import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 
-public class WelcomeTab extends Tab {
+class WelcomeTab extends Tab {
 
-    private String title;
+    private final String title;
     private Table content;
 
     WelcomeTab() {

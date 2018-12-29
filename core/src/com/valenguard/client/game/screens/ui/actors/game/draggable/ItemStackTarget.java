@@ -12,7 +12,7 @@ import com.valenguard.client.network.packet.out.InventoryPacketOut;
 // TODO implement EQUIPMENT TO EQUIPMENT window actions for ring swapping and that type of thing.
 public class ItemStackTarget extends DragAndDrop.Target {
 
-    private ItemStackSlot targetItemStackSlot;
+    private final ItemStackSlot targetItemStackSlot;
 
     private enum WindowMovementInfo {
         FROM_BAG_TO_BAG,

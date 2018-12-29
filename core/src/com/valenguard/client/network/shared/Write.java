@@ -2,7 +2,6 @@ package com.valenguard.client.network.shared;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 @FunctionalInterface
 public interface Write {

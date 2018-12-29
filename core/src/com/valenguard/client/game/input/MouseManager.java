@@ -14,8 +14,6 @@ import com.valenguard.client.game.maps.MapUtil;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.util.FadeOut;
-import com.valenguard.client.util.GraphicsUtils;
-import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
@@ -23,6 +21,8 @@ import java.util.Queue;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class MouseManager {
@@ -106,7 +106,7 @@ public class MouseManager {
     }
 
     private void middle(final int screenX, final int screenY) {
-        Log.println(getClass(), "Middle Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
+        println(getClass(), "Middle Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
     private void right(final int screenX, final int screenY) {
@@ -116,11 +116,11 @@ public class MouseManager {
     }
 
     private void forward(final int screenX, final int screenY) {
-        Log.println(getClass(), "Forward Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
+        println(getClass(), "Forward Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
     private void back(final int screenX, final int screenY) {
-        Log.println(getClass(), "Back Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
+        println(getClass(), "Back Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch, Texture invalidMoveLocation, Texture warpLocation) {

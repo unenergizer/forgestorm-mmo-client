@@ -10,7 +10,7 @@ import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
-public class PreStageEvent implements InputProcessor {
+class PreStageEvent implements InputProcessor {
 
     private final StageHandler stageHandler;
     private boolean userInterfaceDebug = false;

@@ -4,9 +4,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.movement.KeyboardMovement;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
+
+import static com.valenguard.client.util.Log.println;
 
 public class Keyboard implements InputProcessor {
 
@@ -22,7 +23,7 @@ public class Keyboard implements InputProcessor {
          */
         if (keycode == Input.Keys.F4) {
             ClientConstants.MONITOR_MOVEMENT_CHECKS = !ClientConstants.MONITOR_MOVEMENT_CHECKS;
-            Log.println(getClass(), "Toggled walking debug: " + ClientConstants.MONITOR_MOVEMENT_CHECKS, true);
+            println(getClass(), "Toggled walking debug: " + ClientConstants.MONITOR_MOVEMENT_CHECKS, true);
         }
 
 //        /*

@@ -11,9 +11,9 @@ import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 
-public class GameMechanicsTab extends Tab {
+class GameMechanicsTab extends Tab {
 
-    private String title;
+    private final String title;
     private Table content;
 
     GameMechanicsTab() {

@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.util.RandomUtil;
 
 import lombok.Getter;
 
+import static com.valenguard.client.util.RandomUtil.getNewRandom;
+
 public class MonsterAnimation extends EntityAnimation {
 
-    private final int idleAnimationWaitMax = RandomUtil.getNewRandom(150, 500);
+    private final int idleAnimationWaitMax = getNewRandom(150, 500);
     private int idleAnimationWaitTime = 0;
     private int currentFramesRendered = 0;
     @Getter

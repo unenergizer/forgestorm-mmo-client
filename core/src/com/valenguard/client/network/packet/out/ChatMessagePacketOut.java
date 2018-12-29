@@ -1,10 +1,11 @@
 package com.valenguard.client.network.packet.out;
 
 import com.valenguard.client.network.shared.Opcodes;
-import com.valenguard.client.util.Log;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import static com.valenguard.client.util.Log.println;
 
 public class ChatMessagePacketOut extends ClientAbstractOutPacket {
 
@@ -23,14 +24,14 @@ public class ChatMessagePacketOut extends ClientAbstractOutPacket {
         if (chatMessage.contains(Character.toString('\r'))) return; // tab
 
 
-        Log.println(getClass(), "Characters before trimming: " + chatMessage);
+        println(getClass(), "Characters before trimming: " + chatMessage);
         String newMessage = chatMessage.trim();
-        Log.println(getClass(), "Characters after trimming: " + newMessage);
+        println(getClass(), "Characters after trimming: " + newMessage);
         if (newMessage.isEmpty()) return;
 
-        Log.println(getClass(), "Sending message: " + newMessage + " with length: " + newMessage.length() + " across the wire");
+        println(getClass(), "Sending message: " + newMessage + " with length: " + newMessage.length() + " across the wire");
 
         write.writeUTF(newMessage);
-        Log.println(getClass(), chatMessage);
+        println(getClass(), chatMessage);
     }
 }

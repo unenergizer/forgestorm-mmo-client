@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class ItemPickupPacketOut extends ClientAbstractOutPacket {
 
-    private int pickupX, pickupY;
+    private final int pickupX, pickupY;
 
     public ItemPickupPacketOut(int pickupX, int pickupY) {
         super(Opcodes.CLIENT_LOGIN);

@@ -14,10 +14,11 @@ import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.util.GraphicsUtils;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 @Setter
@@ -33,7 +34,7 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
         MusicManager musicManager = Valenguard.getInstance().getMusicManager();
 
@@ -77,19 +78,19 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
-        Log.println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         stageHandler.resize(width, height);
     }
 
     @Override
     public void pause() {
-        Log.println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
         Valenguard.getInstance().getMusicManager().pauseMusic();
     }
 
     @Override
     public void resume() {
-        Log.println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
         final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
         if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) musicManager.resumeMusic();
     }
@@ -100,7 +101,7 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         if (spriteBatch != null) {
             fileManager.unloadAsset(GameTexture.LOGIN_BACKGROUND.getFilePath());
             spriteBatch.dispose();

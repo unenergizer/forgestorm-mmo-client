@@ -17,6 +17,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.Consumer;
 import com.valenguard.client.network.PlayerSession;
+import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
 import com.valenguard.client.network.packet.in.EntityAppearancePacketIn;
 import com.valenguard.client.network.packet.in.EntityDespawnPacketIn;
 import com.valenguard.client.network.packet.in.EntityMovePacketIn;
@@ -25,14 +26,14 @@ import com.valenguard.client.network.packet.in.InitializeClientSessionPacketIn;
 import com.valenguard.client.network.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.packet.in.InventoryPacketIn;
 import com.valenguard.client.network.packet.in.PingPacketIn;
-import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class Valenguard extends Game {
@@ -71,7 +72,7 @@ public class Valenguard extends Game {
 
     @Override
     public void create() {
-        Log.println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
 
         // loadItems managers
         outputStreamManager = new OutputStreamManager();
@@ -114,7 +115,7 @@ public class Valenguard extends Game {
 
     @Override
     public void dispose() {
-        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         fileManager.dispose();
         mapManager.dispose();
         stageHandler.dispose();
@@ -126,7 +127,7 @@ public class Valenguard extends Game {
     }
 
     public void initializeNetwork(PlayerSession playerSession) {
-        Log.println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
         clientConnection.openConnection(
                 playerSession,
                 ServerConstants.SERVER_ADDRESS,

@@ -27,6 +27,6 @@ public abstract class WindowResizeListener implements EventListener {
         return false;
     }
 
-    public abstract void resize();
+    protected abstract void resize();
 }
 

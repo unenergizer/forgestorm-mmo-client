@@ -15,15 +15,16 @@ import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.entities.animations.MonsterAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
-import com.valenguard.client.util.AttachableCamera;
-import com.valenguard.client.util.Log;
 
 import lombok.AllArgsConstructor;
+
+import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
@@ -72,16 +73,16 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             moveSpeed = clientHandler.readFloat();
         }
 
-        Log.println(getClass(), "===================================", false, PRINT_DEBUG);
-        Log.println(getClass(), "entityType: " + entityType, false, PRINT_DEBUG);
-        Log.println(getClass(), "entityId: " + entityId, false, PRINT_DEBUG);
-        Log.println(getClass(), "entityName: " + entityName, false, PRINT_DEBUG);
-        Log.println(getClass(), "tileX: " + tileX, false, PRINT_DEBUG);
-        Log.println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
-        Log.println(getClass(), "directional Byte: " + directionalByte, false, PRINT_DEBUG);
-        Log.println(getClass(), "move speed: " + moveSpeed, false, PRINT_DEBUG);
+        println(getClass(), "===================================", false, PRINT_DEBUG);
+        println(getClass(), "entityType: " + entityType, false, PRINT_DEBUG);
+        println(getClass(), "entityId: " + entityId, false, PRINT_DEBUG);
+        println(getClass(), "entityName: " + entityName, false, PRINT_DEBUG);
+        println(getClass(), "tileX: " + tileX, false, PRINT_DEBUG);
+        println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
+        println(getClass(), "directional Byte: " + directionalByte, false, PRINT_DEBUG);
+        println(getClass(), "move speed: " + moveSpeed, false, PRINT_DEBUG);
         for (int i = 0; i < textureIds.length; i++) {
-            Log.println(getClass(), "textureIds #" + i + ": " + textureIds[i], false, PRINT_DEBUG);
+            println(getClass(), "textureIds #" + i + ": " + textureIds[i], false, PRINT_DEBUG);
         }
 
         return new EntitySpawnPacket(
@@ -151,7 +152,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         PlayerClient playerClient = (PlayerClient) entity;
         AttachableCamera camera = Valenguard.gameScreen.getCamera();
-        Log.println(EntitySpawnPacketIn.class, "Found player. Initializing the player");
+        println(EntitySpawnPacketIn.class, "Found player. Initializing the player");
 
         // Attach entity to camera
         camera.attachEntity(playerClient);

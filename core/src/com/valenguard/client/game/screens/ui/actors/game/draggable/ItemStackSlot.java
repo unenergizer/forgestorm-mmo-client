@@ -17,9 +17,10 @@ import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
+
+import static com.valenguard.client.util.Log.println;
 
 public class ItemStackSlot extends VisTable implements Buildable {
 
@@ -36,7 +37,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private byte inventoryIndex;
     private VisImage itemStackImage;
     private VisImage emptyCellImage;
-    private ItemStackToolTip itemStackToolTip = new ItemStackToolTip();
+    private final ItemStackToolTip itemStackToolTip = new ItemStackToolTip();
     private Vector2 localCords = new Vector2();
     private Vector2 stageLocation = new Vector2();
 
@@ -152,12 +153,12 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
                 // Shift + Left click
                 if (button == Input.Buttons.LEFT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    Log.println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
+                    println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
                     return true;
                 }
                 // Shift + Right click
                 if (button == Input.Buttons.RIGHT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    Log.println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
+                    println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
                     return true;
                 }
                 return false;

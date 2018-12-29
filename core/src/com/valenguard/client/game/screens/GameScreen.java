@@ -21,12 +21,12 @@ import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.maps.MapRenderer;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.PlayerSessionData;
-import com.valenguard.client.util.AttachableCamera;
 import com.valenguard.client.util.GraphicsUtils;
-import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class GameScreen implements Screen {
@@ -58,7 +58,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        Log.println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
 
         // Setup camera
@@ -154,7 +154,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        Log.println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         camera.setToOrtho(false, width, height);
         stageHandler.resize(width, height);
     }
@@ -162,7 +162,7 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         gameFocused = false;
-        Log.println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class GameScreen implements Screen {
         new Timer().scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                Log.println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
+                println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
                 gameFocused = true;
             }
         }, 0.1f);
@@ -184,12 +184,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-        Log.println(getClass(), "Invoked: hide()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: hide()", false, PRINT_DEBUG);
     }
 
     @Override
     public void dispose() {
-        Log.println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
+        println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         if (mapRenderer != null) mapRenderer.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
     }

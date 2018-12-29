@@ -4,6 +4,7 @@ import com.valenguard.client.game.assets.GameAtlas;
 
 import lombok.Data;
 
+@SuppressWarnings("WeakerAccess")
 @Data
 public class ItemStack implements Cloneable {
 
@@ -20,6 +21,7 @@ public class ItemStack implements Cloneable {
         this.itemId = itemId;
     }
 
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public Object clone() {
         ItemStack itemStack = generateCloneableInstance();
@@ -32,6 +34,7 @@ public class ItemStack implements Cloneable {
         return itemStack;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected ItemStack generateCloneableInstance() {
         return new ItemStack(itemId);
     }

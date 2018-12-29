@@ -8,7 +8,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowEvent;
 
-public class PostStageEvent implements InputProcessor {
+class PostStageEvent implements InputProcessor {
 
     private final StageHandler stageHandler;
 

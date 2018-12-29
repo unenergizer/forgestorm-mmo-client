@@ -11,10 +11,11 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.util.AttachableCamera;
-import com.valenguard.client.util.Log;
+import com.valenguard.client.game.screens.AttachableCamera;
 
 import lombok.Getter;
+
+import static com.valenguard.client.util.Log.println;
 
 public class MapRenderer implements Disposable {
 
@@ -76,8 +77,8 @@ public class MapRenderer implements Disposable {
     public void setTiledMap(String mapName) {
         gameMapNameFromServer = mapName;
         String filePath = ClientConstants.MAP_DIRECTORY + "/" + mapName + ".tmx";
-        Log.println(getClass(), "Map Path: " + filePath, false, PRINT_DEBUG);
-        Log.println(getClass(), "Map Name: " + mapName, false, PRINT_DEBUG);
+        println(getClass(), "Map Path: " + filePath, false, PRINT_DEBUG);
+        println(getClass(), "Map Name: " + mapName, false, PRINT_DEBUG);
         Valenguard.getInstance().getFileManager().loadTiledMap(filePath);
         tiledMap = Valenguard.getInstance().getFileManager().getTiledMap(filePath);
 

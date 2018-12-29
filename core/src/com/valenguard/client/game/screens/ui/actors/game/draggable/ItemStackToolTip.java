@@ -10,10 +10,10 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 
 public class ItemStackToolTip extends HideableVisWindow implements Buildable {
 
-    private VisTable toolTipTable = new VisTable();
-    private VisLabel nameLabel = new VisLabel();
-    private VisLabel typeLabel = new VisLabel();
-    private VisTextArea descTextArea = new VisTextArea();
+    private final VisTable toolTipTable = new VisTable();
+    private final VisLabel nameLabel = new VisLabel();
+    private final VisLabel typeLabel = new VisLabel();
+    private final VisTextArea descTextArea = new VisTextArea();
 
     ItemStackToolTip() {
         super("");

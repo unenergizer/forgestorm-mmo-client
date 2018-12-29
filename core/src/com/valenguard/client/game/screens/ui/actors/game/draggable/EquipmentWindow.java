@@ -16,7 +16,7 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class EquipmentWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    private DragAndDrop dragAndDrop = Valenguard.getInstance().getStageHandler().getDragAndDrop();
+    private final DragAndDrop dragAndDrop = Valenguard.getInstance().getStageHandler().getDragAndDrop();
 
     public EquipmentWindow() {
         super("Character");

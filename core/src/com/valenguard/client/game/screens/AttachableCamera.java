@@ -1,4 +1,4 @@
-package com.valenguard.client.util;
+package com.valenguard.client.game.screens;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,7 +18,7 @@ public class AttachableCamera extends OrthographicCamera {
     private float lastZoomLevel;
     private Entity following;
 
-    public AttachableCamera(float width, float height, float zoom) {
+    AttachableCamera(float width, float height, float zoom) {
         super.setToOrtho(false, width, height);
         super.update();
         this.zoom = zoom;
@@ -29,7 +29,7 @@ public class AttachableCamera extends OrthographicCamera {
         this.following = following;
     }
 
-    public void clampCamera(Viewport screenViewport, TiledMap tiledMap) {
+    void clampCamera(Viewport screenViewport, TiledMap tiledMap) {
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
         float cameraMinX = (screenViewport.getScreenWidth() / 2) * zoom;
         float cameraMinY = (screenViewport.getScreenHeight() / 2) * zoom;
@@ -53,7 +53,7 @@ public class AttachableCamera extends OrthographicCamera {
         }
 
         zoom = (float) change;
-        lastZoomLevel = (float)  change;
+        lastZoomLevel = (float) change;
         Valenguard.getInstance().getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
     }
 

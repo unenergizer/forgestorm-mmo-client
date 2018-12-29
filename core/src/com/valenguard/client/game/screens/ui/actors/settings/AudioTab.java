@@ -13,9 +13,9 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.audio.AudioPreferences;
 import com.valenguard.client.game.audio.MusicManager;
 
-public class AudioTab extends Tab {
+class AudioTab extends Tab {
 
-    private String title;
+    private final String title;
     private Table content;
 
     AudioTab() {

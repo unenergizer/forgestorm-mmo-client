@@ -9,7 +9,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ColorList {
 
-
     PLAYER_DEFAULT(new Color(1, .913f, .77f, 1)),
 
     WHITE(new Color(1, 1, 1, 1)),

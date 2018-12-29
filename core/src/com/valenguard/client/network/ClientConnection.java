@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
-import com.valenguard.client.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -18,6 +17,8 @@ import java.net.SocketTimeoutException;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class ClientConnection {
@@ -39,8 +40,8 @@ public class ClientConnection {
      * @param registerListeners Packets that we will listen for from the server.
      */
     public void openConnection(final PlayerSession playerSession, final String address, final short port, final Consumer<EventBus> registerListeners) {
-        Log.println(ClientConnection.class, "TODO: User player session! UN: " + playerSession.getUsername() + ", PW: " + playerSession.getPassword());
-        Log.println(ClientConnection.class, "Attempting network connection...");
+        println(ClientConnection.class, "TODO: User player session! UN: " + playerSession.getUsername() + ", PW: " + playerSession.getPassword());
+        println(ClientConnection.class, "Attempting network connection...");
         threadSafeConnectionMessage("Attempting network connection...", Color.YELLOW);
 
         new Thread(new Runnable() {
@@ -51,14 +52,14 @@ public class ClientConnection {
                     socket = new Socket();
                     socket.connect(new InetSocketAddress(address, port), 1000 * SECONDS_TO_TIMEOUT);
                 } catch (SocketTimeoutException e) {
-                    Log.println(ClientConnection.class, "Failed to connect! SocketTimeoutException");
+                    println(ClientConnection.class, "Failed to connect! SocketTimeoutException");
                     threadSafeConnectionMessage("Failed to connect! SocketTimeoutException", Color.RED);
                     logout();
                     return;
                 } catch (IOException e) {
                     // Failed to openConnection
                     if (e instanceof ConnectException) {
-                        Log.println(ClientConnection.class, "Failed to connect! IOException");
+                        println(ClientConnection.class, "Failed to connect! IOException");
                         threadSafeConnectionMessage("Failed to connect! IOException", Color.RED);
                         logout();
                         return;
@@ -90,19 +91,19 @@ public class ClientConnection {
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
         } catch (SocketException e1) {
-            Log.println(ClientConnection.class, "The server appears to be down! SocketException");
+            println(ClientConnection.class, "The server appears to be down! SocketException");
             threadSafeConnectionMessage("The server appears to be down! SocketException", Color.RED);
             logout();
             return;
 
         } catch (SocketTimeoutException e2) {
-            Log.println(ClientConnection.class, "Connection to the server has timed out! SocketTimeoutException");
+            println(ClientConnection.class, "Connection to the server has timed out! SocketTimeoutException");
             threadSafeConnectionMessage("Connection to the server has timed out! SocketTimeoutException", Color.RED);
             logout();
             return;
 
         } catch (IOException e3) {
-            Log.println(ClientConnection.class, "Could not connect to server! IOException");
+            println(ClientConnection.class, "Could not connect to server! IOException");
             threadSafeConnectionMessage("Could not connect to server! IOException", Color.RED);
             logout();
             return;
@@ -114,14 +115,14 @@ public class ClientConnection {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.println(ClientConnection.class, "Connection established! Receiving packets!");
+                println(ClientConnection.class, "Connection established! Receiving packets!");
                 threadSafeConnectionMessage("Connection established! Receiving packets!", Color.GREEN);
                 while (connected) {
                     try {
                         eventBus.decodeListenerOnNetworkThread(clientHandler.getInputStream().readByte(), clientHandler);
                     } catch (NullPointerException e) {
                         // Socket closed
-                        Log.println(ClientConnection.class, "Tried to read data, but socket closed!", true);
+                        println(ClientConnection.class, "Tried to read data, but socket closed!", true);
                     } catch (IOException e) {
                         // Socket closed
                         if (!(e instanceof SocketException && !connected)) {
@@ -154,7 +155,7 @@ public class ClientConnection {
      * Safely closes a network connection.
      */
     public void disconnect() {
-        Log.println(ClientConnection.class, "Closing network connection.");
+        println(ClientConnection.class, "Closing network connection.");
         connected = false;
         if (clientHandler != null) clientHandler.closeConnection();
     }
@@ -167,6 +168,7 @@ public class ClientConnection {
      * @param color       The color of the message we are sending.
      */
     public void threadSafeConnectionMessage(final String infoMessage, final Color color) {
+        //TODO: Send game screen a useful login status message
 //        Gdx.app.postRunnable(new Runnable() {
 //            @Override
 //            public void run() {

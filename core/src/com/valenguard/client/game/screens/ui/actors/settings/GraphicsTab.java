@@ -19,11 +19,13 @@ import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
+import static com.valenguard.client.util.ApplicationUtil.userOnMobile;
+
 public class GraphicsTab extends Tab {
 
     private final VisSlider slider = new VisSlider(ClientConstants.ZOOM_LIMIT_IN, ClientConstants.ZOOM_LIMIT_OUT, ClientConstants.ZOOM_CHANGE, false);
 
-    private String title;
+    private final String title;
     private Table content;
 
     GraphicsTab() {
@@ -71,6 +73,7 @@ public class GraphicsTab extends Tab {
          */
         final VisCheckBox vSyncCheckBox = new VisCheckBox("");
         vSyncCheckBox.setChecked(windowManager.isUseVSync());
+        vSyncCheckBox.setDisabled(userOnMobile());
 
         content.row();
         content.add(new VisLabel("Toggle VSync")).padRight(3);
@@ -90,6 +93,7 @@ public class GraphicsTab extends Tab {
         final VisSelectBox<ScreenResolutions> screenResolutionSelect = new VisSelectBox<ScreenResolutions>();
         screenResolutionSelect.setItems(ScreenResolutions.values());
         screenResolutionSelect.setSelected(windowManager.getCurrentWindowResolution());
+        screenResolutionSelect.setDisabled(userOnMobile());
 
         content.row();
         content.add(new VisLabel("Screen Resolutions")).padRight(3);
@@ -109,6 +113,7 @@ public class GraphicsTab extends Tab {
         final VisSelectBox<WindowModes> windowModesSelect = new VisSelectBox<WindowModes>();
         windowModesSelect.setItems(WindowModes.values());
         windowModesSelect.setSelected(windowManager.getCurrentWindowMode());
+        windowModesSelect.setDisabled(userOnMobile());
 
         content.row();
         content.add(new VisLabel("Window Mode")).padRight(3);

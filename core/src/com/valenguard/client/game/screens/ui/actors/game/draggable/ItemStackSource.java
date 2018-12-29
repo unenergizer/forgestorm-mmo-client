@@ -16,7 +16,7 @@ public class ItemStackSource extends DragAndDrop.Source {
 
     @Getter
     private ItemStackSlot itemStackSlot;
-    private DragAndDrop dragManager;
+    private final DragAndDrop dragManager;
 
     ItemStackSource(ItemStackSlot itemStackSlot, DragAndDrop dragManager) {
         super(itemStackSlot);

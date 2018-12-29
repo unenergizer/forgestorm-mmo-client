@@ -14,6 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.valenguard.client.util.ApplicationUtil.userOnMobile;
+
 /**
  * Map manager does not load maps for the GameScreen to use. It currently
  * holds information about the tmx map data such as tiles, warps, collision, etc.
@@ -23,7 +25,7 @@ public class MapManager implements Disposable {
     private final Map<String, GameMap> gameMaps = new HashMap<String, GameMap>();
 
     public MapManager(boolean ideRun) {
-        if (Gdx.app.getType() == Application.ApplicationType.Android || Gdx.app.getType() == Application.ApplicationType.iOS || ideRun) {
+        if (userOnMobile() || ideRun) {
             loadMobile();
         } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             loadDesktopJar();

@@ -4,7 +4,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Tile;
-import com.valenguard.client.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,6 +17,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import static com.valenguard.client.util.Log.println;
+
 @SuppressWarnings({"ConstantConditions", "SpellCheckingInspection"})
 public class TmxFileParser {
 
@@ -30,7 +31,7 @@ public class TmxFileParser {
      * @return A map data class with information about this map.
      */
     public static GameMap loadXMLFile(FileHandle fileHandle) {
-        Log.println(TmxFileParser.class, "Tmx Parsing: " + fileHandle.file().getAbsolutePath(), true, PRINT_DEBUG);
+        println(TmxFileParser.class, "Tmx Parsing: " + fileHandle.file().getAbsolutePath(), true, PRINT_DEBUG);
 
         // Lets get the document
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -52,7 +53,7 @@ public class TmxFileParser {
         }
 
         if (document.getDocumentElement() == null)
-            Log.println(TmxFileParser.class, "Document is null?? 2");
+            println(TmxFileParser.class, "Document is null?? 2");
 
         // Get the first element
         Element tmx = document.getDocumentElement();
@@ -64,8 +65,8 @@ public class TmxFileParser {
         final int mapWidth = Integer.parseInt(tmx.getAttributes().getNamedItem("width").getNodeValue());
         final int mapHeight = Integer.parseInt(tmx.getAttributes().getNamedItem("height").getNodeValue());
 
-        Log.println(TmxFileParser.class, "MapWidth: " + mapWidth, false, PRINT_DEBUG);
-        Log.println(TmxFileParser.class, "MapHeight: " + mapHeight, false, PRINT_DEBUG);
+        println(TmxFileParser.class, "MapWidth: " + mapWidth, false, PRINT_DEBUG);
+        println(TmxFileParser.class, "MapHeight: " + mapHeight, false, PRINT_DEBUG);
 
         Tile map[][] = new Tile[mapWidth][mapHeight];
 

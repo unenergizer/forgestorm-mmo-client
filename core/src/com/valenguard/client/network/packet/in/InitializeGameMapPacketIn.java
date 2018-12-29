@@ -7,9 +7,10 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
-import com.valenguard.client.util.Log;
 
 import lombok.AllArgsConstructor;
+
+import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.INIT_MAP)
 public class InitializeGameMapPacketIn implements PacketListener<InitializeGameMapPacketIn.InitGameMapPacket> {
@@ -23,11 +24,11 @@ public class InitializeGameMapPacketIn implements PacketListener<InitializeGameM
 
     @Override
     public void onEvent(InitGameMapPacket packetData) {
-        Log.println(getClass(), "", false, PRINT_DEBUG);
-        Log.println(getClass(), "================== [ NEW MAP INIT ] ===================", false, PRINT_DEBUG);
-        Log.println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
+        println(getClass(), "", false, PRINT_DEBUG);
+        println(getClass(), "================== [ NEW MAP INIT ] ===================", false, PRINT_DEBUG);
+        println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
 
-        Log.println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
+        println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
         EntityManager.getInstance().setPlayerClient(null);
         EntityManager.getInstance().getEntities().clear();
         Valenguard.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);

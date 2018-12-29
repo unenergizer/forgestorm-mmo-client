@@ -19,7 +19,7 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
 
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
-    private ItemStackSlot[] itemStackSlots = new ItemStackSlot[NUM_ROWS * NUM_COLUMNS];
+    private final ItemStackSlot[] itemStackSlots = new ItemStackSlot[NUM_ROWS * NUM_COLUMNS];
 
     public BagWindow() {
         super("Inventory");

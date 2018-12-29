@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class InventoryPacketOut extends ClientAbstractOutPacket {
 
-    private InventoryActions inventoryAction;
+    private final InventoryActions inventoryAction;
 
     public InventoryPacketOut(InventoryActions inventoryAction) {
         super(Opcodes.INVENTORY_UPDATE);

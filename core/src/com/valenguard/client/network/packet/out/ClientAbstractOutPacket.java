@@ -6,7 +6,6 @@ import com.valenguard.client.network.shared.Write;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public abstract class ClientAbstractOutPacket {
 

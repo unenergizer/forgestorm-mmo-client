@@ -2,6 +2,9 @@ package com.valenguard.client.util;
 
 public class Log {
 
+    private Log() {
+    }
+
     public static void println(Class clazz, String message) {
         println(clazz, message, false, true);
     }

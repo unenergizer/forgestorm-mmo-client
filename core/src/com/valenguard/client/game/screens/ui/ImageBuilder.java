@@ -6,6 +6,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class ImageBuilder {
 
     private String regionName;

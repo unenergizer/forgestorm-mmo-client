@@ -11,7 +11,6 @@ import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.network.packet.out.PlayerMovePacketOut;
 import com.valenguard.client.util.FadeOut;
-import com.valenguard.client.util.Log;
 import com.valenguard.client.util.MoveNode;
 
 import java.util.LinkedList;
@@ -19,6 +18,7 @@ import java.util.Queue;
 
 import lombok.Getter;
 
+import static com.valenguard.client.util.Log.println;
 import static com.valenguard.client.util.Preconditions.checkArgument;
 
 public class ClientPlayerMovementManager {
@@ -51,7 +51,7 @@ public class ClientPlayerMovementManager {
 
     private void processNextNode(PlayerClient playerClient) {
 
-        Log.println(getClass(), "Processing next node", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
+        println(getClass(), "Processing next node", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         MoveNode nextNode = movements.remove();
 
@@ -61,8 +61,8 @@ public class ClientPlayerMovementManager {
         playerClient.setFutureMapLocation(futureLocation);
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentLocation, futureLocation);
 
-        Log.println(getClass(), "Current Location: " + currentLocation, false, PRINT_DEBUG);
-        Log.println(getClass(), "Future Location: " + futureLocation, false, PRINT_DEBUG);
+        println(getClass(), "Current Location: " + currentLocation, false, PRINT_DEBUG);
+        println(getClass(), "Future Location: " + futureLocation, false, PRINT_DEBUG);
 
         int differenceX = Math.abs(playerClient.getCurrentMapLocation().getX() - playerClient.getFutureMapLocation().getX());
         int differenceY = Math.abs(playerClient.getCurrentMapLocation().getY() - playerClient.getFutureMapLocation().getY());
@@ -74,7 +74,7 @@ public class ClientPlayerMovementManager {
         playerClient.setWalkTime(0f);
 
         if (MapUtil.isWarp(playerClient.getGameMap(), futureLocation.getX(), futureLocation.getY())) {
-            Log.println(getClass(), "We hit a tile that is a warp.", false, PRINT_DEBUG);
+            println(getClass(), "We hit a tile that is a warp.", false, PRINT_DEBUG);
 
             movements.clear();
             playerClient.setWarping(true);
@@ -113,7 +113,7 @@ public class ClientPlayerMovementManager {
 
                 MoveDirection predictedDirection = playerClient.getPredictedMoveDirection();
 
-                Log.println(getClass(), "Predicted to move  the player: " + predictedDirection, false, PRINT_DEBUG);
+                println(getClass(), "Predicted to move  the player: " + predictedDirection, false, PRINT_DEBUG);
 
                 // Setting the future here to prevent the snapping forward of
                 // the player on the next tick.
@@ -140,7 +140,7 @@ public class ClientPlayerMovementManager {
 
     private void finishMove(PlayerClient playerClient) {
 
-        Log.println(getClass(), "Finished Movement", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
+        println(getClass(), "Finished Movement", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         playerClient.setDrawX(playerClient.getFutureMapLocation().getX() * ClientConstants.TILE_SIZE);

@@ -10,9 +10,10 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
-import com.valenguard.client.util.Log;
 
 import lombok.AllArgsConstructor;
+
+import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.INIT_CLIENT_SESSION)
 public class InitializeClientSessionPacketIn implements PacketListener<InitializeClientSessionPacketIn.InitClientSessionPacket> {
@@ -30,13 +31,13 @@ public class InitializeClientSessionPacketIn implements PacketListener<Initializ
         // TODO: Check for authentication
 
         // Network connection was successful.
-        Log.println(getClass(), "Connection successful!");
+        println(getClass(), "Connection successful!");
         client.threadSafeConnectionMessage("Connection successful!", Color.GREEN);
 
         // PACKET READ START
 
 
-        Log.println(getClass(), "LoginSuccess: " + packetData.loginSuccess
+        println(getClass(), "LoginSuccess: " + packetData.loginSuccess
                 + " , Session Player Id: " + packetData.clientPlayerId);
 
         // Set map to show client

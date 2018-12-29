@@ -1,7 +1,6 @@
 package com.valenguard.client.network.shared;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,6 +12,8 @@ import java.net.SocketTimeoutException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import static com.valenguard.client.util.Log.println;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
 @AllArgsConstructor
@@ -112,7 +113,7 @@ public class ClientHandler {
         try {
             return reader.accept();
         } catch (SocketException e) {
-            Log.println(getClass(), "Tried to read data, but socket closed!", true);
+            println(getClass(), "Tried to read data, but socket closed!", true);
         } catch (IOException e) {
 
             if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {

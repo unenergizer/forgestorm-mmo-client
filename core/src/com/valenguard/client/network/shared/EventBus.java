@@ -1,12 +1,12 @@
 package com.valenguard.client.network.shared;
 
-import com.valenguard.client.util.Log;
-
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static com.valenguard.client.util.Log.println;
 
 public class EventBus {
 
@@ -43,7 +43,7 @@ public class EventBus {
     private PacketListener getPacketListener(byte opcode) {
         PacketListener packetListener = packetListenerMap.get(opcode);
         if (packetListener == null)
-            Log.println(getClass(), "Callback data was null for " + opcode + ". Is the event registered?", true);
+            println(getClass(), "Callback data was null for " + opcode + ". Is the event registered?", true);
         return packetListener;
     }
 

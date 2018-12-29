@@ -8,9 +8,10 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
-import com.valenguard.client.util.Log;
 
 import lombok.AllArgsConstructor;
+
+import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
@@ -33,8 +34,8 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
     public void onEvent(InventoryActionsPacket packetData) {
 
         if (packetData.inventoryAction == InventoryActions.GIVE) {
-            Log.println(getClass(), "Giving the player an item with id: " + packetData.itemId);
-            Log.println(getClass(), "Giving the player " + packetData.itemAmount + " of those items");
+            println(getClass(), "Giving the player an item with id: " + packetData.itemId);
+            println(getClass(), "Giving the player " + packetData.itemAmount + " of those items");
 
             ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(packetData.itemId, packetData.itemAmount);
             Valenguard.getInstance().getStageHandler().getBagWindow().addItemStack(itemStack);
