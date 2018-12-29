@@ -1,6 +1,6 @@
 package com.valenguard.client.network.packet.in;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
@@ -13,6 +13,8 @@ import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
+
+import static com.valenguard.client.util.Preconditions.checkNotNull;
 
 @Opcode(getOpcode = Opcodes.ENTITY_MOVE_UPDATE)
 public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.EntityMovePacket> {

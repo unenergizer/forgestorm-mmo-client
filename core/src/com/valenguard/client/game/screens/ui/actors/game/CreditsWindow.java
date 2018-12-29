@@ -56,7 +56,6 @@ public class CreditsWindow extends HideableVisWindow implements Buildable {
         table = new VisTable(true);
         table.add(new LinkLabel("LibGDX", "https://libgdx.badlogicgames.com/"));
         table.add(new LinkLabel("VisUI", "https://github.com/kotcrab/vis-editor/wiki/VisUI"));
-        table.add(new LinkLabel("Google Guava", "https://github.com/google/guava"));
         mainTable.add(table).row();
 
         add(mainTable);

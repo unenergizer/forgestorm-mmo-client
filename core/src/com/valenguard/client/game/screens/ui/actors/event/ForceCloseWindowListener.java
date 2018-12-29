@@ -25,6 +25,7 @@ public class ForceCloseWindowListener implements EventListener {
     @Override
     public boolean handle(Event event) {
         if (!(event instanceof ForceCloseWindowEvent)) return false;
+        if (!(event.getListenerActor() instanceof HideableVisWindow)) return false;
         return performWindowClose((HideableVisWindow) event.getListenerActor());
     }
 

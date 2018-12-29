@@ -92,3 +92,17 @@
    type: GLOVES
    atlas: ITEMS
    region: glove_29
+"15":
+   name: "Wizzards Hat"
+   desc: "Was once worn by a very powerful wizzard."
+   type: HELM
+   atlas: ITEMS
+   region: helmet_28
+   wearable: 45
+"16":
+   name: "Cloth Tunic"
+   desc: "Worn by magic casters to increase movibility."
+   type: CHEST
+   atlas: ITEMS
+   region: armor_076
+   wearable: 25

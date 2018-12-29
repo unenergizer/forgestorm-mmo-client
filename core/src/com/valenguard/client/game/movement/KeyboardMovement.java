@@ -11,7 +11,7 @@ import java.util.Queue;
 
 import lombok.Setter;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.valenguard.client.util.Preconditions.checkNotNull;
 
 public class KeyboardMovement {
 

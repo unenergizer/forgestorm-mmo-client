@@ -19,7 +19,7 @@ import java.util.Queue;
 
 import lombok.Getter;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static com.valenguard.client.util.Preconditions.checkArgument;
 
 public class ClientPlayerMovementManager {
 

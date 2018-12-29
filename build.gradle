@@ -25,7 +25,6 @@ allprojects {
         aiVersion = '1.8.0'
         visuiVersion = '1.4.3-SNAPSHOT'
         lombokVersion = '1.18.4'
-        guavaVersion = '24.1-jre'
         snakeYAML = '1.23'
     }
 
@@ -91,7 +90,6 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        compile "com.google.guava:guava:$guavaVersion"
         compile "com.kotcrab.vis:vis-ui:$visuiVersion"
         compile "org.yaml:snakeyaml:$snakeYAML:android"
         compileOnly "org.projectlombok:lombok:$lombokVersion"

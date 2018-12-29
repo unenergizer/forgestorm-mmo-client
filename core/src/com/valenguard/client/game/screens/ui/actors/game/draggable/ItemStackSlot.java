@@ -1,9 +1,11 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisImage;
@@ -15,6 +17,7 @@ import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.util.Log;
 
 import lombok.Getter;
 
@@ -137,6 +140,28 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     private void addToolTipListener() {
         itemStackImage.addListener(new InputListener() {
+
+            /**
+             * Called when a mouse button or a finger touch goes down on the actor. If true is returned, this listener will receive all
+             * touchDragged and touchUp events, even those not over this actor, until touchUp is received. Also when true is returned, the
+             * event is {@link Event#handle() handled}.
+             *
+             * @see InputEvent
+             */
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                // Shift + Left click
+                if (button == Input.Buttons.LEFT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    Log.println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
+                    return true;
+                }
+                // Shift + Right click
+                if (button == Input.Buttons.RIGHT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    Log.println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
+                    return true;
+                }
+                return false;
+            }
 
             /** Called any time the mouse cursor or a finger touch is moved over an actor. On the desktop, this event occurs even when no
              * mouse buttons are pressed (pointer will be -1).

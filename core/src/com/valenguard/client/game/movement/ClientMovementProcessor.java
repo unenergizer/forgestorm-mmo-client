@@ -15,8 +15,8 @@ import java.util.Queue;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.valenguard.client.util.Preconditions.checkArgument;
+import static com.valenguard.client.util.Preconditions.checkNotNull;
 
 public class ClientMovementProcessor {
 
