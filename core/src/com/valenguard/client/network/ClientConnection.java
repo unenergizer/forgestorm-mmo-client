@@ -166,7 +166,6 @@ public class ClientConnection {
      * @param infoMessage The message we want to send.
      */
     public void threadSafeConnectionMessage(final String infoMessage) {
-        //TODO: Send game screen a useful login status message
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
