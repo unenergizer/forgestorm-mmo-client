@@ -75,7 +75,7 @@ class PreStageEvent implements InputProcessor {
          */
         if (keycode == KeyBinds.GAME_DEBUG) {
             stageHandler.getDebugTable().setVisible(!stageHandler.getDebugTable().isVisible());
-            if (stageHandler.getFpsTable().isVisible()) {
+            if (stageHandler.getFpsTable() != null && stageHandler.getFpsTable().isVisible()) {
                 stageHandler.getFpsTable().setVisible(false);
                 stageHandler.getMainSettingsWindow().getGameMechanicsTab().getFpsCheckBox().setChecked(false);
             }

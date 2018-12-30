@@ -41,6 +41,8 @@ public class GameMechanicsTab extends Tab {
             public void changed(ChangeEvent event, Actor actor) {
                 if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                     Valenguard.getInstance().getStageHandler().getFpsTable().setVisible(fpsCheckBox.isChecked());
+                    if (fpsCheckBox.isChecked())
+                        Valenguard.getInstance().getStageHandler().getDebugTable().setVisible(false);
                 } else {
                     event.cancel();
                     Dialogs.showOKDialog(Valenguard.getInstance().getStageHandler().getStage(), "Error!", "Option can only be set in-game.");
