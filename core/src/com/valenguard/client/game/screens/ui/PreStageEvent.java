@@ -73,8 +73,12 @@ class PreStageEvent implements InputProcessor {
         /*
          * Toggle Game Debug
          */
-        if (keycode == KeyBinds.GAME_DEBUG && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+        if (keycode == KeyBinds.GAME_DEBUG) {
             stageHandler.getDebugTable().setVisible(!stageHandler.getDebugTable().isVisible());
+            if (stageHandler.getFpsTable().isVisible()) {
+                stageHandler.getFpsTable().setVisible(false);
+                stageHandler.getMainSettingsWindow().getGameMechanicsTab().getFpsCheckBox().setChecked(false);
+            }
             return true;
         }
 
@@ -83,9 +87,13 @@ class PreStageEvent implements InputProcessor {
          */
         if (keycode == KeyBinds.FULLSCREEN) {
             WindowManager windowManager = Valenguard.getInstance().getWindowManager();
-            if (windowManager.getCurrentWindowMode() != WindowModes.WINDOW)
-                windowManager.setWindowMode(WindowModes.WINDOW);
-            else windowManager.setWindowMode(WindowModes.FULL_SCREEN_NO_WINDOW);
+            if (windowManager.getCurrentWindowMode() != WindowModes.WINDOW) {
+//                windowManager.setWindowMode(WindowModes.WINDOW);
+                stageHandler.getMainSettingsWindow().getGraphicsTab().setWindowMode(WindowModes.WINDOW);
+            } else {
+//                windowManager.setWindowMode(WindowModes.FULL_SCREEN_NO_WINDOW);
+                stageHandler.getMainSettingsWindow().getGraphicsTab().setWindowMode(WindowModes.FULL_SCREEN_NO_WINDOW);
+            }
             return true;
         }
 

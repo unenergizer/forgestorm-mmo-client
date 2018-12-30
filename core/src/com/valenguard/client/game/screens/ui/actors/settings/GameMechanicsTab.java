@@ -11,8 +11,12 @@ import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 
-class GameMechanicsTab extends Tab {
+import lombok.Getter;
 
+public class GameMechanicsTab extends Tab {
+
+    @Getter
+    private final VisCheckBox fpsCheckBox = new VisCheckBox("");
     private final String title;
     private Table content;
 
@@ -26,7 +30,6 @@ class GameMechanicsTab extends Tab {
         content = new VisTable(true);
 
         // Show FPS
-        final VisCheckBox fpsCheckBox = new VisCheckBox("");
         fpsCheckBox.setChecked(false);
 
         content.row();

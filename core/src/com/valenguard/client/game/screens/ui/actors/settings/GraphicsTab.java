@@ -24,7 +24,9 @@ import static com.valenguard.client.util.ApplicationUtil.userOnMobile;
 public class GraphicsTab extends Tab {
 
     private final VisSlider slider = new VisSlider(ClientConstants.ZOOM_LIMIT_IN, ClientConstants.ZOOM_LIMIT_OUT, ClientConstants.ZOOM_CHANGE, false);
-
+    private final VisCheckBox vSyncCheckBox = new VisCheckBox("");
+    private final VisSelectBox<ScreenResolutions> screenResolutionSelect = new VisSelectBox<ScreenResolutions>();
+    private final VisSelectBox<WindowModes> windowModesSelect = new VisSelectBox<WindowModes>();
     private final String title;
     private Table content;
 
@@ -71,7 +73,6 @@ public class GraphicsTab extends Tab {
         /*
          * VSync Toggle
          */
-        final VisCheckBox vSyncCheckBox = new VisCheckBox("");
         vSyncCheckBox.setChecked(windowManager.isUseVSync());
         vSyncCheckBox.setDisabled(userOnMobile());
 
@@ -90,7 +91,6 @@ public class GraphicsTab extends Tab {
         /*
          * Screen Resolution
          */
-        final VisSelectBox<ScreenResolutions> screenResolutionSelect = new VisSelectBox<ScreenResolutions>();
         screenResolutionSelect.setItems(ScreenResolutions.values());
         screenResolutionSelect.setSelected(windowManager.getCurrentWindowResolution());
         screenResolutionSelect.setDisabled(userOnMobile());
@@ -110,7 +110,6 @@ public class GraphicsTab extends Tab {
         /*
          * Window Mode
          */
-        final VisSelectBox<WindowModes> windowModesSelect = new VisSelectBox<WindowModes>();
         windowModesSelect.setItems(WindowModes.values());
         windowModesSelect.setSelected(windowManager.getCurrentWindowMode());
         windowModesSelect.setDisabled(userOnMobile());
@@ -126,6 +125,10 @@ public class GraphicsTab extends Tab {
                 event.handle();
             }
         });
+    }
+
+    public void setWindowMode(WindowModes windowMode) {
+        windowModesSelect.setSelected(windowMode);
     }
 
     public void setZoomLevel(float zoomLevel) {
