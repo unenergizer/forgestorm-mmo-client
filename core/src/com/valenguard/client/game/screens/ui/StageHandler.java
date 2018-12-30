@@ -22,6 +22,7 @@ import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
 import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
+import com.valenguard.client.game.screens.ui.actors.login.ConnectionStatusWindow;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
 import com.valenguard.client.game.screens.ui.actors.login.LoginTable;
 import com.valenguard.client.game.screens.ui.actors.login.VersionTable;
@@ -44,6 +45,7 @@ public class StageHandler implements Disposable {
     private VersionTable versionTable;
     private CopyrightTable copyrightTable;
     private LoginTable loginTable;
+    private ConnectionStatusWindow connectionStatusWindow;
 
     // game
     private HelpWindow helpWindow;
@@ -80,11 +82,13 @@ public class StageHandler implements Disposable {
         versionTable = new VersionTable();
         copyrightTable = new CopyrightTable();
         loginTable = new LoginTable();
+        connectionStatusWindow = new ConnectionStatusWindow();
 
         stage.addActor(buttonTable.build());
         stage.addActor(versionTable.build());
         stage.addActor(copyrightTable.build());
         stage.addActor(loginTable.build());
+        stage.addActor(connectionStatusWindow.build());
 
         buttonTable.setVisible(true);
         versionTable.setVisible(true);

@@ -1,6 +1,5 @@
 package com.valenguard.client.network.packet.in;
 
-import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.network.ClientConnection;
@@ -32,7 +31,7 @@ public class InitializeClientSessionPacketIn implements PacketListener<Initializ
 
         // Network connection was successful.
         println(getClass(), "Connection successful!");
-        client.threadSafeConnectionMessage("Connection successful!", Color.GREEN);
+        client.threadSafeConnectionMessage("Connection successful!");
 
         // PACKET READ START
 

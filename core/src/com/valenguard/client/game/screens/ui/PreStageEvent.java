@@ -88,10 +88,8 @@ class PreStageEvent implements InputProcessor {
         if (keycode == KeyBinds.FULLSCREEN) {
             WindowManager windowManager = Valenguard.getInstance().getWindowManager();
             if (windowManager.getCurrentWindowMode() != WindowModes.WINDOW) {
-//                windowManager.setWindowMode(WindowModes.WINDOW);
                 stageHandler.getMainSettingsWindow().getGraphicsTab().setWindowMode(WindowModes.WINDOW);
             } else {
-//                windowManager.setWindowMode(WindowModes.FULL_SCREEN_NO_WINDOW);
                 stageHandler.getMainSettingsWindow().getGraphicsTab().setWindowMode(WindowModes.FULL_SCREEN_NO_WINDOW);
             }
             return true;

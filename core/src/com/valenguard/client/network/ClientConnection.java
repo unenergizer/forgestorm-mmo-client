@@ -1,7 +1,6 @@
 package com.valenguard.client.network;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
@@ -42,7 +41,7 @@ public class ClientConnection {
     public void openConnection(final PlayerSession playerSession, final String address, final short port, final Consumer<EventBus> registerListeners) {
         println(ClientConnection.class, "TODO: User player session! UN: " + playerSession.getUsername() + ", PW: " + playerSession.getPassword());
         println(ClientConnection.class, "Attempting network connection...");
-        threadSafeConnectionMessage("Attempting network connection...", Color.YELLOW);
+        threadSafeConnectionMessage("Attempting network connection...");
 
         new Thread(new Runnable() {
             @Override
@@ -53,14 +52,14 @@ public class ClientConnection {
                     socket.connect(new InetSocketAddress(address, port), 1000 * SECONDS_TO_TIMEOUT);
                 } catch (SocketTimeoutException e) {
                     println(ClientConnection.class, "Failed to connect! SocketTimeoutException");
-                    threadSafeConnectionMessage("Failed to connect! SocketTimeoutException", Color.RED);
+                    threadSafeConnectionMessage("Failed to connect! SocketTimeoutException");
                     logout();
                     return;
                 } catch (IOException e) {
                     // Failed to openConnection
                     if (e instanceof ConnectException) {
                         println(ClientConnection.class, "Failed to connect! IOException");
-                        threadSafeConnectionMessage("Failed to connect! IOException", Color.RED);
+                        threadSafeConnectionMessage("Failed to connect! IOException");
                         logout();
                         return;
                     } else {
@@ -92,19 +91,19 @@ public class ClientConnection {
             outputStream = new DataOutputStream(socket.getOutputStream());
         } catch (SocketException e1) {
             println(ClientConnection.class, "The server appears to be down! SocketException");
-            threadSafeConnectionMessage("The server appears to be down! SocketException", Color.RED);
+            threadSafeConnectionMessage("The server appears to be down! SocketException");
             logout();
             return;
 
         } catch (SocketTimeoutException e2) {
             println(ClientConnection.class, "Connection to the server has timed out! SocketTimeoutException");
-            threadSafeConnectionMessage("Connection to the server has timed out! SocketTimeoutException", Color.RED);
+            threadSafeConnectionMessage("Connection to the server has timed out! SocketTimeoutException");
             logout();
             return;
 
         } catch (IOException e3) {
             println(ClientConnection.class, "Could not connect to server! IOException");
-            threadSafeConnectionMessage("Could not connect to server! IOException", Color.RED);
+            threadSafeConnectionMessage("Could not connect to server! IOException");
             logout();
             return;
         }
@@ -116,7 +115,7 @@ public class ClientConnection {
             @Override
             public void run() {
                 println(ClientConnection.class, "Connection established! Receiving packets!");
-                threadSafeConnectionMessage("Connection established! Receiving packets!", Color.GREEN);
+                threadSafeConnectionMessage("Connection established! Receiving packets!");
                 while (connected) {
                     try {
                         eventBus.decodeListenerOnNetworkThread(clientHandler.getInputStream().readByte(), clientHandler);
@@ -165,15 +164,14 @@ public class ClientConnection {
      * Run the following code in a LibGDX thread.
      *
      * @param infoMessage The message we want to send.
-     * @param color       The color of the message we are sending.
      */
-    public void threadSafeConnectionMessage(final String infoMessage, final Color color) {
+    public void threadSafeConnectionMessage(final String infoMessage) {
         //TODO: Send game screen a useful login status message
-//        Gdx.app.postRunnable(new Runnable() {
-//            @Override
-//            public void run() {
-//                Valenguard.getInstance().getUiManager().addUi("infoMessage", new ConnectionMessageUI(infoMessage, color), true);
-//            }
-//        });
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                Valenguard.getInstance().getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
+            }
+        });
     }
 }

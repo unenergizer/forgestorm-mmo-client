@@ -16,6 +16,10 @@ public class HideableVisWindow extends VisWindow {
         super(title);
     }
 
+    public HideableVisWindow(String title, String styleName) {
+        super(title, styleName);
+    }
+
     /**
      * Fade outs this window, when fade out animation is completed, window is removed from Stage. Calling this for the
      * second time won't have any effect if previous animation is still running.
