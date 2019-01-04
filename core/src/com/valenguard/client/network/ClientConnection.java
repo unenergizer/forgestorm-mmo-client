@@ -144,16 +144,7 @@ public class ClientConnection {
                 }
             }
         }, "receive_packets").start();
-
-        // TODO:  Can start sending packets here? (REMOVE)
     }
-
-    public static void main(String args[]) {
-        byte b1 = (byte) 0x7D;
-        String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
-        System.out.println(s1); // 10000001
-    }
-
 
     /**
      * Sends the player back to the login screen.
