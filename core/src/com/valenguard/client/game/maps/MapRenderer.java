@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.screens.AttachableCamera;
 
 import lombok.Getter;
@@ -75,6 +76,7 @@ public class MapRenderer implements Disposable {
      * @param mapName The tiled map based on name
      */
     public void setTiledMap(String mapName) {
+        EntityManager.getInstance().dispose(); // quick clear existing entities
         gameMapNameFromServer = mapName;
         String filePath = ClientConstants.MAP_DIRECTORY + "/" + mapName + ".tmx";
         println(getClass(), "Map Path: " + filePath, false, PRINT_DEBUG);

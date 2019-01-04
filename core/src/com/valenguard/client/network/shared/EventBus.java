@@ -43,7 +43,7 @@ public class EventBus {
     private PacketListener getPacketListener(byte opcode) {
         PacketListener packetListener = packetListenerMap.get(opcode);
         if (packetListener == null)
-            println(getClass(), "Callback data was null for " + opcode + ". Is the event registered?", true);
+            println(getClass(), "Callback data was null for " + opcode + ". Is the event registered?", false);
         return packetListener;
     }
 

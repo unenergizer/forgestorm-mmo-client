@@ -118,7 +118,19 @@ public class ClientConnection {
                 threadSafeConnectionMessage("Connection established! Receiving packets!");
                 while (connected) {
                     try {
-                        eventBus.decodeListenerOnNetworkThread(clientHandler.getInputStream().readByte(), clientHandler);
+
+                        byte opcodeByte = clientHandler.getInputStream().readByte();
+                        byte numberOfRepeats = 1;
+                        if (((opcodeByte >>> 8) & 0x01) != 0) {
+
+                            // Removing the special bit.
+                            opcodeByte = (byte) (opcodeByte & 0x7F);
+                            numberOfRepeats = clientHandler.getInputStream().readByte();
+                        }
+
+                        for (byte i = 0; i < numberOfRepeats; i++)
+                            eventBus.decodeListenerOnNetworkThread(opcodeByte, clientHandler);
+
                     } catch (NullPointerException e) {
                         // Socket closed
                         println(ClientConnection.class, "Tried to read data, but socket closed!", true);
@@ -135,6 +147,13 @@ public class ClientConnection {
 
         // TODO:  Can start sending packets here? (REMOVE)
     }
+
+    public static void main(String args[]) {
+        byte b1 = (byte) 0x7D;
+        String s1 = String.format("%8s", Integer.toBinaryString(b1 & 0xFF)).replace(' ', '0');
+        System.out.println(s1); // 10000001
+    }
+
 
     /**
      * Sends the player back to the login screen.

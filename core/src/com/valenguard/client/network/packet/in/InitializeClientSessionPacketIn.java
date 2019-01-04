@@ -19,7 +19,9 @@ public class InitializeClientSessionPacketIn implements PacketListener<Initializ
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        return new InitClientSessionPacket(clientHandler.readBoolean(), clientHandler.readShort());
+        final boolean successLogin = clientHandler.readBoolean();
+        final short playerClientId = clientHandler.readShort();
+        return new InitClientSessionPacket(successLogin, playerClientId);
     }
 
     @Override

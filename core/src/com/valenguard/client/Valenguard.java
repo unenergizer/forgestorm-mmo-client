@@ -3,6 +3,7 @@ package com.valenguard.client;
 import com.badlogic.gdx.Game;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.audio.MusicManager;
+import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.inventory.ItemManager;
 import com.valenguard.client.game.maps.MapManager;
@@ -124,6 +125,7 @@ public class Valenguard extends Game {
         gameScreen = null;
         loginScreen.dispose();
         loginScreen = null;
+        EntityManager.getInstance().dispose();
     }
 
     public void initializeNetwork(PlayerSession playerSession) {

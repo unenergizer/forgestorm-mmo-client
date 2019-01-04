@@ -1,6 +1,7 @@
 package com.valenguard.client.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
 import lombok.Setter;
 
-public class EntityManager {
+public class EntityManager implements Disposable {
 
     private EntityManager() {
     }
@@ -19,7 +20,7 @@ public class EntityManager {
     private PlayerClient playerClient;
 
     @Getter
-    private final static EntityManager instance = new EntityManager();
+    private static final EntityManager instance = new EntityManager();
 
     //  EntityId -> Entity
     @Getter
@@ -38,15 +39,20 @@ public class EntityManager {
     }
 
     public void drawEntityBodies(float delta, SpriteBatch spriteBatch) {
-        for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
+        for (MovingEntity entity : entities.values()) {
             entity.getEntityAnimation().animate(delta, spriteBatch);
         }
     }
 
     public void drawEntityNames(float delta, SpriteBatch spriteBatch) {
-        for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
+        for (MovingEntity entity : entities.values()) {
             entity.drawEntityName();
         }
     }
 
+    @Override
+    public void dispose() {
+        entities.clear();
+        playerClient = null;
+    }
 }

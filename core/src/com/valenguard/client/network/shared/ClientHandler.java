@@ -41,7 +41,14 @@ public class ClientHandler {
         return (String) readIn(new Reader() {
             @Override
             public String accept() throws IOException {
-                return inputStream.readUTF();
+                byte stringLength = inputStream.readByte();
+                byte[] charArray = new byte[stringLength];
+                inputStream.read(charArray);
+                StringBuilder stringBuilder = new StringBuilder();
+                for (byte ch : charArray) {
+                    stringBuilder.append((char) ch);
+                }
+                return stringBuilder.toString();
             }
         });
     }
