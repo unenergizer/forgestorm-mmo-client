@@ -5,7 +5,8 @@ public enum EntityType {
     PLAYER,
     NPC,
     ITEM,
-    MONSTER;
+    MONSTER,
+    SKILL_NODE;
 
     public static EntityType getEntityType(byte entityTypeByte) {
         for (EntityType entityType : EntityType.values()) {

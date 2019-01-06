@@ -18,6 +18,7 @@ public class Opcodes {
     public static final byte ENTITY_DESPAWN = 0x03;
     public static final byte ENTITY_MOVE_UPDATE = 0x04;
     public static final byte INIT_MAP = 0x05;
+    public static final byte EXPERIENCE = 0x06;
 
     /**
      * CLIENT -> SERVER

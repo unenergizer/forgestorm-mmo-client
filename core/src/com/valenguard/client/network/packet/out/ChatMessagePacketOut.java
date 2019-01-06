@@ -2,9 +2,6 @@ package com.valenguard.client.network.packet.out;
 
 import com.valenguard.client.network.shared.Opcodes;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import static com.valenguard.client.util.Log.println;
 
 public class ChatMessagePacketOut extends ClientAbstractOutPacket {
@@ -17,7 +14,7 @@ public class ChatMessagePacketOut extends ClientAbstractOutPacket {
     }
 
     @Override
-    protected void createPacket(DataOutputStream write) throws IOException {
+    protected void createPacket(ValenguardOutputStream write) {
         if (chatMessage == null) return;
         if (chatMessage.isEmpty()) return;
         if (chatMessage.contains(Character.toString('\n'))) return; // enter
@@ -31,7 +28,7 @@ public class ChatMessagePacketOut extends ClientAbstractOutPacket {
 
         println(getClass(), "Sending message: " + newMessage + " with length: " + newMessage.length() + " across the wire");
 
-        write.writeUTF(newMessage);
+        write.writeString(newMessage);
         println(getClass(), chatMessage);
     }
 }

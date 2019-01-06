@@ -7,10 +7,12 @@ import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
+import com.valenguard.client.game.entities.MOB;
 import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.game.entities.NPC;
 import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.entities.SkillNode;
+import com.valenguard.client.game.entities.StationaryEntity;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.entities.animations.MonsterAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
@@ -45,6 +47,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         byte colorId = -1;
 
         switch (entityType) {
+            case SKILL_NODE:
             case MONSTER:
             case ITEM:
                 textureIds = new short[1];
@@ -68,7 +71,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         }
 
 
-        if (entityType != EntityType.ITEM) {
+        if (entityType != EntityType.ITEM && entityType != EntityType.SKILL_NODE) {
             directionalByte = clientHandler.readByte();
             moveSpeed = clientHandler.readFloat();
         }
@@ -107,11 +110,13 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         } else if (packetData.entityType == EntityType.PLAYER) {
             entity = spawnPlayer(packetData);
         } else if (packetData.entityType == EntityType.NPC) {
-            entity = spawnNPC(packetData);
+            entity = spawnMOB(packetData);
         } else if (packetData.entityType == EntityType.ITEM) {
             entity = spawnItem(packetData);
         } else if (packetData.entityType == EntityType.MONSTER) {
-            entity = spawnNPC(packetData);
+            entity = spawnMOB(packetData);
+        } else if (packetData.entityType == EntityType.SKILL_NODE) {
+            entity = spawnSkillNode(packetData);
         }
 
         entity.setEntityType(packetData.entityType);
@@ -136,15 +141,11 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
                 monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);
                 break;
-            case ITEM: // TODO: JOSEPH COMPLAINED THIS IS NOT A MOVING ENTITY VAR... NO SHIT
-//                entity.setHeadId(packetData.textureIds[0]);
+            case SKILL_NODE:
+            case ITEM:
+                // TODO: Implement or ignore entity type for animation
                 break;
         }
-
-        // TODO REMOVE/RELOCATE
-//        if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-//            Valenguard.getInstance().getStageHandler().getStage().addActor(Valenguard.getInstance().getStageHandler().getDebugTable().build());
-//        }
     }
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData) {
@@ -172,9 +173,16 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         return entity;
     }
 
-    private Entity spawnNPC(EntitySpawnPacket packetData) {
-        Entity entity = new NPC();
+    private Entity spawnMOB(EntitySpawnPacket packetData) {
+        Entity entity = new MOB();
         setMovingEntityVars((MovingEntity) entity, packetData);
+        return entity;
+    }
+
+    private Entity spawnSkillNode(EntitySpawnPacket packetData) {
+        println(getClass(), "Spawning skill node!");
+        Entity entity = new SkillNode();
+        EntityManager.getInstance().addStationaryEntity(packetData.entityId, (StationaryEntity) entity);
         return entity;
     }
 
@@ -194,7 +202,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setMoveSpeed(packetData.moveSpeed);
 
         if (!(entity instanceof PlayerClient))
-            EntityManager.getInstance().addEntity(packetData.entityId, entity);
+            EntityManager.getInstance().addMovingEntity(packetData.entityId, entity);
     }
 
     @AllArgsConstructor

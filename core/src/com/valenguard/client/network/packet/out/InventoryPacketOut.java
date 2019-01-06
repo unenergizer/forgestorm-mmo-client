@@ -3,9 +3,6 @@ package com.valenguard.client.network.packet.out;
 import com.valenguard.client.game.inventory.InventoryActions;
 import com.valenguard.client.network.shared.Opcodes;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 public class InventoryPacketOut extends ClientAbstractOutPacket {
 
     private final InventoryActions inventoryAction;
@@ -16,7 +13,7 @@ public class InventoryPacketOut extends ClientAbstractOutPacket {
     }
 
     @Override
-    protected void createPacket(DataOutputStream write) throws IOException {
+    protected void createPacket(ValenguardOutputStream write) {
         byte action = inventoryAction.getInventoryActionType();
         write.writeByte(action);
         if (action == InventoryActions.MOVE) {

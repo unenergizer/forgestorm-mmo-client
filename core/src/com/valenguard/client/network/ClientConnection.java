@@ -2,6 +2,7 @@ package com.valenguard.client.network;
 
 import com.badlogic.gdx.Gdx;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.network.packet.out.ValenguardOutputStream;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
 
@@ -109,7 +110,7 @@ public class ClientConnection {
         }
 
         // Create our server handler
-        clientHandler = new ClientHandler(socket, outputStream, inputStream);
+        clientHandler = new ClientHandler(socket, new ValenguardOutputStream(outputStream), inputStream);
 
         new Thread(new Runnable() {
             @Override

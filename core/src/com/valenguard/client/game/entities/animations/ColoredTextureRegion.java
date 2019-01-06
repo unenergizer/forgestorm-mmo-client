@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import lombok.Data;
 
 @Data
-public class ColoredTextureRegion {
+class ColoredTextureRegion {
 
     private Color regionColor = Color.WHITE;
     private TextureRegion textureRegion;

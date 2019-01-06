@@ -19,7 +19,8 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
 
     @Override
     public void onEvent(EntityDespawnPacket packetData) {
-        EntityManager.getInstance().removeEntity(packetData.entityId);
+        EntityManager.getInstance().removeMovingEntity(packetData.entityId);
+        EntityManager.getInstance().removeStationaryEntity(packetData.entityId);
     }
 
     @AllArgsConstructor

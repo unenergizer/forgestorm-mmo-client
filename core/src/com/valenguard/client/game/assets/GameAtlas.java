@@ -3,6 +3,7 @@ package com.valenguard.client.game.assets;
 @SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
 public enum GameAtlas {
 
+    CURSOR("cursor.atlas"),
     ITEMS("items.atlas"),
     ENTITY_CHARACTER("character.atlas"),
     ENTITY_MONSTER("monster.atlas");

@@ -72,7 +72,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
 
     @Override
     public void onEvent(EntityAppearancePacket packetData) {
-        Entity entity = EntityManager.getInstance().getEntity(packetData.entityId);
+        Entity entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
         Appearance appearance = entity.getAppearance();
         boolean updatedTextureId = false;
 

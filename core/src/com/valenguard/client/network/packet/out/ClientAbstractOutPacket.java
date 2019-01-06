@@ -2,16 +2,15 @@ package com.valenguard.client.network.packet.out;
 
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.network.shared.ClientHandler;
-import com.valenguard.client.network.shared.Write;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import lombok.Getter;
 
 public abstract class ClientAbstractOutPacket {
 
     /**
      * Opcode to send with the out-going packet.
      */
+    @Getter
     private final byte opcode;
 
     /**
@@ -30,17 +29,8 @@ public abstract class ClientAbstractOutPacket {
         Valenguard.getInstance().getOutputStreamManager().addClientOutPacket(this);
     }
 
-    void writeData() {
-        clientHandler.write(opcode, new Write() {
-            @Override
-            public void accept(DataOutputStream write) throws IOException {
-                createPacket(write);
-            }
-        });
-    }
-
     /**
      * Creates the packet.
      */
-    protected abstract void createPacket(DataOutputStream write) throws IOException;
+    abstract void createPacket(ValenguardOutputStream write);
 }

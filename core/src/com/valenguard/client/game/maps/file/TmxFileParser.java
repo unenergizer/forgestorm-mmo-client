@@ -2,6 +2,7 @@ package com.valenguard.client.game.maps.file;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.game.maps.data.CursorDrawType;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Tile;
 
@@ -116,8 +117,12 @@ public class TmxFileParser {
                     map[currentX][currentY] = new Tile();
 
                     // Check for tile ID and addUi it to collision map
-                    if (tileType != 0) map[currentX][currentY].setTraversable(false);
-                    else map[currentX][currentY].setTraversable(true);
+                    if (tileType != 0) {
+                        map[currentX][currentY].setCursorDrawType(CursorDrawType.NOT_TRAVERSABLE);
+                    } else {
+                        map[currentX][currentY].addFlag(Tile.TRAVERSABLE);
+                        map[currentX][currentY].setCursorDrawType(CursorDrawType.NO_DRAWABLE);
+                    }
 
                     // Increment x horizontal value
                     currentX++;
@@ -140,7 +145,9 @@ public class TmxFileParser {
 
         for (int i = 0; i < objectGroupTag.getLength(); i++) {
 
-            // Get warps
+            /*
+             * Get WARPS
+             */
             if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("warp")) {
 
                 NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
@@ -157,9 +164,30 @@ public class TmxFileParser {
                     for (int ii = tmxFileY; ii < tmxFileY + tmxFileHeight; ii++) {
                         for (int jj = tmxFileX; jj < tmxFileX + tmxFileWidth; jj++) {
                             Tile tile = map[jj][mapHeight - ii - 1];
-                            tile.setWarp(true);
+                            tile.addFlag(Tile.WARP);
+                            tile.setCursorDrawType(CursorDrawType.WARP);
                         }
                     }
+                }
+            }
+
+            /*
+             * Get SKILL NODES
+             */
+            if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("skill")) {
+                NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
+                for (int j = 0; j < objectTag.getLength(); j++) {
+
+                    if (objectTag.item(j).getNodeType() != Node.ELEMENT_NODE) continue;
+
+                    Element objectTagElement = (Element) objectTag.item(j);
+
+                    int x = Integer.parseInt(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE;
+                    int y = mapHeight - (Integer.parseInt(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE) - 1;
+
+                    // Making it's associated tile non-traversable
+                    map[x][y].removeFlag(Tile.TRAVERSABLE);
+                    map[x][y].setCursorDrawType(CursorDrawType.MINING);
                 }
             }
         }
@@ -172,9 +200,11 @@ public class TmxFileParser {
             for (int height = yOffset; height >= 0; height--) {
                 for (int width = 0; width < mapWidth; width++) {
                     Tile tile = map[width][height];
-                    if (!tile.isTraversable()) System.out.print("X");
-                    else if (tile.isTraversable() && tile.isWarp()) System.out.print("@");
-                    else if (tile.isTraversable() && !tile.isWarp()) System.out.print(" ");
+                    if (!tile.isFlagSet(Tile.TRAVERSABLE)) System.out.print("X");
+                    else if (tile.isFlagSet(Tile.TRAVERSABLE) && tile.isFlagSet(Tile.WARP))
+                        System.out.print("@");
+                    else if (tile.isFlagSet(Tile.TRAVERSABLE) && !tile.isFlagSet(Tile.WARP))
+                        System.out.print(" ");
                 }
                 System.out.println();
             }

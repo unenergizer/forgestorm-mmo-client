@@ -1,9 +1,10 @@
 package com.valenguard.client.network.shared;
 
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.network.packet.out.ClientAbstractOutPacket;
+import com.valenguard.client.network.packet.out.ValenguardOutputStream;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
@@ -20,7 +21,7 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class ClientHandler {
     private Socket socket;
-    private DataOutputStream outputStream;
+    private ValenguardOutputStream valenguardOutputStream;
     private DataInputStream inputStream;
 
     @FunctionalInterface
@@ -131,26 +132,33 @@ public class ClientHandler {
         return null;
     }
 
-    /**
-     * This is used to send the entity packet data.
-     *
-     * @param opcode        The code that defines what this packet contents will contain.
-     * @param writeCallback The data we will be sending to the client.
-     */
-    public void write(byte opcode, Write writeCallback) {
+    public int fillCurrentBuffer(ClientAbstractOutPacket clientAbstractOutPacket) {
+        return valenguardOutputStream.fillCurrentBuffer(clientAbstractOutPacket);
+    }
+
+    public void writeBuffers() {
         try {
-            outputStream.writeByte(opcode);
-            writeCallback.accept(outputStream);
-            outputStream.flush();
+            valenguardOutputStream.writeBuffers();
         } catch (IOException e) {
-
-            if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-                Valenguard.clientConnection.logout();
-            }
-
-            e.printStackTrace();
+            handleIOException(e);
         }
     }
+
+    public void flushBuffer() {
+        try {
+            valenguardOutputStream.flush();
+        } catch (IOException e) {
+            handleIOException(e);
+        }
+    }
+
+    private void handleIOException(IOException e) {
+        if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
+            Valenguard.clientConnection.logout();
+        }
+        e.printStackTrace();
+    }
+
 
     /**
      * Disconnects this client from the server.
@@ -158,10 +166,10 @@ public class ClientHandler {
     public void closeConnection() {
         try {
             if (socket != null) socket.close();
-            if (outputStream != null) outputStream.close();
+            if (valenguardOutputStream != null) valenguardOutputStream.close();
             if (inputStream != null) inputStream.close();
             socket = null;
-            outputStream = null;
+            valenguardOutputStream = null;
             inputStream = null;
         } catch (IOException e) {
             e.printStackTrace();

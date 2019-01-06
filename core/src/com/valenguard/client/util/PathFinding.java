@@ -45,7 +45,7 @@ public class PathFinding {
                 Tile worldTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), worldX, worldY));
 
                 grid[i][j] = worldTile == null ? null :
-                        !worldTile.isTraversable() ? null : new MoveNode(worldX, worldY, i, j);
+                        !worldTile.isFlagSet(Tile.TRAVERSABLE) ? null : new MoveNode(worldX, worldY, i, j);
             }
         }
 
@@ -65,8 +65,8 @@ public class PathFinding {
         Tile startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
         Tile endTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), finalX, finalY));
 
-        if (startTile == null || !startTile.isTraversable()) return false;
-        if (endTile == null || !endTile.isTraversable()) return false;
+        if (startTile == null || !startTile.isFlagSet(Tile.TRAVERSABLE)) return false;
+        if (endTile == null || !endTile.isFlagSet(Tile.TRAVERSABLE)) return false;
         return Math.abs(finalX - startX) <= ALGORITHM_RADIUS && Math.abs(finalY - startY) <= ALGORITHM_RADIUS;
     }
 

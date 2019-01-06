@@ -9,7 +9,7 @@ import com.valenguard.client.game.maps.data.Location;
 public class EntityMovementManager {
 
     public void tick(float delta) {
-        for (MovingEntity entity : EntityManager.getInstance().getEntities().values()) {
+        for (MovingEntity entity : EntityManager.getInstance().getMovingEntityList().values()) {
             if (!MoveUtil.isEntityMoving(entity)) continue;
             updateEntitiesPosition(entity, delta);
         }

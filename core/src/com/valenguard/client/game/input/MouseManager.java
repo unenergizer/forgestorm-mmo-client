@@ -1,18 +1,24 @@
 package com.valenguard.client.game.input;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.entities.StationaryEntity;
 import com.valenguard.client.game.maps.MapUtil;
+import com.valenguard.client.game.maps.data.CursorDrawType;
+import com.valenguard.client.game.maps.data.GameMap;
+import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
+import com.valenguard.client.game.movement.MoveUtil;
+import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
@@ -24,7 +30,6 @@ import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
 
-@Getter
 public class MouseManager {
 
     public static final boolean PRINT_DEBUG = false;
@@ -34,10 +39,13 @@ public class MouseManager {
     private final PathFinding pathFinding = new PathFinding();
 
     private Vector3 clickLocation = new Vector3();
+    @Getter
     private int leftClickTileX, leftClickTileY;
+    @Getter
     private int rightClickTileX, rightClickTileY;
+    @Getter
     private int mouseTileX, mouseTileY;
-    private float mouseScreenX, mouseScreenY;
+    private float mouseWorldX, mouseWorldY;
 
     @Setter
     private boolean invalidate = true;
@@ -51,8 +59,8 @@ public class MouseManager {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.mouseTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.mouseTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
-        this.mouseScreenX = tiledMapCoordinates.x;
-        this.mouseScreenY = tiledMapCoordinates.y;
+        this.mouseWorldX = tiledMapCoordinates.x;
+        this.mouseWorldY = tiledMapCoordinates.y;
 
         if (waitForMouseFadeTask != null) {
             waitForMouseFadeTask.cancel();
@@ -89,14 +97,38 @@ public class MouseManager {
         return Valenguard.gameScreen.getCamera().unproject(clickLocation.set(screenX, screenY, 0));
     }
 
+    private boolean entityClickTest(float drawX, float drawY) {
+        if (mouseWorldX >= drawX && mouseWorldX < drawX + 16) {
+            return mouseWorldY >= drawY && mouseWorldY < drawY + 16;
+        }
+        return false;
+    }
+
     private void left(final int screenX, final int screenY) {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.leftClickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.leftClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
-        // Click to walk path finding
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        int playerTileX = playerClient.getCurrentMapLocation().getX();
+        int playerTileY = playerClient.getCurrentMapLocation().getY();
+        for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
+            if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
+                Location location = stationaryEntity.getCurrentMapLocation();
 
+                if (!MoveUtil.isEntityMoving(playerClient)) {
+                    if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
+                            (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
+                            (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
+                            (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                        // The player is requesting to interact with the entity.
+                        System.out.println("Interacting with entity");
+                    }
+                }
+            }
+        }
+
+        // Click to walk path finding
         Queue<MoveNode> testMoveNodes = pathFinding.findPath(playerClient.getFutureMapLocation().getX(), playerClient.getFutureMapLocation().getY(), leftClickTileX, leftClickTileY, playerClient.getCurrentMapLocation().getMapName());
 
         if (testMoveNodes == null) return;
@@ -123,23 +155,26 @@ public class MouseManager {
         println(getClass(), "Back Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
-    public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch, Texture invalidMoveLocation, Texture warpLocation) {
+    public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch) {
+        GameMap gameMap = playerClient.getGameMap();
+        if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
+        CursorDrawType cursorDrawType = gameMap.getMap()[mouseTileX][mouseTileY].getCursorDrawType();
+        if (cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
         spriteBatch.begin();
-        if (!MapUtil.isTraversable(playerClient.getGameMap(), mouseTileX, mouseTileY)) {
-            fadeOut.draw(spriteBatch, invalidMoveLocation, mouseScreenX - 8, mouseScreenY - 8);
-        } else if (MapUtil.isWarp(playerClient.getGameMap(), mouseTileX, mouseTileY)) {
-            fadeOut.draw(spriteBatch, warpLocation, mouseScreenX - 8, mouseScreenY - 8);
-        } else if (MapUtil.isOutOfBounds(playerClient.getGameMap(), mouseTileX, mouseTileY)) {
-            fadeOut.draw(spriteBatch, invalidMoveLocation, mouseScreenX - 8, mouseScreenY - 8);
-        }
+        fadeOut.draw(spriteBatch,
+                new ImageBuilder(GameAtlas.CURSOR, cursorDrawType.getDrawableRegion(), cursorDrawType.getSize()).buildTextureRegionDrawable(),
+                mouseWorldX - (cursorDrawType.getSize() / 2),
+                mouseWorldY - (cursorDrawType.getSize() / 2),
+                cursorDrawType.getSize(),
+                cursorDrawType.getSize());
         spriteBatch.end();
     }
 
-    public void drawMoveNodes(SpriteBatch spriteBatch, Texture tilePathTexture) {
+    public void drawMoveNodes(SpriteBatch spriteBatch) {
         if (Valenguard.getInstance().getClientMovementProcessor().getCurrentMovementInput() == ClientMovementProcessor.MovementInput.MOUSE) {
             Queue<MoveNode> remainingMoveNodes = Valenguard.getInstance().getClientPlayerMovementManager().getMovements();
             for (MoveNode moveNode : remainingMoveNodes) {
-                spriteBatch.draw(tilePathTexture, moveNode.getWorldX() * ClientConstants.TILE_SIZE, moveNode.getWorldY() * ClientConstants.TILE_SIZE);
+                spriteBatch.draw(new ImageBuilder(GameAtlas.CURSOR, "path_find").buildTextureRegionDrawable().getRegion(), moveNode.getWorldX() * ClientConstants.TILE_SIZE, moveNode.getWorldY() * ClientConstants.TILE_SIZE);
             }
         }
     }

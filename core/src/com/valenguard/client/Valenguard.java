@@ -10,6 +10,7 @@ import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.ClientPlayerMovementManager;
 import com.valenguard.client.game.movement.EntityMovementManager;
+import com.valenguard.client.game.rpg.Skills;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.LoginScreen;
 import com.valenguard.client.game.screens.ScreenType;
@@ -27,6 +28,7 @@ import com.valenguard.client.network.packet.in.InitializeClientSessionPacketIn;
 import com.valenguard.client.network.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.packet.in.InventoryPacketIn;
 import com.valenguard.client.network.packet.in.PingPacketIn;
+import com.valenguard.client.network.packet.in.SkillExperiencePacketIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
 import com.valenguard.client.network.shared.ServerConstants;
@@ -57,6 +59,7 @@ public class Valenguard extends Game {
     private MouseManager mouseManager;
     private OutputStreamManager outputStreamManager;
     private ItemManager itemManager;
+    private Skills skills;
 
     private ScreenType screenType;
 
@@ -88,6 +91,7 @@ public class Valenguard extends Game {
         windowManager = new WindowManager();
         musicManager = new MusicManager();
         itemManager = new ItemManager();
+        skills = new Skills();
 
         // loadItems screens
         gameScreen = new GameScreen();
@@ -111,7 +115,8 @@ public class Valenguard extends Game {
     public void render() {
         if (clientConnection.isConnected()) clientConnection.getEventBus().gameThreadPublish();
         super.render();
-        if (clientConnection.isConnected()) outputStreamManager.sendPackets();
+        if (clientConnection.isConnected())
+            outputStreamManager.sendPackets(clientConnection.getClientHandler());
     }
 
     @Override
@@ -120,6 +125,7 @@ public class Valenguard extends Game {
         fileManager.dispose();
         mapManager.dispose();
         stageHandler.dispose();
+        skills = null;
 
         gameScreen.dispose();
         gameScreen = null;
@@ -146,6 +152,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new ChatMessagePacketIn());
                         eventBus.registerListener(new EntityAppearancePacketIn());
                         eventBus.registerListener(new InventoryPacketIn());
+                        eventBus.registerListener(new SkillExperiencePacketIn());
                     }
                 });
     }

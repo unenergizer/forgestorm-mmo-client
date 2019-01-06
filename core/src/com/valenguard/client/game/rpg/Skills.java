@@ -1,23 +1,19 @@
 package com.valenguard.client.game.rpg;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Skills {
 
-    @Getter
-    @Setter
-    private byte level;
+    private final Map<Byte, Skill> skillsMap = new HashMap<Byte, Skill>();
 
-    @Getter
-    @Setter
-    private byte boostedLevel;
+    public final Skill MINING = new Skill();
 
-    private byte experience;
+    public Skills() {
+        skillsMap.put(SkillOpcodes.MINING, MINING);
+    }
 
-    //   public final Skills MINING = new Skills();
-
-    public void addExperience(int experience) {
-
+    public Skill getSkill(byte opcode) {
+        return skillsMap.get(opcode);
     }
 }

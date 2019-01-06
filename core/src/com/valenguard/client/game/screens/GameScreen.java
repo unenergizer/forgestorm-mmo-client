@@ -45,9 +45,6 @@ public class GameScreen implements Screen {
     // TODO: RELOCATE
     private SpriteBatch spriteBatch;
     private Texture parallaxBackground;
-    private Texture tilePathTexture;
-    private Texture invalidMoveLocation;
-    private Texture warpLocation;
     private BitmapFont font;
 
     @Setter
@@ -70,18 +67,13 @@ public class GameScreen implements Screen {
         font = fileManager.getFont(GameFont.TEST_FONT);
         font.setUseIntegerPositions(false);
 
+        fileManager.loadAtlas(GameAtlas.CURSOR);
         fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
 
         fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        fileManager.loadTexture(GameTexture.TILE_PATH);
-        tilePathTexture = fileManager.getTexture(GameTexture.TILE_PATH);
-        fileManager.loadTexture(GameTexture.RED_X);
-        invalidMoveLocation = fileManager.getTexture(GameTexture.RED_X);
-        fileManager.loadTexture(GameTexture.WARP_LOCATION);
-        warpLocation = fileManager.getTexture(GameTexture.WARP_LOCATION);
 
         // Change mouse cursor
 //        fileManager.loadPixmap(GamePixmap.CURSOR_1);
@@ -109,7 +101,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(21f, 21f, 21f, 0);
+        GraphicsUtils.clearScreen(21f, 21f, 21f, 0, true);
 
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
@@ -133,15 +125,15 @@ public class GameScreen implements Screen {
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        Valenguard.getInstance().getMouseManager().drawMoveNodes(spriteBatch, tilePathTexture);
+        Valenguard.getInstance().getMouseManager().drawMoveNodes(spriteBatch);
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
-        EntityManager.getInstance().drawEntityNames(delta, spriteBatch);
+        EntityManager.getInstance().drawEntityNames();
         playerClient.drawEntityName();
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();
-        Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch, invalidMoveLocation, warpLocation);
+        Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         stageHandler.render(delta);
 
     }

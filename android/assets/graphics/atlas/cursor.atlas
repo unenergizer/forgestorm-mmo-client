@@ -1,0 +1,34 @@
+
+cursor.png
+size: 64,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+not_traversable
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+path_find
+  rotate: false
+  xy: 36, 36
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+skill_mining
+  rotate: false
+  xy: 2, 20
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+warp_door
+  rotate: false
+  xy: 20, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

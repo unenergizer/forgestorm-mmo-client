@@ -3,9 +3,6 @@ package com.valenguard.client.network.packet.out;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.network.shared.Opcodes;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 public class PlayerMovePacketOut extends ClientAbstractOutPacket {
 
     private final MoveDirection moveDirection;
@@ -16,7 +13,7 @@ public class PlayerMovePacketOut extends ClientAbstractOutPacket {
     }
 
     @Override
-    protected void createPacket(DataOutputStream write) throws IOException {
+    protected void createPacket(ValenguardOutputStream write) {
         if (moveDirection == MoveDirection.NONE) throw new RuntimeException("Move direction was none.");
 //        println(getClass(), "Sending remove direction to server: " + moveDirection);
         write.writeByte(moveDirection.getDirectionByte());
