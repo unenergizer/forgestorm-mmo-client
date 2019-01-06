@@ -19,6 +19,7 @@ import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.network.packet.out.ClickActionPacketOut;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
@@ -112,6 +113,7 @@ public class MouseManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         int playerTileX = playerClient.getCurrentMapLocation().getX();
         int playerTileY = playerClient.getCurrentMapLocation().getY();
+
         for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
                 Location location = stationaryEntity.getCurrentMapLocation();
@@ -123,6 +125,7 @@ public class MouseManager {
                             (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
                         // The player is requesting to interact with the entity.
                         System.out.println("Interacting with entity");
+                        new ClickActionPacketOut(new ClickAction(ClickAction.LEFT)).sendPacket();
                     }
                 }
             }
@@ -145,6 +148,27 @@ public class MouseManager {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.rightClickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.rightClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+
+        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        int playerTileX = playerClient.getCurrentMapLocation().getX();
+        int playerTileY = playerClient.getCurrentMapLocation().getY();
+
+        for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
+            if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
+                Location location = stationaryEntity.getCurrentMapLocation();
+
+                if (!MoveUtil.isEntityMoving(playerClient)) {
+                    if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
+                            (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
+                            (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
+                            (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                        // The player is requesting to interact with the entity.
+                        System.out.println("Interacting with entity");
+                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT)).sendPacket();
+                    }
+                }
+            }
+        }
     }
 
     private void forward(final int screenX, final int screenY) {
