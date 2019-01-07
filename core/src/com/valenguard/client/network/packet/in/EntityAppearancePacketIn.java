@@ -72,7 +72,14 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
 
     @Override
     public void onEvent(EntityAppearancePacket packetData) {
-        Entity entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+        Entity entity;
+
+        if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
+            entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+        } else {
+            entity = EntityManager.getInstance().getStationaryEntity(packetData.entityId);
+        }
+
         Appearance appearance = entity.getAppearance();
         boolean updatedTextureId = false;
 
@@ -103,9 +110,11 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         }
 
         if (updatedTextureId) {
-            MovingEntity movingEntity = (MovingEntity) entity;
-            System.out.println("ENTITY : " + entity.getClass().getSimpleName());
-            movingEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
+            if (entity instanceof MovingEntity) {
+                MovingEntity movingEntity = (MovingEntity) entity;
+                System.out.println("ENTITY : " + entity.getClass().getSimpleName());
+                movingEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
+            }
         }
     }
 

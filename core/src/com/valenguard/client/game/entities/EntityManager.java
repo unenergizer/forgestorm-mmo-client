@@ -61,10 +61,7 @@ public class EntityManager implements Disposable {
             movingEntity.getEntityAnimation().animate(delta, spriteBatch);
         }
         for (StationaryEntity stationaryEntity : stationaryEntityList.values()) {
-            // ITEM, SKILL_NODE, ETC (non moving shit)
-//            spriteBatch.setColor(ColorList.values()[stationaryEntity.getAppearance().getColorId()].getColor());
-            spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion("ore_01"), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
-//            spriteBatch.setColor(Color.WHITE);
+            spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getTextureId(0)), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
     }
 

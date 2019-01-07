@@ -16,7 +16,7 @@ public class Entity {
     /**
      * A unique ID given to this entity by the server.
      */
-    private int serverEntityID;
+    private short serverEntityID;
 
     /**
      * The display name of this entity.

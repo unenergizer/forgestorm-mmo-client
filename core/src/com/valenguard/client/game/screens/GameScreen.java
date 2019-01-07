@@ -31,7 +31,7 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class GameScreen implements Screen {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
@@ -70,6 +70,7 @@ public class GameScreen implements Screen {
         fileManager.loadAtlas(GameAtlas.CURSOR);
         fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
+        fileManager.loadAtlas(GameAtlas.SKILL_NODES);
 
         fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
@@ -111,6 +112,7 @@ public class GameScreen implements Screen {
         camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
         camera.update();
 
+        //TODO RELOCATE PARALLAX BG
         if (mapRenderer.getGameMapNameFromServer().equals("floating_island")) {
             spriteBatch.begin();
             srcX += 2;

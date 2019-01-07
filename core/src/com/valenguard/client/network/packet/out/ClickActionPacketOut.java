@@ -15,5 +15,6 @@ public class ClickActionPacketOut extends ClientAbstractOutPacket {
     @Override
     protected void createPacket(ValenguardOutputStream write) {
         write.writeByte(clickAction.getClickAction());
+        write.writeShort(clickAction.getClickedEntity().getServerEntityID());
     }
 }

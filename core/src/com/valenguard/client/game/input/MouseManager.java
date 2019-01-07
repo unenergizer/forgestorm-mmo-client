@@ -125,7 +125,7 @@ public class MouseManager {
                             (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
                         // The player is requesting to interact with the entity.
                         System.out.println("Interacting with entity");
-                        new ClickActionPacketOut(new ClickAction(ClickAction.LEFT)).sendPacket();
+                        new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, stationaryEntity)).sendPacket();
                     }
                 }
             }
@@ -164,7 +164,7 @@ public class MouseManager {
                             (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
                         // The player is requesting to interact with the entity.
                         System.out.println("Interacting with entity");
-                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT)).sendPacket();
+                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, stationaryEntity)).sendPacket();
                     }
                 }
             }
