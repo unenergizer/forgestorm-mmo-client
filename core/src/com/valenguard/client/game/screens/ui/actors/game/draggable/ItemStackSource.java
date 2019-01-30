@@ -35,19 +35,24 @@ public class ItemStackSource extends DragAndDrop.Source {
 
         if (itemStack == null) return null;
 
+        // Item was picked up, show empty slot image
         itemStackSlot.setEmptyCellImage();
 
         DragAndDrop.Payload inventoryPayload = new DragAndDrop.Payload();
         inventoryPayload.setObject(itemStack);
 
+        // The image to display when the item is picked up and is being moved to valid locations
         VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         inventoryPayload.setDragActor(image);
 
+        // The image to display when the item is being placed over an invalid location
         image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         image.setColor(Color.RED);
         inventoryPayload.setInvalidDragActor(image);
 
+        // Sets where the image will be shown relative to the mouse
         dragManager.setDragActorPosition(image.getWidth() / 2, -image.getHeight() / 2);
+
         return inventoryPayload;
     }
 }

@@ -1,11 +1,11 @@
 "0":
    name: "Frog"
-   type: SWORD
+   type: WEAPON
    atlas: ITEMS
    region: weapon_sword_01
 "1":
    name: "Sword of Holy Light"
    desc: "This does something bad to enimies."
-   type: SWORD
+   type: WEAPON
    atlas: ITEMS
    region: weapon_sword_01

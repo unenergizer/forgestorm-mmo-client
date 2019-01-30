@@ -9,6 +9,7 @@ import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.animations.EntityAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.rpg.Attributes;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -52,6 +53,14 @@ public class MovingEntity extends Entity {
      */
     private EntityAnimation entityAnimation;
 
+    /**
+     * Entity attributes
+     */
+    private Attributes attributes = new Attributes();
+
+    /**
+     * Entity name drawing
+     */
     private boolean glyphInitialized = false;
     private GlyphLayout regularText = new GlyphLayout();
     private GlyphLayout shadowText = new GlyphLayout();

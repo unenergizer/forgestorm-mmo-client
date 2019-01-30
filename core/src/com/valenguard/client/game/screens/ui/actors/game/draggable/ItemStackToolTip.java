@@ -31,6 +31,12 @@ public class ItemStackToolTip extends HideableVisWindow implements Buildable {
         return this;
     }
 
+    /**
+     * An {@link ItemStack} has been dropped into a {@link ItemStackSlot}. Now generate a tool tip
+     * to display {@link ItemStack} specific information to the player
+     *
+     * @param itemStack The {@link ItemStack} to get tool tip information for.
+     */
     void updateToolTipText(ItemStack itemStack) {
         nameLabel.setText("[ID: " + Integer.toString(itemStack.getItemId()) + "] " + itemStack.getName());
         typeLabel.setText(itemStack.getItemStackType().name());

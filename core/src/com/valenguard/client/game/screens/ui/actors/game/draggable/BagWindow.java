@@ -33,10 +33,12 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
 
         int columnCount = 0;
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
-            ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG, i);
 
+            // Create a slot for items
+            ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG_1, i);
             itemStackSlot.build();
-            add(itemStackSlot);
+
+            add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
@@ -74,9 +76,18 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
 
     }
 
+    /**
+     * Adds an {@link ItemStack} to an empty bag slot.
+     *
+     * @param itemStack The {@link ItemStack} to add to the players inventory.
+     */
     public void addItemStack(ItemStack itemStack) {
         for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
+
+            // Find empty slot
             if (itemStackSlots[i].getItemStack() != null) continue;
+
+            // Empty slot found. Placing item
             itemStackSlots[i].setItemStack(itemStack);
             return;
         }

@@ -14,7 +14,8 @@ public class InventoryActions {
     /**
      *   SERVER -> CLIENT
      */
-    public static final byte GIVE = 0x03;
+    public static final byte BAG_SET = 0x03;
+    public static final byte EQUIPMENT_SET = 0x04;
 
     @Getter
     private byte inventoryActionType;

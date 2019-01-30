@@ -22,7 +22,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         int itemId = 0;
         int itemAmount = 0;
 
-        if (inventoryAction == InventoryActions.GIVE) {
+        if (inventoryAction == InventoryActions.BAG_SET) {
             itemId = clientHandler.readInt();
             itemAmount = clientHandler.readInt();
         }
@@ -33,15 +33,16 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
     @Override
     public void onEvent(InventoryActionsPacket packetData) {
 
-        if (packetData.inventoryAction == InventoryActions.GIVE) {
+        if (packetData.inventoryAction == InventoryActions.BAG_SET) {
             println(getClass(), "Giving the player an item with id: " + packetData.itemId, false, false);
             println(getClass(), "Giving the player " + packetData.itemAmount + " of those items", false, false);
 
+            // Generate an ItemStack and place it in the players bag.
             ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(packetData.itemId, packetData.itemAmount);
             Valenguard.getInstance().getStageHandler().getBagWindow().addItemStack(itemStack);
-
+        } else if (packetData.inventoryAction == InventoryActions.EQUIPMENT_SET) {
+            // TODO: Implement equipment setting.
         }
-
     }
 
     @AllArgsConstructor

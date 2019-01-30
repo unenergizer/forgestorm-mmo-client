@@ -26,6 +26,9 @@ public class DebugTable extends VisTable implements Buildable {
     private final VisLabel leftCursorTileClick = new VisLabel();
     private final VisLabel rightCursorTileClick = new VisLabel();
     private final VisLabel bodyParts = new VisLabel();
+    private final VisLabel health = new VisLabel();
+    private final VisLabel armor = new VisLabel();
+    private final VisLabel damage = new VisLabel();
 
     @Override
     public Actor build() {
@@ -40,6 +43,9 @@ public class DebugTable extends VisTable implements Buildable {
         add(cursorTile).left().row();
         add(leftCursorTileClick).left().row();
         add(rightCursorTileClick).left().row();
+        add(health).left().row();
+        add(armor).left().row();
+        add(damage).left().row();
 
         addListener(new WindowResizeListener() {
             @Override
@@ -57,7 +63,7 @@ public class DebugTable extends VisTable implements Buildable {
     public void refresh(float delta) {
         if (!isVisible()) return;
 
-        final PlayerClient client = EntityManager.getInstance().getPlayerClient();
+        final PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         final MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
 
         this.delta.setText("DeltaTime: " + Math.round(delta * 100000.0) / 100000.0);
@@ -72,12 +78,16 @@ public class DebugTable extends VisTable implements Buildable {
             ms.setText("MS: Not connected to server.");
         }
 
-        if (client != null) {
-            final HumanAnimation humanAnimation = (HumanAnimation) client.getEntityAnimation();
-            uuid.setText("UUID: " + client.getServerEntityID());
+        if (playerClient != null) {
+            final HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
+            uuid.setText("UUID: " + playerClient.getServerEntityID());
             bodyParts.setText("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getBodyId());
-            playerTile.setText("Player X: " + Math.round(client.getCurrentMapLocation().getX()) + ", Y: " + Math.round(client.getCurrentMapLocation().getY()) + ", map: " + client.getCurrentMapLocation().getMapName());
-            playerPixel.setText("Player X: " + client.getDrawX() + ", Y: " + client.getDrawY());
+            playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getMapName());
+            playerPixel.setText("Player X: " + playerClient.getDrawX() + ", Y: " + playerClient.getDrawY());
+
+            health.setText("Health: " + playerClient.getAttributes().getHealth());
+            armor.setText("Armor: " + playerClient.getAttributes().getArmor());
+            damage.setText("Damage: " + playerClient.getAttributes().getDamage());
         }
 
         if (mouseManager != null && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {

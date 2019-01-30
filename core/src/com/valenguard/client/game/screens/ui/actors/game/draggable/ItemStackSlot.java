@@ -24,20 +24,60 @@ import static com.valenguard.client.util.Log.println;
 
 public class ItemStackSlot extends VisTable implements Buildable {
 
+    /**
+     * Used to places images in the UserInterface
+     */
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
 
+    /**
+     * Represents this {@link ItemStackSlot}
+     */
     private final ItemStackSlot itemStackSlot;
-    @Getter
-    private InventoryType inventoryType;
-    @Getter
-    private ItemStack itemStack;
-    @Getter
-    private ItemStackType itemStackType;
+
+    /**
+     * The slot index of this {@link ItemStackSlot}. This ID is used as locational data
+     * for the server and the client.
+     */
     @Getter
     private byte inventoryIndex;
+
+    /**
+     * The type of inventory that this {@link ItemStackSlot} represents
+     */
+    @Getter
+    private InventoryType inventoryType;
+
+    /**
+     * The {@link ItemStack} that is contained within this {@link ItemStackSlot}
+     */
+    @Getter
+    private ItemStack itemStack;
+
+    /**
+     * The types of {@link ItemStackType}s allowed in this {@link ItemStackSlot}
+     * If null, we assume that this {@link ItemStackSlot} will accept any type of item.
+     */
+    @Getter
+    private ItemStackType[] acceptedItemStackTypes;
+
+    /**
+     * The image that represents this {@link ItemStackSlot}
+     */
     private VisImage itemStackImage;
+
+    /**
+     * The image that represents this as an empty {@link ItemStackSlot}
+     */
     private VisImage emptyCellImage;
+
+    /**
+     * A user interface element that displays information about a given {@link ItemStack}
+     */
     private final ItemStackToolTip itemStackToolTip = new ItemStackToolTip();
+
+    /**
+     * Camera coordinates in relation to the game screen.
+     */
     private Vector2 localCords = new Vector2();
     private Vector2 stageLocation = new Vector2();
 
@@ -47,10 +87,10 @@ public class ItemStackSlot extends VisTable implements Buildable {
         this.itemStackSlot = this;
     }
 
-    ItemStackSlot(InventoryType inventoryType, byte inventoryIndex, ItemStackType itemStackType) {
+    ItemStackSlot(InventoryType inventoryType, byte inventoryIndex, ItemStackType[] acceptedItemStackTypes) {
         this.inventoryType = inventoryType;
         this.inventoryIndex = inventoryIndex;
-        this.itemStackType = itemStackType;
+        this.acceptedItemStackTypes = acceptedItemStackTypes;
         this.itemStackSlot = this;
     }
 
@@ -65,9 +105,32 @@ public class ItemStackSlot extends VisTable implements Buildable {
         return this;
     }
 
+    /**
+     * Check to see if the {@link ItemStack} is able to be placed in this slot.
+     *
+     * @param itemStack The {@link ItemStack} to test.
+     * @return True if accepted, false otherwise.
+     */
+    boolean isAcceptedItemStackType(ItemStack itemStack) {
+        if (acceptedItemStackTypes == null) return true; // Accepts any type of ItemStackType
+
+        for (ItemStackType itemStackType : acceptedItemStackTypes) {
+            if (itemStackType == itemStack.getItemStackType()) return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Creates an image that represents an empty {@link ItemStackSlot}.
+     */
     private void initEmptyCellImage() {
-        if (itemStackType != null) {
-            switch (itemStackType) {
+        if (acceptedItemStackTypes == null) {
+            // Used on bag slots
+            emptyCellImage = imageBuilder.setRegionName("clear").buildVisImage();
+        } else {
+            // Used on equipment slots
+            switch (acceptedItemStackTypes[0]) { // Just get the first accepted item to generate the equipment image
                 case HELM:
                     emptyCellImage = imageBuilder.setRegionName("helmet_08").buildVisImage();
                     break;
@@ -104,27 +167,39 @@ public class ItemStackSlot extends VisTable implements Buildable {
                     break;
             }
             emptyCellImage.setColor(new Color(1, 1, 1, .1f));
-        } else {
-            emptyCellImage = imageBuilder.setRegionName("clear").buildVisImage();
         }
     }
 
+    /**
+     * Completely removes the {@link ItemStack} in this {@link ItemStackSlot}
+     */
     void deleteStack() {
         itemStack = null;
     }
 
+    /**
+     * Displays an image that represents an empty {@link ItemStackSlot}
+     */
     void setEmptyCellImage() {
         if (itemStackImage != null) itemStackImage.remove();
-        if (emptyCellImage == null) initEmptyCellImage();
+        if (emptyCellImage == null) initEmptyCellImage(); // Equipment slot empty image
         add(emptyCellImage);
     }
 
+    /**
+     * Display the image that represents the current {@link ItemStack} in this {@link ItemStackSlot}
+     */
     void setItemImage() {
         emptyCellImage.remove();
         add(itemStackImage);
         itemStackToolTip.updateToolTipText(itemStack);
     }
 
+    /**
+     * Places the {@link ItemStack} into this {@link ItemStackSlot}
+     *
+     * @param itemStack The {@link ItemStack} that is being set into this {@link ItemStackSlot}
+     */
     void setItemStack(ItemStack itemStack) {
         if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
@@ -139,6 +214,9 @@ public class ItemStackSlot extends VisTable implements Buildable {
         return actor.localToStageCoordinates(localCords.set(0, 0));
     }
 
+    /**
+     * Adds a ToolTip for an {@link ItemStack}. ToolTips contain information about the {@link ItemStack}.
+     */
     private void addToolTipListener() {
         itemStackImage.addListener(new InputListener() {
 

@@ -1,6 +1,7 @@
 package com.valenguard.client.game.inventory;
 
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.rpg.Attributes;
 
 import lombok.Data;
 
@@ -17,6 +18,8 @@ public class ItemStack implements Cloneable {
     private String textureRegion;
     private int amount;
 
+    private Attributes attributes;
+
     public ItemStack(int itemId) {
         this.itemId = itemId;
     }
@@ -31,6 +34,7 @@ public class ItemStack implements Cloneable {
         itemStack.setGameAtlas(gameAtlas);
         itemStack.setStackable(isStackable);
         itemStack.setTextureRegion(textureRegion);
+        itemStack.setAttributes(attributes);
         return itemStack;
     }
 
