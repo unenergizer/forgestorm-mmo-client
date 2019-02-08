@@ -78,7 +78,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
     /**
      * Camera coordinates in relation to the game screen.
      */
-    private Vector2 localCords = new Vector2();
+    private final Vector2 localCords = new Vector2();
     private Vector2 stageLocation = new Vector2();
 
     ItemStackSlot(InventoryType inventoryType, byte inventoryIndex) {
@@ -87,8 +87,8 @@ public class ItemStackSlot extends VisTable implements Buildable {
         this.itemStackSlot = this;
     }
 
-    ItemStackSlot(InventoryType inventoryType, byte inventoryIndex, ItemStackType[] acceptedItemStackTypes) {
-        this.inventoryType = inventoryType;
+    ItemStackSlot(byte inventoryIndex, ItemStackType[] acceptedItemStackTypes) {
+        this.inventoryType = InventoryType.EQUIPMENT;
         this.inventoryIndex = inventoryIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
         this.itemStackSlot = this;

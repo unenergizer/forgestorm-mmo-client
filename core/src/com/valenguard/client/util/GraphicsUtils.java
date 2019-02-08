@@ -19,8 +19,7 @@ public class GraphicsUtils {
 
     public static void clearScreen(float red, float green, float blue, float alpha, boolean convertColorValues) {
         if (convertColorValues) {
-            // Here we divide by 255 inorder to get the correct color from programs like
-            // Adobe PhotoShop or Microsoft Paint.
+            // Here we divide by 255 to get the correct color from programs like PhotoShop or Paint.
             Gdx.gl.glClearColor(red / 255f, green / 255f, blue / 255f, alpha);
         } else {
             Gdx.gl.glClearColor(red, green, blue, alpha);

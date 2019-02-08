@@ -10,7 +10,6 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.EquipmentSlots;
-import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -153,7 +152,7 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
      * @return A {@link ItemStackSlot} to place in this {@link EquipmentWindow}
      */
     private ItemStackSlot buildSlot(EquipmentSlots equipmentSlots) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.EQUIPMENT, equipmentSlots.getSlotIndex(), equipmentSlots.getAcceptedItemStackTypes());
+        ItemStackSlot itemStackSlot = new ItemStackSlot(equipmentSlots.getSlotIndex(), equipmentSlots.getAcceptedItemStackTypes());
         itemStackSlot.build();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));

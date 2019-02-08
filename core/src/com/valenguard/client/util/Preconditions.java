@@ -2,7 +2,7 @@ package com.valenguard.client.util;
 
 public class Preconditions {
 
-    public Preconditions() {
+    private Preconditions() {
     }
 
     public static void checkArgument(boolean expression, String errorMessage) {

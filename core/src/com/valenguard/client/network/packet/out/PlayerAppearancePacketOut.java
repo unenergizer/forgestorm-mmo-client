@@ -2,7 +2,7 @@ package com.valenguard.client.network.packet.out;
 
 import com.valenguard.client.network.shared.Opcodes;
 
-public class PlayerAppearancePacketOut extends ClientAbstractOutPacket {
+class PlayerAppearancePacketOut extends ClientAbstractOutPacket {
 
     private final short headId, bodyId;
 

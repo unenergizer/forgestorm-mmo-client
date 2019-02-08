@@ -27,6 +27,7 @@ import com.valenguard.client.network.shared.PacketListener;
 import lombok.AllArgsConstructor;
 
 import static com.valenguard.client.util.Log.println;
+import static com.valenguard.client.util.Preconditions.checkNotNull;
 
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
@@ -36,15 +37,17 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
 
-        EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
-        short entityId = clientHandler.readShort(); // TODO: this will be different later depending on the entity type
-        String entityName = clientHandler.readString();
-        int tileX = clientHandler.readInt();
-        int tileY = clientHandler.readInt();
+        final EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
+        final short entityId = clientHandler.readShort(); // TODO: this will be different later depending on the entity type
+        final String entityName = clientHandler.readString();
+        final int tileX = clientHandler.readInt();
+        final int tileY = clientHandler.readInt();
         byte directionalByte = 0;
         float moveSpeed = 0.0f;
         short[] textureIds = null;
         byte colorId = -1;
+
+        checkNotNull(entityType, "EntityType can not be null!");
 
         switch (entityType) {
             case SKILL_NODE:
@@ -119,6 +122,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             entity = spawnSkillNode(packetData);
         }
 
+        //noinspection ConstantConditions
         entity.setEntityType(packetData.entityType);
         entity.setServerEntityID(packetData.entityId);
         entity.setEntityName(packetData.entityName);

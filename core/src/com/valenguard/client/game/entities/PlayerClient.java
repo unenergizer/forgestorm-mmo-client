@@ -1,6 +1,5 @@
 package com.valenguard.client.game.entities;
 
-import com.valenguard.client.game.inventory.EquippedItems;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.rpg.Skills;
 
@@ -19,9 +18,4 @@ public class PlayerClient extends Player {
      * The direction the entity intends to move in the future.
      */
     private MoveDirection predictedMoveDirection = MoveDirection.NONE;
-
-    /**
-     * Contains information about the items the player has equipped.
-     */
-    private EquippedItems equippedItems = new EquippedItems();
 }

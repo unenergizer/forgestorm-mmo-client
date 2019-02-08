@@ -15,8 +15,5 @@ public class ClientConstants {
     public static final String MAP_DIRECTORY = "data/maps";
     public static final float namePlateDistanceInPixels = 2;
 
-    public static final short HUMAN_MAX_HEADS = 79;
-    public static final short HUMAN_MAX_BODIES = 59;
-
     public static boolean MONITOR_MOVEMENT_CHECKS = false;
 }

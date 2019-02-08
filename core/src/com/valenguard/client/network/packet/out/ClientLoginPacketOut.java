@@ -3,7 +3,7 @@ package com.valenguard.client.network.packet.out;
 import com.valenguard.client.network.PlayerSession;
 import com.valenguard.client.network.shared.Opcodes;
 
-public class ClientLoginPacketOut extends ClientAbstractOutPacket {
+class ClientLoginPacketOut extends ClientAbstractOutPacket {
 
     private final PlayerSession playerSession;
 

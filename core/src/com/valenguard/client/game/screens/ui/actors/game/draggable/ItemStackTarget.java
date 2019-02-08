@@ -185,7 +185,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
      * InventoryBag: Index bag id 1
      * AdditionalBags: Index bag id 2
      * <p>
-     * Then use indexicies that represent bag slots. So it could look like this:
+     * Then use index that represent bag slots. So it could look like this:
      * <p>
      * [InventoryID][BagSlotID] or 0:3 -> (EquipmentBag)(SlotID 3[whatever that would be])
      */

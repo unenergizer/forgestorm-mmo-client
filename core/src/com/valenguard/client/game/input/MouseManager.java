@@ -1,7 +1,6 @@
 package com.valenguard.client.game.input;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
@@ -33,13 +32,13 @@ import static com.valenguard.client.util.Log.println;
 
 public class MouseManager {
 
-    public static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = false;
 
     public static final int NUM_TICKS_TO_FADE_MOUSE = 60;
 
     private final PathFinding pathFinding = new PathFinding();
 
-    private Vector3 clickLocation = new Vector3();
+    private final Vector3 clickLocation = new Vector3();
     @Getter
     private int leftClickTileX, leftClickTileY;
     @Getter
@@ -89,10 +88,6 @@ public class MouseManager {
         else if (button == Input.Buttons.FORWARD) forward(screenX, screenY);
         else if (button == Input.Buttons.BACK) back(screenX, screenY);
     }
-
-    private boolean deleteMeLater = false;
-    private GlyphLayout layout1 = new GlyphLayout();
-    private GlyphLayout layout2 = new GlyphLayout();
 
     private Vector3 cameraXYtoTiledMapXY(final int screenX, final int screenY) {
         return Valenguard.gameScreen.getCamera().unproject(clickLocation.set(screenX, screenY, 0));

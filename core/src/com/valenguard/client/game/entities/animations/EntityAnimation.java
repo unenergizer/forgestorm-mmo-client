@@ -20,7 +20,7 @@ public abstract class EntityAnimation {
     @Getter
     protected final MovingEntity movingEntity;
 
-    protected final Appearance appearance;
+    final Appearance appearance;
 
     private float movingStateTime = 1f;
     private float idleStateTime = 1f;

@@ -3,8 +3,8 @@ package com.valenguard.client.game.screens.ui.action;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 
-public class RainbowAction extends TemporalAction {
-    Color[] colours;
+class RainbowAction extends TemporalAction {
+    private final Color[] colours;
 
     public RainbowAction(float duration, Color... colours) {
         setDuration(duration);

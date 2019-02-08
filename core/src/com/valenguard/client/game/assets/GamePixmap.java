@@ -1,6 +1,6 @@
 package com.valenguard.client.game.assets;
 
-@SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
+@SuppressWarnings({"SameParameterValue", "SpellCheckingInspection", "unused"})
 public enum GamePixmap {
 
     CURSOR_1("cursor1.png");

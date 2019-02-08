@@ -7,7 +7,7 @@ public class Skills {
 
     private final Map<Byte, Skill> skillsMap = new HashMap<Byte, Skill>();
 
-    public final Skill MINING = new Skill();
+    private final Skill MINING = new Skill();
 
     public Skills() {
         skillsMap.put(SkillOpcodes.MINING, MINING);

@@ -23,7 +23,7 @@ public class Log {
         return "[" + clazz.getSimpleName() + "] " + message;
     }
 
-    public static void printEmptyLine(boolean print) {
+    public static void println(boolean print) {
         if (print) System.out.println();
     }
 }

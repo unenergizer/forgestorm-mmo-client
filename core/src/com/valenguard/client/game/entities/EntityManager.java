@@ -16,7 +16,6 @@ public class EntityManager implements Disposable {
     private EntityManager() {
     }
 
-    // TODO: REMOVE TEST CLIENT! Add the correct way.
     @Getter
     @Setter
     private PlayerClient playerClient;

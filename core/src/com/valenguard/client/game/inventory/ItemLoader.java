@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.valenguard.client.util.Log.printEmptyLine;
 import static com.valenguard.client.util.Log.println;
 
 class ItemLoader {
@@ -90,7 +89,7 @@ class ItemLoader {
             println(getClass(), "Damage: " + attributes.getDamage(), false, PRINT_DEBUG && attributes.getDamage() != 0);
             println(getClass(), "Armor: " + attributes.getArmor(), false, PRINT_DEBUG && attributes.getArmor() != 0);
 
-            printEmptyLine(PRINT_DEBUG);
+            println(PRINT_DEBUG);
 
             itemStacks.add(itemStack);
         }

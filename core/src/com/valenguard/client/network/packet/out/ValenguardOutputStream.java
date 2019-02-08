@@ -4,9 +4,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class ValenguardOutputStream {
 
-    private DataOutputStream dataOutputStream;
+    private final DataOutputStream dataOutputStream;
 
     public ValenguardOutputStream(DataOutputStream dataOutputStream) {
         this.dataOutputStream = dataOutputStream;

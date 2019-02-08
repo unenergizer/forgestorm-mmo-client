@@ -34,18 +34,12 @@ public class InitializeClientSessionPacketIn implements PacketListener<Initializ
         // Network connection was successful.
         println(getClass(), "Connection successful!");
         client.threadSafeConnectionMessage("Connection successful!");
-
-        // PACKET READ START
-
-
+        
         println(getClass(), "LoginSuccess: " + packetData.loginSuccess
                 + " , Session Player Id: " + packetData.clientPlayerId);
 
-        // Set map to show client
         Valenguard.gameScreen.setPlayerSessionData(new PlayerSessionData(packetData.clientPlayerId));
-        // TODO: Remove this call here and put in game screen. Use client player data to get map name.
         Valenguard.getInstance().setScreen(ScreenType.GAME);
-
     }
 
     @AllArgsConstructor

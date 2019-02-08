@@ -2,7 +2,7 @@ package com.valenguard.client.network.packet.out;
 
 import com.valenguard.client.network.shared.Opcodes;
 
-public class ItemPickupPacketOut extends ClientAbstractOutPacket {
+class ItemPickupPacketOut extends ClientAbstractOutPacket {
 
     private final int pickupX, pickupY;
 
