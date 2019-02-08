@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum InventoryType {
 
-    EQUIPMENT((byte) 0),
+    EQUIPMENT((byte) 0), //0:0 -> 1:27
     BAG_1((byte) 1),
     BAG_2((byte) 2),
     BAG_3((byte) 3),

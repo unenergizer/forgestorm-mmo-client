@@ -1,5 +1,7 @@
 package com.valenguard.client.game.rpg;
 
+import static com.valenguard.client.util.Log.println;
+
 public class Skill {
 
     private boolean initialized = false;
@@ -16,7 +18,7 @@ public class Skill {
         level = 1;
 
         if (!initialized) {
-            System.out.println("Set the player's experience to: " + experience);
+            println(getClass(), "Set the player's experience to: " + experience);
             initialized = true;
             return;
         }

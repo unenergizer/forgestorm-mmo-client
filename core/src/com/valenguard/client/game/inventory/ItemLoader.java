@@ -17,7 +17,7 @@ import static com.valenguard.client.util.Log.println;
 
 class ItemLoader {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     /**
      * Load all items from file and store in memory for quick reference.

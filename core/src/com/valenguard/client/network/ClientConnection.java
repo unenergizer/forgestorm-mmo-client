@@ -39,7 +39,7 @@ public class ClientConnection {
      * @param port              The port of the remote server.
      * @param registerListeners Packets that we will listen for from the server.
      */
-    public void openConnection(final PlayerSession playerSession, final String address, final short port, final Consumer<EventBus> registerListeners) {
+    public void openConnection(final PlayerSession playerSession, final String address, final int port, final Consumer<EventBus> registerListeners) {
         println(ClientConnection.class, "TODO: User player session! UN: " + playerSession.getUsername() + ", PW: " + playerSession.getPassword());
         println(ClientConnection.class, "Attempting network connection...");
         threadSafeConnectionMessage("Attempting network connection...");

@@ -2,22 +2,15 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.inventory.InventoryActions;
 import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.inventory.WearableItemStack;
-import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.network.packet.out.InventoryPacketOut;
-
-import static com.valenguard.client.util.Log.printEmptyLine;
-import static com.valenguard.client.util.Log.println;
 
 // TODO implement EQUIPMENT TO EQUIPMENT window actions for ring swapping and that type of thing.
 public class ItemStackTarget extends DragAndDrop.Target {
-
-    private static final boolean PRINT_DEBUG = true;
 
     /**
      * The slot that at {@link ItemStack} is being dragged too.
@@ -134,10 +127,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
                 WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
                 EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
             }
-            updatePlayerEquipment(sourceItemStack, false);
         } else if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
             setWearableFromSource(sourceItemStack);
-            updatePlayerEquipment(sourceItemStack, true);
         }
     }
 
@@ -162,14 +153,12 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
             setWearableFromSource(sourceItemStack);
-            updatePlayerEquipment(sourceItemStack, true);
         } else if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
             if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
                 EntityManager.getInstance().getPlayerClient().removeArmor();
             } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
                 EntityManager.getInstance().getPlayerClient().removeHelm();
             }
-            updatePlayerEquipment(sourceItemStack, false);
         }
     }
 
@@ -185,40 +174,6 @@ public class ItemStackTarget extends DragAndDrop.Target {
         } else if (itemStackTargetSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM && sourceItemStack.getItemStackType() == ItemStackType.HELM) {
             WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
             EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
-        }
-    }
-
-    /**
-     * Update the {@link PlayerClient} with the {@link Attributes} found on equipped item.
-     *
-     * @param itemStack The {@link ItemStack} the player is equipping or removing.
-     * @param equipItem True if the player is equipping the {@link ItemStack}, false otherwise.
-     */
-    private void updatePlayerEquipment(ItemStack itemStack, boolean equipItem) {
-
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Attributes playerClientAttributes = playerClient.getAttributes();
-        Attributes itemStackAttributes = itemStack.getAttributes();
-
-        printEmptyLine(true);
-        println(getClass(), "PC Health: " + playerClientAttributes.getHealth(), PRINT_DEBUG);
-        println(getClass(), "PC Armor: " + playerClientAttributes.getArmor(), PRINT_DEBUG);
-        println(getClass(), "PC Damage: " + playerClientAttributes.getDamage(), PRINT_DEBUG);
-        println(getClass(), "IS Health: " + itemStackAttributes.getHealth(), PRINT_DEBUG);
-        println(getClass(), "IS Armor: " + itemStackAttributes.getArmor(), PRINT_DEBUG);
-        println(getClass(), "IS Damage: " + itemStackAttributes.getDamage(), PRINT_DEBUG);
-
-        // TODO: Instead of manually adding the new values, we should possible loop through all equipped items and get values this way.
-        if (equipItem) {
-            // Player Equipped an Item. Update attributes!
-            playerClientAttributes.setHealth(playerClientAttributes.getHealth() + itemStackAttributes.getHealth());
-            playerClientAttributes.setArmor(playerClientAttributes.getArmor() + itemStackAttributes.getArmor());
-            playerClientAttributes.setDamage(playerClientAttributes.getDamage() + itemStackAttributes.getDamage());
-        } else {
-            // Player Unequipped an Item. Update attributes!
-            playerClientAttributes.setHealth(playerClientAttributes.getHealth() - itemStackAttributes.getHealth());
-            playerClientAttributes.setArmor(playerClientAttributes.getArmor() - itemStackAttributes.getArmor());
-            playerClientAttributes.setDamage(playerClientAttributes.getDamage() - itemStackAttributes.getDamage());
         }
     }
 

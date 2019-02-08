@@ -21,6 +21,7 @@ import com.valenguard.client.network.Consumer;
 import com.valenguard.client.network.PlayerSession;
 import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
 import com.valenguard.client.network.packet.in.EntityAppearancePacketIn;
+import com.valenguard.client.network.packet.in.EntityAttributesUpdatePacketIn;
 import com.valenguard.client.network.packet.in.EntityDespawnPacketIn;
 import com.valenguard.client.network.packet.in.EntityMovePacketIn;
 import com.valenguard.client.network.packet.in.EntitySpawnPacketIn;
@@ -31,7 +32,8 @@ import com.valenguard.client.network.packet.in.PingPacketIn;
 import com.valenguard.client.network.packet.in.SkillExperiencePacketIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
-import com.valenguard.client.network.shared.ServerConstants;
+import com.valenguard.client.network.shared.NetworkSettings;
+import com.valenguard.client.network.shared.NetworkSettingsLoader;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -136,10 +138,15 @@ public class Valenguard extends Game {
 
     public void initializeNetwork(PlayerSession playerSession) {
         println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
+
+        NetworkSettingsLoader networkSettingsLoader = new NetworkSettingsLoader();
+        NetworkSettings networkSettings = networkSettingsLoader.loadNetworkSettings();
+
+
         clientConnection.openConnection(
                 playerSession,
-                ServerConstants.SERVER_ADDRESS,
-                ServerConstants.SERVER_PORT,
+                networkSettings.getIp(),
+                networkSettings.getPort(),
                 new Consumer<EventBus>() {
                     @Override
                     public void accept(EventBus eventBus) {
@@ -153,6 +160,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new EntityAppearancePacketIn());
                         eventBus.registerListener(new InventoryPacketIn());
                         eventBus.registerListener(new SkillExperiencePacketIn());
+                        eventBus.registerListener(new EntityAttributesUpdatePacketIn());
                     }
                 });
     }

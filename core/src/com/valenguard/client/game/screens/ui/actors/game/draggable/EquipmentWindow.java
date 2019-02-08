@@ -4,14 +4,18 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.Focusable;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.EquipmentSlots;
 import com.valenguard.client.game.inventory.InventoryType;
+import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
+import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 import lombok.Getter;
@@ -44,6 +48,12 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
     private ItemStackSlot swordSlot;
     @Getter
     private ItemStackSlot shieldSlot;
+    @Getter
+    private VisLabel health;
+    @Getter
+    private VisLabel armor;
+    @Getter
+    private VisLabel damage;
 
     public EquipmentWindow() {
         super("Character");
@@ -54,9 +64,14 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         addCloseButton();
         setResizable(false);
 
+        /*
+         Build Equipment Slots Table
+          */
+        VisTable equipmentSlotsTable = new VisTable();
+
         // top table (head)
-        add(helmSlot = buildSlot(EquipmentSlots.HELM));
-        this.row();
+        equipmentSlotsTable.add(helmSlot = buildSlot(EquipmentSlots.HELM));
+        equipmentSlotsTable.row();
 
         // main table (body etc)
         VisTable mainTable = new VisTable();
@@ -74,14 +89,31 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         mainTable.add(ringSlot1 = buildSlot(EquipmentSlots.RING_1));
         mainTable.add(beltSlot = buildSlot(EquipmentSlots.BELT));
         mainTable.add(bootsSlot = buildSlot(EquipmentSlots.BOOTS));
-        add(mainTable);
-        this.row();
+        equipmentSlotsTable.add(mainTable);
+        equipmentSlotsTable.row();
 
         // main hand/off hand
         VisTable weaponTable = new VisTable();
         weaponTable.add(swordSlot = buildSlot(EquipmentSlots.WEAPON));
         weaponTable.add(shieldSlot = buildSlot(EquipmentSlots.SHIELD));
-        add(weaponTable);
+        equipmentSlotsTable.add(weaponTable);
+
+        /*
+         Build Equipment Stats Table
+          */
+        VisTable equipmentStatsTable = new VisTable();
+
+        health = new VisLabel("Health: 0");
+        armor = new VisLabel("Armor: 0");
+        damage = new VisLabel("Damage: 0");
+
+        equipmentStatsTable.add(health).align(Align.topLeft).row();
+        equipmentStatsTable.add(armor).align(Align.topLeft).row();
+        equipmentStatsTable.add(damage).align(Align.topLeft).row();
+
+        // Display equipment and stats table on the main table
+        add(equipmentSlotsTable).padRight(4);
+        add(equipmentStatsTable).align(Align.top);
 
         addListener(new InputListener() {
             @Override
@@ -91,6 +123,15 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         });
 
         addListener(new ForceCloseWindowListener());
+
+        addListener(new StatsUpdateListener() {
+            @Override
+            protected void updateStats(Attributes playerClientAttributes) {
+                health.setText("Health: " + playerClientAttributes.getHealth());
+                armor.setText("Armor: " + playerClientAttributes.getArmor());
+                damage.setText("Damage: " + playerClientAttributes.getDamage());
+            }
+        });
 
         addListener(new WindowResizeListener() {
             @Override
