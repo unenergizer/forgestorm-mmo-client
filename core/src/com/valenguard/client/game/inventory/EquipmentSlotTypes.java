@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum EquipmentSlots {
+public enum EquipmentSlotTypes {
 
     // Main Body
     HELM((byte) 0, new ItemStackType[]{ItemStackType.HELM}),

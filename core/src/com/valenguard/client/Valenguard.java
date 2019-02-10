@@ -10,6 +10,7 @@ import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.ClientPlayerMovementManager;
 import com.valenguard.client.game.movement.EntityMovementManager;
+import com.valenguard.client.game.movement.EntityTracker;
 import com.valenguard.client.game.rpg.Skills;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.LoginScreen;
@@ -50,6 +51,7 @@ public class Valenguard extends Game {
     public static LoginScreen loginScreen;
     public static ClientConnection clientConnection;
 
+    private EntityTracker entityTracker;
     private MusicManager musicManager;
     private WindowManager windowManager;
     private StageHandler stageHandler;
@@ -94,6 +96,7 @@ public class Valenguard extends Game {
         musicManager = new MusicManager();
         itemManager = new ItemManager();
         skills = new Skills();
+        entityTracker = new EntityTracker();
 
         // loadItems screens
         gameScreen = new GameScreen();

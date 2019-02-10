@@ -8,6 +8,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.StationaryEntity;
 import com.valenguard.client.game.maps.MapUtil;
@@ -23,6 +24,7 @@ import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 import lombok.Getter;
@@ -108,31 +110,71 @@ public class MouseManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         int playerTileX = playerClient.getCurrentMapLocation().getX();
         int playerTileY = playerClient.getCurrentMapLocation().getY();
+        Location clientLocation = playerClient.getFutureMapLocation();
 
+
+        Queue<MoveNode> moveNodes = null;
+        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
+
+                // New Entity click so lets cancel entityTracker
+                Valenguard.getInstance().getEntityTracker().cancel();
+
+                Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), false);
+                if (testMoveNodes == null) break;
+
+                moveNodes = new LinkedList<MoveNode>();
+                for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+                    moveNodes.add(testMoveNodes.remove());
+                }
+
+                Valenguard.getInstance().getEntityTracker().track(movingEntity);
+                println(getClass(), "Interacting with moving entity");
+                break;
+            }
+        }
+
+        // Skill nodes like Mining and Fishing etc
         for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
                 Location location = stationaryEntity.getCurrentMapLocation();
 
-                if (!MoveUtil.isEntityMoving(playerClient)) {
-                    if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
-                            (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
-                            (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
-                            (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
-                        // The player is requesting to interact with the entity.
-                        System.out.println("Interacting with entity");
+                if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
+                        (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
+                        (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
+                        (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                    // The player is requesting to interact with the entity.
+                    if (!MoveUtil.isEntityMoving(playerClient)) {
                         new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, stationaryEntity)).sendPacket();
                     }
+                } else {
+                    // New Entity click so lets cancel entityTracker
+                    Valenguard.getInstance().getEntityTracker().cancel();
+
+                    // Top right quad
+                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), true);
+                    if (testMoveNodes == null) break;
+                    moveNodes = new LinkedList<MoveNode>();
+                    for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+                        moveNodes.add(testMoveNodes.remove());
+                    }
+
                 }
+                break;
             }
         }
 
         // Click to walk path finding
-        Queue<MoveNode> testMoveNodes = pathFinding.findPath(playerClient.getFutureMapLocation().getX(), playerClient.getFutureMapLocation().getY(), leftClickTileX, leftClickTileY, playerClient.getCurrentMapLocation().getMapName());
+        if (moveNodes == null) {
+            // New Entity click so lets cancel entityTracker
+            Valenguard.getInstance().getEntityTracker().cancel();
+            moveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), false);
+        }
 
-        if (testMoveNodes == null) return;
+        if (moveNodes == null) return;
 
         Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
-                new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes));
+                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes));
     }
 
     private void middle(final int screenX, final int screenY) {

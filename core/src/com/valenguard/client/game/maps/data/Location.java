@@ -60,4 +60,21 @@ public class Location {
         this.y = tileY;
         return this;
     }
+
+    @SuppressWarnings("RedundantIfStatement")
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Location)) return false;
+        Location otherLocation = (Location) obj;
+
+        if (!otherLocation.getMapName().equals(mapName)) return false;
+        if (otherLocation.getX() != x) return false;
+        if (otherLocation.getY() != y) return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + mapName + "] -> [" + x + ", " + y + "]";
+    }
 }

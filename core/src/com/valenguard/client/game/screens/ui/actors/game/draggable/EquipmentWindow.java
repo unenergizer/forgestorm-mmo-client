@@ -9,7 +9,7 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.inventory.EquipmentSlots;
+import com.valenguard.client.game.inventory.EquipmentSlotTypes;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -69,32 +69,32 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         VisTable equipmentSlotsTable = new VisTable();
 
         // top table (head)
-        equipmentSlotsTable.add(helmSlot = buildSlot(EquipmentSlots.HELM));
+        equipmentSlotsTable.add(helmSlot = buildSlot(EquipmentSlotTypes.HELM));
         equipmentSlotsTable.row();
 
         // main table (body etc)
         VisTable mainTable = new VisTable();
 
-        mainTable.add(arrowSlot = buildSlot(EquipmentSlots.AMMO));
-        mainTable.add(necklaceSlot = buildSlot(EquipmentSlots.NECKLACE));
-        mainTable.add(capeSlot = buildSlot(EquipmentSlots.CAPE));
+        mainTable.add(arrowSlot = buildSlot(EquipmentSlotTypes.AMMO));
+        mainTable.add(necklaceSlot = buildSlot(EquipmentSlotTypes.NECKLACE));
+        mainTable.add(capeSlot = buildSlot(EquipmentSlotTypes.CAPE));
         mainTable.row();
 
-        mainTable.add(ringSlot0 = buildSlot(EquipmentSlots.RING_0));
-        mainTable.add(chestSlot = buildSlot(EquipmentSlots.CHEST));
-        mainTable.add(glovesSlot = buildSlot(EquipmentSlots.GLOVES));
+        mainTable.add(ringSlot0 = buildSlot(EquipmentSlotTypes.RING_0));
+        mainTable.add(chestSlot = buildSlot(EquipmentSlotTypes.CHEST));
+        mainTable.add(glovesSlot = buildSlot(EquipmentSlotTypes.GLOVES));
         mainTable.row();
 
-        mainTable.add(ringSlot1 = buildSlot(EquipmentSlots.RING_1));
-        mainTable.add(beltSlot = buildSlot(EquipmentSlots.BELT));
-        mainTable.add(bootsSlot = buildSlot(EquipmentSlots.BOOTS));
+        mainTable.add(ringSlot1 = buildSlot(EquipmentSlotTypes.RING_1));
+        mainTable.add(beltSlot = buildSlot(EquipmentSlotTypes.BELT));
+        mainTable.add(bootsSlot = buildSlot(EquipmentSlotTypes.BOOTS));
         equipmentSlotsTable.add(mainTable);
         equipmentSlotsTable.row();
 
         // main hand/off hand
         VisTable weaponTable = new VisTable();
-        weaponTable.add(swordSlot = buildSlot(EquipmentSlots.WEAPON));
-        weaponTable.add(shieldSlot = buildSlot(EquipmentSlots.SHIELD));
+        weaponTable.add(swordSlot = buildSlot(EquipmentSlotTypes.WEAPON));
+        weaponTable.add(shieldSlot = buildSlot(EquipmentSlotTypes.SHIELD));
         equipmentSlotsTable.add(weaponTable);
 
         /*
@@ -148,11 +148,11 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
     /**
      * Builds an equipment slot for the player to equip and unequip {@link com.valenguard.client.game.inventory.ItemStack}
      *
-     * @param equipmentSlots The equipment slot that defines th
+     * @param equipmentSlotTypes The equipment slot that defines th
      * @return A {@link ItemStackSlot} to place in this {@link EquipmentWindow}
      */
-    private ItemStackSlot buildSlot(EquipmentSlots equipmentSlots) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(equipmentSlots.getSlotIndex(), equipmentSlots.getAcceptedItemStackTypes());
+    private ItemStackSlot buildSlot(EquipmentSlotTypes equipmentSlotTypes) {
+        ItemStackSlot itemStackSlot = new ItemStackSlot(equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
         itemStackSlot.build();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));

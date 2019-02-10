@@ -33,7 +33,7 @@ public class PathFinding {
         return current;
     }
 
-    private void initializeGrid(int startX, int startY, String mapName) {
+    private void initializeGrid(int startX, int startY, int finalX, int finalY, String mapName, boolean ignoreFinalCollision) {
 
         int bottomX = startX - ALGORITHM_RADIUS;
         int bottomY = startY - ALGORITHM_RADIUS;
@@ -44,8 +44,22 @@ public class PathFinding {
                 int worldY = bottomY + j;
                 Tile worldTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), worldX, worldY));
 
-                grid[i][j] = worldTile == null ? null :
-                        !worldTile.isFlagSet(Tile.TRAVERSABLE) ? null : new MoveNode(worldX, worldY, i, j);
+                if (worldTile == null) {
+                    grid[i][j] = null;
+                } else if (!worldTile.isFlagSet(Tile.TRAVERSABLE)) {
+                    if (ignoreFinalCollision) {
+                        if (worldX == finalX && worldY == finalY) {
+                            System.out.println("FINAL [X,Y] = " + "[" + worldX + ", " + worldY + "]");
+                            grid[i][j] = new MoveNode(worldX, worldY, i, j);
+                        } else {
+                            grid[i][j] = null;
+                        }
+                    } else {
+                        grid[i][j] = null;
+                    }
+                } else {
+                    grid[i][j] = new MoveNode(worldX, worldY, i, j);
+                }
             }
         }
 
@@ -59,14 +73,15 @@ public class PathFinding {
         }
     }
 
-    private boolean initialConditions(int startX, int startY, int finalX, int finalY) {
+    private boolean initialConditions(int startX, int startY, int finalX, int finalY, boolean ignoreFinalCollision) {
         if (startX == finalX && startY == finalY) return false;
 
         Tile startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
         Tile endTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), finalX, finalY));
 
         if (startTile == null || !startTile.isFlagSet(Tile.TRAVERSABLE)) return false;
-        if (endTile == null || !endTile.isFlagSet(Tile.TRAVERSABLE)) return false;
+        if (endTile == null) return false;
+        if (!ignoreFinalCollision && !endTile.isFlagSet(Tile.TRAVERSABLE)) return false;
         return Math.abs(finalX - startX) <= ALGORITHM_RADIUS && Math.abs(finalY - startY) <= ALGORITHM_RADIUS;
     }
 
@@ -91,10 +106,10 @@ public class PathFinding {
         }
     }
 
-    public Queue<MoveNode> findPath(int startX, int startY, int finalX, int finalY, String mapName) {
-        if (!initialConditions(startX, startY, finalX, finalY)) return null;
+    public Queue<MoveNode> findPath(int startX, int startY, int finalX, int finalY, String mapName, boolean ignoreFinalCollision) {
+        if (!initialConditions(startX, startY, finalX, finalY, ignoreFinalCollision)) return null;
 
-        initializeGrid(startX, startY, mapName);
+        initializeGrid(startX, startY, finalX, finalY, mapName, ignoreFinalCollision);
 
         // Start node
         openSet.add(grid[ALGORITHM_RADIUS][ALGORITHM_RADIUS]);
