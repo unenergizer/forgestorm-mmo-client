@@ -29,7 +29,7 @@ public class ClientPlayerMovementManager {
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
 
     void playerMove(PlayerClient playerClient, Queue<MoveNode> nodes) {
-        checkArgument(!nodes.isEmpty(), "Tried to tell the player to move nowhere.");
+        if (nodes.isEmpty()) return;
         movements = nodes;
         // todo: consider checking to see if they're moving
 
