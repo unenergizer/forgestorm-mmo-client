@@ -116,7 +116,7 @@ public class ClientPlayerMovementManager {
                 println(getClass(), "Predicted to move  the player: " + predictedDirection, false, PRINT_DEBUG);
 
                 // Setting the future here to prevent the snapping forward of
-                // the player on the next tick.
+                // the player on the next startTracking.
                 playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
                 Queue<MoveNode> singleMoveNode = Valenguard.getInstance().getClientMovementProcessor().getNodeForDirection(
                         playerClient,

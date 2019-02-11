@@ -117,8 +117,8 @@ public class MouseManager {
         for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
 
-                // New Entity click so lets cancel entityTracker
-                Valenguard.getInstance().getEntityTracker().cancel();
+                // New Entity click so lets cancelTracking entityTracker
+                Valenguard.getInstance().getEntityTracker().cancelTracking();
 
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), false);
                 if (testMoveNodes == null) break;
@@ -128,7 +128,7 @@ public class MouseManager {
                     moveNodes.add(testMoveNodes.remove());
                 }
 
-                Valenguard.getInstance().getEntityTracker().track(movingEntity);
+                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
                 println(getClass(), "Interacting with moving entity");
                 break;
             }
@@ -148,8 +148,8 @@ public class MouseManager {
                         new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, stationaryEntity)).sendPacket();
                     }
                 } else {
-                    // New Entity click so lets cancel entityTracker
-                    Valenguard.getInstance().getEntityTracker().cancel();
+                    // New Entity click so lets cancelTracking entityTracker
+                    Valenguard.getInstance().getEntityTracker().cancelTracking();
 
                     // Top right quad
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), true);
@@ -166,8 +166,8 @@ public class MouseManager {
 
         // Click to walk path finding
         if (moveNodes == null) {
-            // New Entity click so lets cancel entityTracker
-            Valenguard.getInstance().getEntityTracker().cancel();
+            // New Entity click so lets cancelTracking entityTracker
+            Valenguard.getInstance().getEntityTracker().cancelTracking();
             moveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), false);
         }
 

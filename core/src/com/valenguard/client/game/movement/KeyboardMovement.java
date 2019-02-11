@@ -47,8 +47,8 @@ public class KeyboardMovement {
 
         if (moveDirection == null) return;
 
-        // New Entity click so lets cancel entityTracker
-        Valenguard.getInstance().getEntityTracker().cancel();
+        // New Entity click so lets cancelTracking entityTracker
+        Valenguard.getInstance().getEntityTracker().cancelTracking();
 
         addMoveKey(moveDirection);
 
