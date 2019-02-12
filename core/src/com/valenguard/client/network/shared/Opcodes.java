@@ -20,6 +20,7 @@ public class Opcodes {
     public static final byte INIT_MAP = 0x05;
     public static final byte EXPERIENCE = 0x06;
     public static final byte ATTRIBUTES_UPDATE = 0x07;
+    public static final byte PLAYER_TELEPORT = 0x08;
 
     /**
      * CLIENT -> SERVER
