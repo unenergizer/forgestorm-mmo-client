@@ -62,8 +62,8 @@ public class MovingEntity extends Entity {
      * Entity name drawing
      */
     private boolean glyphInitialized = false;
-    private GlyphLayout regularText = new GlyphLayout();
-    private GlyphLayout shadowText = new GlyphLayout();
+    private final GlyphLayout regularText = new GlyphLayout();
+    private final GlyphLayout shadowText = new GlyphLayout();
 
     public void drawEntityName() {
         float x = getDrawX() + 8;
@@ -92,10 +92,40 @@ public class MovingEntity extends Entity {
         }
 
         font.setColor(Color.BLACK);
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowText, x - (shadowText.width / 2) + .5f, y - .5f);
+        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowText, x - (shadowText.width / 2) + .25f, y - .25f);
 
         font.setColor(Color.GOLD);
         font.draw(Valenguard.gameScreen.getSpriteBatch(), regularText, x - (regularText.width / 2), y);
+    }
+
+    private final GlyphLayout regularFloatingNumber = new GlyphLayout();
+    private final GlyphLayout shadowFloatingNumber = new GlyphLayout();
+    private float distanceMoved = 0;
+    private int damageTaken = 0;
+    private boolean showDamage = false;
+
+    public void drawFloatingNumbers() {
+        if (damageTaken == 0) return;
+        float x = getDrawX() + 8;
+        float y = getDrawY() + 8 + distanceMoved;
+
+        BitmapFont font = Valenguard.gameScreen.getFont();
+        font.getData().setScale(.5f);
+
+        font.setColor(Color.BLACK);
+        shadowFloatingNumber.setText(font, Integer.toString(damageTaken));
+        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowFloatingNumber, x - (shadowFloatingNumber.width / 2) + .25f, y - .25f);
+
+        font.setColor(Color.RED);
+        regularFloatingNumber.setText(font, Integer.toString(damageTaken));
+        font.draw(Valenguard.gameScreen.getSpriteBatch(), regularFloatingNumber, x - (regularFloatingNumber.width / 2), y);
+
+        distanceMoved = distanceMoved + 0.11f;
+        if (distanceMoved >= 8) {
+            distanceMoved = 0;
+            damageTaken = 0;
+            showDamage = false;
+        }
     }
 
     public void addLocationToFutureQueue(Location location) {

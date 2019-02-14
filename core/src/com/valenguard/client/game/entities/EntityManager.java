@@ -65,8 +65,14 @@ public class EntityManager implements Disposable {
     }
 
     public void drawEntityNames() {
-        for (Entity entity : movingEntityList.values()) {
-            if (entity instanceof MovingEntity) ((MovingEntity) entity).drawEntityName();
+        for (MovingEntity movingEntity : movingEntityList.values()) {
+            movingEntity.drawEntityName();
+        }
+    }
+
+    public void drawDamageNumbers() {
+        for (MovingEntity movingEntity : movingEntityList.values()) {
+            movingEntity.drawFloatingNumbers();
         }
     }
 

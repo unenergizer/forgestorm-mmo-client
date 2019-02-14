@@ -23,6 +23,7 @@ import com.valenguard.client.network.PlayerSession;
 import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
 import com.valenguard.client.network.packet.in.EntityAppearancePacketIn;
 import com.valenguard.client.network.packet.in.EntityAttributesUpdatePacketIn;
+import com.valenguard.client.network.packet.in.EntityDamagePacketIn;
 import com.valenguard.client.network.packet.in.EntityDespawnPacketIn;
 import com.valenguard.client.network.packet.in.EntityMovePacketIn;
 import com.valenguard.client.network.packet.in.EntitySpawnPacketIn;
@@ -166,6 +167,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new SkillExperiencePacketIn());
                         eventBus.registerListener(new EntityAttributesUpdatePacketIn());
                         eventBus.registerListener(new PlayerTeleportPacketIn());
+                        eventBus.registerListener(new EntityDamagePacketIn());
                     }
                 });
     }

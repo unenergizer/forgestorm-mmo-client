@@ -72,6 +72,6 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
     class PlayerTeleportPacket extends PacketData {
         private final short entityId;
         private final Location teleportLocation;
-        private MoveDirection facingDirection;
+        private final MoveDirection facingDirection;
     }
 }

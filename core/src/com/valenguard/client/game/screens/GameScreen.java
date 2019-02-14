@@ -131,13 +131,14 @@ public class GameScreen implements Screen {
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
         EntityManager.getInstance().drawEntityNames();
+        EntityManager.getInstance().drawDamageNumbers();
         playerClient.drawEntityName();
+        playerClient.drawFloatingNumbers();
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         stageHandler.render(delta);
-
     }
 
     private void tickGameLogic(float delta) {
