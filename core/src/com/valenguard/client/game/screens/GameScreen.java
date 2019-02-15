@@ -142,14 +142,23 @@ public class GameScreen implements Screen {
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         Valenguard.getInstance().getMouseManager().drawMoveNodes(spriteBatch);
+
+        // Animate
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
+
+        // Draw Names
         EntityManager.getInstance().drawEntityNames();
-        EntityManager.getInstance().drawDamageNumbers();
-        EntityManager.getInstance().drawHealthBar();
         playerClient.drawEntityName();
-        playerClient.drawFloatingNumbers();
+
+        // Draw HP Bar
+        EntityManager.getInstance().drawHealthBar();
         playerClient.drawEntityHpBar();
+
+        // Draw damage indicators
+        EntityManager.getInstance().drawDamageNumbers();
+        playerClient.drawFloatingNumbers();
+
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();

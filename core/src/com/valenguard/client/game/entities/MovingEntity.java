@@ -72,6 +72,7 @@ public class MovingEntity extends Entity {
 
         BitmapFont font = Valenguard.gameScreen.getFont();
         if (!glyphInitialized) {
+            font.getData().setScale(.5f);
             if (getEntityType() == EntityType.NPC) {
                 font.setColor(Color.BLACK);
                 shadowText.setText(font, getEntityName());
@@ -95,6 +96,7 @@ public class MovingEntity extends Entity {
         font.setColor(Color.BLACK);
         font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowText, x - (shadowText.width / 2) + .3f, y - .3f);
 
+        font.getData().setScale(.5f);
         font.setColor(Color.GOLD);
         font.draw(Valenguard.gameScreen.getSpriteBatch(), regularText, x - (regularText.width / 2), y);
     }
@@ -111,18 +113,19 @@ public class MovingEntity extends Entity {
         float y = getDrawY() + 8 + distanceMoved;
 
         BitmapFont font = Valenguard.gameScreen.getFont();
-        font.getData().setScale(1f);
 
+        font.getData().setScale(1f);
         font.setColor(Color.BLACK);
         shadowFloatingNumber.setText(font, Integer.toString(damageTaken));
         font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowFloatingNumber, x - (shadowFloatingNumber.width / 2) + .3f, y - .3f);
 
+        font.getData().setScale(1f);
         font.setColor(Color.RED);
         regularFloatingNumber.setText(font, Integer.toString(damageTaken));
         font.draw(Valenguard.gameScreen.getSpriteBatch(), regularFloatingNumber, x - (regularFloatingNumber.width / 2), y);
 
         distanceMoved = distanceMoved + 0.11f;
-        if (distanceMoved >= 8) {
+        if (distanceMoved >= 9) {
             distanceMoved = 0;
             damageTaken = 0;
             showDamage = false;
@@ -139,8 +142,8 @@ public class MovingEntity extends Entity {
         float width = 14;
         float xPos = x - (width / 2);
         GameScreen gameScreen = Valenguard.gameScreen;
-        gameScreen.getSpriteBatch().draw(gameScreen.getHpBase(), xPos, y, width, 3);
-        gameScreen.getSpriteBatch().draw(gameScreen.getHpArea(), xPos, y + 1, width * ((float) currentHealth / maxHealth), 1);
+        gameScreen.getSpriteBatch().draw(gameScreen.getHpBase(), xPos, y, width, 1);
+        gameScreen.getSpriteBatch().draw(gameScreen.getHpArea(), xPos, y, width * ((float) currentHealth / maxHealth), 1);
     }
 
     public void addLocationToFutureQueue(Location location) {
