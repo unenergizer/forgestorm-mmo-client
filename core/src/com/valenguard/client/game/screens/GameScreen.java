@@ -3,6 +3,8 @@ package com.valenguard.client.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -53,6 +55,10 @@ public class GameScreen implements Screen {
     // TODO: RELOCATE
     private Keyboard keyboard = new Keyboard();
 
+    // TODO: RELOCATE
+    private Texture hpBase;
+    private Texture hpArea;
+
     @Override
     public void show() {
         println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
@@ -95,6 +101,14 @@ public class GameScreen implements Screen {
 
         // Handle Music
         Valenguard.getInstance().getMusicManager().stopSong(true);
+
+        // Create HealthBar textures
+        int width = 1;
+        int height = 1;
+        Pixmap hpBasePixmap = createProceduralPixmap(width, height, Color.BLACK);
+        Pixmap hpAreaPixmap = createProceduralPixmap(width, height, Color.GREEN);
+        hpBase = new Texture(hpBasePixmap);
+        hpArea = new Texture(hpAreaPixmap);
     }
 
     private int srcX = 0; //TODO RELOCATE PARALLAX BG
@@ -132,13 +146,24 @@ public class GameScreen implements Screen {
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
         EntityManager.getInstance().drawEntityNames();
         EntityManager.getInstance().drawDamageNumbers();
+        EntityManager.getInstance().drawHealthBar();
         playerClient.drawEntityName();
         playerClient.drawFloatingNumbers();
+        playerClient.drawEntityHpBar();
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         stageHandler.render(delta);
+    }
+
+    private Pixmap createProceduralPixmap(int width, int height, Color color) {
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
+
+        pixmap.setColor(color);
+        pixmap.fill();
+
+        return pixmap;
     }
 
     private void tickGameLogic(float delta) {

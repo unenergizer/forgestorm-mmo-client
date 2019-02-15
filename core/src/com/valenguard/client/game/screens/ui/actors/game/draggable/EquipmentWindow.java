@@ -48,8 +48,6 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
     @Getter
     private ItemStackSlot shieldSlot;
     @Getter
-    private VisLabel health;
-    @Getter
     private VisLabel armor;
     @Getter
     private VisLabel damage;
@@ -102,11 +100,9 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
           */
         VisTable equipmentStatsTable = new VisTable();
 
-        health = new VisLabel("Health: 0");
         armor = new VisLabel("Armor: 0");
         damage = new VisLabel("Damage: 0");
 
-        equipmentStatsTable.add(health).align(Align.topLeft).row();
         equipmentStatsTable.add(armor).align(Align.topLeft).row();
         equipmentStatsTable.add(damage).align(Align.topLeft).row();
 
@@ -126,7 +122,6 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         addListener(new StatsUpdateListener() {
             @Override
             protected void updateStats(Attributes playerClientAttributes) {
-                health.setText("Health: " + playerClientAttributes.getHealth());
                 armor.setText("Armor: " + playerClientAttributes.getArmor());
                 damage.setText("Damage: " + playerClientAttributes.getDamage());
             }

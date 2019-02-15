@@ -13,16 +13,15 @@ import lombok.AllArgsConstructor;
 
 import static com.valenguard.client.util.Log.println;
 
-@Opcode(getOpcode = Opcodes.ENTITY_DAMAGE_OUT)
-public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.PlayerTeleportPacket> {
+@Opcode(getOpcode = Opcodes.ENTITY_HEAL_OUT)
+public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn.PlayerTeleportPacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
-        final int health = clientHandler.readInt();
-        final int damageTaken = clientHandler.readInt();
+        final int healthGiven = clientHandler.readInt();
 
-        return new PlayerTeleportPacket(entityId, health, damageTaken);
+        return new PlayerTeleportPacket(entityId, healthGiven);
     }
 
     @Override
@@ -32,19 +31,15 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
         if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
             // Player damageTake and currentHealth indicator
 
-            playerClient.setDamageTaken(playerClient.getDamageTaken() + packetData.damageTaken);
-            playerClient.setShowDamage(true);
-            playerClient.setCurrentHealth(packetData.health);
-            println(getClass(), "PlayerClient ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken);
+            playerClient.setCurrentHealth(playerClient.getCurrentHealth() + packetData.healthGiven);
+            println(getClass(), "PlayerClient ID: " + packetData.entityId + ", HP GIVEN: " + packetData.healthGiven);
 
         } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
             // MovingEntity damageTake and currentHealth indicator
             MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-            movingEntity.setDamageTaken(packetData.damageTaken);
-            movingEntity.setShowDamage(true);
-            movingEntity.setCurrentHealth(packetData.health);
+            movingEntity.setCurrentHealth(movingEntity.getCurrentHealth() + packetData.healthGiven);
 
-            println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken);
+            println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP GIVEN: " + packetData.healthGiven);
         } else {
             println(getClass(), "Something should have teleported??");
         }
@@ -53,7 +48,6 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
     @AllArgsConstructor
     class PlayerTeleportPacket extends PacketData {
         private final short entityId;
-        private final int health;
-        private final int damageTaken;
+        private final int healthGiven;
     }
 }

@@ -76,6 +76,12 @@ public class EntityManager implements Disposable {
         }
     }
 
+    public void drawHealthBar() {
+        for (MovingEntity movingEntity : movingEntityList.values()) {
+            movingEntity.drawEntityHpBar();
+        }
+    }
+
     @Override
     public void dispose() {
         movingEntityList.clear();

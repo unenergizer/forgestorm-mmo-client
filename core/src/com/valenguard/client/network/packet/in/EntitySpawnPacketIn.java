@@ -46,6 +46,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         float moveSpeed = 0.0f;
         short[] textureIds = null;
         byte colorId = -1;
+        int maxHealth = 0;
+        int currentHealth = 0;
 
         checkNotNull(entityType, "EntityType can not be null!");
 
@@ -77,6 +79,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         if (entityType != EntityType.ITEM && entityType != EntityType.SKILL_NODE) {
             directionalByte = clientHandler.readByte();
             moveSpeed = clientHandler.readFloat();
+            maxHealth = clientHandler.readInt();
+            currentHealth = clientHandler.readInt();
         }
 
         println(getClass(), "===================================", false, PRINT_DEBUG);
@@ -100,7 +104,9 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 textureIds,
                 colorId,
                 directionalByte,
-                moveSpeed
+                moveSpeed,
+                maxHealth,
+                currentHealth
         );
     }
 
@@ -205,6 +211,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setFacingDirection(facingDirection);
         entity.setMoveSpeed(packetData.moveSpeed);
 
+        // setup health
+        entity.setMaxHealth(packetData.maxHealth);
+        entity.setCurrentHealth(packetData.currentHealth);
+
         if (!(entity instanceof PlayerClient))
             EntityManager.getInstance().addMovingEntity(packetData.entityId, entity);
     }
@@ -220,5 +230,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final byte colorId;
         private final byte facingMoveDirectionByte;
         private final float moveSpeed;
+        private final int maxHealth;
+        private final int currentHealth;
     }
 }

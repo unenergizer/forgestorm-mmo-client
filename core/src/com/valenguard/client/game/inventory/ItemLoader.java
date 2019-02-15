@@ -61,9 +61,6 @@ class ItemLoader {
             Attributes attributes = new Attributes();
             Integer stat;
 
-            stat = (Integer) itemNode.get("health");
-            if (stat != null) attributes.setHealth(stat);
-
             stat = (Integer) itemNode.get("damage");
             if (stat != null) attributes.setDamage(stat);
 
@@ -85,7 +82,6 @@ class ItemLoader {
             println(getClass(), "Atlas: " + atlas, false, PRINT_DEBUG);
             println(getClass(), "Region: " + region, false, PRINT_DEBUG);
 
-            println(getClass(), "Health: " + attributes.getHealth(), false, PRINT_DEBUG && attributes.getHealth() != 0);
             println(getClass(), "Damage: " + attributes.getDamage(), false, PRINT_DEBUG && attributes.getDamage() != 0);
             println(getClass(), "Armor: " + attributes.getArmor(), false, PRINT_DEBUG && attributes.getArmor() != 0);
 

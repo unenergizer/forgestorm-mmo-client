@@ -85,7 +85,6 @@ public class DebugTable extends VisTable implements Buildable {
             playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getMapName());
             playerPixel.setText("Player X: " + playerClient.getDrawX() + ", Y: " + playerClient.getDrawY());
 
-            health.setText("Health: " + playerClient.getAttributes().getHealth());
             armor.setText("Armor: " + playerClient.getAttributes().getArmor());
             damage.setText("Damage: " + playerClient.getAttributes().getDamage());
         }

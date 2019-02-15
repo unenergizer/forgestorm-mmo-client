@@ -10,6 +10,7 @@ import com.valenguard.client.game.entities.animations.EntityAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.rpg.Attributes;
+import com.valenguard.client.game.screens.GameScreen;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -71,7 +72,6 @@ public class MovingEntity extends Entity {
 
         BitmapFont font = Valenguard.gameScreen.getFont();
         if (!glyphInitialized) {
-            font.getData().setScale(.5f);
             if (getEntityType() == EntityType.NPC) {
                 font.setColor(Color.BLACK);
                 shadowText.setText(font, getEntityName());
@@ -91,8 +91,9 @@ public class MovingEntity extends Entity {
             glyphInitialized = true;
         }
 
+        font.getData().setScale(.5f);
         font.setColor(Color.BLACK);
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowText, x - (shadowText.width / 2) + .25f, y - .25f);
+        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowText, x - (shadowText.width / 2) + .3f, y - .3f);
 
         font.setColor(Color.GOLD);
         font.draw(Valenguard.gameScreen.getSpriteBatch(), regularText, x - (regularText.width / 2), y);
@@ -110,11 +111,11 @@ public class MovingEntity extends Entity {
         float y = getDrawY() + 8 + distanceMoved;
 
         BitmapFont font = Valenguard.gameScreen.getFont();
-        font.getData().setScale(.5f);
+        font.getData().setScale(1f);
 
         font.setColor(Color.BLACK);
         shadowFloatingNumber.setText(font, Integer.toString(damageTaken));
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowFloatingNumber, x - (shadowFloatingNumber.width / 2) + .25f, y - .25f);
+        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowFloatingNumber, x - (shadowFloatingNumber.width / 2) + .3f, y - .3f);
 
         font.setColor(Color.RED);
         regularFloatingNumber.setText(font, Integer.toString(damageTaken));
@@ -126,6 +127,20 @@ public class MovingEntity extends Entity {
             damageTaken = 0;
             showDamage = false;
         }
+    }
+
+    // TODO: CLEAN ME
+    int maxHealth;
+    int currentHealth; // get temp hp (to start)
+
+    public void drawEntityHpBar() {
+        float x = getDrawX() + 8;
+        float y = getDrawY() + 16;
+        float width = 14;
+        float xPos = x - (width / 2);
+        GameScreen gameScreen = Valenguard.gameScreen;
+        gameScreen.getSpriteBatch().draw(gameScreen.getHpBase(), xPos, y, width, 3);
+        gameScreen.getSpriteBatch().draw(gameScreen.getHpArea(), xPos, y + 1, width * ((float) currentHealth / maxHealth), 1);
     }
 
     public void addLocationToFutureQueue(Location location) {

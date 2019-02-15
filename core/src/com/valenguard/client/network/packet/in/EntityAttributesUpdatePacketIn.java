@@ -23,12 +23,10 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
-        final int health = clientHandler.readInt();
         final int armor = clientHandler.readInt();
         final int damage = clientHandler.readInt();
 
         Attributes attributesUpdate = new Attributes();
-        attributesUpdate.setHealth(health);
         attributesUpdate.setArmor(armor);
         attributesUpdate.setDamage(damage);
 
@@ -38,7 +36,6 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
     @Override
     public void onEvent(EntityAttributesUpdatePacket packetData) {
         println(getClass(), "ID: " + packetData.entityId);
-        println(getClass(), "Health: " + packetData.attributes.getHealth());
         println(getClass(), "Armor: " + packetData.attributes.getArmor());
         println(getClass(), "Damage: " + packetData.attributes.getDamage());
 
@@ -46,7 +43,6 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
         if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
             // Update PlayerClient live attributes
             Attributes attributes = playerClient.getAttributes();
-            attributes.setHealth(packetData.attributes.getHealth());
             attributes.setArmor(packetData.attributes.getArmor());
             attributes.setDamage(packetData.attributes.getDamage());
 
@@ -60,7 +56,6 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
         } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
             MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
             Attributes attributes = movingEntity.getAttributes();
-            attributes.setHealth(packetData.attributes.getHealth());
             attributes.setArmor(packetData.attributes.getArmor());
             attributes.setDamage(packetData.attributes.getDamage());
 
