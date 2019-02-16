@@ -342,6 +342,7 @@
     <property name="bounds2x" type="int" value="53"/>
     <property name="bounds2y" type="int" value="33"/>
     <property name="direction" value="SOUTH"/>
+    <property name="dropTable" type="int" value="0"/>
     <property name="probabilityStill" type="float" value="0.3"/>
     <property name="probabilityWalkStart" type="float" value="0.7"/>
     <property name="speed" type="float" value="0.4"/>

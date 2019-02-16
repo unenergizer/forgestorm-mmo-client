@@ -13,7 +13,7 @@ public class ClientConstants {
     public static final String WEB_LOST_PASSWORD = "http://valenguard.com/lost-password/";
     public static final int TILE_SIZE = 16;
     public static final String MAP_DIRECTORY = "data/maps";
-    public static final float namePlateDistanceInPixels = 6;
+    public static final float namePlateDistanceInPixels = 4;
 
     public static boolean MONITOR_MOVEMENT_CHECKS = false;
 }

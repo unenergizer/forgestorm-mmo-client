@@ -4,7 +4,7 @@ public enum EntityType {
     CLIENT_PLAYER,
     PLAYER,
     NPC,
-    ITEM,
+    ITEM_STACK,
     MONSTER,
     SKILL_NODE;
 

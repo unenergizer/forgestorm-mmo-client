@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,9 @@ public class EntityManager implements Disposable {
     @Getter
     private Map<Short, StationaryEntity> stationaryEntityList = new HashMap<Short, StationaryEntity>();
 
+    @Getter
+    private Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
+
     public void addMovingEntity(short entityId, MovingEntity entity) {
         movingEntityList.put(entityId, entity);
     }
@@ -55,12 +59,31 @@ public class EntityManager implements Disposable {
         return stationaryEntityList.get(entityId);
     }
 
+    public void addItemStackDrop(short entityId, ItemStackDrop entity) {
+        itemStackDropList.put(entityId, entity);
+    }
+
+    public void removeItemStackDrop(Short entityId) {
+        itemStackDropList.remove(entityId);
+    }
+
+    public ItemStackDrop getItemStackDrop(short entityId) {
+        return itemStackDropList.get(entityId);
+    }
+
     public void drawEntityBodies(float delta, SpriteBatch spriteBatch) {
-        for (MovingEntity movingEntity : movingEntityList.values()) {
-            movingEntity.getEntityAnimation().animate(delta, spriteBatch);
+        // Draw Items on ground
+        for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
+            ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack((int) itemStackDrop.getAppearance().getTextureId(0), 1);
+            spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX(), itemStackDrop.getDrawY());
         }
+        // Draw over items
         for (StationaryEntity stationaryEntity : stationaryEntityList.values()) {
             spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getTextureId(0)), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
+        }
+        // Draw moving entities over items and stationary entities
+        for (MovingEntity movingEntity : movingEntityList.values()) {
+            movingEntity.getEntityAnimation().animate(delta, spriteBatch);
         }
     }
 
@@ -85,7 +108,7 @@ public class EntityManager implements Disposable {
     @Override
     public void dispose() {
         movingEntityList.clear();
-        stationaryEntityList.clear();
+        itemStackDropList.clear();
         playerClient = null;
     }
 }

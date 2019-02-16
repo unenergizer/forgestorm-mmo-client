@@ -7,6 +7,7 @@ import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
+import com.valenguard.client.game.entities.ItemStackDrop;
 import com.valenguard.client.game.entities.MOB;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.Player;
@@ -32,7 +33,7 @@ import static com.valenguard.client.util.Preconditions.checkNotNull;
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -54,7 +55,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         switch (entityType) {
             case SKILL_NODE:
             case MONSTER:
-            case ITEM:
+            case ITEM_STACK:
                 textureIds = new short[1];
                 textureIds[Appearance.BODY] = clientHandler.readShort();
                 break;
@@ -76,7 +77,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         }
 
 
-        if (entityType != EntityType.ITEM && entityType != EntityType.SKILL_NODE) {
+        if (entityType != EntityType.ITEM_STACK && entityType != EntityType.SKILL_NODE) {
             directionalByte = clientHandler.readByte();
             moveSpeed = clientHandler.readFloat();
             maxHealth = clientHandler.readInt();
@@ -120,7 +121,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             entity = spawnPlayer(packetData);
         } else if (packetData.entityType == EntityType.NPC) {
             entity = spawnMOB(packetData);
-        } else if (packetData.entityType == EntityType.ITEM) {
+        } else if (packetData.entityType == EntityType.ITEM_STACK) {
             entity = spawnItem(packetData);
         } else if (packetData.entityType == EntityType.MONSTER) {
             entity = spawnMOB(packetData);
@@ -152,7 +153,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);
                 break;
             case SKILL_NODE:
-            case ITEM:
+            case ITEM_STACK:
                 // TODO: Implement or ignore entity type for animation
                 break;
         }
@@ -197,7 +198,9 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnItem(EntitySpawnPacket packetData) {
-        return null;
+        Entity entity = new ItemStackDrop();
+        EntityManager.getInstance().addItemStackDrop(packetData.entityId, (ItemStackDrop) entity);
+        return entity;
     }
 
     private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData) {
