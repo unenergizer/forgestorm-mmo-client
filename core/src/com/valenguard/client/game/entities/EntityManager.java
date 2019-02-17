@@ -108,6 +108,7 @@ public class EntityManager implements Disposable {
     @Override
     public void dispose() {
         movingEntityList.clear();
+        stationaryEntityList.clear();
         itemStackDropList.clear();
         playerClient = null;
     }

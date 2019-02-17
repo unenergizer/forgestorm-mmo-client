@@ -322,7 +322,7 @@
  <objectgroup id="9" name="entity">
   <object id="19" name="Concerned Guy" type="NPC" x="704" y="384" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="19"/>
     <property name="atlasHeadId" type="int" value="2"/>
     <property name="bounds1x" type="int" value="42"/>
@@ -333,21 +333,6 @@
     <property name="probabilityStill" type="float" value="0.5"/>
     <property name="probabilityWalkStart" type="float" value="0.5"/>
     <property name="speed" type="float" value="0.3"/>
-   </properties>
-  </object>
-  <object id="21" name="Evil Joseph" type="MONSTER" x="704" y="480" width="16" height="16">
-   <properties>
-    <property name="alignment" value="HOSTILE"/>
-    <property name="atlasBodyId" type="int" value="0"/>
-    <property name="bounds1x" type="int" value="41"/>
-    <property name="bounds1y" type="int" value="21"/>
-    <property name="bounds2x" type="int" value="53"/>
-    <property name="bounds2y" type="int" value="33"/>
-    <property name="direction" value="SOUTH"/>
-    <property name="dropTable" type="int" value="0"/>
-    <property name="probabilityStill" type="float" value="0.3"/>
-    <property name="probabilityWalkStart" type="float" value="0.7"/>
-    <property name="speed" type="float" value="0.4"/>
    </properties>
   </object>
  </objectgroup>
