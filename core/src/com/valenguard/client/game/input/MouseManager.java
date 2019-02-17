@@ -8,6 +8,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.ItemStackDrop;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
@@ -116,6 +117,9 @@ public class MouseManager {
 
         Queue<MoveNode> moveNodes = null;
         for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+
+            if (movingEntity.getEntityType() == EntityType.PLAYER) continue;
+
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
 
                 // New Entity click so lets cancelTracking entityTracker
@@ -220,6 +224,19 @@ public class MouseManager {
         int playerTileX = playerClient.getCurrentMapLocation().getX();
         int playerTileY = playerClient.getCurrentMapLocation().getY();
 
+        // clicking the player to bring up an option menu.
+        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+
+            if (movingEntity.getEntityType() != EntityType.PLAYER) continue;
+
+            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
+
+                Valenguard.getInstance().getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, screenY);
+
+                break;
+            }
+        }
+
         for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
                 Location location = stationaryEntity.getCurrentMapLocation();
@@ -230,7 +247,6 @@ public class MouseManager {
                             (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
                             (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
                         // The player is requesting to interact with the entity.
-                        System.out.println("Interacting with entity");
                         new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, stationaryEntity)).sendPacket();
                     }
                 }

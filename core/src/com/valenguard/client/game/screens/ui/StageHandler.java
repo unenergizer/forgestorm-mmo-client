@@ -17,6 +17,7 @@ import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
+import com.valenguard.client.game.screens.ui.actors.game.DropDownMenu;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
@@ -57,6 +58,7 @@ public class StageHandler implements Disposable {
     private ButtonBar buttonBar;
     private DebugTable debugTable;
     private FPSTable fpsTable;
+    private DropDownMenu dropDownMenu;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -115,6 +117,7 @@ public class StageHandler implements Disposable {
         equipmentWindow = new EquipmentWindow();
         buttonBar = new ButtonBar();
         fpsTable = new FPSTable();
+        dropDownMenu = new DropDownMenu();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -124,6 +127,7 @@ public class StageHandler implements Disposable {
         stage.addActor(escapeWindow.build());
         stage.addActor(buttonBar.build());
         stage.addActor(fpsTable.build());
+        stage.addActor(dropDownMenu.build());
 
         chatWindow.fadeIn().setVisible(true);
         buttonBar.setVisible(true);
