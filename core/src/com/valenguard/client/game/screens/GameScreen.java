@@ -159,6 +159,9 @@ public class GameScreen implements Screen {
         EntityManager.getInstance().drawDamageNumbers();
         playerClient.drawFloatingNumbers();
 
+        // Draw Level up messages
+        playerClient.drawLevelUpMessage();
+
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();

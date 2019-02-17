@@ -17,6 +17,8 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INIT_CLIENT_SESSION)
 public class InitializeClientSessionPacketIn implements PacketListener<InitializeClientSessionPacketIn.InitClientSessionPacket> {
 
+    private static final boolean PRINT_DEBUG = false;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final boolean successLogin = clientHandler.readBoolean();
@@ -32,11 +34,11 @@ public class InitializeClientSessionPacketIn implements PacketListener<Initializ
         // TODO: Check for authentication
 
         // Network connection was successful.
-        println(getClass(), "Connection successful!");
+        println(getClass(), "Connection successful!", false, PRINT_DEBUG);
         client.threadSafeConnectionMessage("Connection successful!");
-        
+
         println(getClass(), "LoginSuccess: " + packetData.loginSuccess
-                + " , Session Player Id: " + packetData.clientPlayerId);
+                + " , Session Player Id: " + packetData.clientPlayerId, false, PRINT_DEBUG);
 
         Valenguard.gameScreen.setPlayerSessionData(new PlayerSessionData(packetData.clientPlayerId));
         Valenguard.getInstance().setScreen(ScreenType.GAME);

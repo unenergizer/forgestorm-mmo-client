@@ -47,7 +47,7 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class Valenguard extends Game {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private static Valenguard valenguard;
     public static GameScreen gameScreen;

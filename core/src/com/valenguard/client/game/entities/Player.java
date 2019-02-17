@@ -5,7 +5,11 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.animations.HumanAnimation;
 
+import static com.valenguard.client.util.Log.println;
+
 public class Player extends MovingEntity {
+
+    private static final boolean PRINT_DEBUG = false;
 
     private TextureAtlas characterTextureAtlas;
 
@@ -18,7 +22,7 @@ public class Player extends MovingEntity {
     private void applyAppearance() {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
         short[] textureIds = getAppearance().getTextureIds();
-        System.out.println("APPLYING APPEARANCE");
+        println(getClass(), "APPLYING APPEARANCE", false, PRINT_DEBUG);
         if (textureIds[Appearance.HELM] != -1) {
             humanAnimation.loadHead(characterTextureAtlas, textureIds[Appearance.HELM]);
         } else {

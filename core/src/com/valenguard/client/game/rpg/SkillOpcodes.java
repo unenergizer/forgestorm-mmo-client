@@ -1,7 +1,21 @@
 package com.valenguard.client.game.rpg;
 
-class SkillOpcodes {
+public enum SkillOpcodes {
 
-    public static final byte MINING = 0x00;
+    MINING,
+    MELEE;
+
+    public static SkillOpcodes getSkillOpcode(byte entityTypeByte) {
+        for (SkillOpcodes skillOpcode : SkillOpcodes.values()) {
+            if ((byte) skillOpcode.ordinal() == entityTypeByte) {
+                return skillOpcode;
+            }
+        }
+        return null;
+    }
+
+    public byte getSkillOpcodeByte() {
+        return (byte) this.ordinal();
+    }
 
 }

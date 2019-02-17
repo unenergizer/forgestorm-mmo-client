@@ -14,6 +14,8 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.CHAT)
 public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.ChatMessagePacket> {
 
+    private final static boolean PRINT_DEBUG = false;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         return new ChatMessagePacket(clientHandler.readString());
@@ -21,7 +23,7 @@ public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.C
 
     @Override
     public void onEvent(ChatMessagePacket packetData) {
-        println(getClass(), packetData.chatMessage);
+        println(getClass(), packetData.chatMessage, false, PRINT_DEBUG);
         Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage(packetData.chatMessage);
     }
 

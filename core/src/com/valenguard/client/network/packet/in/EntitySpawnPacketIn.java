@@ -169,7 +169,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         PlayerClient playerClient = (PlayerClient) entity;
         AttachableCamera camera = Valenguard.gameScreen.getCamera();
-        println(EntitySpawnPacketIn.class, "Found player. Initializing the player");
+        println(EntitySpawnPacketIn.class, "Found player. Initializing the player", false, PRINT_DEBUG);
 
         // Attach entity to camera
         camera.attachEntity(playerClient);
@@ -196,7 +196,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnSkillNode(EntitySpawnPacket packetData) {
-        println(getClass(), "Spawning skill node!");
+        println(getClass(), "Spawning skill node!", false, PRINT_DEBUG);
         Entity entity = new SkillNode();
         EntityManager.getInstance().addStationaryEntity(packetData.entityId, (StationaryEntity) entity);
         return entity;

@@ -16,6 +16,8 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.ENTITY_DAMAGE_OUT)
 public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.PlayerTeleportPacket> {
 
+    private final static boolean PRINT_DEBUG = false;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
@@ -35,7 +37,7 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
             playerClient.setDamageTaken(playerClient.getDamageTaken() + packetData.damageTaken);
             playerClient.setShowDamage(true);
             playerClient.setCurrentHealth(packetData.health);
-            println(getClass(), "PlayerClient ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken);
+            println(getClass(), "PlayerClient ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
 
         } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
             // MovingEntity damageTake and currentHealth indicator
@@ -44,9 +46,9 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
             movingEntity.setShowDamage(true);
             movingEntity.setCurrentHealth(packetData.health);
 
-            println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken);
+            println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
         } else {
-            println(getClass(), "Something should have teleported??");
+            println(getClass(), "Something should have teleported??", true);
         }
     }
 

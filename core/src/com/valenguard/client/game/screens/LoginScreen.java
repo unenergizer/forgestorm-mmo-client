@@ -24,7 +24,7 @@ import static com.valenguard.client.util.Log.println;
 @Setter
 public class LoginScreen extends ScreenAdapter {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
