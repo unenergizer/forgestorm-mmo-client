@@ -8,6 +8,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.ItemStackDrop;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.StationaryEntity;
@@ -159,6 +160,35 @@ public class MouseManager {
                         moveNodes.add(testMoveNodes.remove());
                     }
 
+                }
+                break;
+            }
+        }
+
+        // Skill nodes like Mining and Fishing etc
+        for (ItemStackDrop itemStackDrop : EntityManager.getInstance().getItemStackDropList().values()) {
+            if (entityClickTest(itemStackDrop.getDrawX(), itemStackDrop.getDrawY())) {
+                Location location = itemStackDrop.getCurrentMapLocation();
+
+                if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
+                        (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
+                        (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
+                        (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                    // The player is requesting to interact with the entity.
+                    if (!MoveUtil.isEntityMoving(playerClient)) {
+                        new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
+                    }
+                } else {
+                    // New Entity click so lets cancelTracking entityTracker
+                    Valenguard.getInstance().getEntityTracker().cancelTracking();
+
+                    // Top right quad
+                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), true);
+                    if (testMoveNodes == null) break;
+                    moveNodes = new LinkedList<MoveNode>();
+                    for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+                        moveNodes.add(testMoveNodes.remove());
+                    }
                 }
                 break;
             }
