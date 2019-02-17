@@ -18,6 +18,7 @@ import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.entities.animations.MonsterAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -49,6 +50,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         byte colorId = -1;
         int maxHealth = 0;
         int currentHealth = 0;
+        byte entityAlignment = 0;
 
         checkNotNull(entityType, "EntityType can not be null!");
 
@@ -82,6 +84,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             moveSpeed = clientHandler.readFloat();
             maxHealth = clientHandler.readInt();
             currentHealth = clientHandler.readInt();
+
+            entityAlignment = clientHandler.readByte();
         }
 
         println(getClass(), "===================================", false, PRINT_DEBUG);
@@ -107,7 +111,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 directionalByte,
                 moveSpeed,
                 maxHealth,
-                currentHealth
+                currentHealth,
+                entityAlignment
         );
     }
 
@@ -218,6 +223,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setMaxHealth(packetData.maxHealth);
         entity.setCurrentHealth(packetData.currentHealth);
 
+        entity.setEntityAlignment(EntityAlignment.getEntityAlignment(packetData.entityAlignment));
+
         if (!(entity instanceof PlayerClient))
             EntityManager.getInstance().addMovingEntity(packetData.entityId, entity);
     }
@@ -235,5 +242,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final float moveSpeed;
         private final int maxHealth;
         private final int currentHealth;
+        private final byte entityAlignment;
     }
 }

@@ -10,6 +10,7 @@ import com.valenguard.client.game.entities.animations.EntityAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.rpg.Attributes;
+import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.GameScreen;
 
 import java.util.LinkedList;
@@ -60,6 +61,11 @@ public class MovingEntity extends Entity {
     private Attributes attributes = new Attributes();
 
     /**
+     * Entity Alignment
+     */
+    private EntityAlignment entityAlignment;
+
+    /**
      * Entity name drawing
      */
     private boolean glyphInitialized = false;
@@ -73,22 +79,10 @@ public class MovingEntity extends Entity {
         BitmapFont font = Valenguard.gameScreen.getFont();
         if (!glyphInitialized) {
             font.getData().setScale(.5f);
-            if (getEntityType() == EntityType.NPC) {
-                font.setColor(Color.BLACK);
-                shadowText.setText(font, getEntityName());
-                font.setColor(Color.LIME);
-                regularText.setText(font, getEntityName());
-            } else if (getEntityType() == EntityType.MONSTER) {
-                font.setColor(Color.BLACK);
-                shadowText.setText(font, getEntityName());
-                font.setColor(Color.RED);
-                regularText.setText(font, getEntityName());
-            } else {
-                font.setColor(Color.BLACK);
-                shadowText.setText(font, getEntityName());
-                font.setColor(Color.GOLD);
-                regularText.setText(font, getEntityName());
-            }
+            font.setColor(Color.BLACK);
+            shadowText.setText(font, getEntityName());
+            font.setColor(entityAlignment.getColor());
+            regularText.setText(font, getEntityName());
             glyphInitialized = true;
         }
 

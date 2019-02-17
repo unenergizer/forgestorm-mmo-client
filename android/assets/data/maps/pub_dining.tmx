@@ -278,6 +278,7 @@
  <objectgroup id="8" name="entity">
   <object id="24" name="Inn Keeper" type="NPC" x="752" y="416" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="58"/>
     <property name="atlasHeadId" type="int" value="21"/>
     <property name="bounds1x" type="int" value="41"/>
@@ -292,6 +293,7 @@
   </object>
   <object id="26" name="Busy Waitor" type="NPC" x="768" y="480" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="1"/>
     <property name="atlasHeadId" type="int" value="1"/>
     <property name="bounds1x" type="int" value="45"/>
@@ -306,6 +308,7 @@
   </object>
   <object id="27" name="Bob the Cook" type="NPC" x="704" y="320" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="49"/>
     <property name="atlasHeadId" type="int" value="35"/>
     <property name="bounds1x" type="int" value="41"/>
@@ -320,6 +323,7 @@
   </object>
   <object id="28" name="Niels" type="NPC" x="848" y="464" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="1"/>
     <property name="atlasHeadId" type="int" value="63"/>
     <property name="bounds1x" type="int" value="30"/>
@@ -334,6 +338,7 @@
   </object>
   <object id="29" name="Kenny" type="NPC" x="864" y="512" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="4"/>
     <property name="atlasHeadId" type="int" value="40"/>
     <property name="bounds1x" type="int" value="31"/>
@@ -348,6 +353,7 @@
   </object>
   <object id="30" name="ElevatorMan" type="NPC" x="720" y="480" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="41"/>
     <property name="atlasHeadId" type="int" value="38"/>
     <property name="bounds1x" type="int" value="22"/>
@@ -362,6 +368,7 @@
   </object>
   <object id="31" name="Tohmer" type="NPC" x="736" y="512" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="52"/>
     <property name="atlasHeadId" type="int" value="30"/>
     <property name="bounds1x" type="int" value="23"/>

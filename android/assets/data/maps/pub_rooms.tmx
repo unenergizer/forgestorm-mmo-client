@@ -332,6 +332,7 @@
  <objectgroup id="9" name="entity">
   <object id="20" name="Maid Jimmy" type="NPC" x="848" y="416" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="54"/>
     <property name="atlasHeadId" type="int" value="52"/>
     <property name="bounds1x" type="int" value="41"/>

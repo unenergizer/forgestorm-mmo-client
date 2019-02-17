@@ -403,6 +403,7 @@
  <objectgroup id="14" name="entity">
   <object id="26" name="crab" type="MONSTER" x="672" y="656" width="16" height="16">
    <properties>
+    <property name="alignment" value="NEUTRAL"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -417,6 +418,7 @@
   </object>
   <object id="39" name="crab" type="MONSTER" x="496" y="592" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -431,6 +433,7 @@
   </object>
   <object id="40" name="crab" type="MONSTER" x="400" y="432" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -445,6 +448,7 @@
   </object>
   <object id="41" name="crab" type="MONSTER" x="416" y="192" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -459,6 +463,7 @@
   </object>
   <object id="42" name="crab" type="MONSTER" x="672" y="144" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -473,6 +478,7 @@
   </object>
   <object id="43" name="crab" type="MONSTER" x="944" y="224" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -487,6 +493,7 @@
   </object>
   <object id="44" name="crab" type="MONSTER" x="1184" y="336" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -501,6 +508,7 @@
   </object>
   <object id="45" name="crab" type="MONSTER" x="1152" y="592" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -515,6 +523,7 @@
   </object>
   <object id="46" name="crab" type="MONSTER" x="1168" y="464" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -529,6 +538,7 @@
   </object>
   <object id="47" name="crab" type="MONSTER" x="912" y="624" width="16" height="16">
    <properties>
+    <property name="alignment" value="HOSTILE"/>
     <property name="atlasBodyId" type="int" value="16"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
@@ -543,6 +553,7 @@
   </object>
   <object id="48" name="Fishing Master" type="NPC" x="832" y="736" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="52"/>
     <property name="atlasHeadId" type="int" value="30"/>
     <property name="bounds1x" type="int" value="31"/>

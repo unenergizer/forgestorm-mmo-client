@@ -322,6 +322,7 @@
  <objectgroup id="9" name="entity">
   <object id="24" name="The Kid" type="NPC" x="544" y="624" width="16" height="16">
    <properties>
+    <property name="alignment" value="NEUTRAL"/>
     <property name="atlasBodyId" type="int" value="55"/>
     <property name="atlasHeadId" type="int" value="3"/>
     <property name="bounds1x" type="int" value="29"/>
@@ -336,6 +337,7 @@
   </object>
   <object id="25" name="The Father" type="NPC" x="896" y="352" width="16" height="16">
    <properties>
+    <property name="alignment" value="NEUTRAL"/>
     <property name="atlasBodyId" type="int" value="54"/>
     <property name="atlasHeadId" type="int" value="79"/>
     <property name="bounds1x" type="int" value="54"/>
@@ -350,6 +352,7 @@
   </object>
   <object id="26" name="The Mother" type="NPC" x="496" y="368" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="48"/>
     <property name="atlasHeadId" type="int" value="36"/>
     <property name="bounds1x" type="int" value="29"/>

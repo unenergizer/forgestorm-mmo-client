@@ -197,6 +197,7 @@
  <objectgroup id="22" name="entity">
   <object id="31" name="Old Man" type="NPC" x="688" y="432" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="18"/>
     <property name="atlasHeadId" type="int" value="40"/>
     <property name="bounds1x" type="int" value="20"/>
@@ -211,6 +212,7 @@
   </object>
   <object id="33" name="Unseen Eye" type="MONSTER" x="720" y="464" width="16" height="16">
    <properties>
+    <property name="alignment" value="FRIENDLY"/>
     <property name="atlasBodyId" type="int" value="30"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
