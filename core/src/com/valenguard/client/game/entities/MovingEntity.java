@@ -1,8 +1,6 @@
 package com.valenguard.client.game.entities;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
@@ -12,6 +10,7 @@ import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.GameScreen;
+import com.valenguard.client.util.GameTextUtil;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -68,55 +67,23 @@ public class MovingEntity extends Entity {
     /**
      * Entity name drawing
      */
-    private boolean glyphInitialized = false;
-    private final GlyphLayout regularText = new GlyphLayout();
-    private final GlyphLayout shadowText = new GlyphLayout();
-
     public void drawEntityName() {
         float x = getDrawX() + 8;
-        float y = getDrawY() + (16 + ClientConstants.namePlateDistanceInPixels);
+        float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
-        BitmapFont font = Valenguard.gameScreen.getFont();
-        if (!glyphInitialized) {
-            font.getData().setScale(.5f);
-            font.setColor(Color.BLACK);
-            shadowText.setText(font, getEntityName());
-            font.setColor(entityAlignment.getColor());
-            regularText.setText(font, getEntityName());
-            glyphInitialized = true;
-        }
-
-        font.getData().setScale(.5f);
-        font.setColor(Color.BLACK);
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowText, x - (shadowText.width / 2) + .3f, y - .3f);
-
-        font.getData().setScale(.5f);
-        font.setColor(Color.GOLD);
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), regularText, x - (regularText.width / 2), y);
+        GameTextUtil.drawMessage(getEntityName(), entityAlignment.getColor(), .5f, x, y);
     }
 
-    private final GlyphLayout regularFloatingNumber = new GlyphLayout();
-    private final GlyphLayout shadowFloatingNumber = new GlyphLayout();
     private float distanceMoved = 0;
     private int damageTaken = 0;
     private boolean showDamage = false;
 
     public void drawFloatingNumbers() {
-        if (damageTaken == 0) return;
+        if (!showDamage) return;
         float x = getDrawX() + 8;
         float y = getDrawY() + 8 + distanceMoved;
 
-        BitmapFont font = Valenguard.gameScreen.getFont();
-
-        font.getData().setScale(1f);
-        font.setColor(Color.BLACK);
-        shadowFloatingNumber.setText(font, Integer.toString(damageTaken));
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), shadowFloatingNumber, x - (shadowFloatingNumber.width / 2) + .3f, y - .3f);
-
-        font.getData().setScale(1f);
-        font.setColor(Color.RED);
-        regularFloatingNumber.setText(font, Integer.toString(damageTaken));
-        font.draw(Valenguard.gameScreen.getSpriteBatch(), regularFloatingNumber, x - (regularFloatingNumber.width / 2), y);
+        GameTextUtil.drawMessage(Integer.toString(damageTaken), Color.RED, 1f, x, y);
 
         distanceMoved = distanceMoved + 0.11f;
         if (distanceMoved >= 9) {
