@@ -20,14 +20,12 @@ import com.valenguard.client.util.PathFinding;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static com.valenguard.client.util.Log.println;
-
 public class DropDownMenu extends HideableVisWindow implements Buildable {
 
     private MovingEntity movingEntity;
     private TextButton follow;
     private TextButton trade;
-    private TextButton todo;
+    private TextButton cancel;
 
     private final PathFinding pathFinding = new PathFinding();
 
@@ -46,11 +44,11 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
         follow = new TextButton("Follow", VisUI.getSkin());
         trade = new TextButton("Trade", VisUI.getSkin());
-        todo = new TextButton("Coming soon!", VisUI.getSkin());
+        cancel = new TextButton("Cancel", VisUI.getSkin());
 
-        buttonTable.add(follow).fill().row();
-        buttonTable.add(trade).fill().row();
-        buttonTable.add(todo);
+        buttonTable.add(follow).expand().fill().row();
+        buttonTable.add(trade).expand().fill().row();
+        buttonTable.add(cancel).expand().fill();
 
         add(buttonTable);
 
@@ -83,14 +81,15 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 setVisible(false);
-                println(getClass(), "Trade button clicked");
+                Valenguard.getInstance().getStageHandler().getTradeWindow().toggleTradeWindow(movingEntity);
             }
         });
 
-        todo.addListener(new ChangeListener() {
+        cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                println(getClass(), "Coming soon button clicked");
+                setVisible(false);
+                closeOnEscape();
             }
         });
 

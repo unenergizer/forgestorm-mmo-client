@@ -26,11 +26,13 @@ public class ItemStackSource extends DragAndDrop.Source {
 
     @Override
     public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
-        if (target == null) itemStackSlot.setItemImage();
+        if (target == null && !itemStackSlot.isSlotLocked()) itemStackSlot.setItemImage();
     }
 
     @Override
     public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+        if (itemStackSlot.isSlotLocked()) return null;
+
         ItemStack itemStack = itemStackSlot.getItemStack();
 
         if (itemStack == null) return null;

@@ -169,7 +169,7 @@ public class MouseManager {
             }
         }
 
-        // Skill nodes like Mining and Fishing etc
+        // Picking up ItemStacks from the ground
         for (ItemStackDrop itemStackDrop : EntityManager.getInstance().getItemStackDropList().values()) {
             if (entityClickTest(itemStackDrop.getDrawX(), itemStackDrop.getDrawY())) {
                 Location location = itemStackDrop.getCurrentMapLocation();

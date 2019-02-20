@@ -51,7 +51,12 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
             }
         }
 
-        addListener(new ForceCloseWindowListener());
+        addListener(new ForceCloseWindowListener() {
+            @Override
+            public void handleClose() {
+
+            }
+        });
 
         addListener(new WindowResizeListener() {
             @Override

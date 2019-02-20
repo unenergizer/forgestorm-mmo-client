@@ -70,7 +70,12 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
             }
         });
 
-        addListener(new ForceCloseWindowListener());
+        addListener(new ForceCloseWindowListener() {
+            @Override
+            public void handleClose() {
+
+            }
+        });
 
         addListener(new WindowResizeListener() {
             @Override

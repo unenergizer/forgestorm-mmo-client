@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 
-public class ForceCloseWindowListener implements EventListener {
+public abstract class ForceCloseWindowListener implements EventListener {
 
     @Override
     public boolean handle(Event event) {
@@ -29,9 +29,14 @@ public class ForceCloseWindowListener implements EventListener {
         return performWindowClose((HideableVisWindow) event.getListenerActor());
     }
 
+    public abstract void handleClose();
+
     private boolean performWindowClose(HideableVisWindow hideableVisWindow) {
         boolean visibleStatus = hideableVisWindow.isVisible();
-        if (visibleStatus) hideableVisWindow.fadeOut();
+        if (visibleStatus) {
+            hideableVisWindow.fadeOut();
+            handleClose();
+        }
         return visibleStatus;
     }
 }

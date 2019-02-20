@@ -81,6 +81,12 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private final Vector2 localCords = new Vector2();
     private Vector2 stageLocation = new Vector2();
 
+    /**
+     * If this slot is locked, prevent any and all changes to it!
+     */
+    @Getter
+    private boolean slotLocked = false;
+
     ItemStackSlot(InventoryType inventoryType, byte inventoryIndex) {
         this.inventoryType = inventoryType;
         this.inventoryIndex = inventoryIndex;
@@ -201,6 +207,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
      * @param itemStack The {@link ItemStack} that is being set into this {@link ItemStackSlot}
      */
     void setItemStack(ItemStack itemStack) {
+        if (slotLocked) return;
         if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
         emptyCellImage.remove();
@@ -212,6 +219,15 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     private Vector2 getStageLocation(Actor actor) {
         return actor.localToStageCoordinates(localCords.set(0, 0));
+    }
+
+    public void toggleLockedSlot(boolean lockThisSlot) {
+        this.slotLocked = lockThisSlot;
+        if (lockThisSlot) {
+            itemStackImage.setColor(new Color(1, 0f, 0f, .5f));
+        } else {
+            itemStackImage.setColor(new Color(1, 1, 1, 1f));
+        }
     }
 
     /**
@@ -228,6 +244,26 @@ public class ItemStackSlot extends VisTable implements Buildable {
              * @see InputEvent
              */
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                if (slotLocked) return true;
+
+                if (Valenguard.getInstance().getStageHandler().getTradeWindow().isVisible()) {
+
+//                    if (inventoryType == InventoryType.EQUIPMENT) return true; // Equipment bag click!
+                    if (itemStack == null) return true; // Empty slot click!
+
+                    boolean itemSet = Valenguard.getInstance().getStageHandler().getTradeWindow().addItem(itemStack, true, itemStackSlot);
+
+                    if (itemSet) {
+                        // TODO: ITEM SET, LOCK IT DOWN (CANCEL MOVEMENTS)
+                        println(ItemStackSlot.class, "Set trade item: " + itemStack.getName());
+                    } else {
+                        // TODO: Play error sound and send error message
+                        println(ItemStackSlot.class, "Could NOT trade item: " + itemStack.getName());
+                    }
+
+                    return true;
+                }
 
                 // Shift + Left click
                 if (button == Input.Buttons.LEFT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {

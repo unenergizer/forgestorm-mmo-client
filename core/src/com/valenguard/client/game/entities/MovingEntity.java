@@ -93,9 +93,8 @@ public class MovingEntity extends Entity {
         }
     }
 
-    // TODO: CLEAN ME
-    int maxHealth;
-    int currentHealth; // get temp hp (to start)
+    private int maxHealth;
+    private int currentHealth;
 
     public void drawEntityHpBar() {
         float x = getDrawX() + 8;

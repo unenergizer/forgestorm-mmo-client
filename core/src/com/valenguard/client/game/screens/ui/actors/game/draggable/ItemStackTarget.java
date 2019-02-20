@@ -40,6 +40,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
         ItemStack targetItemStack = itemStackTargetSlot.getItemStack();
 
+        if (sourceItemStackSlot.isSlotLocked() || itemStackTargetSlot.isSlotLocked()) return false;
+
         if (itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1
                 && sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT
                 && targetItemStack != null) {
@@ -57,6 +59,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         ItemStackSource itemStackSource = (ItemStackSource) source;
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
+
+        if (sourceItemStackSlot.isSlotLocked() || itemStackTargetSlot.isSlotLocked()) return;
 
         ItemStack sourceItemStack = (ItemStack) payload.getObject();
         ItemStack targetItemStack = itemStackTargetSlot.getItemStack();

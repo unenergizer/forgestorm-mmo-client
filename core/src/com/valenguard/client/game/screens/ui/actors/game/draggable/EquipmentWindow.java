@@ -117,7 +117,12 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
             }
         });
 
-        addListener(new ForceCloseWindowListener());
+        addListener(new ForceCloseWindowListener() {
+            @Override
+            public void handleClose() {
+
+            }
+        });
 
         addListener(new StatsUpdateListener() {
             @Override

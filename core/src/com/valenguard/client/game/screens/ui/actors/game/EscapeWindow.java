@@ -57,7 +57,12 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         setVisible(false);
 
-        addListener(new ForceCloseWindowListener());
+        addListener(new ForceCloseWindowListener() {
+            @Override
+            public void handleClose() {
+
+            }
+        });
 
         addListener(new WindowResizeListener() {
             @Override
