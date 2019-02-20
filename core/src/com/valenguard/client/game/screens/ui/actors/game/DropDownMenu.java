@@ -14,6 +14,8 @@ import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
@@ -50,7 +52,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
         buttonTable.add(trade).expand().fill().row();
         buttonTable.add(cancel).expand().fill();
 
-        add(buttonTable);
+        add(buttonTable).expand().fill();
 
         follow.addListener(new ChangeListener() {
             @Override
@@ -90,6 +92,20 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 setVisible(false);
                 closeOnEscape();
+            }
+        });
+
+
+        addListener(new ForceCloseWindowListener() {
+            @Override
+            public void handleClose() {
+            }
+        });
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                centerWindow();
             }
         });
 
