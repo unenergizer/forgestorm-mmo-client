@@ -8,15 +8,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.inventory.ItemStack;
+import com.valenguard.client.game.inventory.TradePacketInfoOut;
+import com.valenguard.client.game.inventory.TradeStatus;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
+import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
 import static com.valenguard.client.util.Preconditions.checkNotNull;
@@ -32,6 +39,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[FINAL_SIZE];
     private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[FINAL_SIZE];
 
+    @Setter
+    @Getter
     private MovingEntity targetPlayer;
 
     public TradeWindow() {
@@ -76,8 +85,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // TODO: Server side swap items!
-                setVisible(false);
+//                setVisible(false);
                 resetTradeWindowSlots();
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_OFFER_ACCEPT, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+
             }
         });
 
@@ -85,8 +96,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // TODO: Send cancel packet!
-                setVisible(false);
+//                setVisible(false);
                 resetTradeWindowSlots();
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_OFFER_DECLINE, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+
             }
         });
 
@@ -139,16 +152,6 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                 columnCount = 0;
             }
         }
-    }
-
-    /**
-     * Opens this {@link TradeWindow}
-     *
-     * @param targetPlayer The player were attempting to trade with
-     */
-    void toggleTradeWindow(MovingEntity targetPlayer) {
-        this.targetPlayer = targetPlayer;
-        setVisible(true);
     }
 
     /**
@@ -209,6 +212,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         for (TradeWindowSlot tradeWindowSlot : targetPlayerTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
         }
+    }
+
+    public void closeTradeWindow() {
+        resetTradeWindowSlots();
+        setVisible(false);
     }
 
     /**

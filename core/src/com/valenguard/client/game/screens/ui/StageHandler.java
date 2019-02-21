@@ -20,6 +20,7 @@ import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
 import com.valenguard.client.game.screens.ui.actors.game.DropDownMenu;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
+import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.valenguard.client.game.screens.ui.actors.game.TradeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
@@ -61,6 +62,7 @@ public class StageHandler implements Disposable {
     private FPSTable fpsTable;
     private DropDownMenu dropDownMenu;
     private TradeWindow tradeWindow;
+    private IncomingTradeRequestWindow incomingTradeRequestWindow;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -121,6 +123,7 @@ public class StageHandler implements Disposable {
         fpsTable = new FPSTable();
         dropDownMenu = new DropDownMenu();
         tradeWindow = new TradeWindow();
+        incomingTradeRequestWindow = new IncomingTradeRequestWindow();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -132,6 +135,8 @@ public class StageHandler implements Disposable {
         stage.addActor(fpsTable.build());
         stage.addActor(dropDownMenu.build());
         stage.addActor(tradeWindow.build());
+        stage.addActor(incomingTradeRequestWindow.build());
+//        stage.addActor(new TestToasts(stage));
 
         chatWindow.fadeIn().setVisible(true);
         buttonBar.setVisible(true);

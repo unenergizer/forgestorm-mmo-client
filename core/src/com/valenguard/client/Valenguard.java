@@ -6,6 +6,7 @@ import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.inventory.ItemManager;
+import com.valenguard.client.game.inventory.TradeManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.ClientPlayerMovementManager;
@@ -33,6 +34,7 @@ import com.valenguard.client.network.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.packet.in.InventoryPacketIn;
 import com.valenguard.client.network.packet.in.PingPacketIn;
 import com.valenguard.client.network.packet.in.PlayerTeleportPacketIn;
+import com.valenguard.client.network.packet.in.PlayerTradePacketIn;
 import com.valenguard.client.network.packet.in.SkillExperiencePacketIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
 import com.valenguard.client.network.shared.EventBus;
@@ -68,6 +70,8 @@ public class Valenguard extends Game {
     private ItemManager itemManager;
     private Skills skills;
 
+    private TradeManager tradeManager;
+
     private ScreenType screenType;
 
     @Setter
@@ -100,6 +104,7 @@ public class Valenguard extends Game {
         itemManager = new ItemManager();
         skills = new Skills();
         entityTracker = new EntityTracker();
+        tradeManager = new TradeManager();
 
         // loadItems screens
         gameScreen = new GameScreen();
@@ -134,6 +139,8 @@ public class Valenguard extends Game {
         mapManager.dispose();
         stageHandler.dispose();
         skills = null;
+
+        tradeManager = null;
 
         gameScreen.dispose();
         gameScreen = null;
@@ -170,6 +177,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new PlayerTeleportPacketIn());
                         eventBus.registerListener(new EntityDamagePacketIn());
                         eventBus.registerListener(new EntityHealthPacketIn());
+                        eventBus.registerListener(new PlayerTradePacketIn());
                     }
                 });
     }

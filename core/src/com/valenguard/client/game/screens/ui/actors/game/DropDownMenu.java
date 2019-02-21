@@ -9,6 +9,8 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
+import com.valenguard.client.game.inventory.TradePacketInfoOut;
+import com.valenguard.client.game.inventory.TradeStatus;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
@@ -16,6 +18,7 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
@@ -83,7 +86,9 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 setVisible(false);
-                Valenguard.getInstance().getStageHandler().getTradeWindow().toggleTradeWindow(movingEntity);
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_REQUEST_PLAYER_TARGET, movingEntity.getServerEntityID())).sendPacket();
+                Valenguard.getInstance().getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
+                Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
             }
         });
 
