@@ -16,21 +16,21 @@ public class PlayerTradePacketOut extends ClientAbstractOutPacket {
 
     @Override
     protected void createPacket(ValenguardOutputStream write) {
-        write.writeByte(tradePacketInfoOut.getTradeStatus().getTradeOpcodeByte());
+        write.writeByte(tradePacketInfoOut.getTradeStatusOpcode().getTradeOpcodeByte());
 
-        switch (tradePacketInfoOut.getTradeStatus()) {
-            case TRADE_REQUEST_PLAYER_TARGET:
+        switch (tradePacketInfoOut.getTradeStatusOpcode()) {
+            case TRADE_REQUEST_INIT_TARGET:
                 write.writeShort(tradePacketInfoOut.getTargetEntityUUID());
                 break;
-            case TRADE_REQUEST_ACCEPT:
+            case TRADE_REQUEST_TARGET_ACCEPT:
+            case TRADE_REQUEST_TARGET_DECLINE:
+            case TRADE_OFFER_CONFIRM:
+            case TRADE_CANCELED:
                 write.writeInt(tradePacketInfoOut.getTradeUUID());
                 break;
-            case TRADE_REQUEST_DECLINE:
-            case TRADE_OFFER_DECLINE:
-                write.writeInt(tradePacketInfoOut.getTradeUUID());
-                break;
-            case TRADE_OFFER_ACCEPT:
-                write.writeInt(tradePacketInfoOut.getTradeUUID());
+            case TRADE_ITEM_ADD:
+            case TRADE_ITEM_REMOVE:
+                // TODO: Send server item slot changes
                 break;
             default:
                 println(getClass(), "Create unused trade status", true, true);

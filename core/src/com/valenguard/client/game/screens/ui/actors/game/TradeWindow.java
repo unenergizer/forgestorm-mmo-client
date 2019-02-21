@@ -10,10 +10,12 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.inventory.ItemStack;
+import com.valenguard.client.game.inventory.TradeManager;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
-import com.valenguard.client.game.inventory.TradeStatus;
+import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -39,6 +41,13 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[FINAL_SIZE];
     private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[FINAL_SIZE];
 
+    private TradeManager tradeManager;
+
+    private TextButton accept;
+    private TextButton cancel;
+
+    private boolean lockTrade = false;
+
     @Setter
     @Getter
     private MovingEntity targetPlayer;
@@ -49,6 +58,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build() {
+        tradeManager = Valenguard.getInstance().getTradeManager();
 
         /*
          * Setup trade slots
@@ -73,8 +83,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
          */
         VisTable buttonArea = new VisTable();
 
-        TextButton accept = new TextButton("Accept", VisUI.getSkin());
-        TextButton cancel = new TextButton("Cancel", VisUI.getSkin());
+        accept = new TextButton("Accept", VisUI.getSkin());
+        cancel = new TextButton("Cancel", VisUI.getSkin());
 
         buttonArea.add(accept).expand().fill();
         buttonArea.add(cancel).expand().fill();
@@ -84,22 +94,17 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO: Server side swap items!
-//                setVisible(false);
-                resetTradeWindowSlots();
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_OFFER_ACCEPT, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
-
+                if (!lockTrade) {
+                    // First accept check (trade confirmed)
+                    new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_CONFIRM, tradeManager.getTradeUUID())).sendPacket();
+                }
             }
         });
 
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO: Send cancel packet!
-//                setVisible(false);
-                resetTradeWindowSlots();
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_OFFER_DECLINE, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
-
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
             }
         });
 
@@ -113,7 +118,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         addListener(new ForceCloseWindowListener() {
             @Override
             public void handleClose() {
-                resetTradeWindowSlots();
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
+                closeTradeWindow();
             }
         });
 
@@ -127,6 +133,24 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         pack();
         setVisible(false);
         return this;
+    }
+
+    public void setupConfirmButtons(short playerUUID) {
+
+        if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == playerUUID) {
+            // Player client confirmed trade, lock our left pane.
+
+            println(getClass(), "PlayerClient has confirmed the trade!", true);
+
+            lockTrade = true;
+            accept.setText("Confirm Trade");
+            cancel.setText("Cancel Confirm");
+        } else {
+            MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(playerUUID);
+            // Other player has confirmed trade, show some kind of status indicator
+            // TODO: Show status indicator
+            println(getClass(), "ENTITY NAME: " + movingEntity.getEntityName() + " UUID RECEIVED: " + playerUUID, true);
+        }
     }
 
     /**
@@ -165,6 +189,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      * @return True if the item could be place, false otherwise.
      */
     public boolean addItem(ItemStack itemStack, boolean isClientPlayer, ItemStackSlot lockedItemStackSlot) {
+        if (lockTrade) return false; // Trade accepted, waiting on final confirm
 
         // Find an empty trade slot
         TradeWindowSlot tradeWindowSlot = findEmptySlot(isClientPlayer);
@@ -202,21 +227,19 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         return null;
     }
 
-    /**
-     * Resets all the {@link TradeWindowSlot} to have empty cells!
-     */
-    void resetTradeWindowSlots() {
+    public void closeTradeWindow() {
+        setVisible(false);
+        lockTrade = false;
+        accept.setText("Accept");
+        cancel.setText("Cancel");
+
+        // Reset trade slots
         for (TradeWindowSlot tradeWindowSlot : playerClientTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
         }
         for (TradeWindowSlot tradeWindowSlot : targetPlayerTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
         }
-    }
-
-    public void closeTradeWindow() {
-        resetTradeWindowSlots();
-        setVisible(false);
     }
 
     /**

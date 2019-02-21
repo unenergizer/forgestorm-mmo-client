@@ -10,7 +10,7 @@ import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
-import com.valenguard.client.game.inventory.TradeStatus;
+import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
@@ -86,7 +86,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 setVisible(false);
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_REQUEST_PLAYER_TARGET, movingEntity.getServerEntityID())).sendPacket();
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
                 Valenguard.getInstance().getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
                 Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
             }

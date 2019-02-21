@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
-import com.valenguard.client.game.inventory.TradeStatus;
+import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -16,21 +16,14 @@ import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
 
 public class IncomingTradeRequestWindow extends HideableVisWindow implements Buildable {
 
-    private TextButton accept;
-    private TextButton cancel;
-
-
     public IncomingTradeRequestWindow() {
         super("Incoming Trade Request");
     }
 
     @Override
     public Actor build() {
-
-        addCloseButton();
-
-        accept = new TextButton("Accept", VisUI.getSkin());
-        cancel = new TextButton("Cancel", VisUI.getSkin());
+        TextButton accept = new TextButton("Accept", VisUI.getSkin());
+        TextButton cancel = new TextButton("Cancel", VisUI.getSkin());
 
         add(accept).expand().fill();
         add(cancel).expand().fill();
@@ -40,7 +33,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
             public void changed(ChangeEvent event, Actor actor) {
                 setVisible(false);
                 closeOnEscape();
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_REQUEST_ACCEPT, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_ACCEPT, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
 
@@ -49,7 +42,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
             public void changed(ChangeEvent event, Actor actor) {
                 setVisible(false);
                 closeOnEscape();
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatus.TRADE_REQUEST_DECLINE, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_DECLINE, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
 
@@ -57,6 +50,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         addListener(new ForceCloseWindowListener() {
             @Override
             public void handleClose() {
+                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
 

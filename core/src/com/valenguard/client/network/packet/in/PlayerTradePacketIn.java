@@ -1,7 +1,7 @@
 package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.inventory.TradeStatus;
+import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -20,59 +20,100 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
     public PacketData decodePacket(ClientHandler clientHandler) {
         println(getClass(), "Trade request in");
 
-        final TradeStatus tradeStatus = TradeStatus.getTradeStatusOpcode(clientHandler.readByte());
-        int tradeUUID = 0;
+        final TradeStatusOpcode tradeStatusOpcode = TradeStatusOpcode.getTradeStatusOpcode(clientHandler.readByte());
+        int tradeUUID = -7;
+        short playerUUID = -5;
 
-        switch (tradeStatus) {
-            case TRADE_REQUEST_PLAYER_SENDER:
-            case TRADE_REQUEST_PLAYER_TARGET:
+        //noinspection ConstantConditions
+        switch (tradeStatusOpcode) {
+            case TRADE_REQUEST_INIT_SENDER:
+            case TRADE_REQUEST_INIT_TARGET:
+            case TRADE_REQUEST_TARGET_ACCEPT:
+            case TRADE_REQUEST_TARGET_DECLINE:
+            case TRADE_REQUEST_SERVER_TIMED_OUT:
+            case TRADE_OFFER_COMPLETE:
+            case TRADE_CANCELED:
                 tradeUUID = clientHandler.readInt();
                 break;
+            case TRADE_OFFER_CONFIRM:
+                tradeUUID = clientHandler.readInt();
+                playerUUID = clientHandler.readShort();
+                break;
             default:
-                println(getClass(), "Decode unused trade status: " + tradeStatus, true, true);
+                println(getClass(), "Decode unused trade status: " + tradeStatusOpcode, true, true);
                 break;
         }
 
-        return new TradeRequestPacket(tradeStatus, tradeUUID);
+        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, playerUUID);
     }
 
     @Override
     public void onEvent(TradeRequestPacket packetData) {
         StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
-        switch (packetData.tradeStatus) {
-            case TRADE_REQUEST_PLAYER_SENDER:
+        switch (packetData.tradeStatusOpcode) {
+
+            // Stage 1: Init trade
+            case TRADE_REQUEST_INIT_SENDER:
                 Valenguard.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
                 break;
-            case TRADE_REQUEST_PLAYER_TARGET:
+            case TRADE_REQUEST_INIT_TARGET:
                 Valenguard.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
                 stageHandler.getIncomingTradeRequestWindow().setVisible(true);
                 break;
-            case TRADE_REQUEST_TIMED_OUT:
-                stageHandler.getIncomingTradeRequestWindow().setVisible(false);
-                break;
-            case TRADE_REQUEST_ACCEPT:
+
+            // Stage 2: Wait for TargetPlayer response or time out
+            case TRADE_REQUEST_TARGET_ACCEPT:
                 stageHandler.getTradeWindow().setVisible(true);
                 break;
-            case TRADE_REQUEST_DECLINE:
+            case TRADE_REQUEST_TARGET_DECLINE:
                 stageHandler.getTradeWindow().closeTradeWindow();
                 break;
-            case TRADE_OFFER_ACCEPT:
-                // TODO: Delete traded items (server will send new items [InventoryPacketIn])
-                stageHandler.getTradeWindow().closeTradeWindow();
+            case TRADE_REQUEST_SERVER_TIMED_OUT:
+                stageHandler.getIncomingTradeRequestWindow().setVisible(false);
                 break;
-            case TRADE_OFFER_DECLINE:
-                stageHandler.getTradeWindow().closeTradeWindow();
+
+            // Stage 3: Trade started -> adding/removing items from trade window
+            case TRADE_ITEM_ADD:
+            case TRADE_ITEM_REMOVE:
+                // TODO: Implement item add/remove from trade window
                 break;
+
+            // Stage 4: First Trade Confirm (items are in window, do trade or cancel)
+            case TRADE_OFFER_CONFIRM:
+                // TODO: Get entity who confirmed. Show check mark on confirmed window pane?
+                stageHandler.getTradeWindow().setupConfirmButtons(packetData.playerUUID);
+                break;
+
+            // Stage 5: Final trade confirm
+            case TRADE_OFFER_COMPLETE:
+                // TODO: Server will send items in different packet to client
+                // TODO: Close and reset trade window
+                stageHandler.getTradeWindow().closeTradeWindow();
+                Valenguard.getInstance().getTradeManager().setTradeUUID(null); // Reset trade UUID
+                break;
+
+            // Generic trade cancel
+            case TRADE_CANCELED:
+                if (stageHandler.getTradeWindow().isVisible()) {
+                    stageHandler.getTradeWindow().closeTradeWindow();
+                }
+                if (stageHandler.getIncomingTradeRequestWindow().isVisible()) {
+                    stageHandler.getIncomingTradeRequestWindow().setVisible(false);
+                }
+                break;
+
+            // ACCEPTED TRADE STATUS
             default:
-                println(getClass(), "onEvent unused trade status: " + packetData.tradeStatus, true, true);
+                println(getClass(), "onEvent unhandeled trade status: " + packetData.tradeStatusOpcode, true, true);
                 break;
         }
     }
 
     @AllArgsConstructor
     class TradeRequestPacket extends PacketData {
-        private final TradeStatus tradeStatus;
+        private final TradeStatusOpcode tradeStatusOpcode;
         private final int tradeUUID;
+        private final short playerUUID;
     }
 }
