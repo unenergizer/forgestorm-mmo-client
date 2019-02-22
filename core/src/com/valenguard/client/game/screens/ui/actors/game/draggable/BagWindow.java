@@ -97,4 +97,16 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
             return;
         }
     }
+
+    public void removeItemStack(int itemId) {
+        for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
+            if (itemStackSlots[i].getItemStack() == null) continue;
+
+            if (itemStackSlots[i].getItemStack().getItemId() == itemId) {
+                itemStackSlots[i].deleteStack();
+            }
+
+            return;
+        }
+    }
 }

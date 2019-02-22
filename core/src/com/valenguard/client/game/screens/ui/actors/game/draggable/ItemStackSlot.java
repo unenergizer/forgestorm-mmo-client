@@ -252,7 +252,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
 //                    if (inventoryType == InventoryType.EQUIPMENT) return true; // Equipment bag click!
                     if (itemStack == null) return true; // Empty slot click!
 
-                    boolean itemSet = Valenguard.getInstance().getStageHandler().getTradeWindow().addItem(itemStack, true, itemStackSlot);
+                    boolean itemSet = Valenguard.getInstance().getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
 
                     if (itemSet) {
                         // TODO: ITEM SET, LOCK IT DOWN (CANCEL MOVEMENTS)

@@ -30,7 +30,8 @@ public class PlayerTradePacketOut extends ClientAbstractOutPacket {
                 break;
             case TRADE_ITEM_ADD:
             case TRADE_ITEM_REMOVE:
-                // TODO: Send server item slot changes
+                write.writeInt(tradePacketInfoOut.getTradeUUID());
+                write.writeInt(tradePacketInfoOut.getItemStack().getItemId());
                 break;
             default:
                 println(getClass(), "Create unused trade status", true, true);

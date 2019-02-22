@@ -21,8 +21,9 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         println(getClass(), "Trade request in");
 
         final TradeStatusOpcode tradeStatusOpcode = TradeStatusOpcode.getTradeStatusOpcode(clientHandler.readByte());
-        int tradeUUID = -7;
-        short playerUUID = -5;
+        int tradeUUID = -1;
+        short playerUUID = -2;
+        int itemId = -3;
 
         //noinspection ConstantConditions
         switch (tradeStatusOpcode) {
@@ -39,12 +40,17 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 tradeUUID = clientHandler.readInt();
                 playerUUID = clientHandler.readShort();
                 break;
+            case TRADE_ITEM_ADD:
+            case TRADE_ITEM_REMOVE:
+                tradeUUID = clientHandler.readInt();
+                itemId = clientHandler.readInt();
+                break;
             default:
                 println(getClass(), "Decode unused trade status: " + tradeStatusOpcode, true, true);
                 break;
         }
 
-        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, playerUUID);
+        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, playerUUID, itemId);
     }
 
     @Override
@@ -75,8 +81,10 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 3: Trade started -> adding/removing items from trade window
             case TRADE_ITEM_ADD:
+                stageHandler.getTradeWindow().addItemFromPacket(packetData.itemId);
+                break;
             case TRADE_ITEM_REMOVE:
-                // TODO: Implement item add/remove from trade window
+                stageHandler.getTradeWindow().removeItemFromPacket(packetData.itemId);
                 break;
 
             // Stage 4: First Trade Confirm (items are in window, do trade or cancel)
@@ -115,5 +123,6 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         private final TradeStatusOpcode tradeStatusOpcode;
         private final int tradeUUID;
         private final short playerUUID;
+        private final int itemId;
     }
 }

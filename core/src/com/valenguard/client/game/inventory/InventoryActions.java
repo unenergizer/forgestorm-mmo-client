@@ -5,18 +5,17 @@ import lombok.Getter;
 public class InventoryActions {
 
     /**
-     * CLIENT -> SERVER
+     *   CLIENT -> SERVER
      */
     public static final byte MOVE = 0x00;
     public static final byte DROP = 0x01;
     public static final byte USE = 0x02;
 
     /**
-     * SERVER -> CLIENT
+     *   SERVER -> CLIENT
      */
-    public static final byte BAG_SET = 0x03;
-    public static final byte EQUIPMENT_SET = 0x04;
-
+    public static final byte GIVE = 0x03;
+    public static final byte REMOVE = 0x04;
     @Getter
     private byte inventoryActionType;
 
