@@ -16,6 +16,7 @@ import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import lombok.Getter;
@@ -286,7 +287,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 if (itemStackToolTip.isVisible()) return;
                 stageLocation = getStageLocation(itemStackSlot);
                 itemStackToolTip.toFront();
-                itemStackToolTip.fadeIn().setVisible(true);
+                ActorUtil.fadeInWindow(itemStackToolTip);
 
                 // Setting X location
                 if (stageLocation.x > Gdx.graphics.getWidth() / 2) {
@@ -308,7 +309,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
              * @param toActor May be null.
              * @see InputEvent */
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                if (itemStackToolTip.isVisible()) itemStackToolTip.fadeOut();
+                if (itemStackToolTip.isVisible()) ActorUtil.fadeOutWindow(itemStackToolTip);
             }
         });
     }

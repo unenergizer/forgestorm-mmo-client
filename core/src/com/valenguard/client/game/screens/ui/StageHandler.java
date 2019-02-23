@@ -12,12 +12,14 @@ import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
 import com.valenguard.client.game.screens.ui.actors.game.DropDownMenu;
+import com.valenguard.client.game.screens.ui.actors.game.EntityShopWindow;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
@@ -63,6 +65,7 @@ public class StageHandler implements Disposable {
     private DropDownMenu dropDownMenu;
     private TradeWindow tradeWindow;
     private IncomingTradeRequestWindow incomingTradeRequestWindow;
+    private EntityShopWindow entityShopWindow;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -124,6 +127,7 @@ public class StageHandler implements Disposable {
         dropDownMenu = new DropDownMenu();
         tradeWindow = new TradeWindow();
         incomingTradeRequestWindow = new IncomingTradeRequestWindow();
+        entityShopWindow = new EntityShopWindow();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -137,8 +141,9 @@ public class StageHandler implements Disposable {
         stage.addActor(tradeWindow.build());
         stage.addActor(incomingTradeRequestWindow.build());
 //        stage.addActor(new TestToasts(stage));
+        stage.addActor(entityShopWindow.build());
 
-        chatWindow.fadeIn().setVisible(true);
+        ActorUtil.fadeInWindow(chatWindow);
         buttonBar.setVisible(true);
 
         buildSharedActorsUI();

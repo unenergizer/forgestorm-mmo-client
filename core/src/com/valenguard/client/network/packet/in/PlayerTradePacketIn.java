@@ -3,6 +3,7 @@ package com.valenguard.client.network.packet.in;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -69,19 +70,19 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 break;
             case TRADE_REQUEST_INIT_TARGET:
                 Valenguard.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
-                stageHandler.getIncomingTradeRequestWindow().setVisible(true);
+                ActorUtil.fadeInWindow(stageHandler.getIncomingTradeRequestWindow());
                 break;
 
             // Stage 2: Wait for TargetPlayer response or time out
             case TRADE_REQUEST_TARGET_ACCEPT:
-                stageHandler.getDropDownMenu().setVisible(false);
-                stageHandler.getTradeWindow().setVisible(true);
+                ActorUtil.fadeOutWindow(stageHandler.getDropDownMenu());
+                ActorUtil.fadeInWindow(stageHandler.getTradeWindow());
                 break;
             case TRADE_REQUEST_TARGET_DECLINE:
                 stageHandler.getTradeWindow().closeTradeWindow();
                 break;
             case TRADE_REQUEST_SERVER_TIMED_OUT:
-                stageHandler.getIncomingTradeRequestWindow().setVisible(false);
+                ActorUtil.fadeOutWindow(stageHandler.getIncomingTradeRequestWindow());
                 break;
 
             // Stage 3: Trade started -> adding/removing items from trade window
@@ -112,7 +113,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                     stageHandler.getTradeWindow().closeTradeWindow();
                 }
                 if (stageHandler.getIncomingTradeRequestWindow().isVisible()) {
-                    stageHandler.getIncomingTradeRequestWindow().setVisible(false);
+                    ActorUtil.fadeOutWindow(stageHandler.getIncomingTradeRequestWindow());
                 }
                 break;
 

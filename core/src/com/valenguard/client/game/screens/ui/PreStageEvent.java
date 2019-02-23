@@ -8,6 +8,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
 class PreStageEvent implements InputProcessor {
@@ -43,10 +44,10 @@ class PreStageEvent implements InputProcessor {
                     && !stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                 if (!stageHandler.getBagWindow().isVisible()) {
-                    stageHandler.getBagWindow().fadeIn().setVisible(true);
+                    ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
                 } else {
-                    stageHandler.getBagWindow().fadeOut();
+                    ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
                 }
                 return true;
             }
@@ -61,10 +62,10 @@ class PreStageEvent implements InputProcessor {
                     && !stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
-                    stageHandler.getEquipmentWindow().fadeIn().setVisible(true);
+                    ActorUtil.fadeInWindow(stageHandler.getEquipmentWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());
                 } else {
-                    stageHandler.getEquipmentWindow().fadeOut();
+                    ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
                 }
                 return true;
             }

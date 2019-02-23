@@ -10,6 +10,8 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -17,12 +19,16 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class EscapeWindow extends HideableVisWindow implements Buildable, Focusable {
 
+    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
+    private EscapeWindow escapeWindow;
+
     public EscapeWindow() {
         super("");
     }
 
     @Override
     public Actor build() {
+        escapeWindow = this;
         setMovable(false);
         TableUtils.setSpacingDefaults(this);
         VisTable table = new VisTable();
@@ -73,24 +79,24 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         help.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fadeOut();
-                Valenguard.getInstance().getStageHandler().getHelpWindow().fadeIn().setVisible(true);
+                ActorUtil.fadeOutWindow(escapeWindow);
+                ActorUtil.fadeInWindow(stageHandler.getHelpWindow());
                 return true;
             }
         });
 
         credits.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fadeOut();
-                Valenguard.getInstance().getStageHandler().getCreditsWindow().fadeIn().setVisible(true);
+                ActorUtil.fadeOutWindow(escapeWindow);
+                ActorUtil.fadeInWindow(stageHandler.getCreditsWindow());
                 return true;
             }
         });
 
         settings.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fadeOut();
-                Valenguard.getInstance().getStageHandler().getMainSettingsWindow().fadeIn().setVisible(true);
+                ActorUtil.fadeOutWindow(escapeWindow);
+                ActorUtil.fadeInWindow(stageHandler.getMainSettingsWindow());
                 return true;
             }
         });
@@ -112,7 +118,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         returnToGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fadeOut();
+                ActorUtil.fadeOutWindow(escapeWindow);
                 return true;
             }
         });

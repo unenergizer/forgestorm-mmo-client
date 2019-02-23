@@ -14,6 +14,7 @@ import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -27,6 +28,7 @@ import java.util.Queue;
 
 public class DropDownMenu extends HideableVisWindow implements Buildable {
 
+    private DropDownMenu dropDownMenu;
     private MovingEntity movingEntity;
     private TextButton follow;
     private TextButton trade;
@@ -40,6 +42,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build() {
+        dropDownMenu = this;
 
         // TODO: Determine when player clicks off the menu on the screen to auto close the menu
         // TODO: fill the entire screen with an invisible button? then detect its click to close the menu
@@ -61,7 +64,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
 
-                setVisible(false);
+                ActorUtil.fadeOutWindow(dropDownMenu);
 
                 PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
                 Location clientLocation = playerClient.getFutureMapLocation();
@@ -85,7 +88,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
         trade.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setVisible(false);
+                ActorUtil.fadeOutWindow(dropDownMenu);
                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
                 Valenguard.getInstance().getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
                 Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
@@ -95,8 +98,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setVisible(false);
-                closeOnEscape();
+                ActorUtil.fadeOutWindow(dropDownMenu);
             }
         });
 
@@ -122,6 +124,6 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
     public void toggleMenu(MovingEntity movingEntity, float x, float y) {
         this.movingEntity = movingEntity;
         setPosition(x, y);
-        setVisible(true);
+        ActorUtil.fadeInWindow(this);
     }
 }

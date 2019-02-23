@@ -9,6 +9,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
@@ -39,9 +40,9 @@ public class StatusBar extends VisTable implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                 if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    equipmentWindow.fadeIn().setVisible(true);
+                    ActorUtil.fadeInWindow(equipmentWindow);
                 } else if (equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    equipmentWindow.fadeOut();
+                    ActorUtil.fadeOutWindow(equipmentWindow);
                 }
             }
         });
@@ -53,15 +54,15 @@ public class StatusBar extends VisTable implements Buildable {
                 if (!escapeWindow.isVisible()) {
 
                     // Close all open windows
-                    stageHandler.getMainSettingsWindow().setVisible(false);
-                    stageHandler.getBagWindow().setVisible(false);
-                    stageHandler.getEquipmentWindow().setVisible(false);
-                    stageHandler.getHelpWindow().setVisible(false);
-                    stageHandler.getCreditsWindow().setVisible(false);
+                    ActorUtil.fadeOutWindow(stageHandler.getMainSettingsWindow());
+                    ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
+                    ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
+                    ActorUtil.fadeOutWindow(stageHandler.getHelpWindow());
+                    ActorUtil.fadeOutWindow(stageHandler.getCreditsWindow());
 
-                    escapeWindow.fadeIn().setVisible(true);
+                    ActorUtil.fadeInWindow(escapeWindow);
                 } else {
-                    escapeWindow.fadeOut();
+                    ActorUtil.fadeOutWindow(escapeWindow);
                 }
             }
         });
@@ -71,9 +72,9 @@ public class StatusBar extends VisTable implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    bagWindow.fadeIn().setVisible(true);
+                    ActorUtil.fadeInWindow(bagWindow);
                 } else if (bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    bagWindow.fadeOut();
+                    ActorUtil.fadeOutWindow(bagWindow);
                 }
             }
         });

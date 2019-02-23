@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
@@ -18,6 +19,7 @@ import com.valenguard.client.game.inventory.TradeManager;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
 import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -55,6 +57,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build() {
+        TableUtils.setSpacingDefaults(this);
+        setResizable(false);
+
         tradeManager = Valenguard.getInstance().getTradeManager();
 
         /*
@@ -255,7 +260,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     }
 
     public void closeTradeWindow() {
-        setVisible(false);
+        ActorUtil.fadeOutWindow(this);
         lockTrade = false;
         accept.setText("Accept");
         cancel.setText("Cancel");

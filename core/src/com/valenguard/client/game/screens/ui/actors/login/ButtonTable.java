@@ -12,6 +12,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameMusic;
 import com.valenguard.client.game.audio.MusicManager;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
@@ -90,8 +91,8 @@ public class ButtonTable extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 MainSettingsWindow mainSettingsWindow = Valenguard.getInstance().getStageHandler().getMainSettingsWindow();
-                if (!mainSettingsWindow.isVisible()) mainSettingsWindow.fadeIn().setVisible(true);
-                else mainSettingsWindow.fadeOut();
+                if (!mainSettingsWindow.isVisible()) ActorUtil.fadeInWindow(mainSettingsWindow);
+                else ActorUtil.fadeOutWindow(mainSettingsWindow);
             }
         });
 

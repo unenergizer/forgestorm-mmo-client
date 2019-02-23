@@ -8,6 +8,7 @@ import com.kotcrab.vis.ui.VisUI;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
 import com.valenguard.client.game.inventory.TradeStatusOpcode;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -16,12 +17,16 @@ import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
 
 public class IncomingTradeRequestWindow extends HideableVisWindow implements Buildable {
 
+    private IncomingTradeRequestWindow incomingTradeRequestWindow;
+
     public IncomingTradeRequestWindow() {
         super("Incoming Trade Request");
     }
 
     @Override
     public Actor build() {
+        incomingTradeRequestWindow = this;
+
         TextButton accept = new TextButton("Accept", VisUI.getSkin());
         TextButton cancel = new TextButton("Cancel", VisUI.getSkin());
 
@@ -31,8 +36,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setVisible(false);
-                closeOnEscape();
+                ActorUtil.fadeOutWindow(incomingTradeRequestWindow);
                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_ACCEPT, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
@@ -40,8 +44,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setVisible(false);
-                closeOnEscape();
+                ActorUtil.fadeOutWindow(incomingTradeRequestWindow);
                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_DECLINE, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
