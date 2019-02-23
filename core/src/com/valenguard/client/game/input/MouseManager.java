@@ -230,9 +230,8 @@ public class MouseManager {
             if (movingEntity.getEntityType() != EntityType.PLAYER) continue;
 
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-
+                if (Valenguard.getInstance().getStageHandler().getTradeWindow().isVisible()) return;
                 Valenguard.getInstance().getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, screenY);
-
                 break;
             }
         }

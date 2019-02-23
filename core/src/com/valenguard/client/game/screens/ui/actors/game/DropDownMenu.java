@@ -64,7 +64,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                 setVisible(false);
 
                 PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                Location clientLocation = playerClient.getCurrentMapLocation();
+                Location clientLocation = playerClient.getFutureMapLocation();
                 Location toLocation = movingEntity.getFutureMapLocation();
 
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);

@@ -74,6 +74,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 2: Wait for TargetPlayer response or time out
             case TRADE_REQUEST_TARGET_ACCEPT:
+                stageHandler.getDropDownMenu().setVisible(false);
                 stageHandler.getTradeWindow().setVisible(true);
                 break;
             case TRADE_REQUEST_TARGET_DECLINE:
