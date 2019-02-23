@@ -25,6 +25,7 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
 import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
 
 import lombok.Getter;
@@ -214,7 +215,6 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     }
 
     public void removeItemFromPacket(byte itemSlot) {
-
         TradeWindowSlot tradeWindowSlot = targetPlayerTradeSlots[itemSlot];
 
         // Find an empty trade slot
@@ -278,7 +278,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      * This class holds information for a particular {@link TradeWindowSlot}
      * within a {@link TradeWindow}
      */
-    class TradeWindowSlot extends VisTable {
+    private class TradeWindowSlot extends VisTable {
 
         /**
          * The slot index for this slot...
@@ -300,6 +300,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
          * We declare this when a {@link ItemStack} needs to be locked in place on the players bag.
          */
         private ItemStackSlot lockedItemStackSlot;
+
+        private ItemStackToolTip itemStackToolTip;
 
         TradeWindowSlot(final byte slotIndex, final boolean isClientPlayerSlot) {
             this.slotIndex = slotIndex;
@@ -362,6 +364,15 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             }
 
             add(tradeCell); // Set next image
+
+            if (itemStack != null && tradeCell != null) {
+                if (itemStackToolTip != null) {
+                    itemStackToolTip.unregisterToolTip();
+                    itemStackToolTip = null;
+                }
+                itemStackToolTip = new ItemStackToolTip(itemStack, tradeCell);
+                itemStackToolTip.registerToolTip();
+            }
         }
     }
 }

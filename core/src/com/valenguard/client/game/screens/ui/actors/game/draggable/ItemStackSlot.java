@@ -3,7 +3,6 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,7 +15,6 @@ import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import lombok.Getter;
@@ -29,11 +27,6 @@ public class ItemStackSlot extends VisTable implements Buildable {
      * Used to places images in the UserInterface
      */
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
-
-    /**
-     * Represents this {@link ItemStackSlot}
-     */
-    private final ItemStackSlot itemStackSlot;
 
     /**
      * The slot index of this {@link ItemStackSlot}. This ID is used as locational data
@@ -72,38 +65,31 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private VisImage emptyCellImage;
 
     /**
-     * A user interface element that displays information about a given {@link ItemStack}
-     */
-    private final ItemStackToolTip itemStackToolTip = new ItemStackToolTip();
-
-    /**
-     * Camera coordinates in relation to the game screen.
-     */
-    private final Vector2 localCords = new Vector2();
-    private Vector2 stageLocation = new Vector2();
-
-    /**
      * If this slot is locked, prevent any and all changes to it!
      */
     @Getter
     private boolean slotLocked = false;
 
+    /**
+     * Shows information about this {@link ItemStackSlot}
+     */
+    private ItemStackToolTip itemStackToolTip;
+
+    private InputListener clickListener;
+
     ItemStackSlot(InventoryType inventoryType, byte inventoryIndex) {
         this.inventoryType = inventoryType;
         this.inventoryIndex = inventoryIndex;
-        this.itemStackSlot = this;
     }
 
     ItemStackSlot(byte inventoryIndex, ItemStackType[] acceptedItemStackTypes) {
         this.inventoryType = InventoryType.EQUIPMENT;
         this.inventoryIndex = inventoryIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
-        this.itemStackSlot = this;
     }
 
     @Override
     public Actor build() {
-        Valenguard.getInstance().getStageHandler().getStage().addActor(itemStackToolTip.build());
         if (itemStack == null) {
             setEmptyCellImage();
         } else {
@@ -190,6 +176,10 @@ public class ItemStackSlot extends VisTable implements Buildable {
     void setEmptyCellImage() {
         if (itemStackImage != null) itemStackImage.remove();
         if (emptyCellImage == null) initEmptyCellImage(); // Equipment slot empty image
+        if (itemStackToolTip != null) {
+            itemStackToolTip.unregisterToolTip();
+            itemStackToolTip = null;
+        }
         add(emptyCellImage);
     }
 
@@ -199,7 +189,13 @@ public class ItemStackSlot extends VisTable implements Buildable {
     void setItemImage() {
         emptyCellImage.remove();
         add(itemStackImage);
-        itemStackToolTip.updateToolTipText(itemStack);
+
+        if (itemStackToolTip != null) {
+            itemStackToolTip.unregisterToolTip();
+            itemStackToolTip = null;
+            itemStackToolTip = new ItemStackToolTip(itemStack, itemStackImage);
+            itemStackToolTip.registerToolTip();
+        }
     }
 
     /**
@@ -214,12 +210,17 @@ public class ItemStackSlot extends VisTable implements Buildable {
         emptyCellImage.remove();
         itemStackImage = new ImageBuilder(GameAtlas.ITEMS, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
         add(itemStackImage);
-        itemStackToolTip.updateToolTipText(itemStack);
-        addToolTipListener();
-    }
 
-    private Vector2 getStageLocation(Actor actor) {
-        return actor.localToStageCoordinates(localCords.set(0, 0));
+        // Setup tool tip
+        if (itemStackToolTip != null) {
+            itemStackToolTip.unregisterToolTip();
+            itemStackToolTip = null;
+        }
+        itemStackToolTip = new ItemStackToolTip(itemStack, itemStackImage);
+        itemStackToolTip.registerToolTip();
+
+        // Setup click listener
+        addClickListener(itemStack, this);
     }
 
     public void toggleLockedSlot(boolean lockThisSlot) {
@@ -231,19 +232,14 @@ public class ItemStackSlot extends VisTable implements Buildable {
         }
     }
 
-    /**
-     * Adds a ToolTip for an {@link ItemStack}. ToolTips contain information about the {@link ItemStack}.
-     */
-    private void addToolTipListener() {
-        itemStackImage.addListener(new InputListener() {
+    private void addClickListener(final ItemStack itemStack, final ItemStackSlot itemStackSlot) {
+        if (clickListener != null) removeListener(clickListener);
+        itemStackImage.addListener(clickListener = new InputListener() {
 
-            /**
-             * Called when a mouse button or a finger touch goes down on the actor. If true is returned, this listener will receive all
+            /** Called when a mouse button or a finger touch goes down on the actor. If true is returned, this listener will receive all
              * touchDragged and touchUp events, even those not over this actor, until touchUp is received. Also when true is returned, the
              * event is {@link Event#handle() handled}.
-             *
-             * @see InputEvent
-             */
+             * @see InputEvent */
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
                 if (slotLocked) return true;
@@ -277,39 +273,6 @@ public class ItemStackSlot extends VisTable implements Buildable {
                     return true;
                 }
                 return false;
-            }
-
-            /** Called any time the mouse cursor or a finger touch is moved over an actor. On the desktop, this event occurs even when no
-             * mouse buttons are pressed (pointer will be -1).
-             * @param fromActor May be null.
-             * @see InputEvent */
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                if (itemStackToolTip.isVisible()) return;
-                stageLocation = getStageLocation(itemStackSlot);
-                itemStackToolTip.toFront();
-                ActorUtil.fadeInWindow(itemStackToolTip);
-
-                // Setting X location
-                if (stageLocation.x > Gdx.graphics.getWidth() / 2) {
-                    itemStackToolTip.setX(stageLocation.x - itemStackToolTip.getWidth());
-                } else {
-                    itemStackToolTip.setX(stageLocation.x + itemStackSlot.getWidth());
-                }
-
-                // Setting Y location
-                if (stageLocation.y > Gdx.graphics.getHeight() / 2) {
-                    itemStackToolTip.setY(stageLocation.y - itemStackToolTip.getHeight());
-                } else {
-                    itemStackToolTip.setY(stageLocation.y + itemStackSlot.getHeight());
-                }
-            }
-
-            /** Called any time the mouse cursor or a finger touch is moved out of an actor. On the desktop, this event occurs even when no
-             * mouse buttons are pressed (pointer will be -1).
-             * @param toActor May be null.
-             * @see InputEvent */
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                if (itemStackToolTip.isVisible()) ActorUtil.fadeOutWindow(itemStackToolTip);
             }
         });
     }
