@@ -29,36 +29,19 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         final short[] textureIds = new short[4];
         byte colorId = -1;
 
-        System.out.println("INCOMING APPEARANCE PACKET");
-
         if ((appearanceBits & COLOR_INDEX) != 0) {
-
-            System.out.println("COLOR CHANGE");
-
             colorId = clientHandler.readByte();
         }
         if ((appearanceBits & BODY_INDEX) != 0) {
-
-            System.out.println("BODY CHANGE");
-
             textureIds[Appearance.BODY] = clientHandler.readShort();
         }
         if ((appearanceBits & HEAD_INDEX) != 0) {
-
-            System.out.println("HEAD CHANGE");
-
             textureIds[Appearance.HEAD] = clientHandler.readShort();
         }
         if ((appearanceBits & ARMOR_INDEX) != 0) {
-
-            System.out.println("ARMOR CHANGE");
-
             textureIds[Appearance.ARMOR] = clientHandler.readShort();
         }
         if ((appearanceBits & HELM_INDEX) != 0) {
-
-            System.out.println("HELM CHANGE");
-
             textureIds[Appearance.HELM] = clientHandler.readShort();
         }
 
