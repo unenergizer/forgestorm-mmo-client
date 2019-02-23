@@ -17,7 +17,7 @@ public class MapUtil {
      * @return True if the tile/coordinate is walkable. False otherwise.
      */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean isTraversable(GameMap gameMap, int x, int y) {
+    public static boolean isTraversable(GameMap gameMap, short x, short y) {
         if (isOutOfBounds(gameMap, x, y)) return false;
         return gameMap.getMap()[x][y].isFlagSet(Tile.TRAVERSABLE);
     }
@@ -30,15 +30,11 @@ public class MapUtil {
      * @param y       The Y grid coordinate a entity is attempting to playerMove to.
      * @return True if entity is attempting to playerMove outside the gameMap. False otherwise.
      */
-    public static boolean isOutOfBounds(GameMap gameMap, int x, int y) {
+    public static boolean isOutOfBounds(GameMap gameMap, short x, short y) {
         return x < 0 || x >= gameMap.getMapWidth() || y < 0 || y >= gameMap.getMapHeight();
     }
-//
-//    public static Warp getWarp(GameMap gameMap, int x, int y) {
-//        return gameMap.getMap()[x][y].getWarp();
-//    }
 
-    public static boolean isWarp(GameMap gameMap, int x, int y) {
+    public static boolean isWarp(GameMap gameMap, short x, short y) {
         return gameMap.getMap()[x][y].isFlagSet(Tile.WARP);
     }
 

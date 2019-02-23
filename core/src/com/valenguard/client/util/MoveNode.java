@@ -12,23 +12,23 @@ public class MoveNode {
     private int heuristic;
     private int costG;
     private int costF;
-    private final int i;
-    private final int j;
+    private final short i;
+    private final short j;
 
-    private int worldX, worldY;
+    private short worldX, worldY;
 
     private MoveNode parentNode;
 
     private MoveNode[] neighbors;
 
-    public MoveNode(int worldX, int worldY, int i, int j) {
+    public MoveNode(short worldX, short worldY, short i, short j) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.i = i;
         this.j = j;
     }
 
-    public void addNeighbors(int GRID_LENGTH, MoveNode[][] grid) {
+    void addNeighbors(short GRID_LENGTH, MoveNode[][] grid) {
         int top = j + 1;
         int bottom = j - 1;
         int right = i + 1;

@@ -42,8 +42,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         final EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
         final short entityId = clientHandler.readShort(); // TODO: this will be different later depending on the entity type
         final String entityName = clientHandler.readString();
-        final int tileX = clientHandler.readInt();
-        final int tileY = clientHandler.readInt();
+        final short tileX = clientHandler.readShort();
+        final short tileY = clientHandler.readShort();
         byte directionalByte = 0;
         float moveSpeed = 0.0f;
         short[] textureIds = null;
@@ -234,8 +234,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private EntityType entityType;
         private short entityId;
         private String entityName;
-        private final int tileX;
-        private final int tileY;
+        private final short tileX;
+        private final short tileY;
         private final short[] textureIds;
         private final byte colorId;
         private final byte facingMoveDirectionByte;

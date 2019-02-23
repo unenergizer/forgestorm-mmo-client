@@ -15,7 +15,6 @@ public class PlayerMovePacketOut extends ClientAbstractOutPacket {
     @Override
     protected void createPacket(ValenguardOutputStream write) {
         if (moveDirection == MoveDirection.NONE) throw new RuntimeException("Move direction was none.");
-//        println(getClass(), "Sending remove direction to server: " + moveDirection);
         write.writeByte(moveDirection.getDirectionByte());
     }
 }

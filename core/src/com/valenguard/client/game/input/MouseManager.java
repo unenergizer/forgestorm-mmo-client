@@ -44,11 +44,11 @@ public class MouseManager {
 
     private final Vector3 clickLocation = new Vector3();
     @Getter
-    private int leftClickTileX, leftClickTileY;
+    private short leftClickTileX, leftClickTileY;
     @Getter
-    private int rightClickTileX, rightClickTileY;
+    private short rightClickTileX, rightClickTileY;
     @Getter
-    private int mouseTileX, mouseTileY;
+    private short mouseTileX, mouseTileY;
     private float mouseWorldX, mouseWorldY;
 
     @Setter
@@ -61,8 +61,8 @@ public class MouseManager {
 
     void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.mouseTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.mouseTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.mouseTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
+        this.mouseTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
         this.mouseWorldX = tiledMapCoordinates.x;
         this.mouseWorldY = tiledMapCoordinates.y;
 
@@ -106,8 +106,8 @@ public class MouseManager {
 
     private void left(final int screenX, final int screenY) {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.leftClickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.leftClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.leftClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
+        this.leftClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         int playerTileX = playerClient.getCurrentMapLocation().getX();
@@ -217,8 +217,8 @@ public class MouseManager {
 
     private void right(final int screenX, final int screenY) {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.rightClickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.rightClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.rightClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
+        this.rightClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         int playerTileX = playerClient.getCurrentMapLocation().getX();

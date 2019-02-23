@@ -23,8 +23,8 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
         final String mapName = clientHandler.readString();
-        final int x = clientHandler.readInt();
-        final int y = clientHandler.readInt();
+        final short x = clientHandler.readShort();
+        final short y = clientHandler.readShort();
         final byte facingDirection = clientHandler.readByte();
 
         return new PlayerTeleportPacket(entityId, new Location(mapName, x, y), MoveDirection.getDirection(facingDirection));

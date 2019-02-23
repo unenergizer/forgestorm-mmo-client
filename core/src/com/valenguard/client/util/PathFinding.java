@@ -17,8 +17,8 @@ public class PathFinding {
     private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
     private final List<MoveNode> openSet = new ArrayList<MoveNode>();
 
-    private final int ALGORITHM_RADIUS = ClientConstants.CLICK_RADIUS; // Original value: 15
-    private final int GRID_LENGTH = (ALGORITHM_RADIUS * 2) + 1;
+    private final short ALGORITHM_RADIUS = ClientConstants.CLICK_RADIUS; // Original value: 15
+    private final short GRID_LENGTH = (ALGORITHM_RADIUS * 2) + 1;
 
     private final MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];
 
@@ -33,15 +33,15 @@ public class PathFinding {
         return current;
     }
 
-    private void initializeGrid(int startX, int startY, int finalX, int finalY, String mapName, boolean ignoreFinalCollision) {
+    private void initializeGrid(short startX, short startY, short finalX, short finalY, String mapName, boolean ignoreFinalCollision) {
 
-        int bottomX = startX - ALGORITHM_RADIUS;
-        int bottomY = startY - ALGORITHM_RADIUS;
+        short bottomX = (short) (startX - ALGORITHM_RADIUS);
+        short bottomY = (short) (startY - ALGORITHM_RADIUS);
 
-        for (int i = 0; i < GRID_LENGTH; i++) {
-            for (int j = 0; j < GRID_LENGTH; j++) {
-                int worldX = bottomX + i;
-                int worldY = bottomY + j;
+        for (short i = 0; i < GRID_LENGTH; i++) {
+            for (short j = 0; j < GRID_LENGTH; j++) {
+                short worldX = (short) (bottomX + i);
+                short worldY = (short) (bottomY + j);
                 Tile worldTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), worldX, worldY));
 
                 if (worldTile == null) {
@@ -63,8 +63,8 @@ public class PathFinding {
             }
         }
 
-        for (int i = 0; i < GRID_LENGTH; i++) {
-            for (int j = 0; j < GRID_LENGTH; j++) {
+        for (short i = 0; i < GRID_LENGTH; i++) {
+            for (short j = 0; j < GRID_LENGTH; j++) {
                 if (grid[i][j] != null) {
                     grid[i][j].setMapName(mapName);
                     grid[i][j].addNeighbors(GRID_LENGTH, grid);
@@ -73,7 +73,7 @@ public class PathFinding {
         }
     }
 
-    private boolean initialConditions(int startX, int startY, int finalX, int finalY, boolean ignoreFinalCollision) {
+    private boolean initialConditions(short startX, short startY, short finalX, short finalY, boolean ignoreFinalCollision) {
         if (startX == finalX && startY == finalY) return false;
 
         Tile startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
@@ -106,7 +106,7 @@ public class PathFinding {
         }
     }
 
-    public Queue<MoveNode> findPath(int startX, int startY, int finalX, int finalY, String mapName, boolean ignoreFinalCollision) {
+    public Queue<MoveNode> findPath(short startX, short startY, short finalX, short finalY, String mapName, boolean ignoreFinalCollision) {
         if (!initialConditions(startX, startY, finalX, finalY, ignoreFinalCollision)) return null;
 
         initializeGrid(startX, startY, finalX, finalY, mapName, ignoreFinalCollision);

@@ -114,7 +114,7 @@ public class ClientMovementProcessor {
     Queue<MoveNode> getNodeForDirection(PlayerClient playerClient, Location currentPlayerLocation, MoveDirection direction) {
         Queue<MoveNode> nextNode = new LinkedList<MoveNode>();
         Location futureLocation = MoveUtil.getLocation(playerClient.getGameMap(), direction).add(currentPlayerLocation);
-        nextNode.add(new MoveNode(futureLocation.getX(), futureLocation.getY(), 0, 0));
+        nextNode.add(new MoveNode(futureLocation.getX(), futureLocation.getY(), (short) 0, (short) 0));
         return nextNode;
     }
 

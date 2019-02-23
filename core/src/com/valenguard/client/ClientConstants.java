@@ -8,10 +8,10 @@ public class ClientConstants {
     public static final float ZOOM_CHANGE = 0.025f;
     public static final float ZOOM_LIMIT_OUT = 0.5f;
     public static final float ZOOM_LIMIT_IN = 0.025f;
-    public static final int CLICK_RADIUS = 40;
+    public static final short CLICK_RADIUS = 40;
     public static final String WEB_REGISTER = "http://valenguard.com/register/";
     public static final String WEB_LOST_PASSWORD = "http://valenguard.com/lost-password/";
-    public static final int TILE_SIZE = 16;
+    public static final short TILE_SIZE = 16;
     public static final String MAP_DIRECTORY = "data/maps";
     public static final float namePlateDistanceInPixels = 4;
 

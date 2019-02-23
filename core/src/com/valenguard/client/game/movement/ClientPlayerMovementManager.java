@@ -133,7 +133,7 @@ public class ClientPlayerMovementManager {
 
     }
 
-    private boolean isMovable(GameMap gameMap, int x, int y) {
+    private boolean isMovable(GameMap gameMap, short x, short y) {
         if (!MapUtil.isTraversable(gameMap, x, y)) return false;
         return !MapUtil.isOutOfBounds(gameMap, x, y);
     }

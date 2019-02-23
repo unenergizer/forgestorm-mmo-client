@@ -63,8 +63,8 @@ public class TmxFileParser {
          * BUILD TILED MAP TILES......
          ***********************************************************************************************/
 
-        final int mapWidth = Integer.parseInt(tmx.getAttributes().getNamedItem("width").getNodeValue());
-        final int mapHeight = Integer.parseInt(tmx.getAttributes().getNamedItem("height").getNodeValue());
+        final short mapWidth = Short.parseShort(tmx.getAttributes().getNamedItem("width").getNodeValue());
+        final short mapHeight = Short.parseShort(tmx.getAttributes().getNamedItem("height").getNodeValue());
 
         println(TmxFileParser.class, "MapWidth: " + mapWidth, false, PRINT_DEBUG);
         println(TmxFileParser.class, "MapHeight: " + mapHeight, false, PRINT_DEBUG);
@@ -87,8 +87,8 @@ public class TmxFileParser {
 
                 // Loop through all tiles
                 // Start iteration from top left
-                int currentY = mapHeight - 1; // using map height instead of zero, because we are starting at top.
-                int currentX = 0; // using 0 because we are starting from the left
+                short currentY = (short) (mapHeight - 1); // using map height instead of zero, because we are starting at top.
+                short currentX = 0; // using 0 because we are starting from the left
 
                 for (String tile : tiles) {
 
@@ -156,10 +156,10 @@ public class TmxFileParser {
                     if (objectTag.item(j).getNodeType() != Node.ELEMENT_NODE) continue;
 
                     Element objectTagElement = (Element) objectTag.item(j);
-                    int tmxFileX = Integer.parseInt(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE;
-                    int tmxFileY = Integer.parseInt(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE;
-                    int tmxFileWidth = Integer.parseInt(objectTagElement.getAttribute("width")) / ClientConstants.TILE_SIZE;
-                    int tmxFileHeight = Integer.parseInt(objectTagElement.getAttribute("height")) / ClientConstants.TILE_SIZE;
+                    short tmxFileX = (short) (Short.parseShort(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE);
+                    short tmxFileY = (short) (Short.parseShort(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE);
+                    short tmxFileWidth = (short) (Short.parseShort(objectTagElement.getAttribute("width")) / ClientConstants.TILE_SIZE);
+                    short tmxFileHeight = (short) (Short.parseShort(objectTagElement.getAttribute("height")) / ClientConstants.TILE_SIZE);
 
                     for (int ii = tmxFileY; ii < tmxFileY + tmxFileHeight; ii++) {
                         for (int jj = tmxFileX; jj < tmxFileX + tmxFileWidth; jj++) {
@@ -182,8 +182,8 @@ public class TmxFileParser {
 
                     Element objectTagElement = (Element) objectTag.item(j);
 
-                    int x = Integer.parseInt(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE;
-                    int y = mapHeight - (Integer.parseInt(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE) - 1;
+                    short x = (short) (Short.parseShort(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE);
+                    short y = (short) (mapHeight - (Short.parseShort(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE) - 1);
 
                     // Making it's associated tile non-traversable
                     map[x][y].removeFlag(Tile.TRAVERSABLE);
@@ -196,9 +196,9 @@ public class TmxFileParser {
          * Print the map to console.
          */
         if (PRINT_DEBUG) {
-            int yOffset = mapHeight - 1;
-            for (int height = yOffset; height >= 0; height--) {
-                for (int width = 0; width < mapWidth; width++) {
+            short yOffset = (short) (mapHeight - 1);
+            for (short height = yOffset; height >= 0; height--) {
+                for (short width = 0; width < mapWidth; width++) {
                     Tile tile = map[width][height];
                     if (!tile.isFlagSet(Tile.TRAVERSABLE)) System.out.print("X");
                     else if (tile.isFlagSet(Tile.TRAVERSABLE) && tile.isFlagSet(Tile.WARP))

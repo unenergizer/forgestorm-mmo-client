@@ -5,16 +5,16 @@ import com.valenguard.client.Valenguard;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @SuppressWarnings("unused")
 public class Location {
 
     private String mapName;
-    private int x;
-    private int y;
+    private short x;
+    private short y;
 
-    public Location(String mapName, int x, int y) {
+    public Location(String mapName, short x, short y) {
         this.mapName = mapName;
         this.x = x;
         this.y = y;
@@ -35,9 +35,9 @@ public class Location {
         return Valenguard.getInstance().getMapManager().getGameMap(mapName);
     }
 
-    public Location add(int x, int y) {
-        this.x = this.x + x;
-        this.y = this.y + y;
+    public Location add(short x, short y) {
+        this.x = (short) (this.x + x);
+        this.y = (short) (this.y + y);
         return this;
     }
 
@@ -54,7 +54,7 @@ public class Location {
         return this;
     }
 
-    public Location set(String mapName, int tileX, int tileY) {
+    public Location set(String mapName, short tileX, short tileY) {
         this.mapName = mapName;
         this.x = tileX;
         this.y = tileY;

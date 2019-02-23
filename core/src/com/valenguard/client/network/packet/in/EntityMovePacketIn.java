@@ -21,7 +21,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        return new EntityMovePacket(clientHandler.readShort(), clientHandler.readInt(), clientHandler.readInt());
+        return new EntityMovePacket(clientHandler.readShort(), clientHandler.readShort(), clientHandler.readShort());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
     @AllArgsConstructor
     class EntityMovePacket extends PacketData {
         private final short entityId;
-        private final int futureX;
-        private final int futureY;
+        private final short futureX;
+        private final short futureY;
     }
 }
