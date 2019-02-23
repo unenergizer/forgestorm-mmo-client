@@ -3,6 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
@@ -14,12 +15,9 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class BagWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    private static final int NUM_ROWS = 6;
-    private static final int NUM_COLUMNS = 5;
-
     private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
-    private final ItemStackSlot[] itemStackSlots = new ItemStackSlot[NUM_ROWS * NUM_COLUMNS];
+    private final ItemStackSlot[] itemStackSlots = new ItemStackSlot[ClientConstants.BAG_SIZE];
 
     public BagWindow() {
         super("Inventory");
@@ -32,7 +30,7 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
         setResizable(false);
 
         int columnCount = 0;
-        for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
+        for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
 
             // Create a slot for items
             ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG_1, i);
@@ -45,7 +43,7 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
             itemStackSlots[i] = itemStackSlot;
             columnCount++;
 
-            if (columnCount == NUM_COLUMNS) {
+            if (columnCount == ClientConstants.BAG_WIDTH) {
                 row();
                 columnCount = 0;
             }
@@ -87,7 +85,7 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
      * @param itemStack The {@link ItemStack} to add to the players inventory.
      */
     public void addItemStack(ItemStack itemStack) {
-        for (byte i = 0; i < NUM_ROWS * NUM_COLUMNS; i++) {
+        for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
 
             // Find empty slot
             if (itemStackSlots[i].getItemStack() != null) continue;

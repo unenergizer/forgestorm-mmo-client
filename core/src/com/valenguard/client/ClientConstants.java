@@ -16,4 +16,8 @@ public class ClientConstants {
     public static final float namePlateDistanceInPixels = 4;
 
     public static boolean MONITOR_MOVEMENT_CHECKS = false;
+
+    public static final int BAG_WIDTH = 5;
+    public static final int BAG_HEIGHT = 6;
+    public static final int BAG_SIZE = BAG_WIDTH * BAG_HEIGHT;
 }

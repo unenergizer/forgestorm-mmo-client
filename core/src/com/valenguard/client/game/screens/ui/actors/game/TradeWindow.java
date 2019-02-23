@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
@@ -32,14 +33,10 @@ import static com.valenguard.client.util.Preconditions.checkNotNull;
 
 public class TradeWindow extends HideableVisWindow implements Buildable {
 
-    private static final int NUM_ROWS = 6;
-    private static final int NUM_COLUMNS = 5;
-    private static final int FINAL_SIZE = NUM_ROWS * NUM_COLUMNS;
-
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
 
-    private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[FINAL_SIZE];
-    private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[FINAL_SIZE];
+    private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[ClientConstants.BAG_SIZE];
+    private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[ClientConstants.BAG_SIZE];
 
     private TradeManager tradeManager;
 
@@ -160,7 +157,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      */
     private void buildTradeWindowSlot(TradeWindowSlot[] targetSlot, VisTable visTable, boolean isClientPlayerSlot) {
         int columnCount = 0;
-        for (byte i = 0; i < FINAL_SIZE; i++) {
+        for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
 
             TradeWindowSlot tradeWindowSlot = new TradeWindowSlot(i, isClientPlayerSlot);
             tradeWindowSlot.buildSlot();
@@ -170,7 +167,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             targetSlot[i] = tradeWindowSlot;
             columnCount++;
 
-            if (columnCount == NUM_COLUMNS) {
+            if (columnCount == ClientConstants.BAG_WIDTH) {
                 visTable.row();
                 columnCount = 0;
             }
