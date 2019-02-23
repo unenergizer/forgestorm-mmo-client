@@ -21,13 +21,16 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         byte inventoryAction = clientHandler.readByte();
         int itemId = 0;
         int itemAmount = 0;
+        byte slotIndex = 0;
 
-        if (inventoryAction == InventoryActions.GIVE || inventoryAction == InventoryActions.REMOVE) {
+        if (inventoryAction == InventoryActions.GIVE) {
             itemId = clientHandler.readInt();
             itemAmount = clientHandler.readInt();
+        } else if (inventoryAction == InventoryActions.REMOVE) {
+            slotIndex = clientHandler.readByte();
         }
 
-        return new InventoryActionsPacket(inventoryAction, itemId, itemAmount);
+        return new InventoryActionsPacket(inventoryAction, itemId, itemAmount, slotIndex);
     }
 
     @Override
@@ -41,16 +44,17 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(packetData.itemId, packetData.itemAmount);
             Valenguard.getInstance().getStageHandler().getBagWindow().addItemStack(itemStack);
         } else if (packetData.inventoryAction == InventoryActions.REMOVE) {
-            Valenguard.getInstance().getStageHandler().getBagWindow().removeItemStack(packetData.itemId);
+
+            Valenguard.getInstance().getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
+
         }
-
-
     }
 
     @AllArgsConstructor
     class InventoryActionsPacket extends PacketData {
-        byte inventoryAction;
-        int itemId;
-        int itemAmount;
+        private final byte inventoryAction;
+        private final int itemId;
+        private final int itemAmount;
+        private final byte slotIndex;
     }
 }

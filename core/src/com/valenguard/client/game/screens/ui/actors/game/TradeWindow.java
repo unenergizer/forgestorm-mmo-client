@@ -197,7 +197,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         checkNotNull(lockedItemStackSlot, "This can never be null!");
         lockedItemStackSlot.toggleLockedSlot(true);
 
-        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), itemStack)).sendPacket();
+        println(getClass(), "Slot index being sent = " + lockedItemStackSlot.getInventoryIndex());
+
+        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getInventoryIndex())).sendPacket();
 
         return true; // Allow item placement
     }
@@ -209,9 +211,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         tradeWindowSlot.setTradeCell(itemStack, null);
     }
 
-    public void removeItemFromPacket(int itemStackUUID) {
+    public void removeItemFromPacket(byte itemSlot) {
+
+        TradeWindowSlot tradeWindowSlot = targetPlayerTradeSlots[itemSlot];
+
         // Find an empty trade slot
-        TradeWindowSlot tradeWindowSlot = findItemSlot(false, itemStackUUID);
         tradeWindowSlot.setTradeCell(null, null);
     }
 
@@ -311,7 +315,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     if (itemStack != null && isClientPlayerSlot) {
                         // Send other player info that we are removing an item from trade
-                        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), itemStack)).sendPacket();
+                        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), slotIndex)).sendPacket();
 
                         // Remove trade item and reset the slot image
                         setTradeCell(null, null);

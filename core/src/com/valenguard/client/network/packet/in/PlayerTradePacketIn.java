@@ -24,6 +24,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         int tradeUUID = -1;
         short playerUUID = -2;
         int itemId = -3;
+        byte itemSlot = -4;
 
         //noinspection ConstantConditions
         switch (tradeStatusOpcode) {
@@ -41,16 +42,19 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 playerUUID = clientHandler.readShort();
                 break;
             case TRADE_ITEM_ADD:
-            case TRADE_ITEM_REMOVE:
                 tradeUUID = clientHandler.readInt();
                 itemId = clientHandler.readInt();
+                break;
+            case TRADE_ITEM_REMOVE:
+                tradeUUID = clientHandler.readInt();
+                itemSlot = clientHandler.readByte();
                 break;
             default:
                 println(getClass(), "Decode unused trade status: " + tradeStatusOpcode, true, true);
                 break;
         }
 
-        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, playerUUID, itemId);
+        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, playerUUID, itemId, itemSlot);
     }
 
     @Override
@@ -84,7 +88,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 stageHandler.getTradeWindow().addItemFromPacket(packetData.itemId);
                 break;
             case TRADE_ITEM_REMOVE:
-                stageHandler.getTradeWindow().removeItemFromPacket(packetData.itemId);
+                stageHandler.getTradeWindow().removeItemFromPacket(packetData.itemSlot);
                 break;
 
             // Stage 4: First Trade Confirm (items are in window, do trade or cancel)
@@ -124,5 +128,6 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         private final int tradeUUID;
         private final short playerUUID;
         private final int itemId;
+        private final byte itemSlot;
     }
 }
