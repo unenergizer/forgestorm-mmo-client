@@ -1,4 +1,4 @@
-package com.valenguard.client.game.maps.file;
+package com.valenguard.client.game.data;
 
 import java.io.File;
 import java.io.IOException;

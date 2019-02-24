@@ -74,7 +74,7 @@ public class EntityManager implements Disposable {
     public void drawEntityBodies(float delta, SpriteBatch spriteBatch) {
         // Draw Items on ground
         for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
-            ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack((int) itemStackDrop.getAppearance().getTextureId(0), 1);
+            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack((int) itemStackDrop.getAppearance().getTextureId(0), 1);
             spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
         }
         // Draw over items

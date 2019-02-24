@@ -244,21 +244,13 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
                 if (slotLocked) return true;
 
+                // Trade Item click
                 if (Valenguard.getInstance().getStageHandler().getTradeWindow().isVisible()) {
-
-//                    if (inventoryType == InventoryType.EQUIPMENT) return true; // Equipment bag click!
+                    if (inventoryType == InventoryType.EQUIPMENT)
+                        return true; // Equipment bag click!
                     if (itemStack == null) return true; // Empty slot click!
 
-                    boolean itemSet = Valenguard.getInstance().getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
-
-                    if (itemSet) {
-                        // TODO: ITEM SET, LOCK IT DOWN (CANCEL MOVEMENTS)
-                        println(ItemStackSlot.class, "Set trade item: " + itemStack.getName());
-                    } else {
-                        // TODO: Play error sound and send error message
-                        println(ItemStackSlot.class, "Could NOT trade item: " + itemStack.getName());
-                    }
-
+                    Valenguard.getInstance().getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
                     return true;
                 }
 

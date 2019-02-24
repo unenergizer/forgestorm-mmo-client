@@ -16,6 +16,8 @@ public class PlayerTradePacketOut extends ClientAbstractOutPacket {
 
     @Override
     protected void createPacket(ValenguardOutputStream write) {
+        println(getClass(), "Opcode: " + tradePacketInfoOut.getTradeStatusOpcode());
+
         write.writeByte(tradePacketInfoOut.getTradeStatusOpcode().getTradeOpcodeByte());
 
         switch (tradePacketInfoOut.getTradeStatusOpcode()) {
@@ -37,5 +39,7 @@ public class PlayerTradePacketOut extends ClientAbstractOutPacket {
                 println(getClass(), "Create unused trade status", true, true);
                 break;
         }
+
+        println(getClass(), "trade packet out sent");
     }
 }

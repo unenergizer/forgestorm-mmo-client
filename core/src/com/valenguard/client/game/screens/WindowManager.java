@@ -2,6 +2,7 @@ package com.valenguard.client.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
@@ -12,7 +13,7 @@ public class WindowManager {
 
     private boolean useVSync = false;
     private WindowModes currentWindowMode = WindowModes.WINDOW;
-    private ScreenResolutions currentWindowResolution = ScreenResolutions.DESKTOP_1024_600;
+    private ScreenResolutions currentWindowResolution = ClientConstants.SCREEN_RESOLUTION;
 
     public void setUseVSync(boolean useVSync) {
         this.useVSync = useVSync;

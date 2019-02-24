@@ -62,6 +62,8 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
     public void onEvent(TradeRequestPacket packetData) {
         StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
+        println(getClass(), "Opcode: " + packetData.tradeStatusOpcode);
+
         switch (packetData.tradeStatusOpcode) {
 
             // Stage 1: Init trade
@@ -77,6 +79,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
             case TRADE_REQUEST_TARGET_ACCEPT:
                 ActorUtil.fadeOutWindow(stageHandler.getDropDownMenu());
                 ActorUtil.fadeInWindow(stageHandler.getTradeWindow());
+                ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                 break;
             case TRADE_REQUEST_TARGET_DECLINE:
                 stageHandler.getTradeWindow().closeTradeWindow();

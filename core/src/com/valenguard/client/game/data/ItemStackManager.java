@@ -1,8 +1,10 @@
-package com.valenguard.client.game.inventory;
+package com.valenguard.client.game.data;
+
+import com.valenguard.client.game.inventory.ItemStack;
 
 import java.util.List;
 
-public class ItemManager {
+public class ItemStackManager {
 
     /**
      * A list of all {@link ItemStack} found in the game. This list is loaded into
@@ -11,7 +13,7 @@ public class ItemManager {
      */
     private ItemStack[] itemStacks;
 
-    public ItemManager() {
+    public ItemStackManager() {
         init();
     }
 
@@ -19,8 +21,8 @@ public class ItemManager {
      * Load all items from file and store in memory for quick reference.
      */
     private void init() {
-        ItemLoader itemLoader = new ItemLoader();
-        List<ItemStack> loadedItemStacks = itemLoader.loadItems();
+        ItemStackLoader itemStackLoader = new ItemStackLoader();
+        List<ItemStack> loadedItemStacks = itemStackLoader.loadItems();
         itemStacks = new ItemStack[loadedItemStacks.size()];
         loadedItemStacks.toArray(itemStacks);
     }

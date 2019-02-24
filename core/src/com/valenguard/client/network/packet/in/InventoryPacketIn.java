@@ -41,7 +41,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             println(getClass(), "Giving the player " + packetData.itemAmount + " of those items", false, false);
 
             // Generate an ItemStack and place it in the players bag.
-            ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
             Valenguard.getInstance().getStageHandler().getBagWindow().addItemStack(itemStack);
         } else if (packetData.inventoryAction == InventoryActions.REMOVE) {
 

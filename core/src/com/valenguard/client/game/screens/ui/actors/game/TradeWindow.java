@@ -77,7 +77,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         buildTradeWindowSlot(targetPlayerTradeSlots, targetPlayerTable, false);
 
         // Add both trade window to the main window
-        tradeWindow.add(playerClientTable);
+        tradeWindow.add(playerClientTable).padRight(5);
         tradeWindow.add(targetPlayerTable);
         add(tradeWindow).row();
 
@@ -139,19 +139,15 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     }
 
     public void setupConfirmButtons(short playerUUID) {
-
         if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == playerUUID) {
             // Player client confirmed trade, lock our left pane.
 
             println(getClass(), "PlayerClient has confirmed the trade!", true);
 
             lockTrade = true;
-            accept.setText("Confirm Trade");
+            accept.setText("Trade Confirmed");
+            accept.setDisabled(true);
             cancel.setText("Cancel Confirm");
-        } else {
-            MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(playerUUID);
-            // Other player has confirmed trade, show some kind of status indicator
-            // TODO: Show status indicator
         }
     }
 
@@ -166,8 +162,6 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
 
             TradeWindowSlot tradeWindowSlot = new TradeWindowSlot(i, isClientPlayerSlot);
-            tradeWindowSlot.buildSlot();
-
             visTable.add(tradeWindowSlot);
 
             targetSlot[i] = tradeWindowSlot;
@@ -186,15 +180,14 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      * @param itemStack           The {@link ItemStack} the player wants to trade
      * @param lockedItemStackSlot If not null, toggle a lock on this slot to prevent
      *                            changes to it.
-     * @return True if the item could be place, false otherwise.
      */
-    public boolean addItemFromInventory(ItemStack itemStack, ItemStackSlot lockedItemStackSlot) {
-        if (lockTrade) return false; // Trade accepted, waiting on final confirm
+    public void addItemFromInventory(ItemStack itemStack, ItemStackSlot lockedItemStackSlot) {
+        if (lockTrade) return; // Trade accepted, waiting on final confirm
 
         // Find an empty trade slot
         TradeWindowSlot tradeWindowSlot = findEmptySlot(true);
 
-        if (tradeWindowSlot == null) return false; // Deny item placement
+        if (tradeWindowSlot == null) return; // Deny item placement
 
         tradeWindowSlot.setTradeCell(itemStack, lockedItemStackSlot);
         checkNotNull(lockedItemStackSlot, "This can never be null!");
@@ -203,13 +196,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         println(getClass(), "Slot index being sent = " + lockedItemStackSlot.getInventoryIndex());
 
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getInventoryIndex())).sendPacket();
-
-        return true; // Allow item placement
     }
 
     public void addItemFromPacket(int itemStackUUID) {
         // Find an empty trade slot
-        ItemStack itemStack = Valenguard.getInstance().getItemManager().makeItemStack(itemStackUUID, 1);
+        ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemStackUUID, 1);
         TradeWindowSlot tradeWindowSlot = findEmptySlot(false);
         tradeWindowSlot.setTradeCell(itemStack, null);
     }
@@ -240,29 +231,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         return null;
     }
 
-    /**
-     * Finds an occupied slot to remove a {@link ItemStack} from
-     *
-     * @param isClientPlayer Determines which trade slots to use
-     * @return A {@link TradeWindowSlot} if one could be found
-     */
-    private TradeWindowSlot findItemSlot(boolean isClientPlayer, int itemStackUUID) {
-        if (isClientPlayer) {
-            for (TradeWindowSlot windowSlot : playerClientTradeSlots) {
-                if (windowSlot.itemStack.getItemId() == itemStackUUID) return windowSlot;
-            }
-        } else {
-            for (TradeWindowSlot windowSlot : targetPlayerTradeSlots) {
-                if (windowSlot.itemStack.getItemId() == itemStackUUID) return windowSlot;
-            }
-        }
-        return null;
-    }
-
     public void closeTradeWindow() {
         ActorUtil.fadeOutWindow(this);
         lockTrade = false;
         accept.setText("Accept");
+        accept.setDisabled(false);
         cancel.setText("Cancel");
 
         // Reset trade slots
@@ -303,30 +276,13 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
         private ItemStackToolTip itemStackToolTip;
 
+        private InputListener clickListener;
+
         TradeWindowSlot(final byte slotIndex, final boolean isClientPlayerSlot) {
             this.slotIndex = slotIndex;
             this.isClientPlayerSlot = isClientPlayerSlot;
-        }
 
-        /**
-         * Builds a new window slot
-         */
-        void buildSlot() {
             setTradeCell(null, null); // Init empty slot
-
-            addListener(new InputListener() {
-                @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    if (itemStack != null && isClientPlayerSlot) {
-                        // Send other player info that we are removing an item from trade
-                        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), slotIndex)).sendPacket();
-
-                        // Remove trade item and reset the slot image
-                        setTradeCell(null, null);
-                    }
-                    return true;
-                }
-            });
         }
 
         /**
@@ -365,6 +321,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
             add(tradeCell); // Set next image
 
+            // Setup tool tips
             if (itemStack != null && tradeCell != null) {
                 if (itemStackToolTip != null) {
                     itemStackToolTip.unregisterToolTip();
@@ -373,6 +330,28 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                 itemStackToolTip = new ItemStackToolTip(itemStack, tradeCell);
                 itemStackToolTip.registerToolTip();
             }
+
+            // Setup click listener
+            addClickListener(tradeCell);
+        }
+
+        void addClickListener(Actor actor) {
+            if (clickListener != null) removeListener(clickListener);
+            actor.addListener(clickListener = new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    if (itemStack != null && isClientPlayerSlot) {
+                        println(getClass(), "removed item from trade window");
+
+                        // Send other player info that we are removing an item from trade
+                        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), slotIndex)).sendPacket();
+
+                        // Remove trade item and reset the slot image
+                        setTradeCell(null, null);
+                    }
+                    return true;
+                }
+            });
         }
     }
 }

@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.game.data.ResourceList;
+import com.valenguard.client.game.data.TmxFileParser;
 import com.valenguard.client.game.maps.data.GameMap;
-import com.valenguard.client.game.maps.file.ResourceList;
-import com.valenguard.client.game.maps.file.TmxFileParser;
 
 import java.io.File;
 import java.util.Collection;

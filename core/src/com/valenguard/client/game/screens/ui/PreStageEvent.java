@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -31,6 +32,23 @@ class PreStageEvent implements InputProcessor {
                 stageHandler.getStage().setKeyboardFocus(stageHandler.getChatWindow().getMessageInput());
                 stageHandler.getChatWindow().setChatToggled(true);
                 stageHandler.getChatWindow().getMessageInput().setText("");
+                return true;
+            }
+        }
+
+        /*
+         * TODO: REMOVE -> Open Shop Window
+         */
+        if (keycode == Input.Keys.P) {
+            if (!stageHandler.getChatWindow().isChatToggled()
+                    && !stageHandler.getMainSettingsWindow().isVisible()
+                    && !stageHandler.getEscapeWindow().isVisible()
+                    && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+                if (!stageHandler.getBagWindow().isVisible()) {
+                    ActorUtil.fadeInWindow(stageHandler.getEntityShopWindow());
+                } else {
+                    ActorUtil.fadeOutWindow(stageHandler.getEntityShopWindow());
+                }
                 return true;
             }
         }

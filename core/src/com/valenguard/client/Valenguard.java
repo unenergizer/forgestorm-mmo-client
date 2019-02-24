@@ -3,9 +3,10 @@ package com.valenguard.client;
 import com.badlogic.gdx.Game;
 import com.valenguard.client.game.assets.FileManager;
 import com.valenguard.client.game.audio.MusicManager;
+import com.valenguard.client.game.data.EntityShopManager;
+import com.valenguard.client.game.data.ItemStackManager;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.input.MouseManager;
-import com.valenguard.client.game.inventory.ItemManager;
 import com.valenguard.client.game.inventory.TradeManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -67,8 +68,9 @@ public class Valenguard extends Game {
     private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
     private OutputStreamManager outputStreamManager;
-    private ItemManager itemManager;
+    private ItemStackManager itemStackManager;
     private Skills skills;
+    private EntityShopManager entityShopManager;
 
     private TradeManager tradeManager;
 
@@ -101,10 +103,11 @@ public class Valenguard extends Game {
         mouseManager = new MouseManager();
         windowManager = new WindowManager();
         musicManager = new MusicManager();
-        itemManager = new ItemManager();
+        itemStackManager = new ItemStackManager();
         skills = new Skills();
         entityTracker = new EntityTracker();
         tradeManager = new TradeManager();
+        entityShopManager = new EntityShopManager();
 
         // loadItems screens
         gameScreen = new GameScreen();

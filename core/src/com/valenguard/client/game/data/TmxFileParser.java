@@ -1,4 +1,4 @@
-package com.valenguard.client.game.maps.file;
+package com.valenguard.client.game.data;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.valenguard.client.ClientConstants;

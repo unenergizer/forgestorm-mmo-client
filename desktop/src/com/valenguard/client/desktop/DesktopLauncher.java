@@ -18,8 +18,8 @@ public class DesktopLauncher {
         config.vSyncEnabled = true;
         config.fullscreen = false;
         config.title = "Valenguard - A Retro MMO";
-        config.width = ClientConstants.SCREEN_WIDTH;
-        config.height = ClientConstants.SCREEN_HEIGHT;
+        config.width = ClientConstants.SCREEN_RESOLUTION.getWidth();
+        config.height = ClientConstants.SCREEN_RESOLUTION.getHeight();
 
         config.addIcon("graphics/misc/icon-128.png", Files.FileType.Internal);
         config.addIcon("graphics/misc/icon-32.png", Files.FileType.Internal);

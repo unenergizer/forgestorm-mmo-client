@@ -1,8 +1,11 @@
-package com.valenguard.client.game.inventory;
+package com.valenguard.client.game.data;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.game.inventory.ItemStack;
+import com.valenguard.client.game.inventory.ItemStackType;
+import com.valenguard.client.game.inventory.WearableItemStack;
 import com.valenguard.client.game.rpg.Attributes;
 
 import org.yaml.snakeyaml.Yaml;
@@ -14,7 +17,7 @@ import java.util.Map;
 
 import static com.valenguard.client.util.Log.println;
 
-class ItemLoader {
+class ItemStackLoader {
 
     private static final boolean PRINT_DEBUG = false;
 

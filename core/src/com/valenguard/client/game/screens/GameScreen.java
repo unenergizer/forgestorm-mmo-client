@@ -65,7 +65,7 @@ public class GameScreen implements Screen {
         spriteBatch = new SpriteBatch();
 
         // Setup camera
-        camera = new AttachableCamera(ClientConstants.SCREEN_WIDTH, ClientConstants.SCREEN_HEIGHT, ClientConstants.ZOOM_DEFAULT);
+        camera = new AttachableCamera(ClientConstants.SCREEN_RESOLUTION, ClientConstants.ZOOM_DEFAULT);
         screenViewport = new ScreenViewport();
 
         // Load assets

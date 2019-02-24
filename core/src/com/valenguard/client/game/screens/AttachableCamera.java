@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.Entity;
+import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
 
 import lombok.Getter;
 
@@ -18,8 +19,8 @@ public class AttachableCamera extends OrthographicCamera {
     private float lastZoomLevel;
     private Entity following;
 
-    AttachableCamera(float width, float height, float zoom) {
-        super.setToOrtho(false, width, height);
+    AttachableCamera(ScreenResolutions screenResolutions, float zoom) {
+        super.setToOrtho(false, screenResolutions.getWidth(), screenResolutions.getHeight());
         super.update();
         this.zoom = zoom;
         this.lastZoomLevel = zoom;
