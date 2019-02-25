@@ -30,10 +30,11 @@ class PostStageEvent implements InputProcessor {
             if (forceCloseEvent.isHandled()) return true; // break here, do not open escape menu!
 
             //Finally... Open the Escape menu!
-            if (!stageHandler.getEscapeWindow().isVisible()
-                    && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-                ActorUtil.fadeInWindow(stageHandler.getEscapeWindow());
-                FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEscapeWindow());
+            if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+                if (!stageHandler.getEscapeWindow().isVisible()) {
+                    ActorUtil.fadeInWindow(stageHandler.getEscapeWindow());
+                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEscapeWindow());
+                }
             }
             return true;
         }

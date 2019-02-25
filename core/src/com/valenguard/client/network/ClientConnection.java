@@ -2,6 +2,7 @@ package com.valenguard.client.network;
 
 import com.badlogic.gdx.Gdx;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.packet.out.ValenguardOutputStream;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.EventBus;
@@ -180,7 +181,7 @@ public class ClientConnection {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                Valenguard.getInstance().getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
+                ActorUtil.getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
             }
         });
     }

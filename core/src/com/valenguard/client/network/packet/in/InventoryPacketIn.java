@@ -3,6 +3,7 @@ package com.valenguard.client.network.packet.in;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.InventoryActions;
 import com.valenguard.client.game.inventory.ItemStack;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -42,10 +43,10 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
 
             // Generate an ItemStack and place it in the players bag.
             ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-            Valenguard.getInstance().getStageHandler().getBagWindow().addItemStack(itemStack);
+            ActorUtil.getStageHandler().getBagWindow().addItemStack(itemStack);
         } else if (packetData.inventoryAction == InventoryActions.REMOVE) {
 
-            Valenguard.getInstance().getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
+            ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
 
         }
     }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -22,7 +21,7 @@ public class ButtonBar extends VisTable implements Buildable {
 
         VisTable buttonTable = new VisTable();
 
-        final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
+        final StageHandler stageHandler = ActorUtil.getStageHandler();
 
         ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
         VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_076").buildTextureRegionDrawable(), "Character");

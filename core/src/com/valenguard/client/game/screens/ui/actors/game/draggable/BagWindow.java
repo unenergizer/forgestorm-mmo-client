@@ -4,18 +4,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
-import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class BagWindow extends HideableVisWindow implements Buildable, Focusable {
-
-    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
 
     private final ItemStackSlot[] itemStackSlots = new ItemStackSlot[ClientConstants.BAG_SIZE];
 
@@ -25,7 +22,7 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
 
     @Override
     public Actor build() {
-        DragAndDrop dragAndDrop = Valenguard.getInstance().getStageHandler().getDragAndDrop();
+        DragAndDrop dragAndDrop = ActorUtil.getStageHandler().getDragAndDrop();
         addCloseButton();
         setResizable(false);
 
@@ -59,12 +56,12 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+                setPosition(ActorUtil.getStage().getViewport().getScreenWidth() - getWidth(), 0);
             }
         });
 
         pack();
-        setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+        setPosition(ActorUtil.getStage().getViewport().getScreenWidth() - getWidth(), 0);
         setVisible(false);
         return this;
     }

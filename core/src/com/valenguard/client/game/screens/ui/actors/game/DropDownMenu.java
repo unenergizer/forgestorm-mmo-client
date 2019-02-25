@@ -30,9 +30,6 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
     private DropDownMenu dropDownMenu;
     private MovingEntity movingEntity;
-    private TextButton follow;
-    private TextButton trade;
-    private TextButton cancel;
 
     private final PathFinding pathFinding = new PathFinding();
 
@@ -50,9 +47,9 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
         addCloseButton();
         VisTable buttonTable = new VisTable();
 
-        follow = new TextButton("Follow", VisUI.getSkin());
-        trade = new TextButton("Trade", VisUI.getSkin());
-        cancel = new TextButton("Cancel", VisUI.getSkin());
+        TextButton follow = new TextButton("Follow", VisUI.getSkin());
+        TextButton trade = new TextButton("Trade", VisUI.getSkin());
+        TextButton cancel = new TextButton("Cancel", VisUI.getSkin());
 
         buttonTable.add(follow).expand().fill().row();
         buttonTable.add(trade).expand().fill().row();
@@ -90,8 +87,8 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeOutWindow(dropDownMenu);
                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
-                Valenguard.getInstance().getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
-                Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
+                ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
+                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
             }
         });
 

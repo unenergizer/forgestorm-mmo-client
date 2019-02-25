@@ -2,6 +2,9 @@ package com.valenguard.client.game.screens.ui.actors;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 
 public class ActorUtil {
 
@@ -24,5 +27,13 @@ public class ActorUtil {
         boolean visibleStatus = hideableVisWindow.isVisible();
         if (!visibleStatus) hideableVisWindow.fadeIn().setVisible(true);
         return visibleStatus;
+    }
+
+    public static StageHandler getStageHandler() {
+        return Valenguard.getInstance().getStageHandler();
+    }
+
+    public static Stage getStage() {
+        return getStageHandler().getStage();
     }
 }

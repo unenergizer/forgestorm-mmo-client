@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 
 import lombok.Getter;
 
@@ -40,12 +41,12 @@ public class GameMechanicsTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-                    Valenguard.getInstance().getStageHandler().getFpsTable().setVisible(fpsCheckBox.isChecked());
+                    ActorUtil.getStageHandler().getFpsTable().setVisible(fpsCheckBox.isChecked());
                     if (fpsCheckBox.isChecked())
-                        Valenguard.getInstance().getStageHandler().getDebugTable().setVisible(false);
+                        ActorUtil.getStageHandler().getDebugTable().setVisible(false);
                 } else {
                     event.cancel();
-                    Dialogs.showOKDialog(Valenguard.getInstance().getStageHandler().getStage(), "Error!", "Option can only be set in-game.");
+                    Dialogs.showOKDialog(ActorUtil.getStage(), "Error!", "Option can only be set in-game.");
                 }
                 event.handle();
             }

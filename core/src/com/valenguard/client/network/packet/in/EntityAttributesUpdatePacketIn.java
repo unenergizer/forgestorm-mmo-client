@@ -1,11 +1,11 @@
 package com.valenguard.client.network.packet.in;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.rpg.Attributes;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateEvent;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -50,7 +50,7 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
 
             // Update UI values
             StatsUpdateEvent statsUpdateEvent = new StatsUpdateEvent(attributes);
-            for (Actor actor : Valenguard.getInstance().getStageHandler().getStage().getActors()) {
+            for (Actor actor : ActorUtil.getStage().getActors()) {
                 actor.fire(statsUpdateEvent);
             }
 

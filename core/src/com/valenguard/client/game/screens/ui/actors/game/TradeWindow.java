@@ -147,7 +147,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             lockTrade = true;
             accept.setText("Trade Confirmed");
             accept.setDisabled(true);
-            cancel.setText("Cancel Confirm");
+            cancel.setText("Cancel Confirmation");
         }
     }
 

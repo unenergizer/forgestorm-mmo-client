@@ -21,6 +21,7 @@ import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.packet.out.ClickActionPacketOut;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
@@ -230,8 +231,8 @@ public class MouseManager {
             if (movingEntity.getEntityType() != EntityType.PLAYER) continue;
 
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                if (Valenguard.getInstance().getStageHandler().getTradeWindow().isVisible()) return;
-                Valenguard.getInstance().getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, screenY);
+                if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
+                ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, screenY);
                 break;
             }
         }

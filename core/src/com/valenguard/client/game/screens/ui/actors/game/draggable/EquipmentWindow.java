@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.EquipmentSlotTypes;
 import com.valenguard.client.game.rpg.Attributes;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -19,37 +19,22 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 import lombok.Getter;
 
+@Getter
 public class EquipmentWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    private final DragAndDrop dragAndDrop = Valenguard.getInstance().getStageHandler().getDragAndDrop();
-
-    @Getter
     private ItemStackSlot helmSlot;
-    @Getter
     private ItemStackSlot arrowSlot;
-    @Getter
     private ItemStackSlot necklaceSlot;
-    @Getter
     private ItemStackSlot capeSlot;
-    @Getter
     private ItemStackSlot ringSlot0;
-    @Getter
     private ItemStackSlot ringSlot1;
-    @Getter
     private ItemStackSlot chestSlot;
-    @Getter
     private ItemStackSlot glovesSlot;
-    @Getter
     private ItemStackSlot beltSlot;
-    @Getter
     private ItemStackSlot bootsSlot;
-    @Getter
     private ItemStackSlot swordSlot;
-    @Getter
     private ItemStackSlot shieldSlot;
-    @Getter
     private VisLabel armor;
-    @Getter
     private VisLabel damage;
 
     public EquipmentWindow() {
@@ -154,6 +139,7 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
     private ItemStackSlot buildSlot(EquipmentSlotTypes equipmentSlotTypes) {
         ItemStackSlot itemStackSlot = new ItemStackSlot(equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
         itemStackSlot.build();
+        DragAndDrop dragAndDrop = ActorUtil.getStageHandler().getDragAndDrop();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
         return itemStackSlot;

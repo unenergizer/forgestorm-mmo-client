@@ -90,7 +90,7 @@ public class ButtonTable extends VisTable implements Buildable {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                MainSettingsWindow mainSettingsWindow = Valenguard.getInstance().getStageHandler().getMainSettingsWindow();
+                MainSettingsWindow mainSettingsWindow = ActorUtil.getStageHandler().getMainSettingsWindow();
                 if (!mainSettingsWindow.isVisible()) ActorUtil.fadeInWindow(mainSettingsWindow);
                 else ActorUtil.fadeOutWindow(mainSettingsWindow);
             }

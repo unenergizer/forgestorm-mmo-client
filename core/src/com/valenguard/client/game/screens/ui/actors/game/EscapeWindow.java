@@ -10,7 +10,6 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -19,7 +18,6 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class EscapeWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private EscapeWindow escapeWindow;
 
     public EscapeWindow() {
@@ -80,7 +78,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
         help.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ActorUtil.fadeOutWindow(escapeWindow);
-                ActorUtil.fadeInWindow(stageHandler.getHelpWindow());
+                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getHelpWindow());
                 return true;
             }
         });
@@ -88,7 +86,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
         credits.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ActorUtil.fadeOutWindow(escapeWindow);
-                ActorUtil.fadeInWindow(stageHandler.getCreditsWindow());
+                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCreditsWindow());
                 return true;
             }
         });
@@ -96,7 +94,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
         settings.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ActorUtil.fadeOutWindow(escapeWindow);
-                ActorUtil.fadeInWindow(stageHandler.getMainSettingsWindow());
+                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getMainSettingsWindow());
                 return true;
             }
         });

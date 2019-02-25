@@ -60,7 +60,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
     @Override
     public void onEvent(TradeRequestPacket packetData) {
-        StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
+        StageHandler stageHandler = ActorUtil.getStageHandler();
 
         println(getClass(), "Opcode: " + packetData.tradeStatusOpcode);
 

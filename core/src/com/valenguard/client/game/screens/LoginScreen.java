@@ -12,7 +12,7 @@ import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.assets.GameMusic;
 import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.audio.MusicManager;
-import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.util.GraphicsUtils;
 
 import lombok.Getter;
@@ -27,7 +27,6 @@ public class LoginScreen extends ScreenAdapter {
     private static final boolean PRINT_DEBUG = false;
 
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
-    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private SpriteBatch spriteBatch;
     private Pixmap cursorPixmap;
     private Cursor cursor;
@@ -49,13 +48,13 @@ public class LoginScreen extends ScreenAdapter {
 //        Gdx.graphics.setCursor(cursor);
 
         // User Interface
-        stageHandler.init(null);
+        ActorUtil.getStageHandler().init(null);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(stageHandler.getPreStageEvent());
-        multiplexer.addProcessor(stageHandler.getStage());
-        multiplexer.addProcessor(stageHandler.getPostStageEvent());
+        multiplexer.addProcessor(ActorUtil.getStageHandler().getPreStageEvent());
+        multiplexer.addProcessor(ActorUtil.getStage());
+        multiplexer.addProcessor(ActorUtil.getStageHandler().getPostStageEvent());
         Gdx.input.setInputProcessor(multiplexer);
 
         // Play audio
@@ -73,13 +72,13 @@ public class LoginScreen extends ScreenAdapter {
         spriteBatch.end();
 
         // Render UI
-        stageHandler.render(delta);
+        ActorUtil.getStageHandler().render(delta);
     }
 
     @Override
     public void resize(int width, int height) {
         println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
-        stageHandler.resize(width, height);
+        ActorUtil.getStageHandler().resize(width, height);
     }
 
     @Override
@@ -111,6 +110,6 @@ public class LoginScreen extends ScreenAdapter {
             cursor.dispose();
             cursor = null;
         }
-        Valenguard.getInstance().getStageHandler().dispose();
+        ActorUtil.getStageHandler().dispose();
     }
 }

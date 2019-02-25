@@ -21,7 +21,7 @@ import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.input.Keyboard;
 import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.maps.MapRenderer;
-import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.PlayerSessionData;
 import com.valenguard.client.util.GraphicsUtils;
 
@@ -35,7 +35,6 @@ public class GameScreen implements Screen {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
 
     private MapRenderer mapRenderer = new MapRenderer();
@@ -82,19 +81,19 @@ public class GameScreen implements Screen {
         parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
-        // Change mouse cursor
+        // TODO: Change mouse cursor
 //        fileManager.loadPixmap(GamePixmap.CURSOR_1);
 //        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // User Interface
-        stageHandler.dispose();
-        stageHandler.init(screenViewport);
+        ActorUtil.getStageHandler().dispose();
+        ActorUtil.getStageHandler().init(screenViewport);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(stageHandler.getPreStageEvent());
-        multiplexer.addProcessor(stageHandler.getStage());
-        multiplexer.addProcessor(stageHandler.getPostStageEvent());
+        multiplexer.addProcessor(ActorUtil.getStageHandler().getPreStageEvent());
+        multiplexer.addProcessor(ActorUtil.getStage());
+        multiplexer.addProcessor(ActorUtil.getStageHandler().getPostStageEvent());
         multiplexer.addProcessor(keyboard);
         multiplexer.addProcessor(new Mouse());
         Gdx.input.setInputProcessor(multiplexer);
@@ -166,7 +165,7 @@ public class GameScreen implements Screen {
 
         mapRenderer.renderOverheadMapLayers();
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
-        stageHandler.render(delta);
+        ActorUtil.getStageHandler().render(delta);
     }
 
     private Pixmap createProceduralPixmap(int width, int height, Color color) {
@@ -189,7 +188,7 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         camera.setToOrtho(false, width, height);
-        stageHandler.resize(width, height);
+        ActorUtil.getStageHandler().resize(width, height);
     }
 
     @Override

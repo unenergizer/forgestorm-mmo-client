@@ -16,6 +16,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 
@@ -51,7 +52,7 @@ public class GraphicsTab extends Tab {
         slider.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (Valenguard.getInstance().getScreenType() != ScreenType.GAME) {
-                    Dialogs.showOKDialog(Valenguard.getInstance().getStageHandler().getStage(), "Error!", "Option can only be set in-game.");
+                    Dialogs.showOKDialog(ActorUtil.getStage(), "Error!", "Option can only be set in-game.");
                     return true;
                 }
                 return false;

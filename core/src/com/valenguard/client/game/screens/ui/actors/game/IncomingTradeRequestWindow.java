@@ -66,7 +66,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
 
         pack();
         setVisible(false);
-        Viewport viewport = Valenguard.getInstance().getStageHandler().getStage().getViewport();
+        Viewport viewport = ActorUtil.getStage().getViewport();
         setPosition(viewport.getScreenWidth() / 2, viewport.getScreenHeight() / 2);
         return this;
     }

@@ -12,10 +12,10 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.network.packet.out.ChatMessagePacketOut;
@@ -29,7 +29,6 @@ import static com.valenguard.client.util.Log.println;
 public class ChatWindow extends HideableVisWindow implements Buildable, Focusable {
 
     private static final String ENTER_MESSAGE = "Press Enter to send a message...";
-    private final StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
     private TextArea messagesDisplay;
     private VisTextField messageInput;
 
@@ -54,6 +53,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
 
     @Override
     public Actor build() {
+        final StageHandler stageHandler = ActorUtil.getStageHandler();
         final int innerPadding = 5;
         pad(innerPadding);
         setResizable(true);

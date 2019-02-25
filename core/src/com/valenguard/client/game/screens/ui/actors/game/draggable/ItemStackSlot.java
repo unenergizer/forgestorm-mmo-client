@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import lombok.Getter;
@@ -245,12 +245,12 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 if (slotLocked) return true;
 
                 // Trade Item click
-                if (Valenguard.getInstance().getStageHandler().getTradeWindow().isVisible()) {
+                if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) {
                     if (inventoryType == InventoryType.EQUIPMENT)
                         return true; // Equipment bag click!
                     if (itemStack == null) return true; // Empty slot click!
 
-                    Valenguard.getInstance().getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
+                    ActorUtil.getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
                     return true;
                 }
 
