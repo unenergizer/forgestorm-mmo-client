@@ -39,12 +39,13 @@ class PreStageEvent implements InputProcessor {
         /*
          * TODO: REMOVE -> Open Shop Window
          */
-        if (keycode == Input.Keys.P) {
+        if (keycode == Input.Keys.P && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                 if (!stageHandler.getBagWindow().isVisible()) {
+                    stageHandler.getEntityShopWindow().loadShop(2);
                     ActorUtil.fadeInWindow(stageHandler.getEntityShopWindow());
                 } else {
                     ActorUtil.fadeOutWindow(stageHandler.getEntityShopWindow());
@@ -56,11 +57,10 @@ class PreStageEvent implements InputProcessor {
         /*
          * Open Player Bag
          */
-        if (keycode == KeyBinds.INVENTORY_WINDOW) {
+        if (keycode == KeyBinds.INVENTORY_WINDOW && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()
-                    && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+                    && !stageHandler.getEscapeWindow().isVisible()) {
                 if (!stageHandler.getBagWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
@@ -74,11 +74,10 @@ class PreStageEvent implements InputProcessor {
         /*
          * Open Equipment Window
          */
-        if (keycode == KeyBinds.EQUIPMENT_WINDOW) {
+        if (keycode == KeyBinds.EQUIPMENT_WINDOW && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()
-                    && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+                    && !stageHandler.getEscapeWindow().isVisible()) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEquipmentWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());

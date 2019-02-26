@@ -3,12 +3,12 @@ package com.valenguard.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
@@ -24,16 +24,28 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.valenguard.client.util.Log.println;
 
 public class EntityShopWindow extends HideableVisWindow implements Buildable {
 
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+    private final VisTextField pageDisplay = new VisTextField();
+    private final VisTextButton previousPage = new VisTextButton("Previous Page");
+    private final VisTextButton nextPage = new VisTextButton("Next Page");
+    private final VisTextButton exit = new VisTextButton("Exit Shop");
 
     private EntityShopWindow entityShopWindow;
-    private VisTable itemCellTable = new VisTable();
+    private VisTable pageContainer = new VisTable();
+    private VisTable navTable = new VisTable();
 
+    private List<VisTable> shopPages;
+    private int currentPageIndex = 0;
 
     @Setter
     @Getter
@@ -50,12 +62,42 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         addCloseButton();
         setResizable(false);
 
-        buildShopPage(2);
+        pageDisplay.setDisabled(true);
+        entityShopWindow.add(pageDisplay).row();
 
-        add(itemCellTable).row();
+        navTable.add(previousPage).expand().fill();
+        navTable.add(nextPage).expand().fill();
+        navTable.row();
+        navTable.add(exit).colspan(2).expand().fill();
 
-        TextButton exit = new TextButton("Exit Shop", VisUI.getSkin());
-        add(exit).expand().fill();
+        entityShopWindow.add(pageContainer).row();
+        entityShopWindow.add(navTable).expand().fill();
+
+        previousPage.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                }
+
+                setupButtons();
+                changeShopPage(currentPageIndex);
+            }
+        });
+
+        nextPage.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                if (currentPageIndex < shopPages.size() - 1) {
+                    currentPageIndex++;
+                }
+
+                setupButtons();
+                changeShopPage(currentPageIndex);
+            }
+        });
 
         exit.addListener(new ChangeListener() {
             @Override
@@ -89,33 +131,115 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    private void buildShopPage(int shopID) {
+    private List<VisTable> buildShopPage(int shopID) {
         EntityShopManager entityShopManager = Valenguard.getInstance().getEntityShopManager();
         ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
 
+        // Generate shop slots
+        List<EntityShopWindowSlot> entityShopWindowSlots = new ArrayList<EntityShopWindowSlot>();
+        for (int i = 0; i < entityShopManager.getShopItemList(shopID).size(); i++) {
+            ItemStack itemStack = itemStackManager.makeItemStack(entityShopManager.getItemForShop(shopID, i), 1);
+            entityShopWindowSlots.add(new EntityShopWindowSlot(itemStack));
+        }
+
+        // Generate shop pages
+        List<VisTable> shopPageList = new ArrayList<VisTable>();
         int columnCount = 0;
-        for (int i = 0; i < ClientConstants.BAG_SIZE; i++) {
+        int pageCount = 0;
+        VisTable shopPage = new VisTable();
+        shopPageList.add(shopPage); // Add first page
 
-            Integer itemStackID = entityShopManager.getItemForShop(shopID, i);
-            ItemStack itemStack;
-
-            if (itemStackID != null) {
-                itemStack = itemStackManager.makeItemStack(itemStackID, 1);
-            } else {
-                itemStack = null;
-            }
-
-            EntityShopWindowSlot entityShopWindowSlot = new EntityShopWindowSlot(i, itemStack);
+        for (int i = 0; i < entityShopWindowSlots.size(); i++) {
+            EntityShopWindowSlot entityShopWindowSlot = entityShopWindowSlots.get(i);
             entityShopWindowSlot.setItemStackCell();
 
-            itemCellTable.add(entityShopWindowSlot);
+            shopPage.add(entityShopWindowSlot);
             columnCount++;
+            pageCount++;
 
-            if (columnCount == ClientConstants.BAG_WIDTH) {
-                itemCellTable.row();
+            // Test if we need to make a new page
+            if (pageCount >= ClientConstants.BAG_SIZE) {
+                // Start new page
+                shopPage = new VisTable();
+                shopPageList.add(shopPage);
+
+                pageCount = 0;
+                columnCount = 0;
+            } else if (columnCount == ClientConstants.BAG_WIDTH) {
+                // Test if we need to make a item row
+                shopPage.row();
                 columnCount = 0;
             }
         }
+
+        // Generate blank spots
+        int blankSpots = (shopPageList.size() * ClientConstants.BAG_SIZE) - entityShopWindowSlots.size();
+        columnCount = entityShopWindowSlots.size() % ClientConstants.BAG_WIDTH;
+
+        VisTable lastShopPage = shopPageList.get(shopPageList.size() - 1);
+
+        for (int i = 0; i < blankSpots; i++) {
+            EntityShopWindowSlot entityShopWindowSlot = new EntityShopWindowSlot(null);
+            entityShopWindowSlot.setItemStackCell();
+            lastShopPage.add(entityShopWindowSlot);
+
+            columnCount++;
+
+            if (columnCount == ClientConstants.BAG_WIDTH) {
+                // Test if we need to make a item row
+                shopPage.row();
+                columnCount = 0;
+            }
+        }
+        return shopPageList;
+    }
+
+    private void changeShopPage(int pageIndex) {
+        pageDisplay.setText("Page: " + (pageIndex + 1));
+
+        // Reset content tables
+        for (Actor actor : pageContainer.getChildren()) {
+            actor.remove();
+        }
+
+        // Build item table
+        pageContainer.add(shopPages.get(pageIndex));
+
+        setupButtons();
+        pack();
+    }
+
+    public void loadShop(int shopID) {
+        resetShop();
+
+        // Dynamic build shop pages
+        shopPages = buildShopPage(shopID);
+        println(getClass(), "Shop Pages: " + shopPages.size());
+        changeShopPage(0);
+    }
+
+    private void setupButtons() {
+        // Setup previous page
+        if (currentPageIndex == 0) {
+            previousPage.setDisabled(true);
+        } else {
+            previousPage.setDisabled(false);
+        }
+
+        // Setup
+        if (currentPageIndex == shopPages.size() - 1) {
+            nextPage.setDisabled(true);
+        } else {
+            nextPage.setDisabled(false);
+        }
+    }
+
+    private void resetShop() {
+        if (shopPages != null) shopPages.clear();
+        shopPages = null;
+        currentPageIndex = 0;
+        previousPage.setDisabled(true);
+        nextPage.setDisabled(false);
     }
 
     /**
@@ -124,14 +248,10 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
      */
     private class EntityShopWindowSlot extends VisTable {
 
-        private final int index;
-
         /**
          * The {@link ItemStack} that is being sold by the vendor
          */
         private final ItemStack itemStack;
-
-        private EntityShopWindowSlot entityShopWindowSlot;
 
         /**
          * The image that represents this cell
@@ -140,10 +260,8 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
 
         private ItemStackToolTip itemStackToolTip;
 
-        EntityShopWindowSlot(final int index, final ItemStack itemStack) {
-            this.index = index;
+        EntityShopWindowSlot(final ItemStack itemStack) {
             this.itemStack = itemStack;
-            this.entityShopWindowSlot = this;
         }
 
         /**

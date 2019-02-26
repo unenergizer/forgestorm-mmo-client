@@ -21,4 +21,9 @@ public class EntityShopManager {
         if (itemStackShopSlot > map.get(shopID).size() - 1) return null;
         return map.get(shopID).get(itemStackShopSlot);
     }
+
+    public List<Integer> getShopItemList(int shopID) {
+        if (!map.containsKey(shopID)) return null;
+        return map.get(shopID);
+    }
 }

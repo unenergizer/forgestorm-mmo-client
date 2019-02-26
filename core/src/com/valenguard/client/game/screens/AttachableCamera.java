@@ -41,20 +41,17 @@ public class AttachableCamera extends OrthographicCamera {
         position.y = MathUtils.clamp(following.getDrawY() + (ClientConstants.TILE_SIZE / 2), cameraMinY, cameraMaxY);
     }
 
-    public void scrollZoomLevel(double amount) {
-        final double zoomLimitIn = ClientConstants.ZOOM_LIMIT_IN;
-        final double zoomLimitOut = ClientConstants.ZOOM_LIMIT_OUT;
-        double current = zoom * 10;
-        double change = (current + amount) / 10;
+    public void scrollZoomLevel(float amount) {
+        float change = zoom + amount;
 
-        if (change <= zoomLimitIn) {
-            change = zoomLimitIn;
-        } else if (change >= zoomLimitOut) {
-            change = zoomLimitOut;
+        if (change <= ClientConstants.ZOOM_LIMIT_IN) {
+            change = ClientConstants.ZOOM_LIMIT_IN;
+        } else if (change >= ClientConstants.ZOOM_LIMIT_OUT) {
+            change = ClientConstants.ZOOM_LIMIT_OUT;
         }
 
-        zoom = (float) change;
-        lastZoomLevel = (float) change;
+        zoom = change;
+        lastZoomLevel = change;
         ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
     }
 
