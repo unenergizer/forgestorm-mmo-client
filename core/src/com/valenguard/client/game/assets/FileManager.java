@@ -205,7 +205,7 @@ public class FileManager {
             params.textureMinFilter = Texture.TextureFilter.Nearest;
             params.textureMagFilter = Texture.TextureFilter.Nearest;
             assetManager.setLoader(TiledMap.class, new TmxMapLoader(filePathResolver));
-            assetManager.load(mapFilePath, TiledMap.class, params);
+            assetManager.load(mapFilePath, TiledMap.class);
             assetManager.finishLoadingAsset(mapFilePath);
         } else {
             throw new RuntimeException("GameMap Doesn't exist: " + mapFilePath);
