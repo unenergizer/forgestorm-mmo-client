@@ -42,6 +42,17 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         if (sourceItemStackSlot.isSlotLocked() || itemStackTargetSlot.isSlotLocked()) return false;
 
+        // Being dragged from equipment to bag and swapping.
+        if (itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1
+                && sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT
+                && targetItemStack != null
+                && sourceItemStackSlot.getItemStack() != null) {
+            // The source is the equipment inventory. The item being placed into their
+            // equipment inventory is the target's (the bag) ItemStack.
+            return sourceItemStackSlot.isAcceptedItemStackType(targetItemStack);
+        }
+
+        // Being dragged equipment to the bag.
         if (itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1
                 && sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT
                 && targetItemStack != null) {
