@@ -17,6 +17,7 @@ public enum TradeStatusOpcode {
 
     // Stage 4: First Trade Confirm (items are in window, do trade or cancel)
     TRADE_OFFER_CONFIRM,
+    TRADE_OFFER_UNCONFIRM,
 
     // Stage 5: Final trade confirm
     TRADE_OFFER_COMPLETE,

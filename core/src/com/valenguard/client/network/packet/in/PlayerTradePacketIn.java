@@ -39,6 +39,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 tradeUUID = clientHandler.readInt();
                 break;
             case TRADE_OFFER_CONFIRM:
+            case TRADE_OFFER_UNCONFIRM:
                 tradeUUID = clientHandler.readInt();
                 playerUUID = clientHandler.readShort();
                 break;
@@ -98,8 +99,10 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 4: First Trade Confirm (items are in window, do trade or cancel)
             case TRADE_OFFER_CONFIRM:
-                // TODO: Get entity who confirmed. Show check mark on confirmed window pane?
-                stageHandler.getTradeWindow().setupConfirmButtons(packetData.playerUUID);
+                stageHandler.getTradeWindow().confirmTradeUI(packetData.playerUUID);
+                break;
+            case TRADE_OFFER_UNCONFIRM:
+                stageHandler.getTradeWindow().unconfirmTradeUI(packetData.playerUUID);
                 break;
 
             // Stage 5: Final trade confirm

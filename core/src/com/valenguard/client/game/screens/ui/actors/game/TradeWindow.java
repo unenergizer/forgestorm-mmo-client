@@ -107,7 +107,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
+                if (!lockTrade) {
+                    new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
+                } else if (lockTrade) {
+                    new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_UNCONFIRM, tradeManager.getTradeUUID())).sendPacket();
+                }
             }
         });
 
@@ -138,7 +142,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    public void setupConfirmButtons(short playerUUID) {
+    public void confirmTradeUI(short playerUUID) {
         if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == playerUUID) {
             // Player client confirmed trade, lock our left pane.
 
@@ -148,6 +152,19 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             accept.setText("Trade Confirmed");
             accept.setDisabled(true);
             cancel.setText("Cancel Confirmation");
+        }
+    }
+
+    public void unconfirmTradeUI(short playerUUID) {
+        if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == playerUUID) {
+            // Player client confirmed trade, lock our left pane.
+
+            println(getClass(), "PlayerClient has unconfirmed the trade!", true);
+
+            lockTrade = false;
+            accept.setText("Accept");
+            accept.setDisabled(false);
+            cancel.setText("Cancel");
         }
     }
 
@@ -340,7 +357,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             actor.addListener(clickListener = new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    if (itemStack != null && isClientPlayerSlot) {
+                    if (itemStack != null && isClientPlayerSlot && !lockTrade) {
                         println(getClass(), "removed item from trade window");
 
                         // Send other player info that we are removing an item from trade

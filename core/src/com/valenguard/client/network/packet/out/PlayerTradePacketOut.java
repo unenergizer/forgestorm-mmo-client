@@ -27,6 +27,7 @@ public class PlayerTradePacketOut extends ClientAbstractOutPacket {
             case TRADE_REQUEST_TARGET_ACCEPT:
             case TRADE_REQUEST_TARGET_DECLINE:
             case TRADE_OFFER_CONFIRM:
+            case TRADE_OFFER_UNCONFIRM:
             case TRADE_CANCELED:
                 write.writeInt(tradePacketInfoOut.getTradeUUID());
                 break;
