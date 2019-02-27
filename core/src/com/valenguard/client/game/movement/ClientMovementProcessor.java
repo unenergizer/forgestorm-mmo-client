@@ -60,13 +60,13 @@ public class ClientMovementProcessor {
             checkArgument(inputData.getMoveNodes().size() == 1, "The input nodes was not one for keyboard input.");
 
             playerClient.setPredictedMoveDirection(getPredictedDirection(playerClient, playerClient.getCurrentMapLocation()));
-            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData);
 
             currentMovementInput = MovementInput.KEYBOARD;
 
         } else if (inputData.getMovementInput() == MovementInput.MOUSE) {
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData);
 
             currentMovementInput = MovementInput.MOUSE;
         }
@@ -86,7 +86,7 @@ public class ClientMovementProcessor {
                 checkArgument(predictedDirection != MoveDirection.NONE, "Move direction was NONE when it is not suppose to be.");
 
                 playerClient.setPredictedMoveDirection(predictedDirection);
-                Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+                Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData);
 
             } else if (currentMovementInput == MovementInput.KEYBOARD) {
                 MoveDirection predictedDirection = getPredictedDirection(playerClient, playerClient.getFutureMapLocation());
@@ -98,7 +98,7 @@ public class ClientMovementProcessor {
         } else if (inputData.getMovementInput() == MovementInput.MOUSE) {
             // This just overwrite the current queue
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData);
 
             currentMovementInput = MovementInput.MOUSE;
         }

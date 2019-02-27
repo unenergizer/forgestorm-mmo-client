@@ -209,7 +209,7 @@ public class MouseManager {
         if (moveNodes == null) return;
 
         Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
-                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes));
+                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
     }
 
     private void middle(final int screenX, final int screenY) {

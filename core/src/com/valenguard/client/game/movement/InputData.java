@@ -13,4 +13,5 @@ import lombok.Getter;
 public class InputData {
     private ClientMovementProcessor.MovementInput movementInput;
     private Queue<MoveNode> moveNodes;
+    private AbstractPostProcessor abstractPostProcessor;
 }

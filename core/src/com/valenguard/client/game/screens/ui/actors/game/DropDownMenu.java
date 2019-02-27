@@ -12,6 +12,7 @@ import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
 import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.movement.AbstractPostProcessor;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -78,7 +79,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
                 Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
                 Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
-                        new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes));
+                        new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
             }
         });
 
@@ -86,9 +87,33 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeOutWindow(dropDownMenu);
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
-                ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
+
+                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+                Location clientLocation = playerClient.getFutureMapLocation();
+                Location toLocation = movingEntity.getFutureMapLocation();
+
+                Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
+
+                if (testMoveNodes == null) return;
+
+                Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
+                for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+                    moveNodes.add(testMoveNodes.remove());
+                }
+
+                if (!moveNodes.isEmpty()) {
+                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Walking towards player to request trade.");
+                }
+
+                Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                        new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
+                            @Override
+                            public void postMoveAction() {
+                                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
+                                ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
+                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
+                            }
+                        }));
             }
         });
 

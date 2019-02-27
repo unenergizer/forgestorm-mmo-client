@@ -27,10 +27,12 @@ public class ClientPlayerMovementManager {
 
     @Getter
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
+    private InputData inputData;
 
-    void playerMove(PlayerClient playerClient, Queue<MoveNode> nodes) {
-        if (nodes.isEmpty()) return;
-        movements = nodes;
+    void playerMove(PlayerClient playerClient, InputData inputData) {
+        if (inputData.getMoveNodes().isEmpty()) return;
+        movements = inputData.getMoveNodes();
+        this.inputData = inputData;
         // todo: consider checking to see if they're moving
 
         if (!checkSingleNode(playerClient)) return;
@@ -122,7 +124,7 @@ public class ClientPlayerMovementManager {
                         playerClient,
                         playerClient.getFutureMapLocation(),
                         playerClient.getPredictedMoveDirection());
-                playerMove(playerClient, singleMoveNode);
+                playerMove(playerClient, new InputData(null, singleMoveNode, null));
 
             } else {
                 finishMove(playerClient);
@@ -149,6 +151,13 @@ public class ClientPlayerMovementManager {
         // The player is no longer moving.
         playerClient.setPredictedMoveDirection(MoveDirection.NONE);
         Valenguard.getInstance().getClientMovementProcessor().setCurrentMovementInput(ClientMovementProcessor.MovementInput.NONE);
-    }
 
+        if (inputData != null) {
+            if (inputData.getAbstractPostProcessor() != null) {
+                inputData.getAbstractPostProcessor().postMoveAction();
+            }
+
+            inputData = null;
+        }
+    }
 }

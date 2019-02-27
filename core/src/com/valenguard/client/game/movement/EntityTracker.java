@@ -52,7 +52,7 @@ public class EntityTracker {
 
                 if (!moveNodes.isEmpty()) {
                     Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
-                            new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes));
+                            new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
                 }
             }
 

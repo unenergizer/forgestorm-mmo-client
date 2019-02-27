@@ -66,7 +66,8 @@ public class KeyboardMovement {
         clientMovementProcessor.preProcessMovement(
                 new InputData(
                         ClientMovementProcessor.MovementInput.KEYBOARD,
-                        futureMoveNode
+                        futureMoveNode,
+                        null
                 ));
     }
 
