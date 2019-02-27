@@ -105,10 +105,12 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                     ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Walking towards player to request trade.");
                 }
 
+                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
                 Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
                         new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                             @Override
                             public void postMoveAction() {
+                                Valenguard.getInstance().getEntityTracker().cancelTracking();
                                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
                                 ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
                                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");

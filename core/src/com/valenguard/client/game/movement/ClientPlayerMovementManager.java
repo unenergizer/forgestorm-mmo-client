@@ -27,12 +27,16 @@ public class ClientPlayerMovementManager {
 
     @Getter
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
-    private InputData inputData;
+    private AbstractPostProcessor abstractPostProcessor;
 
-    void playerMove(PlayerClient playerClient, InputData inputData) {
-        if (inputData.getMoveNodes().isEmpty()) return;
-        movements = inputData.getMoveNodes();
-        this.inputData = inputData;
+    void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
+        playerMove(playerClient, movements, null);
+    }
+
+    void playerMove(PlayerClient playerClient, Queue<MoveNode> movements, AbstractPostProcessor abstractPostProcessor) {
+        if (movements.isEmpty()) return;
+        this.movements = movements;
+        if (abstractPostProcessor != null) this.abstractPostProcessor = abstractPostProcessor;
         // todo: consider checking to see if they're moving
 
         if (!checkSingleNode(playerClient)) return;
@@ -124,7 +128,7 @@ public class ClientPlayerMovementManager {
                         playerClient,
                         playerClient.getFutureMapLocation(),
                         playerClient.getPredictedMoveDirection());
-                playerMove(playerClient, new InputData(null, singleMoveNode, null));
+                playerMove(playerClient, singleMoveNode);
 
             } else {
                 finishMove(playerClient);
@@ -152,12 +156,9 @@ public class ClientPlayerMovementManager {
         playerClient.setPredictedMoveDirection(MoveDirection.NONE);
         Valenguard.getInstance().getClientMovementProcessor().setCurrentMovementInput(ClientMovementProcessor.MovementInput.NONE);
 
-        if (inputData != null) {
-            if (inputData.getAbstractPostProcessor() != null) {
-                inputData.getAbstractPostProcessor().postMoveAction();
-            }
-
-            inputData = null;
+        if (abstractPostProcessor != null) {
+            abstractPostProcessor.postMoveAction();
+            abstractPostProcessor = null;
         }
     }
 }
