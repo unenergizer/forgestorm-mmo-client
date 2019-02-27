@@ -232,7 +232,7 @@ public class MouseManager {
 
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
                 if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-                ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, screenY);
+                ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
                 break;
             }
         }
