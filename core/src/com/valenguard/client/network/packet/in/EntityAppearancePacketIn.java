@@ -13,8 +13,12 @@ import com.valenguard.client.network.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.APPEARANCE)
 public class EntityAppearancePacketIn implements PacketListener<EntityAppearancePacketIn.EntityAppearancePacket> {
+
+    private static final boolean PRINT_DEBUG = false;
 
     private static final int COLOR_INDEX = 0x01;
     private static final int BODY_INDEX = 0x02;
@@ -79,14 +83,14 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         }
         if ((packetData.appearanceBits & ARMOR_INDEX) != 0) {
 
-            System.out.println("UPDATING THE ARMOR!");
+            println(getClass(), "UPDATING THE ARMOR!", false, PRINT_DEBUG);
 
             appearance.getTextureIds()[Appearance.ARMOR] = packetData.textureIds[Appearance.ARMOR];
             updatedTextureId = true;
         }
         if ((packetData.appearanceBits & HELM_INDEX) != 0) {
 
-            System.out.println("UPDATING THE HELM");
+            println(getClass(), "UPDATING THE HELM", false, PRINT_DEBUG);
 
             appearance.getTextureIds()[Appearance.HELM] = packetData.textureIds[Appearance.HELM];
             updatedTextureId = true;
@@ -95,7 +99,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         if (updatedTextureId) {
             if (entity instanceof MovingEntity) {
                 MovingEntity movingEntity = (MovingEntity) entity;
-                System.out.println("ENTITY : " + entity.getClass().getSimpleName());
+                println(getClass(), "ENTITY : " + entity.getClass().getSimpleName(), false, PRINT_DEBUG);
                 movingEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
             }
         }

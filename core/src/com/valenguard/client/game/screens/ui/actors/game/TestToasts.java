@@ -32,10 +32,15 @@ import com.kotcrab.vis.ui.widget.toast.MessageToast;
 import com.kotcrab.vis.ui.widget.toast.Toast;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
+import static com.valenguard.client.util.Log.println;
+
 /**
  * @author Kotcrab
  */
 public class TestToasts extends VisWindow {
+
+    private static final boolean PRINT_DEBUG = false;
+
     private ToastManager toastManager;
 
     public TestToasts(Stage stage) {
@@ -140,21 +145,21 @@ public class TestToasts extends VisWindow {
         messageToast.addLinkLabel("link1", new LinkLabel.LinkLabelListener() {
             @Override
             public void clicked(String url) {
-                System.out.println("clicked: link1");
+                println(getClass(), "clicked: link1", false, PRINT_DEBUG);
                 messageToast.fadeOut();
             }
         });
         messageToast.addLinkLabel("link2", new LinkLabel.LinkLabelListener() {
             @Override
             public void clicked(String url) {
-                System.out.println("clicked: link2");
+                println(getClass(), "clicked: link2", false, PRINT_DEBUG);
                 messageToast.fadeOut();
             }
         });
         messageToast.addLinkLabel("link3", new LinkLabel.LinkLabelListener() {
             @Override
             public void clicked(String url) {
-                System.out.println("clicked: link3");
+                println(getClass(), "clicked: link3", false, PRINT_DEBUG);
                 messageToast.fadeOut();
             }
         });

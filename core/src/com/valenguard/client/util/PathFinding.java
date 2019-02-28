@@ -12,7 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import static com.valenguard.client.util.Log.println;
+
 public class PathFinding {
+
+    private static final boolean PRINT_DEBUG = false;
 
     private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
     private final List<MoveNode> openSet = new ArrayList<MoveNode>();
@@ -49,7 +53,7 @@ public class PathFinding {
                 } else if (!worldTile.isFlagSet(Tile.TRAVERSABLE)) {
                     if (ignoreFinalCollision) {
                         if (worldX == finalX && worldY == finalY) {
-                            System.out.println("FINAL [X,Y] = " + "[" + worldX + ", " + worldY + "]");
+                            println(getClass(), "FINAL [X,Y] = " + "[" + worldX + ", " + worldY + "]", false, PRINT_DEBUG);
                             grid[i][j] = new MoveNode(worldX, worldY, i, j);
                         } else {
                             grid[i][j] = null;

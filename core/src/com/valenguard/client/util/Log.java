@@ -1,6 +1,13 @@
 package com.valenguard.client.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Log {
+
+    private final static String DATE_PATTERN = "dd-MM-yyyy HH:mm:ss";
+    private final static DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
 
     private Log() {
     }
@@ -20,7 +27,8 @@ public class Log {
     }
 
     private static String buildMessage(Class clazz, String message) {
-        return "[" + clazz.getSimpleName() + "] " + message;
+        Date date = new Date();
+        return dateFormat.format(date) + "  [" + clazz.getSimpleName() + "] " + message;
     }
 
     public static void println(boolean print) {
