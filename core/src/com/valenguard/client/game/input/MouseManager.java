@@ -252,6 +252,22 @@ public class MouseManager {
                 }
             }
         }
+
+        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
+                Location location = movingEntity.getCurrentMapLocation();
+
+                if (!MoveUtil.isEntityMoving(playerClient)) {
+                    if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
+                            (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
+                            (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
+                            (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                        // The player is requesting to interact with the entity.
+                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, movingEntity)).sendPacket();
+                    }
+                }
+            }
+        }
     }
 
     private void forward(final int screenX, final int screenY) {
