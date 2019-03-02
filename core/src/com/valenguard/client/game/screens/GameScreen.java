@@ -102,9 +102,9 @@ public class GameScreen implements Screen {
         Valenguard.getInstance().getMusicManager().stopSong(true);
 
         // Create HealthBar textures
-        int width = 1;
-        int height = 1;
-        Pixmap hpBasePixmap = createProceduralPixmap(width, height, Color.BLACK);
+        final int width = 1;
+        final int height = 1;
+        Pixmap hpBasePixmap = createProceduralPixmap(width, height, Color.RED);
         Pixmap hpAreaPixmap = createProceduralPixmap(width, height, Color.GREEN);
         hpBase = new Texture(hpBasePixmap);
         hpArea = new Texture(hpAreaPixmap);

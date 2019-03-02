@@ -27,7 +27,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
     @Override
     public void onEvent(EntityMovePacket packetData) {
         MovingEntity entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-        checkNotNull(entity, "Tried to move an entity on the map.");
+        checkNotNull(entity, "Tried to move null entity. ID: " + packetData.entityId);
 
         if (MoveUtil.isEntityMoving(entity)) {
             entity.addLocationToFutureQueue(new Location(entity.getMapName(), packetData.futureX, packetData.futureY));

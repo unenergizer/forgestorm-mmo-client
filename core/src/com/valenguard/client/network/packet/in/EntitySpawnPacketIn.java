@@ -180,6 +180,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         setMovingEntityVars((MovingEntity) entity, packetData);
 
         EntityManager.getInstance().setPlayerClient(playerClient);
+
+        Valenguard.getInstance().getStageHandler().getStatusBar().init(packetData.currentHealth, packetData.maxHealth);
         return entity;
     }
 

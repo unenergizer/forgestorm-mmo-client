@@ -6,9 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
@@ -35,7 +35,7 @@ import static com.valenguard.client.util.Log.println;
 public class EntityShopWindow extends HideableVisWindow implements Buildable {
 
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
-    private final VisTextField pageDisplay = new VisTextField();
+    private final VisLabel pageDisplay = new VisLabel();
     private final VisTextButton previousPage = new VisTextButton("Previous Page");
     private final VisTextButton nextPage = new VisTextButton("Next Page");
     private final VisTextButton exit = new VisTextButton("Exit Shop");
@@ -62,7 +62,6 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         addCloseButton();
         setResizable(false);
 
-        pageDisplay.setDisabled(true);
         entityShopWindow.add(pageDisplay).row();
 
         navTable.add(previousPage).expand().fill();
