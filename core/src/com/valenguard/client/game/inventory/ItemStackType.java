@@ -17,5 +17,12 @@ public enum ItemStackType {
     SWORD,
     BOW,
     SHIELD,
-    ARROW
+    ARROW,
+
+    // Generic
+    GOLD,
+    POTION
+
+    // Trade Items
+    // Skill Items
 }

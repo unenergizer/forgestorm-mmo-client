@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.valenguard.client.util.Log.println;
 
+@SuppressWarnings("unchecked")
 public class EventBus {
 
     private final Map<Byte, PacketListener> packetListenerMap = new ConcurrentHashMap<Byte, PacketListener>();
