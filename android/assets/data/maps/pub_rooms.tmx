@@ -329,23 +329,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="9" name="entity">
-  <object id="20" name="Maid Jimmy" type="NPC" x="848" y="416" width="16" height="16">
-   <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="54"/>
-    <property name="atlasHeadId" type="int" value="52"/>
-    <property name="bounds1x" type="int" value="41"/>
-    <property name="bounds1y" type="int" value="17"/>
-    <property name="bounds2x" type="int" value="56"/>
-    <property name="bounds2y" type="int" value="36"/>
-    <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="0.5"/>
-    <property name="probabilityWalkStart" type="float" value="0.5"/>
-    <property name="speed" type="float" value="0.4"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="9" name="entity"/>
  <layer id="16" name="overhead" width="96" height="54">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

@@ -1,10 +1,10 @@
-"0":
+0:
    name: "Gold"
    desc: "The Currency of Valenguard."
    type: GOLD
    atlas: ITEMS
    region: drops_44
-"1":
+1:
    name: "Leather Helm"
    desc: "Made from general quality leather hide."
    type: HELM
@@ -12,7 +12,7 @@
    region: helmet_02
    wearable: 67
    health: 2
-"2":
+2:
    name: "Leather Chest"
    desc: "Basic leather chest piece."
    type: CHEST
@@ -20,7 +20,7 @@
    region: armor_002
    wearable: 42
    health: 6
-"3":
+3:
    name: "Chainmail Chest"
    desc: "Basic chainmail chest piece."
    type: CHEST
@@ -28,42 +28,42 @@
    region: armor_013
    wearable: 2
    health: 10
-"4":
+4:
    name: "Sword of Holy Light"
    desc: "This does something bad to enemies."
    type: SWORD
    atlas: ITEMS
    region: weapon_sword_01
    damage: 6
-"5":
+5:
    name: "Bent Belt"
    desc: "Could use a better belt someday."
    type: BELT
    atlas: ITEMS
    region: accessory_03
    health: 3
-"6":
+6:
    name: "Topaz Necklace"
    desc: "A shiny topaz necklace."
    type: NECKLACE
    atlas: ITEMS
    region: accessory_22
    health: 5
-"7":
+7:
    name: "Leather Boots"
    desc: "Basic leather boots."
    type: BOOTS
    atlas: ITEMS
    region: boot_02
    health: 2
-"8":
+8:
    name: "Round Wooden Shield"
    desc: "A dusty old wooden shield."
    type: SHIELD
    atlas: ITEMS
    region: shield_01
    armor: 3
-"9":
+9:
    name: "Iron Helm"
    desc: "Made from player sourced iron."
    type: HELM
@@ -71,49 +71,49 @@
    region: helmet_07
    wearable: 22
    health: 10
-"10":
+10:
    name: "Ring of Frost Resist"
    desc: "The markings found on the ring are unreadable."
    type: RING
    atlas: ITEMS
    region: ring_046
    health: 6
-"11":
+11:
    name: "Ring of Fire Resist"
    desc: "The markings found on the ring are unreadable."
    type: RING
    atlas: ITEMS
    region: ring_041
    health: 4
-"12":
+12:
    name: "Cape of Invisibility"
    desc: "The guy in the market said it could make me invisible, but it hasn't worked yet."
    type: CAPE
    atlas: ITEMS
    region: armor_034
    health: 3
-"13":
+13:
    name: "Wooden Arrow"
    desc: "Not the finest quality."
    type: ARROW
    atlas: ITEMS
    region: weapon_arrow_05
    damage: 4
-"14":
+14:
    name: "Elven Bow of Thorns"
    desc: "Protector i roven a slayer beasts.."
    type: BOW
    atlas: ITEMS
    region: weapon_claw_15
    damage: 3
-"15":
+15:
    name: "Cooks Glove"
    desc: "The gloves are still white, obviously the lazy cook has never used them."
    type: GLOVES
    atlas: ITEMS
    region: glove_29
    health: 5
-"16":
+16:
    name: "Wizzards Hat"
    desc: "Was once worn by a very powerful wizzard."
    type: HELM
@@ -121,7 +121,7 @@
    region: helmet_28
    wearable: 45
    health: 11
-"17":
+17:
    name: "Cloth Tunic"
    desc: "Worn by magic casters to increase movibility."
    type: CHEST

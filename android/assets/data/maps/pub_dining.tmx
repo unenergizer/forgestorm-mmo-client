@@ -276,109 +276,74 @@
   </object>
  </objectgroup>
  <objectgroup id="8" name="entity">
-  <object id="24" name="Inn Keeper" type="NPC" x="752" y="416" width="16" height="16">
+  <object id="24" name="Inn Keeper" type="AIENTITY" x="752" y="416" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="58"/>
-    <property name="atlasHeadId" type="int" value="21"/>
     <property name="bounds1x" type="int" value="41"/>
     <property name="bounds1y" type="int" value="24"/>
     <property name="bounds2x" type="int" value="50"/>
     <property name="bounds2y" type="int" value="26"/>
     <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="0.3"/>
-    <property name="probabilityWalkStart" type="float" value="0.9"/>
-    <property name="speed" type="float" value="0.9"/>
+    <property name="aiEntityDataID" type="int" value="13"/>
    </properties>
   </object>
-  <object id="26" name="Busy Waitor" type="NPC" x="768" y="480" width="16" height="16">
+  <object id="26" name="Busy Waitor" type="AIENTITY" x="768" y="480" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="1"/>
-    <property name="atlasHeadId" type="int" value="1"/>
     <property name="bounds1x" type="int" value="45"/>
     <property name="bounds1y" type="int" value="28"/>
     <property name="bounds2x" type="int" value="53"/>
     <property name="bounds2y" type="int" value="33"/>
     <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="0.1"/>
-    <property name="probabilityWalkStart" type="float" value="0.9"/>
-    <property name="speed" type="float" value="0.2"/>
+    <property name="aiEntityDataID" type="int" value="10"/>
    </properties>
   </object>
-  <object id="27" name="Bob the Cook" type="NPC" x="704" y="320" width="16" height="16">
+  <object id="27" name="Bob the Cook" type="AIENTITY" x="704" y="320" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="49"/>
-    <property name="atlasHeadId" type="int" value="35"/>
     <property name="bounds1x" type="int" value="41"/>
     <property name="bounds1y" type="int" value="17"/>
     <property name="bounds2x" type="int" value="50"/>
     <property name="bounds2y" type="int" value="21"/>
     <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="0"/>
-    <property name="probabilityWalkStart" type="float" value="1"/>
-    <property name="speed" type="float" value="0.2"/>
+    <property name="aiEntityDataID" type="int" value="14"/>
    </properties>
   </object>
-  <object id="28" name="Niels" type="NPC" x="848" y="464" width="16" height="16">
+  <object id="28" name="Niels" type="AIENTITY" x="848" y="464" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="1"/>
-    <property name="atlasHeadId" type="int" value="63"/>
     <property name="bounds1x" type="int" value="30"/>
     <property name="bounds1y" type="int" value="27"/>
     <property name="bounds2x" type="int" value="30"/>
     <property name="bounds2y" type="int" value="27"/>
     <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="1"/>
-    <property name="probabilityWalkStart" type="float" value="0"/>
-    <property name="speed" type="float" value="0.1"/>
+    <property name="aiEntityDataID" type="int" value="9"/>
    </properties>
   </object>
-  <object id="29" name="Kenny" type="NPC" x="864" y="512" width="16" height="16">
+  <object id="29" name="Kenny" type="AIENTITY" x="864" y="512" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="4"/>
-    <property name="atlasHeadId" type="int" value="40"/>
     <property name="bounds1x" type="int" value="31"/>
     <property name="bounds1y" type="int" value="30"/>
     <property name="bounds2x" type="int" value="31"/>
     <property name="bounds2y" type="int" value="30"/>
     <property name="direction" value="NORTH"/>
-    <property name="probabilityStill" type="float" value="1"/>
-    <property name="probabilityWalkStart" type="float" value="0"/>
-    <property name="speed" type="float" value="0.1"/>
+    <property name="aiEntityDataID" type="int" value="8"/>
    </properties>
   </object>
-  <object id="30" name="ElevatorMan" type="NPC" x="720" y="480" width="16" height="16">
+  <object id="30" name="ElevatorMan" type="AIENTITY" x="720" y="480" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="41"/>
-    <property name="atlasHeadId" type="int" value="38"/>
     <property name="bounds1x" type="int" value="22"/>
     <property name="bounds1y" type="int" value="28"/>
     <property name="bounds2x" type="int" value="22"/>
     <property name="bounds2y" type="int" value="28"/>
     <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="1"/>
-    <property name="probabilityWalkStart" type="float" value="0"/>
-    <property name="speed" type="float" value="0.1"/>
+    <property name="aiEntityDataID" type="int" value="12"/>
    </properties>
   </object>
-  <object id="31" name="Tohmer" type="NPC" x="736" y="512" width="16" height="16">
+  <object id="31" name="Tohmer" type="AIENTITY" x="736" y="512" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="52"/>
-    <property name="atlasHeadId" type="int" value="30"/>
     <property name="bounds1x" type="int" value="23"/>
     <property name="bounds1y" type="int" value="30"/>
     <property name="bounds2x" type="int" value="23"/>
     <property name="bounds2y" type="int" value="30"/>
     <property name="direction" value="WEST"/>
-    <property name="probabilityStill" type="float" value="1"/>
-    <property name="probabilityWalkStart" type="float" value="0"/>
-    <property name="speed" type="float" value="0.1"/>
+    <property name="aiEntityDataID" type="int" value="11"/>
    </properties>
   </object>
  </objectgroup>

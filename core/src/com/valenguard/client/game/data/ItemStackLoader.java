@@ -30,12 +30,12 @@ class ItemStackLoader {
 
         FileHandle fileHandle = Gdx.files.internal("data" + File.separator + "item" + File.separator + "Items.yaml");
         Yaml yaml = new Yaml();
-        Map<String, Map<String, Object>> root = yaml.load(fileHandle.read());
+        Map<Integer, Map<String, Object>> root = yaml.load(fileHandle.read());
 
         List<ItemStack> itemStacks = new ArrayList<ItemStack>();
 
-        for (Map.Entry<String, Map<String, Object>> entry : root.entrySet()) {
-            int itemId = Integer.parseInt(entry.getKey());
+        for (Map.Entry<Integer, Map<String, Object>> entry : root.entrySet()) {
+            int itemId = entry.getKey();
             Map<String, Object> itemNode = entry.getValue();
 
             ItemStack itemStack = new ItemStack(itemId);

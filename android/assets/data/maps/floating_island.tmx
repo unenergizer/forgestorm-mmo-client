@@ -195,34 +195,24 @@
 </data>
  </layer>
  <objectgroup id="22" name="entity">
-  <object id="31" name="Old Man" type="NPC" x="688" y="432" width="16" height="16">
+  <object id="31" name="Old Man" type="AIENTITY" x="688" y="432" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="18"/>
-    <property name="atlasHeadId" type="int" value="40"/>
     <property name="bounds1x" type="int" value="20"/>
     <property name="bounds1y" type="int" value="25"/>
     <property name="bounds2x" type="int" value="20"/>
     <property name="bounds2y" type="int" value="25"/>
     <property name="direction" value="SOUTH"/>
-    <property name="probabilityStill" type="float" value="1"/>
-    <property name="probabilityWalkStart" type="float" value="0"/>
-    <property name="speed" type="float" value="0.1"/>
+    <property name="aiEntityDataID" type="int" value="3"/>
    </properties>
   </object>
-  <object id="33" name="Unseen Eye" type="MONSTER" x="720" y="464" width="16" height="16">
+  <object id="33" name="Unseen Eye" type="AIENTITY" x="720" y="464" width="16" height="16">
    <properties>
-    <property name="alignment" value="FRIENDLY"/>
-    <property name="atlasBodyId" type="int" value="30"/>
     <property name="bounds1x" type="int" value="0"/>
     <property name="bounds1y" type="int" value="0"/>
     <property name="bounds2x" type="int" value="49"/>
     <property name="bounds2y" type="int" value="49"/>
     <property name="direction" value="SOUTH"/>
-    <property name="dropTable" type="int" value="0"/>
-    <property name="probabilityStill" type="float" value="0.3"/>
-    <property name="probabilityWalkStart" type="float" value="0.6"/>
-    <property name="speed" type="float" value="0.3"/>
+    <property name="aiEntityDataID" type="int" value="4"/>
    </properties>
   </object>
  </objectgroup>
