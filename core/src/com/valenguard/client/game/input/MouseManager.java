@@ -220,8 +220,6 @@ public class MouseManager {
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         Location clientLocation = playerClient.getCurrentMapLocation();
-        int playerTileX = clientLocation.getX();
-        int playerTileY = clientLocation.getY();
 
         // clicking the player to bring up an option menu.
         for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {

@@ -67,7 +67,7 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
         movingEntity.setFacingDirection(facingDirection);
         movingEntity.setDrawX(location.getX() * ClientConstants.TILE_SIZE);
         movingEntity.setDrawY(location.getY() * ClientConstants.TILE_SIZE);
-        Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
+        Valenguard.getInstance().getClientMovementProcessor().resetInput();
     }
 
     @AllArgsConstructor

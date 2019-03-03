@@ -29,7 +29,7 @@ public class InitializeGameMapPacketIn implements PacketListener<InitializeGameM
 
         println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
         Valenguard.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);
-        Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
+        Valenguard.getInstance().getClientMovementProcessor().resetInput();
     }
 
     @AllArgsConstructor

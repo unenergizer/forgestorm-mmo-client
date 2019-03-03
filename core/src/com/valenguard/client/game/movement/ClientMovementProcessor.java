@@ -128,6 +128,14 @@ public class ClientMovementProcessor {
         }
     }
 
+    public void resetInput() {
+        inputData = null;
+        currentMovementInput = MovementInput.NONE;
+        if (EntityManager.getInstance().getPlayerClient() != null) {
+            EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
+        }
+    }
+
     public enum MovementInput {
         KEYBOARD,
         MOUSE,
