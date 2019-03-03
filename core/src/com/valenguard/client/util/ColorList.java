@@ -55,6 +55,19 @@ public enum ColorList {
 
     private Color color;
 
+    public static ColorList getColorList(byte colorByte) {
+        for (ColorList colorList : ColorList.values()) {
+            if ((byte) colorList.ordinal() == colorByte) {
+                return colorList;
+            }
+        }
+        return null;
+    }
+
+    public byte getColorListByte() {
+        return (byte) this.ordinal();
+    }
+
     public static Color randomColor() {
         return values()[RandomUtil.getNewRandom(0, values().length - 1)].getColor();
     }

@@ -1,5 +1,7 @@
 package com.valenguard.client.game.entities;
 
+import com.badlogic.gdx.graphics.Color;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +16,7 @@ public class Appearance {
 
     @Getter
     @Setter
-    private byte colorId;
+    private Color color;
 
     /**
      * IDs are arranged from head to toe or from top to bottom.

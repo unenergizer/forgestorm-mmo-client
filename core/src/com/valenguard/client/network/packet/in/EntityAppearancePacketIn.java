@@ -10,6 +10,7 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
+import com.valenguard.client.util.ColorList;
 
 import lombok.AllArgsConstructor;
 
@@ -71,7 +72,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         boolean updatedTextureId = false;
 
         if ((packetData.appearanceBits & COLOR_INDEX) != 0) {
-            appearance.setColorId(packetData.colorId);
+            appearance.setColor(ColorList.getColorList(packetData.colorId).getColor());
         }
         if ((packetData.appearanceBits & BODY_INDEX) != 0) {
             appearance.getTextureIds()[Appearance.BODY] = packetData.textureIds[Appearance.BODY];

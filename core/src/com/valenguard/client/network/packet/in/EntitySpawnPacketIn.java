@@ -25,6 +25,7 @@ import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
 import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
+import com.valenguard.client.util.ColorList;
 
 import lombok.AllArgsConstructor;
 
@@ -34,7 +35,7 @@ import static com.valenguard.client.util.Preconditions.checkNotNull;
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -47,7 +48,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         byte directionalByte = 0;
         float moveSpeed = 0.0f;
         short[] textureIds = null;
-        byte colorId = -1;
+        byte colorId = 0;
         int maxHealth = 0;
         int currentHealth = 0;
         byte entityAlignment = 0;
@@ -96,6 +97,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
         println(getClass(), "directional Byte: " + directionalByte, false, PRINT_DEBUG);
         println(getClass(), "move speed: " + moveSpeed, false, PRINT_DEBUG);
+        println(getClass(), "Color ID: " + colorId, false, PRINT_DEBUG);
         for (int i = 0; i < textureIds.length; i++) {
             println(getClass(), "textureIds #" + i + ": " + textureIds[i], false, PRINT_DEBUG);
         }
@@ -142,7 +144,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
-        entity.setAppearance(new Appearance(packetData.colorId, packetData.textureIds));
+        entity.setAppearance(new Appearance(ColorList.getColorList(packetData.colorId).getColor(), packetData.textureIds));
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
