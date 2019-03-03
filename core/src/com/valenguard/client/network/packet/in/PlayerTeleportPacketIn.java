@@ -1,6 +1,7 @@
 package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
@@ -66,6 +67,7 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
         movingEntity.setFacingDirection(facingDirection);
         movingEntity.setDrawX(location.getX() * ClientConstants.TILE_SIZE);
         movingEntity.setDrawY(location.getY() * ClientConstants.TILE_SIZE);
+        Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
     }
 
     @AllArgsConstructor

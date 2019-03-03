@@ -12,6 +12,8 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.valenguard.client.util.Log.println;
+
 public class EntityManager implements Disposable {
 
     private EntityManager() {
@@ -61,10 +63,12 @@ public class EntityManager implements Disposable {
 
     public void addItemStackDrop(short entityId, ItemStackDrop entity) {
         itemStackDropList.put(entityId, entity);
+        println(getClass(), "ItemStack put into map");
     }
 
     public void removeItemStackDrop(Short entityId) {
         itemStackDropList.remove(entityId);
+        println(getClass(), "ItemStack removed from map");
     }
 
     public ItemStackDrop getItemStackDrop(short entityId) {

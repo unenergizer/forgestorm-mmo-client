@@ -14,7 +14,7 @@ import com.valenguard.client.network.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
-import static com.valenguard.client.util.Preconditions.checkNotNull;
+import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.ENTITY_MOVE_UPDATE)
 public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.EntityMovePacket> {
@@ -27,7 +27,13 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
     @Override
     public void onEvent(EntityMovePacket packetData) {
         MovingEntity entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-        checkNotNull(entity, "Tried to move null entity. ID: " + packetData.entityId);
+
+        if (entity == null) {
+            println(getClass(), "Tried to move null entity. ID: " + packetData.entityId, true);
+            return;
+        }
+
+        // TODO : checkNotNull(entity, "Tried to move null entity. ID: " + packetData.entityId);
 
         if (MoveUtil.isEntityMoving(entity)) {
             entity.addLocationToFutureQueue(new Location(entity.getMapName(), packetData.futureX, packetData.futureY));

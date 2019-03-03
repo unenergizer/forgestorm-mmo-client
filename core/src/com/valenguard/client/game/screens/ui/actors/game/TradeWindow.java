@@ -6,8 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
@@ -46,6 +48,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     private TextButton accept;
     private TextButton cancel;
 
+    private VisLabel playerTradeStatus = new VisLabel();
+    private VisLabel targetTradeStatus = new VisLabel();
+
     private boolean lockTrade = false;
 
     @Setter
@@ -62,6 +67,21 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         setResizable(false);
 
         tradeManager = Valenguard.getInstance().getTradeManager();
+
+        // Setup notify table
+        VisTable statusTable = new VisTable();
+
+        playerTradeStatus.setText("You have not confirmed.");
+        targetTradeStatus.setText("Target not confirmed.");
+
+
+        playerTradeStatus.setAlignment(Alignment.CENTER.getAlignment());
+        targetTradeStatus.setAlignment(Alignment.CENTER.getAlignment());
+
+        statusTable.add(playerTradeStatus).expand().fill();
+        statusTable.add(targetTradeStatus).expand().fill();
+
+        add(statusTable).expand().fill().row();
 
         /*
          * Setup trade slots
@@ -152,6 +172,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             accept.setText("Trade Confirmed");
             accept.setDisabled(true);
             cancel.setText("Cancel Confirmation");
+
+            playerTradeStatus.setText("You Confirmed!");
+        } else {
+            targetTradeStatus.setText("Target Confirmed!");
         }
     }
 
@@ -165,6 +189,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             accept.setText("Accept");
             accept.setDisabled(false);
             cancel.setText("Cancel");
+
+            playerTradeStatus.setText("You have not confirmed.");
+        } else {
+            targetTradeStatus.setText("Target not confirmed.");
         }
     }
 
@@ -254,6 +282,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         accept.setText("Accept");
         accept.setDisabled(false);
         cancel.setText("Cancel");
+
+        playerTradeStatus.setText("You have not confirmed.");
+        targetTradeStatus.setText("Target not confirmed.");
 
         // Reset trade slots
         for (TradeWindowSlot tradeWindowSlot : playerClientTradeSlots) {

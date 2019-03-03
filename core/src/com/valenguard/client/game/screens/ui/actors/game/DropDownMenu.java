@@ -15,6 +15,7 @@ import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.AbstractPostProcessor;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
+import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -92,30 +93,34 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                 Location clientLocation = playerClient.getFutureMapLocation();
                 Location toLocation = movingEntity.getFutureMapLocation();
 
-                Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
+                if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
+                    // The player is requesting to interact with the entity.
+                    if (!MoveUtil.isEntityMoving(playerClient)) {
+                        sendTradeRequest();
+                    }
+                } else {
+                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
-                if (testMoveNodes == null) return;
+                    if (testMoveNodes == null) return;
 
-                Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                    moveNodes.add(testMoveNodes.remove());
+                    Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
+                    for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+                        moveNodes.add(testMoveNodes.remove());
+                    }
+
+                    if (!moveNodes.isEmpty()) {
+                        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Walking towards player to request trade.");
+                    }
+
+                    Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
+                    Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                            new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
+                                @Override
+                                public void postMoveAction() {
+                                    sendTradeRequest();
+                                }
+                            }));
                 }
-
-                if (!moveNodes.isEmpty()) {
-                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Walking towards player to request trade.");
-                }
-
-                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
-                Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
-                        new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                            @Override
-                            public void postMoveAction() {
-                                Valenguard.getInstance().getEntityTracker().cancelTracking();
-                                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
-                                ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
-                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
-                            }
-                        }));
             }
         });
 
@@ -149,5 +154,12 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
         this.movingEntity = movingEntity;
         setPosition(x, y);
         ActorUtil.fadeInWindow(this);
+    }
+
+    private void sendTradeRequest() {
+        Valenguard.getInstance().getEntityTracker().cancelTracking();
+        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
+        ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
+        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
     }
 }

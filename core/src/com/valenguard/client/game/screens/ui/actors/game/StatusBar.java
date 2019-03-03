@@ -13,32 +13,43 @@ import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
+import static com.valenguard.client.util.Log.println;
+
 public class StatusBar extends VisWindow implements Buildable {
 
     private final float posX = 5;
     private final float posY = Gdx.graphics.getHeight() - 5;
 
-    private final VisLabel stackedHP = new VisLabel();
-    private VisProgressBar visProgressBar;
+    private final VisLabel hpLabel = new VisLabel();
+    private final VisProgressBar hpBar = new VisProgressBar(0, 100, 1, false);
+
+    private final VisLabel mpLabel = new VisLabel();
+    private final VisProgressBar mpBar = new VisProgressBar(0, 100, 1, false);
+
+    private final VisLabel expLabel = new VisLabel();
+    private final VisProgressBar expBar = new VisProgressBar(0, 100, 1, false);
 
     public StatusBar() {
         super("");
     }
 
-    public void init(int health, int maxHealth) {
-        visProgressBar.setStepSize(1);
-        visProgressBar.setValue(health);
-        visProgressBar.setRange(0, maxHealth);
-        stackedHP.setText(health + "/" + maxHealth);
+    public void initHealth(int health, int maxHealth) {
+        hpBar.setValue(health);
+        hpBar.setRange(0, maxHealth);
+        hpLabel.setText(health + "/" + maxHealth);
     }
 
     public void updateHealth(int health) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        visProgressBar.setValue(health);
-        stackedHP.setText(health + "/" + playerClient.getMaxHealth());
+        hpBar.setValue(health);
+        hpLabel.setText(health + "/" + playerClient.getMaxHealth());
     }
 
     public void updateMana(int mana) {
+        // TODO
+    }
+
+    public void updateExp(int exp) {
         // TODO
     }
 
@@ -47,20 +58,45 @@ public class StatusBar extends VisWindow implements Buildable {
         pad(5f);
         VisTable visTable = new VisTable();
 
-        VisLabel hp = new VisLabel("HP: ");
+        // HP ----------------------------------------
+        final VisLabel hp = new VisLabel("HP: ");
         visTable.add(hp);
 
-        Stack stack = new Stack();
+        final Stack hpStack = new Stack();
+        hpStack.add(hpBar);
+        hpLabel.setText("0/100");
+        hpLabel.setAlignment(Alignment.CENTER.getAlignment());
+        hpStack.add(hpLabel);
+        visTable.add(hpStack);
+        visTable.row();
 
-        visProgressBar = new VisProgressBar(0, 100, 1, false);
-        visProgressBar.setValue(100);
-        stack.add(visProgressBar);
+        // MP ----------------------------------------
+        final VisLabel mp = new VisLabel("MP: ");
+        visTable.add(mp);
 
-        stackedHP.setText("100/100");
-        stackedHP.setAlignment(Alignment.CENTER.getAlignment());
-        stack.add(stackedHP);
+        final Stack mpStack = new Stack();
+        mpStack.add(mpBar);
+        mpLabel.setText("0/100");
+        mpLabel.setAlignment(Alignment.CENTER.getAlignment());
+        mpStack.add(mpLabel);
+        visTable.add(mpStack);
+        visTable.row();
 
-        visTable.add(stack);
+        // EXP ---------------------------------------
+        final VisLabel exp = new VisLabel("EXP: ");
+        visTable.add(exp);
+
+        final Stack expStack = new Stack();
+        expStack.add(expBar);
+        expLabel.setText("0/100");
+        expLabel.setAlignment(Alignment.CENTER.getAlignment());
+        expStack.add(expLabel);
+        visTable.add(expStack);
+        visTable.row();
+
+        println(getClass(), "BAR Height: " + hpBar.getHeight());
+        println(getClass(), "TXT Height: " + hpLabel.getHeight());
+
         add(visTable);
 
         addListener(new WindowResizeListener() {

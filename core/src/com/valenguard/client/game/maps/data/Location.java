@@ -61,6 +61,18 @@ public class Location {
         return this;
     }
 
+    public boolean isWithinDistance(Location otherLocation, short distance) {
+        return getDistanceAway(otherLocation) <= distance;
+    }
+
+    public short getDistanceAway(Location otherLocation) {
+        int diffX = otherLocation.getX() - x;
+        int diffY = otherLocation.getY() - y;
+
+        double realDifference = Math.sqrt((double) (diffX * diffX + diffY * diffY));
+        return (short) Math.floor(realDifference);
+    }
+
     @SuppressWarnings("RedundantIfStatement")
     @Override
     public boolean equals(Object obj) {

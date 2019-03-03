@@ -145,10 +145,7 @@ public class MouseManager {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
                 Location location = stationaryEntity.getCurrentMapLocation();
 
-                if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
-                        (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
-                        (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
-                        (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                if (clientLocation.isWithinDistance(location, (short) 1)) {
                     // The player is requesting to interact with the entity.
                     if (!MoveUtil.isEntityMoving(playerClient)) {
                         new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, stationaryEntity)).sendPacket();
@@ -175,12 +172,10 @@ public class MouseManager {
             if (entityClickTest(itemStackDrop.getDrawX(), itemStackDrop.getDrawY())) {
                 Location location = itemStackDrop.getCurrentMapLocation();
 
-                if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
-                        (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
-                        (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
-                        (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                if (clientLocation.isWithinDistance(location, (short) 1)) {
                     // The player is requesting to interact with the entity.
                     if (!MoveUtil.isEntityMoving(playerClient)) {
+                        println(getClass(), "ItemStack clicked! ID: " + itemStackDrop.getServerEntityID());
                         new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
                     }
                 } else {
@@ -194,6 +189,8 @@ public class MouseManager {
                     for (int i = testMoveNodes.size() - 1; i > 0; i--) {
                         moveNodes.add(testMoveNodes.remove());
                     }
+
+                    println(getClass(), "Generated path to itemstack");
                 }
                 break;
             }
@@ -222,8 +219,9 @@ public class MouseManager {
         this.rightClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        int playerTileX = playerClient.getCurrentMapLocation().getX();
-        int playerTileY = playerClient.getCurrentMapLocation().getY();
+        Location clientLocation = playerClient.getCurrentMapLocation();
+        int playerTileX = clientLocation.getX();
+        int playerTileY = clientLocation.getY();
 
         // clicking the player to bring up an option menu.
         for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
@@ -242,10 +240,7 @@ public class MouseManager {
                 Location location = stationaryEntity.getCurrentMapLocation();
 
                 if (!MoveUtil.isEntityMoving(playerClient)) {
-                    if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
-                            (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
-                            (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
-                            (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                    if (clientLocation.isWithinDistance(location, (short) 1)) {
                         // The player is requesting to interact with the entity.
                         new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, stationaryEntity)).sendPacket();
                     }
@@ -258,10 +253,7 @@ public class MouseManager {
                 Location location = movingEntity.getCurrentMapLocation();
 
                 if (!MoveUtil.isEntityMoving(playerClient)) {
-                    if ((playerTileX - 1 == location.getX() && playerTileY == location.getY()) ||
-                            (playerTileX + 1 == location.getX() && playerTileY == location.getY()) ||
-                            (playerTileX == location.getX() && playerTileY - 1 == location.getY()) ||
-                            (playerTileX == location.getX() && playerTileY + 1 == location.getY())) {
+                    if (clientLocation.isWithinDistance(location, (short) 1)) {
                         // The player is requesting to interact with the entity.
                         new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, movingEntity)).sendPacket();
                     }

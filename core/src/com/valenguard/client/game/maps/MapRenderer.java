@@ -84,10 +84,11 @@ public class MapRenderer implements Disposable {
         Valenguard.getInstance().getFileManager().loadTiledMap(filePath);
         tiledMap = Valenguard.getInstance().getFileManager().getTiledMap(filePath);
 
-        if (orthogonalTiledMapRenderer == null)
+        if (orthogonalTiledMapRenderer == null) {
             orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        else
+        } else {
             orthogonalTiledMapRenderer.setMap(Valenguard.getInstance().getFileManager().getTiledMap(filePath));
+        }
     }
 
     @Override

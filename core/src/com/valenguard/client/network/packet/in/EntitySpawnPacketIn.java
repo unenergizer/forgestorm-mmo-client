@@ -181,7 +181,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         EntityManager.getInstance().setPlayerClient(playerClient);
 
-        Valenguard.getInstance().getStageHandler().getStatusBar().init(packetData.currentHealth, packetData.maxHealth);
+        Valenguard.getInstance().getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
         return entity;
     }
 
@@ -207,6 +207,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     private Entity spawnItem(EntitySpawnPacket packetData) {
         Entity entity = new ItemStackDrop();
         EntityManager.getInstance().addItemStackDrop(packetData.entityId, (ItemStackDrop) entity);
+        println(getClass(), "ItemStack spawn! ID: " + packetData.entityId);
         return entity;
     }
 

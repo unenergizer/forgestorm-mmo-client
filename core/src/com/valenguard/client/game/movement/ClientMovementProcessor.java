@@ -118,12 +118,14 @@ public class ClientMovementProcessor {
         return nextNode;
     }
 
-    void invalidateAllInput() {
+    public void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
-        EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
         Valenguard.gameScreen.getKeyboard().getKeyboardMovement().invalidateKeys();
         Valenguard.getInstance().getMouseManager().invalidateMouse();
+        if (EntityManager.getInstance().getPlayerClient() != null) {
+            EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
+        }
     }
 
     public enum MovementInput {
