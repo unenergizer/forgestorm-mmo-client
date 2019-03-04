@@ -1,9 +1,11 @@
 package com.valenguard.client.network.packet.in;
 
 
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -29,11 +31,25 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         MovingEntity entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
 
         if (entity == null) {
-            println(getClass(), "Tried to move null entity. ID: " + packetData.entityId, true);
+            if (EntityManager.getInstance().getPlayerClient() == null) return;
+            if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == packetData.entityId) {
+                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+
+                Location resyncLocation = new Location(playerClient.getMapName(), packetData.futureX, packetData.futureY);
+
+                playerClient.setCurrentMapLocation(resyncLocation);
+                playerClient.setFutureMapLocation(resyncLocation);
+
+                playerClient.setDrawX(resyncLocation.getX() * ClientConstants.TILE_SIZE);
+                playerClient.setDrawY(resyncLocation.getY() * ClientConstants.TILE_SIZE);
+                Valenguard.getInstance().getClientMovementProcessor().resetInput();
+
+
+            } else {
+                println(getClass(), "Tried to move null entity. ID: " + packetData.entityId, true);
+            }
             return;
         }
-
-        // TODO : checkNotNull(entity, "Tried to move null entity. ID: " + packetData.entityId);
 
         if (MoveUtil.isEntityMoving(entity)) {
             entity.addLocationToFutureQueue(new Location(entity.getMapName(), packetData.futureX, packetData.futureY));

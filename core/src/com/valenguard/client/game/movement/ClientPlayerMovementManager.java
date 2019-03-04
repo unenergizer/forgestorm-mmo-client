@@ -87,7 +87,7 @@ public class ClientPlayerMovementManager {
             Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
         }
 
-        new PlayerMovePacketOut(moveDirection).sendPacket();
+        new PlayerMovePacketOut(futureLocation).sendPacket();
     }
 
     public void processMoveNodes(PlayerClient playerClient, float delta) {

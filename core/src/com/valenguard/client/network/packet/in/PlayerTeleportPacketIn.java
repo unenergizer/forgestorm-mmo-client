@@ -15,8 +15,6 @@ import com.valenguard.client.network.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
-import static com.valenguard.client.util.Log.println;
-
 @Opcode(getOpcode = Opcodes.PLAYER_TELEPORT)
 public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPacketIn.PlayerTeleportPacket> {
 
@@ -33,24 +31,16 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
 
     @Override
     public void onEvent(PlayerTeleportPacket packetData) {
-        println(getClass(), "ID: " + packetData.entityId);
-        println(getClass(), "MapName: " + packetData.teleportLocation.getMapName() + "X: " + packetData.teleportLocation.getX() + ", Y: " + packetData.teleportLocation.getY() + ", Facing: " + packetData.facingDirection.toString());
-
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
         if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
             // Teleport the client player to said location
-            // TODO: Check to see if we need to change the map
+            Valenguard.getInstance().getClientMovementProcessor().resetInput();
             teleportMovingEntity(playerClient, packetData.teleportLocation, packetData.facingDirection);
-            println(getClass(), "Teleported client player!");
 
         } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
             MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
             teleportMovingEntity(movingEntity, packetData.teleportLocation, packetData.facingDirection);
-            println(getClass(), "Teleported moving entity!");
-
-        } else {
-            println(getClass(), "Something should have teleported??");
         }
     }
 
@@ -67,7 +57,8 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
         movingEntity.setFacingDirection(facingDirection);
         movingEntity.setDrawX(location.getX() * ClientConstants.TILE_SIZE);
         movingEntity.setDrawY(location.getY() * ClientConstants.TILE_SIZE);
-        Valenguard.getInstance().getClientMovementProcessor().resetInput();
+        movingEntity.getFutureLocationRequests().clear();
+        movingEntity.setWalkTime(0);
     }
 
     @AllArgsConstructor
