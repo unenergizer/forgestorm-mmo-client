@@ -15,9 +15,9 @@ import lombok.AllArgsConstructor;
 import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.ENTITY_DAMAGE_OUT)
-public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.PlayerTeleportPacket> {
+public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.EntityDamagePacket> {
 
-    private final static boolean PRINT_DEBUG = false;
+    private final static boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -25,11 +25,11 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
         final int health = clientHandler.readInt();
         final int damageTaken = clientHandler.readInt();
 
-        return new PlayerTeleportPacket(entityId, health, damageTaken);
+        return new EntityDamagePacket(entityId, health, damageTaken);
     }
 
     @Override
-    public void onEvent(PlayerTeleportPacket packetData) {
+    public void onEvent(EntityDamagePacket packetData) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
         if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
@@ -54,7 +54,7 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
     }
 
     @AllArgsConstructor
-    class PlayerTeleportPacket extends PacketData {
+    class EntityDamagePacket extends PacketData {
         private final short entityId;
         private final int health;
         private final int damageTaken;
