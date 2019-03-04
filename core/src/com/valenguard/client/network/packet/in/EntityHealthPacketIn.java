@@ -2,6 +2,7 @@ package com.valenguard.client.network.packet.in;
 
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -20,9 +21,10 @@ public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
+        final byte entityType = clientHandler.readByte();
         final int healthGiven = clientHandler.readInt();
 
-        return new PlayerHealthPacket(entityId, healthGiven);
+        return new PlayerHealthPacket(entityId, EntityType.getEntityType(entityType), healthGiven);
     }
 
     @Override
@@ -46,6 +48,7 @@ public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn
     @AllArgsConstructor
     class PlayerHealthPacket extends PacketData {
         private final short entityId;
+        private final EntityType entityType;
         private final int healthGiven;
     }
 }
