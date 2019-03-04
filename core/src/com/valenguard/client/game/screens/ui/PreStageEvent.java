@@ -45,7 +45,7 @@ class PreStageEvent implements InputProcessor {
                     && !stageHandler.getEscapeWindow().isVisible()
                     && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                 if (!stageHandler.getBagWindow().isVisible()) {
-                    stageHandler.getEntityShopWindow().loadShop(2);
+                    stageHandler.getEntityShopWindow().loadShop((short) 2);
                     ActorUtil.fadeInWindow(stageHandler.getEntityShopWindow());
                 } else {
                     ActorUtil.fadeOutWindow(stageHandler.getEntityShopWindow());

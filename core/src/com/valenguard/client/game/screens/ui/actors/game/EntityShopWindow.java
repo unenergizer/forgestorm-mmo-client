@@ -130,14 +130,14 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    private List<VisTable> buildShopPage(int shopID) {
+    private List<VisTable> buildShopPage(short shopID) {
         EntityShopManager entityShopManager = Valenguard.getInstance().getEntityShopManager();
         ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
 
         // Generate shop slots
         List<EntityShopWindowSlot> entityShopWindowSlots = new ArrayList<EntityShopWindowSlot>();
         for (int i = 0; i < entityShopManager.getShopItemList(shopID).size(); i++) {
-            ItemStack itemStack = itemStackManager.makeItemStack(entityShopManager.getItemForShop(shopID, i), 1);
+            ItemStack itemStack = itemStackManager.makeItemStack(entityShopManager.getItemIdForShop(shopID, i), 1);
             entityShopWindowSlots.add(new EntityShopWindowSlot(itemStack));
         }
 
@@ -208,7 +208,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         pack();
     }
 
-    public void loadShop(int shopID) {
+    public void loadShop(short shopID) {
         resetShop();
 
         // Dynamic build shop pages
