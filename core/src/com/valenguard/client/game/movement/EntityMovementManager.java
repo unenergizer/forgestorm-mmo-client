@@ -4,11 +4,16 @@ import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.maps.data.Location;
 
 public class EntityMovementManager {
 
     public void tick(float delta) {
+        for (Player player : EntityManager.getInstance().getPlayerEntityList().values()) {
+            if (!MoveUtil.isEntityMoving(player)) continue;
+            updateEntitiesPosition(player, delta);
+        }
         for (MovingEntity entity : EntityManager.getInstance().getMovingEntityList().values()) {
             if (!MoveUtil.isEntityMoving(entity)) continue;
             updateEntitiesPosition(entity, delta);

@@ -29,6 +29,9 @@ public class EntityManager implements Disposable {
 
     //  EntityId -> Entity
     @Getter
+    private Map<Short, Player> playerEntityList = new HashMap<Short, Player>();
+
+    @Getter
     private Map<Short, MovingEntity> movingEntityList = new HashMap<Short, MovingEntity>();
 
     @Getter
@@ -36,6 +39,18 @@ public class EntityManager implements Disposable {
 
     @Getter
     private Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
+
+    public void addPlayerEntity(short entityId, Player player) {
+        playerEntityList.put(entityId, player);
+    }
+
+    public void removePlayerEntity(Short entityId) {
+        playerEntityList.remove(entityId);
+    }
+
+    public Player getPlayerEntity(short entityId) {
+        return playerEntityList.get(entityId);
+    }
 
     public void addMovingEntity(short entityId, MovingEntity entity) {
         movingEntityList.put(entityId, entity);
@@ -89,11 +104,18 @@ public class EntityManager implements Disposable {
         for (MovingEntity movingEntity : movingEntityList.values()) {
             movingEntity.getEntityAnimation().animate(delta, spriteBatch);
         }
+        // Draw player entities over items and stationary entities
+        for (Player player : playerEntityList.values()) {
+            player.getEntityAnimation().animate(delta, spriteBatch);
+        }
     }
 
     public void drawEntityNames() {
         for (MovingEntity movingEntity : movingEntityList.values()) {
             movingEntity.drawEntityName();
+        }
+        for (Player player : playerEntityList.values()) {
+            player.drawEntityName();
         }
     }
 
@@ -101,16 +123,23 @@ public class EntityManager implements Disposable {
         for (MovingEntity movingEntity : movingEntityList.values()) {
             movingEntity.drawFloatingNumbers();
         }
+        for (Player player : playerEntityList.values()) {
+            player.drawFloatingNumbers();
+        }
     }
 
     public void drawHealthBar() {
         for (MovingEntity movingEntity : movingEntityList.values()) {
             movingEntity.drawEntityHpBar();
         }
+        for (Player player : playerEntityList.values()) {
+            player.drawEntityHpBar();
+        }
     }
 
     @Override
     public void dispose() {
+        playerEntityList.clear();
         movingEntityList.clear();
         stationaryEntityList.clear();
         itemStackDropList.clear();

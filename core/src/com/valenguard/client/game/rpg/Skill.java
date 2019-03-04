@@ -8,6 +8,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class Skill {
 
+    private static final boolean PRINT_DEBUG = false;
     private final SkillOpcodes skillOpcodes;
 
     public Skill(SkillOpcodes skillOpcodes) {
@@ -35,22 +36,22 @@ public class Skill {
         // Calculate level from experience
         int previousLevel = level;
 
-        println(getClass(), "Level Before = " + level);
+        println(getClass(), "Level Before = " + level, false, PRINT_DEBUG);
 
         level = getLevelFromExperience(this.experience);
 
-        println(getClass(), "Total Exp = " + this.experience);
-        println(getClass(), "Level = " + level);
+        println(getClass(), "Total Exp = " + this.experience, false, PRINT_DEBUG);
+        println(getClass(), "Level = " + level, false, PRINT_DEBUG);
 
         if (!initialized) {
-            println(getClass(), "<" + skillOpcodes.name() + "> Set the player's experience to: " + experience);
+            println(getClass(), "<" + skillOpcodes.name() + "> Set the player's experience to: " + experience, false, PRINT_DEBUG);
             initialized = true;
             return;
         }
 
         // The player has leveled up
         if (previousLevel != level) {
-            println(getClass(), "The player has leveled up!", false, true);
+            println(getClass(), "The player has leveled up!", false, PRINT_DEBUG);
 
             // TODO: TELL TO SHOW MESSAGE
             EntityManager.getInstance().getPlayerClient().setShowLevelUpMessage(true);

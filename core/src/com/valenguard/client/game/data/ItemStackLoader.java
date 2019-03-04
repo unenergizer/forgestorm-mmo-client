@@ -28,7 +28,7 @@ class ItemStackLoader {
 
         println(getClass(), "====== START LOADING ITEMS ======", false, PRINT_DEBUG);
 
-        FileHandle fileHandle = Gdx.files.internal("data" + File.separator + "item" + File.separator + "Items.yaml");
+        FileHandle fileHandle = Gdx.files.internal("data" + File.separator + "item" + File.separator + "ItemStacks.yaml");
         Yaml yaml = new Yaml();
         Map<Integer, Map<String, Object>> root = yaml.load(fileHandle.read());
 

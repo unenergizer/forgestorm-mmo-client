@@ -17,6 +17,8 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
 
+    private static final boolean PRINT_DEBUG = false;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         byte inventoryAction = clientHandler.readByte();
@@ -38,8 +40,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
     public void onEvent(InventoryActionsPacket packetData) {
 
         if (packetData.inventoryAction == InventoryActions.GIVE) {
-            println(getClass(), "Giving the player an item with id: " + packetData.itemId, false, false);
-            println(getClass(), "Giving the player " + packetData.itemAmount + " of those items", false, false);
+            println(getClass(), "Giving ItemStack id: " + packetData.itemId + ", Amount: " + packetData.itemAmount, false, PRINT_DEBUG);
 
             // Generate an ItemStack and place it in the players bag.
             ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);

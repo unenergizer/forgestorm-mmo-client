@@ -35,7 +35,7 @@ import static com.valenguard.client.util.Preconditions.checkNotNull;
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -189,13 +189,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnPlayer(EntitySpawnPacket packetData) {
         Entity entity = new Player();
-        setMovingEntityVars((MovingEntity) entity, packetData);
+        setMovingEntityVars((Player) entity, packetData);
+        EntityManager.getInstance().addPlayerEntity(packetData.entityId, (Player) entity);
         return entity;
     }
 
     private Entity spawnMOB(EntitySpawnPacket packetData) {
         Entity entity = new MOB();
         setMovingEntityVars((MovingEntity) entity, packetData);
+        EntityManager.getInstance().addMovingEntity(packetData.entityId, (MovingEntity) entity);
         return entity;
     }
 
@@ -229,9 +231,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setCurrentHealth(packetData.currentHealth);
 
         entity.setEntityAlignment(EntityAlignment.getEntityAlignment(packetData.entityAlignment));
-
-        if (!(entity instanceof PlayerClient))
-            EntityManager.getInstance().addMovingEntity(packetData.entityId, entity);
     }
 
     @AllArgsConstructor

@@ -7,7 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.inventory.InventoryType;
@@ -65,6 +68,12 @@ public class ItemStackSlot extends VisTable implements Buildable {
     private VisImage emptyCellImage;
 
     /**
+     * A label that represents the amount of the {@link ItemStack}
+     */
+    private VisLabel amountLabel = new VisLabel();
+    private Stack stack = new Stack();
+
+    /**
      * If this slot is locked, prevent any and all changes to it!
      */
     @Getter
@@ -95,6 +104,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         } else {
             setItemStack(itemStack);
         }
+        add(stack);
         return this;
     }
 
@@ -180,7 +190,8 @@ public class ItemStackSlot extends VisTable implements Buildable {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
         }
-        add(emptyCellImage);
+        amountLabel.setText("");
+        stack.add(emptyCellImage);
     }
 
     /**
@@ -188,7 +199,16 @@ public class ItemStackSlot extends VisTable implements Buildable {
      */
     void setItemImage() {
         emptyCellImage.remove();
-        add(itemStackImage);
+        stack.add(itemStackImage);
+
+        // Add item amount
+        if (itemStack.getItemStackType() == ItemStackType.GOLD) {
+            amountLabel.setText(itemStack.getAmount());
+            amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
+            stack.add(amountLabel);
+        } else {
+            amountLabel.setText("");
+        }
 
         if (itemStackToolTip != null) {
             itemStackToolTip.unregisterToolTip();
@@ -209,7 +229,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         this.itemStack = itemStack;
         emptyCellImage.remove();
         itemStackImage = new ImageBuilder(GameAtlas.ITEMS, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
-        add(itemStackImage);
+        stack.add(itemStackImage);
 
         // Setup tool tip
         if (itemStackToolTip != null) {
@@ -218,6 +238,17 @@ public class ItemStackSlot extends VisTable implements Buildable {
         }
         itemStackToolTip = new ItemStackToolTip(itemStack, itemStackImage);
         itemStackToolTip.registerToolTip();
+
+        // Add item amount
+        if (itemStack.getItemStackType() == ItemStackType.GOLD) {
+            if (itemStack.getAmount() > 1) {
+                amountLabel.setText(itemStack.getAmount());
+                amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
+                stack.add(amountLabel);
+            }
+        } else {
+            amountLabel.setText("");
+        }
 
         // Setup click listener
         addClickListener(itemStack, this);

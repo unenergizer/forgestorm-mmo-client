@@ -2,6 +2,7 @@ package com.valenguard.client.network.packet.in;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.rpg.Attributes;
@@ -25,6 +26,7 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
+        final byte entityType = clientHandler.readByte();
         final int armor = clientHandler.readInt();
         final int damage = clientHandler.readInt();
 
@@ -32,7 +34,7 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
         attributesUpdate.setArmor(armor);
         attributesUpdate.setDamage(damage);
 
-        return new EntityAttributesUpdatePacket(entityId, attributesUpdate);
+        return new EntityAttributesUpdatePacket(entityId, EntityType.getEntityType(entityType), attributesUpdate);
     }
 
     @Override
@@ -70,6 +72,7 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
     @AllArgsConstructor
     class EntityAttributesUpdatePacket extends PacketData {
         private final short entityId;
+        private final EntityType entityType;
         private final Attributes attributes;
     }
 }

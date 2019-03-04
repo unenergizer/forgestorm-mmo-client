@@ -13,8 +13,6 @@ import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
-import static com.valenguard.client.util.Log.println;
-
 public class StatusBar extends VisWindow implements Buildable {
 
     private final float posX = 5;
@@ -93,9 +91,6 @@ public class StatusBar extends VisWindow implements Buildable {
         expStack.add(expLabel);
         visTable.add(expStack);
         visTable.row();
-
-        println(getClass(), "BAR Height: " + hpBar.getHeight());
-        println(getClass(), "TXT Height: " + hpLabel.getHeight());
 
         add(visTable);
 

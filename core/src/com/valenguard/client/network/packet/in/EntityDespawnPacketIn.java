@@ -29,6 +29,8 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
                 println(getClass(), "Tried to despawn CLIENT_PLAYER type!", true);
                 break;
             case PLAYER:
+                EntityManager.getInstance().removePlayerEntity(packetData.entityId);
+                break;
             case MONSTER:
             case NPC:
                 EntityManager.getInstance().removeMovingEntity(packetData.entityId);

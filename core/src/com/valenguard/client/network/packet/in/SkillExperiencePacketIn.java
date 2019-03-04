@@ -15,7 +15,7 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.EXPERIENCE)
 public class SkillExperiencePacketIn implements PacketListener<SkillExperiencePacketIn.SkillExperiencePacket> {
 
-    private final static boolean PRINT_DEBUG = true;
+    private final static boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

@@ -11,6 +11,7 @@ import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.ItemStackDrop;
 import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.entities.StationaryEntity;
 import com.valenguard.client.game.maps.MapUtil;
@@ -111,8 +112,6 @@ public class MouseManager {
         this.leftClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        int playerTileX = playerClient.getCurrentMapLocation().getX();
-        int playerTileY = playerClient.getCurrentMapLocation().getY();
         Location clientLocation = playerClient.getFutureMapLocation();
 
 
@@ -222,13 +221,10 @@ public class MouseManager {
         Location clientLocation = playerClient.getCurrentMapLocation();
 
         // clicking the player to bring up an option menu.
-        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
-
-            if (movingEntity.getEntityType() != EntityType.PLAYER) continue;
-
-            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
+        for (Player player : EntityManager.getInstance().getPlayerEntityList().values()) {
+            if (entityClickTest(player.getDrawX(), player.getDrawY())) {
                 if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-                ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(movingEntity, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
+                ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(player, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
                 break;
             }
         }
