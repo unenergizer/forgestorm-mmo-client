@@ -4,6 +4,7 @@ import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.Appearance;
 import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -30,6 +31,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
+        final byte entityType = clientHandler.readByte();
         final byte appearanceBits = clientHandler.readByte();
         final short[] textureIds = new short[4];
         byte colorId = -1;
@@ -52,6 +54,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
 
         return new EntityAppearancePacket(
                 entityId,
+                EntityType.getEntityType(entityType),
                 appearanceBits,
                 colorId,
                 textureIds
@@ -60,12 +63,23 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
 
     @Override
     public void onEvent(EntityAppearancePacket packetData) {
-        Entity entity;
+        Entity entity = null;
 
-        if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
-            entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-        } else {
-            entity = EntityManager.getInstance().getStationaryEntity(packetData.entityId);
+        switch (packetData.entityType) {
+            case CLIENT_PLAYER:
+                break;
+            case PLAYER:
+                entity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                break;
+            case ITEM_STACK:
+                break;
+            case NPC:
+            case MONSTER:
+                entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+                break;
+            case SKILL_NODE:
+                entity = EntityManager.getInstance().getStationaryEntity(packetData.entityId);
+                break;
         }
 
         Appearance appearance = entity.getAppearance();
@@ -109,6 +123,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
     @AllArgsConstructor
     class EntityAppearancePacket extends PacketData {
         private final short entityId;
+        private final EntityType entityType;
         private final byte appearanceBits;
         private final byte colorId;
         private final short[] textureIds;
