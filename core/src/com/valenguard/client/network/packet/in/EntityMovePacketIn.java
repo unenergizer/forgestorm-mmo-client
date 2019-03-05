@@ -32,20 +32,18 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
 
     @Override
     public void onEvent(EntityMovePacket packetData) {
-
         MovingEntity movingEntity = null;
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
                 PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-
                 Location resyncLocation = new Location(playerClient.getMapName(), packetData.futureX, packetData.futureY);
 
                 playerClient.setCurrentMapLocation(resyncLocation);
                 playerClient.setFutureMapLocation(resyncLocation);
-
                 playerClient.setDrawX(resyncLocation.getX() * ClientConstants.TILE_SIZE);
                 playerClient.setDrawY(resyncLocation.getY() * ClientConstants.TILE_SIZE);
+
                 Valenguard.getInstance().getClientMovementProcessor().resetInput();
                 return;
             case PLAYER:

@@ -3,8 +3,8 @@ package com.valenguard.client.network.packet.in;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.network.shared.ClientHandler;
@@ -16,32 +16,39 @@ import com.valenguard.client.network.shared.PacketListener;
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.PLAYER_TELEPORT)
-public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPacketIn.PlayerTeleportPacket> {
+public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntityTeleportPacketIn.MovingEntityTeleportPacket> {
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
+        final byte entityType = clientHandler.readByte();
         final String mapName = clientHandler.readString();
         final short x = clientHandler.readShort();
         final short y = clientHandler.readShort();
         final byte facingDirection = clientHandler.readByte();
 
-        return new PlayerTeleportPacket(entityId, new Location(mapName, x, y), MoveDirection.getDirection(facingDirection));
+        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(mapName, x, y), MoveDirection.getDirection(facingDirection));
     }
 
     @Override
-    public void onEvent(PlayerTeleportPacket packetData) {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+    public void onEvent(MovingEntityTeleportPacket packetData) {
+        MovingEntity movingEntity = null;
 
-        if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
-            // Teleport the client player to said location
-            Valenguard.getInstance().getClientMovementProcessor().resetInput();
-            teleportMovingEntity(playerClient, packetData.teleportLocation, packetData.facingDirection);
-
-        } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
-            MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-            teleportMovingEntity(movingEntity, packetData.teleportLocation, packetData.facingDirection);
+        switch (packetData.entityType) {
+            case CLIENT_PLAYER:
+                movingEntity = EntityManager.getInstance().getPlayerClient();
+                Valenguard.getInstance().getClientMovementProcessor().resetInput();
+                break;
+            case PLAYER:
+                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                break;
+            case NPC:
+            case MONSTER:
+                movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+                break;
         }
+
+        teleportMovingEntity(movingEntity, packetData.teleportLocation, packetData.facingDirection);
     }
 
     /**
@@ -62,8 +69,9 @@ public class PlayerTeleportPacketIn implements PacketListener<PlayerTeleportPack
     }
 
     @AllArgsConstructor
-    class PlayerTeleportPacket extends PacketData {
+    class MovingEntityTeleportPacket extends PacketData {
         private final short entityId;
+        private final EntityType entityType;
         private final Location teleportLocation;
         private final MoveDirection facingDirection;
     }

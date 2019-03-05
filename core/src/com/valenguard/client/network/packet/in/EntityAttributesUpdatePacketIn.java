@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateEvent;
@@ -16,12 +15,8 @@ import com.valenguard.client.network.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
-import static com.valenguard.client.util.Log.println;
-
 @Opcode(getOpcode = Opcodes.ATTRIBUTES_UPDATE)
 public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttributesUpdatePacketIn.EntityAttributesUpdatePacket> {
-
-    private final static boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -39,33 +34,31 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
 
     @Override
     public void onEvent(EntityAttributesUpdatePacket packetData) {
-        println(getClass(), "ID: " + packetData.entityId, false, PRINT_DEBUG);
-        println(getClass(), "Armor: " + packetData.attributes.getArmor(), false, PRINT_DEBUG);
-        println(getClass(), "Damage: " + packetData.attributes.getDamage(), false, PRINT_DEBUG);
+        MovingEntity movingEntity = null;
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
-            // Update PlayerClient live attributes
-            Attributes attributes = playerClient.getAttributes();
-            attributes.setArmor(packetData.attributes.getArmor());
-            attributes.setDamage(packetData.attributes.getDamage());
+        switch (packetData.entityType) {
+            case CLIENT_PLAYER:
+                movingEntity = EntityManager.getInstance().getPlayerClient();
+                break;
+            case PLAYER:
+                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                break;
+            case NPC:
+            case MONSTER:
+                movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+                break;
+        }
 
-            // Update UI values
+        Attributes attributes = movingEntity.getAttributes();
+        attributes.setArmor(packetData.attributes.getArmor());
+        attributes.setDamage(packetData.attributes.getDamage());
+
+        // Update UI values
+        if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             StatsUpdateEvent statsUpdateEvent = new StatsUpdateEvent(attributes);
             for (Actor actor : ActorUtil.getStage().getActors()) {
                 actor.fire(statsUpdateEvent);
             }
-
-            println(getClass(), "Updated player client attributes", false, PRINT_DEBUG);
-        } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
-            MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-            Attributes attributes = movingEntity.getAttributes();
-            attributes.setArmor(packetData.attributes.getArmor());
-            attributes.setDamage(packetData.attributes.getDamage());
-
-            println(getClass(), "Updated moving entity attributes", false, PRINT_DEBUG);
-        } else {
-            println(getClass(), "No attributes updated??", true);
         }
     }
 

@@ -4,8 +4,6 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
 import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.game.entities.Player;
-import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
 import com.valenguard.client.network.shared.Opcodes;
@@ -13,8 +11,6 @@ import com.valenguard.client.network.shared.PacketData;
 import com.valenguard.client.network.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
-
-import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.ENTITY_DAMAGE_OUT)
 public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.EntityDamagePacket> {
@@ -33,61 +29,27 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
 
     @Override
     public void onEvent(EntityDamagePacket packetData) {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        MovingEntity movingEntity = null;
 
         switch (packetData.entityType) {
-
             case CLIENT_PLAYER:
-                // Player damageTake and currentHealth indicator
-                playerClient.setDamageTaken(playerClient.getDamageTaken() + packetData.damageTaken);
-                playerClient.setShowDamage(true);
-
-                playerClient.setCurrentHealth(packetData.health);
+                movingEntity = EntityManager.getInstance().getPlayerClient();
+                movingEntity.setDamageTaken(movingEntity.getDamageTaken() + packetData.damageTaken);
                 Valenguard.getInstance().getStageHandler().getStatusBar().updateHealth(packetData.health);
-
-                println(getClass(), "PlayerClient ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
-
                 break;
             case PLAYER:
-                // MovingEntity damageTake and currentHealth indicator
-                Player playerEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
-                playerEntity.setDamageTaken(packetData.damageTaken);
-                playerEntity.setShowDamage(true);
-                playerEntity.setCurrentHealth(packetData.health);
-
-                println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
+                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                movingEntity.setDamageTaken(packetData.damageTaken);
                 break;
             case NPC:
             case MONSTER:
-                // MovingEntity damageTake and currentHealth indicator
-                MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+                movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
                 movingEntity.setDamageTaken(packetData.damageTaken);
-                movingEntity.setShowDamage(true);
-                movingEntity.setCurrentHealth(packetData.health);
-
-                println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
                 break;
         }
 
-        if (playerClient != null && packetData.entityId == playerClient.getServerEntityID()) {
-            // Player damageTake and currentHealth indicator
-            playerClient.setDamageTaken(playerClient.getDamageTaken() + packetData.damageTaken);
-            playerClient.setShowDamage(true);
-
-            playerClient.setCurrentHealth(packetData.health);
-            Valenguard.getInstance().getStageHandler().getStatusBar().updateHealth(packetData.health);
-
-            println(getClass(), "PlayerClient ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
-
-        } else if (EntityManager.getInstance().getMovingEntity(packetData.entityId) != null) {
-            // MovingEntity damageTake and currentHealth indicator
-            MovingEntity movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
-            movingEntity.setDamageTaken(packetData.damageTaken);
-            movingEntity.setShowDamage(true);
-            movingEntity.setCurrentHealth(packetData.health);
-
-            println(getClass(), "MovingEntity ID: " + packetData.entityId + ", HP: " + packetData.health + ", DMG: " + packetData.damageTaken, false, PRINT_DEBUG);
-        }
+        movingEntity.setShowDamage(true);
+        movingEntity.setCurrentHealth(packetData.health);
     }
 
     @AllArgsConstructor

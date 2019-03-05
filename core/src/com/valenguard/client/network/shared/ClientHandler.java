@@ -1,7 +1,7 @@
 package com.valenguard.client.network.shared;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.network.packet.out.ClientAbstractOutPacket;
+import com.valenguard.client.network.packet.out.AbstractClientOutPacket;
 import com.valenguard.client.network.packet.out.ValenguardOutputStream;
 
 import java.io.DataInputStream;
@@ -132,8 +132,8 @@ public class ClientHandler {
         return null;
     }
 
-    public int fillCurrentBuffer(ClientAbstractOutPacket clientAbstractOutPacket) {
-        return valenguardOutputStream.fillCurrentBuffer(clientAbstractOutPacket);
+    public int fillCurrentBuffer(AbstractClientOutPacket abstractClientOutPacket) {
+        return valenguardOutputStream.fillCurrentBuffer(abstractClientOutPacket);
     }
 
     public void writeBuffers() {

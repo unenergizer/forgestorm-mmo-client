@@ -33,8 +33,8 @@ import com.valenguard.client.network.packet.in.EntitySpawnPacketIn;
 import com.valenguard.client.network.packet.in.InitializeClientSessionPacketIn;
 import com.valenguard.client.network.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.packet.in.InventoryPacketIn;
+import com.valenguard.client.network.packet.in.MovingEntityTeleportPacketIn;
 import com.valenguard.client.network.packet.in.PingPacketIn;
-import com.valenguard.client.network.packet.in.PlayerTeleportPacketIn;
 import com.valenguard.client.network.packet.in.PlayerTradePacketIn;
 import com.valenguard.client.network.packet.in.SkillExperiencePacketIn;
 import com.valenguard.client.network.packet.out.OutputStreamManager;
@@ -177,7 +177,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new InventoryPacketIn());
                         eventBus.registerListener(new SkillExperiencePacketIn());
                         eventBus.registerListener(new EntityAttributesUpdatePacketIn());
-                        eventBus.registerListener(new PlayerTeleportPacketIn());
+                        eventBus.registerListener(new MovingEntityTeleportPacketIn());
                         eventBus.registerListener(new EntityDamagePacketIn());
                         eventBus.registerListener(new EntityHealthPacketIn());
                         eventBus.registerListener(new PlayerTradePacketIn());
