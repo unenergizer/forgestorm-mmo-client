@@ -28,4 +28,10 @@ public class EntityShopManager {
         if (!map.containsKey(shopID)) return null;
         return map.get(shopID);
     }
+
+    public ShopItemStackInfo getShopItemStackInfo(short shopID, int itemStackShopSlot) {
+        if (!map.containsKey(shopID)) return null;
+        if (itemStackShopSlot > map.get(shopID).size() - 1) return null;
+        return map.get(shopID).get(itemStackShopSlot);
+    }
 }
