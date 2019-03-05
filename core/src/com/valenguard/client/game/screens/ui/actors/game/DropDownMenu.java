@@ -7,7 +7,7 @@ import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
 import com.valenguard.client.game.inventory.TradeStatusOpcode;
@@ -31,7 +31,7 @@ import java.util.Queue;
 public class DropDownMenu extends HideableVisWindow implements Buildable {
 
     private DropDownMenu dropDownMenu;
-    private MovingEntity movingEntity;
+    private Player targetPlayer;
 
     private final PathFinding pathFinding = new PathFinding();
 
@@ -67,7 +67,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
                 PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
                 Location clientLocation = playerClient.getFutureMapLocation();
-                Location toLocation = movingEntity.getFutureMapLocation();
+                Location toLocation = targetPlayer.getFutureMapLocation();
 
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
@@ -78,7 +78,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                     moveNodes.add(testMoveNodes.remove());
                 }
 
-                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
+                Valenguard.getInstance().getEntityTracker().startTracking(targetPlayer);
                 Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
                         new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
             }
@@ -91,7 +91,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
                 PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
                 Location clientLocation = playerClient.getFutureMapLocation();
-                Location toLocation = movingEntity.getFutureMapLocation();
+                Location toLocation = targetPlayer.getFutureMapLocation();
 
                 if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
                     // The player is requesting to interact with the entity.
@@ -112,7 +112,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                         ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Walking towards player to request trade.");
                     }
 
-                    Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
+                    Valenguard.getInstance().getEntityTracker().startTracking(targetPlayer);
                     Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
                             new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                 @Override
@@ -150,16 +150,16 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    public void toggleMenu(MovingEntity movingEntity, float x, float y) {
-        this.movingEntity = movingEntity;
+    public void toggleMenu(Player targetPlayer, float x, float y) {
+        this.targetPlayer = targetPlayer;
         setPosition(x, y);
         ActorUtil.fadeInWindow(this);
     }
 
     private void sendTradeRequest() {
         Valenguard.getInstance().getEntityTracker().cancelTracking();
-        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, movingEntity.getServerEntityID())).sendPacket();
-        ActorUtil.getStageHandler().getTradeWindow().setTargetPlayer(movingEntity);
+        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, targetPlayer.getServerEntityID())).sendPacket();
+        ActorUtil.getStageHandler().getTradeWindow().setTradeTarget(targetPlayer);
         ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
     }
 }

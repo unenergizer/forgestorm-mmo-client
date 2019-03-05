@@ -15,7 +15,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.TradeManager;
 import com.valenguard.client.game.inventory.TradePacketInfoOut;
@@ -55,7 +55,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
     @Setter
     @Getter
-    private MovingEntity targetPlayer;
+    private Player tradeTarget;
 
     public TradeWindow() {
         super("Trade Window");
