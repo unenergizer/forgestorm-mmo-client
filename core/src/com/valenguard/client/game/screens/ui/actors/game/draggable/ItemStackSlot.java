@@ -190,7 +190,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
         }
-        amountLabel.setText("");
+        amountLabel.remove();
         stack.add(emptyCellImage);
     }
 
@@ -199,6 +199,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
      */
     void setItemImage() {
         emptyCellImage.remove();
+        amountLabel.remove();
         stack.add(itemStackImage);
 
         // Add item amount
@@ -228,6 +229,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
         emptyCellImage.remove();
+        amountLabel.remove();
         itemStackImage = new ImageBuilder(GameAtlas.ITEMS, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
         stack.add(itemStackImage);
 
@@ -247,7 +249,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 stack.add(amountLabel);
             }
         } else {
-            amountLabel.setText("");
+            amountLabel.remove();
         }
 
         // Setup click listener

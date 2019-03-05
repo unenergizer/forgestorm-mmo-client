@@ -31,6 +31,10 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             itemAmount = clientHandler.readInt();
         } else if (inventoryAction == InventoryActions.REMOVE) {
             slotIndex = clientHandler.readByte();
+        } else if (inventoryAction == InventoryActions.SET) {
+            slotIndex = clientHandler.readByte();
+            itemId = clientHandler.readInt();
+            itemAmount = clientHandler.readInt();
         }
 
         return new InventoryActionsPacket(inventoryAction, itemId, itemAmount, slotIndex);
@@ -48,6 +52,11 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         } else if (packetData.inventoryAction == InventoryActions.REMOVE) {
 
             ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
+
+        } else if (packetData.inventoryAction == InventoryActions.SET) {
+
+            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+            ActorUtil.getStageHandler().getBagWindow().setItemStack(packetData.slotIndex, itemStack);
 
         }
     }
