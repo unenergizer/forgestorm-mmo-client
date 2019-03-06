@@ -9,6 +9,7 @@ import com.valenguard.client.game.maps.MapUtil;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.packet.out.PlayerMovePacketOut;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
@@ -85,6 +86,9 @@ public class ClientPlayerMovementManager {
             movements.clear();
             playerClient.setWarping(true);
             Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
+
+            // Since we are warping, fade out the screen!
+            ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
         }
 
         new PlayerMovePacketOut(futureLocation).sendPacket();

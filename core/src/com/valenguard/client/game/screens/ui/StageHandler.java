@@ -21,6 +21,7 @@ import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
 import com.valenguard.client.game.screens.ui.actors.game.DropDownMenu;
 import com.valenguard.client.game.screens.ui.actors.game.EntityShopWindow;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
+import com.valenguard.client.game.screens.ui.actors.game.FadeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.valenguard.client.game.screens.ui.actors.game.StatusBar;
@@ -54,6 +55,7 @@ public class StageHandler implements Disposable {
     private ConnectionStatusWindow connectionStatusWindow;
 
     // game
+    private FadeWindow fadeWindow;
     private HelpWindow helpWindow;
     private CreditsWindow creditsWindow;
     private EscapeWindow escapeWindow;
@@ -117,6 +119,10 @@ public class StageHandler implements Disposable {
         versionTable.setVisible(false);
         copyrightTable.setVisible(false);
         loginTable.setVisible(false);
+
+        // Quickly setup fade window!
+        fadeWindow = new FadeWindow();
+        stage.addActor(fadeWindow.build());
 
         helpWindow = new HelpWindow();
         creditsWindow = new CreditsWindow();

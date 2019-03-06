@@ -23,9 +23,21 @@ public class ActorUtil {
         return visibleStatus;
     }
 
+    public static boolean fadeOutWindow(HideableVisWindow hideableVisWindow, float time) {
+        boolean visibleStatus = hideableVisWindow.isVisible();
+        if (visibleStatus) hideableVisWindow.fadeOut(time);
+        return visibleStatus;
+    }
+
     public static boolean fadeInWindow(HideableVisWindow hideableVisWindow) {
         boolean visibleStatus = hideableVisWindow.isVisible();
         if (!visibleStatus) hideableVisWindow.fadeIn().setVisible(true);
+        return visibleStatus;
+    }
+
+    public static boolean fadeInWindow(HideableVisWindow hideableVisWindow, float time) {
+        boolean visibleStatus = hideableVisWindow.isVisible();
+        if (!visibleStatus) hideableVisWindow.fadeIn(time).setVisible(true);
         return visibleStatus;
     }
 

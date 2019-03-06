@@ -13,6 +13,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.screens.AttachableCamera;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 
 import lombok.Getter;
 
@@ -89,6 +90,9 @@ public class MapRenderer implements Disposable {
         } else {
             orthogonalTiledMapRenderer.setMap(Valenguard.getInstance().getFileManager().getTiledMap(filePath));
         }
+
+        // Map loaded, now fade it in!
+        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
     }
 
     @Override
