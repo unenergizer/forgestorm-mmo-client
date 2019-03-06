@@ -28,14 +28,12 @@ public class FadeWindow extends HideableVisWindow implements Buildable {
         visLabel.setAlignment(Alignment.TOP.getAlignment());
         add(visLabel).expand().fill().padTop(5);
 
-
         addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
-
 
         addListener(new WindowResizeListener() {
             @Override

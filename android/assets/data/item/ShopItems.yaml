@@ -1,7 +1,7 @@
 ## Key: int[shopID] -> Value: List<int> itemStackIDs/shopSlotID
 shop0:
   0:
-    id: 0
+    id: 7
     price: 15
   1:
     id: 1
@@ -27,101 +27,53 @@ shop1:
     price: 33
 shop2:
   0:
-    id: 0
-    price: 3
-  1:
     id: 1
+    price: 33
+  1:
+    id: 2
     price: 12
   2:
-    id: 2
-    price: 4
+    id: 3
+    price: 44
   3:
-    id: 0
-    price: 3
+    id: 4
+    price: 32
   4:
-    id: 1
-    price: 12
+    id: 5
+    price: 32
   5:
-    id: 2
-    price: 4
+    id: 6
+    price: 43
   6:
-    id: 0
-    price: 3
+    id: 7
+    price: 32
   7:
-    id: 1
-    price: 12
+    id: 8
+    price: 17
   8:
-    id: 2
-    price: 4
+    id: 9
+    price: 12
   9:
-    id: 0
-    price: 3
+    id: 10
+    price: 53
   10:
-    id: 1
-    price: 12
+    id: 11
+    price: 15
   11:
-    id: 2
-    price: 4
+    id: 12
+    price: 44
   12:
-    id: 0
-    price: 3
+    id: 13
+    price: 37
   13:
-    id: 1
-    price: 12
+    id: 14
+    price: 18
   14:
-    id: 2
-    price: 4
+    id: 15
+    price: 1
   15:
-    id: 0
-    price: 3
+    id: 16
+    price: 110
   16:
-    id: 1
-    price: 12
-  17:
-    id: 2
-    price: 4
-  18:
-    id: 0
-    price: 3
-  19:
-    id: 1
-    price: 12
-  20:
-    id: 2
-    price: 4
-  21:
-    id: 0
-    price: 3
-  22:
-    id: 1
-    price: 12
-  23:
-    id: 2
-    price: 4
-  24:
-    id: 0
-    price: 3
-  25:
-    id: 1
-    price: 12
-  26:
-    id: 2
-    price: 4
-  27:
-    id: 0
-    price: 3
-  28:
-    id: 1
-    price: 12
-  29:
-    id: 2
-    price: 4
-  30:
-    id: 0
-    price: 3
-  31:
-    id: 1
-    price: 12
-  32:
-    id: 2
-    price: 4
+    id: 17
+    price: 111

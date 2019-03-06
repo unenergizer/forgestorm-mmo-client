@@ -17,6 +17,8 @@ import com.valenguard.client.game.data.ItemStackManager;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ShopItemStackInfo;
+import com.valenguard.client.game.rpg.EntityShopAction;
+import com.valenguard.client.game.rpg.ShopOpcodes;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -24,6 +26,7 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
+import com.valenguard.client.network.packet.out.EntityShopPacketOut;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +109,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.STOP_SHOPPING)).sendPacket();
                 ActorUtil.fadeOutWindow(entityShopWindow);
             }
         });
@@ -144,7 +148,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         for (int i = 0; i < entityShopManager.getShopItemList(shopID).size(); i++) {
             ShopItemStackInfo shopItemStackInfo = entityShopManager.getShopItemStackInfo(shopID, i);
             ItemStack itemStack = itemStackManager.makeItemStack(entityShopManager.getItemIdForShop(shopID, i), 1);
-            entityShopWindowSlots.add(new EntityShopWindowSlot(itemStack, shopItemStackInfo.getPrice()));
+            entityShopWindowSlots.add(new EntityShopWindowSlot(itemStack, shopItemStackInfo.getPrice(), (short) i));
         }
 
         // Generate shop pages
@@ -184,7 +188,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         VisTable lastShopPage = shopPageList.get(shopPageList.size() - 1);
 
         for (int i = 0; i < blankSpots; i++) {
-            EntityShopWindowSlot entityShopWindowSlot = new EntityShopWindowSlot(null, 0);
+            EntityShopWindowSlot entityShopWindowSlot = new EntityShopWindowSlot(null, 0, (short) -1);
             entityShopWindowSlot.setItemStackCell();
             lastShopPage.add(entityShopWindowSlot);
 
@@ -272,9 +276,12 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
 
         private ItemStackToolTip itemStackToolTip;
 
-        EntityShopWindowSlot(final ItemStack itemStack, final int price) {
+        private short shopSlot;
+
+        EntityShopWindowSlot(final ItemStack itemStack, final int price, final short shopSlot) {
             this.itemStack = itemStack;
             this.price = price;
+            this.shopSlot = shopSlot;
         }
 
         /**
@@ -297,11 +304,21 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
                 slotTable.add(itemStack.getName()).align(Alignment.TOP_LEFT.getAlignment()).row();
 
                 VisTable priceTable = new VisTable();
+                VisTextButton button = new VisTextButton("Buy");
+                priceTable.add(button);
                 priceTable.add(new ImageBuilder(GameAtlas.ITEMS, 16).setRegionName("drops_44").buildVisImage());
                 priceTable.add(new VisLabel(Integer.toString(price)));
                 slotTable.add(priceTable).align(Alignment.BOTTOM_RIGHT.getAlignment());
 
                 add(slotTable).expand().fill().align(Alignment.RIGHT.getAlignment());
+
+                button.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        // Send packet here
+                        new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.BUY, shopSlot)).sendPacket();
+                    }
+                });
 
                 // Setup tool tips
                 if (itemStackToolTip != null) {
