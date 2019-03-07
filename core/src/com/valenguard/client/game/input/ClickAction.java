@@ -6,15 +6,15 @@ import lombok.Getter;
 
 public class ClickAction {
 
-    static final byte LEFT = 0x01;
-    static final byte RIGHT = 0x02;
+    public static final byte LEFT = 0x01;
+    public static final byte RIGHT = 0x02;
 
     @Getter
     private final byte clickAction;
     @Getter
     private final Entity clickedEntity;
 
-    ClickAction(byte clickAction, Entity entity) {
+    public ClickAction(byte clickAction, Entity entity) {
         this.clickAction = clickAction;
         this.clickedEntity = entity;
     }

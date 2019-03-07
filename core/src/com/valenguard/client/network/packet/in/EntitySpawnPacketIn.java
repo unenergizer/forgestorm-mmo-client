@@ -52,21 +52,27 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         int maxHealth = 0;
         int currentHealth = 0;
         byte entityAlignment = 0;
+        short shopID = -1;
 
         checkNotNull(entityType, "EntityType can not be null!");
 
         switch (entityType) {
             case SKILL_NODE:
-            case MONSTER:
             case ITEM_STACK:
                 textureIds = new short[1];
                 textureIds[Appearance.BODY] = clientHandler.readShort();
+                break;
+            case MONSTER:
+                textureIds = new short[1];
+                textureIds[Appearance.BODY] = clientHandler.readShort();
+                shopID = clientHandler.readShort();
                 break;
             case NPC:
                 colorId = clientHandler.readByte();
                 textureIds = new short[2];
                 textureIds[Appearance.BODY] = clientHandler.readShort();
                 textureIds[Appearance.HEAD] = clientHandler.readShort();
+                shopID = clientHandler.readShort();
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
@@ -114,7 +120,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 moveSpeed,
                 maxHealth,
                 currentHealth,
-                entityAlignment
+                entityAlignment,
+                shopID
         );
     }
 
@@ -127,11 +134,11 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         } else if (packetData.entityType == EntityType.PLAYER) {
             entity = spawnPlayer(packetData);
         } else if (packetData.entityType == EntityType.NPC) {
-            entity = spawnMOB(packetData);
+            entity = spawnMovingEntity(packetData);
         } else if (packetData.entityType == EntityType.ITEM_STACK) {
             entity = spawnItem(packetData);
         } else if (packetData.entityType == EntityType.MONSTER) {
-            entity = spawnMOB(packetData);
+            entity = spawnMovingEntity(packetData);
         } else if (packetData.entityType == EntityType.SKILL_NODE) {
             entity = spawnSkillNode(packetData);
         }
@@ -194,8 +201,9 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         return entity;
     }
 
-    private Entity spawnMOB(EntitySpawnPacket packetData) {
+    private Entity spawnMovingEntity(EntitySpawnPacket packetData) {
         Entity entity = new MOB();
+        ((MOB) entity).setShopID(packetData.shopID);
         setMovingEntityVars((MovingEntity) entity, packetData);
         EntityManager.getInstance().addMovingEntity(packetData.entityId, (MovingEntity) entity);
         return entity;
@@ -247,5 +255,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final int maxHealth;
         private final int currentHealth;
         private final byte entityAlignment;
+        private final short shopID;
     }
 }

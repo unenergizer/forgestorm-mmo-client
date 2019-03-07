@@ -1,19 +1,15 @@
 package com.valenguard.client.game.screens.ui;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
-import com.valenguard.client.game.rpg.EntityShopAction;
-import com.valenguard.client.game.rpg.ShopOpcodes;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
-import com.valenguard.client.network.packet.out.EntityShopPacketOut;
 
 class PreStageEvent implements InputProcessor {
 
@@ -35,24 +31,6 @@ class PreStageEvent implements InputProcessor {
                 stageHandler.getStage().setKeyboardFocus(stageHandler.getChatWindow().getMessageInput());
                 stageHandler.getChatWindow().setChatToggled(true);
                 stageHandler.getChatWindow().getMessageInput().setText("");
-                return true;
-            }
-        }
-
-        /*
-         * TODO: REMOVE -> Open Shop Window
-         */
-        if (keycode == Input.Keys.P && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            if (!stageHandler.getChatWindow().isChatToggled()
-                    && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()) {
-                if (!stageHandler.getBagWindow().isVisible()) {
-                    stageHandler.getEntityShopWindow().loadShop((short) 2);
-                    new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, (short) 0)).sendPacket();
-                    ActorUtil.fadeInWindow(stageHandler.getEntityShopWindow());
-                } else {
-                    ActorUtil.fadeOutWindow(stageHandler.getEntityShopWindow());
-                }
                 return true;
             }
         }

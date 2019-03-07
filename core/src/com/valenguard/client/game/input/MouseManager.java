@@ -28,7 +28,9 @@ import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import lombok.Getter;
@@ -217,17 +219,35 @@ public class MouseManager {
         this.rightClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.rightClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Location clientLocation = playerClient.getCurrentMapLocation();
+        /*
+         * Build right click menu!
+         */
+        final List<MovingEntity> movingEntityList = new ArrayList<MovingEntity>();
 
-        // clicking the player to bring up an option menu.
         for (Player player : EntityManager.getInstance().getPlayerEntityList().values()) {
             if (entityClickTest(player.getDrawX(), player.getDrawY())) {
-                if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-                ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(player, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
-                break;
+                movingEntityList.add(player);
             }
         }
+
+        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
+                movingEntityList.add(movingEntity);
+            }
+        }
+
+        // Send list of entities to the DropDownMenu!
+        if (!movingEntityList.isEmpty()) {
+            if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
+            ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(movingEntityList, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
+        }
+
+        /*
+         * Right clicked stationary node...
+         */
+
+        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        Location clientLocation = playerClient.getCurrentMapLocation();
 
         for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
@@ -237,19 +257,6 @@ public class MouseManager {
                     if (clientLocation.isWithinDistance(location, (short) 1)) {
                         // The player is requesting to interact with the entity.
                         new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, stationaryEntity)).sendPacket();
-                    }
-                }
-            }
-        }
-
-        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
-            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                Location location = movingEntity.getCurrentMapLocation();
-
-                if (!MoveUtil.isEntityMoving(playerClient)) {
-                    if (clientLocation.isWithinDistance(location, (short) 1)) {
-                        // The player is requesting to interact with the entity.
-                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, movingEntity)).sendPacket();
                     }
                 }
             }

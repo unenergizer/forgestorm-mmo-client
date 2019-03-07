@@ -31,9 +31,6 @@ import com.valenguard.client.network.packet.out.EntityShopPacketOut;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import static com.valenguard.client.util.Log.println;
 
 public class EntityShopWindow extends HideableVisWindow implements Buildable {
@@ -54,10 +51,6 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
 
     private List<VisTable> shopPages;
     private int currentPageIndex = 0;
-
-    @Setter
-    @Getter
-    private MovingEntity shopOwner;
 
     public EntityShopWindow() {
         super("Trade Shop");
@@ -218,14 +211,15 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         pack();
     }
 
-    public void loadShop(short shopID) {
+    public void loadShop(MovingEntity movingEntity, short shopID) {
         resetShop();
 
         // Dynamic build shop pages
         shopPages = buildShopPage(shopID);
         println(getClass(), "Shop Pages: " + shopPages.size());
         changeShopPage(0);
-        getTitleLabel().setText("Shop " + shopID);
+        getTitleLabel().setText(movingEntity.getEntityName() + "'s Shop");
+        ActorUtil.fadeInWindow(this);
     }
 
     private void setupButtons() {
