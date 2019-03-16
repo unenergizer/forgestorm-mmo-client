@@ -12,12 +12,10 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
-public class BagWindow extends HideableVisWindow implements Buildable, Focusable {
-
-    private final ItemStackSlot[] itemStackSlots = new ItemStackSlot[ClientConstants.BAG_SIZE];
+public class BagWindow extends ItemSlotContainer implements Buildable, Focusable {
 
     public BagWindow() {
-        super("Inventory");
+        super("Inventory", ClientConstants.BAG_SIZE);
     }
 
     @Override
@@ -74,33 +72,5 @@ public class BagWindow extends HideableVisWindow implements Buildable, Focusable
     @Override
     public void focusGained() {
 
-    }
-
-    /**
-     * Adds an {@link ItemStack} to an empty bag slot.
-     *
-     * @param itemStack The {@link ItemStack} to add to the players inventory.
-     */
-    public void addItemStack(ItemStack itemStack) {
-        for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
-
-            // Find empty slot
-            if (itemStackSlots[i].getItemStack() != null) continue;
-
-            // Empty slot found. Placing item
-            itemStackSlots[i].setItemStack(itemStack);
-            return;
-        }
-    }
-
-    public void setItemStack(byte slotIndex, ItemStack itemStack) {
-
-        itemStackSlots[slotIndex].setItemStack(itemStack);
-
-    }
-
-    public void removeItemStack(byte slotIndex) {
-        itemStackSlots[slotIndex].setEmptyCellImage();
-        itemStackSlots[slotIndex].deleteStack();
     }
 }

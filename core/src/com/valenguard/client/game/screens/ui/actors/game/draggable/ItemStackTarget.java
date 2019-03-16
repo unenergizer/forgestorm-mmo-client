@@ -86,15 +86,15 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         determineWindowMovementInfo(sourceItemStackSlot);
 
-        if (targetItemStack != null) {
-            // Swap (setting back on itself is valid swap)
-            swapItemAction(sourceItemStack, targetItemStack, sourceItemStackSlot);
-        } else {
-            // No swap just set empty cell
-            setItemAction(sourceItemStack, sourceItemStackSlot);
-        }
+        sourceItemStackSlot.setItemImage();
 
-        // TODO: add another case where we check if the items are the same type and stack them
+        new InventoryPacketOut(new InventoryActions(
+                InventoryActions.MOVE,
+                windowMovementInfo.getFromWindow(),
+                windowMovementInfo.getToWindow(),
+                sourceItemStackSlot.getInventoryIndex(),
+                itemStackTargetSlot.getInventoryIndex()
+        )).sendPacket();
     }
 
     /**
@@ -111,84 +111,6 @@ public class ItemStackTarget extends DragAndDrop.Target {
             windowMovementInfo = WindowMovementInfo.FROM_BAG_TO_BAG;
         } else if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT && itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
             windowMovementInfo = WindowMovementInfo.FROM_EQUIPMENT_TO_EQUIPMENT;
-        }
-    }
-
-    /**
-     * Called when an {@link ItemStack} is being set on top of another {@link ItemStack}, thus swapping item positions.
-     *
-     * @param sourceItemStack     The {@link ItemStack} that was picked up and will be dropped onto a TargetSlot.
-     * @param targetItemStack     The {@link ItemStack} that was resting and then had an {@link ItemStack} dropped on top of it, forcing a item swap.
-     * @param sourceItemStackSlot The {@link ItemStackSlot} that the {@link ItemStack} was picked up from.
-     */
-    private void swapItemAction(ItemStack sourceItemStack, ItemStack targetItemStack, ItemStackSlot sourceItemStackSlot) {
-
-        itemStackTargetSlot.setItemStack(sourceItemStack);
-        sourceItemStackSlot.setItemStack(targetItemStack);
-
-        new InventoryPacketOut(new InventoryActions(
-                InventoryActions.MOVE,
-                windowMovementInfo.getFromWindow(),
-                windowMovementInfo.getToWindow(),
-                sourceItemStackSlot.getInventoryIndex(),
-                itemStackTargetSlot.getInventoryIndex()
-        )).sendPacket();
-
-        if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
-            if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
-                WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
-                EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
-            } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
-                WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
-                EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
-            }
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
-            setWearableFromSource(sourceItemStack);
-        }
-    }
-
-    /**
-     * Called when an {@link ItemStack} gets put into an empty {@link ItemStackSlot}
-     *
-     * @param sourceItemStack     The {@link ItemStack} that was picked up and has been dropped into a {@link ItemStackSlot}
-     * @param sourceItemStackSlot The {@link ItemStackSlot} that the {@link ItemStack} was picked up from.
-     */
-    private void setItemAction(ItemStack sourceItemStack, ItemStackSlot sourceItemStackSlot) {
-
-        itemStackTargetSlot.setItemStack(sourceItemStack);
-        sourceItemStackSlot.deleteStack();
-
-        new InventoryPacketOut(new InventoryActions(
-                InventoryActions.MOVE,
-                windowMovementInfo.getFromWindow(),
-                windowMovementInfo.getToWindow(),
-                sourceItemStackSlot.getInventoryIndex(),
-                itemStackTargetSlot.getInventoryIndex()
-        )).sendPacket();
-
-        if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
-            setWearableFromSource(sourceItemStack);
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
-            if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
-                EntityManager.getInstance().getPlayerClient().removeArmor();
-            } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
-                EntityManager.getInstance().getPlayerClient().removeHelm();
-            }
-        }
-    }
-
-    /**
-     * Attempts to set the players on-screen graphics when equipping an {@link ItemStack}
-     *
-     * @param sourceItemStack The {@link ItemStack}
-     */
-    private void setWearableFromSource(ItemStack sourceItemStack) {
-        if (itemStackTargetSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST && sourceItemStack.getItemStackType() == ItemStackType.CHEST) {
-            WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
-            EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
-        } else if (itemStackTargetSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM && sourceItemStack.getItemStackType() == ItemStackType.HELM) {
-            WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
-            EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
         }
     }
 

@@ -17,8 +17,11 @@ public class InventoryPacketOut extends AbstractClientOutPacket {
         byte action = inventoryAction.getInventoryActionType();
         write.writeByte(action);
         if (action == InventoryActions.MOVE) {
+
             write.writeByte(inventoryAction.getFromPosition());
             write.writeByte(inventoryAction.getToPosition());
+
+            // Combining the windows into a single byte.
             byte windowsBytes = (byte) ((inventoryAction.getFromWindow() << 4) | inventoryAction.getToWindow());
             write.writeByte(windowsBytes);
         }

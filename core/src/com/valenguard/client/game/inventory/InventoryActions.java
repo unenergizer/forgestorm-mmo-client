@@ -5,9 +5,13 @@ import lombok.Getter;
 public class InventoryActions {
 
     /**
-     *   CLIENT -> SERVER
+     *   SHARED
      */
     public static final byte MOVE = 0x00;
+
+    /**
+     *   CLIENT -> SERVER
+     */
     public static final byte DROP = 0x01;
     public static final byte USE = 0x02;
 

@@ -8,11 +8,11 @@ import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.inventory.EquipmentSlotTypes;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
-import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -20,10 +20,10 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import lombok.Getter;
 
 @Getter
-public class EquipmentWindow extends HideableVisWindow implements Buildable, Focusable {
+public class EquipmentWindow extends ItemSlotContainer implements Buildable, Focusable {
 
     private ItemStackSlot helmSlot;
-    private ItemStackSlot arrowSlot;
+    private ItemStackSlot ammoSlot;
     private ItemStackSlot necklaceSlot;
     private ItemStackSlot capeSlot;
     private ItemStackSlot ringSlot0;
@@ -32,13 +32,13 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
     private ItemStackSlot glovesSlot;
     private ItemStackSlot beltSlot;
     private ItemStackSlot bootsSlot;
-    private ItemStackSlot swordSlot;
+    private ItemStackSlot weaponSlot;
     private ItemStackSlot shieldSlot;
     private VisLabel armor;
     private VisLabel damage;
 
     public EquipmentWindow() {
-        super("Character");
+        super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
         // main table (body etc)
         VisTable mainTable = new VisTable();
 
-        mainTable.add(arrowSlot = buildSlot(EquipmentSlotTypes.AMMO));
+        mainTable.add(ammoSlot = buildSlot(EquipmentSlotTypes.AMMO));
         mainTable.add(necklaceSlot = buildSlot(EquipmentSlotTypes.NECKLACE));
         mainTable.add(capeSlot = buildSlot(EquipmentSlotTypes.CAPE));
         mainTable.row();
@@ -76,9 +76,22 @@ public class EquipmentWindow extends HideableVisWindow implements Buildable, Foc
 
         // main hand/off hand
         VisTable weaponTable = new VisTable();
-        weaponTable.add(swordSlot = buildSlot(EquipmentSlotTypes.WEAPON));
+        weaponTable.add(weaponSlot = buildSlot(EquipmentSlotTypes.WEAPON));
         weaponTable.add(shieldSlot = buildSlot(EquipmentSlotTypes.SHIELD));
         equipmentSlotsTable.add(weaponTable);
+
+        itemStackSlots[0] = helmSlot;
+        itemStackSlots[1] = chestSlot;
+        itemStackSlots[2] = bootsSlot;
+        itemStackSlots[3] = capeSlot;
+        itemStackSlots[4] = glovesSlot;
+        itemStackSlots[5] = beltSlot;
+        itemStackSlots[6] = ringSlot0;
+        itemStackSlots[7] = ringSlot1;
+        itemStackSlots[8] = necklaceSlot;
+        itemStackSlots[9] = weaponSlot;
+        itemStackSlots[10] = shieldSlot;
+        itemStackSlots[11] = ammoSlot;
 
         /*
          Build Equipment Stats Table
