@@ -21,7 +21,6 @@ import com.valenguard.client.game.entities.animations.MonsterAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.rpg.EntityAlignment;
-import com.valenguard.client.game.rpg.FactionTypes;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -55,7 +54,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         int maxHealth = 0;
         int currentHealth = 0;
         EntityAlignment entityAlignment = null;
-        FactionTypes entityFaction = null;
+        Byte entityFaction = null;
         short shopID = -1;
 
         checkNotNull(entityType, "EntityType can not be null!");
@@ -79,7 +78,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 textureIds[Appearance.HEAD] = clientHandler.readShort();
                 shopID = clientHandler.readShort();
                 entityAlignment = EntityAlignment.getEntityAlignment(clientHandler.readByte());
-                entityFaction = FactionTypes.getFactionType(clientHandler.readByte());
+                entityFaction = clientHandler.readByte();
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
@@ -271,7 +270,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final int maxHealth;
         private final int currentHealth;
         private final EntityAlignment entityAlignment;
-        private final FactionTypes entityFaction;
+        private final byte entityFaction;
         private final short shopID;
     }
 }
