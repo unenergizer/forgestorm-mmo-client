@@ -5,6 +5,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MOB extends MovingEntity {
-    private short shopID;
+public class Monster extends AiEntity {
 }

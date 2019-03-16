@@ -5,9 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.entities.AiEntity;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.entities.EntityType;
-import com.valenguard.client.game.entities.MOB;
 import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.entities.Player;
 import com.valenguard.client.game.entities.PlayerClient;
@@ -238,7 +238,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
 
         private void addShopButton() {
             if (clickedEntity.getEntityType() == EntityType.PLAYER) return;
-            if (((MOB) clickedEntity).getShopID() < 0) return;
+            if (((AiEntity) clickedEntity).getShopID() < 0) return;
             VisTextButton shopButton = new VisTextButton("Shop " + clickedEntity.getEntityName());
             add(shopButton).expand().fill().row();
 
@@ -253,7 +253,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
                             new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedEntity.getServerEntityID())).sendPacket();
-                            entityShopWindow.loadShop(clickedEntity, ((MOB) clickedEntity).getShopID());
+                            entityShopWindow.loadShop(clickedEntity, ((AiEntity) clickedEntity).getShopID());
                         }
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -272,7 +272,7 @@ public class DropDownMenu extends HideableVisWindow implements Buildable {
                                     public void postMoveAction() {
                                         Valenguard.getInstance().getEntityTracker().cancelTracking();
                                         new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedEntity.getServerEntityID())).sendPacket();
-                                        entityShopWindow.loadShop(clickedEntity, ((MOB) clickedEntity).getShopID());
+                                        entityShopWindow.loadShop(clickedEntity, ((AiEntity) clickedEntity).getShopID());
                                     }
                                 }));
                     }

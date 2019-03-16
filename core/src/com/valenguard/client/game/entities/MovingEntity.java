@@ -8,7 +8,6 @@ import com.valenguard.client.game.entities.animations.EntityAnimation;
 import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.rpg.Attributes;
-import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.util.GameTextUtil;
 
@@ -60,18 +59,13 @@ public class MovingEntity extends Entity {
     private Attributes attributes = new Attributes();
 
     /**
-     * Entity Alignment
-     */
-    private EntityAlignment entityAlignment;
-
-    /**
      * Entity name drawing
      */
     public void drawEntityName() {
         float x = getDrawX() + 8;
         float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
-        GameTextUtil.drawMessage(getEntityName(), entityAlignment.getColor(), .5f, x, y);
+        GameTextUtil.drawMessage(getEntityName(), Color.WHITE, .5f, x, y);
     }
 
     private float distanceMoved = 0;
