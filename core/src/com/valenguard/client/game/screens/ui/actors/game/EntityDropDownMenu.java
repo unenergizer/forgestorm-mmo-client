@@ -36,14 +36,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class DropDownMenu extends HideableVisWindow implements Buildable {
+public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
-    private final DropDownMenu dropDownMenu;
+    private final EntityDropDownMenu dropDownMenu;
     private VisTable dropDownTable = new VisTable();
 
     private final PathFinding pathFinding = new PathFinding();
 
-    public DropDownMenu() {
+    public EntityDropDownMenu() {
         super("Choose Option");
         this.dropDownMenu = this;
     }

@@ -297,6 +297,18 @@ public class ItemStackSlot extends VisTable implements Buildable {
                     println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
                     return true;
                 }
+
+
+                if (button == Input.Buttons.RIGHT) {
+
+                    // Bringing up options for the item!
+                    if (itemStack != null) {
+                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, getX(), getY());
+                    }
+
+                    return true;
+                }
+
                 return false;
             }
         });

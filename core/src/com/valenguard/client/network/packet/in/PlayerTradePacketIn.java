@@ -88,7 +88,8 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 TradeWindow tradeWindow = stageHandler.getTradeWindow();
                 tradeWindow.getTitleLabel().setText("Trading with " + tradeWindow.getTradeTarget().getEntityName());
 
-                ActorUtil.fadeOutWindow(stageHandler.getDropDownMenu());
+                ActorUtil.fadeOutWindow(stageHandler.getEntityDropDownMenu());
+                ActorUtil.fadeOutWindow(stageHandler.getItemDropDownMenu());
                 ActorUtil.fadeInWindow(tradeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                 break;

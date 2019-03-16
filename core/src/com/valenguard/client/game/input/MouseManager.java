@@ -236,10 +236,10 @@ public class MouseManager {
             }
         }
 
-        // Send list of entities to the DropDownMenu!
+        // Send list of entities to the EntityDropDownMenu!
         if (!movingEntityList.isEmpty()) {
             if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-            ActorUtil.getStageHandler().getDropDownMenu().toggleMenu(movingEntityList, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
+            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(movingEntityList, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
         }
 
         /*
