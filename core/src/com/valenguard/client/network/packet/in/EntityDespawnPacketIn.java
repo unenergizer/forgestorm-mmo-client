@@ -33,7 +33,7 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
                 break;
             case MONSTER:
             case NPC:
-                EntityManager.getInstance().removeMovingEntity(packetData.entityId);
+                EntityManager.getInstance().removeAiEntity(packetData.entityId);
                 break;
             case ITEM_STACK:
                 EntityManager.getInstance().removeItemStackDrop(packetData.entityId);

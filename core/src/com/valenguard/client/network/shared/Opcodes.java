@@ -24,6 +24,7 @@ public class Opcodes {
     public static final byte PLAYER_TELEPORT = 0x08;
     public static final byte ENTITY_DAMAGE_OUT = 0x09;
     public static final byte ENTITY_HEAL_OUT = 0x0A;
+    public static final byte AIENTITY_UPDATE_OUT = 0x0B;
 
     /**
      * CLIENT -> SERVER

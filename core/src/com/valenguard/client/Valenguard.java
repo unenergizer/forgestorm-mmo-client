@@ -22,6 +22,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.network.ClientConnection;
 import com.valenguard.client.network.Consumer;
 import com.valenguard.client.network.PlayerSession;
+import com.valenguard.client.network.packet.in.AiEntityDataPacketIn;
 import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
 import com.valenguard.client.network.packet.in.EntityAppearancePacketIn;
 import com.valenguard.client.network.packet.in.EntityAttributesUpdatePacketIn;
@@ -181,6 +182,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new EntityDamagePacketIn());
                         eventBus.registerListener(new EntityHealthPacketIn());
                         eventBus.registerListener(new PlayerTradePacketIn());
+                        eventBus.registerListener(new AiEntityDataPacketIn());
                     }
                 });
     }

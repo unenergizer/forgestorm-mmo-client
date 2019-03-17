@@ -14,7 +14,7 @@ public class EntityMovementManager {
             if (!MoveUtil.isEntityMoving(player)) continue;
             updateEntitiesPosition(player, delta);
         }
-        for (MovingEntity entity : EntityManager.getInstance().getMovingEntityList().values()) {
+        for (MovingEntity entity : EntityManager.getInstance().getAiEntityList().values()) {
             if (!MoveUtil.isEntityMoving(entity)) continue;
             updateEntitiesPosition(entity, delta);
         }

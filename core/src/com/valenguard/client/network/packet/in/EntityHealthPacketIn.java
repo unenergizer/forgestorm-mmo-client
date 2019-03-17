@@ -38,7 +38,7 @@ public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn
                 break;
             case NPC:
             case MONSTER:
-                movingEntity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+                movingEntity = EntityManager.getInstance().getAiEntity(packetData.entityId);
                 break;
         }
 

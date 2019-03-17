@@ -118,7 +118,7 @@ public class MouseManager {
 
 
         Queue<MoveNode> moveNodes = null;
-        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+        for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
 
             if (movingEntity.getEntityType() == EntityType.PLAYER) continue;
 
@@ -230,7 +230,7 @@ public class MouseManager {
             }
         }
 
-        for (MovingEntity movingEntity : EntityManager.getInstance().getMovingEntityList().values()) {
+        for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
                 movingEntityList.add(movingEntity);
             }

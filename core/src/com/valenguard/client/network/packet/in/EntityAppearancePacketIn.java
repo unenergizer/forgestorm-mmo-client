@@ -75,7 +75,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 break;
             case NPC:
             case MONSTER:
-                entity = EntityManager.getInstance().getMovingEntity(packetData.entityId);
+                entity = EntityManager.getInstance().getAiEntity(packetData.entityId);
                 break;
             case SKILL_NODE:
                 entity = EntityManager.getInstance().getStationaryEntity(packetData.entityId);

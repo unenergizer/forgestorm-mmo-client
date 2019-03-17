@@ -32,7 +32,7 @@ public class EntityManager implements Disposable {
     private Map<Short, Player> playerEntityList = new HashMap<Short, Player>();
 
     @Getter
-    private Map<Short, MovingEntity> movingEntityList = new HashMap<Short, MovingEntity>();
+    private Map<Short, AiEntity> aiEntityList = new HashMap<Short, AiEntity>();
 
     @Getter
     private Map<Short, StationaryEntity> stationaryEntityList = new HashMap<Short, StationaryEntity>();
@@ -52,16 +52,16 @@ public class EntityManager implements Disposable {
         return playerEntityList.get(entityId);
     }
 
-    public void addMovingEntity(short entityId, MovingEntity entity) {
-        movingEntityList.put(entityId, entity);
+    public void addAiEntity(short entityId, AiEntity entity) {
+        aiEntityList.put(entityId, entity);
     }
 
-    public void removeMovingEntity(Short entityId) {
-        movingEntityList.remove(entityId);
+    public void removeAiEntity(Short entityId) {
+        aiEntityList.remove(entityId);
     }
 
-    public MovingEntity getMovingEntity(short entityId) {
-        return movingEntityList.get(entityId);
+    public AiEntity getAiEntity(short entityId) {
+        return aiEntityList.get(entityId);
     }
 
     public void addStationaryEntity(short entityId, StationaryEntity entity) {
@@ -101,7 +101,7 @@ public class EntityManager implements Disposable {
             spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getTextureId(0)), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
         // Draw moving entities over items and stationary entities
-        for (MovingEntity movingEntity : movingEntityList.values()) {
+        for (MovingEntity movingEntity : aiEntityList.values()) {
             movingEntity.getEntityAnimation().animate(delta, spriteBatch);
         }
         // Draw player entities over items and stationary entities
@@ -111,7 +111,7 @@ public class EntityManager implements Disposable {
     }
 
     public void drawEntityNames() {
-        for (MovingEntity movingEntity : movingEntityList.values()) {
+        for (MovingEntity movingEntity : aiEntityList.values()) {
             movingEntity.drawEntityName();
         }
         for (Player player : playerEntityList.values()) {
@@ -120,7 +120,7 @@ public class EntityManager implements Disposable {
     }
 
     public void drawDamageNumbers() {
-        for (MovingEntity movingEntity : movingEntityList.values()) {
+        for (MovingEntity movingEntity : aiEntityList.values()) {
             movingEntity.drawFloatingNumbers();
         }
         for (Player player : playerEntityList.values()) {
@@ -129,7 +129,7 @@ public class EntityManager implements Disposable {
     }
 
     public void drawHealthBar() {
-        for (MovingEntity movingEntity : movingEntityList.values()) {
+        for (MovingEntity movingEntity : aiEntityList.values()) {
             movingEntity.drawEntityHpBar();
         }
         for (Player player : playerEntityList.values()) {
@@ -140,7 +140,7 @@ public class EntityManager implements Disposable {
     @Override
     public void dispose() {
         playerEntityList.clear();
-        movingEntityList.clear();
+        aiEntityList.clear();
         stationaryEntityList.clear();
         itemStackDropList.clear();
         playerClient = null;

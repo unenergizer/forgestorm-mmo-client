@@ -37,7 +37,7 @@ import static com.valenguard.client.util.Preconditions.checkNotNull;
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -54,7 +54,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         int maxHealth = 0;
         int currentHealth = 0;
         EntityAlignment entityAlignment = null;
-        Byte entityFaction = null;
+        byte entityFaction = -1;
         short shopID = -1;
 
         checkNotNull(entityType, "EntityType can not be null!");
@@ -208,21 +208,21 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnMonster(EntitySpawnPacket packetData) {
-        Entity entity = new Monster();
-        ((AiEntity) entity).setShopID(packetData.shopID);
-        ((AiEntity) entity).setAlignment(packetData.entityAlignment);
-        setMovingEntityVars((MovingEntity) entity, packetData);
-        EntityManager.getInstance().addMovingEntity(packetData.entityId, (MovingEntity) entity);
+        AiEntity entity = new Monster();
+        entity.setShopID(packetData.shopID);
+        entity.setAlignment(packetData.entityAlignment);
+        setMovingEntityVars(entity, packetData);
+        EntityManager.getInstance().addAiEntity(packetData.entityId, entity);
         return entity;
     }
 
     private Entity spawnNPC(EntitySpawnPacket packetData) {
-        Entity entity = new NPC();
-        ((AiEntity) entity).setShopID(packetData.shopID);
-        ((AiEntity) entity).setAlignment(packetData.entityAlignment);
+        AiEntity entity = new NPC();
+        entity.setShopID(packetData.shopID);
+        entity.setAlignment(packetData.entityAlignment);
         ((NPC) entity).setFaction(packetData.entityFaction);
-        setMovingEntityVars((MovingEntity) entity, packetData);
-        EntityManager.getInstance().addMovingEntity(packetData.entityId, (MovingEntity) entity);
+        setMovingEntityVars(entity, packetData);
+        EntityManager.getInstance().addAiEntity(packetData.entityId, entity);
         return entity;
     }
 

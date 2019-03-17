@@ -59,6 +59,12 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         passwordField.setPasswordCharacter('#');
         passwordField.setMaxLength(16);
 
+        // Temporary Disable Login and Password fields
+        accountField.setText("Not Used Yet");
+        accountField.setDisabled(true);
+        passwordField.setText("Not Used Yet");
+        passwordField.setDisabled(true);
+
         loginButton = new VisTextButton("Login");
 
         // addUi widgets to table
