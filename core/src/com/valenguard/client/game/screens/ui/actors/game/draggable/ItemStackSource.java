@@ -26,12 +26,12 @@ public class ItemStackSource extends DragAndDrop.Source {
 
     @Override
     public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
-        if (target == null && !itemStackSlot.isSlotLocked()) itemStackSlot.setItemImage();
+        if (target == null && !itemStackSlot.isTradeSlotLocked()) itemStackSlot.setItemImage();
     }
 
     @Override
     public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
-        if (itemStackSlot.isSlotLocked()) return null;
+        if (itemStackSlot.isTradeSlotLocked()) return null;
 
         ItemStack itemStack = itemStackSlot.getItemStack();
 
@@ -42,6 +42,8 @@ public class ItemStackSource extends DragAndDrop.Source {
 
         DragAndDrop.Payload inventoryPayload = new DragAndDrop.Payload();
         inventoryPayload.setObject(itemStack);
+
+        itemStackSlot.setEmptyCellImage();
 
         // The image to display when the item is picked up and is being moved to valid locations
         VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();

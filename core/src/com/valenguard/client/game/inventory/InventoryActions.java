@@ -37,11 +37,23 @@ public class InventoryActions {
     @Getter
     private byte toWindow;
 
+    @Getter
+    byte dropInventory;
+
+    @Getter
+    byte slotIndex;
+
     public InventoryActions(byte inventoryActionType, InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
         this.inventoryActionType = inventoryActionType;
         this.fromWindow = fromWindow.getInventoryTypeIndex();
         this.toWindow = toWindow.getInventoryTypeIndex();
         this.fromPosition = fromPosition;
         this.toPosition = toPosition;
+    }
+
+    public InventoryActions(byte inventoryActionType, byte dropInventory, byte slotIndex) {
+        this.inventoryActionType = inventoryActionType;
+        this.dropInventory = dropInventory;
+        this.slotIndex = slotIndex;
     }
 }

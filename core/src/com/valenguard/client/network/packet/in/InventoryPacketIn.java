@@ -4,7 +4,6 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.inventory.InventoryActions;
 import com.valenguard.client.game.inventory.InventoryMoveData;
 import com.valenguard.client.game.inventory.ItemStack;
-import com.valenguard.client.game.inventory.MoveInventoryEvents;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.shared.ClientHandler;
 import com.valenguard.client.network.shared.Opcode;
@@ -18,8 +17,6 @@ import static com.valenguard.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
-
-    private final MoveInventoryEvents moveInventoryEvents = new MoveInventoryEvents();
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -83,7 +80,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
 
         } else if (packetData.inventoryAction == InventoryActions.MOVE) {
 
-            moveInventoryEvents.moveItems(new InventoryMoveData(
+            Valenguard.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
                     packetData.fromPosition,
                     packetData.toPosition,
                     packetData.fromWindow,

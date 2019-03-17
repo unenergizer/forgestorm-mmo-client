@@ -21,6 +21,7 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
 
@@ -77,7 +78,11 @@ public class ItemStackSlot extends VisTable implements Buildable {
      * If this slot is locked, prevent any and all changes to it!
      */
     @Getter
-    private boolean slotLocked = false;
+    private boolean tradeSlotLocked = false;
+
+    @Getter
+    @Setter
+    private boolean moveSlotLocked = false;
 
     /**
      * Shows information about this {@link ItemStackSlot}
@@ -225,7 +230,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
      * @param itemStack The {@link ItemStack} that is being set into this {@link ItemStackSlot}
      */
     void setItemStack(ItemStack itemStack) {
-        if (slotLocked) return;
+        if (tradeSlotLocked) return;
         if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
         emptyCellImage.remove();
@@ -257,7 +262,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
     }
 
     public void toggleLockedSlot(boolean lockThisSlot) {
-        this.slotLocked = lockThisSlot;
+        this.tradeSlotLocked = lockThisSlot;
         if (lockThisSlot) {
             itemStackImage.setColor(new Color(1, 0f, 0f, .5f));
         } else {
@@ -275,7 +280,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
              * @see InputEvent */
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                if (slotLocked) return true;
+                if (tradeSlotLocked) return true;
 
                 // Trade Item click
                 if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) {
@@ -303,7 +308,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
                     // Bringing up options for the item!
                     if (itemStack != null) {
-                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, getX(), getY());
+                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryIndex, x, y);
                     }
 
                     return true;

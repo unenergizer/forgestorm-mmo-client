@@ -4,16 +4,22 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.valenguard.client.game.inventory.InventoryActions;
+import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.network.packet.out.InventoryPacketOut;
 
 import static com.valenguard.client.util.Log.println;
 
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
+
+    private VisTable dropDownTable = new VisTable();
+    private byte slotIndex;
 
     public ItemDropDownMenu() {
         super("Choose Option");
@@ -41,10 +47,11 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    public void toggleMenu(ItemStack itemStack, float x, float y) {
+    public void toggleMenu(ItemStack itemStack, byte slotIndex, float x, float y) {
         cleanUpDropDownMenu(false);
-        VisTable dropDownTable = new VisTable();
-        setPosition(438, 141);
+        dropDownTable = new VisTable();
+        setPosition(x, y);
+        this.slotIndex = slotIndex;
 
         addDropButton(dropDownTable);
         addCancelButton(dropDownTable);
@@ -52,18 +59,19 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         add(dropDownTable).expand().fill();
 
         pack();
-
         ActorUtil.fadeInWindow(this);
     }
 
     private void addDropButton(VisTable visTable) {
-        VisTextButton cancelButton = new VisTextButton("Drop");
-        visTable.add(cancelButton).expand().fill().row();
+        VisTextButton dropItemStackButton = new VisTextButton("Drop");
+        visTable.add(dropItemStackButton).expand().fill().row();
 
-        cancelButton.addListener(new ChangeListener() {
+        dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                println(getClass(), "Dropping an ITEM!");
+                new InventoryPacketOut(new InventoryActions(InventoryActions.DROP, InventoryType.BAG_1.getInventoryTypeIndex(), slotIndex)).sendPacket();
+                ActorUtil.getStageHandler().getBagWindow().getItemStackSlot(slotIndex).setMoveSlotLocked(true);
+                cleanUpDropDownMenu(true);
             }
         });
     }
@@ -82,6 +90,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     private void cleanUpDropDownMenu(boolean closeWindow) {
         if (closeWindow) ActorUtil.fadeOutWindow(this);
-        this.remove();
+        boolean removed = dropDownTable.remove();
+        println(getClass(), "dropDownTable: " + removed);
     }
 }

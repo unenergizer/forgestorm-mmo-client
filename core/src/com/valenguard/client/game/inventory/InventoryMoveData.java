@@ -10,4 +10,14 @@ public class InventoryMoveData {
     private byte toPosition;
     private byte fromWindow;
     private byte toWindow;
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof InventoryMoveData)) return false;
+        InventoryMoveData other = (InventoryMoveData) o;
+        return other.fromPosition == this.fromPosition
+                && other.toPosition == this.toPosition
+                && other.fromWindow == this.fromWindow
+                && other.toWindow == this.toWindow;
+    }
 }

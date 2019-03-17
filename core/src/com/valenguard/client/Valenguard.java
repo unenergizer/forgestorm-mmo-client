@@ -7,6 +7,7 @@ import com.valenguard.client.game.data.EntityShopManager;
 import com.valenguard.client.game.data.ItemStackManager;
 import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.input.MouseManager;
+import com.valenguard.client.game.inventory.MoveInventoryEvents;
 import com.valenguard.client.game.inventory.TradeManager;
 import com.valenguard.client.game.maps.MapManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -72,6 +73,7 @@ public class Valenguard extends Game {
     private ItemStackManager itemStackManager;
     private Skills skills;
     private EntityShopManager entityShopManager;
+    private MoveInventoryEvents moveInventoryEvents;
 
     private TradeManager tradeManager;
 
@@ -109,6 +111,7 @@ public class Valenguard extends Game {
         entityTracker = new EntityTracker();
         tradeManager = new TradeManager();
         entityShopManager = new EntityShopManager();
+        moveInventoryEvents = new MoveInventoryEvents();
 
         // loadItems screens
         gameScreen = new GameScreen();

@@ -7,9 +7,57 @@ import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWind
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
+import static com.valenguard.client.util.Log.println;
+
 public class MoveInventoryEvents {
 
+    private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
+
+    public void addPreviousMovement(InventoryMoveData previousMove) {
+        previousMovements.add(previousMove);
+    }
+
     public void moveItems(InventoryMoveData inventoryMoveData) {
+
+        // Checking if the previous movement case happened correctly.
+        InventoryMoveData previousMove = previousMovements.remove();
+
+        BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
+        EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
+
+        InventoryType toWindowType = InventoryType.values()[previousMove.getToWindow()];
+        if (toWindowType == InventoryType.BAG_1) {
+            bagWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
+        } else if (toWindowType == InventoryType.EQUIPMENT) {
+            equipmentWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
+        }
+
+        if (inventoryMoveData.equals(previousMove)) {
+            return;
+        }
+
+        println(getClass(), "The client is out of sync with the server so we are reajusting to the way the server views things");
+
+        // The client/server are out of sync. Putting them back in sync.
+
+        // previousToPosition -> previousFromPosition <- swap order of previous case.
+
+        moveItemsByInfo(new InventoryMoveData(
+                previousMove.getToPosition(),
+                previousMove.getFromPosition(),
+                previousMove.getFromWindow(),
+                previousMove.getToWindow()
+        ));      // Undoing the previous move by flipping the order
+
+        moveItemsByInfo(inventoryMoveData); // Now performing the move that the server sees
+
+    }
+
+    private void moveItemsByInfo(InventoryMoveData inventoryMoveData) {
+
         InventoryType fromWindow = InventoryType.values()[inventoryMoveData.getFromWindow()];
         InventoryType toWindow = InventoryType.values()[inventoryMoveData.getToWindow()];
 
@@ -62,7 +110,6 @@ public class MoveInventoryEvents {
 
     /**
      * Called when an {@link ItemStack} is being set on top of another {@link ItemStack}, thus swapping item positions.
-     *
      */
     private void swapItems(WindowMovementInfo windowMovementInfo, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
 
@@ -87,7 +134,6 @@ public class MoveInventoryEvents {
 
     /**
      * Called when an {@link ItemStack} gets put into an empty {@link ItemStackSlot}
-     *
      */
     private void setItems(WindowMovementInfo windowMovementInfo, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
 
@@ -112,7 +158,7 @@ public class MoveInventoryEvents {
      * Attempts to set the players on-screen graphics when equipping an {@link ItemStack}
      *
      * @param targetItemStackSlot The {@link ItemStackSlot} that the {@link ItemStack} is being moved to.
-     * @param sourceItemStack The {@link ItemStack}
+     * @param sourceItemStack     The {@link ItemStack}
      */
     private void setWearableFromSource(ItemStackSlot targetItemStackSlot, ItemStack sourceItemStack) {
 
