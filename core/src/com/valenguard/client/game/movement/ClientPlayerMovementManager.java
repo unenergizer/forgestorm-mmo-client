@@ -10,7 +10,7 @@ import com.valenguard.client.game.maps.MoveDirection;
 import com.valenguard.client.game.maps.data.GameMap;
 import com.valenguard.client.game.maps.data.Location;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.network.packet.out.PlayerMovePacketOut;
+import com.valenguard.client.network.game.packet.out.PlayerMovePacketOut;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
 

@@ -13,7 +13,7 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
+import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 
 public class IncomingTradeRequestWindow extends HideableVisWindow implements Buildable {
 

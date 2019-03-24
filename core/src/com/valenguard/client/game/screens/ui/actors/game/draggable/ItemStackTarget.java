@@ -9,7 +9,7 @@ import com.valenguard.client.game.inventory.InventoryType;
 import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.inventory.WearableItemStack;
-import com.valenguard.client.network.packet.out.InventoryPacketOut;
+import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
 // TODO implement EQUIPMENT TO EQUIPMENT window actions for ring swapping and that type of thing.
 public class ItemStackTarget extends DragAndDrop.Target {

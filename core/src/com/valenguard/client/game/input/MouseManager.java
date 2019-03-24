@@ -23,7 +23,7 @@ import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.network.packet.out.ClickActionPacketOut;
+import com.valenguard.client.network.game.packet.out.ClickActionPacketOut;
 import com.valenguard.client.util.FadeOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;

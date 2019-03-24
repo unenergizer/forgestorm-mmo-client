@@ -72,8 +72,8 @@ public class DebugTable extends VisTable implements Buildable {
             zoom.setText("Zoom: " + Valenguard.gameScreen.getCamera().zoom);
         }
 
-        if (Valenguard.clientConnection.isConnected()) {
-            ms.setText("MS: " + Valenguard.clientConnection.getPing());
+        if (Valenguard.connectionManager.getClientGameConnection().isConnected()) {
+            ms.setText("MS: " + Valenguard.connectionManager.getClientGameConnection().getPing());
         } else {
             ms.setText("MS: Not connected to server.");
         }

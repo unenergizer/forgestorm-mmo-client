@@ -18,7 +18,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
-import com.valenguard.client.network.packet.out.ChatMessagePacketOut;
+import com.valenguard.client.network.game.packet.out.ChatMessagePacketOut;
 
 import lombok.Getter;
 import lombok.Setter;

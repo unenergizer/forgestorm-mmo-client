@@ -26,7 +26,7 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
-import com.valenguard.client.network.packet.out.EntityShopPacketOut;
+import com.valenguard.client.network.game.packet.out.EntityShopPacketOut;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -28,7 +28,7 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
-import com.valenguard.client.network.packet.out.PlayerTradePacketOut;
+import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 
 import lombok.Getter;
 import lombok.Setter;

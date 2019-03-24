@@ -20,29 +20,29 @@ import com.valenguard.client.game.screens.LoginScreen;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
-import com.valenguard.client.network.ClientConnection;
-import com.valenguard.client.network.Consumer;
-import com.valenguard.client.network.PlayerSession;
-import com.valenguard.client.network.packet.in.AiEntityDataPacketIn;
-import com.valenguard.client.network.packet.in.ChatMessagePacketIn;
-import com.valenguard.client.network.packet.in.EntityAppearancePacketIn;
-import com.valenguard.client.network.packet.in.EntityAttributesUpdatePacketIn;
-import com.valenguard.client.network.packet.in.EntityDamagePacketIn;
-import com.valenguard.client.network.packet.in.EntityDespawnPacketIn;
-import com.valenguard.client.network.packet.in.EntityHealthPacketIn;
-import com.valenguard.client.network.packet.in.EntityMovePacketIn;
-import com.valenguard.client.network.packet.in.EntitySpawnPacketIn;
-import com.valenguard.client.network.packet.in.InitializeClientSessionPacketIn;
-import com.valenguard.client.network.packet.in.InitializeGameMapPacketIn;
-import com.valenguard.client.network.packet.in.InventoryPacketIn;
-import com.valenguard.client.network.packet.in.MovingEntityTeleportPacketIn;
-import com.valenguard.client.network.packet.in.PingPacketIn;
-import com.valenguard.client.network.packet.in.PlayerTradePacketIn;
-import com.valenguard.client.network.packet.in.SkillExperiencePacketIn;
-import com.valenguard.client.network.packet.out.OutputStreamManager;
-import com.valenguard.client.network.shared.EventBus;
-import com.valenguard.client.network.shared.NetworkSettings;
-import com.valenguard.client.network.shared.NetworkSettingsLoader;
+import com.valenguard.client.network.ConnectionManager;
+import com.valenguard.client.network.NetworkSettingsLoader;
+import com.valenguard.client.network.game.ClientGameConnection;
+import com.valenguard.client.network.game.Consumer;
+import com.valenguard.client.network.game.LoginCredentials;
+import com.valenguard.client.network.game.packet.in.AiEntityDataPacketIn;
+import com.valenguard.client.network.game.packet.in.ChatMessagePacketIn;
+import com.valenguard.client.network.game.packet.in.EntityAppearancePacketIn;
+import com.valenguard.client.network.game.packet.in.EntityAttributesUpdatePacketIn;
+import com.valenguard.client.network.game.packet.in.EntityDamagePacketIn;
+import com.valenguard.client.network.game.packet.in.EntityDespawnPacketIn;
+import com.valenguard.client.network.game.packet.in.EntityHealthPacketIn;
+import com.valenguard.client.network.game.packet.in.EntityMovePacketIn;
+import com.valenguard.client.network.game.packet.in.EntitySpawnPacketIn;
+import com.valenguard.client.network.game.packet.in.InitializeClientSessionPacketIn;
+import com.valenguard.client.network.game.packet.in.InitializeGameMapPacketIn;
+import com.valenguard.client.network.game.packet.in.InventoryPacketIn;
+import com.valenguard.client.network.game.packet.in.MovingEntityTeleportPacketIn;
+import com.valenguard.client.network.game.packet.in.PingPacketIn;
+import com.valenguard.client.network.game.packet.in.PlayerTradePacketIn;
+import com.valenguard.client.network.game.packet.in.SkillExperiencePacketIn;
+import com.valenguard.client.network.game.packet.out.OutputStreamManager;
+import com.valenguard.client.network.game.shared.EventBus;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,10 +54,12 @@ public class Valenguard extends Game {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final LoginCredentials loginCredentials = new LoginCredentials();
+
     private static Valenguard valenguard;
+    public static ConnectionManager connectionManager;
     public static GameScreen gameScreen;
     public static LoginScreen loginScreen;
-    public static ClientConnection clientConnection;
 
     private EntityTracker entityTracker;
     private MusicManager musicManager;
@@ -95,8 +97,8 @@ public class Valenguard extends Game {
         println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
 
         // loadItems managers
+        connectionManager = new ConnectionManager();
         outputStreamManager = new OutputStreamManager();
-        clientConnection = new ClientConnection();
         fileManager = new FileManager();
         mapManager = new MapManager(ideRun);
         stageHandler = new StageHandler();
@@ -133,10 +135,17 @@ public class Valenguard extends Game {
 
     @Override
     public void render() {
-        if (clientConnection.isConnected()) clientConnection.getEventBus().gameThreadPublish();
+        ClientGameConnection clientGameConnection = connectionManager.getClientGameConnection();
+
+        if (clientGameConnection.isConnected()) {
+            clientGameConnection.getEventBus().gameThreadPublish();
+        }
+
         super.render();
-        if (clientConnection.isConnected())
-            outputStreamManager.sendPackets(clientConnection.getClientHandler());
+
+        if (clientGameConnection.isConnected()) {
+            outputStreamManager.sendPackets(clientGameConnection.getClientHandler());
+        }
     }
 
     @Override
@@ -153,20 +162,18 @@ public class Valenguard extends Game {
         gameScreen = null;
         loginScreen.dispose();
         loginScreen = null;
+        connectionManager.disconnect();
+        connectionManager = null;
         EntityManager.getInstance().dispose();
     }
 
-    public void initializeNetwork(PlayerSession playerSession) {
+    public void initializeNetwork() {
         println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
 
         NetworkSettingsLoader networkSettingsLoader = new NetworkSettingsLoader();
-        NetworkSettings networkSettings = networkSettingsLoader.loadNetworkSettings();
-
-
-        clientConnection.openConnection(
-                playerSession,
-                networkSettings.getIp(),
-                networkSettings.getPort(),
+        connectionManager.setupConnection(
+                networkSettingsLoader.loadNetworkSettings(),
+                loginCredentials,
                 new Consumer<EventBus>() {
                     @Override
                     public void accept(EventBus eventBus) {

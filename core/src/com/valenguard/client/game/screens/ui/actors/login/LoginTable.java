@@ -17,7 +17,6 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.network.PlayerSession;
 
 import lombok.Getter;
 
@@ -59,11 +58,9 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         passwordField.setPasswordCharacter('#');
         passwordField.setMaxLength(16);
 
-        // Temporary Disable Login and Password fields
-        accountField.setText("Not Used Yet");
-        accountField.setDisabled(true);
-        passwordField.setText("Not Used Yet");
-        passwordField.setDisabled(true);
+        // Set prefilled credentials
+        accountField.setText(Valenguard.getInstance().getLoginCredentials().getUsername());
+        passwordField.setText(Valenguard.getInstance().getLoginCredentials().getPassword());
 
         loginButton = new VisTextButton("Login");
 
@@ -126,8 +123,10 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         loginButton.setDisabled(true);
         loginButton.setText("Logging in...");
 
-        if (!Valenguard.clientConnection.isConnected()) {
-            Valenguard.getInstance().initializeNetwork(new PlayerSession(username, password));
+        if (!Valenguard.connectionManager.getClientGameConnection().isConnected()) {
+            Valenguard.getInstance().getLoginCredentials().setUsername(username);
+            Valenguard.getInstance().getLoginCredentials().setPassword(password);
+            Valenguard.getInstance().initializeNetwork();
         }
     }
 
