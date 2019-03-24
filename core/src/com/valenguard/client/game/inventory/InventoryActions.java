@@ -20,7 +20,8 @@ public class InventoryActions {
      */
     public static final byte GIVE = 0x03;
     public static final byte REMOVE = 0x04;
-    public static final byte SET = 0x05;
+    public static final byte SET_BAG = 0x05;
+    public static final byte SET_EQUIPMENT = 0x06;
 
     @Getter
     private byte inventoryActionType;

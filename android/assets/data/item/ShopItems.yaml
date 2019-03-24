@@ -2,10 +2,10 @@
 shop0:
   0:
     id: 7
-    price: 15
+    price: 1
   1:
     id: 1
-    price: 17
+    price: 1
   2:
     id: 2
     price: 40
@@ -28,22 +28,22 @@ shop1:
 shop2:
   0:
     id: 1
-    price: 33
+    price: 1
   1:
     id: 2
-    price: 12
+    price: 1
   2:
     id: 3
     price: 44
   3:
     id: 4
-    price: 32
+    price: 1
   4:
     id: 5
     price: 32
   5:
     id: 6
-    price: 43
+    price: 1
   6:
     id: 7
     price: 32

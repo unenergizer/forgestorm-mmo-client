@@ -55,6 +55,10 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
                 break;
         }
 
+        if (movingEntity == null) {
+            throw new RuntimeException("Server tried to move an entity our client is not aware of. Check to make sure the server were on the correct map.");
+        }
+
         if (MoveUtil.isEntityMoving(movingEntity)) {
             movingEntity.addLocationToFutureQueue(new Location(movingEntity.getMapName(), packetData.futureX, packetData.futureY));
         } else {

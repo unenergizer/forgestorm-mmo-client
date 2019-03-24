@@ -4,8 +4,8 @@ public enum EntityType {
     CLIENT_PLAYER,
     PLAYER,
     NPC,
-    ITEM_STACK,
     MONSTER,
+    ITEM_STACK,
     SKILL_NODE;
 
     public static EntityType getEntityType(byte entityTypeByte) {
