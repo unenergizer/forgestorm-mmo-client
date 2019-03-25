@@ -11,7 +11,7 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
-@Opcode(getOpcode = Opcodes.AIENTITY_UPDATE_OUT)
+@Opcode(getOpcode = Opcodes.AI_ENTITY_UPDATE_OUT)
 public class AiEntityDataPacketIn implements PacketListener<AiEntityDataPacketIn.AiEntityData> {
 
     private static final byte ALIGNMENT_INDEX = 0x01;
