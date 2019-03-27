@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.assets.GameAtlas;
+import com.valenguard.client.io.type.GameAtlas;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class ImageBuilder {

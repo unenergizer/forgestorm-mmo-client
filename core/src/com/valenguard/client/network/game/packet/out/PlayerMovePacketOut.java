@@ -1,7 +1,7 @@
 package com.valenguard.client.network.game.packet.out;
 
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.network.game.shared.Opcodes;
 
 import static com.valenguard.client.util.Preconditions.checkArgument;

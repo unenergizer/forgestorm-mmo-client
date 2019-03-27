@@ -1,10 +1,10 @@
 package com.valenguard.client.game.movement;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.input.KeyBinds;
-import com.valenguard.client.game.maps.MoveDirection;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.PlayerClient;
+import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.util.MoveNode;
 
 import java.util.Queue;

@@ -9,13 +9,14 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.game.inventory.EquipmentSlotTypes;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.inventory.EquipmentSlotTypes;
 
 import lombok.Getter;
 
@@ -144,7 +145,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     }
 
     /**
-     * Builds an equipment slot for the player to equip and unequip {@link com.valenguard.client.game.inventory.ItemStack}
+     * Builds an equipment slot for the player to equip and unequip {@link ItemStack}
      *
      * @param equipmentSlotTypes The equipment slot that defines th
      * @return A {@link ItemStackSlot} to place in this {@link EquipmentWindow}

@@ -11,15 +11,7 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.assets.GameAtlas;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.Player;
-import com.valenguard.client.game.inventory.ItemStack;
-import com.valenguard.client.game.inventory.TradeManager;
-import com.valenguard.client.game.inventory.TradePacketInfoOut;
-import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -28,6 +20,14 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.Player;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.inventory.InventoryConstants;
+import com.valenguard.client.game.world.item.trade.TradeManager;
+import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
+import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
+import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 
 import lombok.Getter;
@@ -40,8 +40,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
 
-    private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[ClientConstants.BAG_SIZE];
-    private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[ClientConstants.BAG_SIZE];
+    private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
+    private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
 
     private TradeManager tradeManager;
 
@@ -204,7 +204,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      */
     private void buildTradeWindowSlot(TradeWindowSlot[] targetSlot, VisTable visTable, boolean isClientPlayerSlot) {
         int columnCount = 0;
-        for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
+        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
 
             TradeWindowSlot tradeWindowSlot = new TradeWindowSlot(i, isClientPlayerSlot);
             visTable.add(tradeWindowSlot);
@@ -212,7 +212,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             targetSlot[i] = tradeWindowSlot;
             columnCount++;
 
-            if (columnCount == ClientConstants.BAG_WIDTH) {
+            if (columnCount == InventoryConstants.BAG_WIDTH) {
                 visTable.row();
                 columnCount = 0;
             }

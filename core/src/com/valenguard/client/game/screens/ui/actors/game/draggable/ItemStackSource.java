@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.widget.VisImage;
-import com.valenguard.client.game.assets.GameAtlas;
-import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.io.type.GameAtlas;
 
 import lombok.Getter;
 

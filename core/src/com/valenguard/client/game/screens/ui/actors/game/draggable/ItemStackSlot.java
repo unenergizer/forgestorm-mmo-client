@@ -12,13 +12,13 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.game.assets.GameAtlas;
-import com.valenguard.client.game.inventory.InventoryType;
-import com.valenguard.client.game.inventory.ItemStack;
-import com.valenguard.client.game.inventory.ItemStackType;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
+import com.valenguard.client.game.world.item.inventory.InventoryType;
+import com.valenguard.client.io.type.GameAtlas;
 
 import lombok.Getter;
 import lombok.Setter;

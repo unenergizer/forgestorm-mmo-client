@@ -18,10 +18,6 @@ public class ClientConstants {
 
     public static boolean MONITOR_MOVEMENT_CHECKS = false;
 
-    public static final int BAG_WIDTH = 5;
-    private static final int BAG_HEIGHT = 6;
-    public static final int BAG_SIZE = BAG_WIDTH * BAG_HEIGHT;
-
     public static final int EQUIPMENT_INVENTORY_SIZE = 12;
 
     public static final int NETWORK_SECONDS_TO_TIMEOUT = 10;

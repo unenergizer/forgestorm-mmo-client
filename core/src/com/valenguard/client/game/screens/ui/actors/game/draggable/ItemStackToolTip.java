@@ -8,9 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextArea;
-import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.world.item.ItemStack;
 
 public class ItemStackToolTip extends HideableVisWindow {
 

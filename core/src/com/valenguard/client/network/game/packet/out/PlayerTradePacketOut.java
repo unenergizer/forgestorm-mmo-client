@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.out;
 
-import com.valenguard.client.game.inventory.TradePacketInfoOut;
+import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
 import com.valenguard.client.network.game.shared.Opcodes;
 
 import static com.valenguard.client.util.Log.println;

@@ -8,10 +8,10 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.PlayerClient;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.PlayerClient;
 
 public class StatusBar extends VisWindow implements Buildable {
 

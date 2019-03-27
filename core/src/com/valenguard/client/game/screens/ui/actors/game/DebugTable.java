@@ -5,13 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.PlayerClient;
-import com.valenguard.client.game.entities.animations.HumanAnimation;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.PlayerClient;
+import com.valenguard.client.game.world.entities.animations.HumanAnimation;
 
 public class DebugTable extends VisTable implements Buildable {
 

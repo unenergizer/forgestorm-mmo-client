@@ -1,6 +1,6 @@
 package com.valenguard.client.game.input;
 
-import com.valenguard.client.game.entities.Entity;
+import com.valenguard.client.game.world.entities.Entity;
 
 import lombok.Getter;
 

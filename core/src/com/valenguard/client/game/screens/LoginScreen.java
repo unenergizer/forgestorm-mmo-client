@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.assets.FileManager;
-import com.valenguard.client.game.assets.GameAtlas;
-import com.valenguard.client.game.assets.GameMusic;
-import com.valenguard.client.game.assets.GameTexture;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.io.FileManager;
+import com.valenguard.client.io.type.GameAtlas;
+import com.valenguard.client.io.type.GameMusic;
+import com.valenguard.client.io.type.GameTexture;
 import com.valenguard.client.util.GraphicsUtils;
 
 import lombok.Getter;

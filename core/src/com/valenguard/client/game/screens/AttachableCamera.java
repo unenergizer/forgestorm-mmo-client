@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.game.entities.Entity;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
+import com.valenguard.client.game.world.entities.Entity;
 
 import lombok.Getter;
 

@@ -1,12 +1,12 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.EntityType;
-import com.valenguard.client.game.entities.MovingEntity;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateEvent;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.EntityType;
+import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;

@@ -10,12 +10,12 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.assets.GameMusic;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
+import com.valenguard.client.io.type.GameMusic;
 
 public class ButtonTable extends VisTable implements Buildable {
 

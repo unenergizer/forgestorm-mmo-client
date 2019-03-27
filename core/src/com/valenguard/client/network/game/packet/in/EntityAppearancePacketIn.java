@@ -1,11 +1,11 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.game.assets.GameAtlas;
-import com.valenguard.client.game.entities.Appearance;
-import com.valenguard.client.game.entities.Entity;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.entities.EntityType;
-import com.valenguard.client.game.entities.MovingEntity;
+import com.valenguard.client.game.world.entities.Appearance;
+import com.valenguard.client.game.world.entities.Entity;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.EntityType;
+import com.valenguard.client.game.world.entities.MovingEntity;
+import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;

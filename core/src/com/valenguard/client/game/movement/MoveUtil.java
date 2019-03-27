@@ -1,9 +1,9 @@
 package com.valenguard.client.game.movement;
 
-import com.valenguard.client.game.entities.MovingEntity;
-import com.valenguard.client.game.maps.MoveDirection;
-import com.valenguard.client.game.maps.data.GameMap;
-import com.valenguard.client.game.maps.data.Location;
+import com.valenguard.client.game.world.entities.MovingEntity;
+import com.valenguard.client.game.world.maps.GameMap;
+import com.valenguard.client.game.world.maps.Location;
+import com.valenguard.client.game.world.maps.MoveDirection;
 
 public class MoveUtil {
 

@@ -3,7 +3,7 @@ package com.valenguard.client.game.audio;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.assets.GameMusic;
+import com.valenguard.client.io.type.GameMusic;
 
 import lombok.Getter;
 

@@ -6,13 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.inventory.TradePacketInfoOut;
-import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
+import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
 import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 
 public class IncomingTradeRequestWindow extends HideableVisWindow implements Buildable {

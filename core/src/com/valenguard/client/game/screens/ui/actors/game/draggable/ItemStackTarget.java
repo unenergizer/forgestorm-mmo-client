@@ -2,13 +2,13 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.inventory.InventoryActions;
-import com.valenguard.client.game.inventory.InventoryMoveData;
-import com.valenguard.client.game.inventory.InventoryType;
-import com.valenguard.client.game.inventory.ItemStack;
-import com.valenguard.client.game.inventory.ItemStackType;
-import com.valenguard.client.game.inventory.WearableItemStack;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
+import com.valenguard.client.game.world.item.WearableItemStack;
+import com.valenguard.client.game.world.item.inventory.InventoryActions;
+import com.valenguard.client.game.world.item.inventory.InventoryMoveData;
+import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
 // TODO implement EQUIPMENT TO EQUIPMENT window actions for ring swapping and that type of thing.

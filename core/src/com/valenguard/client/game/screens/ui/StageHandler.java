@@ -10,7 +10,6 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.assets.GameSkin;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
@@ -36,6 +35,7 @@ import com.valenguard.client.game.screens.ui.actors.login.LoginTable;
 import com.valenguard.client.game.screens.ui.actors.login.VersionTable;
 import com.valenguard.client.game.screens.ui.actors.settings.FPSTable;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
+import com.valenguard.client.io.type.GameSkin;
 
 import lombok.Getter;
 

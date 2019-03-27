@@ -1,11 +1,11 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.entities.EntityManager;
-import com.valenguard.client.game.inventory.TradeStatusOpcode;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.TradeWindow;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;

@@ -1,10 +1,10 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.inventory.InventoryActions;
-import com.valenguard.client.game.inventory.InventoryMoveData;
-import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.inventory.InventoryActions;
+import com.valenguard.client.game.world.item.inventory.InventoryMoveData;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;

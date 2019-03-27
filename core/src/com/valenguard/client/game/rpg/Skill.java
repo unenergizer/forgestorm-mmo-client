@@ -1,6 +1,6 @@
 package com.valenguard.client.game.rpg;
 
-import com.valenguard.client.game.entities.EntityManager;
+import com.valenguard.client.game.world.entities.EntityManager;
 
 import lombok.Getter;
 

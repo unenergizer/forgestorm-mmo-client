@@ -1,10 +1,10 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
-import com.valenguard.client.ClientConstants;
-import com.valenguard.client.game.inventory.ItemStack;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 
-public class ItemSlotContainer extends HideableVisWindow  {
+public class ItemSlotContainer extends HideableVisWindow {
 
     final ItemStackSlot[] itemStackSlots;
 
@@ -23,7 +23,7 @@ public class ItemSlotContainer extends HideableVisWindow  {
      * @param itemStack The {@link ItemStack} to add to the players inventory.
      */
     public void addItemStack(ItemStack itemStack) {
-        for (byte i = 0; i < ClientConstants.BAG_SIZE; i++) {
+        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
 
             // Find empty slot
             if (itemStackSlots[i].getItemStack() != null) continue;

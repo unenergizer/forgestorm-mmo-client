@@ -1,8 +1,8 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.game.entities.AiEntity;
-import com.valenguard.client.game.entities.EntityManager;
 import com.valenguard.client.game.rpg.EntityAlignment;
+import com.valenguard.client.game.world.entities.AiEntity;
+import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;

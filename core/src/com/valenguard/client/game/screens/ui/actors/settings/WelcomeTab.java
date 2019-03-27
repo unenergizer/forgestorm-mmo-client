@@ -5,8 +5,8 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-import com.valenguard.client.game.assets.GameAtlas;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.io.type.GameAtlas;
 
 class WelcomeTab extends Tab {
 
