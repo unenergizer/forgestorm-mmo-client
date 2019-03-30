@@ -8,6 +8,8 @@ import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.WearableItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.game.world.item.inventory.InventoryMoveData;
+import com.valenguard.client.game.world.item.inventory.InventoryMoveType;
+import com.valenguard.client.game.world.item.inventory.InventoryMovementUtil;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
@@ -22,7 +24,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
     /**
      * Movement identification determined when an {@link ItemStack} gets dropped.
      */
-    private WindowMovementInfo windowMovementInfo;
+    private InventoryMoveType inventoryMoveType;
 
     ItemStackTarget(ItemStackSlot itemStackTargetSlot) {
         super(itemStackTargetSlot);
@@ -88,7 +90,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
             return;
         }
 
-        determineWindowMovementInfo(sourceItemStackSlot);
+        inventoryMoveType = InventoryMovementUtil.getWindowMovementInfo(sourceItemStackSlot.getInventoryType(), itemStackTargetSlot.getInventoryType());
 
         itemStackTargetSlot.setMoveSlotLocked(true);
 
@@ -115,8 +117,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         new InventoryPacketOut(new InventoryActions(
                 InventoryActions.MOVE,
-                windowMovementInfo.getFromWindow(),
-                windowMovementInfo.getToWindow(),
+                inventoryMoveType.getFromWindow(),
+                inventoryMoveType.getToWindow(),
                 sourceItemStackSlot.getInventoryIndex(),
                 itemStackTargetSlot.getInventoryIndex()
         )).sendPacket();
@@ -125,11 +127,11 @@ public class ItemStackTarget extends DragAndDrop.Target {
                 new InventoryMoveData(
                         sourceItemStackSlot.getInventoryIndex(),
                         itemStackTargetSlot.getInventoryIndex(),
-                        windowMovementInfo.getFromWindow().getInventoryTypeIndex(),
-                        windowMovementInfo.getToWindow().getInventoryTypeIndex()
+                        inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
+                        inventoryMoveType.getToWindow().getInventoryTypeIndex()
                 ));
 
-        if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
+        if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
             if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
                 WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
                 EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
@@ -137,7 +139,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
                 WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
                 EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
             }
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
+        } else if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
             setWearableFromSource(sourceItemStack);
         }
     }
@@ -155,8 +157,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         new InventoryPacketOut(new InventoryActions(
                 InventoryActions.MOVE,
-                windowMovementInfo.getFromWindow(),
-                windowMovementInfo.getToWindow(),
+                inventoryMoveType.getFromWindow(),
+                inventoryMoveType.getToWindow(),
                 sourceItemStackSlot.getInventoryIndex(),
                 itemStackTargetSlot.getInventoryIndex()
         )).sendPacket();
@@ -165,13 +167,13 @@ public class ItemStackTarget extends DragAndDrop.Target {
                 new InventoryMoveData(
                         sourceItemStackSlot.getInventoryIndex(),
                         itemStackTargetSlot.getInventoryIndex(),
-                        windowMovementInfo.getFromWindow().getInventoryTypeIndex(),
-                        windowMovementInfo.getToWindow().getInventoryTypeIndex()
+                        inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
+                        inventoryMoveType.getToWindow().getInventoryTypeIndex()
                 ));
 
-        if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
+        if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
             setWearableFromSource(sourceItemStack);
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
+        } else if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
             if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
                 EntityManager.getInstance().getPlayerClient().removeArmor();
             } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
@@ -192,72 +194,6 @@ public class ItemStackTarget extends DragAndDrop.Target {
         } else if (itemStackTargetSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM && sourceItemStack.getItemStackType() == ItemStackType.HELM) {
             WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
             EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
-        }
-    }
-
-    /**
-     * Determines how an {@link ItemStack} is being moved.
-     *
-     * @param sourceItemStackSlot The source location that the {@link ItemStack} being moved came from.
-     */
-    private void determineWindowMovementInfo(ItemStackSlot sourceItemStackSlot) {
-        if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT && itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1) {
-            windowMovementInfo = WindowMovementInfo.FROM_EQUIPMENT_TO_BAG;
-        } else if (sourceItemStackSlot.getInventoryType() == InventoryType.BAG_1 && itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
-            windowMovementInfo = WindowMovementInfo.FROM_BAG_TO_EQUIPMENT;
-        } else if (sourceItemStackSlot.getInventoryType() == InventoryType.BAG_1 && itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1) {
-            windowMovementInfo = WindowMovementInfo.FROM_BAG_TO_BAG;
-        } else if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT && itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
-            windowMovementInfo = WindowMovementInfo.FROM_EQUIPMENT_TO_EQUIPMENT;
-        }
-    }
-
-    /**
-     * Enumerator that determines bag movement information.
-     * TODO: It may be beneficial to come up with a coordinate system rather
-     * TODO: than relying on bag-switch enum. Example below:
-     * EquipmentBag: Index bag id 0
-     * InventoryBag: Index bag id 1
-     * AdditionalBags: Index bag id 2
-     * <p>
-     * Then use index that represent bag slots. So it could look like this:
-     * <p>
-     * [InventoryID][BagSlotID] or 0:3 -> (EquipmentBag)(SlotID 3[whatever that would be])
-     */
-    private enum WindowMovementInfo {
-        FROM_BAG_TO_BAG,
-        FROM_BAG_TO_EQUIPMENT,
-        FROM_EQUIPMENT_TO_BAG,
-        FROM_EQUIPMENT_TO_EQUIPMENT;
-
-        private static final String ERROR = "Must implement all cases.";
-
-        private InventoryType getFromWindow() {
-            switch (this) {
-                case FROM_BAG_TO_BAG:
-                    return InventoryType.BAG_1;
-                case FROM_BAG_TO_EQUIPMENT:
-                    return InventoryType.BAG_1;
-                case FROM_EQUIPMENT_TO_BAG:
-                    return InventoryType.EQUIPMENT;
-                case FROM_EQUIPMENT_TO_EQUIPMENT:
-                    return InventoryType.EQUIPMENT;
-            }
-            throw new RuntimeException(ERROR);
-        }
-
-        private InventoryType getToWindow() {
-            switch (this) {
-                case FROM_BAG_TO_BAG:
-                    return InventoryType.BAG_1;
-                case FROM_BAG_TO_EQUIPMENT:
-                    return InventoryType.EQUIPMENT;
-                case FROM_EQUIPMENT_TO_BAG:
-                    return InventoryType.BAG_1;
-                case FROM_EQUIPMENT_TO_EQUIPMENT:
-                    return InventoryType.EQUIPMENT;
-            }
-            throw new RuntimeException(ERROR);
         }
     }
 }

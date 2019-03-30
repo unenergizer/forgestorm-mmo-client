@@ -64,31 +64,31 @@ public class MoveInventoryEvents {
         InventoryType fromWindow = InventoryType.values()[inventoryMoveData.getFromWindow()];
         InventoryType toWindow = InventoryType.values()[inventoryMoveData.getToWindow()];
 
-        WindowMovementInfo windowMovementInfo = determineWindowMovementInfo(fromWindow, toWindow);
+        InventoryMoveType inventoryMoveType = determineWindowMovementInfo(fromWindow, toWindow);
 
         BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
         EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
 
-        if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_BAG) {
+        if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_BAG) {
 
-            moveBetweenSlotContainers(windowMovementInfo, bagWindow, bagWindow, inventoryMoveData);
+            moveBetweenSlotContainers(inventoryMoveType, bagWindow, bagWindow, inventoryMoveData);
 
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_EQUIPMENT) {
+        } else if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_EQUIPMENT) {
 
-            moveBetweenSlotContainers(windowMovementInfo, equipmentWindow, equipmentWindow, inventoryMoveData);
+            moveBetweenSlotContainers(inventoryMoveType, equipmentWindow, equipmentWindow, inventoryMoveData);
 
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
+        } else if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
 
-            moveBetweenSlotContainers(windowMovementInfo, bagWindow, equipmentWindow, inventoryMoveData);
+            moveBetweenSlotContainers(inventoryMoveType, bagWindow, equipmentWindow, inventoryMoveData);
 
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) {
+        } else if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) {
 
-            moveBetweenSlotContainers(windowMovementInfo, equipmentWindow, bagWindow, inventoryMoveData);
+            moveBetweenSlotContainers(inventoryMoveType, equipmentWindow, bagWindow, inventoryMoveData);
 
         }
     }
 
-    private void moveBetweenSlotContainers(WindowMovementInfo windowMovementInfo, ItemSlotContainer fromContainer,
+    private void moveBetweenSlotContainers(InventoryMoveType inventoryMoveType, ItemSlotContainer fromContainer,
                                            ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
 
         ItemStack sourceItemStack = fromContainer.getItemStack(inventoryMoveData.getFromPosition());
@@ -98,13 +98,13 @@ public class MoveInventoryEvents {
         // already exist an item there.
         if (targetItemStack != null) {
 
-            swapItems(windowMovementInfo, fromContainer, toContainer, inventoryMoveData);
+            swapItems(inventoryMoveType, fromContainer, toContainer, inventoryMoveData);
             toContainer.setItemStack(inventoryMoveData.getToPosition(), sourceItemStack);
             fromContainer.setItemStack(inventoryMoveData.getFromPosition(), targetItemStack);
 
         } else {
 
-            setItems(windowMovementInfo, fromContainer, toContainer, inventoryMoveData);
+            setItems(inventoryMoveType, fromContainer, toContainer, inventoryMoveData);
             toContainer.setItemStack(inventoryMoveData.getToPosition(), sourceItemStack);
             fromContainer.removeItemStack(inventoryMoveData.getFromPosition());
 
@@ -114,7 +114,7 @@ public class MoveInventoryEvents {
     /**
      * Called when an {@link ItemStack} is being set on top of another {@link ItemStack}, thus swapping item positions.
      */
-    private void swapItems(WindowMovementInfo windowMovementInfo, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
+    private void swapItems(InventoryMoveType inventoryMoveType, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
 
         ItemStackSlot sourceItemStackSlot = fromContainer.getItemStackSlot(inventoryMoveData.getFromPosition());
         ItemStackSlot targetItemStackSlot = toContainer.getItemStackSlot(inventoryMoveData.getToPosition());
@@ -122,7 +122,7 @@ public class MoveInventoryEvents {
         ItemStack sourceItemStack = fromContainer.getItemStack(inventoryMoveData.getFromPosition());
         ItemStack targetItemStack = toContainer.getItemStack(inventoryMoveData.getToPosition());
 
-        if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
+        if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
             if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
                 WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
                 EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
@@ -130,7 +130,7 @@ public class MoveInventoryEvents {
                 WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
                 EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
             }
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
+        } else if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
             setWearableFromSource(targetItemStackSlot, sourceItemStack);
         }
     }
@@ -138,16 +138,16 @@ public class MoveInventoryEvents {
     /**
      * Called when an {@link ItemStack} gets put into an empty {@link ItemStackSlot}
      */
-    private void setItems(WindowMovementInfo windowMovementInfo, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
+    private void setItems(InventoryMoveType inventoryMoveType, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
 
         ItemStackSlot sourceItemStackSlot = fromContainer.getItemStackSlot(inventoryMoveData.getFromPosition());
         ItemStackSlot targetItemStackSlot = toContainer.getItemStackSlot(inventoryMoveData.getToPosition());
 
         ItemStack sourceItemStack = fromContainer.getItemStack(inventoryMoveData.getFromPosition());
 
-        if (windowMovementInfo == WindowMovementInfo.FROM_BAG_TO_EQUIPMENT) {
+        if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
             setWearableFromSource(targetItemStackSlot, sourceItemStack);
-        } else if (windowMovementInfo == WindowMovementInfo.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
+        } else if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
             if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
                 EntityManager.getInstance().getPlayerClient().removeArmor();
             } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
@@ -174,15 +174,15 @@ public class MoveInventoryEvents {
         }
     }
 
-    private WindowMovementInfo determineWindowMovementInfo(InventoryType fromWindow, InventoryType toWindow) {
+    private InventoryMoveType determineWindowMovementInfo(InventoryType fromWindow, InventoryType toWindow) {
         if (fromWindow == InventoryType.EQUIPMENT && toWindow == InventoryType.BAG_1) {
-            return WindowMovementInfo.FROM_EQUIPMENT_TO_BAG;
+            return InventoryMoveType.FROM_EQUIPMENT_TO_BAG;
         } else if (fromWindow == InventoryType.BAG_1 && toWindow == InventoryType.EQUIPMENT) {
-            return WindowMovementInfo.FROM_BAG_TO_EQUIPMENT;
+            return InventoryMoveType.FROM_BAG_TO_EQUIPMENT;
         } else if (fromWindow == InventoryType.BAG_1 && toWindow == InventoryType.BAG_1) {
-            return WindowMovementInfo.FROM_BAG_TO_BAG;
+            return InventoryMoveType.FROM_BAG_TO_BAG;
         } else if (fromWindow == InventoryType.EQUIPMENT && toWindow == InventoryType.EQUIPMENT) {
-            return WindowMovementInfo.FROM_EQUIPMENT_TO_EQUIPMENT;
+            return InventoryMoveType.FROM_EQUIPMENT_TO_EQUIPMENT;
         }
         throw new RuntimeException("Missing MovementInfo case");
     }
