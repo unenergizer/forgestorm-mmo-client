@@ -12,10 +12,12 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.ENTITY_DAMAGE_OUT)
 public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.EntityDamagePacket> {
 
-    private final static boolean PRINT_DEBUG = true;
+    private final static boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -49,7 +51,9 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
         }
 
         movingEntity.setShowDamage(true);
+        println(getClass(), "[" + movingEntity.getEntityName() + "] Health Before: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
         movingEntity.setCurrentHealth(packetData.health);
+        println(getClass(), "[" + movingEntity.getEntityName() + "] Health After: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
     }
 
     @AllArgsConstructor

@@ -20,6 +20,8 @@ public class PlayerClient extends Player {
      */
     private MoveDirection predictedMoveDirection = MoveDirection.NONE;
 
+    private MovingEntity targetEntity;
+
     @Setter
     private boolean showLevelUpMessage = false;
     private float distanceMoved = 0;

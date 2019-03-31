@@ -32,8 +32,8 @@ public class StatusBar extends VisWindow implements Buildable {
     }
 
     public void initHealth(int health, int maxHealth) {
-        hpBar.setValue(health);
         hpBar.setRange(0, maxHealth);
+        hpBar.setValue(health);
         hpLabel.setText(health + "/" + maxHealth);
     }
 

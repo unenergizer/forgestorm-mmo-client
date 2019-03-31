@@ -4,6 +4,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.AttachableCamera;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.Entity;
@@ -196,7 +197,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         EntityManager.getInstance().setPlayerClient(playerClient);
 
-        Valenguard.getInstance().getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
+        ActorUtil.getStageHandler().getStatusBar();
+        ActorUtil.getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
         return entity;
     }
 

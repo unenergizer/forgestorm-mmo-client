@@ -167,6 +167,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
+                    playerClient.setTargetEntity(clickedEntity);
 
                     if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
                         // The player is requesting to interact with the entity.

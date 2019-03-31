@@ -12,8 +12,12 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.ENTITY_HEAL_OUT)
 public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn.PlayerHealthPacket> {
+
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -42,7 +46,9 @@ public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn
                 break;
         }
 
+        println(getClass(), "[" + movingEntity.getEntityName() + "] Health Before: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
         movingEntity.setCurrentHealth(movingEntity.getCurrentHealth() + packetData.healthGiven);
+        println(getClass(), "[" + movingEntity.getEntityName() + "] Health After: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
     }
 
     @AllArgsConstructor
