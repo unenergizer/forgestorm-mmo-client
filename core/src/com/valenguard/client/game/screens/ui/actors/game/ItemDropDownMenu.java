@@ -69,7 +69,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new InventoryPacketOut(new InventoryActions(InventoryActions.DROP, InventoryType.BAG_1.getInventoryTypeIndex(), slotIndex)).sendPacket();
+                new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.DROP, InventoryType.BAG_1.getInventoryTypeIndex(), slotIndex)).sendPacket();
                 ActorUtil.getStageHandler().getBagWindow().getItemStackSlot(slotIndex).setMoveSlotLocked(true);
                 cleanUpDropDownMenu(true);
             }

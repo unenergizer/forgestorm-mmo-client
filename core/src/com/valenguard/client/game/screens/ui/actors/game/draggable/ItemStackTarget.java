@@ -116,7 +116,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
         sourceItemStackSlot.setItemStack(targetItemStack);
 
         new InventoryPacketOut(new InventoryActions(
-                InventoryActions.MOVE,
+                InventoryActions.ActionType.MOVE,
                 inventoryMoveType.getFromWindow(),
                 inventoryMoveType.getToWindow(),
                 sourceItemStackSlot.getInventoryIndex(),
@@ -156,7 +156,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
         sourceItemStackSlot.deleteStack();
 
         new InventoryPacketOut(new InventoryActions(
-                InventoryActions.MOVE,
+                InventoryActions.ActionType.MOVE,
                 inventoryMoveType.getFromWindow(),
                 inventoryMoveType.getToWindow(),
                 sourceItemStackSlot.getInventoryIndex(),

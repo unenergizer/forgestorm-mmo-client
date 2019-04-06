@@ -1,61 +1,63 @@
 package com.valenguard.client.game.world.item.inventory;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 public class InventoryActions {
 
-    /**
-     *   SHARED
-     */
-    public static final byte MOVE = 0x00;
-
-    /**
-     *   CLIENT -> SERVER
-     */
-    public static final byte DROP = 0x01;
-    public static final byte USE = 0x02;
-
-    /**
-     *   SERVER -> CLIENT
-     */
-    public static final byte GIVE = 0x03;
-    public static final byte REMOVE = 0x04;
-    public static final byte SET_BAG = 0x05;
-    public static final byte SET_BANK = 0x06;
-    public static final byte SET_EQUIPMENT = 0x07;
-
-    @Getter
-    private byte inventoryActionType;
-
-    @Getter
+    private ActionType actionType;
     private byte fromPosition;
-
-    @Getter
     private byte toPosition;
-
-    @Getter
     private byte fromWindow;
-
-    @Getter
     private byte toWindow;
+    private byte dropInventory;
+    private byte slotIndex;
 
-    @Getter
-    byte dropInventory;
-
-    @Getter
-    byte slotIndex;
-
-    public InventoryActions(byte inventoryActionType, InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
-        this.inventoryActionType = inventoryActionType;
+    public InventoryActions(ActionType actionType, InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
+        this.actionType = actionType;
         this.fromWindow = fromWindow.getInventoryTypeIndex();
         this.toWindow = toWindow.getInventoryTypeIndex();
         this.fromPosition = fromPosition;
         this.toPosition = toPosition;
     }
 
-    public InventoryActions(byte inventoryActionType, byte dropInventory, byte slotIndex) {
-        this.inventoryActionType = inventoryActionType;
+    public InventoryActions(ActionType actionType, byte dropInventory, byte slotIndex) {
+        this.actionType = actionType;
         this.dropInventory = dropInventory;
         this.slotIndex = slotIndex;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum ActionType {
+        /**
+         * SHARED
+         */
+        MOVE((byte) 0x00),
+
+        /**
+         * CLIENT -> SERVER
+         */
+        DROP((byte) 0x01),
+        USE((byte) 0x02),
+
+        /**
+         * SERVER -> CLIENT
+         */
+        GIVE((byte) 0x03),
+        REMOVE((byte) 0x04),
+        SET_BAG((byte) 0x05),
+        SET_BANK((byte) 0x06),
+        SET_EQUIPMENT((byte) 0x07);
+
+        private byte getActionType;
+
+        public static ActionType getActionType(byte inventoryActionType) {
+            for (ActionType entityType : ActionType.values()) {
+                if ((byte) entityType.ordinal() == inventoryActionType) return entityType;
+            }
+            throw new RuntimeException("Inventory type miss match! Byte Received: " + inventoryActionType);
+        }
     }
 }

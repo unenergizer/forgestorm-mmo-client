@@ -13,12 +13,8 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
-import static com.valenguard.client.util.Log.println;
-
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
-
-    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -32,25 +28,40 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         byte fromWindow = -1;
         byte toWindow = -1;
 
-        if (inventoryAction == InventoryActions.GIVE) {
-            itemId = clientHandler.readInt();
-            itemAmount = clientHandler.readInt();
-        } else if (inventoryAction == InventoryActions.REMOVE) {
-            slotIndex = clientHandler.readByte();
-        } else if (inventoryAction == InventoryActions.SET_BAG || inventoryAction == InventoryActions.SET_EQUIPMENT) {
-            slotIndex = clientHandler.readByte();
-            itemId = clientHandler.readInt();
-            itemAmount = clientHandler.readInt();
-        } else if (inventoryAction == InventoryActions.MOVE) {
-            fromPosition = clientHandler.readByte();
-            toPosition = clientHandler.readByte();
-            byte windowsByte = clientHandler.readByte();
-            fromWindow = (byte) (windowsByte >> 4);
-            toWindow = (byte) (windowsByte & 0x0F);
+        InventoryActions.ActionType actionType = InventoryActions.ActionType.getActionType(inventoryAction);
+
+        switch (actionType) {
+            case MOVE:
+                fromPosition = clientHandler.readByte();
+                toPosition = clientHandler.readByte();
+                byte windowsByte = clientHandler.readByte();
+                fromWindow = (byte) (windowsByte >> 4);
+                toWindow = (byte) (windowsByte & 0x0F);
+                break;
+            case DROP:
+                // TODO
+                break;
+            case USE:
+                // TODO
+                break;
+            case GIVE:
+                itemId = clientHandler.readInt();
+                itemAmount = clientHandler.readInt();
+                break;
+            case REMOVE:
+                slotIndex = clientHandler.readByte();
+                break;
+            case SET_BAG:
+            case SET_BANK:
+            case SET_EQUIPMENT:
+                slotIndex = clientHandler.readByte();
+                itemId = clientHandler.readInt();
+                itemAmount = clientHandler.readInt();
+                break;
         }
 
         return new InventoryActionsPacket(
-                inventoryAction,
+                actionType,
                 itemId,
                 itemAmount,
                 slotIndex,
@@ -63,40 +74,48 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
     @Override
     public void onEvent(InventoryActionsPacket packetData) {
 
-        if (packetData.inventoryAction == InventoryActions.GIVE) {
-            println(getClass(), "Giving ItemStack id: " + packetData.itemId + ", Amount: " + packetData.itemAmount, false, PRINT_DEBUG);
+        ItemStack itemStack;
 
-            // Generate an ItemStack and place it in the players bag.
-            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-            ActorUtil.getStageHandler().getBagWindow().addItemStack(itemStack);
-        } else if (packetData.inventoryAction == InventoryActions.REMOVE) {
-
-            ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
-
-        } else if (packetData.inventoryAction == InventoryActions.SET_BAG) {
-
-            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-            ActorUtil.getStageHandler().getBagWindow().setItemStack(packetData.slotIndex, itemStack);
-
-        } else if (packetData.inventoryAction == InventoryActions.SET_EQUIPMENT) {
-
-            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-            ActorUtil.getStageHandler().getEquipmentWindow().setItemStack(packetData.slotIndex, itemStack);
-
-        } else if (packetData.inventoryAction == InventoryActions.MOVE) {
-
-            Valenguard.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
-                    packetData.fromPosition,
-                    packetData.toPosition,
-                    packetData.fromWindow,
-                    packetData.toWindow
-            ));
+        switch (packetData.actionType) {
+            case MOVE:
+                Valenguard.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
+                        packetData.fromPosition,
+                        packetData.toPosition,
+                        packetData.fromWindow,
+                        packetData.toWindow
+                ));
+                break;
+            case DROP:
+                // TODO
+                break;
+            case USE:
+                // TODO
+                break;
+            case GIVE:
+                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                ActorUtil.getStageHandler().getBagWindow().addItemStack(itemStack);
+                break;
+            case REMOVE:
+                ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
+                break;
+            case SET_BAG:
+                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                ActorUtil.getStageHandler().getBagWindow().setItemStack(packetData.slotIndex, itemStack);
+                break;
+            case SET_BANK:
+                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                ActorUtil.getStageHandler().getBankWindow().setItemStack(packetData.slotIndex, itemStack);
+                break;
+            case SET_EQUIPMENT:
+                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                ActorUtil.getStageHandler().getEquipmentWindow().setItemStack(packetData.slotIndex, itemStack);
+                break;
         }
     }
 
     @AllArgsConstructor
     class InventoryActionsPacket extends PacketData {
-        private final byte inventoryAction;
+        private final InventoryActions.ActionType actionType;
         private final int itemId;
         private final int itemAmount;
         private final byte slotIndex;

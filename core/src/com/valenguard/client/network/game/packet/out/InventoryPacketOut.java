@@ -14,17 +14,17 @@ public class InventoryPacketOut extends AbstractClientOutPacket {
 
     @Override
     protected void createPacket(ValenguardOutputStream write) {
-        byte action = inventoryAction.getInventoryActionType();
-        write.writeByte(action);
-        if (action == InventoryActions.MOVE) {
+        InventoryActions.ActionType action = inventoryAction.getActionType();
+        write.writeByte(action.getGetActionType());
 
+        if (action == InventoryActions.ActionType.MOVE) {
             write.writeByte(inventoryAction.getFromPosition());
             write.writeByte(inventoryAction.getToPosition());
 
             // Combining the windows into a single byte.
             byte windowsBytes = (byte) ((inventoryAction.getFromWindow() << 4) | inventoryAction.getToWindow());
             write.writeByte(windowsBytes);
-        } else if (action == InventoryActions.DROP) {
+        } else if (action == InventoryActions.ActionType.DROP) {
 
             write.writeByte(inventoryAction.getDropInventory());
             write.writeByte(inventoryAction.getSlotIndex());
