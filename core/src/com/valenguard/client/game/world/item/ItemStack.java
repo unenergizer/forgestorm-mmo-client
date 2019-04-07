@@ -17,6 +17,7 @@ public class ItemStack implements Cloneable {
     private boolean isStackable;
     private String textureRegion;
     private int amount;
+    private boolean isConsumable;
 
     private Attributes attributes;
 
@@ -35,6 +36,7 @@ public class ItemStack implements Cloneable {
         itemStack.setStackable(isStackable);
         itemStack.setTextureRegion(textureRegion);
         itemStack.setAttributes(attributes);
+        itemStack.setConsumable(isConsumable);
         return itemStack;
     }
 

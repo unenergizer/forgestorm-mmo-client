@@ -13,6 +13,8 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
 
@@ -85,8 +87,11 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                         packetData.toWindow
                 ));
                 break;
-            case DROP:
-                // TODO
+            case CONSUME:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                println(getClass(), "The client consumed an item!");
+                // TODO: later on we would change the visible display of the itemstack to represent
+                // TODO: the amount of consumption left on the item
                 break;
             case USE:
                 // TODO
@@ -97,6 +102,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 ActorUtil.getStageHandler().getBagWindow().addItemStack(itemStack);
                 break;
             case REMOVE:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
                 break;
             case SET_BAG:

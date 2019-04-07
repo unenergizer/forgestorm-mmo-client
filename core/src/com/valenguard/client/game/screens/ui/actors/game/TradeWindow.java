@@ -238,9 +238,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         checkNotNull(lockedItemStackSlot, "This can never be null!");
         lockedItemStackSlot.toggleLockedSlot(true);
 
-        println(getClass(), "Slot index being sent = " + lockedItemStackSlot.getInventoryIndex());
+        println(getClass(), "Slot index being sent = " + lockedItemStackSlot.getSlotIndex());
 
-        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getInventoryIndex())).sendPacket();
+        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getSlotIndex())).sendPacket();
     }
 
     public void addItemFromPacket(int itemStackUUID) {

@@ -47,6 +47,7 @@ public class ItemStackLoader {
             ItemStackType type = ItemStackType.valueOf((String) itemNode.get("type"));
             GameAtlas atlas = GameAtlas.valueOf((String) itemNode.get("atlas"));
             String region = (String) itemNode.get("region");
+            boolean isConsumable = (Boolean) itemNode.get("consume");
 
             /*
              * Get wearable item data
@@ -76,6 +77,7 @@ public class ItemStackLoader {
             itemStack.setTextureRegion(region);
             itemStack.setAmount(-1);
             itemStack.setAttributes(attributes);
+            itemStack.setConsumable(isConsumable);
 
             println(getClass(), "ID: " + itemId, false, PRINT_DEBUG);
             println(getClass(), "Name: " + name, false, PRINT_DEBUG);

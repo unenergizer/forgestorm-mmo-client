@@ -2,10 +2,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
-import com.valenguard.client.game.world.item.ItemStackType;
-import com.valenguard.client.game.world.item.WearableItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.game.world.item.inventory.InventoryMoveData;
 import com.valenguard.client.game.world.item.inventory.InventoryMoveType;
@@ -90,7 +87,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
         }
 
         // The client is simply picking up and placing down the item in the exact same position.
-        if (sourceItemStackSlot.getInventoryIndex() == itemStackTargetSlot.getInventoryIndex() &&
+        if (sourceItemStackSlot.getSlotIndex() == itemStackTargetSlot.getSlotIndex() &&
                 sourceItemStackSlot.getInventoryType() == itemStackTargetSlot.getInventoryType()) {
             itemStackTargetSlot.setItemStack(sourceItemStack);
             sourceItemStackSlot.setItemStack(targetItemStack);
@@ -105,20 +102,20 @@ public class ItemStackTarget extends DragAndDrop.Target {
         println(getClass(), "Sending movement packet", false, PRINT_DEBUG);
         println(getClass(), "fromWindow  = " + inventoryMoveType.getFromWindow(), false, PRINT_DEBUG);
         println(getClass(), "toWindow  = " + inventoryMoveType.getToWindow(), false, PRINT_DEBUG);
-        println(getClass(), "fromPosition  = " + sourceItemStackSlot.getInventoryIndex(), false, PRINT_DEBUG);
-        println(getClass(), "toPosition  = " + itemStackTargetSlot.getInventoryIndex(), false, PRINT_DEBUG);
+        println(getClass(), "fromPosition  = " + sourceItemStackSlot.getSlotIndex(), false, PRINT_DEBUG);
+        println(getClass(), "toPosition  = " + itemStackTargetSlot.getSlotIndex(), false, PRINT_DEBUG);
         new InventoryPacketOut(new InventoryActions(
                 InventoryActions.ActionType.MOVE,
                 inventoryMoveType.getFromWindow(),
                 inventoryMoveType.getToWindow(),
-                sourceItemStackSlot.getInventoryIndex(),
-                itemStackTargetSlot.getInventoryIndex()
+                sourceItemStackSlot.getSlotIndex(),
+                itemStackTargetSlot.getSlotIndex()
         )).sendPacket();
 
         Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
                 new InventoryMoveData(
-                        sourceItemStackSlot.getInventoryIndex(),
-                        itemStackTargetSlot.getInventoryIndex(),
+                        sourceItemStackSlot.getSlotIndex(),
+                        itemStackTargetSlot.getSlotIndex(),
                         inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
                         inventoryMoveType.getToWindow().getInventoryTypeIndex()
                 ));

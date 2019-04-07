@@ -37,7 +37,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
      * for the server and the client.
      */
     @Getter
-    private byte inventoryIndex;
+    private byte slotIndex;
 
     /**
      * The type of inventory that this {@link ItemStackSlot} represents
@@ -91,14 +91,14 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     private InputListener clickListener;
 
-    ItemStackSlot(InventoryType inventoryType, byte inventoryIndex) {
+    ItemStackSlot(InventoryType inventoryType, byte slotIndex) {
         this.inventoryType = inventoryType;
-        this.inventoryIndex = inventoryIndex;
+        this.slotIndex = slotIndex;
     }
 
-    ItemStackSlot(byte inventoryIndex, ItemStackType[] acceptedItemStackTypes) {
+    ItemStackSlot(byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
         this.inventoryType = InventoryType.EQUIPMENT;
-        this.inventoryIndex = inventoryIndex;
+        this.slotIndex = slotIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
     }
 
@@ -308,7 +308,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
                     // Bringing up options for the item!
                     if (itemStack != null) {
-                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryIndex, x, y);
+                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryType.getInventoryTypeIndex(), slotIndex, x, y);
                     }
 
                     return true;

@@ -11,7 +11,6 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
-import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
 import static com.valenguard.client.util.Log.println;
@@ -19,6 +18,7 @@ import static com.valenguard.client.util.Log.println;
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     private VisTable dropDownTable = new VisTable();
+    private byte inventoryIndex;
     private byte slotIndex;
 
     public ItemDropDownMenu() {
@@ -47,12 +47,14 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    public void toggleMenu(ItemStack itemStack, byte slotIndex, float x, float y) {
+    public void toggleMenu(ItemStack itemStack, byte inventoryIndex, byte slotIndex, float x, float y) {
         cleanUpDropDownMenu(false);
         dropDownTable = new VisTable();
         setPosition(x, y);
+        this.inventoryIndex = inventoryIndex;
         this.slotIndex = slotIndex;
 
+        addConsumeButton(dropDownTable, itemStack);
         addDropButton(dropDownTable);
         addCancelButton(dropDownTable);
 
@@ -62,6 +64,24 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         ActorUtil.fadeInWindow(this);
     }
 
+    private void addConsumeButton(VisTable visTable, ItemStack itemStack) {
+        if (!itemStack.isConsumable()) return;
+
+        VisTextButton dropItemStackButton = new VisTextButton("Consume");
+        visTable.add(dropItemStackButton).expand().fill().row();
+
+        dropItemStackButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                new InventoryPacketOut(new InventoryActions(
+                        InventoryActions.ActionType.CONSUME,
+                        inventoryIndex,
+                        slotIndex)).sendPacket();
+                cleanUpDropDownMenu(true);
+            }
+        });
+    }
+
     private void addDropButton(VisTable visTable) {
         VisTextButton dropItemStackButton = new VisTextButton("Drop");
         visTable.add(dropItemStackButton).expand().fill().row();
@@ -69,8 +89,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.DROP, InventoryType.BAG_1.getInventoryTypeIndex(), slotIndex)).sendPacket();
-                ActorUtil.getStageHandler().getBagWindow().getItemStackSlot(slotIndex).setMoveSlotLocked(true);
+                new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.DROP, inventoryIndex, slotIndex)).sendPacket();
                 cleanUpDropDownMenu(true);
             }
         });
