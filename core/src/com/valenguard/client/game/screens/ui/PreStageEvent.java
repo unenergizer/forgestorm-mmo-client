@@ -54,13 +54,13 @@ class PreStageEvent implements InputProcessor {
         }
 
         /*
-         * Open Player Bag
+         * Open Player Bank
          */
         if (keycode == Input.Keys.B && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()) {
-                if (!stageHandler.getBagWindow().isVisible()) {
+                if (!stageHandler.getBankWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getBankWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
                 } else {

@@ -18,6 +18,8 @@ import static com.valenguard.client.util.Log.println;
 
 public class MoveInventoryEvents {
 
+    private static final boolean PRINT_DEBUG = true;
+
     private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
 
     public void addPreviousMovement(InventoryMoveData previousMove) {
@@ -68,6 +70,12 @@ public class MoveInventoryEvents {
         BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
         BankWindow bankWindow = ActorUtil.getStageHandler().getBankWindow();
         EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
+
+        println(PRINT_DEBUG);
+        println(getClass(), "PERFORMING MOVE:", false, PRINT_DEBUG);
+        println(getClass(), "Type:" + inventoryMoveType.toString(), false, PRINT_DEBUG);
+        println(getClass(), "FromIndex:" + inventoryMoveData.getFromPosition(), false, PRINT_DEBUG);
+        println(getClass(), "ToIndex:" + inventoryMoveData.getToPosition(), false, PRINT_DEBUG);
 
         switch (inventoryMoveType) {
             case FROM_BAG_TO_BAG:
