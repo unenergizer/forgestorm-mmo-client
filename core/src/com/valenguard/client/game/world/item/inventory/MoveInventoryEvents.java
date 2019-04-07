@@ -26,39 +26,47 @@ public class MoveInventoryEvents {
         previousMovements.add(previousMove);
     }
 
+    public void receivedNonMoveRequest() {
+        if (previousMovements.isEmpty()) return;
+        // 1. walk back all of are moves...
+        // 2. lock the inventory
+        // 3.
+    }
+
+
     public void moveItems(InventoryMoveData inventoryMoveData) {
         // Checking if the previous movement case happened correctly.
         InventoryMoveData previousMove = previousMovements.remove();
 
-        BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
-        BankWindow bankWindow = ActorUtil.getStageHandler().getBankWindow();
-        EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
-
-        InventoryType toWindowType = InventoryType.values()[previousMove.getToWindow()];
-        if (toWindowType == InventoryType.BAG_1) {
-            bagWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
-        } else if (toWindowType == InventoryType.BANK) {
-            bankWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
-        } else if (toWindowType == InventoryType.EQUIPMENT) {
-            equipmentWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
-        }
-
-        if (inventoryMoveData.equals(previousMove)) {
-            return;
-        }
-
-        println(getClass(), "The client is out of sync with the server so we are reajusting to the way the server views things");
-
-        // The client/server are out of sync. Putting them back in sync.
-        // previousToPosition -> previousFromPosition <- swap order of previous case.
-        moveItemsByInfo(new InventoryMoveData(
-                previousMove.getToPosition(),
-                previousMove.getFromPosition(),
-                previousMove.getFromWindow(),
-                previousMove.getToWindow()
-        ));      // Undoing the previous move by flipping the order
-
-        moveItemsByInfo(inventoryMoveData); // Now performing the move that the server sees
+//        BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
+//        BankWindow bankWindow = ActorUtil.getStageHandler().getBankWindow();
+//        EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
+//
+//        InventoryType toWindowType = InventoryType.values()[previousMove.getToWindow()];
+//        if (toWindowType == InventoryType.BAG_1) {
+//            bagWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
+//        } else if (toWindowType == InventoryType.BANK) {
+//            bankWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
+//        } else if (toWindowType == InventoryType.EQUIPMENT) {
+//            equipmentWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
+//        }
+//
+//        if (inventoryMoveData.equals(previousMove)) {
+//            return;
+//        }
+//
+//        println(getClass(), "The client is out of sync with the server so we are reajusting to the way the server views things");
+//
+//        // The client/server are out of sync. Putting them back in sync.
+//        // previousToPosition -> previousFromPosition <- swap order of previous case.
+//        moveItemsByInfo(new InventoryMoveData(
+//                previousMove.getToPosition(),
+//                previousMove.getFromPosition(),
+//                previousMove.getFromWindow(),
+//                previousMove.getToWindow()
+//        ));      // Undoing the previous move by flipping the order
+//
+//        moveItemsByInfo(inventoryMoveData); // Now performing the move that the server sees
     }
 
     private void moveItemsByInfo(InventoryMoveData inventoryMoveData) {

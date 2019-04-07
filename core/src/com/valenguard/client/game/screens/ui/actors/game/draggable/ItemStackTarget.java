@@ -13,6 +13,8 @@ import com.valenguard.client.game.world.item.inventory.InventoryMovementUtil;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
+import static com.valenguard.client.util.Log.println;
+
 // TODO implement EQUIPMENT TO EQUIPMENT window actions for ring swapping and that type of thing.
 public class ItemStackTarget extends DragAndDrop.Target {
 
@@ -42,29 +44,29 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         ItemStackSource itemStackSource = (ItemStackSource) source;
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
-        ItemStack targetItemStack = itemStackTargetSlot.getItemStack();
 
         if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked())
             return false;
 
-        // Being dragged from equipment to bag and swapping.
-        if (itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1
-                && sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT
-                && targetItemStack != null
-                && sourceItemStackSlot.getItemStack() != null) {
-            // The source is the equipment inventory. The item being placed into their
-            // equipment inventory is the target's (the bag) ItemStack.
-            return sourceItemStackSlot.isAcceptedItemStackType(targetItemStack);
+        return checkCanEquip(sourceItemStackSlot);
+    }
+
+    private boolean checkCanEquip(ItemStackSlot sourceItemStackSlot) {
+
+        ItemStack targetItemStack = itemStackTargetSlot.getItemStack();
+        ItemStack sourceItemStack = sourceItemStackSlot.getItemStack();
+
+        if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT && itemStackTargetSlot.getInventoryType() != InventoryType.EQUIPMENT) {
+            if (targetItemStack != null) {
+                return sourceItemStackSlot.isAcceptedItemStackType(targetItemStack);
+            }
         }
 
-        // Being dragged equipment to the bag.
-        if (itemStackTargetSlot.getInventoryType() == InventoryType.BAG_1
-                && sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT
-                && targetItemStack != null) {
-            return itemStackTargetSlot.isAcceptedItemStackType(targetItemStack);
+        if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
+            return itemStackTargetSlot.isAcceptedItemStackType(sourceItemStack);
         }
 
-        return itemStackTargetSlot.getAcceptedItemStackTypes() == null || itemStackTargetSlot.isAcceptedItemStackType((ItemStack) payload.getObject());
+        return true;
     }
 
     /**
@@ -73,20 +75,27 @@ public class ItemStackTarget extends DragAndDrop.Target {
     @Override
     public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
 
-        ItemStackSource itemStackSource = (ItemStackSource) source;
-        ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
+        println(getClass(), "dropping item");
 
-        if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked() || sourceItemStackSlot.isMoveSlotLocked())
-            return;
 
         ItemStack sourceItemStack = (ItemStack) payload.getObject();
         ItemStack targetItemStack = itemStackTargetSlot.getItemStack();
+
+        ItemStackSource itemStackSource = (ItemStackSource) source;
+        ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
+
+        if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked() || sourceItemStackSlot.isMoveSlotLocked()) {
+            sourceItemStackSlot.setItemStack(sourceItemStack);
+            println(getClass(), "trade slot locked");
+            return;
+        }
 
         // The client is simply picking up and placing down the item in the exact same position.
         if (sourceItemStackSlot.getInventoryIndex() == itemStackTargetSlot.getInventoryIndex() &&
                 sourceItemStackSlot.getInventoryType() == itemStackTargetSlot.getInventoryType()) {
             itemStackTargetSlot.setItemStack(sourceItemStack);
             sourceItemStackSlot.setItemStack(targetItemStack);
+            println(getClass(), "Picking up and placing back down");
             return;
         }
 
@@ -94,12 +103,65 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         itemStackTargetSlot.setMoveSlotLocked(true);
 
+        println(getClass(), "Sending movement packet");
+        println(getClass(), "fromWindow  = " + inventoryMoveType.getFromWindow());
+        println(getClass(), "toWindow  = " + inventoryMoveType.getToWindow());
+        new InventoryPacketOut(new InventoryActions(
+                InventoryActions.ActionType.MOVE,
+                inventoryMoveType.getFromWindow(),
+                inventoryMoveType.getToWindow(),
+                sourceItemStackSlot.getInventoryIndex(),
+                itemStackTargetSlot.getInventoryIndex()
+        )).sendPacket();
+
+        Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
+                new InventoryMoveData(
+                        sourceItemStackSlot.getInventoryIndex(),
+                        itemStackTargetSlot.getInventoryIndex(),
+                        inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
+                        inventoryMoveType.getToWindow().getInventoryTypeIndex()
+                ));
+
+        changeEquipment(sourceItemStackSlot);
+
         if (targetItemStack != null) {
             // Swap (setting back on itself is valid swap)
             swapItemAction(sourceItemStack, targetItemStack, sourceItemStackSlot);
         } else {
             // No swap just set empty cell
             setItemAction(sourceItemStack, sourceItemStackSlot);
+        }
+    }
+
+    private void changeEquipment(ItemStackSlot sourceItemStackSlot) {
+        println(getClass(), "changeEquipment()");
+        if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
+            equipItem(itemStackTargetSlot, sourceItemStackSlot.getItemStack());
+        } else if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT) {
+            println(getClass(), "From equipment to other inventory");
+            if (itemStackTargetSlot.getItemStack() != null) { // Swapping
+                equipItem(sourceItemStackSlot, itemStackTargetSlot.getItemStack());
+            } else { // Removing equipment
+                println(getClass(), "Removing equipment");
+                if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
+                    println(getClass(), "Removing chest");
+                    EntityManager.getInstance().getPlayerClient().removeArmor();
+                } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
+                    println(getClass(), "Removing helm");
+                    EntityManager.getInstance().getPlayerClient().removeHelm();
+                }
+            }
+        }
+
+    }
+
+    private void equipItem(ItemStackSlot itemStackSlot, ItemStack equipItem) {
+        if (itemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
+            WearableItemStack wearableItemStack = (WearableItemStack) equipItem;
+            EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
+        } else if (itemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
+            WearableItemStack wearableItemStack = (WearableItemStack) equipItem;
+            EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
         }
     }
 
@@ -115,33 +177,6 @@ public class ItemStackTarget extends DragAndDrop.Target {
         itemStackTargetSlot.setItemStack(sourceItemStack);
         sourceItemStackSlot.setItemStack(targetItemStack);
 
-        new InventoryPacketOut(new InventoryActions(
-                InventoryActions.ActionType.MOVE,
-                inventoryMoveType.getFromWindow(),
-                inventoryMoveType.getToWindow(),
-                sourceItemStackSlot.getInventoryIndex(),
-                itemStackTargetSlot.getInventoryIndex()
-        )).sendPacket();
-
-        Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
-                new InventoryMoveData(
-                        sourceItemStackSlot.getInventoryIndex(),
-                        itemStackTargetSlot.getInventoryIndex(),
-                        inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
-                        inventoryMoveType.getToWindow().getInventoryTypeIndex()
-                ));
-
-        if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
-            if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
-                WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
-                EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
-            } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
-                WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
-                EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
-            }
-        } else if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
-            setWearableFromSource(sourceItemStack);
-        }
     }
 
     /**
@@ -155,45 +190,5 @@ public class ItemStackTarget extends DragAndDrop.Target {
         itemStackTargetSlot.setItemStack(sourceItemStack);
         sourceItemStackSlot.deleteStack();
 
-        new InventoryPacketOut(new InventoryActions(
-                InventoryActions.ActionType.MOVE,
-                inventoryMoveType.getFromWindow(),
-                inventoryMoveType.getToWindow(),
-                sourceItemStackSlot.getInventoryIndex(),
-                itemStackTargetSlot.getInventoryIndex()
-        )).sendPacket();
-
-        Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
-                new InventoryMoveData(
-                        sourceItemStackSlot.getInventoryIndex(),
-                        itemStackTargetSlot.getInventoryIndex(),
-                        inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
-                        inventoryMoveType.getToWindow().getInventoryTypeIndex()
-                ));
-
-        if (inventoryMoveType == InventoryMoveType.FROM_BAG_TO_EQUIPMENT) {
-            setWearableFromSource(sourceItemStack);
-        } else if (inventoryMoveType == InventoryMoveType.FROM_EQUIPMENT_TO_BAG) { // Removing armor pieces
-            if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
-                EntityManager.getInstance().getPlayerClient().removeArmor();
-            } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
-                EntityManager.getInstance().getPlayerClient().removeHelm();
-            }
-        }
-    }
-
-    /**
-     * Attempts to set the players on-screen graphics when equipping an {@link ItemStack}
-     *
-     * @param sourceItemStack The {@link ItemStack}
-     */
-    private void setWearableFromSource(ItemStack sourceItemStack) {
-        if (itemStackTargetSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST && sourceItemStack.getItemStackType() == ItemStackType.CHEST) {
-            WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
-            EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
-        } else if (itemStackTargetSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM && sourceItemStack.getItemStackType() == ItemStackType.HELM) {
-            WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
-            EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
-        }
     }
 }
