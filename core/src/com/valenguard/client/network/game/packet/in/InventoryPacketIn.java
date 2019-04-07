@@ -92,6 +92,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 // TODO
                 break;
             case GIVE:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
                 ActorUtil.getStageHandler().getBagWindow().addItemStack(itemStack);
                 break;
@@ -99,6 +100,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
                 break;
             case SET_BAG:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
                 ActorUtil.getStageHandler().getBagWindow().setItemStack(packetData.slotIndex, itemStack);
                 break;

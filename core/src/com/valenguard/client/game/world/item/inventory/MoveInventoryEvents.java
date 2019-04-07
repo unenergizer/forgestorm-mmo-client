@@ -14,196 +14,155 @@ import com.valenguard.client.game.world.item.WearableItemStack;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import lombok.Getter;
+
 import static com.valenguard.client.util.Log.println;
 
+// TODO: dropping items is not handled. The dropping of items would have to behave like a
+// TODO: movement or it would have to wait on a response from the server.
 public class MoveInventoryEvents {
 
     private static final boolean PRINT_DEBUG = true;
 
     private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
 
+    @Getter
+    private boolean synchingInventory = false;
+
     public void addPreviousMovement(InventoryMoveData previousMove) {
         previousMovements.add(previousMove);
     }
 
     public void receivedNonMoveRequest() {
-        if (previousMovements.isEmpty()) return;
+        if (previousMovements.isEmpty() || synchingInventory) return;
+
+        println(getClass(), "Rewinding the inventory.");
+
+        // Setting the inventory back to it's previous state!
+        for (InventoryMoveData previousMove : previousMovements) {
+            byte fromPosition = previousMove.getFromPosition();
+            byte toPosition = previousMove.getToPosition();
+
+            ItemSlotContainer fromWindow = getItemSlotContainer(previousMove.getFromWindow());
+            ItemSlotContainer toWindow = getItemSlotContainer(previousMove.getToWindow());
+
+            ItemStack fromItemStack = fromWindow.getItemStack(fromPosition);
+            ItemStack toItemStack = toWindow.getItemStack(toPosition);
+
+            changeEquipment(toWindow.getItemStackSlot(toPosition), fromWindow.getItemStackSlot(fromPosition));
+
+            // Flipping the order
+            fromWindow.setItemStack(fromPosition, toItemStack);
+            toWindow.setItemStack(toPosition, fromItemStack);
+
+            // Unlocking the movement but sync locking instead
+            toWindow.getItemStackSlot(toPosition).setMoveSlotLocked(false);
+
+        }
+
+        // Locking the inventory!
+        synchingInventory = true;
+
         // 1. walk back all of are moves...
         // 2. lock the inventory
-        // 3.
+        // 3. wait for server responses
+        // unlock inventory
+    }
+
+    private ItemSlotContainer getItemSlotContainer(byte inventoryByte) {
+        InventoryType inventoryType = InventoryType.values()[inventoryByte];
+        if (inventoryType == InventoryType.BAG_1) {
+            return ActorUtil.getStageHandler().getBagWindow();
+        } else if (inventoryType == InventoryType.BANK) {
+            return ActorUtil.getStageHandler().getBankWindow();
+        } else if (inventoryType == InventoryType.EQUIPMENT) {
+            return ActorUtil.getStageHandler().getEquipmentWindow();
+        }
+        throw new RuntimeException("Impossible Case!");
     }
 
 
     public void moveItems(InventoryMoveData inventoryMoveData) {
-        // Checking if the previous movement case happened correctly.
         InventoryMoveData previousMove = previousMovements.remove();
 
-//        BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
-//        BankWindow bankWindow = ActorUtil.getStageHandler().getBankWindow();
-//        EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
-//
-//        InventoryType toWindowType = InventoryType.values()[previousMove.getToWindow()];
-//        if (toWindowType == InventoryType.BAG_1) {
-//            bagWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
-//        } else if (toWindowType == InventoryType.BANK) {
-//            bankWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
-//        } else if (toWindowType == InventoryType.EQUIPMENT) {
-//            equipmentWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false);
-//        }
-//
-//        if (inventoryMoveData.equals(previousMove)) {
-//            return;
-//        }
-//
-//        println(getClass(), "The client is out of sync with the server so we are reajusting to the way the server views things");
-//
-//        // The client/server are out of sync. Putting them back in sync.
-//        // previousToPosition -> previousFromPosition <- swap order of previous case.
-//        moveItemsByInfo(new InventoryMoveData(
-//                previousMove.getToPosition(),
-//                previousMove.getFromPosition(),
-//                previousMove.getFromWindow(),
-//                previousMove.getToWindow()
-//        ));      // Undoing the previous move by flipping the order
-//
-//        moveItemsByInfo(inventoryMoveData); // Now performing the move that the server sees
-    }
+        ItemSlotContainer fromWindow = getItemSlotContainer(previousMove.getFromWindow());
+        ItemSlotContainer toWindow = getItemSlotContainer(previousMove.getToWindow());
 
-    private void moveItemsByInfo(InventoryMoveData inventoryMoveData) {
-        InventoryType fromWindow = InventoryType.values()[inventoryMoveData.getFromWindow()];
-        InventoryType toWindow = InventoryType.values()[inventoryMoveData.getToWindow()];
+        if (synchingInventory) {
 
-        InventoryMoveType inventoryMoveType = InventoryMovementUtil.getWindowMovementInfo(fromWindow, toWindow);
+            byte fromPosition = previousMove.getFromPosition();
+            byte toPosition = previousMove.getToPosition();
 
-        BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
-        BankWindow bankWindow = ActorUtil.getStageHandler().getBankWindow();
-        EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
+            ItemStack fromItemStack = fromWindow.getItemStack(fromPosition);
+            ItemStack toItemStack = toWindow.getItemStack(toPosition);
 
-        println(PRINT_DEBUG);
-        println(getClass(), "PERFORMING MOVE:", false, PRINT_DEBUG);
-        println(getClass(), "Type:" + inventoryMoveType.toString(), false, PRINT_DEBUG);
-        println(getClass(), "FromIndex:" + inventoryMoveData.getFromPosition(), false, PRINT_DEBUG);
-        println(getClass(), "ToIndex:" + inventoryMoveData.getToPosition(), false, PRINT_DEBUG);
+            if (fromPosition == toPosition && previousMove.getFromWindow() == previousMove.getToWindow()) {
+                // The client must have at some point sent a move that was invalid from the perspective of the server.
+                return;
+            }
 
-        switch (inventoryMoveType) {
-            case FROM_BAG_TO_BAG:
-                moveBetweenSlotContainers(inventoryMoveType, bagWindow, bagWindow, inventoryMoveData);
-                break;
-            case FROM_BAG_TO_BANK:
-                moveBetweenSlotContainers(inventoryMoveType, bagWindow, bankWindow, inventoryMoveData);
-                break;
-            case FROM_BAG_TO_EQUIPMENT:
-                moveBetweenSlotContainers(inventoryMoveType, bagWindow, equipmentWindow, inventoryMoveData);
-                break;
-            case FROM_BANK_TO_BAG:
-                moveBetweenSlotContainers(inventoryMoveType, bankWindow, bagWindow, inventoryMoveData);
-                break;
-            case FROM_BANK_TO_BANK:
-                moveBetweenSlotContainers(inventoryMoveType, bankWindow, bankWindow, inventoryMoveData);
-                break;
-            case FROM_BANK_TO_EQUIPMENT:
-                moveBetweenSlotContainers(inventoryMoveType, bankWindow, equipmentWindow, inventoryMoveData);
-                break;
-            case FROM_EQUIPMENT_TO_BAG:
-                moveBetweenSlotContainers(inventoryMoveType, equipmentWindow, bagWindow, inventoryMoveData);
-                break;
-            case FROM_EQUIPMENT_TO_BANK:
-                moveBetweenSlotContainers(inventoryMoveType, equipmentWindow, bankWindow, inventoryMoveData);
-                break;
-            case FROM_EQUIPMENT_TO_EQUIPMENT:
-                moveBetweenSlotContainers(inventoryMoveType, equipmentWindow, equipmentWindow, inventoryMoveData);
-                break;
-        }
-    }
+            // Performing the inventory move that the server says to perform.
+            changeEquipment(toWindow.getItemStackSlot(toPosition), fromWindow.getItemStackSlot(fromPosition));
 
-    private void moveBetweenSlotContainers(InventoryMoveType inventoryMoveType, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
-        ItemStack sourceItemStack = fromContainer.getItemStack(inventoryMoveData.getFromPosition());
-        ItemStack targetItemStack = toContainer.getItemStack(inventoryMoveData.getToPosition());
+            toWindow.setItemStack(toPosition, fromItemStack);
+            fromWindow.setItemStack(fromPosition, toItemStack);
 
-        // Swapping items because where the item is being moved to there
-        // already exist an item there.
-        if (targetItemStack != null) {
-            swapItems(inventoryMoveType, fromContainer, toContainer, inventoryMoveData);
-            toContainer.setItemStack(inventoryMoveData.getToPosition(), sourceItemStack);
-            fromContainer.setItemStack(inventoryMoveData.getFromPosition(), targetItemStack);
+            // Reached the end of the movements and now the client is in alignment with the server.
+            if (previousMovements.isEmpty()) {
+                synchingInventory = false;
+            }
 
         } else {
-            setItems(inventoryMoveType, fromContainer, toContainer, inventoryMoveData);
-            toContainer.setItemStack(inventoryMoveData.getToPosition(), sourceItemStack);
-            fromContainer.removeItemStack(inventoryMoveData.getFromPosition());
+            // The server and the client are not synching so it should
+            // be the case that the responses match
+            if (!previousMove.equals(inventoryMoveData)) {
+
+                println(getClass(), "Move request response was not the same as the servers.", true);
+                println(getClass(), "-------SERVER-------", true);
+                println(getClass(), "fromPosition = " + inventoryMoveData.getFromPosition(), true);
+                println(getClass(), "toPosition = " + inventoryMoveData.getToPosition(), true);
+                println(getClass(), "fromWindow = " + inventoryMoveData.getFromWindow(), true);
+                println(getClass(), "toWindow = " + inventoryMoveData.getToWindow(), true);
+                println(getClass(), "-------CLIENT-------", true);
+                println(getClass(), "fromPosition = " + previousMove.getFromPosition(), true);
+                println(getClass(), "toPosition = " + previousMove.getToPosition(), true);
+                println(getClass(), "fromWindow = " + previousMove.getFromWindow(), true);
+                println(getClass(), "toWindow = " + previousMove.getToWindow(), true);
+
+            } else {
+                toWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false); // Unlocking the inventory position!
+            }
         }
+
     }
 
-    /**
-     * Called when an {@link ItemStack} is being set on top of another {@link ItemStack}, thus swapping item positions.
-     */
-    private void swapItems(InventoryMoveType inventoryMoveType, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
-
-        ItemStackSlot sourceItemStackSlot = fromContainer.getItemStackSlot(inventoryMoveData.getFromPosition());
-        ItemStackSlot targetItemStackSlot = toContainer.getItemStackSlot(inventoryMoveData.getToPosition());
-
-        ItemStack sourceItemStack = fromContainer.getItemStack(inventoryMoveData.getFromPosition());
-        ItemStack targetItemStack = toContainer.getItemStack(inventoryMoveData.getToPosition());
-
-        switch (inventoryMoveType) {
-            // Putting on armor pieces
-            case FROM_BAG_TO_EQUIPMENT:
-            case FROM_BANK_TO_EQUIPMENT:
-                setWearableFromSource(targetItemStackSlot, sourceItemStack);
-                break;
-            // Removing armor pieces
-            case FROM_EQUIPMENT_TO_BAG:
-            case FROM_EQUIPMENT_TO_BANK:
+    public void changeEquipment(ItemStackSlot itemStackTargetSlot, ItemStackSlot sourceItemStackSlot) {
+        println(getClass(), "changeEquipment()");
+        if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
+            equipItem(itemStackTargetSlot, sourceItemStackSlot.getItemStack());
+        } else if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT) {
+            println(getClass(), "From equipment to other inventory");
+            if (itemStackTargetSlot.getItemStack() != null) { // Swapping
+                equipItem(sourceItemStackSlot, itemStackTargetSlot.getItemStack());
+            } else { // Removing equipment
+                println(getClass(), "Removing equipment");
                 if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
-                    WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
-                    EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
-                } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
-                    WearableItemStack wearableItemStack = (WearableItemStack) targetItemStack;
-                    EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
-                }
-                break;
-        }
-    }
-
-    /**
-     * Called when an {@link ItemStack} gets put into an empty {@link ItemStackSlot}
-     */
-    private void setItems(InventoryMoveType inventoryMoveType, ItemSlotContainer fromContainer, ItemSlotContainer toContainer, InventoryMoveData inventoryMoveData) {
-        ItemStackSlot sourceItemStackSlot = fromContainer.getItemStackSlot(inventoryMoveData.getFromPosition());
-        ItemStackSlot targetItemStackSlot = toContainer.getItemStackSlot(inventoryMoveData.getToPosition());
-
-        ItemStack sourceItemStack = fromContainer.getItemStack(inventoryMoveData.getFromPosition());
-
-        switch (inventoryMoveType) {
-            // Putting on armor pieces
-            case FROM_BAG_TO_EQUIPMENT:
-            case FROM_BANK_TO_EQUIPMENT:
-                setWearableFromSource(targetItemStackSlot, sourceItemStack);
-                break;
-            // Removing armor pieces
-            case FROM_EQUIPMENT_TO_BAG:
-            case FROM_EQUIPMENT_TO_BANK:
-                if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
+                    println(getClass(), "Removing chest");
                     EntityManager.getInstance().getPlayerClient().removeArmor();
                 } else if (sourceItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
+                    println(getClass(), "Removing helm");
                     EntityManager.getInstance().getPlayerClient().removeHelm();
                 }
-                break;
+            }
         }
     }
 
-    /**
-     * Attempts to set the players on-screen graphics when equipping an {@link ItemStack}
-     *
-     * @param targetItemStackSlot The {@link ItemStackSlot} that the {@link ItemStack} is being moved to.
-     * @param sourceItemStack     The {@link ItemStack}
-     */
-    private void setWearableFromSource(ItemStackSlot targetItemStackSlot, ItemStack sourceItemStack) {
-        if (targetItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST && sourceItemStack.getItemStackType() == ItemStackType.CHEST) {
-            WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
+    private void equipItem(ItemStackSlot itemStackSlot, ItemStack equipItem) {
+        if (itemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.CHEST) {
+            WearableItemStack wearableItemStack = (WearableItemStack) equipItem;
             EntityManager.getInstance().getPlayerClient().setArmor(wearableItemStack.getTextureId());
-        } else if (targetItemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM && sourceItemStack.getItemStackType() == ItemStackType.HELM) {
-            WearableItemStack wearableItemStack = (WearableItemStack) sourceItemStack;
+        } else if (itemStackSlot.getAcceptedItemStackTypes()[0] == ItemStackType.HELM) {
+            WearableItemStack wearableItemStack = (WearableItemStack) equipItem;
             EntityManager.getInstance().getPlayerClient().setHelm(wearableItemStack.getTextureId());
         }
     }

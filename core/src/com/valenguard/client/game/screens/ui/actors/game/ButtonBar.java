@@ -56,6 +56,7 @@ public class ButtonBar extends VisTable implements Buildable {
                     ActorUtil.fadeOutWindow(stageHandler.getMainSettingsWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
+                    ActorUtil.fadeOutWindow(stageHandler.getBankWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getHelpWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getCreditsWindow());
 
