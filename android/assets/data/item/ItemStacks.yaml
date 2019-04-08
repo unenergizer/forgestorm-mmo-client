@@ -152,5 +152,19 @@
    desc: "Make sure to drink before death!"
    type: POTION
    atlas: ITEMS
-   region: potion_111
+   region: potion_141
+   consume: true
+19:
+   name: "Medium Health Potion"
+   desc: "Would provide decent health if I drank it"
+   type: POTION
+   atlas: ITEMS
+   region: potion_01
+   consume: true
+20:
+   name: "Large Health Potion"
+   desc: "That is one large health potion!"
+   type: POTION
+   atlas: ITEMS
+   region: potion_155
    consume: true

@@ -80,6 +80,10 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                 cleanUpDropDownMenu(true);
             }
         });
+
+        // potion_01
+        // potion_100
+
     }
 
     private void addDropButton(VisTable visTable) {
