@@ -209,9 +209,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
         // Add item amount
         if (itemStack.getItemStackType() == ItemStackType.GOLD) {
-            amountLabel.setText(itemStack.getAmount());
-            amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
-            stack.add(amountLabel);
+            displayItemAmount();
         } else {
             amountLabel.setText("");
         }
@@ -249,9 +247,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         // Add item amount
         if (itemStack.getItemStackType() == ItemStackType.GOLD) {
             if (itemStack.getAmount() > 1) {
-                amountLabel.setText(itemStack.getAmount());
-                amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
-                stack.add(amountLabel);
+                displayItemAmount();
             }
         } else {
             amountLabel.remove();
@@ -259,6 +255,21 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
         // Setup click listener
         addClickListener(itemStack, this);
+    }
+
+    private void displayItemAmount() {
+        int itemStackAmount = itemStack.getAmount();
+        String displayText = String.valueOf(itemStackAmount);
+        System.out.println(itemStackAmount);
+        if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
+            displayText = String.valueOf(itemStackAmount / 1000) + "K";
+        } else if (itemStackAmount >= 1000000) {
+            displayText = String.valueOf(itemStackAmount / 1000000) + "M";
+        }
+
+        amountLabel.setText(displayText);
+        amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
+        stack.add(amountLabel);
     }
 
     public void toggleLockedSlot(boolean lockThisSlot) {
