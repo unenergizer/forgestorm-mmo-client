@@ -338,6 +338,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             this.slotIndex = slotIndex;
             this.isClientPlayerSlot = isClientPlayerSlot;
 
+            add(stack);
             setTradeCell(null, null); // Init empty slot
         }
 
@@ -377,7 +378,6 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
             stack.add(tradeCell); // Set next image
             displayItemAmount();
-            add(stack);
 
             // Setup tool tips
             if (itemStack != null && tradeCell != null) {
