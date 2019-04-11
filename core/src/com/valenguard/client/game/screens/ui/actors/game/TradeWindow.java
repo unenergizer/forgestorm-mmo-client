@@ -3,6 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.VisUI;
@@ -227,13 +228,17 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      *                            changes to it.
      */
     public void addItemFromInventory(ItemStack itemStack, ItemStackSlot lockedItemStackSlot) {
+
+        println(ItemStackSlot.class, "STACK CLICK 3");
         if (lockTrade) return; // Trade accepted, waiting on final confirm
 
+        println(ItemStackSlot.class, "STACK CLICK 4");
         // Find an empty trade slot
         TradeWindowSlot tradeWindowSlot = findEmptySlot(true);
 
         if (tradeWindowSlot == null) return; // Deny item placement
 
+        println(ItemStackSlot.class, "STACK CLICK 5");
         tradeWindowSlot.setTradeCell(itemStack, lockedItemStackSlot);
         checkNotNull(lockedItemStackSlot, "This can never be null!");
         lockedItemStackSlot.toggleLockedSlot(true);
@@ -243,9 +248,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getSlotIndex())).sendPacket();
     }
 
-    public void addItemFromPacket(int itemStackUUID) {
+    public void addItemFromPacket(int itemStackUUID, int itemAmount) {
         // Find an empty trade slot
-        ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemStackUUID, 1);
+        ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemStackUUID, itemAmount);
         TradeWindowSlot tradeWindowSlot = findEmptySlot(false);
         tradeWindowSlot.setTradeCell(itemStack, null);
     }
@@ -317,6 +322,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         private VisImage tradeCell;
         private ItemStack itemStack;
 
+        private VisLabel amountLabel = new VisLabel();
+        private Stack stack = new Stack();
+
         /**
          * We declare this when a {@link ItemStack} needs to be locked in place on the players bag.
          */
@@ -367,7 +375,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                 }
             }
 
-            add(tradeCell); // Set next image
+            stack.add(tradeCell); // Set next image
+            displayItemAmount();
+            add(stack);
 
             // Setup tool tips
             if (itemStack != null && tradeCell != null) {
@@ -380,12 +390,31 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             }
 
             // Setup click listener
-            addClickListener(tradeCell);
+            addClickListener();
         }
 
-        void addClickListener(Actor actor) {
+        private void displayItemAmount() {
+            if (itemStack != null) {
+                if (itemStack.getAmount() <= 1) return;
+                int itemStackAmount = itemStack.getAmount();
+                String displayText = String.valueOf(itemStackAmount);
+                if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
+                    displayText = String.valueOf(itemStackAmount / 1000) + "K";
+                } else if (itemStackAmount >= 1000000) {
+                    displayText = String.valueOf(itemStackAmount / 1000000) + "M";
+                }
+
+                amountLabel.setText(displayText);
+                amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
+                stack.add(amountLabel);
+            } else {
+                stack.removeActor(amountLabel);
+            }
+        }
+
+        void addClickListener() {
             if (clickListener != null) removeListener(clickListener);
-            actor.addListener(clickListener = new InputListener() {
+            stack.addListener(clickListener = new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     if (itemStack != null && isClientPlayerSlot && !lockTrade) {

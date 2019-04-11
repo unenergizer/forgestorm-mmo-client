@@ -84,7 +84,10 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                         packetData.fromPosition,
                         packetData.toPosition,
                         packetData.fromWindow,
-                        packetData.toWindow
+                        packetData.toWindow,
+                        false,
+                        0
+
                 ));
                 break;
             case CONSUME:

@@ -28,6 +28,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         short tradeTargetUUID = -2;
         short confirmedPlayerUUID = -3;
         int itemId = -4;
+        int itemAmount = 1;
         byte itemSlot = -5;
 
         //noinspection ConstantConditions
@@ -52,6 +53,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
             case TRADE_ITEM_ADD:
                 tradeUUID = clientHandler.readInt();
                 itemId = clientHandler.readInt();
+                itemAmount = clientHandler.readInt();
                 break;
             case TRADE_ITEM_REMOVE:
                 tradeUUID = clientHandler.readInt();
@@ -62,7 +64,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 break;
         }
 
-        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, tradeTargetUUID, confirmedPlayerUUID, itemId, itemSlot);
+        return new TradeRequestPacket(tradeStatusOpcode, tradeUUID, tradeTargetUUID, confirmedPlayerUUID, itemId, itemAmount, itemSlot);
     }
 
     @Override
@@ -102,7 +104,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 3: Trade started -> adding/removing items from trade window
             case TRADE_ITEM_ADD:
-                stageHandler.getTradeWindow().addItemFromPacket(packetData.itemId);
+                stageHandler.getTradeWindow().addItemFromPacket(packetData.itemId, packetData.itemAmount);
                 break;
             case TRADE_ITEM_REMOVE:
                 stageHandler.getTradeWindow().removeItemFromPacket(packetData.itemSlot);
@@ -148,6 +150,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         private final short tradeTargetUUID;
         private final short confirmedPlayerUUID;
         private final int itemId;
+        private final int itemAmount;
         private final byte itemSlot;
     }
 }

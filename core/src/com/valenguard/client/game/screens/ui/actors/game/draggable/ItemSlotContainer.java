@@ -35,9 +35,7 @@ public class ItemSlotContainer extends HideableVisWindow {
     }
 
     public void setItemStack(byte slotIndex, ItemStack itemStack) {
-
         itemStackSlots[slotIndex].setItemStack(itemStack);
-
     }
 
     public void removeItemStack(byte slotIndex) {

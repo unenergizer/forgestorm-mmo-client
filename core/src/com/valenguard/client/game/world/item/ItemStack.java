@@ -14,7 +14,7 @@ public class ItemStack implements Cloneable {
     private String description;
     private ItemStackType itemStackType;
     private GameAtlas gameAtlas;
-    private boolean isStackable;
+    private int stackable;
     private String textureRegion;
     private int amount;
     private boolean isConsumable;
@@ -33,7 +33,7 @@ public class ItemStack implements Cloneable {
         itemStack.setDescription(description);
         itemStack.setItemStackType(itemStackType);
         itemStack.setGameAtlas(gameAtlas);
-        itemStack.setStackable(isStackable);
+        itemStack.setStackable(stackable);
         itemStack.setTextureRegion(textureRegion);
         itemStack.setAttributes(attributes);
         itemStack.setConsumable(isConsumable);

@@ -47,6 +47,7 @@ public class ItemStackLoader {
             ItemStackType type = ItemStackType.valueOf((String) itemNode.get("type"));
             GameAtlas atlas = GameAtlas.valueOf((String) itemNode.get("atlas"));
             String region = (String) itemNode.get("region");
+            Integer stackable = (Integer) itemNode.get("stackable");
             boolean isConsumable = (Boolean) itemNode.get("consume");
 
             /*
@@ -75,6 +76,13 @@ public class ItemStackLoader {
             itemStack.setItemStackType(type);
             itemStack.setGameAtlas(atlas);
             itemStack.setTextureRegion(region);
+
+            if (stackable != null) {
+                itemStack.setStackable(stackable);
+            } else {
+                itemStack.setStackable(0);
+            }
+
             itemStack.setAmount(-1);
             itemStack.setAttributes(attributes);
             itemStack.setConsumable(isConsumable);

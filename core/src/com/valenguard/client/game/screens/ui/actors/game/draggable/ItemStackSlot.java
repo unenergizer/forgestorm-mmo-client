@@ -23,8 +23,6 @@ import com.valenguard.client.io.type.GameAtlas;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.valenguard.client.util.Log.println;
-
 public class ItemStackSlot extends VisTable implements Buildable {
 
     /**
@@ -208,7 +206,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         stack.add(itemStackImage);
 
         // Add item amount
-        if (itemStack.getItemStackType() == ItemStackType.GOLD) {
+        if (itemStack.getStackable() > 0) {
             displayItemAmount();
         } else {
             amountLabel.setText("");
@@ -229,6 +227,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
      */
     void setItemStack(ItemStack itemStack) {
         if (tradeSlotLocked) return;
+
         if (itemStackImage != null) itemStackImage.remove();
         this.itemStack = itemStack;
         emptyCellImage.remove();
@@ -245,10 +244,8 @@ public class ItemStackSlot extends VisTable implements Buildable {
         itemStackToolTip.registerToolTip();
 
         // Add item amount
-        if (itemStack.getItemStackType() == ItemStackType.GOLD) {
-            if (itemStack.getAmount() > 1) {
-                displayItemAmount();
-            }
+        if (itemStack.getStackable() > 0) {
+            displayItemAmount();
         } else {
             amountLabel.remove();
         }
@@ -258,9 +255,9 @@ public class ItemStackSlot extends VisTable implements Buildable {
     }
 
     private void displayItemAmount() {
+        if (itemStack.getAmount() <= 1) return;
         int itemStackAmount = itemStack.getAmount();
         String displayText = String.valueOf(itemStackAmount);
-        System.out.println(itemStackAmount);
         if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
             displayText = String.valueOf(itemStackAmount / 1000) + "K";
         } else if (itemStackAmount >= 1000000) {
@@ -283,20 +280,19 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     private void addClickListener(final ItemStack itemStack, final ItemStackSlot itemStackSlot) {
         if (clickListener != null) removeListener(clickListener);
-        itemStackImage.addListener(clickListener = new InputListener() {
+        stack.addListener(clickListener = new InputListener() {
 
             /** Called when a mouse button or a finger touch goes down on the actor. If true is returned, this listener will receive all
              * touchDragged and touchUp events, even those not over this actor, until touchUp is received. Also when true is returned, the
              * event is {@link Event#handle() handled}.
              * @see InputEvent */
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
                 if (tradeSlotLocked) return true;
 
                 // Trade Item click
                 if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) {
-                    if (inventoryType == InventoryType.EQUIPMENT)
-                        return true; // Equipment bag click!
+                    if (inventoryType == InventoryType.BANK) return true; // Bank click!
+                    if (inventoryType == InventoryType.EQUIPMENT) return true; // Equipment click!
                     if (itemStack == null) return true; // Empty slot click!
 
                     ActorUtil.getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
@@ -305,23 +301,18 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
                 // Shift + Left click
                 if (button == Input.Buttons.LEFT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
                     return true;
                 }
                 // Shift + Right click
                 if (button == Input.Buttons.RIGHT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    println(ItemStackSlot.class, "SHIFT + LEFT CLICK");
                     return true;
                 }
 
-
                 if (button == Input.Buttons.RIGHT) {
-
                     // Bringing up options for the item!
                     if (itemStack != null) {
                         ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryType.getInventoryTypeIndex(), slotIndex, x, y);
                     }
-
                     return true;
                 }
 

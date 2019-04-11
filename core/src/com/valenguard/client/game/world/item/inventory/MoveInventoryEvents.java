@@ -1,9 +1,6 @@
 package com.valenguard.client.game.world.item.inventory;
 
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -27,14 +24,14 @@ public class MoveInventoryEvents {
     private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
 
     @Getter
-    private boolean synchingInventory = false;
+    private boolean syncingInventory = false;
 
     public void addPreviousMovement(InventoryMoveData previousMove) {
         previousMovements.add(previousMove);
     }
 
     public void receivedNonMoveRequest() {
-        if (previousMovements.isEmpty() || synchingInventory) return;
+        if (previousMovements.isEmpty() || syncingInventory) return;
 
         println(getClass(), "Rewinding the inventory.");
 
@@ -52,8 +49,18 @@ public class MoveInventoryEvents {
             changeEquipment(toWindow.getItemStackSlot(toPosition), fromWindow.getItemStackSlot(fromPosition));
 
             // Flipping the order
-            fromWindow.setItemStack(fromPosition, toItemStack);
-            toWindow.setItemStack(toPosition, fromItemStack);
+            if (!previousMove.isStacking()) {
+                fromWindow.setItemStack(fromPosition, toItemStack);
+                toWindow.setItemStack(toPosition, fromItemStack);
+            } else {
+                int unStackAmount = previousMove.getAddedAmount();
+
+                ItemStack unStack = new ItemStack(toItemStack.getItemId());
+                unStack.setAmount(unStackAmount);
+
+                toItemStack.setAmount(toItemStack.getAmount() - unStackAmount);
+                fromWindow.setItemStack(fromPosition, unStack);
+            }
 
             // Unlocking the movement but sync locking instead
             toWindow.getItemStackSlot(toPosition).setMoveSlotLocked(false);
@@ -61,7 +68,7 @@ public class MoveInventoryEvents {
         }
 
         // Locking the inventory!
-        synchingInventory = true;
+        syncingInventory = true;
 
         // 1. walk back all of are moves...
         // 2. lock the inventory
@@ -88,7 +95,7 @@ public class MoveInventoryEvents {
         ItemSlotContainer fromWindow = getItemSlotContainer(previousMove.getFromWindow());
         ItemSlotContainer toWindow = getItemSlotContainer(previousMove.getToWindow());
 
-        if (synchingInventory) {
+        if (syncingInventory) {
 
             byte fromPosition = previousMove.getFromPosition();
             byte toPosition = previousMove.getToPosition();
@@ -104,12 +111,20 @@ public class MoveInventoryEvents {
             // Performing the inventory move that the server says to perform.
             changeEquipment(toWindow.getItemStackSlot(toPosition), fromWindow.getItemStackSlot(fromPosition));
 
-            toWindow.setItemStack(toPosition, fromItemStack);
-            fromWindow.setItemStack(fromPosition, toItemStack);
+            // Unstack items
+            if (toItemStack != null && fromItemStack.getStackable() > 0 && toItemStack.getStackable() > 0
+                    && fromItemStack.getItemStackType() == toItemStack.getItemStackType()) {
+                fromItemStack.setAmount(fromItemStack.getAmount() + toItemStack.getAmount());
+                toWindow.setItemStack(toPosition, fromItemStack);
+                fromWindow.setItemStack(fromPosition, null);
+            } else {
+                toWindow.setItemStack(toPosition, fromItemStack);
+                fromWindow.setItemStack(fromPosition, toItemStack);
+            }
 
             // Reached the end of the movements and now the client is in alignment with the server.
             if (previousMovements.isEmpty()) {
-                synchingInventory = false;
+                syncingInventory = false;
             }
 
         } else {

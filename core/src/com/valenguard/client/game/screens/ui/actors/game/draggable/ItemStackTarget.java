@@ -80,7 +80,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
 
         if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
-                || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSynchingInventory()) {
+                || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
             sourceItemStackSlot.setItemStack(sourceItemStack);
             println(getClass(), "cannot move item at this time", false, PRINT_DEBUG);
             return;
@@ -93,6 +93,14 @@ public class ItemStackTarget extends DragAndDrop.Target {
             sourceItemStackSlot.setItemStack(targetItemStack);
             println(getClass(), "Picking up and placing back down", false, PRINT_DEBUG);
             return;
+        }
+
+        boolean isStack = false;
+        if (targetItemStack != null && sourceItemStack.getStackable() > 0 && targetItemStack.getStackable() > 0
+                && sourceItemStack.getItemStackType() == targetItemStack.getItemStackType()) {
+
+            // TODO: Check max size if (true) -?> return
+            isStack = true;
         }
 
         inventoryMoveType = InventoryMovementUtil.getWindowMovementInfo(sourceItemStackSlot.getInventoryType(), itemStackTargetSlot.getInventoryType());
@@ -117,18 +125,33 @@ public class ItemStackTarget extends DragAndDrop.Target {
                         sourceItemStackSlot.getSlotIndex(),
                         itemStackTargetSlot.getSlotIndex(),
                         inventoryMoveType.getFromWindow().getInventoryTypeIndex(),
-                        inventoryMoveType.getToWindow().getInventoryTypeIndex()
+                        inventoryMoveType.getToWindow().getInventoryTypeIndex(),
+                        isStack,
+                        sourceItemStack.getAmount()
                 ));
 
         Valenguard.getInstance().getMoveInventoryEvents().changeEquipment(itemStackTargetSlot, sourceItemStackSlot);
 
         if (targetItemStack != null) {
-            // Swap (setting back on itself is valid swap)
-            swapItemAction(sourceItemStack, targetItemStack, sourceItemStackSlot);
+
+            if (isStack) {
+                stackItemAction(sourceItemStack, targetItemStack, sourceItemStackSlot);
+            } else {
+                swapItemAction(sourceItemStack, targetItemStack, sourceItemStackSlot);
+            }
+
         } else {
             // No swap just set empty cell
             setItemAction(sourceItemStack, sourceItemStackSlot);
         }
+    }
+
+
+    private void stackItemAction(ItemStack sourceItemStack, ItemStack targetItemStack, ItemStackSlot sourceItemStackSlot) {
+        sourceItemStack.setAmount(sourceItemStack.getAmount() + targetItemStack.getAmount());
+
+        itemStackTargetSlot.setItemStack(sourceItemStack);
+        sourceItemStackSlot.deleteStack();
     }
 
     /**
@@ -139,10 +162,8 @@ public class ItemStackTarget extends DragAndDrop.Target {
      * @param sourceItemStackSlot The {@link ItemStackSlot} that the {@link ItemStack} was picked up from.
      */
     private void swapItemAction(ItemStack sourceItemStack, ItemStack targetItemStack, ItemStackSlot sourceItemStackSlot) {
-
         itemStackTargetSlot.setItemStack(sourceItemStack);
         sourceItemStackSlot.setItemStack(targetItemStack);
-
     }
 
     /**
@@ -152,9 +173,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
      * @param sourceItemStackSlot The {@link ItemStackSlot} that the {@link ItemStack} was picked up from.
      */
     private void setItemAction(ItemStack sourceItemStack, ItemStackSlot sourceItemStackSlot) {
-
         itemStackTargetSlot.setItemStack(sourceItemStack);
         sourceItemStackSlot.deleteStack();
-
     }
 }

@@ -11,6 +11,9 @@ public class InventoryMoveData {
     private byte fromWindow;
     private byte toWindow;
 
+    private boolean isStacking;
+    private int addedAmount;
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof InventoryMoveData)) return false;
