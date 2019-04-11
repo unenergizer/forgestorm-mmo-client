@@ -36,6 +36,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import static com.valenguard.client.util.Log.println;
+
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final EntityDropDownMenu dropDownMenu;
@@ -139,7 +141,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private void cleanUpDropDownMenu(boolean closeWindow) {
         if (closeWindow) ActorUtil.fadeOutWindow(dropDownMenu);
-        dropDownTable.remove();
+        boolean removed = dropDownTable.remove();
+        println(getClass(), "dropDownTable: " + removed);
     }
 
     class MenuEntry extends VisTable {

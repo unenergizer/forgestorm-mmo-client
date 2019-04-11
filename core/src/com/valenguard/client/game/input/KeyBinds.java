@@ -21,7 +21,7 @@ public class KeyBinds {
      * DEBUG
      */
     public static final int GAME_DEBUG = Input.Keys.F3;
-    public static final int SCENE2D_DEBUG = Input.Keys.F12;
+    public static final int SCENE2D_DEBUG = Input.Keys.F11;
 
     /*
      * CHAT
@@ -31,7 +31,7 @@ public class KeyBinds {
     /*
      * WINDOWS
      */
-    public static final int FULLSCREEN = Input.Keys.F11;
+    public static final int FULLSCREEN = Input.Keys.F10;
     public static final int INVENTORY_WINDOW = Input.Keys.I;
     public static final int EQUIPMENT_WINDOW = Input.Keys.C;
 }

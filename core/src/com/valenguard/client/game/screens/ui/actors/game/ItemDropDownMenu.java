@@ -17,12 +17,14 @@ import static com.valenguard.client.util.Log.println;
 
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
+    private final ItemDropDownMenu itemDropDownMenu;
     private VisTable dropDownTable = new VisTable();
     private byte inventoryIndex;
     private byte slotIndex;
 
     public ItemDropDownMenu() {
         super("Choose Option");
+        this.itemDropDownMenu = this;
     }
 
     @Override
@@ -43,7 +45,6 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         });
 
         setVisible(false);
-
         return this;
     }
 
@@ -58,10 +59,10 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         addDropButton(dropDownTable);
         addCancelButton(dropDownTable);
 
-        add(dropDownTable).expand().fill();
+        itemDropDownMenu.add(dropDownTable).expand().fill();
 
         pack();
-        ActorUtil.fadeInWindow(this);
+        ActorUtil.fadeInWindow(itemDropDownMenu);
     }
 
     private void addConsumeButton(VisTable visTable, ItemStack itemStack) {
@@ -112,7 +113,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     private void cleanUpDropDownMenu(boolean closeWindow) {
-        if (closeWindow) ActorUtil.fadeOutWindow(this);
+        if (closeWindow) ActorUtil.fadeOutWindow(itemDropDownMenu);
         boolean removed = dropDownTable.remove();
         println(getClass(), "dropDownTable: " + removed);
     }

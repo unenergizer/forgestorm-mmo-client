@@ -14,6 +14,7 @@ import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
+import com.valenguard.client.game.screens.ui.actors.game.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
@@ -74,6 +75,7 @@ public class StageHandler implements Disposable {
     private IncomingTradeRequestWindow incomingTradeRequestWindow;
     private EntityShopWindow entityShopWindow;
     private StatusBar statusBar;
+    private CharacterCreation characterCreation;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -143,6 +145,7 @@ public class StageHandler implements Disposable {
         incomingTradeRequestWindow = new IncomingTradeRequestWindow();
         entityShopWindow = new EntityShopWindow();
         statusBar = new StatusBar();
+        characterCreation = new CharacterCreation();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -160,6 +163,7 @@ public class StageHandler implements Disposable {
 //        stage.addActor(new TestToasts(stage));
         stage.addActor(entityShopWindow.build());
         stage.addActor(statusBar.build());
+        stage.addActor(characterCreation.build());
 
         ActorUtil.fadeInWindow(chatWindow);
         buttonBar.setVisible(true);
