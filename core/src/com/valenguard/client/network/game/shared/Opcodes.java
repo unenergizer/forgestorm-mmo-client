@@ -14,7 +14,7 @@ public class Opcodes {
     /**
      * SERVER -> CLIENT
      */
-    public static final byte INIT_CLIENT_SESSION = 0x01;
+    public static final byte INIT_SCREEN = 0x01;
     public static final byte ENTITY_SPAWN = 0x02;
     public static final byte ENTITY_DESPAWN = 0x03;
     public static final byte ENTITY_MOVE_UPDATE = 0x04;

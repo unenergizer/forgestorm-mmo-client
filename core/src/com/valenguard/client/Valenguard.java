@@ -9,6 +9,7 @@ import com.valenguard.client.game.movement.EntityMovementManager;
 import com.valenguard.client.game.movement.EntityTracker;
 import com.valenguard.client.game.rpg.EntityShopManager;
 import com.valenguard.client.game.rpg.Skills;
+import com.valenguard.client.game.screens.CharacterSelectScreen;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.LoginScreen;
 import com.valenguard.client.game.screens.ScreenType;
@@ -34,7 +35,7 @@ import com.valenguard.client.network.game.packet.in.EntityDespawnPacketIn;
 import com.valenguard.client.network.game.packet.in.EntityHealthPacketIn;
 import com.valenguard.client.network.game.packet.in.EntityMovePacketIn;
 import com.valenguard.client.network.game.packet.in.EntitySpawnPacketIn;
-import com.valenguard.client.network.game.packet.in.InitializeClientSessionPacketIn;
+import com.valenguard.client.network.game.packet.in.InitScreenPacketIn;
 import com.valenguard.client.network.game.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.game.packet.in.InventoryPacketIn;
 import com.valenguard.client.network.game.packet.in.MovingEntityTeleportPacketIn;
@@ -59,6 +60,7 @@ public class Valenguard extends Game {
     private static Valenguard valenguard;
     public static ConnectionManager connectionManager;
     public static GameScreen gameScreen;
+    public static CharacterSelectScreen characterSelectScreen;
     public static LoginScreen loginScreen;
 
     private EntityTracker entityTracker;
@@ -117,6 +119,7 @@ public class Valenguard extends Game {
 
         // loadItems screens
         gameScreen = new GameScreen();
+        characterSelectScreen = new CharacterSelectScreen();
         loginScreen = new LoginScreen();
         setScreen(ScreenType.LOGIN);
     }
@@ -126,6 +129,9 @@ public class Valenguard extends Game {
         switch (screenType) {
             case LOGIN:
                 setScreen(loginScreen);
+                break;
+            case CHARACTER_SELECT:
+                setScreen(characterSelectScreen);
                 break;
             case GAME:
                 setScreen(gameScreen);
@@ -178,7 +184,7 @@ public class Valenguard extends Game {
                     @Override
                     public void accept(EventBus eventBus) {
                         eventBus.registerListener(new PingPacketIn());
-                        eventBus.registerListener(new InitializeClientSessionPacketIn());
+                        eventBus.registerListener(new InitScreenPacketIn());
                         eventBus.registerListener(new EntityMovePacketIn());
                         eventBus.registerListener(new EntitySpawnPacketIn());
                         eventBus.registerListener(new EntityDespawnPacketIn());
