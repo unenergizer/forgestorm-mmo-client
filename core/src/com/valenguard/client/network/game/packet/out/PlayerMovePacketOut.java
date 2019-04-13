@@ -6,7 +6,7 @@ import com.valenguard.client.network.game.shared.Opcodes;
 
 import static com.valenguard.client.util.Preconditions.checkArgument;
 
-public class PlayerMovePacketOut extends AbstractClientOutPacket {
+public class PlayerMovePacketOut extends AbstractClientPacketOut {
 
     private final Location attemptLocation;
 

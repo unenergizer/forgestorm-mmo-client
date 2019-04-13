@@ -9,14 +9,14 @@ public class OutputStreamManager {
 
     private static final int MAX_BUFFER_SIZE = 500;
 
-    private final Queue<AbstractClientOutPacket> outputContexts = new LinkedList<AbstractClientOutPacket>();
+    private final Queue<AbstractClientPacketOut> outputContexts = new LinkedList<AbstractClientPacketOut>();
 
     public void sendPackets(ClientHandler clientHandler) {
         int bufferOffsetCheck = 0;
-        AbstractClientOutPacket abstractClientOutPacket;
-        while ((abstractClientOutPacket = outputContexts.poll()) != null) {
+        AbstractClientPacketOut abstractClientPacketOut;
+        while ((abstractClientPacketOut = outputContexts.poll()) != null) {
 
-            int thisBufferSize = clientHandler.fillCurrentBuffer(abstractClientOutPacket);
+            int thisBufferSize = clientHandler.fillCurrentBuffer(abstractClientPacketOut);
             bufferOffsetCheck += thisBufferSize;
 
             if (bufferOffsetCheck > MAX_BUFFER_SIZE) { // exceeds buffer limit so we should flush what we have written so far
@@ -27,7 +27,7 @@ public class OutputStreamManager {
 
                 bufferOffsetCheck = thisBufferSize;
 
-                clientHandler.getValenguardOutputStream().createNewBuffers(abstractClientOutPacket);
+                clientHandler.getValenguardOutputStream().createNewBuffers(abstractClientPacketOut);
                 // This happened to be the last packet so we should add the
                 // to be written. Write and flush it.
                 if (outputContexts.peek() == null) {
@@ -40,15 +40,15 @@ public class OutputStreamManager {
                 ValenguardOutputStream valenguardOutputStream = clientHandler.getValenguardOutputStream();
 
                 if (!valenguardOutputStream.currentBuffersInitialized()) {
-                    valenguardOutputStream.createNewBuffers(abstractClientOutPacket);
+                    valenguardOutputStream.createNewBuffers(abstractClientPacketOut);
                 } else {
 
-                    boolean opcodesMatch = valenguardOutputStream.doOpcodesMatch(abstractClientOutPacket);
+                    boolean opcodesMatch = valenguardOutputStream.doOpcodesMatch(abstractClientPacketOut);
                     if (opcodesMatch) {
                         valenguardOutputStream.appendBewBuffer();
                     } else {
                         clientHandler.writeBuffers();
-                        valenguardOutputStream.createNewBuffers(abstractClientOutPacket);
+                        valenguardOutputStream.createNewBuffers(abstractClientPacketOut);
                     }
                 }
 
@@ -61,7 +61,7 @@ public class OutputStreamManager {
         }
     }
 
-    void addClientOutPacket(AbstractClientOutPacket abstractClientOutPacket) {
-        outputContexts.add(abstractClientOutPacket);
+    void addClientOutPacket(AbstractClientPacketOut abstractClientPacketOut) {
+        outputContexts.add(abstractClientPacketOut);
     }
 }

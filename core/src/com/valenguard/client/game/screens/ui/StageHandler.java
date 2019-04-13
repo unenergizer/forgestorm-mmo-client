@@ -12,6 +12,7 @@ import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.CharacterCreation;
@@ -57,6 +58,10 @@ public class StageHandler implements Disposable {
     private LoginTable loginTable;
     private ConnectionStatusWindow connectionStatusWindow;
 
+    // character select
+    private CharacterSelectMenu characterSelectMenu;
+    private CharacterCreation characterCreation;
+
     // game
     private FadeWindow fadeWindow;
     private HelpWindow helpWindow;
@@ -75,7 +80,6 @@ public class StageHandler implements Disposable {
     private IncomingTradeRequestWindow incomingTradeRequestWindow;
     private EntityShopWindow entityShopWindow;
     private StatusBar statusBar;
-    private CharacterCreation characterCreation;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -92,8 +96,17 @@ public class StageHandler implements Disposable {
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
 
         // Build actors
-        if (Valenguard.getInstance().getScreenType() == ScreenType.LOGIN) buildLoginScreenUI();
-        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) buildGameScreenUI();
+        switch (Valenguard.getInstance().getScreenType()) {
+            case LOGIN:
+                buildLoginScreenUI();
+                break;
+            case CHARACTER_SELECT:
+                buildCharacterSelectUI();
+                break;
+            case GAME:
+                buildGameScreenUI();
+                break;
+        }
     }
 
     private void buildLoginScreenUI() {
@@ -120,11 +133,20 @@ public class StageHandler implements Disposable {
         stage.setKeyboardFocus(loginTable.getAccountField());
     }
 
-    private void buildGameScreenUI() {
+    private void buildCharacterSelectUI() {
         buttonTable.setVisible(false);
         versionTable.setVisible(false);
         copyrightTable.setVisible(false);
         loginTable.setVisible(false);
+
+        characterSelectMenu = new CharacterSelectMenu();
+        characterCreation = new CharacterCreation();
+
+        stage.addActor(characterSelectMenu.build());
+        stage.addActor(characterCreation.build());
+    }
+
+    private void buildGameScreenUI() {
 
         // Quickly setup fade window!
         fadeWindow = new FadeWindow();
@@ -145,7 +167,6 @@ public class StageHandler implements Disposable {
         incomingTradeRequestWindow = new IncomingTradeRequestWindow();
         entityShopWindow = new EntityShopWindow();
         statusBar = new StatusBar();
-        characterCreation = new CharacterCreation();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -163,7 +184,6 @@ public class StageHandler implements Disposable {
 //        stage.addActor(new TestToasts(stage));
         stage.addActor(entityShopWindow.build());
         stage.addActor(statusBar.build());
-        stage.addActor(characterCreation.build());
 
         ActorUtil.fadeInWindow(chatWindow);
         buttonBar.setVisible(true);

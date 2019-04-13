@@ -5,14 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.game.rpg.CharacterClasses;
 import com.valenguard.client.game.rpg.CharacterGenders;
 import com.valenguard.client.game.rpg.CharacterRaces;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.util.ColorList;
 
-public class CharacterCreation extends VisWindow implements Buildable {
+public class CharacterCreation extends HideableVisWindow implements Buildable {
 
 
     public CharacterCreation() {
@@ -47,7 +47,7 @@ public class CharacterCreation extends VisWindow implements Buildable {
 
         setResizable(false);
         setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        setVisible(true);
+        setVisible(false);
         return this;
     }
 

@@ -25,6 +25,7 @@ public class Opcodes {
     public static final byte ENTITY_DAMAGE_OUT = 0x09;
     public static final byte ENTITY_HEAL_OUT = 0x0A;
     public static final byte AI_ENTITY_UPDATE_OUT = 0x0B;
+    public static final byte CHARACTERS_MENU_LOAD = 0x0C;
 
     /**
      * CLIENT -> SERVER
@@ -32,5 +33,6 @@ public class Opcodes {
     public static final byte MOVE_REQUEST = 0x01;
     public static final byte CLICK_ACTION = 0x02;
     public static final byte ENTITY_SHOPS = 0x03;
+    public static final byte CHARACTER_SELECT = 0x04;
 
 }

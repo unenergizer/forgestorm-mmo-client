@@ -3,7 +3,7 @@ package com.valenguard.client.network.game.packet.out;
 import com.valenguard.client.game.input.ClickAction;
 import com.valenguard.client.network.game.shared.Opcodes;
 
-public class ClickActionPacketOut extends AbstractClientOutPacket {
+public class ClickActionPacketOut extends AbstractClientPacketOut {
 
     private final ClickAction clickAction;
 

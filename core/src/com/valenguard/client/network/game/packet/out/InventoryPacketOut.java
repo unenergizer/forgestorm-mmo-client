@@ -3,7 +3,7 @@ package com.valenguard.client.network.game.packet.out;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.network.game.shared.Opcodes;
 
-public class InventoryPacketOut extends AbstractClientOutPacket {
+public class InventoryPacketOut extends AbstractClientPacketOut {
 
     private final InventoryActions inventoryAction;
 

@@ -4,7 +4,7 @@ import com.valenguard.client.Valenguard;
 
 import lombok.Getter;
 
-public abstract class AbstractClientOutPacket {
+public abstract class AbstractClientPacketOut {
 
     /**
      * Opcode to send with the out-going packet.
@@ -12,7 +12,7 @@ public abstract class AbstractClientOutPacket {
     @Getter
     private final byte opcode;
 
-    AbstractClientOutPacket(byte opcode) {
+    AbstractClientPacketOut(byte opcode) {
         this.opcode = opcode;
     }
 

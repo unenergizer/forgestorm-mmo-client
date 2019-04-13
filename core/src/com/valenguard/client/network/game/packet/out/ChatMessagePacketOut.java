@@ -4,7 +4,7 @@ import com.valenguard.client.network.game.shared.Opcodes;
 
 import static com.valenguard.client.util.Log.println;
 
-public class ChatMessagePacketOut extends AbstractClientOutPacket {
+public class ChatMessagePacketOut extends AbstractClientPacketOut {
 
     private final String chatMessage;
 

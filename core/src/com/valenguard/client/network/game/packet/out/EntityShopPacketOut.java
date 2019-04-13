@@ -3,7 +3,7 @@ package com.valenguard.client.network.game.packet.out;
 import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.network.game.shared.Opcodes;
 
-public class EntityShopPacketOut extends AbstractClientOutPacket {
+public class EntityShopPacketOut extends AbstractClientPacketOut {
 
     private EntityShopAction entityShopAction;
 
