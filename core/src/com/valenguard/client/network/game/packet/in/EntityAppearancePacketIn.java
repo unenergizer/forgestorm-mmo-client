@@ -86,7 +86,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         boolean updatedTextureId = false;
 
         if ((packetData.appearanceBits & COLOR_INDEX) != 0) {
-            appearance.setColor(ColorList.getColorList(packetData.colorId).getColor());
+            appearance.setColor(ColorList.getType(packetData.colorId).getColor());
         }
         if ((packetData.appearanceBits & BODY_INDEX) != 0) {
             appearance.getTextureIds()[Appearance.BODY] = packetData.textureIds[Appearance.BODY];

@@ -55,16 +55,16 @@ public enum ColorList {
 
     private Color color;
 
-    public static ColorList getColorList(byte colorByte) {
+    public static ColorList getType(byte typeByte) {
         for (ColorList colorList : ColorList.values()) {
-            if ((byte) colorList.ordinal() == colorByte) {
+            if ((byte) colorList.ordinal() == typeByte) {
                 return colorList;
             }
         }
         return null;
     }
 
-    public byte getColorListByte() {
+    public byte getTypeByte() {
         return (byte) this.ordinal();
     }
 

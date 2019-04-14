@@ -157,7 +157,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
-        entity.setAppearance(new Appearance(ColorList.getColorList(packetData.colorId).getColor(), packetData.textureIds));
+        entity.setAppearance(new Appearance(ColorList.getType(packetData.colorId).getColor(), packetData.textureIds));
 
         // This is for setting animation data.
         switch (packetData.entityType) {
