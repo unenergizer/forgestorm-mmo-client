@@ -635,22 +635,26 @@
  <objectgroup id="16" name="skill">
   <object id="37" name="mining" type="SKILL" x="720" y="544" width="16" height="16">
    <properties>
-    <property name="TYPE" type="int" value="0"/>
+    <property name="TYPE" value="ORE"/>
+    <property name="skillNodeId" type="int" value="0"/>
    </properties>
   </object>
   <object id="49" name="mining" type="SKILL" x="752" y="512" width="16" height="16">
    <properties>
-    <property name="TYPE" type="int" value="0"/>
+    <property name="TYPE" value="ORE"/>
+    <property name="skillNodeId" type="int" value="0"/>
    </properties>
   </object>
   <object id="50" name="mining" type="SKILL" x="496" y="448" width="16" height="16">
    <properties>
-    <property name="TYPE" type="int" value="0"/>
+    <property name="TYPE" value="ORE"/>
+    <property name="skillNodeId" type="int" value="0"/>
    </properties>
   </object>
   <object id="51" name="mining" type="SKILL" x="1072" y="352" width="16" height="16">
    <properties>
-    <property name="TYPE" type="int" value="0"/>
+    <property name="TYPE" value="ORE"/>
+    <property name="skillNodeId" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

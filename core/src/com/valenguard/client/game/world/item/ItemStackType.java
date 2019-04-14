@@ -21,7 +21,8 @@ public enum ItemStackType {
 
     // Generic
     GOLD,
-    POTION
+    POTION,
+    MATERIAL
 
     // Trade Items
     // Skill Items
