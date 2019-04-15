@@ -9,6 +9,7 @@ import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import static com.valenguard.client.util.Log.println;
 
@@ -20,15 +21,22 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
         byte charactersToLoad = clientHandler.readByte();
 
         println(getClass(), "Total Characters: " + charactersToLoad);
-        Character[] characters = new Character[charactersToLoad];
+        GameCharacter[] characters = new GameCharacter[charactersToLoad];
 
         for (byte i = 0; i < charactersToLoad; i++) {
             String name = clientHandler.readString();
             byte characterId = clientHandler.readByte();
-            characters[i] = new Character(name, characterId);
+            short bodyId = clientHandler.readShort();
+            short headId = clientHandler.readShort();
+            byte colorId = clientHandler.readByte();
+
+            characters[i] = new GameCharacter(name, characterId, bodyId, headId, colorId);
 
             println(getClass(), "Name: " + name);
-            println(getClass(), "ID: " + characterId);
+            println(getClass(), "CharacterID: " + characterId);
+            println(getClass(), "BodyID: " + bodyId);
+            println(getClass(), "HeadID: " + headId);
+            println(getClass(), "ColorID: " + colorId);
         }
 
         return new CharacterData(characters);
@@ -38,20 +46,24 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
     public void onEvent(CharacterData packetData) {
         CharacterSelectMenu characterSelectMenu = ActorUtil.getStageHandler().getCharacterSelectMenu();
         characterSelectMenu.reset();
-        for (Character character : packetData.characters) {
-            characterSelectMenu.addCharacterButton(character.name, character.characterId);
+        for (GameCharacter character : packetData.characters) {
+            characterSelectMenu.addCharacterButton(character);
         }
     }
 
     @AllArgsConstructor
     class CharacterData extends PacketData {
-        private Character[] characters;
+        private GameCharacter[] characters;
     }
 
+    @Getter
     @AllArgsConstructor
-    private class Character {
+    public class GameCharacter {
         private final String name;
         private final byte characterId;
+        private final short bodyId;
+        private final short headId;
+        private final byte colorId;
     }
 
 }

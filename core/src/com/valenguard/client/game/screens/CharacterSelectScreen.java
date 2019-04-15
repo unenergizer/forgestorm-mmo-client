@@ -46,6 +46,9 @@ public class CharacterSelectScreen implements Screen {
 //        cursor = Gdx.graphics.newCursor(cursorPixmap, cursorPixmap.getWidth() / 2, cursorPixmap.getHeight() / 2);
 //        Gdx.graphics.setCursor(cursor);
 
+        // Load Graphics
+        fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
+
         // User Interface
         ActorUtil.getStageHandler().dispose();
         ActorUtil.getStageHandler().init(null);

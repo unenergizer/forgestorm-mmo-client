@@ -1,6 +1,6 @@
 login:
-  ip: 24.72.164.105
+  ip: localhost
   port: 13337
 game:
-   ip: 24.72.164.105
+   ip: localhost
    port: 25565
