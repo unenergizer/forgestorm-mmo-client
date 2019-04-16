@@ -13,8 +13,6 @@ import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
-import static com.valenguard.client.util.Log.println;
-
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final ItemDropDownMenu itemDropDownMenu;
@@ -29,6 +27,8 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build() {
+
+        add(dropDownTable).grow();
 
         addListener(new ForceCloseWindowListener() {
             @Override
@@ -50,7 +50,6 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     public void toggleMenu(ItemStack itemStack, byte inventoryIndex, byte slotIndex, float x, float y) {
         cleanUpDropDownMenu(false);
-        dropDownTable = new VisTable();
         setPosition(x, y);
         this.inventoryIndex = inventoryIndex;
         this.slotIndex = slotIndex;
@@ -59,10 +58,9 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         addDropButton(dropDownTable);
         addCancelButton(dropDownTable);
 
-        itemDropDownMenu.add(dropDownTable).expand().fill();
-
         pack();
         ActorUtil.fadeInWindow(itemDropDownMenu);
+        this.setZIndex(Integer.MAX_VALUE);
     }
 
     private void addConsumeButton(VisTable visTable, ItemStack itemStack) {
@@ -81,10 +79,6 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                 cleanUpDropDownMenu(true);
             }
         });
-
-        // potion_01
-        // potion_100
-
     }
 
     private void addDropButton(VisTable visTable) {
@@ -114,7 +108,6 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     private void cleanUpDropDownMenu(boolean closeWindow) {
         if (closeWindow) ActorUtil.fadeOutWindow(itemDropDownMenu);
-        boolean removed = dropDownTable.remove();
-        println(getClass(), "dropDownTable: " + removed);
+        dropDownTable.clearChildren();
     }
 }

@@ -13,8 +13,10 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.character.CharacterLogout;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.network.game.packet.out.CharacterLogoutPacketOut;
 
 public class EscapeWindow extends HideableVisWindow implements Buildable, Focusable {
 
@@ -101,7 +103,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         logout.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.connectionManager.logout();
+                new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_CHARACTER).sendPacket();
                 return true;
             }
         });

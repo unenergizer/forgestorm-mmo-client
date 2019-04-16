@@ -36,8 +36,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import static com.valenguard.client.util.Log.println;
-
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final EntityDropDownMenu dropDownMenu;
@@ -52,6 +50,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build() {
+
+        add(dropDownTable).grow();
+
         addListener(new ForceCloseWindowListener() {
             @Override
             public void handleClose() {
@@ -72,7 +73,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     public void toggleMenu(List<MovingEntity> movingEntityList, float x, float y) {
         cleanUpDropDownMenu(false);
-        dropDownTable = new VisTable();
         setPosition(x, y);
 
         for (MovingEntity movingEntity : movingEntityList) {
@@ -81,8 +81,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
         addWalkHereButton(dropDownTable, movingEntityList.get(0).getCurrentMapLocation());
         addCancelButton(dropDownTable);
-
-        dropDownMenu.add(dropDownTable).expand().fill();
 
         pack();
 
@@ -141,8 +139,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private void cleanUpDropDownMenu(boolean closeWindow) {
         if (closeWindow) ActorUtil.fadeOutWindow(dropDownMenu);
-        boolean removed = dropDownTable.remove();
-        println(getClass(), "dropDownTable: " + removed);
+        dropDownTable.clearChildren();
     }
 
     class MenuEntry extends VisTable {
