@@ -191,10 +191,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         short xDiff = (short) (toLocation.getX() - clientLocation.getX());
                         short yDiff = (short) (toLocation.getY() - clientLocation.getY());
 
-                        if (Math.abs(xDiff) > 1 && Math.abs(yDiff) > 1) {
-                            // The bank teller must be at a diagonal to the player
+                        if (Math.abs(xDiff) + Math.abs(yDiff) > 2) {
 
-                            println(getClass(), "Bank teller is at a diagonal to the player");
+                            attemptBankTraversal(clientLocation, toLocation);
 
                         } else {
                             Location locationBetweenEntities = new Location(clientLocation).add(
@@ -206,7 +205,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                             // Check if the location is a bank teller tile
                             if (locationHasBankAccess(locationBetweenEntities)) {
-                                println(getClass(), "Opening bank booth while beside bank access point");
                                 new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
                             } else {
                                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
@@ -215,32 +213,36 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         }
 
                     } else {
-                        // Traverse to the bank teller
-                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-                        if (testMoveNodes == null) {
-                            if (!traverseToBankAccessPoint(clientLocation)) {
-                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
-                            }
-
-                            cleanUpDropDownMenu(true);
-                            return;
-                        }
-
-                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
-                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                                    @Override
-                                    public void postMoveAction() {
-                                        new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
-                                    }
-                                }));
+                        attemptBankTraversal(clientLocation, toLocation);
                     }
                     cleanUpDropDownMenu(true);
                 }
             });
+        }
+
+        private void attemptBankTraversal(Location clientLocation, Location toLocation) {
+            // Traverse to the bank teller
+            Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
+
+            if (testMoveNodes == null) {
+                if (!traverseToBankAccessPoint(clientLocation)) {
+                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
+                }
+
+                cleanUpDropDownMenu(true);
+                return;
+            }
+
+            Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
+
+            Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
+            Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                    new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
+                        @Override
+                        public void postMoveAction() {
+                            new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
+                        }
+                    }));
         }
 
         private boolean traverseToBankAccessPoint(Location clientLocation) {
