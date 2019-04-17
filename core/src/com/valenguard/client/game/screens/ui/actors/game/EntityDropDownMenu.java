@@ -179,8 +179,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
-                    // TODO: Opening/Closing the bank should require server communication
-
                     if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
                         // We are beside the bank teller
                         new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();

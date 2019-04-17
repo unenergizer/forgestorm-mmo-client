@@ -7,6 +7,7 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
@@ -60,6 +61,11 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
         setPosition(ActorUtil.getStage().getViewport().getScreenWidth() - getWidth(), 0);
         setVisible(false);
         return this;
+    }
+
+    @Override
+    protected void close() {
+        EntityManager.getInstance().getPlayerClient().closeBankWindow();
     }
 
     @Override
