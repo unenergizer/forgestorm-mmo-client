@@ -2,6 +2,7 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
@@ -12,6 +13,7 @@ import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.game.rpg.ShopOpcodes;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -26,6 +28,8 @@ import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
 import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
 import com.valenguard.client.game.world.maps.Location;
+import com.valenguard.client.game.world.maps.MapUtil;
+import com.valenguard.client.game.world.maps.Tile;
 import com.valenguard.client.network.game.packet.out.ClickActionPacketOut;
 import com.valenguard.client.network.game.packet.out.EntityShopPacketOut;
 import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
@@ -35,6 +39,8 @@ import com.valenguard.client.util.PathFinding;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import static com.valenguard.client.util.Log.println;
 
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
@@ -106,12 +112,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 Location clientLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
-                if (testMoveNodes == null) return;
-
-                Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                    moveNodes.add(testMoveNodes.remove());
+                if (testMoveNodes == null) {
+                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable walk path.");
+                    cleanUpDropDownMenu(true);
+                    return;
                 }
+
+                Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                 Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
                         new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
@@ -150,13 +157,142 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         MenuEntry(MovingEntity clickedEntity) {
             this.clickedEntity = clickedEntity;
 
+            addOpenBankButton();
             addAttackButton();
             addTradeButton();
             addShopButton();
             addFollowButton();
         }
 
-        // Attack, Trade, Shop, Follow, Exit, Walk Here
+        // OpenBank, Attack, Trade, Shop, Follow, Exit, Walk Here
+
+        private void addOpenBankButton() {
+            if (!(clickedEntity instanceof AiEntity)) return;
+            if (!((AiEntity) clickedEntity).isBankKeeper()) return;
+
+            VisTextButton openBankButton = new VisTextButton("Open Bank");
+            add(openBankButton).fill().row();
+
+            openBankButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent changeEvent, Actor actor) {
+
+                    Location clientLocation = playerClient.getFutureMapLocation();
+                    Location toLocation = clickedEntity.getFutureMapLocation();
+
+                    final StageHandler stageHandler = ActorUtil.getStageHandler();
+
+                    println(getClass(), "Client location = " + clientLocation);
+
+                    // TODO: Opening/Closing the bank should require server communication
+
+                    if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
+                        // We are beside the bank teller
+                        ActorUtil.fadeInWindow(stageHandler.getBankWindow());
+                        FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+
+                    } else if (clientLocation.isWithinDistance(toLocation, (short) 2)) {
+                        // Checking to make sure they tile between the player and the entity
+                        // is a bank tile
+                        short xDiff = (short) (toLocation.getX() - clientLocation.getX());
+                        short yDiff = (short) (toLocation.getY() - clientLocation.getY());
+
+                        if (Math.abs(xDiff) > 1 && Math.abs(yDiff) > 1) {
+                            // The bank teller must be at a diagonal to the player
+
+                            println(getClass(), "Bank teller is at a diagonal to the player");
+
+                        } else {
+                            Location locationBetweenEntities = new Location(clientLocation).add(
+                                    toLocation.getX() > clientLocation.getX() ? (short) +1 :
+                                    toLocation.getX() < clientLocation.getX() ? (short) -1 : 0,
+                                    toLocation.getY() > clientLocation.getY() ? (short) +1 :
+                                    toLocation.getY() > clientLocation.getY() ? (short) -1 : 0);
+
+
+                            // Check if the location is a bank teller tile
+                            if (locationHasBankAccess(locationBetweenEntities)) {
+                                ActorUtil.fadeInWindow(stageHandler.getBankWindow());
+                                FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                            } else {
+                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
+                            }
+                            cleanUpDropDownMenu(true);
+                        }
+
+                    } {
+                        // Traverse to the bank teller
+                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
+
+                        if (testMoveNodes == null) {
+                            if (!traverseToBankAccessPoint(clientLocation)) {
+                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
+                            }
+
+                            cleanUpDropDownMenu(true);
+                            return;
+                        }
+
+                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
+
+                        Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
+                        Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
+                                    @Override
+                                    public void postMoveAction() {
+                                        ActorUtil.fadeInWindow(stageHandler.getBankWindow());
+                                        FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                                    }
+                                }));
+                    }
+                    cleanUpDropDownMenu(true);
+                }
+            });
+        }
+
+        private boolean traverseToBankAccessPoint(Location clientLocation) {
+            // Check to see if there is a bank access point around where the entity is
+            Location clickedEntityLocation = clickedEntity.getFutureMapLocation();
+            Location northAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) 1);
+            Location eastAccessPoint = new Location(clickedEntityLocation).add((short) 1 , (short) 0);
+            Location southAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) -1);
+            Location westAccessPoint = new Location(clickedEntityLocation).add((short) -1, (short) 0);
+
+            Queue<MoveNode> testMoveNodes;
+            if (locationHasBankAccess(northAccessPoint)) {
+                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), northAccessPoint.getX(), (short) (northAccessPoint.getY() + 1), clientLocation.getMapName(), false);
+            } else if (locationHasBankAccess(eastAccessPoint)) {
+                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), (short) (eastAccessPoint.getX() + 1), eastAccessPoint.getY(), clientLocation.getMapName(), false);
+            } else if (locationHasBankAccess(southAccessPoint)) {
+                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), southAccessPoint.getX(), (short) (southAccessPoint.getY() - 1), clientLocation.getMapName(), false);
+            } else if (locationHasBankAccess(westAccessPoint)) {
+                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), (short) (westAccessPoint.getX() - 1), westAccessPoint.getY(), clientLocation.getMapName(), false);
+            } else {
+                return false;
+            }
+
+            if (testMoveNodes == null) {
+                return false;
+            }
+
+            final StageHandler stageHandler = ActorUtil.getStageHandler();
+            Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
+            Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                    new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes, new AbstractPostProcessor() {
+                        @Override
+                        public void postMoveAction() {
+                            ActorUtil.fadeInWindow(stageHandler.getBankWindow());
+                            FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                        }
+                    }));
+
+            return true;
+        }
+
+        private boolean locationHasBankAccess(Location location) {
+            Tile bankAccessTile = MapUtil.getTileByLocation(location);
+            return bankAccessTile != null && bankAccessTile.isFlagSet(Tile.BANK_ACCESS);
+        }
 
         private void addAttackButton() {
             VisTextButton attackButton = new VisTextButton("Attack " + clickedEntity.getEntityName());
@@ -177,12 +313,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
-                        if (testMoveNodes == null) return;
-
-                        Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                        for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                            moveNodes.add(testMoveNodes.remove());
+                        if (testMoveNodes == null) {
+                            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to attack.");
+                            cleanUpDropDownMenu(true);
+                            return;
                         }
+
+                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                         Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
                         Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
@@ -217,12 +354,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
-                        if (testMoveNodes == null) return;
-
-                        Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                        for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                            moveNodes.add(testMoveNodes.remove());
+                        if (testMoveNodes == null) {
+                            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable walk path.");
+                            cleanUpDropDownMenu(true);
+                            return;
                         }
+
+                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                         Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
                         Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
@@ -261,10 +399,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         if (testMoveNodes == null) return;
 
-                        Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                        for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                            moveNodes.add(testMoveNodes.remove());
-                        }
+                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                         Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
                         Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
@@ -283,6 +418,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addFollowButton() {
+            if (clickedEntity instanceof AiEntity && ((AiEntity) clickedEntity).isBankKeeper()) return;
+
             VisTextButton followButton = new VisTextButton("Follow " + clickedEntity.getEntityName());
             add(followButton).expand().fill().row();
 
@@ -294,12 +431,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
-                    if (testMoveNodes == null) return;
-
-                    Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                    for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                        moveNodes.add(testMoveNodes.remove());
+                    if (testMoveNodes == null) {
+                        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable follow path.");
+                        cleanUpDropDownMenu(true);
+                        return;
                     }
+
+                    Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                     Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
                     Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(

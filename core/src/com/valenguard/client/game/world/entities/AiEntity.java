@@ -12,6 +12,7 @@ import lombok.Setter;
 public class AiEntity extends MovingEntity {
     private short shopID;
     private EntityAlignment alignment;
+    private boolean isBankKeeper;
 
     /**
      * Entity name drawing

@@ -45,10 +45,7 @@ public class EntityTracker {
                 return;
             } else {
                 // Remove one node from the node list (so we dont end on top of the MovingEntity)
-                Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
-                for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                    moveNodes.add(testMoveNodes.remove());
-                }
+                Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                 if (!moveNodes.isEmpty()) {
                     Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(

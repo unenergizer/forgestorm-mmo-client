@@ -9,6 +9,7 @@ public class Tile {
 
     public static final byte TRAVERSABLE = 0x01;
     public static final byte WARP = 0x02;
+    public static final byte BANK_ACCESS = 0x04;
 
     private byte flags = 0x00;
 

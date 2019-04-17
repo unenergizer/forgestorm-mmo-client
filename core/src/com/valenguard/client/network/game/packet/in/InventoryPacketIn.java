@@ -111,13 +111,16 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             case SET_BAG:
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                println(getClass(), "Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex);
                 ActorUtil.getStageHandler().getBagWindow().setItemStack(packetData.slotIndex, itemStack);
                 break;
             case SET_BANK:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
                 ActorUtil.getStageHandler().getBankWindow().setItemStack(packetData.slotIndex, itemStack);
                 break;
             case SET_EQUIPMENT:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
                 ActorUtil.getStageHandler().getEquipmentWindow().setItemStack(packetData.slotIndex, itemStack);
                 break;

@@ -5,6 +5,8 @@ import com.valenguard.client.Valenguard;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.valenguard.client.util.Log.println;
+
 @Setter
 @Getter
 @SuppressWarnings("unused")

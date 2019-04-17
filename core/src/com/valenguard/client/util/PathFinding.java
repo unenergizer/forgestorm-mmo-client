@@ -151,6 +151,14 @@ public class PathFinding {
         return null;
     }
 
+    public Queue<MoveNode> removeLastNode(Queue<MoveNode> testMoveNodes) {
+        Queue<MoveNode> moveNodes = new LinkedList<MoveNode>();
+        for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+            moveNodes.add(testMoveNodes.remove());
+        }
+        return moveNodes;
+    }
+
     private void finish() {
         closedSet.clear();
         openSet.clear();

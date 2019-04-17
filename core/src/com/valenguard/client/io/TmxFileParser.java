@@ -172,6 +172,33 @@ public class TmxFileParser {
             }
 
             /*
+             *  Get BANK ACCESS
+             */
+            if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("bank_access")) {
+
+                NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
+
+                println(TmxFileParser.class, "Loading bank access!");
+
+                for (int j = 0; j < objectTag.getLength(); j++) {
+                    if (objectTag.item(j).getNodeType() != Node.ELEMENT_NODE) continue;
+
+                    Element objectTagElement = (Element) objectTag.item(j);
+
+                    short x = (short) (Short.parseShort(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE);
+                    short y = (short) (mapHeight - (Short.parseShort(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE) - 1);
+
+                    println(TmxFileParser.class, "X = " + x);
+                    println(TmxFileParser.class, "Y = " + y);
+
+                    // Making it's associated tile non-traversable
+                    map[x][y].addFlag(Tile.BANK_ACCESS);
+
+                }
+            }
+
+
+            /*
              * Get SKILL NODES
              */
             if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("skill")) {
