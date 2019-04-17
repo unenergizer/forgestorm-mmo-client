@@ -2,6 +2,7 @@ package com.valenguard.client.game.movement;
 
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.maps.Location;
@@ -50,6 +51,7 @@ public class ClientMovementProcessor {
     }
 
     private void startNewMove(PlayerClient playerClient) {
+
 
         println(getClass(), "Starting a new move", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 

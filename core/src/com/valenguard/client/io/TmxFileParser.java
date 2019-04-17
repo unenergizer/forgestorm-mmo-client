@@ -178,8 +178,6 @@ public class TmxFileParser {
 
                 NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
 
-                println(TmxFileParser.class, "Loading bank access!");
-
                 for (int j = 0; j < objectTag.getLength(); j++) {
                     if (objectTag.item(j).getNodeType() != Node.ELEMENT_NODE) continue;
 
