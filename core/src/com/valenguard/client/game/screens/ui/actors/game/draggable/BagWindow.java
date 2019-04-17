@@ -26,7 +26,7 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
         for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(InventoryType.BAG_1, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(this, InventoryType.BAG_1, i);
             itemStackSlot.build();
 
             add(itemStackSlot); // Add slot to BagWindow

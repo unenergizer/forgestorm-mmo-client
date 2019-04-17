@@ -25,6 +25,7 @@ import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
+import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.game.world.item.trade.TradeManager;
 import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
 import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
@@ -227,18 +228,17 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
      * @param lockedItemStackSlot If not null, toggle a lock on this slot to prevent
      *                            changes to it.
      */
-    public void addItemFromInventory(ItemStack itemStack, ItemStackSlot lockedItemStackSlot) {
+    public void addItemFromInventory(ItemStack itemStack, InventoryType inventoryType, ItemStackSlot lockedItemStackSlot) {
+        if (inventoryType == InventoryType.BANK) return; // Bank click!
+        if (inventoryType == InventoryType.EQUIPMENT) return; // Equipment click!
 
-        println(ItemStackSlot.class, "STACK CLICK 3");
         if (lockTrade) return; // Trade accepted, waiting on final confirm
 
-        println(ItemStackSlot.class, "STACK CLICK 4");
         // Find an empty trade slot
         TradeWindowSlot tradeWindowSlot = findEmptySlot(true);
 
         if (tradeWindowSlot == null) return; // Deny item placement
 
-        println(ItemStackSlot.class, "STACK CLICK 5");
         tradeWindowSlot.setTradeCell(itemStack, lockedItemStackSlot);
         checkNotNull(lockedItemStackSlot, "This can never be null!");
         lockedItemStackSlot.toggleLockedSlot(true);

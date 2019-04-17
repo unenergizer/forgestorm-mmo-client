@@ -89,12 +89,16 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     private InputListener clickListener;
 
-    ItemStackSlot(InventoryType inventoryType, byte slotIndex) {
+    private ItemSlotContainer itemSlotContainer;
+
+    ItemStackSlot(ItemSlotContainer itemSlotContainer, InventoryType inventoryType, byte slotIndex) {
+        this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = inventoryType;
         this.slotIndex = slotIndex;
     }
 
-    ItemStackSlot(byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
+    ItemStackSlot(ItemSlotContainer itemSlotContainer, byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
+        this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = InventoryType.EQUIPMENT;
         this.slotIndex = slotIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
@@ -186,7 +190,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
     /**
      * Displays an image that represents an empty {@link ItemStackSlot}
      */
-    void setEmptyCellImage() {
+    public void setEmptyCellImage() {
         if (itemStackImage != null) itemStackImage.remove();
         if (emptyCellImage == null) initEmptyCellImage(); // Equipment slot empty image
         if (itemStackToolTip != null) {
@@ -291,11 +295,9 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
                 // Trade Item click
                 if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) {
-                    if (inventoryType == InventoryType.BANK) return true; // Bank click!
-                    if (inventoryType == InventoryType.EQUIPMENT) return true; // Equipment click!
                     if (itemStack == null) return true; // Empty slot click!
 
-                    ActorUtil.getStageHandler().getTradeWindow().addItemFromInventory(itemStack, itemStackSlot);
+                    ActorUtil.getStageHandler().getTradeWindow().addItemFromInventory(itemStack, inventoryType, itemStackSlot);
                     return true;
                 }
 
@@ -311,7 +313,9 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 if (button == Input.Buttons.RIGHT) {
                     // Bringing up options for the item!
                     if (itemStack != null) {
-                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryType.getInventoryTypeIndex(), slotIndex, x, y);
+                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryType, itemStackSlot, slotIndex,
+                                itemSlotContainer.getX() + itemStackSlot.getX() + x,
+                                itemSlotContainer.getY() + itemStackSlot.getY() + y);
                     }
                     return true;
                 }

@@ -22,8 +22,29 @@ public enum ItemStackType {
     // Generic
     GOLD,
     POTION,
-    MATERIAL
+    MATERIAL;
 
     // Trade Items
     // Skill Items
+
+    public boolean isEquipable() {
+        switch (this) {
+            case HELM:
+            case CHEST:
+            case BOOTS:
+            case CAPE:
+            case GLOVES:
+            case BELT:
+            case RING:
+            case NECKLACE:
+            case SWORD:
+            case BOW:
+            case SHIELD:
+            case ARROW:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }

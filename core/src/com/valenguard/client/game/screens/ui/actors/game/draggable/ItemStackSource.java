@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.io.type.GameAtlas;
 
@@ -44,6 +45,10 @@ public class ItemStackSource extends DragAndDrop.Source {
         inventoryPayload.setObject(itemStack);
 
         itemStackSlot.setEmptyCellImage();
+
+        if (ActorUtil.getStageHandler().getItemDropDownMenu().isVisible()) {
+            ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getItemDropDownMenu());
+        }
 
         // The image to display when the item is picked up and is being moved to valid locations
         VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();

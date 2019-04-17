@@ -34,6 +34,26 @@ public class ItemSlotContainer extends HideableVisWindow {
         }
     }
 
+    public ItemStackSlot getFreeItemStackSlot() {
+        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
+            if (itemStackSlots[i].getItemStack() == null) {
+                return itemStackSlots[i];
+            }
+        }
+        return null;
+    }
+
+    public boolean isInventoryFull() {
+        boolean foundFreeSlot = false;
+        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
+            if (itemStackSlots[i].getItemStack() == null) {
+                foundFreeSlot = true;
+                break;
+            }
+        }
+        return !foundFreeSlot;
+    }
+
     public void setItemStack(byte slotIndex, ItemStack itemStack) {
         itemStackSlots[slotIndex].setItemStack(itemStack);
     }

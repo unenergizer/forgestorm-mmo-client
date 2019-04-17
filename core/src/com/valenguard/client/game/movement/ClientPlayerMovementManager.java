@@ -89,6 +89,10 @@ public class ClientPlayerMovementManager {
 
             // Since we are warping, fade out the screen!
             ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+
+            // Close windows
+            ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getItemDropDownMenu());
+            ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityDropDownMenu());
         }
 
         new PlayerMovePacketOut(futureLocation).sendPacket();

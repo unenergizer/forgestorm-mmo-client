@@ -16,6 +16,7 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.EquipmentSlotTypes;
 
 import lombok.Getter;
@@ -37,6 +38,35 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private ItemStackSlot shieldSlot;
     private VisLabel armor;
     private VisLabel damage;
+
+    public ItemStackSlot getItemStackSlot(ItemStackType itemStackType) {
+        switch (itemStackType) {
+            case HELM:
+                return helmSlot;
+            case CHEST:
+                return chestSlot;
+            case BOOTS:
+                return bootsSlot;
+            case CAPE:
+                return capeSlot;
+            case GLOVES:
+                return glovesSlot;
+            case BELT:
+                return beltSlot;
+            case RING:
+                return ringSlot0;
+            case NECKLACE:
+                return necklaceSlot;
+            case SWORD:
+            case BOW:
+                return weaponSlot;
+            case SHIELD:
+                return shieldSlot;
+            case ARROW:
+                return ammoSlot;
+        }
+        throw new RuntimeException("Not a valid ItemStack type for the equipment window.");
+    }
 
     public EquipmentWindow() {
         super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
@@ -151,7 +181,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
      * @return A {@link ItemStackSlot} to place in this {@link EquipmentWindow}
      */
     private ItemStackSlot buildSlot(EquipmentSlotTypes equipmentSlotTypes) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
+        ItemStackSlot itemStackSlot = new ItemStackSlot(this, equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
         itemStackSlot.build();
         DragAndDrop dragAndDrop = ActorUtil.getStageHandler().getDragAndDrop();
         dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
