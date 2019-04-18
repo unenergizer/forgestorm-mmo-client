@@ -2,7 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
@@ -13,7 +12,6 @@ import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.game.rpg.ShopOpcodes;
-import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -25,18 +23,19 @@ import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
+import com.valenguard.client.game.world.item.BankActions;
 import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
 import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.game.world.maps.MapUtil;
 import com.valenguard.client.game.world.maps.Tile;
+import com.valenguard.client.network.game.packet.out.BankManagePacketOut;
 import com.valenguard.client.network.game.packet.out.ClickActionPacketOut;
 import com.valenguard.client.network.game.packet.out.EntityShopPacketOut;
 import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -180,16 +179,11 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
-                    final StageHandler stageHandler = ActorUtil.getStageHandler();
-
-                    println(getClass(), "Client location = " + clientLocation);
-
                     // TODO: Opening/Closing the bank should require server communication
 
                     if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
                         // We are beside the bank teller
-                        ActorUtil.fadeInWindow(stageHandler.getBankWindow());
-                        FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                        new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
 
                     } else if (clientLocation.isWithinDistance(toLocation, (short) 2)) {
                         // Checking to make sure they tile between the player and the entity
@@ -205,22 +199,22 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         } else {
                             Location locationBetweenEntities = new Location(clientLocation).add(
                                     toLocation.getX() > clientLocation.getX() ? (short) +1 :
-                                    toLocation.getX() < clientLocation.getX() ? (short) -1 : 0,
+                                            toLocation.getX() < clientLocation.getX() ? (short) -1 : 0,
                                     toLocation.getY() > clientLocation.getY() ? (short) +1 :
-                                    toLocation.getY() > clientLocation.getY() ? (short) -1 : 0);
+                                            toLocation.getY() > clientLocation.getY() ? (short) -1 : 0);
 
 
                             // Check if the location is a bank teller tile
                             if (locationHasBankAccess(locationBetweenEntities)) {
-                                ActorUtil.fadeInWindow(stageHandler.getBankWindow());
-                                FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                                println(getClass(), "Opening bank booth while beside bank access point");
+                                new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
                             } else {
                                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
                             }
                             cleanUpDropDownMenu(true);
                         }
 
-                    } {
+                    } else {
                         // Traverse to the bank teller
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
@@ -240,8 +234,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
-                                        ActorUtil.fadeInWindow(stageHandler.getBankWindow());
-                                        FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                                        new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
                                     }
                                 }));
                     }
@@ -254,7 +247,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             // Check to see if there is a bank access point around where the entity is
             Location clickedEntityLocation = clickedEntity.getFutureMapLocation();
             Location northAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) 1);
-            Location eastAccessPoint = new Location(clickedEntityLocation).add((short) 1 , (short) 0);
+            Location eastAccessPoint = new Location(clickedEntityLocation).add((short) 1, (short) 0);
             Location southAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) -1);
             Location westAccessPoint = new Location(clickedEntityLocation).add((short) -1, (short) 0);
 
@@ -275,14 +268,12 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 return false;
             }
 
-            final StageHandler stageHandler = ActorUtil.getStageHandler();
             Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
             Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
                     new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes, new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
-                            ActorUtil.fadeInWindow(stageHandler.getBankWindow());
-                            FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
+                            new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
                         }
                     }));
 
@@ -418,7 +409,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addFollowButton() {
-            if (clickedEntity instanceof AiEntity && ((AiEntity) clickedEntity).isBankKeeper()) return;
+            if (clickedEntity instanceof AiEntity && ((AiEntity) clickedEntity).isBankKeeper())
+                return;
 
             VisTextButton followButton = new VisTextButton("Follow " + clickedEntity.getEntityName());
             add(followButton).expand().fill().row();

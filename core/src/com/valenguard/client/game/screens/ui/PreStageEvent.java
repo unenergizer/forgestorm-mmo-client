@@ -1,6 +1,5 @@
 package com.valenguard.client.game.screens.ui;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -48,23 +47,6 @@ class PreStageEvent implements InputProcessor {
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
                 } else {
                     ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
-                }
-                return true;
-            }
-        }
-
-        /*
-         * Open Player Bank
-         */
-        if (keycode == Input.Keys.B && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            if (!stageHandler.getChatWindow().isChatToggled()
-                    && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()) {
-                if (!stageHandler.getBankWindow().isVisible()) {
-                    ActorUtil.fadeInWindow(stageHandler.getBankWindow());
-                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBankWindow());
-                } else {
-                    ActorUtil.fadeOutWindow(stageHandler.getBankWindow());
                 }
                 return true;
             }

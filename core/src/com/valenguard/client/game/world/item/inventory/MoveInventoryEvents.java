@@ -132,6 +132,8 @@ public class MoveInventoryEvents {
             // be the case that the responses match
             if (!previousMove.equals(inventoryMoveData)) {
 
+                // TODO: Resync the inventory because it's out of sync.
+
                 println(getClass(), "Move request response was not the same as the servers.", true);
                 println(getClass(), "-------SERVER-------", true);
                 println(getClass(), "fromPosition = " + inventoryMoveData.getFromPosition(), true);
