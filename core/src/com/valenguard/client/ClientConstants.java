@@ -21,4 +21,6 @@ public class ClientConstants {
     public static final int EQUIPMENT_INVENTORY_SIZE = 12;
 
     public static final int NETWORK_SECONDS_TO_TIMEOUT = 10;
+
+    public static final int MAX_PREVIOUS_SCROLL_MESSAGES = 10;
 }

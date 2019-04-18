@@ -12,6 +12,7 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -19,6 +20,13 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.ChatMessagePacketOut;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +54,11 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
      * UPDATE: This may not be valid anymore as we are using VisWindow components. TODO: Need to retest.
      */
     private boolean displayEmpty = true;
+
+    private Stack<String> previousMessages = new Stack<String>();
+
+    private int previousMessageIndex = -1;
+    private String currentBufferString = "";
 
     public ChatWindow() {
         super("", "chat-box");
@@ -121,13 +134,39 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
         addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
+
+                if (keycode == Input.Keys.UP && chatToggled) {
+                    scrollUpThroughPreviousMessages();
+                    return false;
+                }
+
+                if (keycode == Input.Keys.DOWN && chatToggled) {
+                    scrollDownThroughPreviousMessages();
+                    return false;
+                }
+
                 if (keycode == Input.Keys.ENTER || (keycode == Input.Keys.ESCAPE && chatToggled)) {
+
+                    previousMessageIndex = -1;
 
                     if (chatToggled && keycode != Input.Keys.ESCAPE) {
                         // The player hit the enter key, his message will now be sent!
                         // We also clear the message input
                         String message = messageInput.getText();
-                        if (!message.isEmpty()) new ChatMessagePacketOut(message).sendPacket();
+                        if (!message.isEmpty()) {
+                            if (previousMessages.size() == ClientConstants.MAX_PREVIOUS_SCROLL_MESSAGES) {
+                                Stack<String> newStack = new Stack<String>();
+                                for (int i = 1; i < previousMessages.size(); i++) {
+                                    newStack.push(previousMessages.get(i));
+                                }
+                                previousMessages = newStack;
+                            }
+                            previousMessages.push(message);
+
+                            currentBufferString = "";
+                            new ChatMessagePacketOut(message).sendPacket();
+                        }
+
                         messageInput.setText(ENTER_MESSAGE);
                         chatToggled = false;
                         Gdx.input.setOnscreenKeyboardVisible(false);
@@ -155,6 +194,36 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
         return this;
+    }
+
+    private void scrollUpThroughPreviousMessages() {
+        if (previousMessages.isEmpty()) return;
+        if (previousMessageIndex == -1) {
+            currentBufferString = messageInput.getText();
+        }
+
+        previousMessageIndex = Math.min(previousMessageIndex + 1, previousMessages.size() - 1);
+
+        String displayMessage = previousMessages.get(previousMessages.size() - 1 - previousMessageIndex);
+
+        setMessage(displayMessage);
+    }
+
+    private void scrollDownThroughPreviousMessages() {
+        if (previousMessages.isEmpty()) return;
+        previousMessageIndex = Math.max(-1, previousMessageIndex - 1);
+        if (previousMessageIndex == -1) {
+            setMessage(currentBufferString);
+            return;
+        }
+
+        String displayMessage = previousMessages.get(previousMessages.size() - 1 - previousMessageIndex);
+        setMessage(displayMessage);
+    }
+
+    private void setMessage(String message) {
+        messageInput.setText(message);
+        messageInput.setCursorAtTextEnd();
     }
 
     public void appendChatMessage(String message) {
