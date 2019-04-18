@@ -110,6 +110,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
                 Valenguard.connectionManager.disconnect();
                 Gdx.app.exit();
                 return true;
