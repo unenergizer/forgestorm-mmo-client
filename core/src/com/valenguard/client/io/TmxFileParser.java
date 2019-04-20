@@ -186,15 +186,14 @@ public class TmxFileParser {
                     short x = (short) (Short.parseShort(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE);
                     short y = (short) (mapHeight - (Short.parseShort(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE) - 1);
 
-                    println(TmxFileParser.class, "X = " + x);
-                    println(TmxFileParser.class, "Y = " + y);
+                    println(TmxFileParser.class, "X = " + x, false, PRINT_DEBUG);
+                    println(TmxFileParser.class, "Y = " + y, false, PRINT_DEBUG);
 
                     // Making it's associated tile non-traversable
                     map[x][y].addFlag(Tile.BANK_ACCESS);
 
                 }
             }
-
 
             /*
              * Get SKILL NODES

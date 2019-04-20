@@ -75,7 +75,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
-        messageInput.setMaxLength(256);
+        messageInput.setMaxLength(255);
 
         scrollPane = new VisScrollPane(messageTable);
         scrollPane.setOverscroll(false, false);
@@ -222,8 +222,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
 
     public void appendChatMessage(String message) {
         VisLabel label = new VisLabel(message, chatMessageStyle);
+        label.setWrap(true);
         messageTable.add(label).expandX().fillX().row();
-        
+
         scrollPane.layout();
         scrollPane.scrollTo(0, 0, 0, 0);
     }
