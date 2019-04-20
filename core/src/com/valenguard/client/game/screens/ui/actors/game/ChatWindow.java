@@ -33,13 +33,13 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class ChatWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    // TODO: Organize...
+    private static final String ENTER_MESSAGE = "Press Enter to send a message...";
+
     private final BitmapFont bitmapFont = new BitmapFont();
     private final Label.LabelStyle chatMessageStyle = new Label.LabelStyle(bitmapFont, null);
-    private VisScrollPane scrollPane;
-    private VisTable messageTable = new VisTable();
 
-    private static final String ENTER_MESSAGE = "Press Enter to send a message...";
+    private VisScrollPane scrollPane;
+    private VisTable messageTable;
     private VisTextField messageInput;
 
     /**
@@ -47,7 +47,6 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
      */
     @Setter
     private boolean chatToggled = false;
-
 
     private Stack<String> previousMessages = new Stack<String>();
     private int previousMessageIndex = -1;
@@ -71,6 +70,8 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
         setHeight(150);
 
         VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
+
+        messageTable = new VisTable();
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
@@ -221,8 +222,8 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
 
     public void appendChatMessage(String message) {
         VisLabel label = new VisLabel(message, chatMessageStyle);
-        messageTable.add(label).expand().fill().row();
-
+        messageTable.add(label).expandX().fillX().row();
+        
         scrollPane.layout();
         scrollPane.scrollTo(0, 0, 0, 0);
     }
