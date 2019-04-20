@@ -2,15 +2,17 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.Focusable;
-import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisImageButton;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisScrollPane;
+import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
@@ -21,11 +23,6 @@ import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.ChatMessagePacketOut;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 import lombok.Getter;
@@ -36,8 +33,13 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class ChatWindow extends HideableVisWindow implements Buildable, Focusable {
 
+    // TODO: Organize...
+    private final BitmapFont bitmapFont = new BitmapFont();
+    private final Label.LabelStyle chatMessageStyle = new Label.LabelStyle(bitmapFont, null);
+    private VisScrollPane scrollPane;
+    private VisTable messageTable = new VisTable();
+
     private static final String ENTER_MESSAGE = "Press Enter to send a message...";
-    private TextArea messagesDisplay;
     private VisTextField messageInput;
 
     /**
@@ -46,17 +48,8 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
     @Setter
     private boolean chatToggled = false;
 
-    /**
-     * Used to prevent the Window from crashing due to a "line return" being the first message drawn.
-     * Issue: https://github.com/libgdx/libgdx/issues/5319
-     * Note: The issue is marked as solved, but apparently still happens.
-     * <p>
-     * UPDATE: This may not be valid anymore as we are using VisWindow components. TODO: Need to retest.
-     */
-    private boolean displayEmpty = true;
 
     private Stack<String> previousMessages = new Stack<String>();
-
     private int previousMessageIndex = -1;
     private String currentBufferString = "";
 
@@ -66,6 +59,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
 
     @Override
     public Actor build() {
+
+        bitmapFont.getData().markupEnabled = true;
+
         final StageHandler stageHandler = ActorUtil.getStageHandler();
         final int innerPadding = 5;
         pad(innerPadding);
@@ -74,22 +70,21 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
         setWidth(350);
         setHeight(150);
 
-        VisImageButton chatMenu = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
+        VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
-        messagesDisplay = new TextArea(null, VisUI.getSkin(), "chat-box");
-        ScrollPane scrollPane = new ScrollPane(messagesDisplay, VisUI.getSkin());
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
         messageInput.setMaxLength(256);
 
+        scrollPane = new VisScrollPane(messageTable);
         scrollPane.setOverscroll(false, false);
         scrollPane.setFlickScroll(false);
-        scrollPane.setFadeScrollBars(false);
+        scrollPane.setFadeScrollBars(true);
         scrollPane.setScrollbarsOnTop(true);
         scrollPane.setScrollingDisabled(true, false);
 
         // Prevent client from typing in message area
-        messagesDisplay.addListener(new InputListener() {
+        messageTable.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 stageHandler.getStage().setKeyboardFocus(null);
@@ -118,7 +113,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
         });
 
         // Toggled chat button click
-        chatMenu.addListener(new InputListener() {
+        chatMenuButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 // TODO: Remove lines below. Add pop-up menu like wow to interact with chat.
@@ -179,8 +174,6 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
                         FocusManager.resetFocus(stageHandler.getStage());
                     } else {
                         println(ChatWindow.class, "Something should happen here???", true);
-//                        chatToggled = true;
-//                        stageHandler.getStage().setKeyboardFocus(messageInput);
                     }
                     return true;
                 }
@@ -188,9 +181,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
             }
         });
 
-        add(messagesDisplay).colspan(2).grow().expand().fill();
+        add(scrollPane).colspan(2).grow();
         row();
-        add(chatMenu).padRight(3);
+        add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
         return this;
@@ -227,14 +220,11 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
     }
 
     public void appendChatMessage(String message) {
-        if (displayEmpty) {
-            displayEmpty = false;
-            messagesDisplay.appendText(message);
-        } else {
-            // Put the "line return" BEFORE the message to make sure the window
-            // does not have a blank line (line return) as the bottom message.
-            messagesDisplay.appendText("\n" + message);
-        }
+        VisLabel label = new VisLabel(message, chatMessageStyle);
+        messageTable.add(label).expand().fill().row();
+
+        scrollPane.layout();
+        scrollPane.scrollTo(0, 0, 0, 0);
     }
 
     @Override
