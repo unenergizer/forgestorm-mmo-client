@@ -1,6 +1,7 @@
 package com.valenguard.client;
 
 import com.badlogic.gdx.Game;
+import com.valenguard.client.game.abilities.AbilityManager;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -80,6 +81,7 @@ public class Valenguard extends Game {
     private Skills skills;
     private EntityShopManager entityShopManager;
     private MoveInventoryEvents moveInventoryEvents;
+    private AbilityManager abilityManager;
 
     private TradeManager tradeManager;
 
@@ -118,6 +120,7 @@ public class Valenguard extends Game {
         tradeManager = new TradeManager();
         entityShopManager = new EntityShopManager();
         moveInventoryEvents = new MoveInventoryEvents();
+        abilityManager = new AbilityManager();
 
         // loadItems screens
         gameScreen = new GameScreen();

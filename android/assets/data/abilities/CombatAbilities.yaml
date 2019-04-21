@@ -1,0 +1,16 @@
+0:
+  name: "Sword Slash"
+  abilityType: MELEE_ATTACK
+  animation: TODO
+  damageMin: 10
+  damageMax: 15
+  cooldown: 2
+1:
+  name: "Arrow of Death"
+  abilityType: RANGE_ATTACK
+  animation: TODO
+  damageMin: 25
+  damageMax: 29
+  cooldown: 3
+  distanceMin: 2
+  distanceMax: 7

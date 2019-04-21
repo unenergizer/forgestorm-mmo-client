@@ -39,8 +39,6 @@ import com.valenguard.client.util.PathFinding;
 import java.util.List;
 import java.util.Queue;
 
-import static com.valenguard.client.util.Log.println;
-
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final EntityDropDownMenu dropDownMenu;
@@ -157,6 +155,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             this.clickedEntity = clickedEntity;
 
             addOpenBankButton();
+            addTargetButton();
             addAttackButton();
             addTradeButton();
             addShopButton();
@@ -283,6 +282,20 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         private boolean locationHasBankAccess(Location location) {
             Tile bankAccessTile = MapUtil.getTileByLocation(location);
             return bankAccessTile != null && bankAccessTile.isFlagSet(Tile.BANK_ACCESS);
+        }
+
+        private void addTargetButton() {
+            VisTextButton attackButton = new VisTextButton("Target " + clickedEntity.getEntityName());
+            add(attackButton).expand().fill().row();
+
+            attackButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    playerClient.setTargetEntity(clickedEntity);
+                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[YELLOW]You targeted " + clickedEntity.getEntityName() + ".");
+                    cleanUpDropDownMenu(true);
+                }
+            });
         }
 
         private void addAttackButton() {

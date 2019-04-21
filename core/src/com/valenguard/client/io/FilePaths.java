@@ -8,6 +8,9 @@ public enum FilePaths {
     // Root
     NETWORK_SETTINGS("Network.yaml"),
 
+    // Abilities
+    COMBAT_ABILITIES("abilities/CombatAbilities.yaml"),
+
     // Item
     ENTITY_SHOP("item/ShopItems.yaml"),
     ITEM_STACK("item/ItemStacks.yaml"),

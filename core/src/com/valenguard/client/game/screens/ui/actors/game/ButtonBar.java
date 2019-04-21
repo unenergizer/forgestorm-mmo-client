@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -15,8 +14,6 @@ import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.io.type.GameAtlas;
-
-import static com.valenguard.client.util.Log.println;
 
 public class ButtonBar extends VisTable implements Buildable {
 
@@ -92,7 +89,7 @@ public class ButtonBar extends VisTable implements Buildable {
 
         pack();
         setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), 10);
-        setVisible(false);
+        setVisible(true);
         return this;
     }
 }
