@@ -77,11 +77,13 @@ public class AbilityBar extends VisTable implements Buildable {
         return this;
     }
 
-    public void setCoolDown(int totalTime) {
-
+    public void setCoolingDown(VisImageButton button) {
+        button.setDisabled(true);
+        button.setColor(Color.RED);
     }
 
-    public void tickCoolDown(int timeLeft) {
-
+    public void resetButton(VisImageButton button) {
+        button.setDisabled(false);
+        button.setColor(Color.WHITE);
     }
 }

@@ -45,7 +45,7 @@ public class EntityManager implements Disposable {
     }
 
     public void removePlayerEntity(Short entityId) {
-        playerEntityList.remove(entityId);
+        shouldClearTarget(playerEntityList.remove(entityId));
     }
 
     public Player getPlayerEntity(short entityId) {
@@ -57,7 +57,7 @@ public class EntityManager implements Disposable {
     }
 
     public void removeAiEntity(Short entityId) {
-        aiEntityList.remove(entityId);
+        shouldClearTarget(aiEntityList.remove(entityId));
     }
 
     public AiEntity getAiEntity(short entityId) {
@@ -134,6 +134,17 @@ public class EntityManager implements Disposable {
         }
         for (Player player : playerEntityList.values()) {
             player.drawEntityHpBar();
+        }
+    }
+
+    private void shouldClearTarget(MovingEntity movingEntity) {
+        if (movingEntity == null) return;
+        MovingEntity targetEntity = playerClient.getTargetEntity();
+
+        if (targetEntity == null) return;
+        if (targetEntity.getEntityType() != movingEntity.getEntityType()) return;
+        if (targetEntity.getServerEntityID() == movingEntity.getServerEntityID()) {
+            playerClient.setTargetEntity(null);
         }
     }
 
