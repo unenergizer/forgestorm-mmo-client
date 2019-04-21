@@ -38,6 +38,7 @@ import com.valenguard.client.network.game.packet.in.EntityDespawnPacketIn;
 import com.valenguard.client.network.game.packet.in.EntityHealthPacketIn;
 import com.valenguard.client.network.game.packet.in.EntityMovePacketIn;
 import com.valenguard.client.network.game.packet.in.EntitySpawnPacketIn;
+import com.valenguard.client.network.game.packet.in.EntityUpdatePacketIn;
 import com.valenguard.client.network.game.packet.in.InitScreenPacketIn;
 import com.valenguard.client.network.game.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.game.packet.in.InventoryPacketIn;
@@ -206,6 +207,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new AiEntityDataPacketIn());
                         eventBus.registerListener(new CharactersMenuLoadPacketIn());
                         eventBus.registerListener(new BankManagePacketIn());
+                        eventBus.registerListener(new EntityUpdatePacketIn());
                     }
                 });
     }
