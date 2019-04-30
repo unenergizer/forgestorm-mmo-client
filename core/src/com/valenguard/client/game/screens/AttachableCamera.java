@@ -31,6 +31,8 @@ public class AttachableCamera extends OrthographicCamera {
     }
 
     void clampCamera(Viewport screenViewport, TiledMap tiledMap) {
+        if (following == null) return;
+
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
         float cameraMinX = (screenViewport.getScreenWidth() / 2) * zoom;
         float cameraMinY = (screenViewport.getScreenHeight() / 2) * zoom;

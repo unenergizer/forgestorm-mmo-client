@@ -7,6 +7,8 @@ import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.maps.Location;
 
+import static com.valenguard.client.util.Log.println;
+
 public class EntityMovementManager {
 
     public void tick(float delta) {
@@ -21,6 +23,19 @@ public class EntityMovementManager {
     }
 
     public void updateEntityFutureLocation(MovingEntity entity, Location futureLocation) {
+        if (MoveUtil.isEntityMoving(entity)) {
+            println(getClass(), "The Entity is already moving!");
+        }
+
+        Location currentLocation = entity.getCurrentMapLocation();
+
+        int xDiff = Math.abs(futureLocation.getX() - currentLocation.getX());
+        int yDiff = Math.abs(futureLocation.getY() - currentLocation.getY());
+
+        if (xDiff + yDiff > 1) {
+            println(getClass(), "The entity is being told to move diagonally!");
+        }
+
         entity.setWalkTime(0f);
         entity.setFutureMapLocation(futureLocation);
         entity.setFacingDirection(MoveUtil.getMoveDirection(entity.getCurrentMapLocation(), futureLocation));
