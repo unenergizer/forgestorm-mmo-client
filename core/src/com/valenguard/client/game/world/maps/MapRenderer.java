@@ -47,6 +47,7 @@ public class MapRenderer implements Disposable {
 
     private void renderLayer(MapLayer layer) {
         if (!layer.isVisible()) return;
+        if (layer.getName().equalsIgnoreCase("collision")) return;
         if (layer instanceof MapGroupLayer) {
             MapLayers childLayers = ((MapGroupLayer) layer).getLayers();
             for (int i = 0; i < childLayers.size(); i++) {

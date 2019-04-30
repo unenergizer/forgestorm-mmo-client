@@ -28,8 +28,10 @@ public class DesktopLauncher {
         Valenguard valenguard = Valenguard.getInstance();
         valenguard.setIdeRun(ideRun);
 
-        valenguard.getLoginCredentials().setUsername("ForgeStorm");
-        valenguard.getLoginCredentials().setPassword("abc123");
+        if (ideRun) {
+            valenguard.getLoginCredentials().setUsername("ForgeStorm");
+            valenguard.getLoginCredentials().setPassword("abc123");
+        }
 
         new LwjglApplication(valenguard, config);
     }
