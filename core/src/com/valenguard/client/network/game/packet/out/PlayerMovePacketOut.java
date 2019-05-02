@@ -12,7 +12,7 @@ public class PlayerMovePacketOut extends AbstractClientPacketOut {
 
     public PlayerMovePacketOut(Location attemptLocation) {
         super(Opcodes.MOVE_REQUEST);
-        this.attemptLocation = attemptLocation;
+        this.attemptLocation = new Location(attemptLocation);
     }
 
     @Override
