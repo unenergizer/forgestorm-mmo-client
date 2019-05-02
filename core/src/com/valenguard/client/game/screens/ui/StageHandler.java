@@ -35,6 +35,7 @@ import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
 import com.valenguard.client.game.screens.ui.actors.login.ConnectionStatusWindow;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
 import com.valenguard.client.game.screens.ui.actors.login.LoginTable;
+import com.valenguard.client.game.screens.ui.actors.login.RssAnnouncements;
 import com.valenguard.client.game.screens.ui.actors.login.VersionTable;
 import com.valenguard.client.game.screens.ui.actors.settings.FPSTable;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
@@ -57,6 +58,7 @@ public class StageHandler implements Disposable {
     private CopyrightTable copyrightTable;
     private LoginTable loginTable;
     private ConnectionStatusWindow connectionStatusWindow;
+    private RssAnnouncements rssAnnouncements;
 
     // character select
     private CharacterSelectMenu characterSelectMenu;
@@ -116,12 +118,14 @@ public class StageHandler implements Disposable {
         copyrightTable = new CopyrightTable();
         loginTable = new LoginTable();
         connectionStatusWindow = new ConnectionStatusWindow();
+        rssAnnouncements = new RssAnnouncements();
 
         stage.addActor(buttonTable.build());
         stage.addActor(versionTable.build());
         stage.addActor(copyrightTable.build());
         stage.addActor(loginTable.build());
         stage.addActor(connectionStatusWindow.build());
+        stage.addActor(rssAnnouncements.build());
 
         buttonTable.setVisible(true);
         versionTable.setVisible(true);

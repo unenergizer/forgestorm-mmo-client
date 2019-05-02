@@ -101,6 +101,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.kotcrab.vis:vis-ui:$visuiVersion"
         compile "org.yaml:snakeyaml:$snakeYAML:android"
+        compile "com.rometools:rome:1.12.0"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }
