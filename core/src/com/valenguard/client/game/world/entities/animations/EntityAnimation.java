@@ -62,7 +62,7 @@ public abstract class EntityAnimation {
         if (frames == null) return;
         for (ColoredTextureRegion frame : frames) {
             spriteBatch.setColor(frame.getRegionColor());
-            spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX(), movingEntity.getDrawY());
+            spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX(), movingEntity.getDrawY() + frame.getYAxisOffset());
             spriteBatch.setColor(Color.WHITE);
         }
     }
@@ -90,13 +90,22 @@ public abstract class EntityAnimation {
     protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping) {
         ColoredTextureRegion coloredTextureRegion = new ColoredTextureRegion();
         coloredTextureRegion.setTextureRegion(animation.getKeyFrame(stateTime, looping));
+        coloredTextureRegion.setYAxisOffset(0);
+        return coloredTextureRegion;
+    }
+
+    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping, int yAxisOffset) {
+        ColoredTextureRegion coloredTextureRegion = new ColoredTextureRegion();
+        coloredTextureRegion.setTextureRegion(animation.getKeyFrame(stateTime, looping));
+        coloredTextureRegion.setYAxisOffset(yAxisOffset);
         return coloredTextureRegion;
     }
 
 
-    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping, Color color) {
-        ColoredTextureRegion coloredTextureRegion = getColorTextureRegion(animation, stateTime, looping);
+    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping, Color color, int yAxisOffset) {
+        ColoredTextureRegion coloredTextureRegion = getColorTextureRegion(animation, stateTime, looping, yAxisOffset);
         coloredTextureRegion.setRegionColor(color);
+        coloredTextureRegion.setYAxisOffset(yAxisOffset);
         return coloredTextureRegion;
     }
 }

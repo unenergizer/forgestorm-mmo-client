@@ -147,7 +147,10 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 case CHEST:
                     emptyCellImage = imageBuilder.setRegionName("armor_001").buildVisImage();
                     break;
-                case BOOTS:
+                case PANTS:
+                    emptyCellImage = imageBuilder.setRegionName("armor_002").buildVisImage();
+                    break;
+                case SHOES:
                     emptyCellImage = imageBuilder.setRegionName("boot_02").buildVisImage();
                     break;
                 case CAPE:

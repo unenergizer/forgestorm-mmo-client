@@ -81,7 +81,7 @@ public class DebugTable extends VisTable implements Buildable {
         if (playerClient != null) {
             final HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
             uuid.setText("UUID: " + playerClient.getServerEntityID());
-            bodyParts.setText("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getBodyId());
+            bodyParts.setText("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getChestId());
             playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getMapName());
             playerPixel.setText("Player X: " + playerClient.getDrawX() + ", Y: " + playerClient.getDrawY());
 

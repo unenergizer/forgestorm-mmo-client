@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 class ColoredTextureRegion {
-
     private Color regionColor = Color.WHITE;
     private TextureRegion textureRegion;
+    private int yAxisOffset = 0;
 }

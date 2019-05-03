@@ -11,7 +11,7 @@ public class VersionTable extends VisTable implements Buildable {
 
     @Override
     public Actor build() {
-        add(new VisLabel("ClientConnection version " + ClientConstants.GAME_VERSION));
+        add(new VisLabel("Client Version " + ClientConstants.GAME_VERSION));
 
         addListener(new WindowResizeListener() {
             @Override

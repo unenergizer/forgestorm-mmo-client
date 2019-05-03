@@ -36,6 +36,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private ItemStackSlot bootsSlot;
     private ItemStackSlot weaponSlot;
     private ItemStackSlot shieldSlot;
+    private ItemStackSlot pantsSlot;
     private VisLabel armor;
     private VisLabel damage;
 
@@ -45,7 +46,9 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
                 return helmSlot;
             case CHEST:
                 return chestSlot;
-            case BOOTS:
+            case PANTS:
+                return pantsSlot;
+            case SHOES:
                 return bootsSlot;
             case CAPE:
                 return capeSlot;
@@ -109,20 +112,22 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         VisTable weaponTable = new VisTable();
         weaponTable.add(weaponSlot = buildSlot(EquipmentSlotTypes.WEAPON));
         weaponTable.add(shieldSlot = buildSlot(EquipmentSlotTypes.SHIELD));
+        weaponTable.add(pantsSlot = buildSlot(EquipmentSlotTypes.PANTS));
         equipmentSlotsTable.add(weaponTable);
 
         itemStackSlots[0] = helmSlot;
         itemStackSlots[1] = chestSlot;
-        itemStackSlots[2] = bootsSlot;
-        itemStackSlots[3] = capeSlot;
-        itemStackSlots[4] = glovesSlot;
-        itemStackSlots[5] = beltSlot;
-        itemStackSlots[6] = ringSlot0;
-        itemStackSlots[7] = ringSlot1;
-        itemStackSlots[8] = necklaceSlot;
-        itemStackSlots[9] = weaponSlot;
-        itemStackSlots[10] = shieldSlot;
-        itemStackSlots[11] = ammoSlot;
+        itemStackSlots[2] = pantsSlot;
+        itemStackSlots[3] = bootsSlot;
+        itemStackSlots[4] = capeSlot;
+        itemStackSlots[5] = glovesSlot;
+        itemStackSlots[6] = beltSlot;
+        itemStackSlots[7] = ringSlot0;
+        itemStackSlots[8] = ringSlot1;
+        itemStackSlots[9] = necklaceSlot;
+        itemStackSlots[10] = weaponSlot;
+        itemStackSlots[11] = shieldSlot;
+        itemStackSlots[12] = ammoSlot;
 
         /*
          Build Equipment Stats Table

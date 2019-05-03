@@ -13,12 +13,11 @@ public class ClientConstants {
     public static final String WEB_REGISTER = "https://forgestorm.com/register/";
     public static final String WEB_LOST_PASSWORD = "https://forgestorm.com/lost-password/";
     public static final short TILE_SIZE = 16;
-    public static final String MAP_DIRECTORY = "data/maps";
     public static final float namePlateDistanceInPixels = 4;
 
     public static boolean MONITOR_MOVEMENT_CHECKS = false;
 
-    public static final int EQUIPMENT_INVENTORY_SIZE = 12;
+    public static final int EQUIPMENT_INVENTORY_SIZE = 13;
 
     public static final int NETWORK_SECONDS_TO_TIMEOUT = 10;
 

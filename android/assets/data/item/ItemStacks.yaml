@@ -60,7 +60,7 @@
 7:
   name: "Leather Boots"
   desc: "Basic leather boots."
-  type: BOOTS
+  type: SHOES
   atlas: ITEMS
   region: boot_02
   health: 2
@@ -175,4 +175,22 @@
   type: MATERIAL
   atlas: ITEMS
   region: material_28
+  consume: false
+22:
+  name: "Basic Boots"
+  desc: "They were made for walking."
+  type: SHOES
+  atlas: ITEMS
+  region: boot_01
+  wearable: 1
+  health: 10
+  consume: false
+23:
+  name: "Basic PANTS"
+  desc: "ICON DONT MAKE NO SENSE- YA I KNOW..."
+  type: PANTS
+  atlas: ITEMS
+  region: skill_055
+  wearable: 23
+  health: 10
   consume: false

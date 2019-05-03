@@ -20,21 +20,27 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.APPEARANCE)
 public class EntityAppearancePacketIn implements PacketListener<EntityAppearancePacketIn.EntityAppearancePacket> {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
-    private static final int COLOR_INDEX = 0x01;
-    private static final int BODY_INDEX = 0x02;
-    private static final int HEAD_INDEX = 0x04;
-    private static final int ARMOR_INDEX = 0x08;
-    private static final int HELM_INDEX = 0x10;
+    // Cannot exceed -0x80 (Sign bit). Extend to short if
+    // the number of indexes goes beyond 8.
+    private static final byte COLOR_INDEX = 0x01;
+    private static final byte BODY_INDEX = 0x02;
+    private static final byte HEAD_INDEX = 0x04;
+    private static final byte HELM_INDEX = 0x08;
+    private static final byte CHEST_INDEX = 0x10;
+    private static final byte PANTS_INDEX = 0x20;
+    private static final byte SHOES_INDEX = 0x40;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
         final byte entityType = clientHandler.readByte();
         final byte appearanceBits = clientHandler.readByte();
-        final short[] textureIds = new short[4];
+        final short[] textureIds = new short[6];
         byte colorId = -1;
+
+        println(getClass(), "Appearance packet in!");
 
         if ((appearanceBits & COLOR_INDEX) != 0) {
             colorId = clientHandler.readByte();
@@ -45,11 +51,17 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         if ((appearanceBits & HEAD_INDEX) != 0) {
             textureIds[Appearance.HEAD] = clientHandler.readShort();
         }
-        if ((appearanceBits & ARMOR_INDEX) != 0) {
-            textureIds[Appearance.ARMOR] = clientHandler.readShort();
-        }
         if ((appearanceBits & HELM_INDEX) != 0) {
             textureIds[Appearance.HELM] = clientHandler.readShort();
+        }
+        if ((appearanceBits & CHEST_INDEX) != 0) {
+            textureIds[Appearance.CHEST] = clientHandler.readShort();
+        }
+        if ((appearanceBits & PANTS_INDEX) != 0) {
+            textureIds[Appearance.PANTS] = clientHandler.readShort();
+        }
+        if ((appearanceBits & SHOES_INDEX) != 0) {
+            textureIds[Appearance.SHOES] = clientHandler.readShort();
         }
 
         return new EntityAppearancePacket(
@@ -67,6 +79,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
+                // NOTE: We do the appearance change locally on the client!
                 break;
             case PLAYER:
                 entity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
@@ -96,18 +109,32 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
             appearance.getTextureIds()[Appearance.HEAD] = packetData.textureIds[Appearance.HEAD];
             updatedTextureId = true;
         }
-        if ((packetData.appearanceBits & ARMOR_INDEX) != 0) {
-
-            println(getClass(), "UPDATING THE ARMOR!", false, PRINT_DEBUG);
-
-            appearance.getTextureIds()[Appearance.ARMOR] = packetData.textureIds[Appearance.ARMOR];
-            updatedTextureId = true;
-        }
         if ((packetData.appearanceBits & HELM_INDEX) != 0) {
 
             println(getClass(), "UPDATING THE HELM", false, PRINT_DEBUG);
 
             appearance.getTextureIds()[Appearance.HELM] = packetData.textureIds[Appearance.HELM];
+            updatedTextureId = true;
+        }
+        if ((packetData.appearanceBits & CHEST_INDEX) != 0) {
+
+            println(getClass(), "UPDATING THE CHEST!", false, PRINT_DEBUG);
+
+            appearance.getTextureIds()[Appearance.CHEST] = packetData.textureIds[Appearance.CHEST];
+            updatedTextureId = true;
+        }
+        if ((packetData.appearanceBits & PANTS_INDEX) != 0) {
+
+            println(getClass(), "UPDATING THE PANTS!", false, PRINT_DEBUG);
+
+            appearance.getTextureIds()[Appearance.PANTS] = packetData.textureIds[Appearance.PANTS];
+            updatedTextureId = true;
+        }
+        if ((packetData.appearanceBits & SHOES_INDEX) != 0) {
+
+            println(getClass(), "UPDATING THE SHOES!", false, PRINT_DEBUG);
+
+            appearance.getTextureIds()[Appearance.SHOES] = packetData.textureIds[Appearance.SHOES];
             updatedTextureId = true;
         }
 

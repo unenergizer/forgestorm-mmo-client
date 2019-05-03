@@ -38,7 +38,7 @@ import static com.valenguard.client.util.Preconditions.checkNotNull;
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -74,9 +74,13 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case NPC:
                 colorId = clientHandler.readByte();
-                textureIds = new short[2];
+                textureIds = new short[6];
                 textureIds[Appearance.BODY] = clientHandler.readShort();
                 textureIds[Appearance.HEAD] = clientHandler.readShort();
+                textureIds[Appearance.HELM] = clientHandler.readShort();
+                textureIds[Appearance.CHEST] = clientHandler.readShort();
+                textureIds[Appearance.PANTS] = clientHandler.readShort();
+                textureIds[Appearance.SHOES] = clientHandler.readShort();
                 shopID = clientHandler.readShort();
                 entityAlignment = EntityAlignment.getEntityAlignment(clientHandler.readByte());
                 entityFaction = clientHandler.readByte();
@@ -84,11 +88,13 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             case CLIENT_PLAYER:
             case PLAYER:
                 colorId = clientHandler.readByte();
-                textureIds = new short[4];
+                textureIds = new short[6];
                 textureIds[Appearance.BODY] = clientHandler.readShort();
                 textureIds[Appearance.HEAD] = clientHandler.readShort();
-                textureIds[Appearance.ARMOR] = clientHandler.readShort();
                 textureIds[Appearance.HELM] = clientHandler.readShort();
+                textureIds[Appearance.CHEST] = clientHandler.readShort();
+                textureIds[Appearance.PANTS] = clientHandler.readShort();
+                textureIds[Appearance.SHOES] = clientHandler.readShort();
                 break;
         }
 
@@ -162,13 +168,21 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         // This is for setting animation data.
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
-            case NPC:
             case PLAYER:
+            case NPC:
+                println(getClass(), "NPC FOUND: Cast moving entity");
                 MovingEntity humanEntity = (MovingEntity) entity;
+
+                println(getClass(), "NPC FOUND: set human animation");
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
+
+                println(getClass(), "NPC FOUND: loading textures");
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
+                println(getClass(), "FINISHED LOADTEXTURES CALL");
+
                 break;
             case MONSTER:
+                println(getClass(), "MONSTER FOUND: LOADING...");
                 MovingEntity monsterEntity = (MovingEntity) entity;
                 monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
                 monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);

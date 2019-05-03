@@ -4,7 +4,8 @@ public enum ItemStackType {
     // Main Body
     HELM,
     CHEST,
-    BOOTS,
+    PANTS,
+    SHOES,
     CAPE,
     GLOVES,
     BELT,
@@ -31,7 +32,8 @@ public enum ItemStackType {
         switch (this) {
             case HELM:
             case CHEST:
-            case BOOTS:
+            case PANTS:
+            case SHOES:
             case CAPE:
             case GLOVES:
             case BELT:

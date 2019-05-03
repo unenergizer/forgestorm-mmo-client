@@ -126,16 +126,28 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
         VisImage skinHead = imageBuilder.setRegionName("head_down_naked").buildVisImage();
         skinHead.setColor(skinColor);
 
-        VisImage skinBody = imageBuilder.setRegionName("body_down_naked").buildVisImage();
-        skinBody.setColor(skinColor);
+        VisImage skinChest = imageBuilder.setRegionName("body_down_chest_naked").buildVisImage();
+        skinChest.setColor(skinColor);
+        VisImage skinPants = imageBuilder.setRegionName("body_down_pants_naked").buildVisImage();
+        skinPants.setColor(skinColor);
+        VisImage skinShoes = imageBuilder.setRegionName("body_down_shoes_naked").buildVisImage();
+        skinShoes.setColor(skinColor);
 
-        VisImage head = imageBuilder.setRegionName("head_down_" + selectedCharacter.getHeadId()).buildVisImage();
-        VisImage body = imageBuilder.setRegionName("body_down_" + selectedCharacter.getBodyId()).buildVisImage();
+//        if (selectedCharacter.getHeadId() != -1) {
+            VisImage head = imageBuilder.setRegionName("head_down_" + selectedCharacter.getHeadId()).buildVisImage();
+//        }
+//        VisImage bodyChest = imageBuilder.setRegionName("body_down_chest_" + selectedCharacter.getBodyId()).buildVisImage();
+//        VisImage bodyPants = imageBuilder.setRegionName("body_down_pants_" + selectedCharacter.getBodyId()).buildVisImage();
+//        VisImage bodyShoes = imageBuilder.setRegionName("body_down_shoes_" + selectedCharacter.getBodyId()).buildVisImage();
 
         stack.add(skinHead);
-        stack.add(skinBody);
+        stack.add(skinChest);
+        stack.add(skinPants);
+        stack.add(skinShoes);
         stack.add(head);
-        stack.add(body);
+//        stack.add(bodyChest);
+//        stack.add(bodyPants);
+//        stack.add(bodyShoes);
         characterImageTable.add(stack).expand().fill();
     }
 

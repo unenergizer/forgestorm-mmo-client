@@ -8,13 +8,8 @@ import com.valenguard.client.game.world.entities.MovingEntity;
 
 import lombok.Getter;
 
-import static com.valenguard.client.util.RandomUtil.getNewRandom;
-
 public class MonsterAnimation extends EntityAnimation {
 
-    private final int idleAnimationWaitMax = getNewRandom(150, 500);
-    private int idleAnimationWaitTime = 0;
-    private int currentFramesRendered = 0;
     @Getter
     private short atlasId = 0;
     private Animation<TextureRegion> facingDown;
@@ -32,18 +27,6 @@ public class MonsterAnimation extends EntityAnimation {
     @Override
     ColoredTextureRegion[] actIdle(float stateTime) {
         return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
-//        if (idleAnimationWaitTime >= idleAnimationWaitMax) {
-//            if (currentFramesRendered >= 2) {
-//                idleAnimationWaitTime = 0;
-//                currentFramesRendered = 0;
-//            } else {
-//                currentFramesRendered++;
-//            }
-//            return new TextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
-//        } else {
-//            idleAnimationWaitTime++;
-//            return new TextureRegion[]{getColorTextureRegion(facingDown, 0, false)};
-//        }
     }
 
     @Override
