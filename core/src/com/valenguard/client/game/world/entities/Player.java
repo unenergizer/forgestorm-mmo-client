@@ -5,79 +5,71 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.entities.animations.HumanAnimation;
 import com.valenguard.client.io.type.GameAtlas;
 
-import static com.valenguard.client.util.Log.println;
-
 public class Player extends MovingEntity {
 
     private TextureAtlas characterTextureAtlas;
 
     @Override
     public void loadTextures(GameAtlas gameAtlas) {
-        println(getClass(), "PLAYER: LOADING ALL TEXTURES...");
         characterTextureAtlas = Valenguard.getInstance().getFileManager().getAtlas(gameAtlas);
-        applyAppearance();
+        getEntityAnimation().loadAll(gameAtlas);
     }
 
-    private void applyAppearance() {
+    public void setBodyPart(AppearanceType appearanceType, short textureId) {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        short[] textureIds = getAppearance().getTextureIds();
-        if (textureIds[Appearance.HELM] != -1) {
-            humanAnimation.loadHead(characterTextureAtlas, textureIds[Appearance.HELM]);
-        } else {
-            humanAnimation.loadHead(characterTextureAtlas, textureIds[Appearance.HEAD]);
-        }
-        if (textureIds[Appearance.CHEST] == -1) {
-            humanAnimation.loadNakedChest(characterTextureAtlas);
-        } else {
-            humanAnimation.loadChest(characterTextureAtlas, textureIds[Appearance.CHEST]);
-        }
-        if (textureIds[Appearance.PANTS] == -1) {
-            humanAnimation.loadNakedPants(characterTextureAtlas);
-        } else {
-            humanAnimation.loadPants(characterTextureAtlas, textureIds[Appearance.PANTS]);
-        }
-        if (textureIds[Appearance.SHOES] == -1) {
-            humanAnimation.loadNakedShoes(characterTextureAtlas);
-        } else {
-            humanAnimation.loadShoes(characterTextureAtlas, textureIds[Appearance.SHOES]);
-        }
-        humanAnimation.loadBorder(characterTextureAtlas);
-    }
 
-    public void setBodyPart(int appearanceId, short textureId) {
-        HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        getAppearance().getTextureIds()[appearanceId] = textureId;
-        switch (appearanceId) {
-            case Appearance.HELM:
-                humanAnimation.loadHead(characterTextureAtlas, textureId);
+        switch (appearanceType) {
+            case MONSTER_BODY_TEXTURE:
                 break;
-            case Appearance.CHEST:
+            case HAIR_TEXTURE:
+                humanAnimation.loadHair(characterTextureAtlas, textureId);
+                break;
+            case HELM_TEXTURE:
+                humanAnimation.loadHelm(characterTextureAtlas, textureId);
+                humanAnimation.setShowHelm(true);
+                break;
+            case CHEST_TEXTURE:
                 humanAnimation.loadChest(characterTextureAtlas, textureId);
+                humanAnimation.setShowChest(true);
                 break;
-            case Appearance.PANTS:
+            case PANTS_TEXTURE:
                 humanAnimation.loadPants(characterTextureAtlas, textureId);
+                humanAnimation.setShowPants(true);
                 break;
-            case Appearance.SHOES:
+            case SHOES_TEXTURE:
                 humanAnimation.loadShoes(characterTextureAtlas, textureId);
+                humanAnimation.setShowShoes(true);
+                break;
+            case HAIR_COLOR:
+                break;
+            case EYE_COLOR:
+                break;
+            case SKIN_COLOR:
+                break;
+            case GLOVES_COLOR:
+                break;
+            case BORDER_COLOR:
                 break;
         }
     }
 
-    public void removeBodyPart(int appearanceId) {
+    public void removeBodyPart(AppearanceType appearanceType) {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
-        getAppearance().getTextureIds()[appearanceId] = -1;
-        switch (appearanceId) {
-            case Appearance.HELM:
-                humanAnimation.loadHead(characterTextureAtlas, getAppearance().getTextureId(Appearance.HEAD));
+        switch (appearanceType) {
+            case HELM_TEXTURE:
+                humanAnimation.setShowHelm(false);
                 break;
-            case Appearance.CHEST:
-                humanAnimation.loadNakedChest(characterTextureAtlas);
+            case CHEST_TEXTURE:
+                humanAnimation.setShowChest(false);
                 break;
-            case Appearance.PANTS:
-                humanAnimation.loadNakedPants(characterTextureAtlas);
+            case PANTS_TEXTURE:
+                humanAnimation.setShowPants(false);
                 break;
-            case Appearance.SHOES:
-                humanAnimation.loadNakedShoes(characterTextureAtlas);
+            case SHOES_TEXTURE:
+                humanAnimation.setShowShoes(false);
+                break;
+            case GLOVES_COLOR:
+                humanAnimation.setShowGloves(false);
                 break;
         }
     }

@@ -3,8 +3,10 @@ package com.valenguard.client.game.world.entities.animations;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.MovingEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Getter;
 
@@ -20,32 +22,42 @@ public class MonsterAnimation extends EntityAnimation {
 
     @Override
     public void load(TextureAtlas textureAtlas) {
-        this.atlasId = appearance.getTextureId(Appearance.BODY);
+        this.atlasId = appearance.getMonsterBodyTexture();
         facingDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("monster_down_" + atlasId), Animation.PlayMode.LOOP);
     }
 
     @Override
-    ColoredTextureRegion[] actIdle(float stateTime) {
-        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
+    List<ColoredTextureRegion> actIdle(float stateTime) {
+        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        frameList.add(getColorTextureRegion(facingDown, stateTime, true));
+        return frameList;
     }
 
     @Override
-    ColoredTextureRegion[] actMoveUp(float stateTime) {
-        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
+    List<ColoredTextureRegion> actMoveUp(float stateTime) {
+        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        frameList.add(getColorTextureRegion(facingDown, stateTime, true));
+        return frameList;
     }
 
     @Override
-    ColoredTextureRegion[] actMoveDown(float stateTime) {
-        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
+    List<ColoredTextureRegion> actMoveDown(float stateTime) {
+        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        frameList.add(getColorTextureRegion(facingDown, stateTime, true));
+        return frameList;
     }
 
     @Override
-    ColoredTextureRegion[] actMoveLeft(float stateTime) {
-        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
+    List<ColoredTextureRegion> actMoveLeft(float stateTime) {
+        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        frameList.add(getColorTextureRegion(facingDown, stateTime, true));
+        return frameList;
     }
 
     @Override
-    ColoredTextureRegion[] actMoveRight(float stateTime) {
-        return new ColoredTextureRegion[]{getColorTextureRegion(facingDown, stateTime, true)};
+    List<ColoredTextureRegion> actMoveRight(float stateTime) {
+        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        frameList.add(getColorTextureRegion(facingDown, stateTime, true));
+        return frameList;
     }
 }

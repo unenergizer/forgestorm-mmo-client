@@ -11,6 +11,8 @@ import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.io.type.GameAtlas;
 
+import java.util.List;
+
 import lombok.Getter;
 
 public abstract class EntityAnimation {
@@ -36,18 +38,18 @@ public abstract class EntityAnimation {
 
     abstract void load(TextureAtlas textureAtlas);
 
-    abstract ColoredTextureRegion[] actIdle(float stateTime);
+    abstract List<ColoredTextureRegion> actIdle(float stateTime);
 
-    abstract ColoredTextureRegion[] actMoveUp(float stateTime);
+    abstract List<ColoredTextureRegion> actMoveUp(float stateTime);
 
-    abstract ColoredTextureRegion[] actMoveDown(float stateTime);
+    abstract List<ColoredTextureRegion> actMoveDown(float stateTime);
 
-    abstract ColoredTextureRegion[] actMoveLeft(float stateTime);
+    abstract List<ColoredTextureRegion> actMoveLeft(float stateTime);
 
-    abstract ColoredTextureRegion[] actMoveRight(float stateTime);
+    abstract List<ColoredTextureRegion> actMoveRight(float stateTime);
 
     public void animate(float delta, SpriteBatch spriteBatch) {
-        ColoredTextureRegion[] frames;
+        List<ColoredTextureRegion> frames;
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
             movingStateTime += delta;
@@ -67,7 +69,7 @@ public abstract class EntityAnimation {
         }
     }
 
-    private ColoredTextureRegion[] movingAnimation() {
+    private List<ColoredTextureRegion> movingAnimation() {
         switch (movingEntity.getFacingDirection()) {
             case NORTH:
                 return actMoveUp(movingStateTime);
@@ -83,7 +85,7 @@ public abstract class EntityAnimation {
         return null;
     }
 
-    private ColoredTextureRegion[] idleAnimation() {
+    private List<ColoredTextureRegion> idleAnimation() {
         return actIdle(idleStateTime);
     }
 

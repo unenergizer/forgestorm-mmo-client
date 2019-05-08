@@ -17,8 +17,6 @@ import java.util.Queue;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.valenguard.client.util.Log.println;
-
 @Getter
 @Setter
 public class MovingEntity extends Entity {
@@ -107,7 +105,6 @@ public class MovingEntity extends Entity {
     }
 
     public void loadTextures(GameAtlas gameAtlas) {
-        println(getClass(), "MOVING ENTITY: LOADING ALL TEXTURES...");
         entityAnimation.loadAll(gameAtlas);
     }
 }

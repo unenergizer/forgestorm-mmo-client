@@ -28,17 +28,15 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
         for (byte i = 0; i < charactersToLoad; i++) {
             String name = clientHandler.readString();
             byte characterId = clientHandler.readByte();
-            short bodyId = clientHandler.readShort();
-            short headId = clientHandler.readShort();
-            byte colorId = clientHandler.readByte();
+            byte headId = clientHandler.readByte();
+            byte skinColor = clientHandler.readByte();
 
-            characters[i] = new GameCharacter(name, characterId, bodyId, headId, colorId);
+            characters[i] = new GameCharacter(name, characterId, headId, skinColor);
 
             println(getClass(), "Name: " + name, false, PRINT_DEBUG);
             println(getClass(), "CharacterID: " + characterId, false, PRINT_DEBUG);
-            println(getClass(), "BodyID: " + bodyId, false, PRINT_DEBUG);
             println(getClass(), "HeadID: " + headId, false, PRINT_DEBUG);
-            println(getClass(), "ColorID: " + colorId, false, PRINT_DEBUG);
+            println(getClass(), "SkinColor: " + skinColor, false, PRINT_DEBUG);
         }
 
         return new CharacterData(characters);
@@ -63,8 +61,7 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
     public class GameCharacter {
         private final String name;
         private final byte characterId;
-        private final short bodyId;
-        private final short headId;
+        private final byte headId;
         private final byte colorId;
     }
 

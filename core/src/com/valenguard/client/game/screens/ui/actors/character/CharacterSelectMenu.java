@@ -124,17 +124,17 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
         Color skinColor = ColorList.getType(selectedCharacter.getColorId()).getColor();
 
         VisImage skinHead = imageBuilder.setRegionName("head_down_naked").buildVisImage();
-        skinHead.setColor(skinColor);
+        VisImage skinChest = imageBuilder.setRegionName("chest_down_naked").buildVisImage();
+        VisImage skinPants = imageBuilder.setRegionName("pants_down_naked").buildVisImage();
+        VisImage skinShoes = imageBuilder.setRegionName("shoes_down_naked").buildVisImage();
 
-        VisImage skinChest = imageBuilder.setRegionName("body_down_chest_naked").buildVisImage();
+        skinHead.setColor(skinColor);
         skinChest.setColor(skinColor);
-        VisImage skinPants = imageBuilder.setRegionName("body_down_pants_naked").buildVisImage();
         skinPants.setColor(skinColor);
-        VisImage skinShoes = imageBuilder.setRegionName("body_down_shoes_naked").buildVisImage();
         skinShoes.setColor(skinColor);
 
-//        if (selectedCharacter.getHeadId() != -1) {
-            VisImage head = imageBuilder.setRegionName("head_down_" + selectedCharacter.getHeadId()).buildVisImage();
+        //        if (selectedCharacter.getHeadId() != -1) {
+//            VisImage head = imageBuilder.setRegionName("head_down_" + selectedCharacter.getHeadId()).buildVisImage();
 //        }
 //        VisImage bodyChest = imageBuilder.setRegionName("body_down_chest_" + selectedCharacter.getBodyId()).buildVisImage();
 //        VisImage bodyPants = imageBuilder.setRegionName("body_down_pants_" + selectedCharacter.getBodyId()).buildVisImage();
@@ -144,7 +144,7 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
         stack.add(skinChest);
         stack.add(skinPants);
         stack.add(skinShoes);
-        stack.add(head);
+//        stack.add(head);
 //        stack.add(bodyChest);
 //        stack.add(bodyPants);
 //        stack.add(bodyShoes);

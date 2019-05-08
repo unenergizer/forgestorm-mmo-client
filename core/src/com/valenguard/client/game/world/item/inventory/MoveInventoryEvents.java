@@ -3,7 +3,7 @@ package com.valenguard.client.game.world.item.inventory;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
-import com.valenguard.client.game.world.entities.Appearance;
+import com.valenguard.client.game.world.entities.AppearanceType;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.WearableItemStack;
@@ -166,16 +166,16 @@ public class MoveInventoryEvents {
 
                 switch (sourceItemStackSlot.getAcceptedItemStackTypes()[0]) {
                     case HELM:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(Appearance.HELM);
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.HELM_TEXTURE);
                         break;
                     case CHEST:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(Appearance.CHEST);
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.CHEST_TEXTURE);
                         break;
                     case PANTS:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(Appearance.PANTS);
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.PANTS_TEXTURE);
                         break;
                     case SHOES:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(Appearance.SHOES);
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.SHOES_TEXTURE);
                         break;
                 }
             }
@@ -185,16 +185,16 @@ public class MoveInventoryEvents {
     private void equipItem(ItemStackSlot itemStackSlot, ItemStack equipItem) {
         switch (itemStackSlot.getAcceptedItemStackTypes()[0]) {
             case HELM:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(Appearance.HELM, ((WearableItemStack) equipItem).getTextureId());
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.HELM_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case CHEST:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(Appearance.CHEST, ((WearableItemStack) equipItem).getTextureId());
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.CHEST_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case PANTS:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(Appearance.PANTS, ((WearableItemStack) equipItem).getTextureId());
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.PANTS_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case SHOES:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(Appearance.SHOES, ((WearableItemStack) equipItem).getTextureId());
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.SHOES_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
         }
     }

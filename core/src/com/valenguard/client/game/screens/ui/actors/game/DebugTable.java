@@ -11,7 +11,6 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
-import com.valenguard.client.game.world.entities.animations.HumanAnimation;
 
 public class DebugTable extends VisTable implements Buildable {
 
@@ -25,7 +24,6 @@ public class DebugTable extends VisTable implements Buildable {
     private final VisLabel cursorTile = new VisLabel();
     private final VisLabel leftCursorTileClick = new VisLabel();
     private final VisLabel rightCursorTileClick = new VisLabel();
-    private final VisLabel bodyParts = new VisLabel();
     private final VisLabel health = new VisLabel();
     private final VisLabel armor = new VisLabel();
     private final VisLabel damage = new VisLabel();
@@ -37,7 +35,6 @@ public class DebugTable extends VisTable implements Buildable {
         add(zoom).left().row();
         add(ms).left().row();
         add(uuid).left().row();
-        add(bodyParts).left().row();
         add(playerPixel).left().row();
         add(playerTile).left().row();
         add(cursorTile).left().row();
@@ -79,9 +76,7 @@ public class DebugTable extends VisTable implements Buildable {
         }
 
         if (playerClient != null) {
-            final HumanAnimation humanAnimation = (HumanAnimation) playerClient.getEntityAnimation();
             uuid.setText("UUID: " + playerClient.getServerEntityID());
-            bodyParts.setText("HeadID: " + humanAnimation.getHeadId() + ", BodyID: " + humanAnimation.getChestId());
             playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getMapName());
             playerPixel.setText("Player X: " + playerClient.getDrawX() + ", Y: " + playerClient.getDrawY());
 

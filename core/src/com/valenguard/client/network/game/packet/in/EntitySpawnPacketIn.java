@@ -1,5 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
+import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.EntityAlignment;
@@ -17,7 +18,6 @@ import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.entities.SkillNode;
-import com.valenguard.client.game.world.entities.StationaryEntity;
 import com.valenguard.client.game.world.entities.animations.HumanAnimation;
 import com.valenguard.client.game.world.entities.animations.MonsterAnimation;
 import com.valenguard.client.game.world.maps.Location;
@@ -30,11 +30,11 @@ import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
 import com.valenguard.client.util.ColorList;
 
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
-import static com.valenguard.client.util.Preconditions.checkNotNull;
 
+@SuppressWarnings("ConstantConditions")
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
@@ -43,98 +43,75 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
 
+        final short entityId = clientHandler.readShort();
         final EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
-        final short entityId = clientHandler.readShort(); // TODO: this will be different later depending on the entity type
-        final String entityName = clientHandler.readString();
-        final short tileX = clientHandler.readShort();
-        final short tileY = clientHandler.readShort();
-        byte directionalByte = 0;
-        float moveSpeed = 0.0f;
-        short[] textureIds = null;
-        byte colorId = 0;
-        int maxHealth = 0;
-        int currentHealth = 0;
-        EntityAlignment entityAlignment = null;
-        byte entityFaction = -1;
-        short shopID = -1;
+        final EntitySpawnPacket entitySpawnPacket = new EntitySpawnPacket(entityId, entityType);
 
-        checkNotNull(entityType, "EntityType can not be null!");
+        entitySpawnPacket.setEntityName(clientHandler.readString());
+        entitySpawnPacket.setTileX(clientHandler.readShort());
+        entitySpawnPacket.setTileY(clientHandler.readShort());
 
         switch (entityType) {
             case SKILL_NODE:
             case ITEM_STACK:
-                textureIds = new short[1];
-                textureIds[Appearance.BODY] = clientHandler.readShort();
+                entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case MONSTER:
-                textureIds = new short[1];
-                textureIds[Appearance.BODY] = clientHandler.readShort();
-                shopID = clientHandler.readShort();
-                entityAlignment = EntityAlignment.getEntityAlignment(clientHandler.readByte());
+                entitySpawnPacket.setShopID(clientHandler.readShort());
+
+                entitySpawnPacket.setEntityAlignment(EntityAlignment.getEntityAlignment(clientHandler.readByte()));
+
+                entitySpawnPacket.setMoveDirection(MoveDirection.getDirection(clientHandler.readByte()));
+                entitySpawnPacket.setMoveSpeed(clientHandler.readFloat());
+                entitySpawnPacket.setMaxHealth(clientHandler.readInt());
+                entitySpawnPacket.setCurrentHealth(clientHandler.readInt());
+
+                // Appearance
+                entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case NPC:
-                colorId = clientHandler.readByte();
-                textureIds = new short[6];
-                textureIds[Appearance.BODY] = clientHandler.readShort();
-                textureIds[Appearance.HEAD] = clientHandler.readShort();
-                textureIds[Appearance.HELM] = clientHandler.readShort();
-                textureIds[Appearance.CHEST] = clientHandler.readShort();
-                textureIds[Appearance.PANTS] = clientHandler.readShort();
-                textureIds[Appearance.SHOES] = clientHandler.readShort();
-                shopID = clientHandler.readShort();
-                entityAlignment = EntityAlignment.getEntityAlignment(clientHandler.readByte());
-                entityFaction = clientHandler.readByte();
+                entitySpawnPacket.setShopID(clientHandler.readShort());
+
+                entitySpawnPacket.setEntityAlignment(EntityAlignment.getEntityAlignment(clientHandler.readByte()));
+                entitySpawnPacket.setEntityFaction(clientHandler.readByte());
+
+                entitySpawnPacket.setMoveDirection(MoveDirection.getDirection(clientHandler.readByte()));
+                entitySpawnPacket.setMoveSpeed(clientHandler.readFloat());
+                entitySpawnPacket.setMaxHealth(clientHandler.readInt());
+                entitySpawnPacket.setCurrentHealth(clientHandler.readInt());
+
+                // Appearance
+                entitySpawnPacket.setHairTexture(clientHandler.readByte());
+                entitySpawnPacket.setHelmTexture(clientHandler.readByte());
+                entitySpawnPacket.setChestTexture(clientHandler.readByte());
+                entitySpawnPacket.setPantsTexture(clientHandler.readByte());
+                entitySpawnPacket.setShoesTexture(clientHandler.readByte());
+                entitySpawnPacket.setHairColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setEyeColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setSkinColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setGlovesColor(ColorList.getType(clientHandler.readByte()).getColor());
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
-                colorId = clientHandler.readByte();
-                textureIds = new short[6];
-                textureIds[Appearance.BODY] = clientHandler.readShort();
-                textureIds[Appearance.HEAD] = clientHandler.readShort();
-                textureIds[Appearance.HELM] = clientHandler.readShort();
-                textureIds[Appearance.CHEST] = clientHandler.readShort();
-                textureIds[Appearance.PANTS] = clientHandler.readShort();
-                textureIds[Appearance.SHOES] = clientHandler.readShort();
+                entitySpawnPacket.setMoveDirection(MoveDirection.getDirection(clientHandler.readByte()));
+                entitySpawnPacket.setMoveSpeed(clientHandler.readFloat());
+                entitySpawnPacket.setMaxHealth(clientHandler.readInt());
+                entitySpawnPacket.setCurrentHealth(clientHandler.readInt());
+
+                // Appearance
+                entitySpawnPacket.setHairTexture(clientHandler.readByte());
+                entitySpawnPacket.setHelmTexture(clientHandler.readByte());
+                entitySpawnPacket.setChestTexture(clientHandler.readByte());
+                entitySpawnPacket.setPantsTexture(clientHandler.readByte());
+                entitySpawnPacket.setShoesTexture(clientHandler.readByte());
+                entitySpawnPacket.setHairColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setEyeColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setSkinColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setGlovesColor(ColorList.getType(clientHandler.readByte()).getColor());
                 break;
         }
 
-
-        if (entityType != EntityType.ITEM_STACK && entityType != EntityType.SKILL_NODE) {
-            directionalByte = clientHandler.readByte();
-            moveSpeed = clientHandler.readFloat();
-            maxHealth = clientHandler.readInt();
-            currentHealth = clientHandler.readInt();
-        }
-
-        println(getClass(), "===================================", false, PRINT_DEBUG);
-        println(getClass(), "entityType: " + entityType, false, PRINT_DEBUG);
-        println(getClass(), "entityId: " + entityId, false, PRINT_DEBUG);
-        println(getClass(), "entityName: " + entityName, false, PRINT_DEBUG);
-        println(getClass(), "tileX: " + tileX, false, PRINT_DEBUG);
-        println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
-        println(getClass(), "directional Byte: " + directionalByte, false, PRINT_DEBUG);
-        println(getClass(), "move speed: " + moveSpeed, false, PRINT_DEBUG);
-        println(getClass(), "Color ID: " + colorId, false, PRINT_DEBUG);
-        for (int i = 0; i < textureIds.length; i++) {
-            println(getClass(), "textureIds #" + i + ": " + textureIds[i], false, PRINT_DEBUG);
-        }
-
-        return new EntitySpawnPacket(
-                entityType,
-                entityId,
-                entityName,
-                tileX,
-                tileY,
-                textureIds,
-                colorId,
-                directionalByte,
-                moveSpeed,
-                maxHealth,
-                currentHealth,
-                entityAlignment,
-                entityFaction,
-                shopID
-        );
+        return entitySpawnPacket;
     }
 
     @Override
@@ -163,43 +140,62 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
-        entity.setAppearance(new Appearance(ColorList.getType(packetData.colorId).getColor(), packetData.textureIds));
+
+        println(getClass(), "entityType: " + packetData.entityType, false, PRINT_DEBUG);
+        println(getClass(), "entityId: " + packetData.entityId, false, PRINT_DEBUG);
+        println(getClass(), "entityName: " + packetData.entityName, false, PRINT_DEBUG);
+        println(getClass(), "tileX: " + packetData.tileX, false, PRINT_DEBUG);
+        println(getClass(), "tileY: " + packetData.tileY, false, PRINT_DEBUG);
+
+        Appearance appearance = new Appearance();
+        entity.setAppearance(appearance);
 
         // This is for setting animation data.
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
             case PLAYER:
             case NPC:
-                println(getClass(), "NPC FOUND: Cast moving entity");
+                appearance.setHairTexture(packetData.hairTexture);
+                appearance.setHelmTexture(packetData.helmTexture);
+                appearance.setChestTexture(packetData.chestTexture);
+                appearance.setPantsTexture(packetData.pantsTexture);
+                appearance.setShoesTexture(packetData.shoesTexture);
+                appearance.setHairColor(packetData.hairColor);
+                appearance.setEyeColor(packetData.eyeColor);
+                appearance.setSkinColor(packetData.skinColor);
+                appearance.setGlovesColor(packetData.glovesColor);
+
                 MovingEntity humanEntity = (MovingEntity) entity;
-
-                println(getClass(), "NPC FOUND: set human animation");
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
-
-                println(getClass(), "NPC FOUND: loading textures");
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
-                println(getClass(), "FINISHED LOADTEXTURES CALL");
 
+                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG);
+                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG);
+                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG);
+                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG);
+                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
                 break;
             case MONSTER:
-                println(getClass(), "MONSTER FOUND: LOADING...");
+                appearance.setMonsterBodyTexture(packetData.bodyTexture);
+
                 MovingEntity monsterEntity = (MovingEntity) entity;
                 monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
                 monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);
                 break;
             case SKILL_NODE:
             case ITEM_STACK:
-                // TODO: Implement or ignore entity type for animation
+                appearance.setMonsterBodyTexture(packetData.bodyTexture);
                 break;
         }
     }
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String mapName) {
-        Entity entity = new PlayerClient();
-
-        PlayerClient playerClient = (PlayerClient) entity;
+        PlayerClient playerClient = new PlayerClient();
         AttachableCamera camera = Valenguard.gameScreen.getCamera();
-        println(EntitySpawnPacketIn.class, "Found player. Initializing the player", false, PRINT_DEBUG);
 
         // Attach entity to camera
         camera.attachEntity(playerClient);
@@ -207,20 +203,19 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         Valenguard.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
         Valenguard.getInstance().getMouseManager().setInvalidate(false);
 
-        setMovingEntityVars((MovingEntity) entity, packetData, mapName);
+        setMovingEntityVars(playerClient, packetData, mapName);
 
         EntityManager.getInstance().setPlayerClient(playerClient);
 
-        ActorUtil.getStageHandler().getStatusBar();
         ActorUtil.getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
-        return entity;
+        return playerClient;
     }
 
     private Entity spawnPlayer(EntitySpawnPacket packetData, String mapName) {
-        Entity entity = new Player();
-        setMovingEntityVars((Player) entity, packetData, mapName);
-        EntityManager.getInstance().addPlayerEntity(packetData.entityId, (Player) entity);
-        return entity;
+        Player player = new Player();
+        setMovingEntityVars(player, packetData, mapName);
+        EntityManager.getInstance().addPlayerEntity(packetData.entityId, player);
+        return player;
     }
 
     private Entity spawnMonster(EntitySpawnPacket packetData, String mapName) {
@@ -233,32 +228,30 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnNPC(EntitySpawnPacket packetData, String mapName) {
-        AiEntity entity = new NPC();
-        entity.setShopID(packetData.shopID);
-        entity.setAlignment(packetData.entityAlignment);
-        ((NPC) entity).setFaction(packetData.entityFaction);
-        setMovingEntityVars(entity, packetData, mapName);
-        EntityManager.getInstance().addAiEntity(packetData.entityId, entity);
-        return entity;
+        NPC npc = new NPC();
+        npc.setShopID(packetData.shopID);
+        npc.setAlignment(packetData.entityAlignment);
+        npc.setFaction(packetData.entityFaction);
+        setMovingEntityVars(npc, packetData, mapName);
+        EntityManager.getInstance().addAiEntity(packetData.entityId, npc);
+        return npc;
     }
 
     private Entity spawnSkillNode(EntitySpawnPacket packetData) {
-        println(getClass(), "Spawning skill node!", false, PRINT_DEBUG);
-        Entity entity = new SkillNode();
-        EntityManager.getInstance().addStationaryEntity(packetData.entityId, (StationaryEntity) entity);
-        return entity;
+        SkillNode skillNode = new SkillNode();
+        EntityManager.getInstance().addStationaryEntity(packetData.entityId, skillNode);
+        return skillNode;
     }
 
     private Entity spawnItem(EntitySpawnPacket packetData) {
-        Entity entity = new ItemStackDrop();
-        EntityManager.getInstance().addItemStackDrop(packetData.entityId, (ItemStackDrop) entity);
-        println(getClass(), "ItemStack spawn! ID: " + packetData.entityId);
-        return entity;
+        ItemStackDrop itemStackDrop = new ItemStackDrop();
+        EntityManager.getInstance().addItemStackDrop(packetData.entityId, itemStackDrop);
+        return itemStackDrop;
     }
 
     private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData, String mapName) {
         entity.setFutureMapLocation(new Location(mapName, packetData.tileX, packetData.tileY));
-        MoveDirection facingDirection = MoveDirection.getDirection(packetData.facingMoveDirectionByte);
+        MoveDirection facingDirection = packetData.moveDirection;
 
         if (facingDirection == MoveDirection.NONE) {
             throw new RuntimeException("The server sent a facing direction of NONE for some reason.");
@@ -270,23 +263,45 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         // setup health
         entity.setMaxHealth(packetData.maxHealth);
         entity.setCurrentHealth(packetData.currentHealth);
+
+
+        println(getClass(), "directional Byte: " + packetData.moveDirection, false, PRINT_DEBUG);
+        println(getClass(), "move speed: " + packetData.moveSpeed, false, PRINT_DEBUG);
+        println(getClass(), "MaxHP: " + packetData.maxHealth, false, PRINT_DEBUG);
+        println(getClass(), "CurrentHp: " + packetData.currentHealth, false, PRINT_DEBUG);
     }
 
-    @AllArgsConstructor
+    @Setter
     class EntitySpawnPacket extends PacketData {
-        private EntityType entityType;
-        private short entityId;
+        private final short entityId;
+        private final EntityType entityType;
+
         private String entityName;
-        private final short tileX;
-        private final short tileY;
-        private final short[] textureIds;
-        private final byte colorId;
-        private final byte facingMoveDirectionByte;
-        private final float moveSpeed;
-        private final int maxHealth;
-        private final int currentHealth;
-        private final EntityAlignment entityAlignment;
-        private final byte entityFaction;
-        private final short shopID;
+        private short tileX;
+        private short tileY;
+        private MoveDirection moveDirection;
+        private float moveSpeed;
+        private int maxHealth;
+        private int currentHealth;
+        private EntityAlignment entityAlignment;
+        private byte entityFaction;
+        private short shopID;
+
+        // Appearance data
+        private byte bodyTexture;
+        private byte hairTexture;
+        private byte helmTexture;
+        private byte chestTexture;
+        private byte pantsTexture;
+        private byte shoesTexture;
+        private Color hairColor;
+        private Color eyeColor;
+        private Color skinColor;
+        private Color glovesColor;
+
+        EntitySpawnPacket(short entityId, EntityType entityType) {
+            this.entityId = entityId;
+            this.entityType = entityType;
+        }
     }
 }

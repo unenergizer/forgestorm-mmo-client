@@ -1,11 +1,10 @@
 package com.valenguard.client.network.game.packet.in;
 
+import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
-import com.valenguard.client.game.world.entities.MovingEntity;
-import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
@@ -13,64 +12,41 @@ import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
 import com.valenguard.client.util.ColorList;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import static com.valenguard.client.util.Log.println;
-
+@SuppressWarnings("ConstantConditions")
 @Opcode(getOpcode = Opcodes.APPEARANCE)
 public class EntityAppearancePacketIn implements PacketListener<EntityAppearancePacketIn.EntityAppearancePacket> {
-
-    private static final boolean PRINT_DEBUG = true;
-
-    // Cannot exceed -0x80 (Sign bit). Extend to short if
-    // the number of indexes goes beyond 8.
-    private static final byte COLOR_INDEX = 0x01;
-    private static final byte BODY_INDEX = 0x02;
-    private static final byte HEAD_INDEX = 0x04;
-    private static final byte HELM_INDEX = 0x08;
-    private static final byte CHEST_INDEX = 0x10;
-    private static final byte PANTS_INDEX = 0x20;
-    private static final byte SHOES_INDEX = 0x40;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
-        final byte entityType = clientHandler.readByte();
-        final byte appearanceBits = clientHandler.readByte();
-        final short[] textureIds = new short[6];
-        byte colorId = -1;
+        final EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
+        final EntityAppearancePacket entityAppearancePacket = new EntityAppearancePacket(entityId, entityType);
 
-        println(getClass(), "Appearance packet in!");
-
-        if ((appearanceBits & COLOR_INDEX) != 0) {
-            colorId = clientHandler.readByte();
-        }
-        if ((appearanceBits & BODY_INDEX) != 0) {
-            textureIds[Appearance.BODY] = clientHandler.readShort();
-        }
-        if ((appearanceBits & HEAD_INDEX) != 0) {
-            textureIds[Appearance.HEAD] = clientHandler.readShort();
-        }
-        if ((appearanceBits & HELM_INDEX) != 0) {
-            textureIds[Appearance.HELM] = clientHandler.readShort();
-        }
-        if ((appearanceBits & CHEST_INDEX) != 0) {
-            textureIds[Appearance.CHEST] = clientHandler.readShort();
-        }
-        if ((appearanceBits & PANTS_INDEX) != 0) {
-            textureIds[Appearance.PANTS] = clientHandler.readShort();
-        }
-        if ((appearanceBits & SHOES_INDEX) != 0) {
-            textureIds[Appearance.SHOES] = clientHandler.readShort();
+        switch (entityType) {
+            case CLIENT_PLAYER:
+            case PLAYER:
+            case NPC:
+                entityAppearancePacket.setHairTexture(clientHandler.readByte());
+                entityAppearancePacket.setHelmTexture(clientHandler.readByte());
+                entityAppearancePacket.setChestTexture(clientHandler.readByte());
+                entityAppearancePacket.setPantsTexture(clientHandler.readByte());
+                entityAppearancePacket.setShoesTexture(clientHandler.readByte());
+                entityAppearancePacket.setHairColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setEyeColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setSkinColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setGlovesColor(ColorList.getType(clientHandler.readByte()).getColor());
+                break;
+            case MONSTER:
+            case ITEM_STACK:
+            case SKILL_NODE:
+                entityAppearancePacket.setMonsterBodyTexture(clientHandler.readByte());
+                break;
         }
 
-        return new EntityAppearancePacket(
-                entityId,
-                EntityType.getEntityType(entityType),
-                appearanceBits,
-                colorId,
-                textureIds
-        );
+        return entityAppearancePacket;
     }
 
     @Override
@@ -96,63 +72,49 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         }
 
         Appearance appearance = entity.getAppearance();
-        boolean updatedTextureId = false;
 
-        if ((packetData.appearanceBits & COLOR_INDEX) != 0) {
-            appearance.setColor(ColorList.getType(packetData.colorId).getColor());
-        }
-        if ((packetData.appearanceBits & BODY_INDEX) != 0) {
-            appearance.getTextureIds()[Appearance.BODY] = packetData.textureIds[Appearance.BODY];
-            updatedTextureId = true;
-        }
-        if ((packetData.appearanceBits & HEAD_INDEX) != 0) {
-            appearance.getTextureIds()[Appearance.HEAD] = packetData.textureIds[Appearance.HEAD];
-            updatedTextureId = true;
-        }
-        if ((packetData.appearanceBits & HELM_INDEX) != 0) {
-
-            println(getClass(), "UPDATING THE HELM", false, PRINT_DEBUG);
-
-            appearance.getTextureIds()[Appearance.HELM] = packetData.textureIds[Appearance.HELM];
-            updatedTextureId = true;
-        }
-        if ((packetData.appearanceBits & CHEST_INDEX) != 0) {
-
-            println(getClass(), "UPDATING THE CHEST!", false, PRINT_DEBUG);
-
-            appearance.getTextureIds()[Appearance.CHEST] = packetData.textureIds[Appearance.CHEST];
-            updatedTextureId = true;
-        }
-        if ((packetData.appearanceBits & PANTS_INDEX) != 0) {
-
-            println(getClass(), "UPDATING THE PANTS!", false, PRINT_DEBUG);
-
-            appearance.getTextureIds()[Appearance.PANTS] = packetData.textureIds[Appearance.PANTS];
-            updatedTextureId = true;
-        }
-        if ((packetData.appearanceBits & SHOES_INDEX) != 0) {
-
-            println(getClass(), "UPDATING THE SHOES!", false, PRINT_DEBUG);
-
-            appearance.getTextureIds()[Appearance.SHOES] = packetData.textureIds[Appearance.SHOES];
-            updatedTextureId = true;
-        }
-
-        if (updatedTextureId) {
-            if (entity instanceof MovingEntity) {
-                MovingEntity movingEntity = (MovingEntity) entity;
-                println(getClass(), "ENTITY : " + entity.getClass().getSimpleName(), false, PRINT_DEBUG);
-                movingEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
-            }
+        switch (packetData.entityType) {
+            case CLIENT_PLAYER:
+            case PLAYER:
+            case NPC:
+                appearance.setHairTexture(packetData.hairTexture);
+                appearance.setHelmTexture(packetData.helmTexture);
+                appearance.setChestTexture(packetData.chestTexture);
+                appearance.setPantsTexture(packetData.pantsTexture);
+                appearance.setShoesTexture(packetData.shoesTexture);
+                appearance.setHairColor(packetData.hairColor);
+                appearance.setEyeColor(packetData.eyeColor);
+                appearance.setSkinColor(packetData.skinColor);
+                appearance.setGlovesColor(packetData.glovesColor);
+                break;
+            case MONSTER:
+            case ITEM_STACK:
+            case SKILL_NODE:
+                appearance.setMonsterBodyTexture(packetData.monsterBodyTexture);
+                break;
         }
     }
 
-    @AllArgsConstructor
+    @Getter
+    @Setter
     class EntityAppearancePacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
-        private final byte appearanceBits;
-        private final byte colorId;
-        private final short[] textureIds;
+
+        private byte monsterBodyTexture;
+        private byte hairTexture;
+        private byte helmTexture;
+        private byte chestTexture;
+        private byte pantsTexture;
+        private byte shoesTexture;
+        private Color hairColor;
+        private Color eyeColor;
+        private Color skinColor;
+        private Color glovesColor;
+
+        EntityAppearancePacket(short entityId, EntityType entityType) {
+            this.entityId = entityId;
+            this.entityType = entityType;
+        }
     }
 }

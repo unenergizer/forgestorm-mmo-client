@@ -10,6 +10,9 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
+
+// TODO: Add font sizes in with this enum.
+
 public enum ScreenResolutions {
     DESKTOP_800_600(800, 600, Application.ApplicationType.Desktop),
     DESKTOP_1024_600(1024, 600, Application.ApplicationType.Desktop),
