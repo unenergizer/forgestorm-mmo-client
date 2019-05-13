@@ -31,6 +31,7 @@ allprojects {
         visuiVersion = '1.4.3-SNAPSHOT'
         lombokVersion = '1.18.4'
         snakeYAML = '1.23'
+        romeVersion = '1.12.0'
     }
 
     repositories {
@@ -101,7 +102,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.kotcrab.vis:vis-ui:$visuiVersion"
         compile "org.yaml:snakeyaml:$snakeYAML:android"
-        compile "com.rometools:rome:1.12.0"
+        compile "com.rometools:rome:$romeVersion"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }
