@@ -6,6 +6,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.Entity;
@@ -97,6 +98,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setMoveSpeed(clientHandler.readFloat());
                 entitySpawnPacket.setMaxHealth(clientHandler.readInt());
                 entitySpawnPacket.setCurrentHealth(clientHandler.readInt());
+
+                entitySpawnPacket.setAdmin(clientHandler.readBoolean());
 
                 // Appearance
                 entitySpawnPacket.setHairTexture(clientHandler.readByte());
@@ -195,6 +198,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String mapName) {
         PlayerClient playerClient = new PlayerClient();
+        playerClient.setAdmin(packetData.isAdmin);
         AttachableCamera camera = Valenguard.gameScreen.getCamera();
 
         // Attach entity to camera
@@ -208,11 +212,14 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         EntityManager.getInstance().setPlayerClient(playerClient);
 
         ActorUtil.getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
+        if (packetData.isAdmin) ActorUtil.getStageHandler().getStage().addActor(new DevMenu().build());
+
         return playerClient;
     }
 
     private Entity spawnPlayer(EntitySpawnPacket packetData, String mapName) {
         Player player = new Player();
+        player.setAdmin(packetData.isAdmin);
         setMovingEntityVars(player, packetData, mapName);
         EntityManager.getInstance().addPlayerEntity(packetData.entityId, player);
         return player;
@@ -286,6 +293,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private EntityAlignment entityAlignment;
         private byte entityFaction;
         private short shopID;
+
+        private boolean isAdmin;
 
         // Appearance data
         private byte bodyTexture;

@@ -13,6 +13,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
+import com.valenguard.client.game.screens.ui.actors.dev.EntityCreator;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
@@ -84,6 +85,9 @@ public class StageHandler implements Disposable {
     private StatusBar statusBar;
     private AbilityBar abilityBar;
 
+    // developer
+    private EntityCreator entityCreator;
+
     // shared
     private MainSettingsWindow mainSettingsWindow;
 
@@ -108,6 +112,7 @@ public class StageHandler implements Disposable {
                 break;
             case GAME:
                 buildGameScreenUI();
+                buildGameTools();
                 break;
         }
     }
@@ -197,6 +202,12 @@ public class StageHandler implements Disposable {
         buildSharedActorsUI();
 
         FocusManager.resetFocus(stage); // Clear focus after building windows
+    }
+
+    private void buildGameTools() {
+        entityCreator = new EntityCreator();
+
+        stage.addActor(entityCreator.build());
     }
 
     private void buildSharedActorsUI() {

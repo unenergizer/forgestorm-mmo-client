@@ -5,9 +5,16 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.entities.animations.HumanAnimation;
 import com.valenguard.client.io.type.GameAtlas;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Player extends MovingEntity {
 
     private TextureAtlas characterTextureAtlas;
+    private boolean isAdmin = true;
+    private boolean isModerator = true;
 
     @Override
     public void loadTextures(GameAtlas gameAtlas) {
