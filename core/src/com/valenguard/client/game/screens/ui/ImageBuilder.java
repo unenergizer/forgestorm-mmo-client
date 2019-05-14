@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.widget.VisImage;
@@ -13,6 +14,9 @@ public class ImageBuilder {
     private GameAtlas gameAtlas;
     private float width = 0;
     private float height = 0;
+    private float x = 0;
+    private float y = 0;
+    private Color color = Color.WHITE;
 
     public ImageBuilder() {
     }
@@ -70,6 +74,17 @@ public class ImageBuilder {
         return this;
     }
 
+    public ImageBuilder setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public ImageBuilder setColor(Color color) {
+        this.color = color;
+        return this;
+    }
+
     public TextureRegionDrawable buildTextureRegionDrawable() {
         if (gameAtlas == null) throw new RuntimeException("GameAtlas must be defined.");
         if (regionName == null || regionName.isEmpty())
@@ -78,7 +93,7 @@ public class ImageBuilder {
         Valenguard.getInstance().getFileManager().loadAtlas(gameAtlas);
         TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(gameAtlas);
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(regionName));
-
+        textureRegionDrawable.tint(color);
         if (width > 0) textureRegionDrawable.setMinWidth(width);
         if (height > 0) textureRegionDrawable.setMinHeight(height);
 
@@ -86,6 +101,9 @@ public class ImageBuilder {
     }
 
     public VisImage buildVisImage() {
-        return new VisImage(buildTextureRegionDrawable());
+        VisImage visImage = new VisImage(buildTextureRegionDrawable());
+        visImage.setColor(color);
+        visImage.setPosition(x, y);
+        return visImage;
     }
 }
