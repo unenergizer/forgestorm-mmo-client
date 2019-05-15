@@ -29,7 +29,7 @@ import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
 import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
-import com.valenguard.client.util.ColorList;
+import com.valenguard.client.util.color.LibGDXColorList;
 
 import lombok.Setter;
 
@@ -39,7 +39,7 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -87,10 +87,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setChestTexture(clientHandler.readByte());
                 entitySpawnPacket.setPantsTexture(clientHandler.readByte());
                 entitySpawnPacket.setShoesTexture(clientHandler.readByte());
-                entitySpawnPacket.setHairColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setEyeColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setSkinColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setGlovesColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setHairColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setEyeColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setSkinColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setGlovesColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
@@ -107,10 +107,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setChestTexture(clientHandler.readByte());
                 entitySpawnPacket.setPantsTexture(clientHandler.readByte());
                 entitySpawnPacket.setShoesTexture(clientHandler.readByte());
-                entitySpawnPacket.setHairColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setEyeColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setSkinColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setGlovesColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setHairColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setEyeColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setSkinColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setGlovesColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
                 break;
         }
 

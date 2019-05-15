@@ -10,7 +10,7 @@ import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
 import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
-import com.valenguard.client.util.ColorList;
+import com.valenguard.client.util.color.LibGDXColorList;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,10 +34,10 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 entityAppearancePacket.setChestTexture(clientHandler.readByte());
                 entityAppearancePacket.setPantsTexture(clientHandler.readByte());
                 entityAppearancePacket.setShoesTexture(clientHandler.readByte());
-                entityAppearancePacket.setHairColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entityAppearancePacket.setEyeColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entityAppearancePacket.setSkinColor(ColorList.getType(clientHandler.readByte()).getColor());
-                entityAppearancePacket.setGlovesColor(ColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setHairColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setEyeColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setSkinColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entityAppearancePacket.setGlovesColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
                 break;
             case MONSTER:
             case ITEM_STACK:

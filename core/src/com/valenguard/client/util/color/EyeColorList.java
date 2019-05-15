@@ -1,23 +1,14 @@
-package com.valenguard.client.util;
+package com.valenguard.client.util.color;
 
 import com.badlogic.gdx.graphics.Color;
+import com.valenguard.client.util.RandomUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ColorList {
-
-    PLAYER_DEFAULT(new Color(1, .913f, .77f, 1)),
-
-    WHITE(new Color(1, 1, 1, 1)),
-    LIGHT_GRAY(new Color(0xbfbfbfff)),
-    GRAY(new Color(0x7f7f7fff)),
-    DARK_GRAY(new Color(0x3f3f3fff)),
-    BLACK(new Color(0, 0, 0, 1)),
-
-    CLEAR(new Color(0, 0, 0, 0)),
+public enum EyeColorList {
 
     BLUE(new Color(0, 0, 1, 1)),
     NAVY(new Color(0, 0, 0.5f, 1)),
@@ -39,7 +30,6 @@ public enum ColorList {
     ORANGE(new Color(0xffa500ff)),
 
     BROWN(new Color(0x8b4513ff)),
-    TAN(new Color(0xd2b48cff)),
     FIREBRICK(new Color(0xb22222ff)),
 
     RED(new Color(0xff0000ff)),
@@ -55,20 +45,20 @@ public enum ColorList {
 
     private Color color;
 
-    public static ColorList getType(byte typeByte) {
-        for (ColorList colorList : ColorList.values()) {
-            if ((byte) colorList.ordinal() == typeByte) {
-                return colorList;
+    public static EyeColorList getType(byte typeByte) {
+        for (EyeColorList libGDXColorList : EyeColorList.values()) {
+            if ((byte) libGDXColorList.ordinal() == typeByte) {
+                return libGDXColorList;
             }
         }
         return null;
     }
 
-    public byte getTypeByte() {
-        return (byte) this.ordinal();
-    }
-
     public static Color randomColor() {
         return values()[RandomUtil.getNewRandom(0, values().length - 1)].getColor();
+    }
+
+    public byte getTypeByte() {
+        return (byte) this.ordinal();
     }
 }

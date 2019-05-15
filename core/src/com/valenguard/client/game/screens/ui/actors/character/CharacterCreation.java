@@ -14,7 +14,7 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.network.game.packet.out.CharacterCreatorPacketOut;
-import com.valenguard.client.util.ColorList;
+import com.valenguard.client.util.color.LibGDXColorList;
 
 public class CharacterCreation extends HideableVisWindow implements Buildable {
 
@@ -83,7 +83,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     private Actor colorSelect() {
         characterColor = new VisSelectBox();
-        characterColor.setItems(ColorList.values());
+        characterColor.setItems(LibGDXColorList.values());
         return characterColor;
     }
 
@@ -108,7 +108,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 new CharacterCreatorPacketOut((CharacterClasses) characterClass.getSelected(),
                         (CharacterGenders) characterGender.getSelected(),
                         (CharacterRaces) characterRace.getSelected(),
-                        (ColorList) characterColor.getSelected(),
+                        (LibGDXColorList) characterColor.getSelected(),
                         characterName.getText()).sendPacket();
                 ActorUtil.fadeOutWindow(characterCreation);
             }

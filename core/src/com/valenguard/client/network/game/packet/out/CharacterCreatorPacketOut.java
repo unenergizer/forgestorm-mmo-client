@@ -4,7 +4,7 @@ import com.valenguard.client.game.rpg.CharacterClasses;
 import com.valenguard.client.game.rpg.CharacterGenders;
 import com.valenguard.client.game.rpg.CharacterRaces;
 import com.valenguard.client.network.game.shared.Opcodes;
-import com.valenguard.client.util.ColorList;
+import com.valenguard.client.util.color.LibGDXColorList;
 
 import static com.valenguard.client.util.Log.println;
 
@@ -15,10 +15,10 @@ public class CharacterCreatorPacketOut extends AbstractClientPacketOut {
     private final CharacterClasses characterClass;
     private final CharacterGenders characterGender;
     private final CharacterRaces characterRace;
-    private final ColorList characterColor;
+    private final LibGDXColorList characterColor;
     private final String characterName;
 
-    public CharacterCreatorPacketOut(CharacterClasses characterClass, CharacterGenders characterGender, CharacterRaces characterRace, ColorList characterColor, String characterName) {
+    public CharacterCreatorPacketOut(CharacterClasses characterClass, CharacterGenders characterGender, CharacterRaces characterRace, LibGDXColorList characterColor, String characterName) {
         super(Opcodes.CHARACTER_CREATOR);
         this.characterClass = characterClass;
         this.characterGender = characterGender;
