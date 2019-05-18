@@ -13,6 +13,7 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
+import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.valenguard.client.game.screens.ui.actors.dev.EntityCreator;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
@@ -90,6 +91,7 @@ public class StageHandler implements Disposable {
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
+    private ColorPickerController colorPickerController;
 
     public void init(Viewport viewport) {
         if (initialized) return;
@@ -111,8 +113,8 @@ public class StageHandler implements Disposable {
                 buildCharacterSelectUI();
                 break;
             case GAME:
-                buildGameScreenUI();
                 buildGameTools();
+                buildGameScreenUI();
                 break;
         }
     }
@@ -205,8 +207,10 @@ public class StageHandler implements Disposable {
     }
 
     private void buildGameTools() {
+        colorPickerController = new ColorPickerController();
         entityCreator = new EntityCreator();
 
+        stage.addActor(colorPickerController.build());
         stage.addActor(entityCreator.build());
     }
 
@@ -242,5 +246,7 @@ public class StageHandler implements Disposable {
             stage.dispose();
             stage = null;
         }
+        if (colorPickerController != null && !colorPickerController.isDisposed())
+            colorPickerController.dispose();
     }
 }

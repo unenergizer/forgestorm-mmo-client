@@ -18,15 +18,14 @@ import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.ProperName;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.type.GameAtlas;
-import com.valenguard.client.util.color.EyeColorList;
 import com.valenguard.client.util.color.LibGDXColorList;
-import com.valenguard.client.util.color.SkinColorList;
 
 import java.text.DecimalFormat;
 
@@ -57,10 +56,10 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
     private ImageData chestData = new ImageData();
     private ImageData pantsData = new ImageData();
     private ImageData shoesData = new ImageData();
-    private VisSelectBox hairColor;
-    private VisSelectBox eyeColor;
-    private VisSelectBox skinColor;
-    private VisSelectBox glovesColor;
+    private ColorPickerColorHandler hairColor;
+    private ColorPickerColorHandler eyeColor;
+    private ColorPickerColorHandler skinColor;
+    private ColorPickerColorHandler glovesColor;
 
     private VisTable previewTable = new VisTable();
 
@@ -115,10 +114,10 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
                 println(EntityCreator.class, "Chest: " + chestData.getData());
                 println(EntityCreator.class, "Pants: " + pantsData.getData());
                 println(EntityCreator.class, "Shoes: " + shoesData.getData());
-                println(EntityCreator.class, "HairColor: " + hairColor.getSelectedIndex());
-                println(EntityCreator.class, "EyesColor: " + eyeColor.getSelectedIndex());
-                println(EntityCreator.class, "SkinColor: " + skinColor.getSelectedIndex());
-                println(EntityCreator.class, "GlovesColor: " + glovesColor.getSelectedIndex());
+                println(EntityCreator.class, "HairColor: " + hairColor.getFinishedColor());
+                println(EntityCreator.class, "EyesColor: " + eyeColor.getFinishedColor());
+                println(EntityCreator.class, "SkinColor: " + skinColor.getFinishedColor());
+                println(EntityCreator.class, "GlovesColor: " + glovesColor.getFinishedColor());
             }
         });
 
@@ -152,25 +151,65 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         setBodyPart(rightPane, "pants", 59, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
         setBodyPart(rightPane, "shoes", 59, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
 
-        hairColor = new VisSelectBox();
-        hairColor.setItems(LibGDXColorList.values());
-        hairColor.setSelectedIndex(0);
-        listSelect(rightPane, "Hair: ", hairColor);
+        VisSelectBox hairSelectBox = new VisSelectBox();
+        hairSelectBox.setItems(LibGDXColorList.values());
+        hairColor = new ColorPickerColorHandler() {
+            @Override
+            public void finish(Color newColor) {
+                characterPreview();
+            }
 
-        eyeColor = new VisSelectBox();
-        eyeColor.setItems(EyeColorList.values());
-        eyeColor.setSelectedIndex(0);
-        listSelect(rightPane, "Eyes: ", eyeColor);
+            @Override
+            public void change(Color newColor) {
+                characterPreview();
+            }
+        };
+        colorPicker(rightPane, "Hair: ", hairSelectBox, hairColor);
 
-        skinColor = new VisSelectBox();
-        skinColor.setItems(SkinColorList.values());
-        skinColor.setSelectedIndex(0);
-        listSelect(rightPane, "Skin: ", skinColor);
+        VisSelectBox eyeSelectBox = new VisSelectBox();
+        eyeSelectBox.setItems(LibGDXColorList.values());
+        eyeColor = new ColorPickerColorHandler() {
+            @Override
+            public void finish(Color newColor) {
+                characterPreview();
+            }
 
-        glovesColor = new VisSelectBox();
-        glovesColor.setItems(LibGDXColorList.values());
-        glovesColor.setSelectedIndex(0);
-        listSelect(rightPane, "Gloves: ", glovesColor);
+            @Override
+            public void change(Color newColor) {
+                characterPreview();
+            }
+        };
+        colorPicker(rightPane, "Eyes: ", eyeSelectBox, eyeColor);
+
+        VisSelectBox skinSelectBox = new VisSelectBox();
+        skinSelectBox.setItems(LibGDXColorList.values());
+        skinColor = new ColorPickerColorHandler() {
+            @Override
+            public void finish(Color newColor) {
+                characterPreview();
+            }
+
+            @Override
+            public void change(Color newColor) {
+                characterPreview();
+            }
+        };
+        colorPicker(rightPane, "Skin: ", skinSelectBox, skinColor);
+
+        VisSelectBox glovesSelectBox = new VisSelectBox();
+        glovesSelectBox.setItems(LibGDXColorList.values());
+        glovesColor = new ColorPickerColorHandler() {
+            @Override
+            public void finish(Color newColor) {
+                characterPreview();
+            }
+
+            @Override
+            public void change(Color newColor) {
+                characterPreview();
+            }
+        };
+        colorPicker(rightPane, "Gloves: ", glovesSelectBox, glovesColor);
 
         VisTable rotatePreviewTable = new VisTable();
         VisTextButton rotateLeft = new VisTextButton("< Rotate Left");
@@ -309,6 +348,32 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         pack();
     }
 
+    private void colorPicker(VisTable mainTable, String labelName, final VisSelectBox visSelectBox, final ColorPickerColorHandler colorPickerColorHandler) {
+        VisTable visTable = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+        VisTextButton visTextButton = new VisTextButton("Pick Color");
+        visTable.add(visLabel).grow().pad(1);
+        visTable.add(visSelectBox).pad(1);
+        visTable.add(visTextButton).pad(1);
+        mainTable.add(visTable).expandX().fillX().pad(1).row();
+
+        visSelectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Color color = LibGDXColorList.getType((byte) visSelectBox.getSelectedIndex()).getColor();
+                colorPickerColorHandler.doColorChange(color);
+                colorPickerColorHandler.setFinishedColor(color);
+            }
+        });
+
+        visTextButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ActorUtil.getStageHandler().getColorPickerController().show(colorPickerColorHandler);
+            }
+        });
+    }
+
     private void listSelect(VisTable mainTable, String labelName, VisSelectBox visSelectBox) {
         VisTable selectTable = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
@@ -358,13 +423,13 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         Color skin = Color.WHITE;
         Color gloves = Color.WHITE;
         if (hairColor != null)
-            hair = LibGDXColorList.getType((byte) hairColor.getSelectedIndex()).getColor();
+            hair = hairColor.getColorChange();
         if (eyeColor != null)
-            eyes = EyeColorList.getType((byte) eyeColor.getSelectedIndex()).getColor();
+            eyes = eyeColor.getColorChange();
         if (skinColor != null)
-            skin = SkinColorList.getType((byte) skinColor.getSelectedIndex()).getColor();
+            skin = skinColor.getColorChange();
         if (glovesColor != null)
-            gloves = LibGDXColorList.getType((byte) glovesColor.getSelectedIndex()).getColor();
+            gloves = glovesColor.getColorChange();
 
         Stack imageStack = new Stack();
         imageStack.setWidth(16 * PREVIEW_SCALE);
