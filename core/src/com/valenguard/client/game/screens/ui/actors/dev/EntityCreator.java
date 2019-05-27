@@ -452,9 +452,12 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
             imageStack.add(imageTable(width, 16 * PREVIEW_SCALE, 1 * PREVIEW_SCALE, "eyes_" + direction, eyes));
         if (helmData.isUse()) {
             imageStack.add(imageTable(width, 16 * PREVIEW_SCALE, 1 * PREVIEW_SCALE, "helm_" + direction + "_" + helmData.getData(), Color.WHITE));
+            imageStack.add(imageTable(width, 16 * PREVIEW_SCALE, 1 * PREVIEW_SCALE, "helm_border_" + direction + "_" + helmData.getData(), Color.BLACK));
         } else {
             imageStack.add(imageTable(width, 16 * PREVIEW_SCALE, 1 * PREVIEW_SCALE, "hair_" + direction + "_" + hairData.getData(), hair));
+            imageStack.add(imageTable(width, 16 * PREVIEW_SCALE, 1 * PREVIEW_SCALE, "hair_border_" + direction + "_" + hairData.getData(), Color.BLACK));
         }
+        imageStack.add(imageTable(width, 16 * PREVIEW_SCALE, 1 * PREVIEW_SCALE, "body_" + direction + "_border", Color.BLACK));
 
         previewTable.add(imageStack);
     }
