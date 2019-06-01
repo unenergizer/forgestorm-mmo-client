@@ -18,7 +18,6 @@ import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.in.CharactersMenuLoadPacketIn;
 import com.valenguard.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.valenguard.client.network.game.packet.out.CharacterSelectPacketOut;
-import com.valenguard.client.util.color.LibGDXColorList;
 
 public class CharacterSelectMenu extends VisTable implements Buildable {
 
@@ -121,7 +120,7 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
 
         Stack stack = new Stack();
 
-        Color skinColor = LibGDXColorList.getType(selectedCharacter.getColorId()).getColor();
+        Color skinColor = new Color(selectedCharacter.getSkinColor());
 
         VisImage skinHead = imageBuilder.setRegionName("head_down_naked").buildVisImage();
         VisImage skinChest = imageBuilder.setRegionName("chest_down_naked").buildVisImage();
@@ -133,8 +132,8 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
         skinPants.setColor(skinColor);
         skinShoes.setColor(skinColor);
 
-        //        if (selectedCharacter.getHeadId() != -1) {
-//            VisImage head = imageBuilder.setRegionName("head_down_" + selectedCharacter.getHeadId()).buildVisImage();
+        //        if (selectedCharacter.getHairTexture() != -1) {
+//            VisImage head = imageBuilder.setRegionName("head_down_" + selectedCharacter.getHairTexture()).buildVisImage();
 //        }
 //        VisImage bodyChest = imageBuilder.setRegionName("body_down_chest_" + selectedCharacter.getBodyId()).buildVisImage();
 //        VisImage bodyPants = imageBuilder.setRegionName("body_down_pants_" + selectedCharacter.getBodyId()).buildVisImage();

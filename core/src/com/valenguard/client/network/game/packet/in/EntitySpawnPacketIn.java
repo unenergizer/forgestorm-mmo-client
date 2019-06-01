@@ -29,7 +29,6 @@ import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
 import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
-import com.valenguard.client.util.color.LibGDXColorList;
 
 import lombok.Setter;
 
@@ -87,10 +86,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setChestTexture(clientHandler.readByte());
                 entitySpawnPacket.setPantsTexture(clientHandler.readByte());
                 entitySpawnPacket.setShoesTexture(clientHandler.readByte());
-                entitySpawnPacket.setHairColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setEyeColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setSkinColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setGlovesColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setHairColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setEyeColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setSkinColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setGlovesColor(new Color(clientHandler.readInt()));
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
@@ -107,10 +106,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setChestTexture(clientHandler.readByte());
                 entitySpawnPacket.setPantsTexture(clientHandler.readByte());
                 entitySpawnPacket.setShoesTexture(clientHandler.readByte());
-                entitySpawnPacket.setHairColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setEyeColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setSkinColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
-                entitySpawnPacket.setGlovesColor(LibGDXColorList.getType(clientHandler.readByte()).getColor());
+                entitySpawnPacket.setHairColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setEyeColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setSkinColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setGlovesColor(new Color(clientHandler.readInt()));
                 break;
         }
 
@@ -172,15 +171,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
-                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
-                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG);
-                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG);
-                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG);
-                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG);
-                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG);
-                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG);
-                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG);
-                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
+                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
                 break;
             case MONSTER:
                 appearance.setMonsterBodyTexture(packetData.bodyTexture);

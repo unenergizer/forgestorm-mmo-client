@@ -28,14 +28,18 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
         for (byte i = 0; i < charactersToLoad; i++) {
             String name = clientHandler.readString();
             byte characterId = clientHandler.readByte();
-            byte headId = clientHandler.readByte();
-            byte skinColor = clientHandler.readByte();
+            byte hairTexture = clientHandler.readByte();
+            int hairColor = clientHandler.readInt();
+            int eyeColor = clientHandler.readInt();
+            int skinColor = clientHandler.readInt();
 
-            characters[i] = new GameCharacter(name, characterId, headId, skinColor);
+            characters[i] = new GameCharacter(name, characterId, hairTexture, hairColor, eyeColor, skinColor);
 
             println(getClass(), "Name: " + name, false, PRINT_DEBUG);
             println(getClass(), "CharacterID: " + characterId, false, PRINT_DEBUG);
-            println(getClass(), "HeadID: " + headId, false, PRINT_DEBUG);
+            println(getClass(), "HairTexture: " + hairTexture, false, PRINT_DEBUG);
+            println(getClass(), "HairColor: " + hairColor, false, PRINT_DEBUG);
+            println(getClass(), "EyeColor: " + eyeColor, false, PRINT_DEBUG);
             println(getClass(), "SkinColor: " + skinColor, false, PRINT_DEBUG);
         }
 
@@ -61,8 +65,10 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
     public class GameCharacter {
         private final String name;
         private final byte characterId;
-        private final byte headId;
-        private final byte colorId;
+        private final byte hairTexture;
+        private final int hairColor;
+        private final int eyeColor;
+        private final int skinColor;
     }
 
 }
