@@ -22,9 +22,10 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.ProperName;
-import com.valenguard.client.game.world.entities.EntityType;
+import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.type.GameAtlas;
+import com.valenguard.client.network.game.packet.out.AdminEditorNPCPacketOut;
 import com.valenguard.client.util.color.LibGDXColorList;
 
 import java.text.DecimalFormat;
@@ -41,8 +42,8 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
     private final DecimalFormat decimalFormat = new DecimalFormat();
 
     private int moveDirection = 0;
-    private VisSelectBox entityType;
     private VisTextField name = new VisValidatableTextField(new ProperName());
+    private VisTextField faction = new VisValidatableTextField(new ProperName());
     private VisTextField health = new VisValidatableTextField(new Validators.IntegerValidator());
     private VisTextField damage = new VisValidatableTextField(new Validators.IntegerValidator());
     private VisTextField expDrop = new VisValidatableTextField(new Validators.IntegerValidator());
@@ -50,7 +51,7 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
     private VisSlider walkSpeed = new VisSlider(.1f, 5, .1f, false);
     private VisSlider probStill = new VisSlider(0, 1, .1f, false);
     private VisSlider probWalk = new VisSlider(0, 1, .1f, false);
-    private VisTextField shopId = new VisTextField();
+    private VisTextField shopId = new VisTextField("-1");
     private ImageData hairData = new ImageData();
     private ImageData helmData = new ImageData();
     private ImageData chestData = new ImageData();
@@ -75,9 +76,7 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         VisTable leftPane = new VisTable();
 
         textField(leftPane, "Name:", name);
-        entityType = new VisSelectBox();
-        entityType.setItems(EntityType.values());
-        listSelect(leftPane, "EntityType: ", entityType);
+        textField(leftPane, "Faction:", faction);
         textField(leftPane, "Health:", health);
         textField(leftPane, "Damage:", damage);
         textField(leftPane, "ExpDrop:", expDrop);
@@ -99,7 +98,6 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 println(EntityCreator.class, "--- Settings ---");
                 println(EntityCreator.class, "Name: " + name.getText());
-                println(EntityCreator.class, "Type: " + entityType.getSelected());
                 println(EntityCreator.class, "Health: " + health.getText());
                 println(EntityCreator.class, "Damage: " + damage.getText());
                 println(EntityCreator.class, "ExpDrop: " + expDrop.getText());
@@ -131,14 +129,14 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         spawnButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO Networking
+                new AdminEditorNPCPacketOut(generateDataOut(false)).sendPacket();
             }
         });
 
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO Networking
+                new AdminEditorNPCPacketOut(generateDataOut(true)).sendPacket();
             }
         });
 
@@ -481,6 +479,64 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
 
         innerTable.add(texture).expand().fillX().bottom().left().padBottom(padBottom);
         return innerTable;
+    }
+
+    private NPCEditorData generateDataOut(boolean save) {
+        NPCEditorData npcEditorData = new NPCEditorData();
+
+        npcEditorData.setSpawn(true);
+        npcEditorData.setSave(save);
+
+        // Basic data
+        npcEditorData.setName(name.getText());
+        npcEditorData.setFaction(faction.getText());
+        npcEditorData.setHealth(Integer.valueOf(health.getText()));
+        npcEditorData.setDamage(Integer.valueOf(damage.getText()));
+        npcEditorData.setExpDrop(Integer.valueOf(expDrop.getText()));
+        npcEditorData.setDropTable(Integer.valueOf(dropTable.getText()));
+        npcEditorData.setWalkSpeed(walkSpeed.getValue());
+        npcEditorData.setProbStop(probStill.getValue());
+        npcEditorData.setProbWalk(probWalk.getValue());
+        npcEditorData.setShopId(Short.valueOf(shopId.getText()));
+        npcEditorData.setBankKeeper(false); // TODO
+
+        // World data
+        npcEditorData.setSpawnLocation(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation()); // TODO
+
+        // Appearance
+        byte noEquip = -1;
+        npcEditorData.setHairTexture((byte) hairData.getData());
+
+        if (helmData.isUse()) {
+            npcEditorData.setHelmTexture((byte) helmData.getData());
+        } else {
+            npcEditorData.setHelmTexture(noEquip);
+        }
+
+        if (chestData.isUse()) {
+            npcEditorData.setChestTexture((byte) chestData.getData());
+        } else {
+            npcEditorData.setChestTexture(noEquip);
+        }
+
+        if (pantsData.isUse()) {
+            npcEditorData.setPantsTexture((byte) pantsData.getData());
+        } else {
+            npcEditorData.setPantsTexture(noEquip);
+        }
+
+        if (shoesData.isUse()) {
+            npcEditorData.setShoesTexture((byte) shoesData.getData());
+        } else {
+            npcEditorData.setShoesTexture(noEquip);
+        }
+
+
+        npcEditorData.setHairColor(hairColor.getFinishedColor());
+        npcEditorData.setEyesColor(eyeColor.getFinishedColor());
+        npcEditorData.setSkinColor(skinColor.getFinishedColor());
+        npcEditorData.setGlovesColor(glovesColor.getFinishedColor());
+        return npcEditorData;
     }
 
     @Getter
