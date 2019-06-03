@@ -106,12 +106,19 @@ public class HumanAnimation extends EntityAnimation {
     private int idleAnimationWaitTime = 0;
     private int currentFramesRendered = 0;
 
+    private Color armorColor = Color.WHITE;
+
     public HumanAnimation(MovingEntity movingEntity) {
         super(movingEntity);
     }
 
     @Override
     public void load(TextureAtlas textureAtlas) {
+
+        // Set armor color based on skin Alpha Color channel
+        armorColor = new Color(1, 1, 1, appearance.getSkinColor().a);
+
+        // Load textures
         loadNakedParts(textureAtlas);
         loadEyes(textureAtlas);
         loadHair(textureAtlas, appearance.getHairTexture());
@@ -243,18 +250,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(pantsUpNaked, 0, false, appearance.getSkinColor(), 1));
                     frameList.add(getColorTextureRegion(shoesUpNaked, 0, false, appearance.getSkinColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmUp, stateTime, true, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmUp, stateTime, true, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmUpBorder, stateTime, true, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairUp, stateTime, true, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairUpBorder, stateTime, true, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestUp, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsUp, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesUp, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesUp, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -266,18 +273,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(shoesDownNaked, 0, false, appearance.getSkinColor(), 0));
                     frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmDown, stateTime, true, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmDown, stateTime, true, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmDownBorder, stateTime, true, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairDown, stateTime, true, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairDownBorder, stateTime, true, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestDown, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsDown, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesDown, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesDown, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -289,18 +296,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(shoesLeftNaked, 0, false, appearance.getSkinColor(), 0));
                     frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmLeft, stateTime, true, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmLeft, stateTime, true, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairLeft, stateTime, true, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestLeft, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsLeft, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesLeft, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesLeft, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -312,18 +319,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(shoesRightNaked, 0, false, appearance.getSkinColor(), 0));
                     frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmRight, stateTime, true, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmRight, stateTime, true, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmRightBorder, stateTime, true, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairRight, stateTime, true, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairRightBorder, stateTime, true, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestRight, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsRight, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesRight, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesRight, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -341,18 +348,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(pantsUpNaked, 0, false, appearance.getSkinColor(), 1));
                     frameList.add(getColorTextureRegion(shoesUpNaked, 0, false, appearance.getSkinColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmUp, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmUp, 0, false, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmUpBorder, 0, false, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairUp, 0, false, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairUpBorder, 0, false, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestUp, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsUp, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesUp, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesUp, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -365,18 +372,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(shoesDownNaked, 0, false, appearance.getSkinColor(), 0));
                     frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmDown, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmDown, 0, false, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmDownBorder, 0, false, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairDown, 0, false, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairDownBorder, 0, false, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestDown, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsDown, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesDown, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesDown, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -388,18 +395,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(shoesLeftNaked, 0, false, appearance.getSkinColor(), 0));
                     frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmLeft, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmLeft, 0, false, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmLeftBorder, 0, false, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairLeft, 0, false, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairLeftBorder, 0, false, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestLeft, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsLeft, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesLeft, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesLeft, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -411,18 +418,18 @@ public class HumanAnimation extends EntityAnimation {
                     frameList.add(getColorTextureRegion(shoesRightNaked, 0, false, appearance.getSkinColor(), 0));
                     frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), 0));
                     if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmRight, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(helmRight, 0, false, armorColor, 0));
                         frameList.add(getColorTextureRegion(helmRightBorder, 0, false, appearance.getBorderColor(), 0));
                     } else {
                         frameList.add(getColorTextureRegion(hairRight, 0, false, appearance.getHairColor(), 0));
                         frameList.add(getColorTextureRegion(hairRightBorder, 0, false, appearance.getBorderColor(), 0));
                     }
                     if (showChest)
-                        frameList.add(getColorTextureRegion(chestRight, 0, false, Color.WHITE, 3));
+                        frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
                     if (showPants)
-                        frameList.add(getColorTextureRegion(pantsRight, 0, false, Color.WHITE, 1));
+                        frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
                     if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesRight, 0, false, Color.WHITE, 0));
+                        frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
                     if (showGloves)
                         frameList.add(getColorTextureRegion(glovesRight, 0, false, appearance.getGlovesColor(), 3));
                     return frameList;
@@ -443,18 +450,18 @@ public class HumanAnimation extends EntityAnimation {
         frameList.add(getColorTextureRegion(pantsUpNaked, stateTime, true, appearance.getSkinColor(), 1));
         frameList.add(getColorTextureRegion(shoesUpNaked, stateTime, true, appearance.getSkinColor(), 0));
         if (showHelm) {
-            frameList.add(getColorTextureRegion(helmUp, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(helmUp, stateTime, true, armorColor, 0));
             frameList.add(getColorTextureRegion(helmUpBorder, stateTime, true, appearance.getBorderColor(), 0));
         } else {
             frameList.add(getColorTextureRegion(hairUp, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairUpBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
         if (showChest)
-            frameList.add(getColorTextureRegion(chestUp, stateTime, true, Color.WHITE, 3 + yAxisOffsetFix(stateTime)));
+            frameList.add(getColorTextureRegion(chestUp, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
-            frameList.add(getColorTextureRegion(pantsUp, stateTime, true, Color.WHITE, 1));
+            frameList.add(getColorTextureRegion(pantsUp, stateTime, true, armorColor, 1));
         if (showShoes)
-            frameList.add(getColorTextureRegion(shoesUp, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(shoesUp, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesUp, stateTime, true, appearance.getGlovesColor(), 3));
 
@@ -472,18 +479,18 @@ public class HumanAnimation extends EntityAnimation {
         frameList.add(getColorTextureRegion(shoesDownNaked, stateTime, true, appearance.getSkinColor(), 0));
         frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), yAxisOffsetFix(stateTime)));
         if (showHelm) {
-            frameList.add(getColorTextureRegion(helmDown, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(helmDown, stateTime, true, armorColor, 0));
             frameList.add(getColorTextureRegion(helmDownBorder, stateTime, true, appearance.getBorderColor(), 0));
         } else {
             frameList.add(getColorTextureRegion(hairDown, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairDownBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
         if (showChest)
-            frameList.add(getColorTextureRegion(chestDown, stateTime, true, Color.WHITE, 3 + yAxisOffsetFix(stateTime)));
+            frameList.add(getColorTextureRegion(chestDown, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
-            frameList.add(getColorTextureRegion(pantsDown, stateTime, true, Color.WHITE, 1));
+            frameList.add(getColorTextureRegion(pantsDown, stateTime, true, armorColor, 1));
         if (showShoes)
-            frameList.add(getColorTextureRegion(shoesDown, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(shoesDown, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesDown, stateTime, true, appearance.getGlovesColor(), 3));
 
@@ -501,18 +508,18 @@ public class HumanAnimation extends EntityAnimation {
         frameList.add(getColorTextureRegion(shoesLeftNaked, stateTime, true, appearance.getSkinColor(), 0));
         frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), yAxisOffsetFix(stateTime)));
         if (showHelm) {
-            frameList.add(getColorTextureRegion(helmLeft, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(helmLeft, stateTime, true, armorColor, 0));
             frameList.add(getColorTextureRegion(helmLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
         } else {
             frameList.add(getColorTextureRegion(hairLeft, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
         if (showChest)
-            frameList.add(getColorTextureRegion(chestLeft, stateTime, true, Color.WHITE, 3 + yAxisOffsetFix(stateTime)));
+            frameList.add(getColorTextureRegion(chestLeft, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
-            frameList.add(getColorTextureRegion(pantsLeft, stateTime, true, Color.WHITE, 1));
+            frameList.add(getColorTextureRegion(pantsLeft, stateTime, true, armorColor, 1));
         if (showShoes)
-            frameList.add(getColorTextureRegion(shoesLeft, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(shoesLeft, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesLeft, stateTime, true, appearance.getGlovesColor(), 3));
 
@@ -530,18 +537,18 @@ public class HumanAnimation extends EntityAnimation {
         frameList.add(getColorTextureRegion(shoesRightNaked, stateTime, true, appearance.getSkinColor(), 0));
         frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), yAxisOffsetFix(stateTime)));
         if (showHelm) {
-            frameList.add(getColorTextureRegion(helmRight, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(helmRight, stateTime, true, armorColor, 0));
             frameList.add(getColorTextureRegion(helmRightBorder, stateTime, true, appearance.getBorderColor(), 0));
         } else {
             frameList.add(getColorTextureRegion(hairRight, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairRightBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
         if (showChest)
-            frameList.add(getColorTextureRegion(chestRight, stateTime, true, Color.WHITE, 3 + yAxisOffsetFix(stateTime)));
+            frameList.add(getColorTextureRegion(chestRight, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
-            frameList.add(getColorTextureRegion(pantsRight, stateTime, true, Color.WHITE, 1));
+            frameList.add(getColorTextureRegion(pantsRight, stateTime, true, armorColor, 1));
         if (showShoes)
-            frameList.add(getColorTextureRegion(shoesRight, stateTime, true, Color.WHITE, 0));
+            frameList.add(getColorTextureRegion(shoesRight, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesRight, stateTime, true, appearance.getGlovesColor(), 3));
 
