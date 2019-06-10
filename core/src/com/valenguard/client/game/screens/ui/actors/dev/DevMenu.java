@@ -6,10 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
-import com.valenguard.client.game.world.entities.EntityManager;
-import com.valenguard.client.game.world.entities.PlayerClient;
 
 public class DevMenu extends Actor implements Buildable {
 
@@ -17,8 +16,8 @@ public class DevMenu extends Actor implements Buildable {
 
     @Override
     public Actor build() {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        if (!playerClient.isModerator()) return this;
+
+        if (!Valenguard.getInstance().isModerator()) return this;
         Table table = new Table();
         table.setFillParent(true);
 
@@ -28,7 +27,7 @@ public class DevMenu extends Actor implements Buildable {
 
         menuBar.addMenu(createModeratorMenu());
 
-        if (!playerClient.isAdmin()) return this;
+        if (!Valenguard.getInstance().isAdmin()) return this;
         menuBar.addMenu(createToolsMenu());
 
         return this;
@@ -51,7 +50,9 @@ public class DevMenu extends Actor implements Buildable {
         toolsMenu.addItem(new MenuItem("Entity Editor", new ChangeListener() {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
-                ActorUtil.getStageHandler().getEntityCreator().setVisible(true);
+                NPCEditor npcEditor = ActorUtil.getStageHandler().getNPCEditor();
+                npcEditor.resetValues();
+                ActorUtil.fadeInWindow(npcEditor);
             }
         }));
         toolsMenu.addItem(new MenuItem("Drop Table Editor"));

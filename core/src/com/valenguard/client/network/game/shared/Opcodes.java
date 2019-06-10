@@ -28,6 +28,7 @@ public class Opcodes {
     public static final byte AI_ENTITY_UPDATE_OUT = 0x0B;
     public static final byte CHARACTERS_MENU_LOAD = 0x0C;
     public static final byte ENTITY_UPDATE_SPEED = 0x0D;
+    public static final byte INIT_CLIENT_PRIVILEGE = 0x0E;
 
     /**
      * CLIENT -> SERVER

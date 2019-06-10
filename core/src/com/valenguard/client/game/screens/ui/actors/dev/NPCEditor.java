@@ -22,7 +22,9 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.ProperName;
+import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.AdminEditorNPCPacketOut;
@@ -35,13 +37,17 @@ import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
 
-public class EntityCreator extends HideableVisWindow implements Buildable {
+@SuppressWarnings("PointlessArithmeticExpression")
+public class NPCEditor extends HideableVisWindow implements Buildable {
 
     private static final int PREVIEW_SCALE = 10;
 
     private final DecimalFormat decimalFormat = new DecimalFormat();
 
+    private short entityIDNum = -1;
+
     private int moveDirection = 0;
+    private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
     private VisTextField name = new VisValidatableTextField(new ProperName());
     private VisTextField faction = new VisValidatableTextField(new ProperName());
     private VisTextField health = new VisValidatableTextField(new Validators.IntegerValidator());
@@ -52,6 +58,11 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
     private VisSlider probStill = new VisSlider(0, 1, .1f, false);
     private VisSlider probWalk = new VisSlider(0, 1, .1f, false);
     private VisTextField shopId = new VisTextField("-1");
+    private BodyPart hairBodyPart;
+    private BodyPart helmBodyPart;
+    private BodyPart chestBodyPart;
+    private BodyPart pantsBodyPart;
+    private BodyPart shoesBodyPart;
     private ImageData hairData = new ImageData();
     private ImageData helmData = new ImageData();
     private ImageData chestData = new ImageData();
@@ -64,16 +75,112 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
 
     private VisTable previewTable = new VisTable();
 
-    public EntityCreator() {
-        super("EntityCreator");
+    public NPCEditor() {
+        super("NPC Creator");
     }
 
+    void resetValues() {
+        entityIDNum = -1;
+        entityID.setText(Short.toString(entityIDNum));
+        name.setText("");
+        faction.setText("THE EMPIRE");
+        health.setText("");
+        damage.setText("");
+        expDrop.setText("");
+        dropTable.setText("");
+        walkSpeed.setValue(0);
+        probStill.setValue(0);
+        probWalk.setValue(0);
+        shopId.setText("-1");
+        hairBodyPart.setData(0);
+        helmBodyPart.setData(0, false);
+        chestBodyPart.setData(0, false);
+        pantsBodyPart.setData(0, false);
+        shoesBodyPart.setData(0, false);
+        hairData.reset();
+        helmData.reset();
+        chestData.reset();
+        pantsData.reset();
+        shoesData.reset();
+        hairColor.setColor(LibGDXColorList.PLAYER_DEFAULT.getColor());
+        eyeColor.setColor(LibGDXColorList.PLAYER_DEFAULT.getColor());
+        skinColor.setColor(LibGDXColorList.PLAYER_DEFAULT.getColor());
+        glovesColor.setColor(LibGDXColorList.PLAYER_DEFAULT.getColor());
+    }
+
+    public void loadNPC(NPC npc) {
+        resetValues();
+        entityIDNum = npc.getServerEntityID();
+        entityID.setText(npc.getServerEntityID());
+
+        name.setText(npc.getEntityName());
+        // todo faction = faction.setText(npc.getFaction());
+        health.setText(Integer.toString(npc.getMaxHealth()));
+        damage.setText(Integer.toString(npc.getDamage()));
+        expDrop.setText(Integer.toString(npc.getExpDrop()));
+        dropTable.setText(Integer.toString(npc.getDropTable()));
+        walkSpeed.setValue(npc.getMoveSpeed());
+        probStill.setValue(npc.getProbWalkStill());
+        probWalk.setValue(npc.getProbWalkStart());
+        shopId.setText(Integer.toString(npc.getShopID()));
+
+        Appearance appearance = npc.getAppearance();
+
+        hairData.setData(appearance.getHairTexture());
+        hairBodyPart.setData(appearance.getHairTexture());
+        if (appearance.getHelmTexture() != -1) {
+            helmData.setUse(true);
+            helmData.setData(appearance.getHelmTexture());
+            helmBodyPart.setData(appearance.getHelmTexture(), true);
+        }
+        if (appearance.getChestTexture() != -1) {
+            chestData.setUse(true);
+            chestData.setData(appearance.getChestTexture());
+            chestBodyPart.setData(appearance.getChestTexture(), true);
+        }
+        if (appearance.getPantsTexture() != -1) {
+            pantsData.setUse(true);
+            pantsData.setData(appearance.getPantsTexture());
+            pantsBodyPart.setData(appearance.getPantsTexture(), true);
+        }
+        if (appearance.getShoesTexture() != -1) {
+            shoesData.setUse(true);
+            shoesData.setData(appearance.getShoesTexture());
+            shoesBodyPart.setData(appearance.getShoesTexture(), true);
+        }
+
+        hairColor.setColor(appearance.getHairColor());
+        eyeColor.setColor(appearance.getEyeColor());
+        skinColor.setColor(appearance.getSkinColor());
+        glovesColor.setColor(appearance.getGlovesColor());
+
+        characterPreview();
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     public Actor build() {
 
         decimalFormat.setMaximumFractionDigits(2);
 
         VisTable leftPane = new VisTable();
+
+        VisTable entityIdTable = new VisTable();
+        VisLabel entityIDString = new VisLabel("EntityID: ");
+        VisTextButton resetEntityID = new VisTextButton("Reset ID (create new entity)");
+        entityIdTable.add(entityIDString).pad(3);
+        entityIdTable.add(entityID).pad(3);
+        entityIdTable.add(resetEntityID).pad(3);
+
+        resetEntityID.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                entityIDNum = -1;
+                entityID.setText(Short.toString(entityIDNum));
+            }
+        });
+
+        leftPane.add(entityIdTable).row();
 
         textField(leftPane, "Name:", name);
         textField(leftPane, "Faction:", faction);
@@ -96,34 +203,36 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                println(EntityCreator.class, "--- Settings ---");
-                println(EntityCreator.class, "Name: " + name.getText());
-                println(EntityCreator.class, "Health: " + health.getText());
-                println(EntityCreator.class, "Damage: " + damage.getText());
-                println(EntityCreator.class, "ExpDrop: " + expDrop.getText());
-                println(EntityCreator.class, "DropTable: " + dropTable.getText());
-                println(EntityCreator.class, "WalkSpeed: " + walkSpeed.getValue());
-                println(EntityCreator.class, "Probability Still: " + probStill.getValue());
-                println(EntityCreator.class, "Probability Walk: " + probWalk.getValue());
-                println(EntityCreator.class, "ShopID: " + shopId.getText());
-                println(EntityCreator.class, "--- Appearance ---");
-                println(EntityCreator.class, "Hair: " + hairData.getData());
-                println(EntityCreator.class, "Helm: " + helmData.getData());
-                println(EntityCreator.class, "Chest: " + chestData.getData());
-                println(EntityCreator.class, "Pants: " + pantsData.getData());
-                println(EntityCreator.class, "Shoes: " + shoesData.getData());
-                println(EntityCreator.class, "HairColor: " + hairColor.getFinishedColor());
-                println(EntityCreator.class, "EyesColor: " + eyeColor.getFinishedColor());
-                println(EntityCreator.class, "SkinColor: " + skinColor.getFinishedColor());
-                println(EntityCreator.class, "GlovesColor: " + glovesColor.getFinishedColor());
+                println(NPCEditor.class, "--- Settings ---");
+                println(NPCEditor.class, "Name: " + name.getText());
+                println(NPCEditor.class, "Health: " + health.getText());
+                println(NPCEditor.class, "Damage: " + damage.getText());
+                println(NPCEditor.class, "ExpDrop: " + expDrop.getText());
+                println(NPCEditor.class, "DropTable: " + dropTable.getText());
+                println(NPCEditor.class, "WalkSpeed: " + walkSpeed.getValue());
+                println(NPCEditor.class, "Probability Still: " + probStill.getValue());
+                println(NPCEditor.class, "Probability Walk: " + probWalk.getValue());
+                println(NPCEditor.class, "ShopID: " + shopId.getText());
+                println(NPCEditor.class, "--- Appearance ---");
+                println(NPCEditor.class, "Hair: " + hairData.getData());
+                println(NPCEditor.class, "Helm: " + helmData.getData());
+                println(NPCEditor.class, "Chest: " + chestData.getData());
+                println(NPCEditor.class, "Pants: " + pantsData.getData());
+                println(NPCEditor.class, "Shoes: " + shoesData.getData());
+                println(NPCEditor.class, "HairColor: " + hairColor.getFinishedColor());
+                println(NPCEditor.class, "EyesColor: " + eyeColor.getFinishedColor());
+                println(NPCEditor.class, "SkinColor: " + skinColor.getFinishedColor());
+                println(NPCEditor.class, "GlovesColor: " + glovesColor.getFinishedColor());
             }
         });
 
         VisTable submitTable = new VisTable();
         VisTextButton spawnButton = new VisTextButton("Spawn");
-        VisTextButton saveButton = new VisTextButton("Save to Database");
-        submitTable.add(spawnButton);
-        submitTable.add(saveButton);
+        VisTextButton saveButton = new VisTextButton("Save");
+        VisTextButton resetButton = new VisTextButton("Reset");
+        submitTable.add(spawnButton).pad(3);
+        submitTable.add(saveButton).pad(3);
+        submitTable.add(resetButton).pad(3);
         leftPane.add(submitTable).row();
 
         spawnButton.addListener(new ChangeListener() {
@@ -137,17 +246,32 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorNPCPacketOut(generateDataOut(true)).sendPacket();
+                resetValues();
+                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getNPCEditor());
+            }
+        });
+
+        resetButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                resetValues();
             }
         });
 
         VisTable rightPane = new VisTable();
         int textureSelectScale = 3;
 
-        setBodyPart(rightPane, "hair", 14, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
-        setBodyPart(rightPane, "helm", 40, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
-        setBodyPart(rightPane, "chest", 59, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
-        setBodyPart(rightPane, "pants", 59, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
-        setBodyPart(rightPane, "shoes", 59, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
+        hairBodyPart = new BodyPart(rightPane, "hair", 14, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
+        helmBodyPart = new BodyPart(rightPane, "helm", 40, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
+        chestBodyPart = new BodyPart(rightPane, "chest", 59, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
+        pantsBodyPart = new BodyPart(rightPane, "pants", 59, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
+        shoesBodyPart = new BodyPart(rightPane, "shoes", 59, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
+
+        hairBodyPart.build();
+        helmBodyPart.build();
+        chestBodyPart.build();
+        pantsBodyPart.build();
+        shoesBodyPart.build();
 
         VisSelectBox hairSelectBox = new VisSelectBox();
         hairSelectBox.setItems(LibGDXColorList.values());
@@ -255,97 +379,6 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    private void setBodyPart(final VisTable visTable, final String texture, final int maxTextures, final int width, final int height, final ImageData imageData, boolean useCheckBox) {
-        final int[] currentTexture = {0};
-
-        final VisTable innerTable = new VisTable();
-        final VisCheckBox visCheckBox = new VisCheckBox("Enable: ");
-        final VisTextButton previous = new VisTextButton("<");
-        final VisTable imageArea = new VisTable();
-        imageArea.setWidth(width);
-        imageArea.setHeight(height);
-        imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture[0]).buildVisImage());
-        final VisTextButton next = new VisTextButton(">");
-        final VisLabel textureId = new VisLabel("");
-        if (currentTexture[0] > 9) {
-            textureId.setText("ID: " + currentTexture[0] + "/" + maxTextures);
-        } else {
-            textureId.setText("ID: 0" + currentTexture[0] + "/" + maxTextures);
-        }
-
-        if (useCheckBox) {
-            previous.setDisabled(true);
-            next.setDisabled(true);
-            imageData.setUse(false);
-        }
-
-        visCheckBox.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (visCheckBox.isChecked()) {
-                    previous.setDisabled(false);
-                    next.setDisabled(false);
-                    imageData.setUse(true);
-                } else {
-                    previous.setDisabled(true);
-                    next.setDisabled(true);
-                    imageData.setUse(false);
-                }
-                characterPreview();
-            }
-        });
-
-        previous.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (currentTexture[0] == 0) {
-                    currentTexture[0] = maxTextures;
-                } else {
-                    currentTexture[0] = currentTexture[0] - 1;
-                }
-                imageArea.clearChildren();
-                imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture[0]).buildVisImage());
-                imageData.setData(currentTexture[0]);
-                if (currentTexture[0] > 9) {
-                    textureId.setText("ID: " + currentTexture[0] + "/" + maxTextures);
-                } else {
-                    textureId.setText("ID: 0" + currentTexture[0] + "/" + maxTextures);
-                }
-                pack();
-                characterPreview();
-            }
-        });
-
-        next.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if (currentTexture[0] == maxTextures) {
-                    currentTexture[0] = 0;
-                } else {
-                    currentTexture[0] = currentTexture[0] + 1;
-                }
-                imageArea.clearChildren();
-                imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture[0]).buildVisImage());
-                imageData.setData(currentTexture[0]);
-                if (currentTexture[0] > 9) {
-                    textureId.setText("ID: " + currentTexture[0] + "/" + maxTextures);
-                } else {
-                    textureId.setText("ID: 0" + currentTexture[0] + "/" + maxTextures);
-                }
-                pack();
-                characterPreview();
-            }
-        });
-
-        if (useCheckBox) innerTable.add(visCheckBox);
-        innerTable.add(previous).pad(1);
-        innerTable.add(imageArea).pad(1);
-        innerTable.add(next).pad(1);
-        innerTable.add(textureId).pad(1);
-        visTable.add(innerTable).row();
-        pack();
-    }
-
     private void colorPicker(VisTable mainTable, String labelName, final VisSelectBox visSelectBox, final ColorPickerColorHandler colorPickerColorHandler) {
         VisTable visTable = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
@@ -358,7 +391,7 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         visSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Color color = LibGDXColorList.getType((byte) visSelectBox.getSelectedIndex()).getColor();
+                @SuppressWarnings("ConstantConditions") Color color = LibGDXColorList.getType((byte) visSelectBox.getSelectedIndex()).getColor();
                 colorPickerColorHandler.doColorChange(color);
                 colorPickerColorHandler.setFinishedColor(color);
             }
@@ -368,21 +401,6 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.getStageHandler().getColorPickerController().show(colorPickerColorHandler);
-            }
-        });
-    }
-
-    private void listSelect(VisTable mainTable, String labelName, VisSelectBox visSelectBox) {
-        VisTable selectTable = new VisTable();
-        VisLabel visLabel = new VisLabel(labelName);
-        selectTable.add(visLabel).grow().pad(1);
-        selectTable.add(visSelectBox).pad(1);
-        mainTable.add(selectTable).expandX().fillX().pad(1).row();
-
-        visSelectBox.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                characterPreview();
             }
         });
     }
@@ -461,9 +479,11 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
     }
 
     private String getDirection() {
+        //noinspection ConstantConditions
         return MoveDirection.getDirection((byte) moveDirection).getDirectionName();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
         VisTable innerTable = new VisTable();
 
@@ -488,6 +508,7 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         npcEditorData.setSave(save);
 
         // Basic data
+        npcEditorData.setEntityID(entityIDNum);
         npcEditorData.setName(name.getText());
         npcEditorData.setFaction(faction.getText());
         npcEditorData.setHealth(Integer.valueOf(health.getText()));
@@ -539,10 +560,155 @@ public class EntityCreator extends HideableVisWindow implements Buildable {
         return npcEditorData;
     }
 
+    private class BodyPart {
+
+        private final VisTable visTable;
+        private final String texture;
+        private final int maxTextures;
+        private final int width;
+        private final int height;
+        private final ImageData imageData;
+        private final boolean useCheckBox;
+
+        @Getter
+        private VisCheckBox visCheckBox;
+        private VisTable imageArea;
+        private VisLabel textureId;
+        private int currentTexture = 0;
+
+        private BodyPart(VisTable visTable, String texture, int maxTextures, int width, int height, ImageData imageData, boolean useCheckBox) {
+            this.visTable = visTable;
+            this.texture = texture;
+            this.maxTextures = maxTextures;
+            this.width = width;
+            this.height = height;
+            this.imageData = imageData;
+            this.useCheckBox = useCheckBox;
+        }
+
+        void setData(int currentTexture, boolean enabled) {
+            this.currentTexture = currentTexture;
+            visCheckBox.setChecked(enabled);
+            update();
+        }
+
+        void setData(int currentTexture) {
+            this.currentTexture = currentTexture;
+            update();
+        }
+
+        private void update() {
+            imageArea.clearChildren();
+            imageArea.setWidth(width);
+            imageArea.setHeight(height);
+            imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+
+            if (currentTexture > 9) {
+                textureId.setText("ID: " + currentTexture + "/" + maxTextures);
+            } else {
+                textureId.setText("ID: 0" + currentTexture + "/" + maxTextures);
+            }
+        }
+
+        private void build() {
+            final VisTable innerTable = new VisTable();
+            visCheckBox = new VisCheckBox("Enable: ");
+            final VisTextButton previous = new VisTextButton("<");
+            imageArea = new VisTable();
+            imageArea.setWidth(width);
+            imageArea.setHeight(height);
+            imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+            final VisTextButton next = new VisTextButton(">");
+            textureId = new VisLabel("");
+            if (currentTexture > 9) {
+                textureId.setText("ID: " + currentTexture + "/" + maxTextures);
+            } else {
+                textureId.setText("ID: 0" + currentTexture + "/" + maxTextures);
+            }
+
+            if (useCheckBox) {
+                previous.setDisabled(true);
+                next.setDisabled(true);
+                imageData.setUse(false);
+            }
+
+            visCheckBox.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (visCheckBox.isChecked()) {
+                        previous.setDisabled(false);
+                        next.setDisabled(false);
+                        imageData.setUse(true);
+                    } else {
+                        previous.setDisabled(true);
+                        next.setDisabled(true);
+                        imageData.setUse(false);
+                    }
+                    characterPreview();
+                }
+            });
+
+            previous.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (currentTexture == 0) {
+                        currentTexture = maxTextures;
+                    } else {
+                        currentTexture = currentTexture - 1;
+                    }
+                    imageArea.clearChildren();
+                    imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+                    imageData.setData(currentTexture);
+                    if (currentTexture > 9) {
+                        textureId.setText("ID: " + currentTexture + "/" + maxTextures);
+                    } else {
+                        textureId.setText("ID: 0" + currentTexture + "/" + maxTextures);
+                    }
+                    pack();
+                    characterPreview();
+                }
+            });
+
+            next.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (currentTexture == maxTextures) {
+                        currentTexture = 0;
+                    } else {
+                        currentTexture = currentTexture + 1;
+                    }
+                    imageArea.clearChildren();
+                    imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+                    imageData.setData(currentTexture);
+                    if (currentTexture > 9) {
+                        textureId.setText("ID: " + currentTexture + "/" + maxTextures);
+                    } else {
+                        textureId.setText("ID: 0" + currentTexture + "/" + maxTextures);
+                    }
+                    pack();
+                    characterPreview();
+                }
+            });
+
+            if (useCheckBox) innerTable.add(visCheckBox);
+            innerTable.add(previous).pad(1);
+            innerTable.add(imageArea).pad(1);
+            innerTable.add(next).pad(1);
+            innerTable.add(textureId).pad(1);
+            visTable.add(innerTable).row();
+            pack();
+        }
+    }
+
     @Getter
     @Setter
     private class ImageData {
         int data = 0;
         boolean use;
+
+        void reset() {
+            data = 0;
+            use = false;
+        }
     }
 }

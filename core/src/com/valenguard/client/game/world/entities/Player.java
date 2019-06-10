@@ -13,8 +13,6 @@ import lombok.Setter;
 public class Player extends MovingEntity {
 
     private TextureAtlas characterTextureAtlas;
-    private boolean isAdmin = true;
-    private boolean isModerator = true;
 
     @Override
     public void loadTextures(GameAtlas gameAtlas) {

@@ -58,6 +58,12 @@ public class MovingEntity extends Entity {
      */
     private Attributes attributes = new Attributes();
 
+    private int damage;
+    private int expDrop;
+    private int dropTable;
+    private float probWalkStill;
+    private float probWalkStart;
+
     /**
      * Entity name drawing
      */

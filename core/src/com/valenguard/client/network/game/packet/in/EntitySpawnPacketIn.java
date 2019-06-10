@@ -6,7 +6,6 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.Entity;
@@ -70,6 +69,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case NPC:
+                if (Valenguard.getInstance().isAdmin()) {
+                    println(getClass(), "Reading in extra NPC data.", false, Valenguard.getInstance().isAdmin());
+                    entitySpawnPacket.setDamage(clientHandler.readInt());
+                    entitySpawnPacket.setExpDrop(clientHandler.readInt());
+                    entitySpawnPacket.setDropTable(clientHandler.readInt());
+                    entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
+                    entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
+                }
+
                 entitySpawnPacket.setShopID(clientHandler.readShort());
 
                 entitySpawnPacket.setEntityAlignment(EntityAlignment.getEntityAlignment(clientHandler.readByte()));
@@ -97,8 +105,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setMoveSpeed(clientHandler.readFloat());
                 entitySpawnPacket.setMaxHealth(clientHandler.readInt());
                 entitySpawnPacket.setCurrentHealth(clientHandler.readInt());
-
-                entitySpawnPacket.setAdmin(clientHandler.readBoolean());
 
                 // Appearance
                 entitySpawnPacket.setHairTexture(clientHandler.readByte());
@@ -156,7 +162,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
             case PLAYER:
-            case NPC:
                 appearance.setHairTexture(packetData.hairTexture);
                 appearance.setHelmTexture(packetData.helmTexture);
                 appearance.setChestTexture(packetData.chestTexture);
@@ -170,6 +175,40 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 MovingEntity humanEntity = (MovingEntity) entity;
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
+
+                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                break;
+            case NPC:
+
+                if (Valenguard.getInstance().isAdmin()) {
+                    ((NPC) entity).setDamage(packetData.damage);
+                    ((NPC) entity).setExpDrop(packetData.expDrop);
+                    ((NPC) entity).setDropTable(packetData.dropTable);
+                    ((NPC) entity).setProbWalkStill(packetData.probWalkStill);
+                    ((NPC) entity).setProbWalkStart(packetData.probWalkStart);
+                }
+
+                appearance.setHairTexture(packetData.hairTexture);
+                appearance.setHelmTexture(packetData.helmTexture);
+                appearance.setChestTexture(packetData.chestTexture);
+                appearance.setPantsTexture(packetData.pantsTexture);
+                appearance.setShoesTexture(packetData.shoesTexture);
+                appearance.setHairColor(packetData.hairColor);
+                appearance.setEyeColor(packetData.eyeColor);
+                appearance.setSkinColor(packetData.skinColor);
+                appearance.setGlovesColor(packetData.glovesColor);
+
+                MovingEntity npcEntity = (MovingEntity) entity;
+                npcEntity.setEntityAnimation(new HumanAnimation(npcEntity));
+                npcEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
                 println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
@@ -197,7 +236,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String mapName) {
         PlayerClient playerClient = new PlayerClient();
-        playerClient.setAdmin(packetData.isAdmin);
         AttachableCamera camera = Valenguard.gameScreen.getCamera();
 
         // Attach entity to camera
@@ -211,14 +249,12 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         EntityManager.getInstance().setPlayerClient(playerClient);
 
         ActorUtil.getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
-        if (packetData.isAdmin) ActorUtil.getStageHandler().getStage().addActor(new DevMenu().build());
 
         return playerClient;
     }
 
     private Entity spawnPlayer(EntitySpawnPacket packetData, String mapName) {
         Player player = new Player();
-        player.setAdmin(packetData.isAdmin);
         setMovingEntityVars(player, packetData, mapName);
         EntityManager.getInstance().addPlayerEntity(packetData.entityId, player);
         return player;
@@ -282,6 +318,14 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final short entityId;
         private final EntityType entityType;
 
+        // Admin data
+        private int damage;
+        private int expDrop;
+        private int dropTable;
+        private float probWalkStill;
+        private float probWalkStart;
+
+        // Base data
         private String entityName;
         private short tileX;
         private short tileY;
@@ -292,8 +336,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private EntityAlignment entityAlignment;
         private byte entityFaction;
         private short shopID;
-
-        private boolean isAdmin;
 
         // Appearance data
         private byte bodyTexture;

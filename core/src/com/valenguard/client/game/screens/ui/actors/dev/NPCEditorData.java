@@ -15,6 +15,7 @@ public class NPCEditorData {
     private boolean save;
 
     // Basic data
+    private short entityID;
     private String name;
     private String faction;
     private int health;

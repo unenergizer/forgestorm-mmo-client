@@ -12,15 +12,18 @@ import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.game.rpg.ShopOpcodes;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.dev.NPCEditor;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.MovingEntity;
+import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.BankActions;
@@ -154,6 +157,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         MenuEntry(MovingEntity clickedEntity) {
             this.clickedEntity = clickedEntity;
 
+            addEditEntityButton();
             addOpenBankButton();
             addTargetButton();
             addAttackButton();
@@ -163,6 +167,32 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         // OpenBank, Attack, Trade, Shop, Follow, Exit, Walk Here
+
+        private void addEditEntityButton() {
+            if (!(clickedEntity instanceof AiEntity)) return;
+            if (!Valenguard.getInstance().isAdmin()) return;
+
+            VisTextButton editEntityButton = new VisTextButton("Edit " + clickedEntity.getEntityName());
+            add(editEntityButton).expand().fill().row();
+
+            editEntityButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    StageHandler stageHandler = ActorUtil.getStageHandler();
+
+                    if (clickedEntity.getEntityType() == EntityType.NPC) {
+                        NPCEditor NPCEditor = stageHandler.getNPCEditor();
+                        NPCEditor.loadNPC((NPC) clickedEntity);
+                        ActorUtil.fadeInWindow(NPCEditor);
+                    } else if (clickedEntity.getEntityType() == EntityType.MONSTER) {
+                        stageHandler.getChatWindow().appendChatMessage("[RED]Editor for this EntityType not created yet!");
+                    }
+
+                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
+                    cleanUpDropDownMenu(true);
+                }
+            });
+        }
 
         private void addOpenBankButton() {
             if (!(clickedEntity instanceof AiEntity)) return;

@@ -23,6 +23,12 @@ public abstract class ColorPickerColorHandler {
         finish(newColor);
     }
 
+    void setColor(Color newColor) {
+        this.colorChange = newColor;
+        this.finishedColor = newColor;
+        finish(newColor);
+    }
+
     public abstract void change(Color newColor);
 
     public abstract void finish(Color newColor);

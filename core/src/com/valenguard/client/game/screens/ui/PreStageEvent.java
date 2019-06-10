@@ -41,7 +41,8 @@ class PreStageEvent implements InputProcessor {
         if (keycode == KeyBinds.INVENTORY_WINDOW && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()) {
+                    && !stageHandler.getEscapeWindow().isVisible()
+                    && !stageHandler.getNPCEditor().isVisible()) {
                 if (!stageHandler.getBagWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
@@ -58,7 +59,8 @@ class PreStageEvent implements InputProcessor {
         if (keycode == KeyBinds.EQUIPMENT_WINDOW && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()) {
+                    && !stageHandler.getEscapeWindow().isVisible()
+                    && !stageHandler.getNPCEditor().isVisible()) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEquipmentWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());

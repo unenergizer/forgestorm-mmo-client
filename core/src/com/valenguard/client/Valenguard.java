@@ -39,6 +39,7 @@ import com.valenguard.client.network.game.packet.in.EntityHealthPacketIn;
 import com.valenguard.client.network.game.packet.in.EntityMovePacketIn;
 import com.valenguard.client.network.game.packet.in.EntitySpawnPacketIn;
 import com.valenguard.client.network.game.packet.in.EntityUpdatePacketIn;
+import com.valenguard.client.network.game.packet.in.InitClientPrivilegePacketIn;
 import com.valenguard.client.network.game.packet.in.InitScreenPacketIn;
 import com.valenguard.client.network.game.packet.in.InitializeGameMapPacketIn;
 import com.valenguard.client.network.game.packet.in.InventoryPacketIn;
@@ -66,6 +67,11 @@ public class Valenguard extends Game {
     public static GameScreen gameScreen;
     public static CharacterSelectScreen characterSelectScreen;
     public static LoginScreen loginScreen;
+
+    @Setter
+    private boolean isAdmin = false;
+    @Setter
+    private boolean isModerator = false;
 
     private EntityTracker entityTracker;
     private MusicManager musicManager;
@@ -208,6 +214,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new CharactersMenuLoadPacketIn());
                         eventBus.registerListener(new BankManagePacketIn());
                         eventBus.registerListener(new EntityUpdatePacketIn());
+                        eventBus.registerListener(new InitClientPrivilegePacketIn());
                     }
                 });
     }
