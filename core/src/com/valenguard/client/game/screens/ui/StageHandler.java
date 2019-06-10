@@ -14,6 +14,7 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
+import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.NPCEditor;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
@@ -87,6 +88,7 @@ public class StageHandler implements Disposable {
     private AbilityBar abilityBar;
 
     // developer
+    private DevMenu devMenu;
     private NPCEditor NPCEditor;
 
     // shared
@@ -113,7 +115,9 @@ public class StageHandler implements Disposable {
                 buildCharacterSelectUI();
                 break;
             case GAME:
-                buildGameTools();
+                if (Valenguard.getInstance().isAdmin()) {
+                    buildGameTools();
+                }
                 buildGameScreenUI();
                 break;
         }
@@ -208,8 +212,10 @@ public class StageHandler implements Disposable {
 
     private void buildGameTools() {
         colorPickerController = new ColorPickerController();
+        devMenu = new DevMenu();
         NPCEditor = new NPCEditor();
 
+        stage.addActor(devMenu.build());
         stage.addActor(colorPickerController.build());
         stage.addActor(NPCEditor.build());
     }

@@ -29,7 +29,7 @@ public class DevMenu extends Actor implements Buildable {
 
         if (!Valenguard.getInstance().isAdmin()) return this;
         menuBar.addMenu(createToolsMenu());
-
+        setVisible(true);
         return this;
     }
 
