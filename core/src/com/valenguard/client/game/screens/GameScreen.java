@@ -41,6 +41,8 @@ public class GameScreen implements Screen {
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
 
+    private InputMultiplexer multiplexer = new InputMultiplexer();
+
     private boolean gameFocused = true;
 
     // TODO: RELOCATE
@@ -90,7 +92,6 @@ public class GameScreen implements Screen {
         ActorUtil.getStageHandler().init(screenViewport);
 
         // Setup input controls
-        InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(ActorUtil.getStageHandler().getPreStageEvent());
         multiplexer.addProcessor(ActorUtil.getStage());
         multiplexer.addProcessor(ActorUtil.getStageHandler().getPostStageEvent());

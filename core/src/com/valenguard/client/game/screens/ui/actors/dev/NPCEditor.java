@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.dev;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,6 +18,8 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.input.MouseManager;
+import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -25,6 +28,7 @@ import com.valenguard.client.game.screens.ui.actors.ProperName;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.NPC;
+import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.AdminEditorNPCPacketOut;
@@ -58,6 +62,12 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
     private VisSlider probStill = new VisSlider(0, 1, .1f, false);
     private VisSlider probWalk = new VisSlider(0, 1, .1f, false);
     private VisTextField shopId = new VisTextField("-1");
+    @Getter
+    private boolean selectSpawnActivated = false;
+    private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
+    private VisTextField mapName = new VisTextField();
+    private VisTextField mapX = new VisTextField();
+    private VisTextField mapY = new VisTextField();
     private BodyPart hairBodyPart;
     private BodyPart helmBodyPart;
     private BodyPart chestBodyPart;
@@ -92,6 +102,12 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
         probStill.setValue(0);
         probWalk.setValue(0);
         shopId.setText("-1");
+        selectSpawnActivated = false;
+        mapName.setText("");
+        mapX.setText("");
+        mapY.setText("");
+
+        // Appearance Data
         hairBodyPart.setData(0);
         helmBodyPart.setData(0, false);
         chestBodyPart.setData(0, false);
@@ -163,6 +179,9 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
 
         decimalFormat.setMaximumFractionDigits(2);
 
+        /*
+         * BEGIN LEFT PANE (DATA EDITOR) =================================================
+         */
         VisTable leftPane = new VisTable();
 
         VisTable entityIdTable = new VisTable();
@@ -193,10 +212,84 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
         valueSlider(leftPane, "Probability Walk:", probWalk);
         textField(leftPane, "Shop ID:", shopId);
 
+        // Spawn location Selection
+        VisTable spawnLocationTable = new VisTable();
+        mapName.setDisabled(true);
+        selectSpawn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                selectSpawnActivated = true;
+                mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
+//                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getNPCEditor());
+            }
+        });
+
+        ((GameScreen) Valenguard.getInstance().getScreen()).getMultiplexer().addProcessor(new InputProcessor() {
+
+            private MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
+
+            @Override
+            public boolean keyDown(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyUp(int keycode) {
+                return false;
+            }
+
+            @Override
+            public boolean keyTyped(char character) {
+                return false;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                return false;
+            }
+
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                if (!selectSpawnActivated) return false;
+                mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
+                mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
+                selectSpawnActivated = false;
+//                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getNPCEditor());
+                return true;
+            }
+
+            @Override
+            public boolean touchDragged(int screenX, int screenY, int pointer) {
+                if (!selectSpawnActivated) return false;
+                mapX.setText(Short.toString(mouseManager.getMouseTileX()));
+                mapY.setText(Short.toString(mouseManager.getMouseTileY()));
+                return true;
+            }
+
+            @Override
+            public boolean mouseMoved(int screenX, int screenY) {
+                if (!selectSpawnActivated) return false;
+                mapX.setText(Short.toString(mouseManager.getMouseTileX()));
+                mapY.setText(Short.toString(mouseManager.getMouseTileY()));
+                return false;
+            }
+
+            @Override
+            public boolean scrolled(int amount) {
+                return false;
+            }
+        });
+
+        spawnLocationTable.add(selectSpawn);
+        spawnLocationTable.add(mapName).row();
+        spawnLocationTable.add(mapX);
+        spawnLocationTable.add(mapY).row();
+        leftPane.add(spawnLocationTable).pad(3).row();
+
         VisTable texturePrintTable = new VisTable();
-        VisLabel textures = new VisLabel("Texture IDs:");
-        VisTextButton textButton = new VisTextButton("Print Details");
-        texturePrintTable.add(textures);
+        VisLabel textures = new VisLabel("DEBUG:");
+        VisTextButton textButton = new VisTextButton("Print Details to Console");
+        texturePrintTable.add(textures).pad(3);
         texturePrintTable.add(textButton).row();
         leftPane.add(texturePrintTable).row();
 
@@ -204,7 +297,9 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 println(NPCEditor.class, "--- Settings ---");
+                println(NPCEditor.class, "EntityID: " + entityID.getText());
                 println(NPCEditor.class, "Name: " + name.getText());
+                println(NPCEditor.class, "Faction: " + faction.getText());
                 println(NPCEditor.class, "Health: " + health.getText());
                 println(NPCEditor.class, "Damage: " + damage.getText());
                 println(NPCEditor.class, "ExpDrop: " + expDrop.getText());
@@ -213,6 +308,7 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
                 println(NPCEditor.class, "Probability Still: " + probStill.getValue());
                 println(NPCEditor.class, "Probability Walk: " + probWalk.getValue());
                 println(NPCEditor.class, "ShopID: " + shopId.getText());
+                println(NPCEditor.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
                 println(NPCEditor.class, "--- Appearance ---");
                 println(NPCEditor.class, "Hair: " + hairData.getData());
                 println(NPCEditor.class, "Helm: " + helmData.getData());
@@ -226,6 +322,7 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             }
         });
 
+        // Submit and finalize section
         VisTable submitTable = new VisTable();
         VisTextButton spawnButton = new VisTextButton("Spawn");
         VisTextButton saveButton = new VisTextButton("Save");
@@ -258,6 +355,9 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             }
         });
 
+        /*
+         * BEGIN RIGHT PANE (VISUAL EDITOR) =================================================
+         */
         VisTable rightPane = new VisTable();
         int textureSelectScale = 3;
 
@@ -522,7 +622,11 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
         npcEditorData.setBankKeeper(false); // TODO
 
         // World data
-        npcEditorData.setSpawnLocation(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation()); // TODO
+        npcEditorData.setSpawnLocation(new Location(
+                mapName.getText(),
+                Short.valueOf(mapX.getText()),
+                Short.valueOf(mapY.getText()))
+        );
 
         // Appearance
         byte noEquip = -1;
