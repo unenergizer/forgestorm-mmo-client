@@ -2,6 +2,7 @@ package com.valenguard.client.game.world.entities;
 
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.rpg.EntityAlignment;
+import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.util.GameTextUtil;
 
 import lombok.Getter;
@@ -13,6 +14,8 @@ public class AiEntity extends MovingEntity {
     private short shopID;
     private EntityAlignment alignment;
     private boolean isBankKeeper;
+
+    private Location defualtSpawnLocation;
 
     /**
      * Entity name drawing

@@ -76,6 +76,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
                     entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
                     entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
+                    String mapName = clientHandler.readString();
+                    short x = clientHandler.readShort();
+                    short y = clientHandler.readShort();
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(mapName, x, y));
                 }
 
                 entitySpawnPacket.setShopID(clientHandler.readShort());
@@ -194,6 +198,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     ((NPC) entity).setDropTable(packetData.dropTable);
                     ((NPC) entity).setProbWalkStill(packetData.probWalkStill);
                     ((NPC) entity).setProbWalkStart(packetData.probWalkStart);
+                    ((NPC) entity).setDefualtSpawnLocation(packetData.defaultSpawnLocation);
                 }
 
                 appearance.setHairTexture(packetData.hairTexture);
@@ -324,6 +329,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private int dropTable;
         private float probWalkStill;
         private float probWalkStart;
+        private Location defaultSpawnLocation;
 
         // Base data
         private String entityName;

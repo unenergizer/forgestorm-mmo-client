@@ -139,6 +139,9 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
         probStill.setValue(npc.getProbWalkStill());
         probWalk.setValue(npc.getProbWalkStart());
         shopId.setText(Integer.toString(npc.getShopID()));
+        mapName.setText(npc.getDefualtSpawnLocation().getMapName());
+        mapX.setText(Short.toString(npc.getDefualtSpawnLocation().getX()));
+        mapY.setText(Short.toString(npc.getDefualtSpawnLocation().getY()));
 
         Appearance appearance = npc.getAppearance();
 
@@ -220,6 +223,8 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 selectSpawnActivated = true;
                 mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
+                selectSpawn.setText("Left Click Map");
+                selectSpawn.setDisabled(true);
 //                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getNPCEditor());
             }
         });
@@ -251,6 +256,8 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 if (!selectSpawnActivated) return false;
+                selectSpawn.setText("Select Spawn Location");
+                selectSpawn.setDisabled(false);
                 mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
                 mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
