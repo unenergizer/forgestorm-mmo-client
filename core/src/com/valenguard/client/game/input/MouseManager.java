@@ -63,6 +63,10 @@ public class MouseManager {
     @Getter
     private FadeOut fadeOut = new FadeOut();
 
+    @Getter
+    @Setter
+    private boolean highlightHoverTile = false;
+
     void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
         this.mouseTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);

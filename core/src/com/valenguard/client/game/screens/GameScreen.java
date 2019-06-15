@@ -14,10 +14,13 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.Keyboard;
 import com.valenguard.client.game.input.Mouse;
+import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
+import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.game.world.maps.MapRenderer;
+import com.valenguard.client.game.world.maps.MapUtil;
 import com.valenguard.client.io.FileManager;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.io.type.GameFont;
@@ -59,6 +62,9 @@ public class GameScreen implements Screen {
     // TODO: RELOCATE
     private Texture hpBase;
     private Texture hpArea;
+
+    private Texture invalidTileLocationTexture;
+    private Texture validTileLocationTexture;
 
     @Override
     public void show() {
@@ -106,9 +112,21 @@ public class GameScreen implements Screen {
         final int width = 1;
         final int height = 1;
         Pixmap hpBasePixmap = createProceduralPixmap(width, height, Color.RED);
-        Pixmap hpAreaPixmap = createProceduralPixmap(width, height, Color.GREEN);
         hpBase = new Texture(hpBasePixmap);
+        hpBasePixmap.dispose();
+
+        Pixmap hpAreaPixmap = createProceduralPixmap(width, height, Color.GREEN);
         hpArea = new Texture(hpAreaPixmap);
+        hpAreaPixmap.dispose();
+
+        // Tile highlighting
+        Pixmap invalidTextureHighlight = createProceduralPixmap(16, 16, Color.RED);
+        invalidTileLocationTexture = new Texture(invalidTextureHighlight);
+        invalidTextureHighlight.dispose();
+
+        Pixmap validTextureHighlight = createProceduralPixmap(16, 16, Color.GREEN);
+        validTileLocationTexture = new Texture(validTextureHighlight);
+        validTextureHighlight.dispose();
     }
 
     private int srcX = 0; //TODO RELOCATE PARALLAX BG
@@ -141,8 +159,6 @@ public class GameScreen implements Screen {
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        Valenguard.getInstance().getMouseManager().drawMoveNodes(spriteBatch);
-
         // Animate
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
@@ -165,6 +181,23 @@ public class GameScreen implements Screen {
         spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();
+
+        spriteBatch.begin();
+        // Draw mouse
+        MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
+        mouseManager.drawMoveNodes(spriteBatch);
+        if (mouseManager.isHighlightHoverTile()) {
+            int x = mouseManager.getMouseTileX() * 16;
+            int y = mouseManager.getMouseTileY() * 16;
+            Location clientLocation = playerClient.getCurrentMapLocation();
+            if (MapUtil.isTraversable(clientLocation.getMapData(), mouseManager.getMouseTileX(), mouseManager.getMouseTileY())) {
+                spriteBatch.draw(validTileLocationTexture, x, y, 16, 16);
+            } else {
+                spriteBatch.draw(invalidTileLocationTexture, x, y, 16, 16);
+            }
+        }
+        spriteBatch.end();
+
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         ActorUtil.getStageHandler().render(delta);
     }
@@ -226,5 +259,10 @@ public class GameScreen implements Screen {
         println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         if (mapRenderer != null) mapRenderer.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
+        if (parallaxBackground != null) parallaxBackground.dispose();
+        if (hpBase != null) hpBase.dispose();
+        if (hpArea != null) hpArea.dispose();
+        if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
+        if (validTileLocationTexture != null) validTileLocationTexture.dispose();
     }
 }

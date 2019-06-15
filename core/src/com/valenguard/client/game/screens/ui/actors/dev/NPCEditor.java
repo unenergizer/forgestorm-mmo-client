@@ -217,15 +217,15 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
         textField(leftPane, "Shop ID:", shopId);
 
         // Spawn location Selection
-        VisTable spawnLocationTable = new VisTable();
         mapName.setDisabled(true);
         selectSpawn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectSpawnActivated = true;
                 mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
-                selectSpawn.setText("Left Click Map");
+                selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
+                Valenguard.getInstance().getMouseManager().setHighlightHoverTile(true);
 //                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getNPCEditor());
             }
         });
@@ -263,6 +263,7 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
                 mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
                 mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
+                Valenguard.getInstance().getMouseManager().setHighlightHoverTile(false);
 //                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getNPCEditor());
                 return true;
             }
@@ -289,11 +290,21 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             }
         });
 
-        spawnLocationTable.add(selectSpawn);
-        spawnLocationTable.add(mapName).row();
-        spawnLocationTable.add(mapX);
-        spawnLocationTable.add(mapY).row();
-        leftPane.add(spawnLocationTable).pad(3).row();
+        leftPane.add(selectSpawn).row();
+        VisTable mapNameTable = new VisTable();
+        mapNameTable.add(new VisLabel("Spawn Map:")).grow().pad(1);
+        mapNameTable.add(mapName).pad(1);
+        leftPane.add(mapNameTable).expandX().fillX().pad(1).row();
+
+        VisTable mapXTable = new VisTable();
+        mapXTable.add(new VisLabel("Spawn X:")).grow().pad(1);
+        mapXTable.add(mapX).pad(1);
+        leftPane.add(mapXTable).expandX().fillX().pad(1).row();
+
+        VisTable mapYTable = new VisTable();
+        mapYTable.add(new VisLabel("Spawn Y:")).grow().pad(1);
+        mapYTable.add(mapY).pad(1);
+        leftPane.add(mapYTable).expandX().fillX().pad(1).row();
 
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
