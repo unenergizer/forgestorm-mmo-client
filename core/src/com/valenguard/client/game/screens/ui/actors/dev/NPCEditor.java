@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.dev;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -256,6 +257,7 @@ public class NPCEditor extends HideableVisWindow implements Buildable {
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 if (!selectSpawnActivated) return false;
+                if (button != Input.Buttons.LEFT) return false;
                 selectSpawn.setText("Select Spawn Location");
                 selectSpawn.setDisabled(false);
                 mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
