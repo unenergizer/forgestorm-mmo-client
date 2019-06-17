@@ -127,6 +127,7 @@ public class ClientPlayerMovementManager {
 
         // There are no more movements to go
         if (movements.isEmpty()) {
+
             if (playerClient.getPredictedMoveDirection() != MoveDirection.NONE) {
 
                 MoveDirection predictedDirection = playerClient.getPredictedMoveDirection();
@@ -140,7 +141,13 @@ public class ClientPlayerMovementManager {
                         playerClient,
                         playerClient.getFutureMapLocation(),
                         playerClient.getPredictedMoveDirection());
-                playerMove(playerClient, singleMoveNode);
+
+                MoveNode possibleMove = singleMoveNode.peek();
+                if (possibleMove != null && !isMovable(playerClient.getGameMap(), possibleMove.getWorldX(), possibleMove.getWorldY())) {
+                    finishMove(playerClient);
+                } else {
+                    playerMove(playerClient, singleMoveNode);
+                }
 
             } else {
                 finishMove(playerClient);
@@ -157,7 +164,6 @@ public class ClientPlayerMovementManager {
     }
 
     private void finishMove(PlayerClient playerClient) {
-
         println(getClass(), "Finished Movement", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
