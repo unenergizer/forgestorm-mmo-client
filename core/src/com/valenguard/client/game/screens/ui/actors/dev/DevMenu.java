@@ -51,7 +51,7 @@ public class DevMenu extends Actor implements Buildable {
             @Override
             public void changed (ChangeEvent event, Actor actor) {
                 NPCEditor npcEditor = ActorUtil.getStageHandler().getNPCEditor();
-                npcEditor.resetValues();
+                npcEditor.resetValues(true);
                 ActorUtil.fadeInWindow(npcEditor);
             }
         }));

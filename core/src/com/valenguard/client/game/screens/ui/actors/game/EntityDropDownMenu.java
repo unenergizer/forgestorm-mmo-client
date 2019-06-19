@@ -23,7 +23,6 @@ import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.MovingEntity;
-import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.BankActions;
@@ -180,13 +179,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     StageHandler stageHandler = ActorUtil.getStageHandler();
 
-                    if (clickedEntity.getEntityType() == EntityType.NPC) {
-                        NPCEditor NPCEditor = stageHandler.getNPCEditor();
-                        NPCEditor.loadNPC((NPC) clickedEntity);
-                        ActorUtil.fadeInWindow(NPCEditor);
-                    } else if (clickedEntity.getEntityType() == EntityType.MONSTER) {
-                        stageHandler.getChatWindow().appendChatMessage("[RED]Editor for this EntityType not created yet!");
-                    }
+                    NPCEditor NPCEditor = stageHandler.getNPCEditor();
+                    NPCEditor.loadAiEntity((AiEntity) clickedEntity);
+                    ActorUtil.fadeInWindow(NPCEditor);
 
                     stageHandler.getChatWindow().appendChatMessage("[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
                     cleanUpDropDownMenu(true);

@@ -56,6 +56,18 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case MONSTER:
+                if (Valenguard.getInstance().isAdmin()) {
+                    println(getClass(), "Reading in extra MONSTER data.", false, Valenguard.getInstance().isAdmin());
+                    entitySpawnPacket.setDamage(clientHandler.readInt());
+                    entitySpawnPacket.setExpDrop(clientHandler.readInt());
+                    entitySpawnPacket.setDropTable(clientHandler.readInt());
+                    entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
+                    entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
+                    String mapName = clientHandler.readString();
+                    short x = clientHandler.readShort();
+                    short y = clientHandler.readShort();
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(mapName, x, y));
+                }
                 entitySpawnPacket.setShopID(clientHandler.readShort());
 
                 entitySpawnPacket.setEntityAlignment(EntityAlignment.getEntityAlignment(clientHandler.readByte()));
@@ -191,7 +203,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
                 break;
             case NPC:
-
                 if (Valenguard.getInstance().isAdmin()) {
                     ((NPC) entity).setDamage(packetData.damage);
                     ((NPC) entity).setExpDrop(packetData.expDrop);
@@ -226,6 +237,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
                 break;
             case MONSTER:
+                if (Valenguard.getInstance().isAdmin()) {
+                    ((Monster) entity).setDamage(packetData.damage);
+                    ((Monster) entity).setExpDrop(packetData.expDrop);
+                    ((Monster) entity).setDropTable(packetData.dropTable);
+                    ((Monster) entity).setProbWalkStill(packetData.probWalkStill);
+                    ((Monster) entity).setProbWalkStart(packetData.probWalkStart);
+                    ((Monster) entity).setDefualtSpawnLocation(packetData.defaultSpawnLocation);
+                }
+
                 appearance.setMonsterBodyTexture(packetData.bodyTexture);
 
                 MovingEntity monsterEntity = (MovingEntity) entity;

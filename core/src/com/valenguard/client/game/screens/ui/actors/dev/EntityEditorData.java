@@ -1,6 +1,7 @@
 package com.valenguard.client.game.screens.ui.actors.dev;
 
 import com.badlogic.gdx.graphics.Color;
+import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.maps.Location;
 
 import lombok.Getter;
@@ -8,7 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NPCEditorData {
+public class EntityEditorData {
+
+    private EntityType entityType;
 
     // Editor data
     private boolean spawn;
@@ -31,7 +34,10 @@ public class NPCEditorData {
     // World data
     private Location spawnLocation;
 
-    // Appearance
+    // Monster Appearance
+    private byte monsterBodyTexture;
+
+    // NPC Appearance
     private byte hairTexture;
     private byte helmTexture;
     private byte chestTexture;
