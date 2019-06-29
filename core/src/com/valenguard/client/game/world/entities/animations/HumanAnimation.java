@@ -11,6 +11,7 @@ import java.util.List;
 
 import lombok.Setter;
 
+import static com.valenguard.client.util.Log.println;
 import static com.valenguard.client.util.RandomUtil.getNewRandom;
 
 public class HumanAnimation extends EntityAnimation {
@@ -115,6 +116,8 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     public void load(TextureAtlas textureAtlas) {
 
+        println(getClass(), "Setting Animation");
+
         // Set armor color based on skin Alpha Color channel
         armorColor = new Color(1, 1, 1, appearance.getSkinColor().a);
 
@@ -122,22 +125,39 @@ public class HumanAnimation extends EntityAnimation {
         loadNakedParts(textureAtlas);
         loadEyes(textureAtlas);
         loadHair(textureAtlas, appearance.getHairTexture());
+
+        // Helm
         if (appearance.getHelmTexture() != -1) {
             loadHelm(textureAtlas, appearance.getHelmTexture());
             setShowHelm(true);
+        } else {
+            setShowHelm(false);
         }
+
+        // Chest
         if (appearance.getChestTexture() != -1) {
             loadChest(textureAtlas, appearance.getChestTexture());
             setShowChest(true);
+        } else {
+            setShowChest(false);
         }
+
+        // Pants
         if (appearance.getPantsTexture() != -1) {
             loadPants(textureAtlas, appearance.getPantsTexture());
             setShowPants(true);
+        } else {
+            setShowPants(false);
         }
+
+        // Shoes
         if (appearance.getShoesTexture() != -1) {
             loadShoes(textureAtlas, appearance.getShoesTexture());
             setShowShoes(true);
+        } else {
+            setShowShoes(false);
         }
+
         loadGloves(textureAtlas);
         loadBorder(textureAtlas);
     }
