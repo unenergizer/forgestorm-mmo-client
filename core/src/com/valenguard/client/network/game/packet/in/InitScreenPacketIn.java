@@ -24,7 +24,7 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
         ScreenType screenType = ScreenType.getScreenType(clientHandler.readByte());
         short playerClientId = -1;
 
-        println(getClass(), "ScreenSwitch: " + screenType, false);
+        println(getClass(), "ScreenSwitch: " + screenType, false, PRINT_DEBUG);
 
         switch (screenType) {
             case LOGIN:

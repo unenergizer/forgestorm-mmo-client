@@ -11,12 +11,9 @@ import java.util.List;
 
 import lombok.Setter;
 
-import static com.valenguard.client.util.Log.println;
 import static com.valenguard.client.util.RandomUtil.getNewRandom;
 
 public class HumanAnimation extends EntityAnimation {
-
-    //TODO:  left ring, right ring
 
     @Setter
     boolean showHelm = false;
@@ -116,8 +113,6 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     public void load(TextureAtlas textureAtlas) {
 
-        println(getClass(), "Setting Animation");
-
         // Set armor color based on skin Alpha Color channel
         armorColor = new Color(1, 1, 1, appearance.getSkinColor().a);
 
@@ -162,7 +157,7 @@ public class HumanAnimation extends EntityAnimation {
         loadBorder(textureAtlas);
     }
 
-    public void loadEyes(TextureAtlas textureAtlas) {
+    private void loadEyes(TextureAtlas textureAtlas) {
         eyesDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("eyes_down"), Animation.PlayMode.LOOP);
         eyesLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("eyes_left"), Animation.PlayMode.LOOP);
         eyesRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("eyes_right"), Animation.PlayMode.LOOP);
@@ -213,14 +208,14 @@ public class HumanAnimation extends EntityAnimation {
         shoesRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_right_" + shoesId), Animation.PlayMode.LOOP);
     }
 
-    public void loadGloves(TextureAtlas textureAtlas) {
+    private void loadGloves(TextureAtlas textureAtlas) {
         glovesDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_down"), Animation.PlayMode.LOOP);
         glovesUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_up"), Animation.PlayMode.LOOP);
         glovesLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_left"), Animation.PlayMode.LOOP);
         glovesRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_right"), Animation.PlayMode.LOOP);
     }
 
-    public void loadNakedParts(TextureAtlas textureAtlas) {
+    private void loadNakedParts(TextureAtlas textureAtlas) {
         headDownNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_down_naked"), Animation.PlayMode.LOOP);
         headUpNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_up_naked"), Animation.PlayMode.LOOP);
         headLeftNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_left_naked"), Animation.PlayMode.LOOP);
@@ -242,7 +237,7 @@ public class HumanAnimation extends EntityAnimation {
         shoesRightNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_right_naked"), Animation.PlayMode.LOOP);
     }
 
-    public void loadBorder(TextureAtlas textureAtlas) {
+    private void loadBorder(TextureAtlas textureAtlas) {
         bodyBorderDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_down_border"), Animation.PlayMode.LOOP);
         bodyBorderUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_up_border"), Animation.PlayMode.LOOP);
         bodyBorderLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_left_border"), Animation.PlayMode.LOOP);

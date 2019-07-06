@@ -64,12 +64,12 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen();
+        GraphicsUtils.clearScreen(0, 10, 30, 0, true);
 
         // Draw textures
-        spriteBatch.begin();
-        spriteBatch.draw(fileManager.getTexture(GameTexture.LOGIN_BACKGROUND), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        spriteBatch.end();
+//        spriteBatch.begin();
+//        spriteBatch.draw(fileManager.getTexture(GameTexture.LOGIN_BACKGROUND), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        spriteBatch.end();
 
         // Render UI
         ActorUtil.getStageHandler().render(delta);

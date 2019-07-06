@@ -9,6 +9,8 @@ import com.kotcrab.vis.ui.widget.MenuItem;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
+import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 
 public class DevMenu extends Actor implements Buildable {
 
@@ -49,14 +51,21 @@ public class DevMenu extends Actor implements Buildable {
 
         toolsMenu.addItem(new MenuItem("Entity Editor", new ChangeListener() {
             @Override
-            public void changed (ChangeEvent event, Actor actor) {
-                NPCEditor npcEditor = ActorUtil.getStageHandler().getNPCEditor();
-                npcEditor.resetValues(true);
-                ActorUtil.fadeInWindow(npcEditor);
+            public void changed(ChangeEvent event, Actor actor) {
+                EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
+                entityEditor.resetValues();
+                ActorUtil.fadeInWindow(entityEditor);
             }
         }));
         toolsMenu.addItem(new MenuItem("Drop Table Editor"));
-        toolsMenu.addItem(new MenuItem("ItemStack Editor"));
+        toolsMenu.addItem(new MenuItem("ItemStack Editor", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ItemStackEditor itemStackEditor = ActorUtil.getStageHandler().getItemStackEditor();
+                itemStackEditor.resetValues();
+                ActorUtil.fadeInWindow(itemStackEditor);
+            }
+        }));
         toolsMenu.addItem(new MenuItem("Warp Editor"));
         toolsMenu.addItem(new MenuItem("Professions Editor"));
         toolsMenu.addItem(new MenuItem("Factions Editor"));

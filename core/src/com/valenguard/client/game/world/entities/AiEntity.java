@@ -15,7 +15,7 @@ public class AiEntity extends MovingEntity {
     private EntityAlignment alignment;
     private boolean isBankKeeper;
 
-    private Location defualtSpawnLocation;
+    private Location defaultSpawnLocation;
 
     /**
      * Entity name drawing

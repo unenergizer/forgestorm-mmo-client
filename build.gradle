@@ -29,9 +29,10 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         visuiVersion = '1.4.3-SNAPSHOT'
-        lombokVersion = '1.18.4'
+        lombokVersion = '1.18.8'
         snakeYAML = '1.23'
         romeVersion = '1.12.0'
+        jsoupVersion = '1.12.1'
     }
 
     repositories {
@@ -103,6 +104,7 @@ project(":core") {
         compile "com.kotcrab.vis:vis-ui:$visuiVersion"
         compile "org.yaml:snakeyaml:$snakeYAML:android"
         compile "com.rometools:rome:$romeVersion"
+        compile "org.jsoup:jsoup:$jsoupVersion"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }

@@ -13,7 +13,7 @@ public abstract class ColorPickerColorHandler {
     private Color colorChange = LibGDXColorList.PLAYER_DEFAULT.getColor();
     private Color finishedColor = LibGDXColorList.PLAYER_DEFAULT.getColor();
 
-    void doColorChange(Color newColor) {
+    public void doColorChange(Color newColor) {
         this.colorChange = newColor;
         change(newColor);
     }
@@ -23,7 +23,7 @@ public abstract class ColorPickerColorHandler {
         finish(newColor);
     }
 
-    void setColor(Color newColor) {
+    public void setColor(Color newColor) {
         this.colorChange = newColor;
         this.finishedColor = newColor;
         finish(newColor);

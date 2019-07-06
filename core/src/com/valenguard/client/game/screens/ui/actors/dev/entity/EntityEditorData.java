@@ -1,6 +1,7 @@
-package com.valenguard.client.game.screens.ui.actors.dev;
+package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.graphics.Color;
+import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.maps.Location;
 
@@ -21,6 +22,7 @@ public class EntityEditorData {
     private short entityID;
     private String name;
     private String faction;
+    private EntityAlignment entityAlignment;
     private int health;
     private int damage;
     private int expDrop;

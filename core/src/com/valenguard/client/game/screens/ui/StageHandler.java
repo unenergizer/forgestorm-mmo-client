@@ -15,7 +15,8 @@ import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
-import com.valenguard.client.game.screens.ui.actors.dev.NPCEditor;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
+import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
@@ -89,7 +90,8 @@ public class StageHandler implements Disposable {
 
     // developer
     private DevMenu devMenu;
-    private NPCEditor NPCEditor;
+    private EntityEditor entityEditor;
+    private ItemStackEditor itemStackEditor;
 
     // shared
     private MainSettingsWindow mainSettingsWindow;
@@ -213,11 +215,13 @@ public class StageHandler implements Disposable {
     private void buildGameTools() {
         colorPickerController = new ColorPickerController();
         devMenu = new DevMenu();
-        NPCEditor = new NPCEditor();
+        entityEditor = new EntityEditor();
+        itemStackEditor = new ItemStackEditor();
 
         stage.addActor(devMenu.build());
         stage.addActor(colorPickerController.build());
-        stage.addActor(NPCEditor.build());
+        stage.addActor(entityEditor.build());
+        stage.addActor(itemStackEditor.build());
     }
 
     private void buildSharedActorsUI() {

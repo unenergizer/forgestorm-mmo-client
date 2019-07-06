@@ -16,7 +16,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
-import com.valenguard.client.game.screens.ui.actors.dev.NPCEditor;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.AiEntity;
@@ -179,9 +179,15 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     StageHandler stageHandler = ActorUtil.getStageHandler();
 
-                    NPCEditor NPCEditor = stageHandler.getNPCEditor();
-                    NPCEditor.loadAiEntity((AiEntity) clickedEntity);
-                    ActorUtil.fadeInWindow(NPCEditor);
+                    EntityEditor entityEditor = stageHandler.getEntityEditor();
+                    if (clickedEntity.getEntityType() == EntityType.MONSTER) {
+                        entityEditor.getTabbedPane().switchTab(entityEditor.getMonsterTab());
+                        entityEditor.getMonsterTab().loadAiEntity((AiEntity) clickedEntity);
+                    } else if (clickedEntity.getEntityType() == EntityType.NPC) {
+                        entityEditor.getTabbedPane().switchTab(entityEditor.getNpcTab());
+                        entityEditor.getNpcTab().loadAiEntity((AiEntity) clickedEntity);
+                    }
+                    ActorUtil.fadeInWindow(entityEditor);
 
                     stageHandler.getChatWindow().appendChatMessage("[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
                     cleanUpDropDownMenu(true);

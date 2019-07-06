@@ -1,7 +1,7 @@
 package com.valenguard.client.network.game.packet.out;
 
 import com.badlogic.gdx.graphics.Color;
-import com.valenguard.client.game.screens.ui.actors.dev.EntityEditorData;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditorData;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.network.game.shared.Opcodes;
 
@@ -27,7 +27,11 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
         // Basic data
         write.writeShort(entityEditorData.getEntityID());
         write.writeString(entityEditorData.getName());
-        write.writeString(entityEditorData.getFaction());
+        if (entityEditorData.getEntityType() == EntityType.MONSTER) {
+            write.writeByte(entityEditorData.getEntityAlignment().getEntityAlignmentByte());
+        } else if (entityEditorData.getEntityType() == EntityType.NPC) {
+            write.writeString(entityEditorData.getFaction());
+        }
         write.writeInt(entityEditorData.getHealth());
         write.writeInt(entityEditorData.getDamage());
         write.writeInt(entityEditorData.getExpDrop());

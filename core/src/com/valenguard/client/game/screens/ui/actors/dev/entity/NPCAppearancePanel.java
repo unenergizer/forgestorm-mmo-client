@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors.dev;
+package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
@@ -17,7 +18,7 @@ import static com.valenguard.client.util.Log.println;
 @SuppressWarnings("PointlessArithmeticExpression")
 public class NPCAppearancePanel implements AppearancePanel {
 
-    private final NPCEditor npcEditor;
+    private final NpcTab npcTab;
 
     private int moveDirection = 0;
     private NPCBodyPart hairBodyPart;
@@ -35,15 +36,15 @@ public class NPCAppearancePanel implements AppearancePanel {
     private ColorPickerColorHandler skinColor;
     private ColorPickerColorHandler glovesColor;
 
-    NPCAppearancePanel(NPCEditor npcEditor) {
-        this.npcEditor = npcEditor;
+    NPCAppearancePanel(NpcTab npcTab) {
+        this.npcTab = npcTab;
         int textureSelectScale = 3;
 
-        hairBodyPart = new NPCBodyPart(npcEditor, npcEditor.getAppearanceTable(), "hair", 14, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
-        helmBodyPart = new NPCBodyPart(npcEditor, npcEditor.getAppearanceTable(), "helm", 40, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
-        chestBodyPart = new NPCBodyPart(npcEditor, npcEditor.getAppearanceTable(), "chest", 59, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
-        pantsBodyPart = new NPCBodyPart(npcEditor, npcEditor.getAppearanceTable(), "pants", 59, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
-        shoesBodyPart = new NPCBodyPart(npcEditor, npcEditor.getAppearanceTable(), "shoes", 59, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
+        hairBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "hair", 14, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
+        helmBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "helm", 40, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
+        chestBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "chest", 59, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
+        pantsBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "pants", 59, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
+        shoesBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "shoes", 59, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
 
         hairBodyPart.build();
         helmBodyPart.build();
@@ -119,7 +120,7 @@ public class NPCAppearancePanel implements AppearancePanel {
                 characterPreview();
             }
         };
-        npcEditor.colorPicker(npcEditor.getAppearanceTable(), "Hair: ", hairSelectBox, hairColor);
+        npcTab.colorPicker(npcTab.getAppearanceTable(), "Hair: ", hairSelectBox, hairColor);
 
         VisSelectBox eyeSelectBox = new VisSelectBox();
         eyeSelectBox.setItems(LibGDXColorList.values());
@@ -134,7 +135,7 @@ public class NPCAppearancePanel implements AppearancePanel {
                 characterPreview();
             }
         };
-        npcEditor.colorPicker(npcEditor.getAppearanceTable(), "Eyes: ", eyeSelectBox, eyeColor);
+        npcTab.colorPicker(npcTab.getAppearanceTable(), "Eyes: ", eyeSelectBox, eyeColor);
 
         VisSelectBox skinSelectBox = new VisSelectBox();
         skinSelectBox.setItems(LibGDXColorList.values());
@@ -149,7 +150,7 @@ public class NPCAppearancePanel implements AppearancePanel {
                 characterPreview();
             }
         };
-        npcEditor.colorPicker(npcEditor.getAppearanceTable(), "Skin: ", skinSelectBox, skinColor);
+        npcTab.colorPicker(npcTab.getAppearanceTable(), "Skin: ", skinSelectBox, skinColor);
 
         VisSelectBox glovesSelectBox = new VisSelectBox();
         glovesSelectBox.setItems(LibGDXColorList.values());
@@ -164,7 +165,7 @@ public class NPCAppearancePanel implements AppearancePanel {
                 characterPreview();
             }
         };
-        npcEditor.colorPicker(npcEditor.getAppearanceTable(), "Gloves: ", glovesSelectBox, glovesColor);
+        npcTab.colorPicker(npcTab.getAppearanceTable(), "Gloves: ", glovesSelectBox, glovesColor);
 
         VisTable rotatePreviewTable = new VisTable();
         VisTextButton rotateLeft = new VisTextButton("< Rotate Left");
@@ -194,12 +195,12 @@ public class NPCAppearancePanel implements AppearancePanel {
                 characterPreview();
             }
         });
-        npcEditor.getAppearanceTable().add(rotatePreviewTable).row();
+        npcTab.getAppearanceTable().add(rotatePreviewTable).row();
 
         characterPreview();
-        npcEditor.getPreviewTable().setWidth(16 * NPCEditor.PREVIEW_SCALE);
-        npcEditor.getPreviewTable().setHeight(16 * NPCEditor.PREVIEW_SCALE);
-        npcEditor.getAppearanceTable().add(npcEditor.getPreviewTable());
+        npcTab.getPreviewTable().setWidth(16 * NpcTab.PREVIEW_SCALE);
+        npcTab.getPreviewTable().setHeight(16 * NpcTab.PREVIEW_SCALE);
+        npcTab.getAppearanceTable().add(npcTab.getPreviewTable());
     }
 
     @Override
@@ -243,8 +244,8 @@ public class NPCAppearancePanel implements AppearancePanel {
 
     @Override
     public void characterPreview() {
-        if (npcEditor.getPreviewTable().hasChildren()) npcEditor.getPreviewTable().clearChildren();
-        final int width = 16 * NPCEditor.PREVIEW_SCALE;
+        if (npcTab.getPreviewTable().hasChildren()) npcTab.getPreviewTable().clearChildren();
+        final int width = 16 * NpcTab.PREVIEW_SCALE;
         Color hair = Color.WHITE;
         Color eyes = Color.WHITE;
         Color skin = Color.WHITE;
@@ -259,34 +260,34 @@ public class NPCAppearancePanel implements AppearancePanel {
             gloves = glovesColor.getColorChange();
 
         Stack imageStack = new Stack();
-        imageStack.setWidth(16 * NPCEditor.PREVIEW_SCALE);
-        imageStack.setHeight(16 * NPCEditor.PREVIEW_SCALE);
+        imageStack.setWidth(16 * NpcTab.PREVIEW_SCALE);
+        imageStack.setHeight(16 * NpcTab.PREVIEW_SCALE);
 
         String direction = getDirection();
 
-        imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "head_" + direction + "_naked", skin));
-        imageStack.add(npcEditor.imageTable(width, 6 * NPCEditor.PREVIEW_SCALE, 4 * NPCEditor.PREVIEW_SCALE, "chest_" + direction + "_naked", skin));
+        imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "head_" + direction + "_naked", skin));
+        imageStack.add(npcTab.imageTable(width, 6 * NpcTab.PREVIEW_SCALE, 4 * NpcTab.PREVIEW_SCALE, "chest_" + direction + "_naked", skin));
         if (chestData.isUse())
-            imageStack.add(npcEditor.imageTable(width, 6 * NPCEditor.PREVIEW_SCALE, 4 * NPCEditor.PREVIEW_SCALE, "chest_" + direction + "_" + chestData.getData(), Color.WHITE));
-        imageStack.add(npcEditor.imageTable(width, 6 * NPCEditor.PREVIEW_SCALE, 4 * NPCEditor.PREVIEW_SCALE, "gloves_" + direction, gloves));
-        imageStack.add(npcEditor.imageTable(width, 3 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "pants_" + direction + "_naked", skin));
+            imageStack.add(npcTab.imageTable(width, 6 * NpcTab.PREVIEW_SCALE, 4 * NpcTab.PREVIEW_SCALE, "chest_" + direction + "_" + chestData.getData(), Color.WHITE));
+        imageStack.add(npcTab.imageTable(width, 6 * NpcTab.PREVIEW_SCALE, 4 * NpcTab.PREVIEW_SCALE, "gloves_" + direction, gloves));
+        imageStack.add(npcTab.imageTable(width, 3 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "pants_" + direction + "_naked", skin));
         if (pantsData.isUse())
-            imageStack.add(npcEditor.imageTable(width, 3 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "pants_" + direction + "_" + pantsData.getData(), Color.WHITE));
-        imageStack.add(npcEditor.imageTable(width, 1 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "shoes_" + direction + "_naked", skin));
+            imageStack.add(npcTab.imageTable(width, 3 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "pants_" + direction + "_" + pantsData.getData(), Color.WHITE));
+        imageStack.add(npcTab.imageTable(width, 1 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "shoes_" + direction + "_naked", skin));
         if (shoesData.isUse())
-            imageStack.add(npcEditor.imageTable(width, 1 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "shoes_" + direction + "_" + shoesData.getData(), Color.WHITE));
+            imageStack.add(npcTab.imageTable(width, 1 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "shoes_" + direction + "_" + shoesData.getData(), Color.WHITE));
         if (moveDirection != 2)
-            imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "eyes_" + direction, eyes));
+            imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "eyes_" + direction, eyes));
         if (helmData.isUse()) {
-            imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "helm_" + direction + "_" + helmData.getData(), Color.WHITE));
-            imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "helm_border_" + direction + "_" + helmData.getData(), Color.BLACK));
+            imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "helm_" + direction + "_" + helmData.getData(), Color.WHITE));
+            imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "helm_border_" + direction + "_" + helmData.getData(), Color.BLACK));
         } else {
-            imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "hair_" + direction + "_" + hairData.getData(), hair));
-            imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "hair_border_" + direction + "_" + hairData.getData(), Color.BLACK));
+            imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "hair_" + direction + "_" + hairData.getData(), hair));
+            imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "hair_border_" + direction + "_" + hairData.getData(), Color.BLACK));
         }
-        imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, 1 * NPCEditor.PREVIEW_SCALE, "body_" + direction + "_border", Color.BLACK));
+        imageStack.add(npcTab.imageTable(width, 16 * NpcTab.PREVIEW_SCALE, 1 * NpcTab.PREVIEW_SCALE, "body_" + direction + "_border", Color.BLACK));
 
-        npcEditor.getPreviewTable().add(imageStack);
+        npcTab.getPreviewTable().add(imageStack);
     }
 
     private String getDirection() {

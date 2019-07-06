@@ -57,7 +57,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case MONSTER:
                 if (Valenguard.getInstance().isAdmin()) {
-                    println(getClass(), "Reading in extra MONSTER data.", false, Valenguard.getInstance().isAdmin());
+                    println(getClass(), "Reading in extra MONSTER data.", false, Valenguard.getInstance().isAdmin() && PRINT_DEBUG);
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -82,7 +82,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case NPC:
                 if (Valenguard.getInstance().isAdmin()) {
-                    println(getClass(), "Reading in extra NPC data.", false, Valenguard.getInstance().isAdmin());
+                    println(getClass(), "Reading in extra NPC data.", false, Valenguard.getInstance().isAdmin() && PRINT_DEBUG);
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -192,15 +192,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
-                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG);
+                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG);
+                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG);
+                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG);
+                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
                 break;
             case NPC:
                 if (Valenguard.getInstance().isAdmin()) {
@@ -209,7 +209,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     ((NPC) entity).setDropTable(packetData.dropTable);
                     ((NPC) entity).setProbWalkStill(packetData.probWalkStill);
                     ((NPC) entity).setProbWalkStart(packetData.probWalkStart);
-                    ((NPC) entity).setDefualtSpawnLocation(packetData.defaultSpawnLocation);
+                    ((NPC) entity).setDefaultSpawnLocation(packetData.defaultSpawnLocation);
                 }
 
                 appearance.setHairTexture(packetData.hairTexture);
@@ -226,15 +226,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 npcEntity.setEntityAnimation(new HumanAnimation(npcEntity));
                 npcEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
-                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
-                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG || packetData.entityType == EntityType.CLIENT_PLAYER);
+                println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Pants: " + appearance.getPantsTexture(), false, PRINT_DEBUG);
+                println(getClass(), "Shoes: " + appearance.getShoesTexture(), false, PRINT_DEBUG);
+                println(getClass(), "HairColor: " + appearance.getHairColor(), false, PRINT_DEBUG);
+                println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG);
+                println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG);
+                println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
                 break;
             case MONSTER:
                 if (Valenguard.getInstance().isAdmin()) {
@@ -243,7 +243,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     ((Monster) entity).setDropTable(packetData.dropTable);
                     ((Monster) entity).setProbWalkStill(packetData.probWalkStill);
                     ((Monster) entity).setProbWalkStart(packetData.probWalkStart);
-                    ((Monster) entity).setDefualtSpawnLocation(packetData.defaultSpawnLocation);
+                    ((Monster) entity).setDefaultSpawnLocation(packetData.defaultSpawnLocation);
                 }
 
                 appearance.setMonsterBodyTexture(packetData.bodyTexture);
@@ -330,7 +330,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         // setup health
         entity.setMaxHealth(packetData.maxHealth);
         entity.setCurrentHealth(packetData.currentHealth);
-
 
         println(getClass(), "directional Byte: " + packetData.moveDirection, false, PRINT_DEBUG);
         println(getClass(), "move speed: " + packetData.moveSpeed, false, PRINT_DEBUG);

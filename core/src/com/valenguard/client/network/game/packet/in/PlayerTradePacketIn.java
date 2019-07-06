@@ -19,9 +19,11 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.PLAYER_TRADE)
 public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.TradeRequestPacket> {
 
+    private static final boolean PRINT_DEBUG = false;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        println(getClass(), "Trade request in");
+        println(getClass(), "Trade request in", false, PRINT_DEBUG);
 
         final TradeStatusOpcode tradeStatusOpcode = TradeStatusOpcode.getTradeStatusOpcode(clientHandler.readByte());
         int tradeUUID = -1;
@@ -71,7 +73,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
     public void onEvent(TradeRequestPacket packetData) {
         StageHandler stageHandler = ActorUtil.getStageHandler();
 
-        println(getClass(), "Opcode: " + packetData.tradeStatusOpcode);
+        println(getClass(), "Opcode: " + packetData.tradeStatusOpcode, false, PRINT_DEBUG);
 
         switch (packetData.tradeStatusOpcode) {
 

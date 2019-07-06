@@ -42,7 +42,7 @@ class PreStageEvent implements InputProcessor {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()
-                    && !stageHandler.getNPCEditor().isVisible()) {
+                    && !stageHandler.getEntityEditor().isVisible()) {
                 if (!stageHandler.getBagWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
@@ -60,7 +60,7 @@ class PreStageEvent implements InputProcessor {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()
-                    && !stageHandler.getNPCEditor().isVisible()) {
+                    && !stageHandler.getEntityEditor().isVisible()) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEquipmentWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());

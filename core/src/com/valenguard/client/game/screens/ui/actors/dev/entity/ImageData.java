@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors.dev;
+package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
 import lombok.Getter;
 import lombok.Setter;

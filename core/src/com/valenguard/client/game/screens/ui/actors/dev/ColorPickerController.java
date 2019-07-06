@@ -57,7 +57,7 @@ public class ColorPickerController extends Actor implements Buildable, Disposabl
         return this;
     }
 
-    void show(ColorPickerColorHandler currentContainer) {
+    public void show(ColorPickerColorHandler currentContainer) {
         this.currentColorPickerHandler = currentContainer;
         ActorUtil.getStage().addActor(colorPicker.fadeIn());
         colorPicker.setZIndex(Integer.MAX_VALUE);

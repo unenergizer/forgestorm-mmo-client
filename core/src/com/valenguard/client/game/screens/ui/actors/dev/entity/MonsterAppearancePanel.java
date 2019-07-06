@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors.dev;
+package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
@@ -7,15 +7,15 @@ import static com.valenguard.client.util.Log.println;
 
 public class MonsterAppearancePanel implements AppearancePanel {
 
-    private final NPCEditor npcEditor;
+    private final MonsterTab monsterTab;
 
     private ImageData bodyData = new ImageData();
     private MonsterBodyPart monsterBodyPart;
 
-    MonsterAppearancePanel(NPCEditor npcEditor) {
-        this.npcEditor = npcEditor;
+    MonsterAppearancePanel(MonsterTab monsterTab) {
+        this.monsterTab = monsterTab;
         int textureSelectScale = 3;
-        monsterBodyPart = new MonsterBodyPart(npcEditor, npcEditor.getAppearanceTable(), 89, 16 * textureSelectScale, 16 * textureSelectScale, bodyData, false);
+        monsterBodyPart = new MonsterBodyPart(monsterTab, monsterTab.getAppearanceTable(), 89, 16 * textureSelectScale, 16 * textureSelectScale, bodyData, false);
         monsterBodyPart.build();
     }
 
@@ -37,12 +37,9 @@ public class MonsterAppearancePanel implements AppearancePanel {
     public void buildAppearancePanel() {
 
         // Create < and > buttons to scroll through monsters (89 max)
-
-
-        characterPreview();
-        npcEditor.getPreviewTable().setWidth(16 * NPCEditor.PREVIEW_SCALE);
-        npcEditor.getPreviewTable().setHeight(16 * NPCEditor.PREVIEW_SCALE);
-        npcEditor.getAppearanceTable().add(npcEditor.getPreviewTable());
+        monsterTab.getPreviewTable().setWidth(16 * NpcTab.PREVIEW_SCALE);
+        monsterTab.getPreviewTable().setHeight(16 * NpcTab.PREVIEW_SCALE);
+        monsterTab.getAppearanceTable().add(monsterTab.getPreviewTable());
     }
 
     @Override
@@ -55,17 +52,7 @@ public class MonsterAppearancePanel implements AppearancePanel {
 
     @Override
     public void characterPreview() {
-//        if (npcEditor.getPreviewTable().hasChildren()) npcEditor.getPreviewTable().clearChildren();
-//        final int width = 16 * NPCEditor.PREVIEW_SCALE;
-//
-//
-//        Stack imageStack = new Stack();
-//        imageStack.setWidth(16 * NPCEditor.PREVIEW_SCALE);
-//        imageStack.setHeight(16 * NPCEditor.PREVIEW_SCALE);
-//
-//        imageStack.add(npcEditor.imageTable(width, 16 * NPCEditor.PREVIEW_SCALE, NPCEditor.PREVIEW_SCALE, "monster_down_" + bodyData.getData(), Color.WHITE));
-//
-//        npcEditor.getPreviewTable().add(imageStack);
+
     }
 
     @Override
