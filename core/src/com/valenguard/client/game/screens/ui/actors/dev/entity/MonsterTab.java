@@ -279,22 +279,24 @@ public class MonsterTab extends Tab {
         VisTextButton spawnButton = new VisTextButton("Spawn");
         VisTextButton saveButton = new VisTextButton("Save");
         VisTextButton resetButton = new VisTextButton("Reset");
+        VisTextButton deleteButton = new VisTextButton("Delete");
         submitTable.add(spawnButton).pad(3);
         submitTable.add(saveButton).pad(3);
         submitTable.add(resetButton).pad(3);
+        submitTable.add(deleteButton).pad(3);
         leftPane.add(submitTable).row();
 
         spawnButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(false)).sendPacket();
+                new AdminEditorEntityPacketOut(generateDataOut(false, false)).sendPacket();
             }
         });
 
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(true)).sendPacket();
+                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
             }
@@ -307,18 +309,28 @@ public class MonsterTab extends Tab {
             }
         });
 
+        deleteButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+                resetValues();
+                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+            }
+        });
+
         content.add(leftPane).fill().pad(3).grow().left().top();
         content.add(appearanceTable).fill().pad(3).grow().left().top().row();
 
         entityEditor.pack();
     }
 
-    private EntityEditorData generateDataOut(boolean save) {
+    private EntityEditorData generateDataOut(boolean save, boolean delete) {
         EntityEditorData entityEditorData = new EntityEditorData();
 
         entityEditorData.setEntityType(EntityType.MONSTER);
         entityEditorData.setSpawn(true);
         entityEditorData.setSave(save);
+        entityEditorData.setDelete(delete);
 
         // Basic data
         entityEditorData.setEntityID(entityIDNum);

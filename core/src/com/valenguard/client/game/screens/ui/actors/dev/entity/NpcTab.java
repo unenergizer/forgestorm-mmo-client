@@ -290,22 +290,24 @@ public class NpcTab extends Tab {
         VisTextButton spawnButton = new VisTextButton("Spawn");
         VisTextButton saveButton = new VisTextButton("Save");
         VisTextButton resetButton = new VisTextButton("Reset");
+        VisTextButton deleteButton = new VisTextButton("Delete");
         submitTable.add(spawnButton).pad(3);
         submitTable.add(saveButton).pad(3);
         submitTable.add(resetButton).pad(3);
+        submitTable.add(deleteButton).pad(3);
         leftPane.add(submitTable).row();
 
         spawnButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(false)).sendPacket();
+                new AdminEditorEntityPacketOut(generateDataOut(false, false)).sendPacket();
             }
         });
 
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(true)).sendPacket();
+                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
             }
@@ -315,6 +317,15 @@ public class NpcTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetValues();
+            }
+        });
+
+        deleteButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+                resetValues();
+                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
             }
         });
 
@@ -368,12 +379,13 @@ public class NpcTab extends Tab {
         return innerTable;
     }
 
-    private EntityEditorData generateDataOut(boolean save) {
+    private EntityEditorData generateDataOut(boolean save, boolean delete) {
         EntityEditorData entityEditorData = new EntityEditorData();
 
         entityEditorData.setEntityType(EntityType.NPC);
         entityEditorData.setSpawn(true);
         entityEditorData.setSave(save);
+        entityEditorData.setDelete(delete);
 
         // Basic data
         entityEditorData.setEntityID(entityIDNum);

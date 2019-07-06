@@ -23,6 +23,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
         // Editor data
         write.writeBoolean(entityEditorData.isSpawn());
         write.writeBoolean(entityEditorData.isSave());
+        write.writeBoolean(entityEditorData.isDelete());
 
         // Basic data
         write.writeShort(entityEditorData.getEntityID());

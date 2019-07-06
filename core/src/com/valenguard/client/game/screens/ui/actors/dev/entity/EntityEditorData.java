@@ -17,6 +17,7 @@ public class EntityEditorData {
     // Editor data
     private boolean spawn;
     private boolean save;
+    private boolean delete;
 
     // Basic data
     private short entityID;
