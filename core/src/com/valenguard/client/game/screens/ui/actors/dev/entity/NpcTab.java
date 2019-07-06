@@ -83,7 +83,7 @@ public class NpcTab extends Tab {
         build();
     }
 
-    void resetValues(boolean resetAppearanceTable) {
+    void resetValues() {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
         name.setText("");
@@ -105,11 +105,11 @@ public class NpcTab extends Tab {
         if (appearancePanel != null) appearancePanel.reset();
 
         // Remove right pane appearance fields
-        if (resetAppearanceTable) appearanceTable.clear();
+//        if (resetAppearanceTable) appearanceTable.clear();
     }
 
     public void loadAiEntity(AiEntity aiEntity) {
-        resetValues(true);
+        resetValues();
         entityIDNum = aiEntity.getServerEntityID();
         entityID.setText(aiEntity.getServerEntityID());
 
@@ -128,6 +128,7 @@ public class NpcTab extends Tab {
         mapY.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getY()));
 
         // Load Appearance
+        appearanceTable.clear();
         appearancePanel = new NPCAppearancePanel(this);
         appearancePanel.buildAppearancePanel();
         appearancePanel.load(aiEntity);
@@ -305,7 +306,7 @@ public class NpcTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorEntityPacketOut(generateDataOut(true)).sendPacket();
-                resetValues(true);
+                resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
             }
         });
@@ -313,7 +314,7 @@ public class NpcTab extends Tab {
         resetButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                resetValues(false);
+                resetValues();
             }
         });
 

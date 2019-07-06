@@ -91,8 +91,8 @@ public class EntityEditor extends HideableVisWindow implements Buildable, Focusa
     }
 
     public void resetValues() {
-        npcTab.resetValues(true);
-        monsterTab.resetValues(true);
+        npcTab.resetValues();
+        monsterTab.resetValues();
     }
 
     void selectBox(VisTable mainTable, String labelName, VisSelectBox visSelectBox, EntityAlignment[] items) {

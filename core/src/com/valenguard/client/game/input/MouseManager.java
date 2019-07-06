@@ -11,6 +11,7 @@ import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.ItemStackDrop;
@@ -121,8 +122,9 @@ public class MouseManager {
         Location clientLocation = playerClient.getFutureMapLocation();
 
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
-        if (ActorUtil.getStageHandler().getEntityEditor().getNpcTab().isSelectSpawnActivated())
-            return;
+        EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
+        if (entityEditor.getNpcTab().isSelectSpawnActivated()) return;
+        if (entityEditor.getMonsterTab().isSelectSpawnActivated()) return;
 
         Queue<MoveNode> moveNodes = null;
         for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {

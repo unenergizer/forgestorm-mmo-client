@@ -75,7 +75,7 @@ public class MonsterTab extends Tab {
         build();
     }
 
-    void resetValues(boolean resetAppearanceTable) {
+    void resetValues() {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
         name.setText("");
@@ -95,13 +95,10 @@ public class MonsterTab extends Tab {
 
         // Appearance Data
         if (appearancePanel != null) appearancePanel.reset();
-
-        // Remove right pane appearance fields
-        if (resetAppearanceTable) appearanceTable.clear();
     }
 
     public void loadAiEntity(AiEntity aiEntity) {
-        resetValues(true);
+        resetValues();
         entityIDNum = aiEntity.getServerEntityID();
         entityID.setText(aiEntity.getServerEntityID());
 
@@ -120,6 +117,7 @@ public class MonsterTab extends Tab {
         mapY.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getY()));
 
         // Load Appearance
+        appearanceTable.clear();
         appearancePanel = new MonsterAppearancePanel(this);
         appearancePanel.buildAppearancePanel();
         appearancePanel.load(aiEntity);
@@ -297,7 +295,7 @@ public class MonsterTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorEntityPacketOut(generateDataOut(true)).sendPacket();
-                resetValues(true);
+                resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
             }
         });
@@ -305,7 +303,7 @@ public class MonsterTab extends Tab {
         resetButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                resetValues(false);
+                resetValues();
             }
         });
 
