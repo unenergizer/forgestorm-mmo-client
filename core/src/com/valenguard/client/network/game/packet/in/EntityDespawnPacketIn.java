@@ -15,10 +15,17 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.ENTITY_DESPAWN)
 public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacketIn.EntityDespawnPacket> {
 
+    private static final boolean PRINT_DEBUG = false;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityUUID = clientHandler.readShort();
         final byte entityType = clientHandler.readByte();
+
+        println(getClass(), "###[ DESPAWN IN ]################################", false, PRINT_DEBUG);
+        println(getClass(), "EntityID: " + entityUUID, false, PRINT_DEBUG);
+        println(getClass(), "EntityType: " + EntityType.getEntityType(entityType), false, PRINT_DEBUG);
+
         return new EntityDespawnPacket(entityUUID, EntityType.getEntityType(entityType));
     }
 

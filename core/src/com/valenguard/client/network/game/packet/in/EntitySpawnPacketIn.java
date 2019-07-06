@@ -168,6 +168,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         println(getClass(), "entityType: " + packetData.entityType, false, PRINT_DEBUG);
         println(getClass(), "entityId: " + packetData.entityId, false, PRINT_DEBUG);
         println(getClass(), "entityName: " + packetData.entityName, false, PRINT_DEBUG);
+        println(getClass(), "MapName: " + packetData, false, PRINT_DEBUG);
         println(getClass(), "tileX: " + packetData.tileX, false, PRINT_DEBUG);
         println(getClass(), "tileY: " + packetData.tileY, false, PRINT_DEBUG);
 

@@ -25,11 +25,9 @@ import com.valenguard.client.io.FileManager;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.io.type.GameFont;
 import com.valenguard.client.io.type.GameTexture;
-import com.valenguard.client.network.PlayerSessionData;
 import com.valenguard.client.util.GraphicsUtils;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
 
@@ -52,9 +50,6 @@ public class GameScreen implements Screen {
     private SpriteBatch spriteBatch;
     private Texture parallaxBackground;
     private BitmapFont font;
-
-    @Setter
-    private PlayerSessionData playerSessionData;
 
     // TODO: RELOCATE
     private Keyboard keyboard = new Keyboard();

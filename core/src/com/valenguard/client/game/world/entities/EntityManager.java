@@ -45,6 +45,9 @@ public class EntityManager implements Disposable {
     }
 
     public void removePlayerEntity(Short entityId) {
+        if (!playerEntityList.containsKey(entityId))
+            println(getClass(), "Entity ID DOES NOT EXIST!", true);
+
         shouldClearTarget(playerEntityList.remove(entityId));
     }
 

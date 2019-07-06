@@ -2,7 +2,6 @@ package com.valenguard.client.network.game.packet.in;
 
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
-import com.valenguard.client.network.PlayerSessionData;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
@@ -20,23 +19,10 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-
         ScreenType screenType = ScreenType.getScreenType(clientHandler.readByte());
-        short playerClientId = -1;
-
         println(getClass(), "ScreenSwitch: " + screenType, false, PRINT_DEBUG);
 
-        switch (screenType) {
-            case LOGIN:
-                break;
-            case CHARACTER_SELECT:
-                break;
-            case GAME:
-                playerClientId = clientHandler.readShort();
-                break;
-        }
-
-        return new InitCharacterSessionPacket(screenType, playerClientId);
+        return new InitCharacterSessionPacket(screenType);
     }
 
     @Override
@@ -52,8 +38,6 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
                 Valenguard.getInstance().setScreen(ScreenType.CHARACTER_SELECT);
                 break;
             case GAME:
-                println(getClass(), "Session Player Id: " + packetData.clientPlayerId, false, PRINT_DEBUG);
-                Valenguard.gameScreen.setPlayerSessionData(new PlayerSessionData(packetData.clientPlayerId));
                 Valenguard.getInstance().setScreen(ScreenType.GAME);
                 break;
         }
@@ -62,6 +46,5 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
     @AllArgsConstructor
     class InitCharacterSessionPacket extends PacketData {
         private ScreenType screenType;
-        private short clientPlayerId;
     }
 }
