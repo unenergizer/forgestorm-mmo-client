@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.util.Validators;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
@@ -323,9 +325,26 @@ public class NpcTab extends Tab {
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
-                resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                Dialogs.showOptionDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
+                    @Override
+                    public void yes() {
+                        Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Entity deleted forever!");
+                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+                        resetValues();
+                        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                    }
+
+                    @Override
+                    public void no() {
+                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                    }
+
+                    @Override
+                    public void cancel() {
+                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                    }
+                });
             }
         });
 
