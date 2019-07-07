@@ -5,15 +5,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.util.Validators;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
+import com.kotcrab.vis.ui.util.form.FormValidator;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.Valenguard;
@@ -21,7 +20,6 @@ import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.ProperName;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
@@ -40,23 +38,24 @@ public class MonsterTab extends Tab {
 
     private short entityIDNum = -1;
     private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
-    private VisTextField name = new VisValidatableTextField(new ProperName());
+    private VisValidatableTextField name = new VisValidatableTextField();
     private VisSelectBox<EntityAlignment> entityAlignment = new VisSelectBox<EntityAlignment>();
-    private VisTextField health = new VisValidatableTextField(new Validators.IntegerValidator());
-    private VisTextField damage = new VisValidatableTextField(new Validators.IntegerValidator());
-    private VisTextField expDrop = new VisValidatableTextField(new Validators.IntegerValidator());
-    private VisTextField dropTable = new VisValidatableTextField(new Validators.IntegerValidator());
-    private VisSlider walkSpeed = new VisSlider(.1f, 5, .1f, false);
-    private VisSlider probStill = new VisSlider(0, 1, .1f, false);
-    private VisSlider probWalk = new VisSlider(0, 1, .1f, false);
-    private VisTextField shopId = new VisTextField("-1");
+    private VisValidatableTextField health = new VisValidatableTextField();
+    private VisValidatableTextField damage = new VisValidatableTextField();
+    private VisValidatableTextField expDrop = new VisValidatableTextField();
+    private VisValidatableTextField dropTable = new VisValidatableTextField();
+    private VisSlider walkSpeed = new VisSlider(.1f, .99f, .01f, false);
+    private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
+    private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
+    private VisValidatableTextField shopId = new VisValidatableTextField("-1");
 
     @Getter
     private boolean selectSpawnActivated = false;
     private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
-    private VisTextField mapName = new VisTextField();
-    private VisTextField mapX = new VisTextField();
-    private VisTextField mapY = new VisTextField();
+    private VisValidatableTextField mapName = new VisValidatableTextField();
+    private VisValidatableTextField mapX = new VisValidatableTextField();
+    private VisValidatableTextField mapY = new VisValidatableTextField();
+    private VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
     private AppearancePanel appearancePanel;
@@ -95,6 +94,8 @@ public class MonsterTab extends Tab {
         mapX.setText("");
         mapY.setText("");
 
+        deleteButton.setDisabled(true);
+
         // Appearance Data
         if (appearancePanel != null) appearancePanel.reset();
     }
@@ -124,10 +125,15 @@ public class MonsterTab extends Tab {
         appearancePanel.buildAppearancePanel();
         appearancePanel.load(aiEntity);
         appearancePanel.characterPreview();
+
+        deleteButton.setDisabled(false);
     }
 
     public void build() {
         content = new VisTable(true);
+        VisTextButton saveButton = new VisTextButton("Save");
+        VisLabel errorLabel = new VisLabel();
+        FormValidator validator = new FormValidator(saveButton, errorLabel);
         VisTable leftPane = new VisTable();
 
 
@@ -158,6 +164,18 @@ public class MonsterTab extends Tab {
         entityEditor.valueSlider(leftPane, "Probability Still:", probStill);
         entityEditor.valueSlider(leftPane, "Probability Walk:", probWalk);
         entityEditor.textField(leftPane, "Shop ID:", shopId);
+
+        validator.notEmpty(name, "Name must not be empty.");
+        validator.valueGreaterThan(health, "Health must be greater than 0.", 1, true);
+        validator.integerNumber(damage, "Damage must be a valid number.");
+        validator.integerNumber(expDrop, "Experience Drop must be a valid number.");
+        validator.integerNumber(dropTable, "Drop Table must be a valid number.");
+        validator.integerNumber(shopId, "Shop ID must be a valid number.");
+        validator.notEmpty(mapName, "Map name must not be empty.");
+        validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
+        validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
+        validator.valueGreaterThan(mapY, "Map Y must be greater than -1.", 0, true);
+        validator.valueLesserThan(mapY, "Map Y must be less than 97.", 54, true);
 
         // Spawn location Selection
         mapName.setDisabled(true);
@@ -278,22 +296,13 @@ public class MonsterTab extends Tab {
 
         // Submit and finalize section
         VisTable submitTable = new VisTable();
-        VisTextButton spawnButton = new VisTextButton("Spawn");
-        VisTextButton saveButton = new VisTextButton("Save");
         VisTextButton resetButton = new VisTextButton("Reset");
-        VisTextButton deleteButton = new VisTextButton("Delete");
-        submitTable.add(spawnButton).pad(3);
+        deleteButton.setDisabled(true);
         submitTable.add(saveButton).pad(3);
         submitTable.add(resetButton).pad(3);
         submitTable.add(deleteButton).pad(3);
         leftPane.add(submitTable).row();
-
-        spawnButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(false, false)).sendPacket();
-            }
-        });
+        leftPane.add(errorLabel).row();
 
         saveButton.addListener(new ChangeListener() {
             @Override
@@ -314,6 +323,10 @@ public class MonsterTab extends Tab {
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                String id = entityID.getText().toString();
+                if (id.equals("-1")) {
+                    Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
+                }
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
                 Dialogs.showOptionDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
                     @Override
