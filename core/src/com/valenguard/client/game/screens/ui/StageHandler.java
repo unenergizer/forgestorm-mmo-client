@@ -1,9 +1,14 @@
 package com.valenguard.client.game.screens.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.FocusManager;
@@ -88,6 +93,9 @@ public class StageHandler implements Disposable {
     private StatusBar statusBar;
     private AbilityBar abilityBar;
 
+    private Pixmap bgPixmap;
+    private TextureRegionDrawable itemStackCellBackground;
+
     // developer
     private DevMenu devMenu;
     private EntityEditor entityEditor;
@@ -165,6 +173,10 @@ public class StageHandler implements Disposable {
     }
 
     private void buildGameScreenUI() {
+        bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        bgPixmap.setColor(new Color(.18f, .15f, .14f, 1));
+        bgPixmap.fill();
+        itemStackCellBackground = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 
         // Quickly setup fade window!
         fadeWindow = new FadeWindow();
@@ -258,5 +270,6 @@ public class StageHandler implements Disposable {
         }
         if (colorPickerController != null && !colorPickerController.isDisposed())
             colorPickerController.dispose();
+        if (bgPixmap != null && !bgPixmap.isDisposed()) bgPixmap.dispose();
     }
 }

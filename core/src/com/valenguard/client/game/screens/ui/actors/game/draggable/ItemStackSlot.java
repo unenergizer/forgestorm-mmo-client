@@ -106,12 +106,20 @@ public class ItemStackSlot extends VisTable implements Buildable {
 
     @Override
     public Actor build() {
+        // Add ItemStack cell background
+        VisTable visTable = new VisTable();
+        visTable.setBackground(ActorUtil.getStageHandler().getItemStackCellBackground());
+        stack.add(visTable);
+
+        // Add ItemStack image or blank image to the cell
         if (itemStack == null) {
             setEmptyCellImage();
         } else {
             setItemStack(itemStack);
         }
-        add(stack);
+
+        // Add the stack to this table!
+        add(stack).padLeft(2).padTop(2);
         return this;
     }
 
@@ -179,7 +187,9 @@ public class ItemStackSlot extends VisTable implements Buildable {
                     emptyCellImage = imageBuilder.setRegionName("weapon_arrow_01").buildVisImage();
                     break;
             }
-            emptyCellImage.setColor(new Color(1, 1, 1, .1f));
+            // Fades out the image for the empty cell. Primarily used by EquipmentBag to
+            // indicate an empty ItemStack cell.
+            emptyCellImage.setColor(new Color(1f, 1f, 1f, .2f));
         }
     }
 
@@ -266,9 +276,9 @@ public class ItemStackSlot extends VisTable implements Buildable {
         int itemStackAmount = itemStack.getAmount();
         String displayText = String.valueOf(itemStackAmount);
         if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
-            displayText = String.valueOf(itemStackAmount / 1000) + "K";
+            displayText = itemStackAmount / 1000 + "K";
         } else if (itemStackAmount >= 1000000) {
-            displayText = String.valueOf(itemStackAmount / 1000000) + "M";
+            displayText = itemStackAmount / 1000000 + "M";
         }
 
         amountLabel.setText(displayText);

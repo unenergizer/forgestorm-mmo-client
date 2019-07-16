@@ -64,7 +64,7 @@ public class LoginScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(0, 10, 30, 0, true);
+        GraphicsUtils.clearScreen(27, 23, 19, 0, true);
 
         // Draw textures
 //        spriteBatch.begin();
