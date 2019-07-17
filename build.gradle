@@ -33,6 +33,7 @@ allprojects {
         snakeYAML = '1.23'
         romeVersion = '1.12.0'
         jsoupVersion = '1.12.1'
+        apacheCommonsCodec = '1.12'
     }
 
     repositories {
@@ -105,6 +106,7 @@ project(":core") {
         compile "org.yaml:snakeyaml:$snakeYAML:android"
         compile "com.rometools:rome:$romeVersion"
         compile "org.jsoup:jsoup:$jsoupVersion"
+        compile "commons-codec:commons-codec:$apacheCommonsCodec"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }
