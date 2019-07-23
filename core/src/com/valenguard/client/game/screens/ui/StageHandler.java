@@ -173,8 +173,8 @@ public class StageHandler implements Disposable {
     }
 
     private void buildGameScreenUI() {
-        bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
-        bgPixmap.setColor(new Color(.18f, .15f, .14f, 1));
+        bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA4444);
+        bgPixmap.setColor(new Color(0, 0, 0, 0.4f)); // ItemStack cell background
         bgPixmap.fill();
         itemStackCellBackground = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 

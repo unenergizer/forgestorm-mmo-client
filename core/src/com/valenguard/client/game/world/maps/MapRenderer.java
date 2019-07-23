@@ -6,10 +6,10 @@ import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.AntiBleedOrthogonalTiledMapRenderer;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -25,7 +25,7 @@ public class MapRenderer implements Disposable {
 
     @Getter
     private TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+    private AntiBleedOrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 
     @Getter
     private String gameMapNameFromServer;
@@ -87,7 +87,7 @@ public class MapRenderer implements Disposable {
         tiledMap = Valenguard.getInstance().getFileManager().getTiledMap(filePath);
 
         if (orthogonalTiledMapRenderer == null) {
-            orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+            orthogonalTiledMapRenderer = new AntiBleedOrthogonalTiledMapRenderer(tiledMap);
         } else {
             orthogonalTiledMapRenderer.setMap(Valenguard.getInstance().getFileManager().getTiledMap(filePath));
         }

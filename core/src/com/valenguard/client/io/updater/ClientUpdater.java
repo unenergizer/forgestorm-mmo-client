@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import static com.valenguard.client.util.Log.println;
@@ -20,25 +21,41 @@ public class ClientUpdater {
 
     public static void main(String[] args) {
 
-        // 1. Connect to url and download contents file.
-        println(ClientUpdater.class, "Downloading file from internet.");
-        try {
-            saveUrl(LOCAL_FILES + File.separator + LIST, URL + "/" + LIST);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (false) {
+            // 1. Connect to url and download contents file.
+            println(ClientUpdater.class, "Downloading file from internet.");
+            try {
+                saveUrl(LOCAL_FILES + File.separator + LIST, URL + "/" + LIST);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        // 2. Deserialize List
-        println(ClientUpdater.class, "Deserialize file.");
-        Map<String, String> map = null;
-        try {
-            map = deserializeMap(new File(LOCAL_FILES + File.separator + LIST));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            // 2. Deserialize List
+            println(ClientUpdater.class, "Deserialize file.");
+            Map<String, String> map = null;
+            try {
+                map = deserializeMap(new File(LOCAL_FILES + File.separator + LIST));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        println(ClientUpdater.class, "File Contents:");
-        println(ClientUpdater.class, map.toString());
+            println(ClientUpdater.class, "File Contents:");
+            println(ClientUpdater.class, map.toString());
+        } else {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("Andrew", "Brown");
+            map.put("Justin", "Sory");
+            map.put("Karen", "Gary");
+
+            println(ClientUpdater.class, "Serialize file.");
+            File file = new File(LIST);
+            println(ClientUpdater.class, file.getAbsolutePath());
+            try {
+                serializeMap(map, new File(LIST));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void saveUrl(final String filename, final String urlString) throws IOException {
@@ -77,7 +94,7 @@ public class ClientUpdater {
         return null;
     }
 
-    private void seralizeMap(Map<String, String> stringMap, File file) throws IOException, ClassNotFoundException {
+    private static void serializeMap(Map<String, String> stringMap, File file) throws IOException {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
