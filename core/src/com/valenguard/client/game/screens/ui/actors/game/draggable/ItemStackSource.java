@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.item.ItemStack;
@@ -28,6 +29,7 @@ public class ItemStackSource extends DragAndDrop.Source {
     @Override
     public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
         if (target == null && !itemStackSlot.isTradeSlotLocked()) itemStackSlot.setItemImage();
+
     }
 
     @Override
@@ -61,6 +63,9 @@ public class ItemStackSource extends DragAndDrop.Source {
 
         // Sets where the image will be shown relative to the mouse
         dragManager.setDragActorPosition(image.getWidth() / 2, -image.getHeight() / 2);
+
+        // Play Sound FX
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStackSlot.getItemStack());
 
         return inventoryPayload;
     }

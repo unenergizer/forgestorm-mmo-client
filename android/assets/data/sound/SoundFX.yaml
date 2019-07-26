@@ -2,8 +2,26 @@
   fileName: "PP_UI_Select_1_3.wav"
   description: "ui click"
 1:
-  fileName: "ui_menu_button_click_13.wav"
+  fileName: "Coin1.mp3"
   description: "money move"
 2:
   fileName: "ui_menu_button_click_14.wav"
   description: "potion move"
+3:
+  fileName: "ArmorDrop2.mp3"
+  description: "armor move"
+4:
+  fileName: "MetalWeaponDrop1.mp3"
+  description: "weapon move"
+5:
+  fileName: "MetalWeaponDrop1.mp3"
+  description: "bow and arrow move"
+6:
+  fileName: "Jewel5.mp3"
+  description: "ring move"
+7:
+  fileName: "Jewel2.mp3"
+  description: "necklace move"
+8:
+  fileName: "GetItem1.mp3"
+  description: "material move"

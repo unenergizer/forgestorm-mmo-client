@@ -76,6 +76,9 @@ public class ItemStackTarget extends DragAndDrop.Target {
             return;
         }
 
+        // Play Sound FX
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+
         // The client is simply picking up and placing down the item in the exact same position.
         if (sourceItemStackSlot.getSlotIndex() == itemStackTargetSlot.getSlotIndex() &&
                 sourceItemStackSlot.getInventoryType() == itemStackTargetSlot.getInventoryType()) {

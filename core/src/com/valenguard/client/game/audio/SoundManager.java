@@ -3,6 +3,7 @@ package com.valenguard.client.game.audio;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.world.item.ItemStack;
 
 import java.util.Map;
 
@@ -61,5 +62,58 @@ public class SoundManager implements Disposable {
     @Override
     public void dispose() {
         if (currentSound != null) currentSound.dispose();
+    }
+
+    public void playItemStackSoundFX(Class clazz, ItemStack itemStack) {
+        switch (itemStack.getItemStackType()) {
+            case HELM:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case CHEST:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case PANTS:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case SHOES:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case CAPE:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case GLOVES:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case BELT:
+                playSoundFx(clazz, (short) 3);
+                break;
+            case RING:
+                playSoundFx(clazz, (short) 6);
+                break;
+            case NECKLACE:
+                playSoundFx(clazz, (short) 7);
+                break;
+            case SWORD:
+                playSoundFx(clazz, (short) 4);
+                break;
+            case BOW:
+                playSoundFx(clazz, (short) 5);
+                break;
+            case SHIELD:
+                playSoundFx(clazz, (short) 4);
+                break;
+            case ARROW:
+                playSoundFx(clazz, (short) 5);
+                break;
+            case GOLD:
+                playSoundFx(clazz, (short) 1);
+                break;
+            case POTION:
+                playSoundFx(clazz, (short) 2);
+                break;
+            case MATERIAL:
+                playSoundFx(clazz, (short) 8);
+                break;
+        }
     }
 }
