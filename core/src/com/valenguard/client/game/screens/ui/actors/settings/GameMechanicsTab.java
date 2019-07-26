@@ -40,6 +40,7 @@ public class GameMechanicsTab extends Tab {
         fpsCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
                 if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
                     ActorUtil.getStageHandler().getFpsTable().setVisible(fpsCheckBox.isChecked());
                     if (fpsCheckBox.isChecked())

@@ -16,7 +16,11 @@ public enum FilePaths {
     ITEM_STACK("item/ItemStacks.yaml"),
 
     // Maps
-    MAPS("maps");
+    MAPS("maps"),
+
+    // Sounds
+    SOUND_FX("sound/SoundFX.yaml"),
+    GAME_MUSIC("sound/GameMusic.yaml");
 
     private String filePath;
 

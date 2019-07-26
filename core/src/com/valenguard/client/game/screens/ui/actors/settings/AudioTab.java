@@ -26,7 +26,7 @@ class AudioTab extends Tab {
 
     private void build() {
         content = new VisTable(true);
-        final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
         final AudioPreferences audioPreferences = musicManager.getAudioPreferences();
 
         /*

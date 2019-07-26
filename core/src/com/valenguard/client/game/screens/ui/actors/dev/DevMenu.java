@@ -55,6 +55,7 @@ public class DevMenu extends Actor implements Buildable {
                 EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
                 entityEditor.resetValues();
                 ActorUtil.fadeInWindow(entityEditor);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
         toolsMenu.addItem(new MenuItem("Drop Table Editor"));
@@ -64,6 +65,7 @@ public class DevMenu extends Actor implements Buildable {
                 ItemStackEditor itemStackEditor = ActorUtil.getStageHandler().getItemStackEditor();
                 itemStackEditor.resetValues();
                 ActorUtil.fadeInWindow(itemStackEditor);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
         toolsMenu.addItem(new MenuItem("Warp Editor"));

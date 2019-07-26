@@ -18,12 +18,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.valenguard.client.game.audio.AudioData;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.io.type.GameFont;
-import com.valenguard.client.io.type.GameMusic;
 import com.valenguard.client.io.type.GamePixmap;
 import com.valenguard.client.io.type.GameSkin;
-import com.valenguard.client.io.type.GameSound;
 import com.valenguard.client.io.type.GameTexture;
 
 import static com.valenguard.client.util.Log.println;
@@ -77,38 +76,40 @@ public class FileManager {
     /**
      * Attempts to load a music file.
      *
-     * @param gameMusic The music file to load.
+     * @param audioData The music file to load.
      */
-    public void loadMusic(GameMusic gameMusic) {
+    public void loadMusic(AudioData audioData) {
+        String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
         // check if already loaded
-        if (isFileLoaded(gameMusic.getFilePath())) {
-            println(getClass(), "Music already loaded: " + gameMusic.getFilePath(), true, PRINT_DEBUG);
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "Music already loaded: " + filePath, true, PRINT_DEBUG);
             return;
         }
 
         // load asset
-        if (filePathResolver.resolve(gameMusic.getFilePath()).exists()) {
+        if (filePathResolver.resolve(filePath).exists()) {
             assetManager.setLoader(Music.class, new MusicLoader(filePathResolver));
-            assetManager.load(gameMusic.getFilePath(), Music.class);
-            assetManager.finishLoadingAsset(gameMusic.getFilePath());
+            assetManager.load(filePath, Music.class);
+            assetManager.finishLoadingAsset(filePath);
         } else {
-            println(getClass(), "Music doesn't exist: " + gameMusic.getFilePath(), true, PRINT_DEBUG);
+            println(getClass(), "Music doesn't exist: " + filePath, true, PRINT_DEBUG);
         }
     }
 
     /**
      * Attempts to get a loaded music file from the asset manager.
      *
-     * @param gameMusic The music to retrieve.
+     * @param audioData The music to retrieve.
      * @return A music file.
      */
-    public Music getMusic(GameMusic gameMusic) {
+    public Music getMusic(AudioData audioData) {
+        String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
         Music music = null;
 
-        if (assetManager.isLoaded(gameMusic.getFilePath())) {
-            music = assetManager.get(gameMusic.getFilePath(), Music.class);
+        if (assetManager.isLoaded(filePath)) {
+            music = assetManager.get(filePath, Music.class);
         } else {
-            println(getClass(), "Music not loaded: " + gameMusic.getFilePath(), true, PRINT_DEBUG);
+            println(getClass(), "Music not loaded: " + filePath, true, PRINT_DEBUG);
         }
 
         return music;
@@ -117,22 +118,23 @@ public class FileManager {
     /**
      * Attempts to load a sound file.
      *
-     * @param gameSound The sound file to load.
+     * @param audioData The sound file to load.
      */
-    public void loadSound(GameSound gameSound) {
+    public void loadSound(AudioData audioData) {
+        String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
         // check if already loaded
-        if (isFileLoaded(gameSound.getFilePath())) {
-            println(getClass(), "Sound already loaded: " + gameSound.getFilePath(), true, PRINT_DEBUG);
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "Sound already loaded: " + filePath, true, PRINT_DEBUG);
             return;
         }
 
         // load asset
-        if (filePathResolver.resolve(gameSound.getFilePath()).exists()) {
+        if (filePathResolver.resolve(filePath).exists()) {
             assetManager.setLoader(Sound.class, new SoundLoader(filePathResolver));
-            assetManager.load(gameSound.getFilePath(), Sound.class);
-            assetManager.finishLoadingAsset(gameSound.getFilePath());
+            assetManager.load(filePath, Sound.class);
+            assetManager.finishLoadingAsset(filePath);
         } else {
-            println(getClass(), "Sound doesn't exist: " + gameSound.getFilePath(), true, PRINT_DEBUG);
+            println(getClass(), "Sound doesn't exist: " + filePath, true, PRINT_DEBUG);
         }
 
     }
@@ -140,16 +142,17 @@ public class FileManager {
     /**
      * Attempts to get a loaded game sound from the asset manager.
      *
-     * @param gameSound The sound to retrieve.
+     * @param audioData The sound to retrieve.
      * @return A game sound.
      */
-    public Sound getSound(GameSound gameSound) {
+    public Sound getSound(AudioData audioData) {
+        String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
         Sound sound = null;
 
-        if (assetManager.isLoaded(gameSound.getFilePath())) {
-            sound = assetManager.get(gameSound.getFilePath(), Sound.class);
+        if (assetManager.isLoaded(filePath)) {
+            sound = assetManager.get(filePath, Sound.class);
         } else {
-            println(getClass(), "Sound not loaded: " + gameSound.getFilePath(), true, PRINT_DEBUG);
+            println(getClass(), "Sound not loaded: " + filePath, true, PRINT_DEBUG);
         }
 
         return sound;

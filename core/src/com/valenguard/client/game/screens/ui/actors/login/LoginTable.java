@@ -88,6 +88,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 attemptLogin();
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
             }
         });
 

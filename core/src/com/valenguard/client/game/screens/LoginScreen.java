@@ -11,7 +11,6 @@ import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.io.FileManager;
 import com.valenguard.client.io.type.GameAtlas;
-import com.valenguard.client.io.type.GameMusic;
 import com.valenguard.client.io.type.GameTexture;
 import com.valenguard.client.util.GraphicsUtils;
 
@@ -35,7 +34,7 @@ public class LoginScreen extends ScreenAdapter {
     public void show() {
         println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
-        MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
 
         // Load assets
         fileManager.loadAtlas(GameAtlas.ITEMS);
@@ -59,7 +58,7 @@ public class LoginScreen extends ScreenAdapter {
 
         // Play audio
         if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
-            musicManager.playSong(GameMusic.LOGIN_SCREEN_THEME_1);
+            musicManager.playMusic(getClass(), (short) 0);
     }
 
     @Override
@@ -84,13 +83,13 @@ public class LoginScreen extends ScreenAdapter {
     @Override
     public void pause() {
         println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
-        Valenguard.getInstance().getMusicManager().pauseMusic();
+        Valenguard.getInstance().getAudioManager().getMusicManager().pauseMusic();
     }
 
     @Override
     public void resume() {
         println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
-        final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
         if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) musicManager.resumeMusic();
     }
 

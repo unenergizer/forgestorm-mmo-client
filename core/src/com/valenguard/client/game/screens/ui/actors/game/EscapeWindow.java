@@ -79,6 +79,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         help.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getHelpWindow());
                 return true;
@@ -87,6 +88,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         credits.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCreditsWindow());
                 return true;
@@ -95,6 +97,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         settings.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getMainSettingsWindow());
                 return true;
@@ -103,6 +106,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         logout.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_CHARACTER).sendPacket();
                 return true;
             }
@@ -110,6 +114,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
                 Valenguard.connectionManager.disconnect();
                 Gdx.app.exit();
@@ -119,6 +124,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
 
         returnToGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 return true;
             }

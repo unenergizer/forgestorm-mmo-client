@@ -47,6 +47,7 @@ public class AbilityBar extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAbilityManager().toggleAbility((short) 0, abilityBar, actionOne);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(AbilityBar.class, (short) 0);
             }
         });
 
@@ -54,6 +55,7 @@ public class AbilityBar extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAbilityManager().toggleAbility((short) 1, abilityBar, actionTwo);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(AbilityBar.class, (short) 0);
             }
         });
 
@@ -61,6 +63,7 @@ public class AbilityBar extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, abilityBar, actionThree);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(AbilityBar.class, (short) 0);
             }
         });
 

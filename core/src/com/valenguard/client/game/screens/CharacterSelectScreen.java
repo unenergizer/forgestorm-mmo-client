@@ -3,7 +3,6 @@ package com.valenguard.client.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,7 +11,6 @@ import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.io.FileManager;
 import com.valenguard.client.io.type.GameAtlas;
-import com.valenguard.client.io.type.GameMusic;
 import com.valenguard.client.io.type.GameTexture;
 import com.valenguard.client.util.GraphicsUtils;
 
@@ -34,7 +32,7 @@ public class CharacterSelectScreen implements Screen {
     public void show() {
         println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
-        MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
 
         // Load assets
         fileManager.loadAtlas(GameAtlas.ITEMS);
@@ -62,7 +60,7 @@ public class CharacterSelectScreen implements Screen {
 
         // Play audio
         if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
-            musicManager.playSong(GameMusic.LOGIN_SCREEN_THEME_1);
+            musicManager.playMusic(getClass(), (short) 0);
     }
 
     @Override
@@ -87,13 +85,13 @@ public class CharacterSelectScreen implements Screen {
     @Override
     public void pause() {
         println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
-        Valenguard.getInstance().getMusicManager().pauseMusic();
+        Valenguard.getInstance().getAudioManager().getMusicManager().pauseMusic();
     }
 
     @Override
     public void resume() {
         println(getClass(), "Invoked: resume()", false, PRINT_DEBUG);
-        final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
         if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) musicManager.resumeMusic();
     }
 

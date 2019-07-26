@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -38,6 +39,7 @@ public class ButtonBar extends VisTable implements Buildable {
         characterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonBar.class, (short) 0);
                 EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                 if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeInWindow(equipmentWindow);
@@ -50,6 +52,7 @@ public class ButtonBar extends VisTable implements Buildable {
         escMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonBar.class, (short) 0);
                 EscapeWindow escapeWindow = stageHandler.getEscapeWindow();
                 if (!escapeWindow.isVisible()) {
 
@@ -71,6 +74,7 @@ public class ButtonBar extends VisTable implements Buildable {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonBar.class, (short) 0);
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeInWindow(bagWindow);

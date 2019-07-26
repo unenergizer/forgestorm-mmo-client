@@ -76,6 +76,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         previousPage.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
 
                 if (currentPageIndex > 0) {
                     currentPageIndex--;
@@ -89,6 +90,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         nextPage.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
 
                 if (currentPageIndex < shopPages.size() - 1) {
                     currentPageIndex++;
@@ -102,6 +104,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
                 new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.STOP_SHOPPING)).sendPacket();
                 ActorUtil.fadeOutWindow(entityShopWindow);
             }
@@ -309,6 +312,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
                 button.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
                         // Send packet here
                         new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.BUY, shopSlot)).sendPacket();
                     }

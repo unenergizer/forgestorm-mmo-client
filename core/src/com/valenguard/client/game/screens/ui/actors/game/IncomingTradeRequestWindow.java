@@ -36,6 +36,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(IncomingTradeRequestWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(incomingTradeRequestWindow);
                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_ACCEPT, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }
@@ -44,6 +45,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(IncomingTradeRequestWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(incomingTradeRequestWindow);
                 new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_DECLINE, Valenguard.getInstance().getTradeManager().getTradeUUID())).sendPacket();
             }

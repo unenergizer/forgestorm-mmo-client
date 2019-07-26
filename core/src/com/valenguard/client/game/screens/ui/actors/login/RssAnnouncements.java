@@ -14,6 +14,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class RssAnnouncements extends VisTable implements Buildable {
             visLabel.addListener(new InputListener() {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Gdx.net.openURI(syndEntry.getLink());
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(RssAnnouncements.class, (short) 0);
                     return true;
                 }
 

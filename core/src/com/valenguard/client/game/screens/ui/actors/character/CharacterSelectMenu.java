@@ -73,6 +73,7 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterSelectPacketOut(selectedCharacter.getCharacterId()).sendPacket();
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
             }
         });
 
@@ -80,6 +81,7 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
                 Valenguard.connectionManager.logout();
             }
         });

@@ -15,7 +15,6 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
-import com.valenguard.client.io.type.GameMusic;
 
 public class ButtonTable extends VisTable implements Buildable {
 
@@ -27,7 +26,7 @@ public class ButtonTable extends VisTable implements Buildable {
          * Play Login Screen Music Toggle
          */
         VisTable musicTable = new VisTable();
-        final MusicManager musicManager = Valenguard.getInstance().getMusicManager();
+        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
         final VisCheckBox playLoginMusicCheckBox = new VisCheckBox("");
         playLoginMusicCheckBox.setChecked(musicManager.getAudioPreferences().isPlayLoginScreenMusic());
         musicTable.add(new VisLabel("Play Music")).padRight(3).right();
@@ -58,12 +57,13 @@ public class ButtonTable extends VisTable implements Buildable {
         playLoginMusicCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 musicManager.getAudioPreferences().setPlayLoginScreenMusic(playLoginMusicCheckBox.isChecked());
                 if (!playLoginMusicCheckBox.isChecked()) {
-                    musicManager.stopSong(true);
+                    musicManager.stopMusic(true);
                     musicManager.getAudioPreferences().setPlayLoginScreenMusic(false);
                 } else {
-                    musicManager.playSong(GameMusic.LOGIN_SCREEN_THEME_1);
+                    musicManager.playMusic(ButtonTable.class, (short) 0);
                     musicManager.getAudioPreferences().setPlayLoginScreenMusic(true);
                 }
                 event.handle();
@@ -74,6 +74,7 @@ public class ButtonTable extends VisTable implements Buildable {
         registerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(ClientConstants.WEB_REGISTER);
             }
         });
@@ -82,6 +83,7 @@ public class ButtonTable extends VisTable implements Buildable {
         forgotPasswordButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(ClientConstants.WEB_LOST_PASSWORD);
             }
         });
@@ -90,6 +92,7 @@ public class ButtonTable extends VisTable implements Buildable {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 MainSettingsWindow mainSettingsWindow = ActorUtil.getStageHandler().getMainSettingsWindow();
                 if (!mainSettingsWindow.isVisible()) ActorUtil.fadeInWindow(mainSettingsWindow);
                 else ActorUtil.fadeOutWindow(mainSettingsWindow);
@@ -100,6 +103,7 @@ public class ButtonTable extends VisTable implements Buildable {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.app.exit();
             }
         });

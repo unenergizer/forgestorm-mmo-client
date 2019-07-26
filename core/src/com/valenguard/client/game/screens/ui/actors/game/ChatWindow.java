@@ -15,6 +15,7 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -122,6 +123,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
                 messageInput.setText("");
                 FocusManager.switchFocus(stageHandler.getStage(), messageInput);
                 stageHandler.getStage().setKeyboardFocus(messageInput);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ChatWindow.class, (short) 0);
                 return true;
             }
         });

@@ -2,7 +2,7 @@ package com.valenguard.client;
 
 import com.badlogic.gdx.Game;
 import com.valenguard.client.game.abilities.AbilityManager;
-import com.valenguard.client.game.audio.MusicManager;
+import com.valenguard.client.game.audio.AudioManager;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.ClientPlayerMovementManager;
@@ -73,8 +73,8 @@ public class Valenguard extends Game {
     @Setter
     private boolean isModerator = false;
 
+    private AudioManager audioManager;
     private EntityTracker entityTracker;
-    private MusicManager musicManager;
     private WindowManager windowManager;
     private StageHandler stageHandler;
     private FileManager fileManager;
@@ -110,6 +110,7 @@ public class Valenguard extends Game {
         println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
 
         // loadItems managers
+        audioManager = new AudioManager();
         connectionManager = new ConnectionManager();
         outputStreamManager = new OutputStreamManager();
         fileManager = new FileManager();
@@ -120,7 +121,6 @@ public class Valenguard extends Game {
         entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
         windowManager = new WindowManager();
-        musicManager = new MusicManager();
         itemStackManager = new ItemStackManager();
         skills = new Skills();
         entityTracker = new EntityTracker();

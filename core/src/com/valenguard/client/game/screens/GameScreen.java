@@ -101,7 +101,7 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(multiplexer);
 
         // Handle Music
-        Valenguard.getInstance().getMusicManager().stopSong(true);
+        Valenguard.getInstance().getAudioManager().getMusicManager().stopMusic(true);
 
         // Create HealthBar textures
         final int width = 1;

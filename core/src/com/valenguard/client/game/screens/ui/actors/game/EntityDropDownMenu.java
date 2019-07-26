@@ -107,6 +107,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         walkHereButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                 Location clientLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -138,6 +139,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         cancelButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                 cleanUpDropDownMenu(true);
             }
         });
@@ -177,6 +179,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             editEntityButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     StageHandler stageHandler = ActorUtil.getStageHandler();
 
                     EntityEditor entityEditor = stageHandler.getEntityEditor();
@@ -205,6 +208,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             openBankButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
@@ -322,6 +326,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             attackButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     playerClient.setTargetEntity(clickedEntity);
                     ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[YELLOW]You targeted " + clickedEntity.getEntityName() + ".");
                     cleanUpDropDownMenu(true);
@@ -336,6 +341,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             attackButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
                     playerClient.setTargetEntity(clickedEntity);
@@ -378,6 +384,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             tradeButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
@@ -419,6 +426,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             shopButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     final EntityShopWindow entityShopWindow = ActorUtil.getStageHandler().getEntityShopWindow();
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
@@ -462,6 +470,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             followButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 

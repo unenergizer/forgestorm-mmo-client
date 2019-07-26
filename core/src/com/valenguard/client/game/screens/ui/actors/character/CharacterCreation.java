@@ -7,6 +7,7 @@ import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.CharacterClasses;
 import com.valenguard.client.game.rpg.CharacterGenders;
 import com.valenguard.client.game.rpg.CharacterRaces;
@@ -111,6 +112,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                         (LibGDXColorList) characterColor.getSelected(),
                         characterName.getText()).sendPacket();
                 ActorUtil.fadeOutWindow(characterCreation);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });
         return visTable;

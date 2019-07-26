@@ -63,6 +63,7 @@ public class GraphicsTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GraphicsTab.class, (short) 0);
                     Valenguard.gameScreen.getCamera().changeZoomLevel(slider.getValue());
                 } else {
                     event.cancel();

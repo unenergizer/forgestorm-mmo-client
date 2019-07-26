@@ -323,6 +323,7 @@ public class MonsterTab extends Tab {
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
@@ -335,16 +336,19 @@ public class MonsterTab extends Tab {
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
                         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
                         ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
                         ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });
             }

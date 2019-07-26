@@ -119,6 +119,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
                     // First accept check (trade confirmed)
                     new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_CONFIRM, tradeManager.getTradeUUID())).sendPacket();
@@ -129,6 +130,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
                     new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
                 } else if (lockTrade) {
@@ -417,6 +419,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             stack.addListener(clickListener = new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindowSlot.class, (short) 0);
                     if (itemStack != null && isClientPlayerSlot && !lockTrade) {
                         println(getClass(), "removed item from trade window");
 
