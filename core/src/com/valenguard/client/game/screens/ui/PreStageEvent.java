@@ -10,6 +10,11 @@ import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
+import com.valenguard.client.game.world.entities.AiEntity;
+import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.NPC;
+import com.valenguard.client.game.world.entities.PlayerClient;
+import com.valenguard.client.game.world.maps.Location;
 
 class PreStageEvent implements InputProcessor {
 
@@ -108,6 +113,35 @@ class PreStageEvent implements InputProcessor {
                 }
             }
             return true;
+        }
+
+        /*
+         * Interacting with environment
+         */
+        if (keycode == KeyBinds.INTERACT) {
+            if (!stageHandler.getChatWindow().isChatToggled()
+                    && !stageHandler.getMainSettingsWindow().isVisible()
+                    && !stageHandler.getEscapeWindow().isVisible()
+                    && !stageHandler.getEntityEditor().isVisible()) {
+
+                EntityManager entityManager = EntityManager.getInstance();
+
+                PlayerClient playerClient = entityManager.getPlayerClient();
+                Location possibleNpcTile = new Location(playerClient.getCurrentMapLocation()).add(playerClient.getFacingDirection());
+
+                NPC npc = new NPC();
+                npc.chat();
+
+                for (AiEntity aiEntity : entityManager.getAiEntityList().values()) {
+                    if (!(aiEntity instanceof NPC)) continue;
+
+                    if (aiEntity.getFutureMapLocation().equals(possibleNpcTile)) {
+                        ((NPC) aiEntity).chat();
+                        break;
+                    }
+                }
+
+            }
         }
 
         return false;

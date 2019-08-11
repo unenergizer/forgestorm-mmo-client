@@ -5,8 +5,6 @@ import com.valenguard.client.Valenguard;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.valenguard.client.util.Log.println;
-
 @Setter
 @Getter
 @SuppressWarnings("unused")
@@ -46,6 +44,26 @@ public class Location {
     public Location add(Location location) {
         this.x += location.x;
         this.y += location.y;
+        return this;
+    }
+
+    public Location add(MoveDirection direction) {
+        switch (direction) {
+            case NORTH:
+                this.y += 1;
+                break;
+            case EAST:
+                this.x += 1;
+                break;
+            case SOUTH:
+                this.y -= 1;
+                break;
+            case WEST:
+                this.x -= 1;
+                break;
+            case NONE:
+                throw new RuntimeException("Why?");
+        }
         return this;
     }
 

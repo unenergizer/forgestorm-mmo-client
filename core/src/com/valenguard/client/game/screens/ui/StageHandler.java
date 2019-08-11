@@ -22,6 +22,7 @@ import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.valenguard.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
@@ -92,6 +93,7 @@ public class StageHandler implements Disposable {
     private EntityShopWindow entityShopWindow;
     private StatusBar statusBar;
     private AbilityBar abilityBar;
+    private ChatDialogue chatDialogue;
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
@@ -198,6 +200,7 @@ public class StageHandler implements Disposable {
         entityShopWindow = new EntityShopWindow();
         statusBar = new StatusBar();
         abilityBar = new AbilityBar();
+        chatDialogue = new ChatDialogue();
 
         stage.addActor(helpWindow.build());
         stage.addActor(creditsWindow.build());
@@ -216,6 +219,7 @@ public class StageHandler implements Disposable {
         stage.addActor(entityShopWindow.build());
         stage.addActor(statusBar.build());
         stage.addActor(abilityBar.build());
+        stage.addActor(chatDialogue.build());
 
         ActorUtil.fadeInWindow(chatWindow);
 

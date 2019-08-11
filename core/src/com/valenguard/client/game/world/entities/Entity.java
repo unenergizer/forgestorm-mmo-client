@@ -1,6 +1,7 @@
 package com.valenguard.client.game.world.entities;
 
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.maps.GameMap;
 import com.valenguard.client.game.world.maps.Location;
 
@@ -42,6 +43,10 @@ public class Entity {
      * The appearance of the entity.
      */
     private Appearance appearance;
+
+    public void say(String text) {
+        ActorUtil.getStageHandler().getChatDialogue().drawText(text);
+    }
 
     public GameMap getGameMap() {
         return Valenguard.getInstance().getMapManager().getGameMap(mapName);

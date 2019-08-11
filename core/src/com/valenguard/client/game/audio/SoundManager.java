@@ -13,6 +13,8 @@ import static com.valenguard.client.util.Log.println;
 
 public class SoundManager implements Disposable {
 
+    private static final boolean PRINT_DEBUG = false;
+
     private final Map<Short, AudioData> soundFX;
 
     @Getter
@@ -44,10 +46,10 @@ public class SoundManager implements Disposable {
         id = currentSound.play();
         currentSound.setVolume(id, audioPreferences.getSoundEffectsVolume());
 
-        println(getClass(), "AudioID: " + audioData.getAudioId());
-        println(getClass(), " -Playing: " + audioData.getFileName());
-        println(getClass(), " -Description: " + audioData.getDescription());
-        println(getClass(), " -Source: " + clazz);
+        println(getClass(), "AudioID: " + audioData.getAudioId(), false, PRINT_DEBUG);
+        println(getClass(), " -Playing: " + audioData.getFileName(), false, PRINT_DEBUG);
+        println(getClass(), " -Description: " + audioData.getDescription(), false, PRINT_DEBUG);
+        println(getClass(), " -Source: " + clazz, false, PRINT_DEBUG);
     }
 
     public void stopSoundFx(boolean dispose) {
