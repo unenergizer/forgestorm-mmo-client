@@ -12,34 +12,34 @@ public class CharacterCreatorPacketOut extends AbstractClientPacketOut {
 
     private static final boolean PRINT_DEBUG = true;
 
-    private final CharacterClasses characterClass;
-    private final CharacterGenders characterGender;
-    private final CharacterRaces characterRace;
-    private final LibGDXColorList characterColor;
+    //    private final CharacterClasses characterClass;
+//    private final CharacterGenders characterGender;
+//    private final CharacterRaces characterRace;
+//    private final LibGDXColorList characterColor;
     private final String characterName;
 
-    public CharacterCreatorPacketOut(CharacterClasses characterClass, CharacterGenders characterGender, CharacterRaces characterRace, LibGDXColorList characterColor, String characterName) {
+    public CharacterCreatorPacketOut(String characterName) {
         super(Opcodes.CHARACTER_CREATOR);
-        this.characterClass = characterClass;
-        this.characterGender = characterGender;
-        this.characterRace = characterRace;
-        this.characterColor = characterColor;
+//        this.characterClass = characterClass;
+//        this.characterGender = characterGender;
+//        this.characterRace = characterRace;
+//        this.characterColor = characterColor;
         this.characterName = characterName;
     }
 
     @Override
     void createPacket(ValenguardOutputStream write) {
 
-        println(getClass(), "Class: " + characterClass.name(), false, PRINT_DEBUG);
-        println(getClass(), "Gender: " + characterGender.name(), false, PRINT_DEBUG);
-        println(getClass(), "Race: " + characterRace.name(), false, PRINT_DEBUG);
-        println(getClass(), "Color: " + characterColor.name(), false, PRINT_DEBUG);
+//        println(getClass(), "Class: " + characterClass.name(), false, PRINT_DEBUG);
+//        println(getClass(), "Gender: " + characterGender.name(), false, PRINT_DEBUG);
+//        println(getClass(), "Race: " + characterRace.name(), false, PRINT_DEBUG);
+//        println(getClass(), "Color: " + characterColor.name(), false, PRINT_DEBUG);
         println(getClass(), "Name: " + characterName, false, PRINT_DEBUG);
 
-        write.writeByte(characterClass.getTypeByte());
-        write.writeByte(characterGender.getTypeByte());
-        write.writeByte(characterRace.getTypeByte());
-        write.writeByte(characterColor.getTypeByte());
+        write.writeByte(CharacterClasses.FIGHTER.getTypeByte());
+        write.writeByte(CharacterGenders.MALE.getTypeByte());
+        write.writeByte(CharacterRaces.HUMAN.getTypeByte());
+        write.writeByte(LibGDXColorList.PLAYER_DEFAULT.getTypeByte());
         write.writeString(characterName);
     }
 }
