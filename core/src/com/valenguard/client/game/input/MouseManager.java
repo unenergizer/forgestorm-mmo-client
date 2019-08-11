@@ -123,8 +123,10 @@ public class MouseManager {
 
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
         EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
-        if (entityEditor.getNpcTab().isSelectSpawnActivated()) return;
-        if (entityEditor.getMonsterTab().isSelectSpawnActivated()) return;
+        if (entityEditor != null) {
+            if (entityEditor.getNpcTab().isSelectSpawnActivated()) return;
+            if (entityEditor.getMonsterTab().isSelectSpawnActivated()) return;
+        }
 
         Queue<MoveNode> moveNodes = null;
         for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {

@@ -127,9 +127,7 @@ public class StageHandler implements Disposable {
                 buildCharacterSelectUI();
                 break;
             case GAME:
-                if (Valenguard.getInstance().isAdmin()) {
-                    buildGameTools();
-                }
+                if (Valenguard.getInstance().isAdmin()) buildGameTools();
                 buildGameScreenUI();
                 break;
         }
