@@ -118,7 +118,7 @@ class PreStageEvent implements InputProcessor {
         /*
          * Interacting with environment
          */
-        if (keycode == KeyBinds.INTERACT) {
+        if (keycode == KeyBinds.INTERACT && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
             if (!stageHandler.getChatWindow().isChatToggled()
                     && !stageHandler.getMainSettingsWindow().isVisible()
                     && !stageHandler.getEscapeWindow().isVisible()

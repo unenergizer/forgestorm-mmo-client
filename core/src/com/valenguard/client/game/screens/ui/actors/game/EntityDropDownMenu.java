@@ -34,6 +34,7 @@ import com.valenguard.client.game.world.maps.Tile;
 import com.valenguard.client.network.game.packet.out.BankManagePacketOut;
 import com.valenguard.client.network.game.packet.out.ClickActionPacketOut;
 import com.valenguard.client.network.game.packet.out.EntityShopPacketOut;
+import com.valenguard.client.network.game.packet.out.InspectPlayerPacketOut;
 import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
@@ -158,6 +159,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         MenuEntry(MovingEntity clickedEntity) {
             this.clickedEntity = clickedEntity;
 
+            addInspectPlayerButton();
             addEditEntityButton();
             addOpenBankButton();
             addTargetButton();
@@ -168,6 +170,26 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         // OpenBank, Attack, Trade, Shop, Follow, Exit, Walk Here
+
+        private void addInspectPlayerButton() {
+            if (clickedEntity instanceof AiEntity) return;
+
+            VisTextButton inspectPlayerButton = new VisTextButton("Inspect " + clickedEntity.getEntityName());
+            add(inspectPlayerButton).expand().fill().row();
+
+            inspectPlayerButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    StageHandler stageHandler = ActorUtil.getStageHandler();
+
+                    new InspectPlayerPacketOut(clickedEntity.getServerEntityID()).sendPacket();
+
+                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player " + clickedEntity.getEntityName() + " equipment.");
+                    cleanUpDropDownMenu(true);
+                }
+            });
+        }
 
         private void addEditEntityButton() {
             if (!(clickedEntity instanceof AiEntity)) return;

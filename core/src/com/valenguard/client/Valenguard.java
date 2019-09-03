@@ -42,6 +42,7 @@ import com.valenguard.client.network.game.packet.in.EntityUpdatePacketIn;
 import com.valenguard.client.network.game.packet.in.InitClientPrivilegePacketIn;
 import com.valenguard.client.network.game.packet.in.InitScreenPacketIn;
 import com.valenguard.client.network.game.packet.in.InitializeGameMapPacketIn;
+import com.valenguard.client.network.game.packet.in.InspectPlayerPacketIn;
 import com.valenguard.client.network.game.packet.in.InventoryPacketIn;
 import com.valenguard.client.network.game.packet.in.MovingEntityTeleportPacketIn;
 import com.valenguard.client.network.game.packet.in.PingPacketIn;
@@ -215,6 +216,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new BankManagePacketIn());
                         eventBus.registerListener(new EntityUpdatePacketIn());
                         eventBus.registerListener(new InitClientPrivilegePacketIn());
+                        eventBus.registerListener(new InspectPlayerPacketIn());
                     }
                 });
     }
