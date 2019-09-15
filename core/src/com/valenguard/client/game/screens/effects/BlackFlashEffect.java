@@ -4,8 +4,6 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.world.maps.MapRenderer;
 
-import static com.valenguard.client.util.Log.println;
-
 public class BlackFlashEffect extends ScreenEffect {
 
     private MapRenderer mapRenderer;
@@ -19,19 +17,14 @@ public class BlackFlashEffect extends ScreenEffect {
             mapRenderer = Valenguard.gameScreen.getMapRenderer();
         }
 
-        println(getClass(), "doing effect");
-
         if (num > 1) {
             num = 0f;
             isComplete = true;
-            println(getClass(), "color changing fin");
         } else {
 
             mapRenderer.setMapColor(num, num, num, 1);
-            println(getClass(), "color changing: " + num);
             num = num + 0.02f;
         }
-
     }
 
     @Override

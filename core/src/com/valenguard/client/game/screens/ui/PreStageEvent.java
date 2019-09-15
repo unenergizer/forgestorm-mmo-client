@@ -43,16 +43,14 @@ class PreStageEvent implements InputProcessor {
 
             if (keycode == Input.Keys.NUMPAD_1) {
                 if (!stageHandler.getChatWindow().isChatToggled()) {
-                    effectManager.setScreenEffect(new BlackFlashEffect());
-                    effectManager.setActive(true);
+                    effectManager.addScreenEffect(new BlackFlashEffect());
                     return true;
                 }
             }
 
             if (keycode == Input.Keys.NUMPAD_2) {
                 if (!stageHandler.getChatWindow().isChatToggled()) {
-                    effectManager.setScreenEffect(new AlphaFlashEffect());
-                    effectManager.setActive(true);
+                    effectManager.addScreenEffect(new AlphaFlashEffect());
                     return true;
                 }
             }
@@ -60,8 +58,8 @@ class PreStageEvent implements InputProcessor {
             if (keycode == Input.Keys.NUMPAD_3) {
                 if (!stageHandler.getChatWindow().isChatToggled()) {
                     PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                    effectManager.setScreenEffect(new LineDrawEffect(Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-                    effectManager.setActive(true);
+                    effectManager.addScreenEffect(new LineDrawEffect(Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
+
                     return true;
                 }
             }
@@ -69,8 +67,7 @@ class PreStageEvent implements InputProcessor {
             if (keycode == Input.Keys.NUMPAD_4) {
                 if (!stageHandler.getChatWindow().isChatToggled()) {
                     PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                    effectManager.setScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-                    effectManager.setActive(true);
+                    effectManager.addScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
                     return true;
                 }
             }
