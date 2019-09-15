@@ -26,6 +26,7 @@ import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.io.type.GameFont;
 import com.valenguard.client.io.type.GameTexture;
 import com.valenguard.client.util.GraphicsUtils;
+import com.valenguard.client.util.PixmapUtil;
 
 import lombok.Getter;
 
@@ -106,20 +107,20 @@ public class GameScreen implements Screen {
         // Create HealthBar textures
         final int width = 1;
         final int height = 1;
-        Pixmap hpBasePixmap = createProceduralPixmap(width, height, Color.RED);
+        Pixmap hpBasePixmap = PixmapUtil.createProceduralPixmap(width, height, Color.RED);
         hpBase = new Texture(hpBasePixmap);
         hpBasePixmap.dispose();
 
-        Pixmap hpAreaPixmap = createProceduralPixmap(width, height, Color.GREEN);
+        Pixmap hpAreaPixmap = PixmapUtil.createProceduralPixmap(width, height, Color.GREEN);
         hpArea = new Texture(hpAreaPixmap);
         hpAreaPixmap.dispose();
 
         // Tile highlighting
-        Pixmap invalidTextureHighlight = createProceduralPixmap(16, 16, Color.RED);
+        Pixmap invalidTextureHighlight = PixmapUtil.createProceduralPixmap(16, 16, Color.RED);
         invalidTileLocationTexture = new Texture(invalidTextureHighlight);
         invalidTextureHighlight.dispose();
 
-        Pixmap validTextureHighlight = createProceduralPixmap(16, 16, Color.GREEN);
+        Pixmap validTextureHighlight = PixmapUtil.createProceduralPixmap(16, 16, Color.GREEN);
         validTileLocationTexture = new Texture(validTextureHighlight);
         validTextureHighlight.dispose();
     }
@@ -129,7 +130,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(21f, 21f, 21f, 0, true);
+        GraphicsUtils.clearScreen(1f, 1f, 1f, 1, false);
 
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
@@ -152,8 +153,12 @@ public class GameScreen implements Screen {
 
         mapRenderer.renderBottomMapLayers(camera);
 
-        spriteBatch.setProjectionMatrix(camera.combined);
+        // Draw Screen Effects
+        Valenguard.getInstance().getEffectManager().drawScreenEffect();
+
         spriteBatch.begin();
+        spriteBatch.setProjectionMatrix(camera.combined);
+
         // Animate
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
@@ -197,21 +202,13 @@ public class GameScreen implements Screen {
         ActorUtil.getStageHandler().render(delta);
     }
 
-    private Pixmap createProceduralPixmap(int width, int height, Color color) {
-        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-
-        pixmap.setColor(color);
-        pixmap.fill();
-
-        return pixmap;
-    }
-
     private void tickGameLogic(float delta) {
         Valenguard.getInstance().getClientMovementProcessor().processMovement(EntityManager.getInstance().getPlayerClient());
         Valenguard.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient(), delta);
         Valenguard.getInstance().getEntityMovementManager().tick(delta);
         Valenguard.getInstance().getEntityTracker().track();
         Valenguard.getInstance().getAbilityManager().updateCooldowns();
+        Valenguard.getInstance().getEffectManager().tickScreenEffect(delta);
     }
 
     @Override

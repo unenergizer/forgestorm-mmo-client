@@ -30,6 +30,15 @@ public class MapRenderer implements Disposable {
     @Getter
     private String gameMapNameFromServer;
 
+    public void setMapColor(float red, float green, float blue, float alpha) {
+        if (!isReadyToRender()) return;
+        orthogonalTiledMapRenderer.getBatch().setColor(red, green, blue, alpha);
+    }
+
+    public void resetMapColor() {
+        orthogonalTiledMapRenderer.getBatch().setColor(1, 1, 1, 1);
+    }
+
     public boolean isReadyToRender() {
         return orthogonalTiledMapRenderer != null && tiledMap != null;
     }

@@ -1,11 +1,5 @@
 package com.valenguard.client.game.world.entities;
 
-import javax.script.Bindings;
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +8,15 @@ import lombok.Setter;
 public class NPC extends AiEntity {
     private byte faction;
 
-    private static final ScriptEngineManager manager = new ScriptEngineManager();
-    private static final ScriptEngine engine = manager.getEngineByName("JavaScript");
+    /**
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * Script engine is NOT supported on Android!!!
+     * Advice given is to use Mozilla Rhino
+     * https://stackoverflow.com/questions/42128648/how-to-use-scriptenginemanager-in-android
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     */
+//    private static final ScriptEngineManager manager = new ScriptEngineManager();
+//    private static final ScriptEngine engine = manager.getEngineByName("JavaScript");
 
     public void chat() {
 
@@ -33,25 +34,25 @@ public class NPC extends AiEntity {
 
         //String loadNpcScript = "" +
         //       "importPackage(" + getClass().getPackage().getName()  + ");\n";
-        Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindings.put("npc", this);
-
-        String scriptVar = "This is a variable nigga";
-
-        try {
-
-            String scriptString = "npc.test(\"" + scriptVar + "\")";
-
-            System.out.println(scriptString);
-
-            engine.eval(scriptString);
-        } catch (ScriptException e) {
-            e.printStackTrace();
-        }
+//        Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+//        bindings.put("npc", this);
+//
+//        String scriptVar = "This is a variable nigga";
+//
+//        try {
+//
+//            String scriptString = "npc.test(\"" + scriptVar + "\")";
+//
+//            System.out.println(scriptString);
+//
+//            engine.eval(scriptString);
+//        } catch (ScriptException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
-    public void test(String var) {
-        System.out.println(var);
-    }
+//    public void test(String var) {
+//        System.out.println(var);
+//    }
 }

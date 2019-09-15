@@ -67,7 +67,7 @@ public class LoginScreen extends ScreenAdapter {
 
         // Draw textures
 //        spriteBatch.begin();
-//        spriteBatch.draw(fileManager.getTexture(GameTexture.LOGIN_BACKGROUND), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        spriteBatch.drawScreenEffect(fileManager.getTexture(GameTexture.LOGIN_BACKGROUND), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 //        spriteBatch.end();
 
         // Render UI

@@ -1,6 +1,9 @@
 package com.valenguard.client.game.screens.ui;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.kotcrab.vis.ui.FocusManager;
@@ -8,6 +11,11 @@ import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
+import com.valenguard.client.game.screens.effects.AlphaFlashEffect;
+import com.valenguard.client.game.screens.effects.BlackFlashEffect;
+import com.valenguard.client.game.screens.effects.CircleDrawEffect;
+import com.valenguard.client.game.screens.effects.EffectManager;
+import com.valenguard.client.game.screens.effects.LineDrawEffect;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 import com.valenguard.client.game.world.entities.AiEntity;
@@ -27,6 +35,47 @@ class PreStageEvent implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        /*
+         * Toggle TEMP EFFECTS
+         */
+        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+            EffectManager effectManager = Valenguard.getInstance().getEffectManager();
+
+            if (keycode == Input.Keys.NUMPAD_1) {
+                if (!stageHandler.getChatWindow().isChatToggled()) {
+                    effectManager.setScreenEffect(new BlackFlashEffect());
+                    effectManager.setActive(true);
+                    return true;
+                }
+            }
+
+            if (keycode == Input.Keys.NUMPAD_2) {
+                if (!stageHandler.getChatWindow().isChatToggled()) {
+                    effectManager.setScreenEffect(new AlphaFlashEffect());
+                    effectManager.setActive(true);
+                    return true;
+                }
+            }
+
+            if (keycode == Input.Keys.NUMPAD_3) {
+                if (!stageHandler.getChatWindow().isChatToggled()) {
+                    PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+                    effectManager.setScreenEffect(new LineDrawEffect(Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
+                    effectManager.setActive(true);
+                    return true;
+                }
+            }
+
+            if (keycode == Input.Keys.NUMPAD_4) {
+                if (!stageHandler.getChatWindow().isChatToggled()) {
+                    PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+                    effectManager.setScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
+                    effectManager.setActive(true);
+                    return true;
+                }
+            }
+        }
+
         /*
          * Toggle Chat Box Focus
          */

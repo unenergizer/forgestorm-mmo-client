@@ -15,6 +15,7 @@ import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.LoginScreen;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
+import com.valenguard.client.game.screens.effects.EffectManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStackManager;
@@ -90,6 +91,7 @@ public class Valenguard extends Game {
     private EntityShopManager entityShopManager;
     private MoveInventoryEvents moveInventoryEvents;
     private AbilityManager abilityManager;
+    private EffectManager effectManager;
 
     private TradeManager tradeManager;
 
@@ -129,6 +131,7 @@ public class Valenguard extends Game {
         entityShopManager = new EntityShopManager();
         moveInventoryEvents = new MoveInventoryEvents();
         abilityManager = new AbilityManager();
+        effectManager = new EffectManager();
 
         // loadItems screens
         gameScreen = new GameScreen();

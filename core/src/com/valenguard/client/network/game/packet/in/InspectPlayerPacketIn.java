@@ -15,7 +15,7 @@ public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacket
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        int itemIds[] = new int[ClientConstants.EQUIPMENT_INVENTORY_SIZE];
+        int[] itemIds = new int[ClientConstants.EQUIPMENT_INVENTORY_SIZE];
 
         for (int i = 0; i < ClientConstants.EQUIPMENT_INVENTORY_SIZE; i++) {
             itemIds[i] = clientHandler.readInt();
@@ -35,6 +35,6 @@ public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacket
 
     @AllArgsConstructor
     class ChatMessagePacket extends PacketData {
-        private int itemIds[];
+        private int[] itemIds;
     }
 }
