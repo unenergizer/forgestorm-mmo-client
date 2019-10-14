@@ -27,6 +27,7 @@ import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
+import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.AdminEditorEntityPacketOut;
@@ -114,28 +115,29 @@ public class NpcTab extends Tab {
 
     public void loadAiEntity(AiEntity aiEntity) {
         resetValues();
-        entityIDNum = aiEntity.getServerEntityID();
-        entityID.setText(aiEntity.getServerEntityID());
+        NPC npc = (NPC) aiEntity;
+        entityIDNum = npc.getServerEntityID();
+        entityID.setText(npc.getServerEntityID());
 
-        name.setText(aiEntity.getEntityName());
-        // todo faction = faction.setText(npc.getFaction());
-        health.setText(Integer.toString(aiEntity.getMaxHealth()));
-        damage.setText(Integer.toString(aiEntity.getDamage()));
-        expDrop.setText(Integer.toString(aiEntity.getExpDrop()));
-        dropTable.setText(Integer.toString(aiEntity.getDropTable()));
-        walkSpeed.setValue(aiEntity.getMoveSpeed());
-        probStill.setValue(aiEntity.getProbWalkStill());
-        probWalk.setValue(aiEntity.getProbWalkStart());
-        shopId.setText(Integer.toString(aiEntity.getShopID()));
-        mapName.setText(aiEntity.getDefaultSpawnLocation().getMapName());
-        mapX.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getX()));
-        mapY.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getY()));
+        name.setText(npc.getEntityName());
+        faction.setText(Valenguard.getInstance().getFactionManager().getFactionFromByte(npc.getFaction()));
+        health.setText(Integer.toString(npc.getMaxHealth()));
+        damage.setText(Integer.toString(npc.getDamage()));
+        expDrop.setText(Integer.toString(npc.getExpDrop()));
+        dropTable.setText(Integer.toString(npc.getDropTable()));
+        walkSpeed.setValue(npc.getMoveSpeed());
+        probStill.setValue(npc.getProbWalkStill());
+        probWalk.setValue(npc.getProbWalkStart());
+        shopId.setText(Integer.toString(npc.getShopID()));
+        mapName.setText(npc.getDefaultSpawnLocation().getMapName());
+        mapX.setText(Short.toString(npc.getDefaultSpawnLocation().getX()));
+        mapY.setText(Short.toString(npc.getDefaultSpawnLocation().getY()));
 
         // Load Appearance
         appearanceTable.clear();
         appearancePanel = new NPCAppearancePanel(this);
         appearancePanel.buildAppearancePanel();
-        appearancePanel.load(aiEntity);
+        appearancePanel.load(npc);
         appearancePanel.characterPreview();
 
         deleteButton.setDisabled(false);

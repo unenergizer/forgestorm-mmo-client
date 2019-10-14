@@ -9,6 +9,7 @@ import com.valenguard.client.game.movement.ClientPlayerMovementManager;
 import com.valenguard.client.game.movement.EntityMovementManager;
 import com.valenguard.client.game.movement.EntityTracker;
 import com.valenguard.client.game.rpg.EntityShopManager;
+import com.valenguard.client.game.rpg.FactionManager;
 import com.valenguard.client.game.rpg.Skills;
 import com.valenguard.client.game.screens.CharacterSelectScreen;
 import com.valenguard.client.game.screens.GameScreen;
@@ -80,6 +81,7 @@ public class Valenguard extends Game {
     private WindowManager windowManager;
     private StageHandler stageHandler;
     private FileManager fileManager;
+    private FactionManager factionManager;
     private MapManager mapManager;
     private ClientMovementProcessor clientMovementProcessor;
     private ClientPlayerMovementManager clientPlayerMovementManager;
@@ -117,6 +119,7 @@ public class Valenguard extends Game {
         connectionManager = new ConnectionManager();
         outputStreamManager = new OutputStreamManager();
         fileManager = new FileManager();
+        factionManager = new FactionManager();
         mapManager = new MapManager(ideRun);
         stageHandler = new StageHandler();
         clientMovementProcessor = new ClientMovementProcessor();

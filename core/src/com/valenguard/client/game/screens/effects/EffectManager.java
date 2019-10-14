@@ -8,7 +8,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class EffectManager {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     private List<ScreenEffect> screenEffectList = new ArrayList<ScreenEffect>();
 

@@ -1,0 +1,30 @@
+0:
+  name: "THE_EMPIRE"
+  enemyFactions:
+    - "BURNING_CITY"
+    - "FROZEN_THRONE"
+    - "SHORES_OF_WRATH"
+1:
+  name: "IMPERIAL_LEGION"
+  enemyFactions:
+    - "MOUNTAIN_DWELLERS_OF_THE_NORTH"
+2:
+  name: "BURNING_CITY"
+  enemyFactions:
+    - "IMPERIAL_LEGION"
+    - "THE_EMPIRE"
+3:
+  name: "SHORES_OF_WRATH"
+  enemyFactions:
+    - "THE_EMPIRE"
+    - "BURNING_CITY"
+4:
+  name: "MOUNTAIN_DWELLERS_OF_THE_NORTH"
+  enemyFactions:
+    - "FROZEN_THRONE"
+    - "BURNING_CITY"
+    - "SHORES_OF_WRATH"
+5:
+  name: "FROZEN_THRONE"
+  enemyFactions:
+    - "BURNING_CITY"

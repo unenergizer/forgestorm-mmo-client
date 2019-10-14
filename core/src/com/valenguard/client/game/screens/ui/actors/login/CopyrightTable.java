@@ -11,7 +11,7 @@ public class CopyrightTable extends VisTable implements Buildable {
 
     @Override
     public Actor build() {
-        add(new VisLabel("Copyright © 2017-2018 Valenguard MMO. All Rights Reserved."));
+        add(new VisLabel("Copyright © 2017-2018 RetroMMO. All Rights Reserved."));
 
         addListener(new WindowResizeListener() {
             @Override

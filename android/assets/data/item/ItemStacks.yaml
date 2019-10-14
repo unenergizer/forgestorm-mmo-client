@@ -195,3 +195,12 @@
   wearable: 23
   health: 10
   consume: false
+24:
+  name: "Wooden Planks"
+  desc: "Harvested from a tree or something."
+  type: MATERIAL
+  atlas: ITEMS
+  region: material_14
+  wearable: 23
+  health: 10
+  consume: false

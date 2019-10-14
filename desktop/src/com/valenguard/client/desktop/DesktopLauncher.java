@@ -17,7 +17,7 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.vSyncEnabled = true;
         config.fullscreen = false;
-        config.title = "Valenguard - A Retro MMO";
+        config.title = "RetroMMO";
         config.width = ClientConstants.SCREEN_RESOLUTION.getWidth();
         config.height = ClientConstants.SCREEN_RESOLUTION.getHeight();
 
