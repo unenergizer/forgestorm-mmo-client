@@ -1,6 +1,7 @@
 package com.valenguard.client.game.input;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
@@ -148,6 +149,11 @@ public class MouseManager {
 
                 Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
                 println(getClass(), "Interacting with moving entity");
+
+
+                EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
+                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[YELLOW]Now targeting " + movingEntity.getEntityName() + ".");
+                movingEntity.getAppearance().setBorderColor(Color.RED);
                 break;
             }
         }

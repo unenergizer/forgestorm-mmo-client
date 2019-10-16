@@ -40,6 +40,9 @@ public class KeyBinds {
      * INTERACTION
      */
     public static final int INTERACT = Input.Keys.E;
+    public static final int ACTION_1 = Input.Keys.NUM_1;
+    public static final int ACTION_2 = Input.Keys.NUM_2;
+    public static final int ACTION_3 = Input.Keys.NUM_3;
 
     public static String printKey(int key) {
         return Input.Keys.toString(key);
