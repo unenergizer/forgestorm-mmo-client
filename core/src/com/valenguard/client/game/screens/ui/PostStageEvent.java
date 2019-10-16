@@ -1,10 +1,10 @@
 package com.valenguard.client.game.screens.ui;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowEvent;
@@ -22,7 +22,7 @@ class PostStageEvent implements InputProcessor {
         /*
          * Close Open Windows or Open Escape Menu
          */
-        if (keycode == Input.Keys.ESCAPE) {
+        if (keycode == KeyBinds.ESCAPE_ACTION) {
 
             // Close any current open windows on first Esc press (if no windows open, we continue).
             ForceCloseWindowEvent forceCloseEvent = new ForceCloseWindowEvent();

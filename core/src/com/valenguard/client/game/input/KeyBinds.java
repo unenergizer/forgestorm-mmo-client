@@ -31,6 +31,7 @@ public class KeyBinds {
     /*
      * WINDOWS
      */
+    public static final int ESCAPE_ACTION = Input.Keys.ESCAPE;
     public static final int FULLSCREEN = Input.Keys.F10;
     public static final int INVENTORY_WINDOW = Input.Keys.I;
     public static final int EQUIPMENT_WINDOW = Input.Keys.C;
@@ -39,4 +40,8 @@ public class KeyBinds {
      * INTERACTION
      */
     public static final int INTERACT = Input.Keys.E;
+
+    public static String printKey(int key) {
+        return Input.Keys.toString(key);
+    }
 }

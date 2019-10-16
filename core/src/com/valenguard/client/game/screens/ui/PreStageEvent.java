@@ -33,50 +33,67 @@ class PreStageEvent implements InputProcessor {
         this.stageHandler = stageHandler;
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
+    /**
+     * Checks to make sure dev tools are closed. For non admin players,
+     * dev tool UI elements are never created so these elements will return
+     * null.
+     *
+     * @return True if elements are not null and are visible, false otherwise.
+     */
+    private boolean devToolsClosed() {
+        if (stageHandler.getEntityEditor() == null) {
+            return true;
+        } else {
+            return !stageHandler.getEntityEditor().isVisible();
+        }
+    }
+
+    /**
+     * Keys combinations that can be pressed only on the GameScreen.
+     *
+     * @param keycode The key being pressed.
+     * @return True if key is handled, false otherwise.
+     */
+    private boolean gameScreenOnlyKeys(int keycode) {
         /*
          * Toggle TEMP EFFECTS
          */
-        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            EffectManager effectManager = Valenguard.getInstance().getEffectManager();
+        EffectManager effectManager = Valenguard.getInstance().getEffectManager();
 
-            if (keycode == Input.Keys.NUMPAD_1) {
-                if (!stageHandler.getChatWindow().isChatToggled()) {
-                    effectManager.addScreenEffect(new BlackFlashEffect());
-                    return true;
-                }
+        if (keycode == Input.Keys.NUMPAD_1) {
+            if (!stageHandler.getChatWindow().isChatToggled()) {
+                effectManager.addScreenEffect(new BlackFlashEffect());
+                return true;
             }
+        }
 
-            if (keycode == Input.Keys.NUMPAD_2) {
-                if (!stageHandler.getChatWindow().isChatToggled()) {
-                    effectManager.addScreenEffect(new AlphaFlashEffect());
-                    return true;
-                }
+        if (keycode == Input.Keys.NUMPAD_2) {
+            if (!stageHandler.getChatWindow().isChatToggled()) {
+                effectManager.addScreenEffect(new AlphaFlashEffect());
+                return true;
             }
+        }
 
-            if (keycode == Input.Keys.NUMPAD_3) {
-                if (!stageHandler.getChatWindow().isChatToggled()) {
-                    PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                    effectManager.addScreenEffect(new LineDrawEffect(Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-
-                    return true;
-                }
+        if (keycode == Input.Keys.NUMPAD_3) {
+            if (!stageHandler.getChatWindow().isChatToggled()) {
+                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+                effectManager.addScreenEffect(new LineDrawEffect(Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
+                return true;
             }
+        }
 
-            if (keycode == Input.Keys.NUMPAD_4) {
-                if (!stageHandler.getChatWindow().isChatToggled()) {
-                    PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                    effectManager.addScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-                    return true;
-                }
+        if (keycode == Input.Keys.NUMPAD_4) {
+            if (!stageHandler.getChatWindow().isChatToggled()) {
+                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+                effectManager.addScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
+                return true;
             }
         }
 
         /*
          * Toggle Chat Box Focus
          */
-        if (keycode == KeyBinds.CHAT_BOX_FOCUS && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+        if (keycode == KeyBinds.CHAT_BOX_FOCUS) {
             if (!stageHandler.getChatWindow().isChatToggled()) {
                 FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getChatWindow().getMessageInput());
                 stageHandler.getStage().setKeyboardFocus(stageHandler.getChatWindow().getMessageInput());
@@ -87,13 +104,17 @@ class PreStageEvent implements InputProcessor {
         }
 
         /*
-         * Open Player Bag
+         * Make sure these windows are closed...
          */
-        if (keycode == KeyBinds.INVENTORY_WINDOW && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            if (!stageHandler.getChatWindow().isChatToggled()
-                    && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()
-                    && !stageHandler.getEntityEditor().isVisible()) {
+        if (!stageHandler.getChatWindow().isChatToggled()
+                && !stageHandler.getMainSettingsWindow().isVisible()
+                && !stageHandler.getEscapeWindow().isVisible()
+                && devToolsClosed()) {
+
+            /*
+             * Open Player Bag
+             */
+            if (keycode == KeyBinds.INVENTORY_WINDOW) {
                 if (!stageHandler.getBagWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
@@ -102,16 +123,11 @@ class PreStageEvent implements InputProcessor {
                 }
                 return true;
             }
-        }
 
-        /*
-         * Open Equipment Window
-         */
-        if (keycode == KeyBinds.EQUIPMENT_WINDOW && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            if (!stageHandler.getChatWindow().isChatToggled()
-                    && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()
-                    && !stageHandler.getEntityEditor().isVisible()) {
+            /*
+             * Open Equipment Window
+             */
+            if (keycode == KeyBinds.EQUIPMENT_WINDOW) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEquipmentWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());
@@ -120,8 +136,40 @@ class PreStageEvent implements InputProcessor {
                 }
                 return true;
             }
+
+            /*
+             * Interacting with environment
+             */
+            if (keycode == KeyBinds.INTERACT) {
+                EntityManager entityManager = EntityManager.getInstance();
+
+                PlayerClient playerClient = entityManager.getPlayerClient();
+                Location possibleNpcTile = new Location(playerClient.getCurrentMapLocation()).add(playerClient.getFacingDirection());
+
+                NPC npc = new NPC();
+                npc.chat();
+
+                for (AiEntity aiEntity : entityManager.getAiEntityList().values()) {
+                    if (!(aiEntity instanceof NPC)) continue;
+
+                    if (aiEntity.getFutureMapLocation().equals(possibleNpcTile)) {
+                        ((NPC) aiEntity).chat();
+                        break;
+                    }
+                }
+            }
         }
 
+        return false;
+    }
+
+    /**
+     * Keys combinations that can be pressed on any screen.
+     *
+     * @param keycode The key being pressed.
+     * @return True if key is handled, false otherwise.
+     */
+    private boolean anyScreenKeys(int keycode) {
         /*
          * Toggle Game Debug
          */
@@ -161,36 +209,15 @@ class PreStageEvent implements InputProcessor {
             return true;
         }
 
-        /*
-         * Interacting with environment
-         */
-        if (keycode == KeyBinds.INTERACT && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            if (!stageHandler.getChatWindow().isChatToggled()
-                    && !stageHandler.getMainSettingsWindow().isVisible()
-                    && !stageHandler.getEscapeWindow().isVisible()
-                    && !stageHandler.getEntityEditor().isVisible()) {
-
-                EntityManager entityManager = EntityManager.getInstance();
-
-                PlayerClient playerClient = entityManager.getPlayerClient();
-                Location possibleNpcTile = new Location(playerClient.getCurrentMapLocation()).add(playerClient.getFacingDirection());
-
-                NPC npc = new NPC();
-                npc.chat();
-
-                for (AiEntity aiEntity : entityManager.getAiEntityList().values()) {
-                    if (!(aiEntity instanceof NPC)) continue;
-
-                    if (aiEntity.getFutureMapLocation().equals(possibleNpcTile)) {
-                        ((NPC) aiEntity).chat();
-                        break;
-                    }
-                }
-
-            }
-        }
-
         return false;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+            return gameScreenOnlyKeys(keycode);
+        }
+        return anyScreenKeys(keycode);
     }
 
     @Override
