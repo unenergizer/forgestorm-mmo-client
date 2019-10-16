@@ -13,7 +13,7 @@
   atlas: ITEMS
   region: helmet_02
   wearable: 30
-  health: 2
+  armor: 2
   consume: false
 2:
   name: "Leather Chest"
@@ -22,7 +22,7 @@
   atlas: ITEMS
   region: armor_002
   wearable: 0
-  health: 6
+  armor: 6
   consume: false
 3:
   name: "Chainmail Chest"
@@ -31,7 +31,7 @@
   atlas: ITEMS
   region: armor_013
   wearable: 2
-  health: 10
+  armor: 10
   consume: false
 4:
   name: "Sword of Holy Light"
@@ -47,7 +47,7 @@
   type: BELT
   atlas: ITEMS
   region: accessory_03
-  health: 3
+  armor: 3
   consume: false
 6:
   name: "Topaz Necklace"
@@ -55,7 +55,7 @@
   type: NECKLACE
   atlas: ITEMS
   region: accessory_22
-  health: 5
+  armor: 5
   consume: false
 7:
   name: "Leather Boots"
@@ -64,7 +64,7 @@
   atlas: ITEMS
   region: boot_02
   wearable: 2
-  health: 2
+  armor: 2
   consume: false
 8:
   name: "Round Wooden Shield"
@@ -81,7 +81,7 @@
   atlas: ITEMS
   region: helmet_07
   wearable: 22
-  health: 10
+  armor: 10
   consume: false
 10:
   name: "Ring of Frost Resist"
@@ -89,7 +89,7 @@
   type: RING
   atlas: ITEMS
   region: ring_046
-  health: 6
+  armor: 6
   consume: false
 11:
   name: "Ring of Fire Resist"
@@ -97,7 +97,7 @@
   type: RING
   atlas: ITEMS
   region: ring_041
-  health: 4
+  armor: 4
   consume: false
 12:
   name: "Cape of Invisibility"
@@ -105,7 +105,7 @@
   type: CAPE
   atlas: ITEMS
   region: armor_034
-  health: 3
+  armor: 3
   consume: false
 13:
   name: "Wooden Arrow"
@@ -129,7 +129,7 @@
   type: GLOVES
   atlas: ITEMS
   region: glove_29
-  health: 5
+  armor: 5
   consume: false
 16:
   name: "Wizzards Hat"
@@ -138,7 +138,7 @@
   atlas: ITEMS
   region: helmet_28
   wearable: 39
-  health: 11
+  armor: 11
   consume: false
 17:
   name: "Cloth Tunic"
@@ -147,7 +147,7 @@
   atlas: ITEMS
   region: armor_076
   wearable: 25
-  health: 1
+  armor: 1
   consume: false
 18:
   name: "Health Potion"
@@ -184,7 +184,7 @@
   atlas: ITEMS
   region: boot_01
   wearable: 1
-  health: 10
+  armor: 10
   consume: false
 23:
   name: "Basic pants"
@@ -193,7 +193,7 @@
   atlas: ITEMS
   region: skill_055
   wearable: 23
-  health: 10
+  armor: 10
   consume: false
 24:
   name: "Wooden Planks"
@@ -202,5 +202,5 @@
   atlas: ITEMS
   region: material_14
   wearable: 23
-  health: 10
+  armor: 10
   consume: false

@@ -37,8 +37,12 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private ItemStackSlot weaponSlot;
     private ItemStackSlot shieldSlot;
     private ItemStackSlot pantsSlot;
-    private VisLabel armor;
-    private VisLabel damage;
+
+    private VisLabel armorTag = new VisLabel("Armor:");
+    private VisLabel damageTag = new VisLabel("Damage:");
+
+    private VisLabel armorValue = new VisLabel("00000");
+    private VisLabel damageValue = new VisLabel("00000");
 
     public ItemStackSlot getItemStackSlot(ItemStackType itemStackType) {
         switch (itemStackType) {
@@ -134,15 +138,20 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
           */
         VisTable equipmentStatsTable = new VisTable();
 
-        armor = new VisLabel("Armor: 0");
-        damage = new VisLabel("Damage: 0");
+        VisTable tagTable = new VisTable();
+        tagTable.add(armorTag).align(Align.topLeft).row();
+        tagTable.add(damageTag).align(Align.topLeft).row();
 
-        equipmentStatsTable.add(armor).align(Align.topLeft).row();
-        equipmentStatsTable.add(damage).align(Align.topLeft).row();
+        VisTable valuesTable = new VisTable();
+        valuesTable.add(armorValue).align(Align.topRight).row();
+        valuesTable.add(damageValue).align(Align.topRight).row();
+
+        equipmentStatsTable.add(tagTable).expandY().align(Align.topLeft).padRight(8);
+        equipmentStatsTable.add(valuesTable).expandY().align(Align.topRight);
 
         // Display equipment and stats table on the main table
-        add(equipmentSlotsTable).padRight(4);
-        add(equipmentStatsTable).align(Align.top);
+        add(equipmentSlotsTable).grow().align(Align.top).padRight(10);
+        add(equipmentStatsTable).expandY().align(Align.top);
 
         addListener(new InputListener() {
             @Override
@@ -161,8 +170,8 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         addListener(new StatsUpdateListener() {
             @Override
             protected void updateStats(Attributes playerClientAttributes) {
-                armor.setText("Armor: " + playerClientAttributes.getArmor());
-                damage.setText("Damage: " + playerClientAttributes.getDamage());
+                armorValue.setText(playerClientAttributes.getArmor());
+                damageValue.setText(playerClientAttributes.getDamage());
             }
         });
 
