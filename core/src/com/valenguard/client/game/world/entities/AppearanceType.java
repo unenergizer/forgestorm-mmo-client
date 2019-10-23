@@ -11,5 +11,7 @@ public enum AppearanceType {
     EYE_COLOR,
     SKIN_COLOR,
     GLOVES_COLOR,
-    BORDER_COLOR
+    BORDER_COLOR,
+    LEFT_HAND,
+    RIGHT_HAND
 }

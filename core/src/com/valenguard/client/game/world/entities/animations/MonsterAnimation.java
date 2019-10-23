@@ -21,42 +21,47 @@ public class MonsterAnimation extends EntityAnimation {
     }
 
     @Override
-    public void load(TextureAtlas textureAtlas) {
+    protected void load(TextureAtlas textureAtlas) {
         this.atlasId = appearance.getMonsterBodyTexture();
         facingDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("monster_down_" + atlasId), Animation.PlayMode.LOOP);
     }
 
     @Override
-    List<ColoredTextureRegion> actIdle(float stateTime) {
+    protected List<ColoredTextureRegion> actIdle(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+
         frameList.add(getColorTextureRegion(facingDown, stateTime, true));
         return frameList;
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveUp(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveNorth(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+
         frameList.add(getColorTextureRegion(facingDown, stateTime, true));
         return frameList;
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveDown(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveSouth(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+
         frameList.add(getColorTextureRegion(facingDown, stateTime, true));
         return frameList;
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveLeft(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveWest(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+
         frameList.add(getColorTextureRegion(facingDown, stateTime, true));
         return frameList;
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveRight(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveEast(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+
         frameList.add(getColorTextureRegion(facingDown, stateTime, true));
         return frameList;
     }

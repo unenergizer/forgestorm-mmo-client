@@ -2,7 +2,7 @@ package com.valenguard.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.world.entities.animations.HumanAnimation;
+import com.valenguard.client.game.world.entities.animations.human.HumanAnimation;
 import com.valenguard.client.io.type.GameAtlas;
 
 import lombok.Getter;
@@ -55,6 +55,14 @@ public class Player extends MovingEntity {
                 break;
             case BORDER_COLOR:
                 break;
+            case LEFT_HAND:
+                humanAnimation.loadLeftHand(characterTextureAtlas, textureId);
+                humanAnimation.setShowLeftHand(true);
+                break;
+            case RIGHT_HAND:
+                humanAnimation.loadRightHand(characterTextureAtlas, textureId);
+                humanAnimation.setShowRightHand(true);
+                break;
         }
     }
 
@@ -75,6 +83,12 @@ public class Player extends MovingEntity {
                 break;
             case GLOVES_COLOR:
                 humanAnimation.setShowGloves(false);
+                break;
+            case LEFT_HAND:
+                humanAnimation.setShowLeftHand(false);
+                break;
+            case RIGHT_HAND:
+                humanAnimation.setShowRightHand(false);
                 break;
         }
     }

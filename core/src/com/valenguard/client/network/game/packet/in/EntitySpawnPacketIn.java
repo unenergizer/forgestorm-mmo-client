@@ -18,8 +18,8 @@ import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.entities.SkillNode;
-import com.valenguard.client.game.world.entities.animations.HumanAnimation;
 import com.valenguard.client.game.world.entities.animations.MonsterAnimation;
+import com.valenguard.client.game.world.entities.animations.human.HumanAnimation;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.type.GameAtlas;
@@ -114,6 +114,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setEyeColor(new Color(clientHandler.readInt()));
                 entitySpawnPacket.setSkinColor(new Color(clientHandler.readInt()));
                 entitySpawnPacket.setGlovesColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setLeftHandTexture(clientHandler.readByte());
+                entitySpawnPacket.setRightHandTexture(clientHandler.readByte());
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
@@ -132,6 +134,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setEyeColor(new Color(clientHandler.readInt()));
                 entitySpawnPacket.setSkinColor(new Color(clientHandler.readInt()));
                 entitySpawnPacket.setGlovesColor(new Color(clientHandler.readInt()));
+                entitySpawnPacket.setLeftHandTexture(clientHandler.readByte());
+                entitySpawnPacket.setRightHandTexture(clientHandler.readByte());
                 break;
         }
 
@@ -188,6 +192,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 appearance.setEyeColor(packetData.eyeColor);
                 appearance.setSkinColor(packetData.skinColor);
                 appearance.setGlovesColor(packetData.glovesColor);
+                appearance.setLeftHandTexture(packetData.leftHandTexture);
+                appearance.setRightHandTexture(packetData.rightHandTexture);
 
                 MovingEntity humanEntity = (MovingEntity) entity;
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
@@ -202,6 +208,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG);
                 println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG);
                 println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
+                println(getClass(), "LeftHand: " + appearance.getLeftHandTexture(), false, PRINT_DEBUG);
+                println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
                 break;
             case NPC:
                 if (Valenguard.getInstance().isAdmin()) {
@@ -222,6 +230,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 appearance.setEyeColor(packetData.eyeColor);
                 appearance.setSkinColor(packetData.skinColor);
                 appearance.setGlovesColor(packetData.glovesColor);
+                appearance.setLeftHandTexture(packetData.leftHandTexture);
+                appearance.setRightHandTexture(packetData.rightHandTexture);
 
                 MovingEntity npcEntity = (MovingEntity) entity;
                 npcEntity.setEntityAnimation(new HumanAnimation(npcEntity));
@@ -236,6 +246,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "EyeColor: " + appearance.getEyeColor(), false, PRINT_DEBUG);
                 println(getClass(), "SkinColor: " + appearance.getSkinColor(), false, PRINT_DEBUG);
                 println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
+                println(getClass(), "LeftHand: " + appearance.getLeftHandTexture(), false, PRINT_DEBUG);
+                println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
                 break;
             case MONSTER:
                 if (Valenguard.getInstance().isAdmin()) {
@@ -374,6 +386,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private Color eyeColor;
         private Color skinColor;
         private Color glovesColor;
+        private byte leftHandTexture;
+        private byte rightHandTexture;
 
         EntitySpawnPacket(short entityId, EntityType entityType) {
             this.entityId = entityId;

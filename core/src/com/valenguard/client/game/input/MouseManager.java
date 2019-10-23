@@ -150,10 +150,11 @@ public class MouseManager {
                 Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
                 println(getClass(), "Interacting with moving entity");
 
-
+                // TODO: Interacting with moving entity code
                 EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[YELLOW]Now targeting " + movingEntity.getEntityName() + ".");
                 movingEntity.getAppearance().setBorderColor(Color.RED);
+
                 break;
             }
         }

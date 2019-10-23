@@ -39,6 +39,7 @@
   type: SWORD
   atlas: ITEMS
   region: weapon_sword_01
+  wearable: 0
   damage: 6
   consume: false
 5:
@@ -72,6 +73,7 @@
   type: SHIELD
   atlas: ITEMS
   region: shield_01
+  wearable: 0
   armor: 3
   consume: false
 9:
@@ -121,6 +123,7 @@
   type: BOW
   atlas: ITEMS
   region: weapon_claw_15
+  wearable: 0
   damage: 3
   consume: false
 15:

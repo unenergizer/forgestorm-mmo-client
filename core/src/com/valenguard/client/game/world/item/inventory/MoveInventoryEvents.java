@@ -19,7 +19,7 @@ import static com.valenguard.client.util.Log.println;
 // TODO: movement or it would have to wait on a response from the server.
 public class MoveInventoryEvents {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
 
@@ -177,6 +177,13 @@ public class MoveInventoryEvents {
                     case SHOES:
                         EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.SHOES_TEXTURE);
                         break;
+                    case BOW:
+                    case SWORD:
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.LEFT_HAND);
+                        break;
+                    case SHIELD:
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.RIGHT_HAND);
+                        break;
                 }
             }
         }
@@ -195,6 +202,13 @@ public class MoveInventoryEvents {
                 break;
             case SHOES:
                 EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.SHOES_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
+                break;
+            case BOW:
+            case SWORD:
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.LEFT_HAND, ((WearableItemStack) equipItem).getTextureId());
+                break;
+            case SHIELD:
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.RIGHT_HAND, ((WearableItemStack) equipItem).getTextureId());
                 break;
         }
     }

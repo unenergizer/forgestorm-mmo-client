@@ -1,16 +1,19 @@
-package com.valenguard.client.game.world.entities.animations;
+package com.valenguard.client.game.world.entities.animations.human;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.valenguard.client.game.world.entities.MovingEntity;
+import com.valenguard.client.game.world.entities.animations.ColoredTextureRegion;
+import com.valenguard.client.game.world.entities.animations.EntityAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Setter;
 
+import static com.valenguard.client.util.Log.println;
 import static com.valenguard.client.util.RandomUtil.getNewRandom;
 
 public class HumanAnimation extends EntityAnimation {
@@ -25,6 +28,10 @@ public class HumanAnimation extends EntityAnimation {
     boolean showShoes = false;
     @Setter
     boolean showGloves = true;
+    @Setter
+    boolean showLeftHand = false;
+    @Setter
+    boolean showRightHand = false;
 
     // Eyes (eyesUp is not a thing!)
     private Animation<TextureRegion> eyesDown;
@@ -100,6 +107,10 @@ public class HumanAnimation extends EntityAnimation {
     private Animation<TextureRegion> bodyBorderLeft;
     private Animation<TextureRegion> bodyBorderRight;
 
+    // Hands
+    private TextureRegion leftHandItem;
+    private TextureRegion rightHandItem;
+
     private final int idleAnimationWaitMax = getNewRandom(150, 500);
     private int idleAnimationWaitTime = 0;
     private int currentFramesRendered = 0;
@@ -155,6 +166,25 @@ public class HumanAnimation extends EntityAnimation {
 
         loadGloves(textureAtlas);
         loadBorder(textureAtlas);
+
+//        Valenguard.getInstance().getFileManager().loadAtlas(GameAtlas.ITEMS);
+//        TextureAtlas itemAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS);
+
+        // Left Hand Item
+        if (appearance.getLeftHandTexture() != -1) {
+            loadLeftHand(textureAtlas, appearance.getLeftHandTexture());
+            setShowLeftHand(true);
+        } else {
+            setShowLeftHand(false);
+        }
+
+        // Right Hand Item
+        if (appearance.getRightHandTexture() != -1) {
+            loadRightHand(textureAtlas, appearance.getRightHandTexture());
+            setShowRightHand(true);
+        } else {
+            setShowRightHand(false);
+        }
     }
 
     private void loadEyes(TextureAtlas textureAtlas) {
@@ -244,221 +274,321 @@ public class HumanAnimation extends EntityAnimation {
         bodyBorderRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_right_border"), Animation.PlayMode.LOOP);
     }
 
+    public void loadLeftHand(TextureAtlas textureAtlas, short itemId) {
+        leftHandItem = textureAtlas.findRegion("weapon_sword_" + itemId);
+        println(getClass(), "Equipping: weapon_sword_" + itemId);
+        if (leftHandItem == null)
+            println(getClass(), "Equipping: weapon_sword_" + itemId + ", NOT FOUND!!");
+    }
+
+    public void loadRightHand(TextureAtlas textureAtlas, short itemId) {
+        rightHandItem = textureAtlas.findRegion("shield_" + itemId);
+        println(getClass(), "Equipping: shield_" + itemId);
+        if (rightHandItem == null)
+            println(getClass(), "Equipping: shield_" + itemId + ", NOT FOUND!!");
+    }
+
+    private List<ColoredTextureRegion> actIdleNorth(List<ColoredTextureRegion> frameList, boolean maxTimeReached, float stateTime) {
+        if (maxTimeReached) {
+            if (showLeftHand)
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 10, 1, 8, 8));
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, -2, 1, 8, 8));
+            frameList.add(getColorTextureRegion(bodyBorderUp, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headUpNaked, stateTime, true, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestUpNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsUpNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesUpNaked, 0, false, appearance.getSkinColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmUp, stateTime, true, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmUpBorder, stateTime, true, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairUp, stateTime, true, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairUpBorder, stateTime, true, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesUp, 0, false, appearance.getGlovesColor(), 3));
+            }
+            return frameList;
+        } else {
+            if (showLeftHand)
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 10, 1, 8, 8));
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, -2, 1, 8, 8));
+            frameList.add(getColorTextureRegion(bodyBorderUp, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headUpNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestUpNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsUpNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesUpNaked, 0, false, appearance.getSkinColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmUp, 0, false, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmUpBorder, 0, false, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairUp, 0, false, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairUpBorder, 0, false, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesUp, 0, false, appearance.getGlovesColor(), 3));
+            }
+            return frameList;
+        }
+    }
+
+    private List<ColoredTextureRegion> actIdleSouth(List<ColoredTextureRegion> frameList, boolean maxTimeReached, float stateTime) {
+        if (maxTimeReached) {
+            frameList.add(getColorTextureRegion(bodyBorderDown, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headDownNaked, stateTime, true, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestDownNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsDownNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesDownNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmDown, stateTime, true, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmDownBorder, stateTime, true, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairDown, stateTime, true, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairDownBorder, stateTime, true, appearance.getBorderColor(), 0));
+            }
+            if (showChest)
+                frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
+            if (showPants)
+                frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
+            if (showShoes)
+                frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
+            if (showGloves)
+                frameList.add(getColorTextureRegion(glovesDown, 0, false, appearance.getGlovesColor(), 3));
+            if (showLeftHand)
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, -2, 1, 8, 8));
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 10, 1, 8, 8));
+            return frameList;
+        } else {
+            frameList.add(getColorTextureRegion(bodyBorderDown, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headDownNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestDownNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsDownNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesDownNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmDown, 0, false, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmDownBorder, 0, false, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairDown, 0, false, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairDownBorder, 0, false, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesDown, 0, false, appearance.getGlovesColor(), 3));
+            }
+            if (showLeftHand) {
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, -8, 1, 8, 8));
+            }
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 10, 1, 8, 8));
+            return frameList;
+        }
+    }
+
+    private List<ColoredTextureRegion> actIdleWest(List<ColoredTextureRegion> frameList, boolean maxTimeReached, float stateTime) {
+        if (maxTimeReached) {
+            if (showLeftHand)
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 2, 2, 8, 8));
+            frameList.add(getColorTextureRegion(bodyBorderLeft, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headLeftNaked, stateTime, true, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestLeftNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsLeftNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesLeftNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmLeft, stateTime, true, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairLeft, stateTime, true, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesLeft, 0, false, appearance.getGlovesColor(), 3));
+            }
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 2, 2, 8, 8));
+            return frameList;
+        } else {
+            if (showLeftHand)
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 2, 2, 8, 8));
+            frameList.add(getColorTextureRegion(bodyBorderLeft, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headLeftNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestLeftNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsLeftNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesLeftNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmLeft, 0, false, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmLeftBorder, 0, false, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairLeft, 0, false, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairLeftBorder, 0, false, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesLeft, 0, false, appearance.getGlovesColor(), 3));
+            }
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 2, 2, 8, 8));
+            return frameList;
+        }
+    }
+
+    private List<ColoredTextureRegion> actIdleEast(List<ColoredTextureRegion> frameList, boolean maxTimeReached, float stateTime) {
+        if (maxTimeReached) {
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 6, 2, 8, 8));
+            frameList.add(getColorTextureRegion(bodyBorderRight, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headRightNaked, stateTime, true, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestRightNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsRightNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesRightNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmRight, stateTime, true, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmRightBorder, stateTime, true, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairRight, stateTime, true, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairRightBorder, stateTime, true, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesRight, 0, false, appearance.getGlovesColor(), 3));
+            }
+            if (showLeftHand) {
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 6, 2, 8, 8));
+            }
+            return frameList;
+        } else {
+            if (showRightHand)
+                frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 6, 2, 8, 8));
+            frameList.add(getColorTextureRegion(bodyBorderRight, 0, false, appearance.getBorderColor(), 0));
+            frameList.add(getColorTextureRegion(headRightNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(chestRightNaked, 0, false, appearance.getSkinColor(), 3));
+            frameList.add(getColorTextureRegion(pantsRightNaked, 0, false, appearance.getSkinColor(), 1));
+            frameList.add(getColorTextureRegion(shoesRightNaked, 0, false, appearance.getSkinColor(), 0));
+            frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), 0));
+            if (showHelm) {
+                frameList.add(getColorTextureRegion(helmRight, 0, false, armorColor, 0));
+                frameList.add(getColorTextureRegion(helmRightBorder, 0, false, appearance.getBorderColor(), 0));
+            } else {
+                frameList.add(getColorTextureRegion(hairRight, 0, false, appearance.getHairColor(), 0));
+                frameList.add(getColorTextureRegion(hairRightBorder, 0, false, appearance.getBorderColor(), 0));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
+            }
+            if (showPants) {
+                frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
+            }
+            if (showShoes) {
+                frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
+            }
+            if (showGloves) {
+                frameList.add(getColorTextureRegion(glovesRight, 0, false, appearance.getGlovesColor(), 3));
+            }
+            if (showLeftHand) {
+                frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 6, 2, 8, 8));
+            }
+            return frameList;
+        }
+    }
+
     @Override
-    List<ColoredTextureRegion> actIdle(float stateTime) {
+    protected List<ColoredTextureRegion> actIdle(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
-        if (idleAnimationWaitTime >= idleAnimationWaitMax) {
+        boolean maxTimeReached = idleAnimationWaitTime >= idleAnimationWaitMax;
 
+        if (maxTimeReached) {
             if (currentFramesRendered >= 4) {
                 idleAnimationWaitTime = 0;
                 currentFramesRendered = 0;
             } else {
                 currentFramesRendered++;
             }
-
-            switch (movingEntity.getFacingDirection()) {
-                case NORTH:
-                    frameList.add(getColorTextureRegion(bodyBorderUp, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headUpNaked, stateTime, true, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestUpNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsUpNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesUpNaked, 0, false, appearance.getSkinColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmUp, stateTime, true, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmUpBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairUp, stateTime, true, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairUpBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesUp, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case SOUTH:
-                    frameList.add(getColorTextureRegion(bodyBorderDown, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headDownNaked, stateTime, true, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestDownNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsDownNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesDownNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmDown, stateTime, true, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmDownBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairDown, stateTime, true, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairDownBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesDown, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case WEST:
-                    frameList.add(getColorTextureRegion(bodyBorderLeft, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headLeftNaked, stateTime, true, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestLeftNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsLeftNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesLeftNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmLeft, stateTime, true, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairLeft, stateTime, true, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesLeft, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case EAST:
-                    frameList.add(getColorTextureRegion(bodyBorderRight, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headRightNaked, stateTime, true, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestRightNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsRightNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesRightNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmRight, stateTime, true, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmRightBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairRight, stateTime, true, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairRightBorder, stateTime, true, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesRight, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case NONE:
-                    return null;
-            }
         } else {
             idleAnimationWaitTime++;
-
-            switch (movingEntity.getFacingDirection()) {
-                case NORTH:
-                    frameList.add(getColorTextureRegion(bodyBorderUp, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headUpNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestUpNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsUpNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesUpNaked, 0, false, appearance.getSkinColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmUp, 0, false, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmUpBorder, 0, false, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairUp, 0, false, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairUpBorder, 0, false, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesUp, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-
-                case SOUTH:
-                    frameList.add(getColorTextureRegion(bodyBorderDown, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headDownNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestDownNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsDownNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesDownNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(eyesDown, 0, false, appearance.getEyeColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmDown, 0, false, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmDownBorder, 0, false, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairDown, 0, false, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairDownBorder, 0, false, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesDown, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case WEST:
-                    frameList.add(getColorTextureRegion(bodyBorderLeft, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headLeftNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestLeftNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsLeftNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesLeftNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(eyesLeft, 0, false, appearance.getEyeColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmLeft, 0, false, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmLeftBorder, 0, false, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairLeft, 0, false, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairLeftBorder, 0, false, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesLeft, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case EAST:
-                    frameList.add(getColorTextureRegion(bodyBorderRight, 0, false, appearance.getBorderColor(), 0));
-                    frameList.add(getColorTextureRegion(headRightNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(chestRightNaked, 0, false, appearance.getSkinColor(), 3));
-                    frameList.add(getColorTextureRegion(pantsRightNaked, 0, false, appearance.getSkinColor(), 1));
-                    frameList.add(getColorTextureRegion(shoesRightNaked, 0, false, appearance.getSkinColor(), 0));
-                    frameList.add(getColorTextureRegion(eyesRight, 0, false, appearance.getEyeColor(), 0));
-                    if (showHelm) {
-                        frameList.add(getColorTextureRegion(helmRight, 0, false, armorColor, 0));
-                        frameList.add(getColorTextureRegion(helmRightBorder, 0, false, appearance.getBorderColor(), 0));
-                    } else {
-                        frameList.add(getColorTextureRegion(hairRight, 0, false, appearance.getHairColor(), 0));
-                        frameList.add(getColorTextureRegion(hairRightBorder, 0, false, appearance.getBorderColor(), 0));
-                    }
-                    if (showChest)
-                        frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
-                    if (showPants)
-                        frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
-                    if (showShoes)
-                        frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
-                    if (showGloves)
-                        frameList.add(getColorTextureRegion(glovesRight, 0, false, appearance.getGlovesColor(), 3));
-                    return frameList;
-                case NONE:
-                    return null;
-            }
         }
-        return null;
+
+        switch (movingEntity.getFacingDirection()) {
+            case NORTH:
+                return actIdleNorth(frameList, maxTimeReached, stateTime);
+            case SOUTH:
+                return actIdleSouth(frameList, maxTimeReached, stateTime);
+            case WEST:
+                return actIdleWest(frameList, maxTimeReached, stateTime);
+            case EAST:
+                return actIdleEast(frameList, maxTimeReached, stateTime);
+            case NONE:
+            default:
+                return null;
+        }
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveUp(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveNorth(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
+        if (showLeftHand)
+            frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 10, 1, 8, 8));
+        if (showRightHand)
+            frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, -2, 1, 8, 8));
         frameList.add(getColorTextureRegion(bodyBorderUp, stateTime, true, appearance.getBorderColor(), 0));
         frameList.add(getColorTextureRegion(headUpNaked, stateTime, true, appearance.getSkinColor(), 0));
         frameList.add(getColorTextureRegion(chestUpNaked, stateTime, true, appearance.getSkinColor(), 3));
@@ -484,7 +614,7 @@ public class HumanAnimation extends EntityAnimation {
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveDown(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveSouth(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
         frameList.add(getColorTextureRegion(bodyBorderDown, stateTime, true, appearance.getBorderColor(), 0));
@@ -508,14 +638,19 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(shoesDown, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesDown, stateTime, true, appearance.getGlovesColor(), 3));
-
+        if (showLeftHand)
+            frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, -8, 1, 8, 8));
+        if (showRightHand)
+            frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 10, 1, 8, 8));
         return frameList;
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveLeft(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveWest(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
+        if (showLeftHand)
+            frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 2, 2, 8, 8));
         frameList.add(getColorTextureRegion(bodyBorderLeft, stateTime, true, appearance.getBorderColor(), 0));
         frameList.add(getColorTextureRegion(headLeftNaked, stateTime, true, appearance.getSkinColor(), 0));
         frameList.add(getColorTextureRegion(chestLeftNaked, stateTime, true, appearance.getSkinColor(), 3 + yAxisOffsetFix(stateTime)));
@@ -537,14 +672,17 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(shoesLeft, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesLeft, stateTime, true, appearance.getGlovesColor(), 3));
-
+        if (showRightHand)
+            frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 2, 2, 8, 8));
         return frameList;
     }
 
     @Override
-    List<ColoredTextureRegion> actMoveRight(float stateTime) {
+    protected List<ColoredTextureRegion> actMoveEast(float stateTime) {
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
+        if (showRightHand)
+            frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 6, 2, 8, 8));
         frameList.add(getColorTextureRegion(bodyBorderRight, stateTime, true, appearance.getBorderColor(), 0));
         frameList.add(getColorTextureRegion(headRightNaked, stateTime, true, appearance.getSkinColor(), 0));
         frameList.add(getColorTextureRegion(chestRightNaked, stateTime, true, appearance.getSkinColor(), 3 + yAxisOffsetFix(stateTime)));
@@ -566,7 +704,9 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(shoesRight, stateTime, true, armorColor, 0));
         if (showGloves)
             frameList.add(getColorTextureRegion(glovesRight, stateTime, true, appearance.getGlovesColor(), 3));
-
+        if (showLeftHand) {
+            frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 6, 2, 8, 8));
+        }
         return frameList;
     }
 

@@ -19,4 +19,6 @@ public class Appearance {
     private Color skinColor;
     private Color glovesColor;
     private Color borderColor = Color.BLACK;
+    private byte leftHandTexture = -1;
+    private byte rightHandTexture = -1;
 }

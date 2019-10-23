@@ -47,6 +47,8 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 int eyeColor = clientHandler.readInt();
                 int skinColor = clientHandler.readInt();
                 int glovesColor = clientHandler.readInt();
+                byte leftHandTexture = clientHandler.readByte();
+                byte rightHandTexture = clientHandler.readByte();
 
                 entityAppearancePacket.setHairTexture(hairTexture);
                 entityAppearancePacket.setHelmTexture(helmTexture);
@@ -57,6 +59,8 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 entityAppearancePacket.setEyeColor(new Color(eyeColor));
                 entityAppearancePacket.setSkinColor(new Color(skinColor));
                 entityAppearancePacket.setGlovesColor(new Color(glovesColor));
+                entityAppearancePacket.setLeftHandTexture(leftHandTexture);
+                entityAppearancePacket.setRightHandTexture(rightHandTexture);
 
                 println(getClass(), "HairTexture: " + hairTexture, false, PRINT_DEBUG);
                 println(getClass(), "HelmTexture: " + helmTexture, false, PRINT_DEBUG);
@@ -67,6 +71,8 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 println(getClass(), "EyesColor: " + eyeColor, false, PRINT_DEBUG);
                 println(getClass(), "SkinColor: " + skinColor, false, PRINT_DEBUG);
                 println(getClass(), "GlovesColor: " + glovesColor, false, PRINT_DEBUG);
+                println(getClass(), "LeftHand: " + leftHandTexture, false, PRINT_DEBUG);
+                println(getClass(), "RightHand: " + rightHandTexture, false, PRINT_DEBUG);
                 break;
             case MONSTER:
             case ITEM_STACK:
@@ -121,6 +127,8 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 appearance.setEyeColor(packetData.eyeColor);
                 appearance.setSkinColor(packetData.skinColor);
                 appearance.setGlovesColor(packetData.glovesColor);
+                appearance.setLeftHandTexture(packetData.leftHandTexture);
+                appearance.setRightHandTexture(packetData.rightHandTexture);
 
                 println(getClass(), "HairTexture: " + packetData.getHairTexture(), false, PRINT_DEBUG);
                 println(getClass(), "HelmTexture: " + packetData.getHelmTexture(), false, PRINT_DEBUG);
@@ -131,6 +139,8 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 println(getClass(), "EyesColor: " + packetData.getEyeColor(), false, PRINT_DEBUG);
                 println(getClass(), "SkinColor: " + packetData.getSkinColor(), false, PRINT_DEBUG);
                 println(getClass(), "GlovesColor: " + packetData.getGlovesColor(), false, PRINT_DEBUG);
+                println(getClass(), "LeftHand: " + packetData.getLeftHandTexture(), false, PRINT_DEBUG);
+                println(getClass(), "RightHand: " + packetData.getRightHandTexture(), false, PRINT_DEBUG);
 
                 ((MovingEntity) entity).loadTextures(GameAtlas.ENTITY_CHARACTER);
                 break;
@@ -160,6 +170,8 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         private Color eyeColor;
         private Color skinColor;
         private Color glovesColor;
+        private byte leftHandTexture;
+        private byte rightHandTexture;
 
         EntityAppearancePacket(short entityId, EntityType entityType) {
             this.entityId = entityId;

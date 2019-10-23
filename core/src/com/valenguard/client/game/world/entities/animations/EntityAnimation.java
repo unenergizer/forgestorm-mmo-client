@@ -17,17 +17,17 @@ import lombok.Getter;
 
 public abstract class EntityAnimation {
 
-    static final float WALK_INTERVAL = 0.25f;
+    protected static final float WALK_INTERVAL = 0.25f;
 
     @Getter
     protected final MovingEntity movingEntity;
 
-    final Appearance appearance;
+    protected final Appearance appearance;
 
     private float movingStateTime = 1f;
     private float idleStateTime = 1f;
 
-    EntityAnimation(MovingEntity movingEntity) {
+    protected EntityAnimation(MovingEntity movingEntity) {
         this.movingEntity = movingEntity;
         this.appearance = movingEntity.getAppearance();
     }
@@ -36,67 +36,74 @@ public abstract class EntityAnimation {
         load(Valenguard.getInstance().getFileManager().getAtlas(gameAtlas));
     }
 
-    abstract void load(TextureAtlas textureAtlas);
+    protected abstract void load(TextureAtlas textureAtlas);
 
-    abstract List<ColoredTextureRegion> actIdle(float stateTime);
+    protected abstract List<ColoredTextureRegion> actIdle(float stateTime);
 
-    abstract List<ColoredTextureRegion> actMoveUp(float stateTime);
+    protected abstract List<ColoredTextureRegion> actMoveNorth(float stateTime);
 
-    abstract List<ColoredTextureRegion> actMoveDown(float stateTime);
+    protected abstract List<ColoredTextureRegion> actMoveSouth(float stateTime);
 
-    abstract List<ColoredTextureRegion> actMoveLeft(float stateTime);
+    protected abstract List<ColoredTextureRegion> actMoveWest(float stateTime);
 
-    abstract List<ColoredTextureRegion> actMoveRight(float stateTime);
+    protected abstract List<ColoredTextureRegion> actMoveEast(float stateTime);
 
     public void animate(float delta, SpriteBatch spriteBatch) {
-        List<ColoredTextureRegion> frames;
+        List<ColoredTextureRegion> frameList;
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
             movingStateTime += delta;
             idleStateTime = 0f;
-            frames = movingAnimation();
+            frameList = movingAnimation();
         } else {
             movingStateTime = 0f;
             idleStateTime += delta;
-            frames = idleAnimation();
+            frameList = idleAnimation();
         }
 
-        if (frames == null) return;
-        for (ColoredTextureRegion frame : frames) {
+        if (frameList == null) return;
+        for (ColoredTextureRegion frame : frameList) {
             spriteBatch.setColor(frame.getRegionColor());
-            spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX(), movingEntity.getDrawY() + frame.getYAxisOffset());
+            if (frame.getWidth() != 0 && frame.getHeight() != 0) {
+                spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX() + frame.getXAxisOffset(), movingEntity.getDrawY() + frame.getYAxisOffset(), frame.getWidth(), frame.getHeight());
+            } else {
+                spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX(), movingEntity.getDrawY() + frame.getYAxisOffset());
+            }
             spriteBatch.setColor(Color.WHITE);
         }
+
+        frameList.clear();
     }
 
     private List<ColoredTextureRegion> movingAnimation() {
         switch (movingEntity.getFacingDirection()) {
             case NORTH:
-                return actMoveUp(movingStateTime);
+                return actMoveNorth(movingStateTime);
             case SOUTH:
-                return actMoveDown(movingStateTime);
+                return actMoveSouth(movingStateTime);
             case WEST:
-                return actMoveLeft(movingStateTime);
+                return actMoveWest(movingStateTime);
             case EAST:
-                return actMoveRight(movingStateTime);
+                return actMoveEast(movingStateTime);
             case NONE:
                 throw new RuntimeException("Facing direction cannot be NONE.");
+            default:
+                throw new RuntimeException("Moving animation cannot be null.");
         }
-        return null;
     }
 
     private List<ColoredTextureRegion> idleAnimation() {
         return actIdle(idleStateTime);
     }
 
-    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping) {
+    ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping) {
         ColoredTextureRegion coloredTextureRegion = new ColoredTextureRegion();
         coloredTextureRegion.setTextureRegion(animation.getKeyFrame(stateTime, looping));
         coloredTextureRegion.setYAxisOffset(0);
         return coloredTextureRegion;
     }
 
-    protected ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping, int yAxisOffset) {
+    private ColoredTextureRegion getColorTextureRegion(Animation<TextureRegion> animation, float stateTime, boolean looping, int yAxisOffset) {
         ColoredTextureRegion coloredTextureRegion = new ColoredTextureRegion();
         coloredTextureRegion.setTextureRegion(animation.getKeyFrame(stateTime, looping));
         coloredTextureRegion.setYAxisOffset(yAxisOffset);
@@ -108,6 +115,17 @@ public abstract class EntityAnimation {
         ColoredTextureRegion coloredTextureRegion = getColorTextureRegion(animation, stateTime, looping, yAxisOffset);
         coloredTextureRegion.setRegionColor(color);
         coloredTextureRegion.setYAxisOffset(yAxisOffset);
+        return coloredTextureRegion;
+    }
+
+    protected ColoredTextureRegion getColoredTextureRegion(TextureRegion textureRegion, Color color, int xAxisOffset, int yAxisOffset, float width, float height) {
+        ColoredTextureRegion coloredTextureRegion = new ColoredTextureRegion();
+        coloredTextureRegion.setTextureRegion(textureRegion);
+        coloredTextureRegion.setRegionColor(color);
+        coloredTextureRegion.setXAxisOffset(xAxisOffset);
+        coloredTextureRegion.setYAxisOffset(yAxisOffset);
+        coloredTextureRegion.setWidth(width);
+        coloredTextureRegion.setHeight(height);
         return coloredTextureRegion;
     }
 }
