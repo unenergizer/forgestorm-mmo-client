@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.4" name="Walls" tilewidth="16" tileheight="16" spacing="2" margin="2" tilecount="784" columns="28">
+<tileset version="1.2" tiledversion="1.2.5" name="Walls" tilewidth="16" tileheight="16" spacing="2" margin="2" tilecount="784" columns="28">
  <image source="Walls.png" width="512" height="512"/>
  <terraintypes>
   <terrain name="Walls 1" tile="0"/>
@@ -25,7 +25,7 @@
   <terrain name="Walls 21" tile="404"/>
   <terrain name="Walls 22" tile="488"/>
   <terrain name="Walls 23" tile="572"/>
-  <terrain name="Walls 24" tile="0"/>
+  <terrain name="Walls 24" tile="679"/>
  </terraintypes>
  <tile id="0" terrain=",,,0"/>
  <tile id="1" terrain=",,0,0"/>
