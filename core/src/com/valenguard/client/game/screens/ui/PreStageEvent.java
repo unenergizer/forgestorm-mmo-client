@@ -230,10 +230,12 @@ class PreStageEvent implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        boolean bool;
+        bool = anyScreenKeys(keycode);
         if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-            return gameScreenOnlyKeys(keycode);
+            bool = gameScreenOnlyKeys(keycode);
         }
-        return anyScreenKeys(keycode);
+        return bool;
     }
 
     @Override

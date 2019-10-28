@@ -292,7 +292,7 @@ public class MouseManager {
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch) {
         GameMap gameMap = playerClient.getGameMap();
         if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
-        CursorDrawType cursorDrawType = gameMap.getMap()[mouseTileX][mouseTileY].getCursorDrawType();
+        CursorDrawType cursorDrawType = gameMap.getMapTiles()[mouseTileX][mouseTileY].getCursorDrawType();
         if (cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
         spriteBatch.begin();
         fadeOut.draw(spriteBatch,

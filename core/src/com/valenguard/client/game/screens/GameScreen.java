@@ -130,7 +130,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(1f, 1f, 1f, 1, false);
+        GraphicsUtils.clearScreen(Valenguard.getInstance().getMapManager().getBackgroundColor());
 
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();

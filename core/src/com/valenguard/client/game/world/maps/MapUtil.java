@@ -15,7 +15,7 @@ public class MapUtil {
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isTraversable(GameMap gameMap, short x, short y) {
         if (isOutOfBounds(gameMap, x, y)) return false;
-        return gameMap.getMap()[x][y].isFlagSet(Tile.TRAVERSABLE);
+        return gameMap.getMapTiles()[x][y].isFlagSet(Tile.TRAVERSABLE);
     }
 
     /**
@@ -31,7 +31,7 @@ public class MapUtil {
     }
 
     public static boolean isWarp(GameMap gameMap, short x, short y) {
-        return gameMap.getMap()[x][y].isFlagSet(Tile.WARP);
+        return gameMap.getMapTiles()[x][y].isFlagSet(Tile.WARP);
     }
 
     /**
@@ -43,6 +43,6 @@ public class MapUtil {
      */
     public static Tile getTileByLocation(Location location) {
         if (isOutOfBounds(location.getMapData(), location.getX(), location.getY())) return null;
-        return location.getMapData().getMap()[location.getX()][location.getY()];
+        return location.getMapData().getMapTiles()[location.getX()][location.getY()];
     }
 }

@@ -2,6 +2,7 @@ package com.valenguard.client.game.world.maps;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.io.FilePaths;
 import com.valenguard.client.io.ResourceList;
@@ -10,6 +11,8 @@ import com.valenguard.client.io.TmxFileParser;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import lombok.Getter;
 
 import static com.valenguard.client.util.ApplicationUtil.userOnMobile;
 
@@ -20,6 +23,8 @@ import static com.valenguard.client.util.ApplicationUtil.userOnMobile;
 public class MapManager implements Disposable {
 
     private final Map<String, GameMap> gameMaps = new HashMap<String, GameMap>();
+    @Getter
+    private Color backgroundColor = Color.BLACK;
 
     public MapManager(boolean ideRun) {
         if (userOnMobile() || ideRun) {
@@ -58,13 +63,23 @@ public class MapManager implements Disposable {
      * @throws RuntimeException Requested map could not be found or was not loaded.
      */
     public GameMap getGameMap(String mapName) throws RuntimeException {
+        GameMap gameMap = null;
         if (gameMaps.containsKey(mapName)) {
-            return gameMaps.get(mapName);
+            gameMap = gameMaps.get(mapName);
         } else if (gameMaps.containsKey(mapName.replace(".tmx", ""))) {
-            return gameMaps.get(mapName.replace(".tmx", ""));
+            gameMap = gameMaps.get(mapName.replace(".tmx", ""));
         } else {
             throw new RuntimeException("Tried to get the map " + mapName + ", but it doesn't exist or was not loaded.");
         }
+
+        // Set clear screen background color
+        if (gameMap.getBackgroundColor() != null) {
+            backgroundColor = gameMap.getBackgroundColor();
+        } else {
+            backgroundColor = Color.BLACK;
+        }
+
+        return gameMap;
     }
 
     @Override

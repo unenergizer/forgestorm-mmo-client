@@ -6,12 +6,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 
-import static com.valenguard.client.util.Log.println;
-
 public class DesktopLauncher {
 
-    private static final String unArg = "username:";
-    private static final String pwArg = "password:";
+    private static final String usernameArg = "username:";
+    private static final String passwordArg = "password:";
 
     public static void main(String[] args) {
 
@@ -19,10 +17,10 @@ public class DesktopLauncher {
         String username = null;
         String password = null;
 
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equalsIgnoreCase("ideRun")) ideRun = true;
-            if (args[i].contains(unArg)) username = args[i].replace(unArg, "");
-            if (args[i].contains(pwArg)) password = args[i].replace(pwArg, "");
+        for (String arg : args) {
+            if (arg.equalsIgnoreCase("ideRun")) ideRun = true;
+            if (arg.contains(usernameArg)) username = arg.replace(usernameArg, "");
+            if (arg.contains(passwordArg)) password = arg.replace(passwordArg, "");
         }
 
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
@@ -40,11 +38,9 @@ public class DesktopLauncher {
         valenguard.setIdeRun(ideRun);
 
         if (username != null && !username.isEmpty()) {
-            println(DesktopLauncher.class, "Username: " + username);
             valenguard.getLoginCredentials().setUsername(username);
         }
         if (password != null && !password.isEmpty()) {
-            println(DesktopLauncher.class, "Password: " + password);
             valenguard.getLoginCredentials().setPassword(password);
         }
 

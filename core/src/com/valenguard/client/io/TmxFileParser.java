@@ -1,6 +1,7 @@
 package com.valenguard.client.io;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.world.maps.CursorDrawType;
 import com.valenguard.client.game.world.maps.GameMap;
@@ -51,7 +52,11 @@ public class TmxFileParser {
 
         final short mapWidth = Short.parseShort(tmx.getAttributes().getNamedItem("width").getNodeValue());
         final short mapHeight = Short.parseShort(tmx.getAttributes().getNamedItem("height").getNodeValue());
-        Tile[][] map = parseMapTiles(mapWidth, mapHeight, tmx);
+        Color backgroundColor = null;
+        if (tmx.getAttributes().getNamedItem("backgroundcolor") != null) {
+            backgroundColor = Color.valueOf(tmx.getAttributes().getNamedItem("backgroundcolor").getNodeValue());
+        }
+        Tile[][] mapTiles = parseMapTiles(mapWidth, mapHeight, tmx);
 
         // Examine XML file and find tags called "layer" then loop through them.
         // NOTE: Element names are CASE sensitive!
@@ -61,25 +66,25 @@ public class TmxFileParser {
             // Get Bank Access
             if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("bank_access")) {
                 NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
-                processBankAccess(mapHeight, map, objectTag);
+                processBankAccess(mapHeight, mapTiles, objectTag);
             }
 
             // Get Skill Nodes
             if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("skill")) {
                 NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
-                processSkillNodes(mapHeight, map, objectTag);
+                processSkillNodes(mapHeight, mapTiles, objectTag);
             }
 
             // Get Warps
             if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("warp")) {
                 NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
-                processWarps(mapHeight, map, objectTag);
+                processWarps(mapHeight, mapTiles, objectTag);
             }
         }
 
-        printMap(mapWidth, mapHeight, map);
+        printMap(mapWidth, mapHeight, mapTiles);
 
-        return new GameMap(fileHandle.file().getName().replace(".tmx", ""), mapWidth, mapHeight, map);
+        return new GameMap(fileHandle.file().getName().replace(".tmx", ""), mapWidth, mapHeight, mapTiles, backgroundColor);
     }
 
     private static Tile[][] parseMapTiles(short mapWidth, short mapHeight, Element tmx) {
