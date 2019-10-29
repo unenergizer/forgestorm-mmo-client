@@ -1,0 +1,15 @@
+{
+    "maps": [
+        {
+            "fileName": "game_start.tmx",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "main_city.tmx",
+            "x": 0,
+            "y": 864
+        }
+    ],
+    "type": "world"
+}
