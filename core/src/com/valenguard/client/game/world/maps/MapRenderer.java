@@ -45,6 +45,7 @@ public class MapRenderer implements Disposable {
 
     public void renderBottomMapLayers(AttachableCamera camera) {
         AnimatedTiledMapTile.updateAnimationBaseTime();
+        camera.update();
         orthogonalTiledMapRenderer.setView(camera);
         orthogonalTiledMapRenderer.getBatch().begin();
         for (MapLayer layer : tiledMap.getLayers()) {

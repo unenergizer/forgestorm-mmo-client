@@ -13,6 +13,8 @@ import com.valenguard.client.game.world.entities.Entity;
 
 import lombok.Getter;
 
+import static com.valenguard.client.util.Log.println;
+
 public class AttachableCamera extends OrthographicCamera {
 
     @Getter
@@ -30,17 +32,50 @@ public class AttachableCamera extends OrthographicCamera {
         this.following = following;
     }
 
+    public static void main(String args[]) {
+        test();
+    }
+
+    public static void test() {
+
+        for (int def = 0; def < 100; def++) {
+
+            double percentage = (100.0D - (Math.log(def + 1) * 10)) / 100.0D;
+
+            int attackAmount = 10;
+
+            int amountDamaged = (int) (attackAmount * percentage);
+
+
+            System.out.println("def: " + def + ", amount damaged: " + amountDamaged);
+
+        }
+
+        int amountPlayerIsHurt = getActualDamage(20, 10);
+
+
+    }
+
+    public static int getActualDamage(int amountAttackedBy, int defense) {
+        double percentage = (100.0D - (Math.log(defense + 1) * 10)) / 100.0D;
+        int amountDamaged = (int) (amountAttackedBy * percentage);
+        return amountDamaged;
+    }
+
     void clampCamera(Viewport screenViewport, TiledMap tiledMap) {
         if (following == null) return;
 
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
-        float cameraMinX = (screenViewport.getScreenWidth() / 2) * zoom;
-        float cameraMinY = (screenViewport.getScreenHeight() / 2) * zoom;
+        float cameraMinX = (screenViewport.getScreenWidth() / 2f) * zoom;
+        float cameraMinY = (screenViewport.getScreenHeight() / 2f) * zoom;
         float cameraMaxX = layer.getWidth() * layer.getTileWidth() - cameraMinX;
         float cameraMaxY = layer.getHeight() * layer.getTileHeight() - cameraMinY;
 
-        position.x = MathUtils.clamp(following.getDrawX() + (ClientConstants.TILE_SIZE / 2), cameraMinX, cameraMaxX);
-        position.y = MathUtils.clamp(following.getDrawY() + (ClientConstants.TILE_SIZE / 2), cameraMinY, cameraMaxY);
+        float px = (following.getDrawX() + (ClientConstants.TILE_SIZE / 2f));
+        float py = (following.getDrawY() + (ClientConstants.TILE_SIZE / 2f));
+
+        position.x = MathUtils.clamp(px, cameraMinX, cameraMaxX);
+        position.y = MathUtils.clamp(py, cameraMinY, cameraMaxY);
     }
 
     public void scrollZoomLevel(float amount) {
@@ -55,12 +90,14 @@ public class AttachableCamera extends OrthographicCamera {
         zoom = change;
         lastZoomLevel = change;
         ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
+        println(getClass(), "[Scroll] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel);
     }
 
     public void changeZoomLevel(float amount) {
         zoom = amount;
         lastZoomLevel = amount;
         ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
+        println(getClass(), "[Change] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel);
     }
 
     public Vector3 unprojectCamera(final float screenX, final float screenY) {
