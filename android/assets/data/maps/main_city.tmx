@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="96" height="54" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#8aac5f" nextlayerid="34" nextobjectid="4">
+<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="96" height="54" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#8aac5f" nextlayerid="34" nextobjectid="7">
  <tileset firstgid="1" source="data/AnimatedObjects.tsx"/>
  <tileset firstgid="1569" source="data/GroundTiles.tsx"/>
  <tileset firstgid="7897" source="data/Walls.tsx"/>
@@ -935,7 +935,7 @@
 </data>
  </layer>
  <objectgroup id="12" name="skill" visible="0"/>
- <objectgroup id="13" name="warp" visible="0">
+ <objectgroup id="13" name="warp">
   <object id="1" name="game_start" type="warp" x="496" y="0" width="112" height="16">
    <properties>
     <property name="direction" value="NORTH"/>
@@ -955,6 +955,20 @@
     <property name="direction" value="NORTH"/>
     <property name="x" type="int" value="24"/>
     <property name="y" type="int" value="53"/>
+   </properties>
+  </object>
+  <object id="4" name="armor_weapon_shop" type="warp" x="96" y="352" width="16" height="16">
+   <properties>
+    <property name="direction" value="NORTH"/>
+    <property name="x" type="int" value="48"/>
+    <property name="y" type="int" value="29"/>
+   </properties>
+  </object>
+  <object id="6" name="armor_weapon_shop" type="warp" x="192" y="352" width="16" height="16">
+   <properties>
+    <property name="direction" value="NORTH"/>
+    <property name="x" type="int" value="64"/>
+    <property name="y" type="int" value="29"/>
    </properties>
   </object>
  </objectgroup>

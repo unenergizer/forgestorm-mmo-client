@@ -98,6 +98,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                     return;
 
                 new InventoryMoveActions().moveItems(sourceSlot, targetSlot, itemStack, targetSlot.getItemStack());
+                Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, itemStack);
 
                 sourceSlot.setEmptyCellImage();
 
@@ -136,6 +137,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
                 boolean targetContainsItem = targetSlot.getItemStack() != null;
                 new InventoryMoveActions().moveItems(sourceSlot, targetSlot, itemStack, targetSlot.getItemStack());
+                Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, itemStack);
 
                 if (!targetContainsItem) {
                     sourceSlot.setEmptyCellImage();
