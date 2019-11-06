@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -196,6 +197,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             if (!Valenguard.getInstance().isAdmin()) return;
 
             VisTextButton editEntityButton = new VisTextButton("Edit " + clickedEntity.getEntityName());
+            editEntityButton.setColor(Color.YELLOW);
             add(editEntityButton).expand().fill().row();
 
             editEntityButton.addListener(new ChangeListener() {
