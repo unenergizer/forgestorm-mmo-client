@@ -1,5 +1,8 @@
 package com.valenguard.client.game.rpg;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateEvent;
 import com.valenguard.client.game.world.entities.EntityManager;
 
 import lombok.Getter;
@@ -8,7 +11,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class Skill {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
     private final SkillOpcodes skillOpcodes;
 
     public Skill(SkillOpcodes skillOpcodes) {
@@ -42,6 +45,12 @@ public class Skill {
 
         println(getClass(), "Total Exp = " + this.experience, false, PRINT_DEBUG);
         println(getClass(), "Level = " + level, false, PRINT_DEBUG);
+
+        // Update UI values
+        ExperienceUpdateEvent experienceUpdateEvent = new ExperienceUpdateEvent(skillOpcodes, level);
+        for (Actor actor : ActorUtil.getStage().getActors()) {
+            actor.fire(experienceUpdateEvent);
+        }
 
         if (!initialized) {
             println(getClass(), "<" + skillOpcodes.name() + "> Set the player's experience to: " + experience, false, PRINT_DEBUG);

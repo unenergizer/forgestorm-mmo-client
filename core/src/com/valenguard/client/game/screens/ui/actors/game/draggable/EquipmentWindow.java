@@ -10,8 +10,10 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.rpg.Attributes;
+import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -38,9 +40,11 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private ItemStackSlot shieldSlot;
     private ItemStackSlot pantsSlot;
 
+    private VisLabel levelTag = new VisLabel("Level: ");
     private VisLabel armorTag = new VisLabel("Armor:");
     private VisLabel damageTag = new VisLabel("Damage:");
 
+    private VisLabel levelValue = new VisLabel("0000");
     private VisLabel armorValue = new VisLabel("00000");
     private VisLabel damageValue = new VisLabel("00000");
 
@@ -139,10 +143,12 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         VisTable equipmentStatsTable = new VisTable();
 
         VisTable tagTable = new VisTable();
+        tagTable.add(levelTag).align(Align.topLeft).row();
         tagTable.add(armorTag).align(Align.topLeft).row();
         tagTable.add(damageTag).align(Align.topLeft).row();
 
         VisTable valuesTable = new VisTable();
+        valuesTable.add(levelValue).align(Align.topRight).row();
         valuesTable.add(armorValue).align(Align.topRight).row();
         valuesTable.add(damageValue).align(Align.topRight).row();
 
@@ -172,6 +178,13 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
             protected void updateStats(Attributes playerClientAttributes) {
                 armorValue.setText(playerClientAttributes.getArmor());
                 damageValue.setText(playerClientAttributes.getDamage());
+            }
+        });
+
+        addListener(new ExperienceUpdateListener() {
+            @Override
+            protected void updateLevel(SkillOpcodes skillOpcode, int level) {
+                if (skillOpcode == SkillOpcodes.MELEE) levelValue.setText(level);
             }
         });
 

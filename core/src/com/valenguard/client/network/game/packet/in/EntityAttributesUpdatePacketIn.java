@@ -15,8 +15,12 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.ATTRIBUTES_UPDATE)
 public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttributesUpdatePacketIn.EntityAttributesUpdatePacket> {
+
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -52,6 +56,8 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
         Attributes attributes = movingEntity.getAttributes();
         attributes.setArmor(packetData.attributes.getArmor());
         attributes.setDamage(packetData.attributes.getDamage());
+
+        println(getClass(), "Updating UI elements for attributes..", false, PRINT_DEBUG);
 
         // Update UI values
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
