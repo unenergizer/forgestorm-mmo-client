@@ -80,6 +80,12 @@ public class TmxFileParser {
                 NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
                 processWarps(mapHeight, mapTiles, objectTag);
             }
+
+            // Get Signs
+            if (((Element) objectGroupTag.item(i)).getAttribute("name").equals("sign")) {
+                NodeList objectTag = ((Element) objectGroupTag.item(i)).getElementsByTagName("object");
+                processSigns(mapHeight, mapTiles, objectTag);
+            }
         }
 
         printMap(mapWidth, mapHeight, mapTiles);
@@ -199,6 +205,28 @@ public class TmxFileParser {
                 for (int jj = tmxFileX; jj < tmxFileX + tmxFileWidth; jj++) {
                     Tile tile = map[jj][mapHeight - ii - 1];
                     tile.addFlag(Tile.WARP);
+                    tile.setCursorDrawType(CursorDrawType.WARP);
+                }
+            }
+        }
+    }
+
+    private static void processSigns(short mapHeight, Tile[][] map, NodeList objectTag) {
+        for (int j = 0; j < objectTag.getLength(); j++) {
+            if (objectTag.item(j).getNodeType() != Node.ELEMENT_NODE) continue;
+
+            Element objectTagElement = (Element) objectTag.item(j);
+            short tmxFileX = (short) (Short.parseShort(objectTagElement.getAttribute("x")) / ClientConstants.TILE_SIZE);
+            short tmxFileY = (short) (Short.parseShort(objectTagElement.getAttribute("y")) / ClientConstants.TILE_SIZE);
+            short tmxFileWidth = (short) (Short.parseShort(objectTagElement.getAttribute("width")) / ClientConstants.TILE_SIZE);
+            short tmxFileHeight = (short) (Short.parseShort(objectTagElement.getAttribute("height")) / ClientConstants.TILE_SIZE);
+
+            int textId = (int) (Integer.parseInt(objectTagElement.getAttribute("textId")));
+
+            for (int ii = tmxFileY; ii < tmxFileY + tmxFileHeight; ii++) {
+                for (int jj = tmxFileX; jj < tmxFileX + tmxFileWidth; jj++) {
+                    Tile tile = map[jj][mapHeight - ii - 1];
+                    tile.setTileText(textId);
                     tile.setCursorDrawType(CursorDrawType.WARP);
                 }
             }

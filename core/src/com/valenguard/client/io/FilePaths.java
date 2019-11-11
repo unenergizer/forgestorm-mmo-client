@@ -18,6 +18,9 @@ public enum FilePaths {
     ENTITY_SHOP("item/ShopItems.yaml"),
     ITEM_STACK("item/ItemStacks.yaml"),
 
+    // Language
+    LANG_ENG("language/english.yaml"),
+
     // Maps
     MAPS("maps"),
 

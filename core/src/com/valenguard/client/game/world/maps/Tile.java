@@ -1,11 +1,15 @@
 package com.valenguard.client.game.world.maps;
 
+import com.valenguard.client.Valenguard;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Tile {
+
+    private int tileText = -1;
 
     public static final byte TRAVERSABLE = 0x01;
     public static final byte WARP = 0x02;
@@ -25,5 +29,12 @@ public class Tile {
 
     public boolean isFlagSet(byte flag) {
         return (flags & flag) != 0;
+    }
+
+    public String getTileText() {
+        if (tileText != -1) {
+            Valenguard.getInstance().getLanguageManager().getString(tileText);
+        }
+        return null;
     }
 }

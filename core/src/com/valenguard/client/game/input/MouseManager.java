@@ -122,6 +122,7 @@ public class MouseManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         Location clientLocation = playerClient.getFutureMapLocation();
 
+
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
         EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
         if (entityEditor != null) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.valenguard.client.game.abilities.AbilityManager;
 import com.valenguard.client.game.audio.AudioManager;
 import com.valenguard.client.game.input.MouseManager;
+import com.valenguard.client.game.language.LanguageManager;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.ClientPlayerMovementManager;
 import com.valenguard.client.game.movement.EntityMovementManager;
@@ -24,6 +25,7 @@ import com.valenguard.client.game.world.item.inventory.MoveInventoryEvents;
 import com.valenguard.client.game.world.item.trade.TradeManager;
 import com.valenguard.client.game.world.maps.MapManager;
 import com.valenguard.client.io.FileManager;
+import com.valenguard.client.io.LanguageLoader;
 import com.valenguard.client.io.NetworkSettingsLoader;
 import com.valenguard.client.network.ConnectionManager;
 import com.valenguard.client.network.game.ClientGameConnection;
@@ -94,6 +96,7 @@ public class Valenguard extends Game {
     private MoveInventoryEvents moveInventoryEvents;
     private AbilityManager abilityManager;
     private EffectManager effectManager;
+    private LanguageManager languageManager;
 
     private TradeManager tradeManager;
 
@@ -135,6 +138,7 @@ public class Valenguard extends Game {
         moveInventoryEvents = new MoveInventoryEvents();
         abilityManager = new AbilityManager();
         effectManager = new EffectManager();
+        languageManager = new LanguageManager();
 
         // loadItems screens
         gameScreen = new GameScreen();
