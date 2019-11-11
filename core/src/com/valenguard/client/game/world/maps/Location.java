@@ -1,6 +1,7 @@
 package com.valenguard.client.game.world.maps;
 
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.world.entities.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -79,6 +80,10 @@ public class Location {
         this.x = tileX;
         this.y = tileY;
         return this;
+    }
+
+    public boolean isWithinDistance(Entity entity, short distance) {
+        return isWithinDistance(entity.getCurrentMapLocation(), distance);
     }
 
     public boolean isWithinDistance(Location otherLocation, short distance) {

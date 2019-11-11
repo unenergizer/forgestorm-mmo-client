@@ -31,6 +31,8 @@ import com.valenguard.client.network.game.packet.out.EntityShopPacketOut;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+
 import static com.valenguard.client.util.Log.println;
 
 public class EntityShopWindow extends HideableVisWindow implements Buildable {
@@ -45,12 +47,15 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
     private final VisTextButton nextPage = new VisTextButton("Next Page");
     private final VisTextButton exit = new VisTextButton("Exit Shop");
 
-    private EntityShopWindow entityShopWindow;
     private VisTable pageContainer = new VisTable();
     private VisTable navTable = new VisTable();
 
     private List<VisTable> shopPages;
     private int currentPageIndex = 0;
+
+    private boolean shopWindowOpen = false;
+    @Getter
+    private MovingEntity shopOwnerEntity;
 
     public EntityShopWindow() {
         super("Trade Shop");
@@ -58,7 +63,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build() {
-        entityShopWindow = this;
+        EntityShopWindow entityShopWindow = this;
         TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(false);
@@ -104,9 +109,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         exit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
-                new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.STOP_SHOPPING)).sendPacket();
-                ActorUtil.fadeOutWindow(entityShopWindow);
+                closeShopWindow(false);
             }
         });
 
@@ -133,6 +136,20 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         pack();
         setVisible(false);
         return this;
+    }
+
+    public void closeShopWindow(boolean playerMoved) {
+        if (!shopWindowOpen) return;
+        if (playerMoved)
+            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]Shop window closed because you moved.");
+
+        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
+
+        new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.STOP_SHOPPING)).sendPacket();
+        ActorUtil.fadeOutWindow(this);
+
+        shopWindowOpen = false;
+        shopOwnerEntity = null;
     }
 
     private List<VisTable> buildShopPage(short shopID) {
@@ -214,8 +231,12 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         pack();
     }
 
-    public void loadShop(MovingEntity movingEntity, short shopID) {
+    void loadShop(MovingEntity movingEntity, short shopID) {
+        shopWindowOpen = true;
+        shopOwnerEntity = movingEntity;
         resetShop();
+
+        shopWindowOpen = true;
 
         // Dynamic build shop pages
         shopPages = buildShopPage(shopID);
