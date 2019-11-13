@@ -5,7 +5,6 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.maps.GameMap;
 import com.valenguard.client.game.world.maps.Location;
@@ -32,7 +31,8 @@ public class ClientPlayerMovementManager {
     private AbstractPostProcessor abstractPostProcessor;
 
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
-        EntityManager.getInstance().getPlayerClient().closeBankWindow();
+        playerClient.closeBankWindow();
+        ActorUtil.getStageHandler().getEntityShopWindow().closeShopWindow(true);
         playerMove(playerClient, movements, null);
     }
 
@@ -59,8 +59,8 @@ public class ClientPlayerMovementManager {
     }
 
     private void processNextNode(PlayerClient playerClient) {
-
-        EntityManager.getInstance().getPlayerClient().closeBankWindow();
+        playerClient.closeBankWindow();
+        ActorUtil.getStageHandler().getEntityShopWindow().closeShopWindow(true);
 
         println(getClass(), "Processing next node", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 

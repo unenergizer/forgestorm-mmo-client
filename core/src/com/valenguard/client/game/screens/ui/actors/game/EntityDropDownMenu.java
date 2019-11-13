@@ -455,7 +455,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
-                    if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
+                    if (clientLocation.isWithinDistance(toLocation, (short) 5)) {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
                             new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedEntity.getServerEntityID())).sendPacket();
@@ -464,7 +464,10 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
-                        if (testMoveNodes == null) return;
+                        if (testMoveNodes == null) {
+                            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]You are too far away to use this shop.");
+                            return;
+                        }
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 

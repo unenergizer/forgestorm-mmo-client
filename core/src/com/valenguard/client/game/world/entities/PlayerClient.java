@@ -1,12 +1,9 @@
 package com.valenguard.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.Color;
-import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.SkillOpcodes;
-import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
 import com.valenguard.client.game.world.item.BankActions;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.out.BankManagePacketOut;
@@ -36,6 +33,7 @@ public class PlayerClient extends Player {
 
     public void closeBankWindow() {
         if (!isBankOpen) return;
+        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]Bank window closed because you moved.");
         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getBankWindow());
         isBankOpen = false;
         new BankManagePacketOut(BankActions.PLAYER_REQUEST_CLOSE).sendPacket();
@@ -45,7 +43,7 @@ public class PlayerClient extends Player {
         if (!showLevelUpMessage) return;
         float x = getDrawX() + 8;
         float y = getDrawY() + 18 + distanceMoved;
-        String level = "Level " + Byte.toString(Valenguard.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getLevel());
+        String level = "Level " + Valenguard.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getLevel();
 
         GameTextUtil.drawMessage(level, Color.YELLOW, 1f, x, y);
 
