@@ -1,0 +1,15 @@
+{
+    "maps": [
+        {
+            "fileName": "main_city_sewer_01.tmx",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "main_city_sewer_02.tmx",
+            "x": 0,
+            "y": 864
+        }
+    ],
+    "type": "world"
+}
