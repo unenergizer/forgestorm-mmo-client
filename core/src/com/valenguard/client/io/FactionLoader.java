@@ -1,11 +1,10 @@
 package com.valenguard.client.io;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,17 +21,12 @@ public class FactionLoader {
     private static final boolean PRINT_DEBUG = false;
 
     public Map<Byte, FactionData> loadFactionInfo() {
+
+        FileHandle fileHandle = Gdx.files.internal(FilePaths.FACTIONS.getFilePath());
         Yaml yaml = new Yaml();
 
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(new File(FilePaths.FACTIONS.getFilePath()));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         Map<Byte, FactionData> factionDataMap = new HashMap<Byte, FactionData>();
-        Map<Integer, Map<String, Object>> root = yaml.load(inputStream);
+        Map<Integer, Map<String, Object>> root = yaml.load(fileHandle.read());
 
         List<LoadFactionData> loadFactionData = new ArrayList<LoadFactionData>();
 
