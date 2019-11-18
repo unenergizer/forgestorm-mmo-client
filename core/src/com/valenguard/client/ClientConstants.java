@@ -15,6 +15,9 @@ public class ClientConstants {
     public static final short TILE_SIZE = 16;
     public static final float namePlateDistanceInPixels = 4;
 
+    public static final short MAX_SHOP_DISTANCE = 5;
+    public static final short MAX_BANK_DISTANCE = 5;
+
     public static boolean MONITOR_MOVEMENT_CHECKS = false;
 
     public static final int EQUIPMENT_INVENTORY_SIZE = 13;

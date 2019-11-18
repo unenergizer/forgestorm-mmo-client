@@ -95,6 +95,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 }
 
                 entitySpawnPacket.setShopID(clientHandler.readShort());
+                entitySpawnPacket.setBankKeeper(clientHandler.readBoolean());
 
                 entitySpawnPacket.setEntityAlignment(EntityAlignment.getEntityAlignment(clientHandler.readByte()));
                 entitySpawnPacket.setEntityFaction(clientHandler.readByte());
@@ -374,6 +375,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private EntityAlignment entityAlignment;
         private byte entityFaction;
         private short shopID;
+        private boolean isBankKeeper;
 
         // Appearance data
         private byte bodyTexture;

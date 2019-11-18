@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.ClickAction;
 import com.valenguard.client.game.movement.AbstractPostProcessor;
@@ -237,38 +238,40 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
-                    if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
+                    if (clientLocation.isWithinDistance(toLocation, ClientConstants.MAX_BANK_DISTANCE)) {
                         // We are beside the bank teller
                         new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
 
-                    } else if (clientLocation.isWithinDistance(toLocation, (short) 2)) {
-                        // Checking to make sure they tile between the player and the entity
-                        // is a bank tile
-                        short xDiff = (short) (toLocation.getX() - clientLocation.getX());
-                        short yDiff = (short) (toLocation.getY() - clientLocation.getY());
-
-                        if (Math.abs(xDiff) + Math.abs(yDiff) > 2) {
-
-                            attemptBankTraversal(clientLocation, toLocation);
-
-                        } else {
-                            Location locationBetweenEntities = new Location(clientLocation).add(
-                                    toLocation.getX() > clientLocation.getX() ? (short) +1 :
-                                            toLocation.getX() < clientLocation.getX() ? (short) -1 : 0,
-                                    toLocation.getY() > clientLocation.getY() ? (short) +1 :
-                                            toLocation.getY() > clientLocation.getY() ? (short) -1 : 0);
-
-
-                            // Check if the location is a bank teller tile
-                            if (locationHasBankAccess(locationBetweenEntities)) {
-                                new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
-                            } else {
-                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
-                            }
-                            cleanUpDropDownMenu(true);
-                        }
-
-                    } else {
+                    }
+//                    else if (clientLocation.isWithinDistance(toLocation, (short) 2)) {
+//                        // Checking to make sure they tile between the player and the entity
+//                        // is a bank tile
+//                        short xDiff = (short) (toLocation.getX() - clientLocation.getX());
+//                        short yDiff = (short) (toLocation.getY() - clientLocation.getY());
+//
+//                        if (Math.abs(xDiff) + Math.abs(yDiff) > 2) {
+//
+//                            attemptBankTraversal(clientLocation, toLocation);
+//
+//                        } else {
+//                            Location locationBetweenEntities = new Location(clientLocation).add(
+//                                    toLocation.getX() > clientLocation.getX() ? (short) +1 :
+//                                            toLocation.getX() < clientLocation.getX() ? (short) -1 : 0,
+//                                    toLocation.getY() > clientLocation.getY() ? (short) +1 :
+//                                            toLocation.getY() > clientLocation.getY() ? (short) -1 : 0);
+//
+//
+//                            // Check if the location is a bank teller tile
+//                            if (locationHasBankAccess(locationBetweenEntities)) {
+//                                new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
+//                            } else {
+//                                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
+//                            }
+//                            cleanUpDropDownMenu(true);
+//                        }
+//
+//                    }
+                    else {
                         attemptBankTraversal(clientLocation, toLocation);
                     }
                     cleanUpDropDownMenu(true);
@@ -455,7 +458,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
-                    if (clientLocation.isWithinDistance(toLocation, (short) 5)) {
+                    if (clientLocation.isWithinDistance(toLocation, ClientConstants.MAX_SHOP_DISTANCE)) {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
                             new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedEntity.getServerEntityID())).sendPacket();
