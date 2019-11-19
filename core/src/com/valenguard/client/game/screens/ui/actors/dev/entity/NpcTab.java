@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
@@ -57,6 +58,7 @@ public class NpcTab extends Tab {
     private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
     private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
     private VisValidatableTextField shopId = new VisValidatableTextField("-1");
+    private VisCheckBox isBankKeeper = new VisCheckBox("", false);
 
     @Getter
     private boolean selectSpawnActivated = false;
@@ -99,6 +101,7 @@ public class NpcTab extends Tab {
         probStill.setValue(0);
         probWalk.setValue(0);
         shopId.setText("-1");
+        isBankKeeper.setChecked(false);
         selectSpawnActivated = false;
         mapName.setText("");
         mapX.setText("");
@@ -129,6 +132,7 @@ public class NpcTab extends Tab {
         probStill.setValue(npc.getProbWalkStill());
         probWalk.setValue(npc.getProbWalkStart());
         shopId.setText(Integer.toString(npc.getShopID()));
+        isBankKeeper.setChecked(npc.isBankKeeper());
         mapName.setText(npc.getDefaultSpawnLocation().getMapName());
         mapX.setText(Short.toString(npc.getDefaultSpawnLocation().getX()));
         mapY.setText(Short.toString(npc.getDefaultSpawnLocation().getY()));
@@ -177,6 +181,7 @@ public class NpcTab extends Tab {
         entityEditor.valueSlider(leftPane, "Probability Still:", probStill);
         entityEditor.valueSlider(leftPane, "Probability Walk:", probWalk);
         entityEditor.textField(leftPane, "Shop ID:", shopId);
+        entityEditor.checkBox(leftPane, "Set as Bank Keeper?", isBankKeeper);
 
         validator.notEmpty(name, "Name must not be empty.");
         validator.notEmpty(faction, "Faction must not be empty.");
@@ -301,6 +306,7 @@ public class NpcTab extends Tab {
                 println(NpcTab.class, "Probability Still: " + probStill.getValue());
                 println(NpcTab.class, "Probability Walk: " + probWalk.getValue());
                 println(NpcTab.class, "ShopID: " + shopId.getText());
+                println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
                 println(NpcTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
                 println(NpcTab.class, "--- Appearance ---");
 
@@ -440,7 +446,7 @@ public class NpcTab extends Tab {
         entityEditorData.setProbStop(probStill.getValue());
         entityEditorData.setProbWalk(probWalk.getValue());
         entityEditorData.setShopId(Short.valueOf(shopId.getText()));
-        entityEditorData.setBankKeeper(false); // TODO
+        entityEditorData.setBankKeeper(isBankKeeper.isChecked());
 
         // World data
         entityEditorData.setSpawnLocation(new Location(

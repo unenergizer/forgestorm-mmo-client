@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.util.TableUtils;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisSlider;
@@ -101,6 +102,14 @@ public class EntityEditor extends HideableVisWindow implements Buildable, Focusa
         VisLabel visLabel = new VisLabel(labelName);
         table.add(visLabel).grow().pad(1);
         table.add(visSelectBox).pad(1);
+        mainTable.add(table).expandX().fillX().pad(1).row();
+    }
+
+    void checkBox(VisTable mainTable, String labelName, VisCheckBox visCheckBox) {
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+        table.add(visLabel).grow().pad(1);
+        table.add(visCheckBox).pad(1);
         mainTable.add(table).expandX().fillX().pad(1).row();
     }
 
