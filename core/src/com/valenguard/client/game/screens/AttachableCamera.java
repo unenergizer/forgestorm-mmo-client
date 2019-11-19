@@ -17,6 +17,8 @@ import static com.valenguard.client.util.Log.println;
 
 public class AttachableCamera extends OrthographicCamera {
 
+    private static final boolean PRINT_DEBUG = false;
+
     @Getter
     private float lastZoomLevel;
     private Entity following;
@@ -30,36 +32,6 @@ public class AttachableCamera extends OrthographicCamera {
 
     public void attachEntity(Entity following) {
         this.following = following;
-    }
-
-    public static void main(String args[]) {
-        test();
-    }
-
-    public static void test() {
-
-        for (int def = 0; def < 100; def++) {
-
-            double percentage = (100.0D - (Math.log(def + 1) * 10)) / 100.0D;
-
-            int attackAmount = 10;
-
-            int amountDamaged = (int) (attackAmount * percentage);
-
-
-            System.out.println("def: " + def + ", amount damaged: " + amountDamaged);
-
-        }
-
-        int amountPlayerIsHurt = getActualDamage(20, 10);
-
-
-    }
-
-    public static int getActualDamage(int amountAttackedBy, int defense) {
-        double percentage = (100.0D - (Math.log(defense + 1) * 10)) / 100.0D;
-        int amountDamaged = (int) (amountAttackedBy * percentage);
-        return amountDamaged;
     }
 
     void clampCamera(Viewport screenViewport, TiledMap tiledMap) {
@@ -90,14 +62,14 @@ public class AttachableCamera extends OrthographicCamera {
         zoom = change;
         lastZoomLevel = change;
         ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
-        println(getClass(), "[Scroll] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel);
+        println(getClass(), "[Scroll] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel, false, PRINT_DEBUG);
     }
 
     public void changeZoomLevel(float amount) {
         zoom = amount;
         lastZoomLevel = amount;
         ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
-        println(getClass(), "[Change] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel);
+        println(getClass(), "[Change] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel, false, PRINT_DEBUG);
     }
 
     public Vector3 unprojectCamera(final float screenX, final float screenY) {
