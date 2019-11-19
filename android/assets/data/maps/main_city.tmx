@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.5" orientation="orthogonal" renderorder="left-up" width="96" height="54" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#8aac5f" nextlayerid="44" nextobjectid="9">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="left-up" compressionlevel="0" width="96" height="54" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#8aac5f" nextlayerid="44" nextobjectid="10">
  <tileset firstgid="1" source="data/AnimatedObjects.tsx"/>
  <tileset firstgid="1569" source="data/GroundTiles.tsx"/>
  <tileset firstgid="7897" source="data/Walls.tsx"/>
@@ -760,7 +760,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="11" name="collision" width="96" height="54" visible="0">
+ <layer id="11" name="collision" width="96" height="54">
   <data encoding="csv">
 1793,0,0,0,1793,1793,1793,1793,1793,0,1793,1793,1793,1793,1793,1793,1793,1793,1793,1793,1793,1793,1793,1793,0,0,0,0,1793,1793,1793,0,0,0,0,0,0,0,1793,1793,1793,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1793,1793,1793,1793,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1793,1793,0,1793,1793,1793,0,1793,1793,0,0,0,0,0,0,0,0,1793,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -819,7 +819,7 @@
 </data>
  </layer>
  <objectgroup id="12" name="skill"/>
- <objectgroup id="13" name="warp" visible="0">
+ <objectgroup id="13" name="warp">
   <object id="1" name="game_start" type="warp" x="496" y="0" width="112" height="16">
    <properties>
     <property name="direction" value="NORTH"/>
@@ -867,6 +867,13 @@
     <property name="direction" value="EAST"/>
     <property name="x" type="int" value="17"/>
     <property name="y" type="int" value="42"/>
+   </properties>
+  </object>
+  <object id="9" name="floating_island" type="warp" x="560" y="496" width="16" height="16">
+   <properties>
+    <property name="direction" value="SOUTH"/>
+    <property name="x" type="int" value="38"/>
+    <property name="y" type="int" value="21"/>
    </properties>
   </object>
  </objectgroup>
