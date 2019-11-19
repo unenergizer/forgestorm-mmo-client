@@ -163,6 +163,11 @@ public class GameScreen implements Screen {
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
         playerClient.getEntityAnimation().animate(delta, spriteBatch);
 
+        spriteBatch.end();
+
+        mapRenderer.renderOverheadMapLayers();
+
+        spriteBatch.begin();
         // Draw Names
         EntityManager.getInstance().drawEntityNames();
         playerClient.drawEntityName();
@@ -178,11 +183,6 @@ public class GameScreen implements Screen {
         // Draw Level up messages
         playerClient.drawLevelUpMessage();
 
-        spriteBatch.end();
-
-        mapRenderer.renderOverheadMapLayers();
-
-        spriteBatch.begin();
         // Draw mouse
         MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
         mouseManager.drawMoveNodes(spriteBatch);
