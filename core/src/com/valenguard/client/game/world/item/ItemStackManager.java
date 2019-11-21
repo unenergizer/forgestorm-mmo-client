@@ -39,4 +39,8 @@ public class ItemStackManager {
         itemStack.setAmount(amount);
         return itemStack;
     }
+
+    public int getItemStackArraySize() {
+        return itemStacks.length;
+    }
 }

@@ -2,44 +2,36 @@ package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.GameScreen;
+import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
-import com.valenguard.client.game.world.entities.AiEntity;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
 import com.valenguard.client.game.world.entities.EntityManager;
-import com.valenguard.client.game.world.entities.EntityType;
-import com.valenguard.client.game.world.entities.NPC;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackManager;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.io.type.GameAtlas;
-import com.valenguard.client.network.game.packet.out.AdminEditorEntityPacketOut;
-import com.valenguard.client.util.color.LibGDXColorList;
 
 import lombok.Getter;
 
 import static com.valenguard.client.util.Log.println;
 
-public class NpcTab extends EditorTab {
+public class ItemStackDrop extends EditorTab {
 
-    static final int PREVIEW_SCALE = 10;
+    private final ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
 
     private final EntityEditor entityEditor;
     private final String title;
@@ -47,17 +39,9 @@ public class NpcTab extends EditorTab {
 
     private short entityIDNum = -1;
     private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
-    private VisValidatableTextField name = new VisValidatableTextField();
-    private VisValidatableTextField faction = new VisValidatableTextField();
-    private VisValidatableTextField health = new VisValidatableTextField();
-    private VisValidatableTextField damage = new VisValidatableTextField();
-    private VisValidatableTextField expDrop = new VisValidatableTextField();
-    private VisValidatableTextField dropTable = new VisValidatableTextField();
-    private VisSlider walkSpeed = new VisSlider(.1f, .99f, .01f, false);
-    private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
-    private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
-    private VisValidatableTextField shopId = new VisValidatableTextField("-1");
-    private VisCheckBox isBankKeeper = new VisCheckBox("", false);
+    private int itemStackIDNum = 0;
+    private VisValidatableTextField itemStackId = new VisValidatableTextField();
+    private VisValidatableTextField respawnTime = new VisValidatableTextField();
 
     @Getter
     private boolean selectSpawnActivated = false;
@@ -68,20 +52,11 @@ public class NpcTab extends EditorTab {
     private VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
-    private AppearancePanel appearancePanel;
-    @Getter
-    private VisTable appearanceTable = new VisTable();
-    @Getter
-    private VisTable previewTable = new VisTable();
+    private VisTable itemStackDisplayTable = new VisTable();
 
-
-    NpcTab(EntityEditor entityEditor) {
+    ItemStackDrop(EntityEditor entityEditor) {
         this.entityEditor = entityEditor;
-        title = " NPC ";
-
-        // SETUP DEFAULT CASE
-        appearancePanel = new NPCAppearancePanel(this);
-        appearancePanel.buildAppearancePanel();
+        this.title = " ItemStack Drop ";
 
         build();
     }
@@ -90,62 +65,19 @@ public class NpcTab extends EditorTab {
     public void resetValues() {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
-        name.setText("");
-        faction.setText("THE EMPIRE");
-        health.setText("");
-        damage.setText("");
-        expDrop.setText("");
-        dropTable.setText("");
-        walkSpeed.setValue(0);
-        probStill.setValue(0);
-        probWalk.setValue(0);
-        shopId.setText("-1");
-        isBankKeeper.setChecked(false);
+        itemStackIDNum = 0;
+        respawnTime.setText("");
         selectSpawnActivated = false;
         mapName.setText("");
         mapX.setText("");
         mapY.setText("");
-
-        deleteButton.setDisabled(true);
-
-        // Appearance Data
-        if (appearancePanel != null) appearancePanel.reset();
-
-        // Remove right pane appearance fields
-//        if (resetAppearanceTable) appearanceTable.clear();
     }
 
-    public void loadAiEntity(AiEntity aiEntity) {
-        resetValues();
-        NPC npc = (NPC) aiEntity;
-        entityIDNum = npc.getServerEntityID();
-        entityID.setText(npc.getServerEntityID());
+    // ItemStack
+    // Respawn times (after pickup)
+    // Choose location
 
-        name.setText(npc.getEntityName());
-        faction.setText(Valenguard.getInstance().getFactionManager().getFactionFromByte(npc.getFaction()));
-        health.setText(Integer.toString(npc.getMaxHealth()));
-        damage.setText(Integer.toString(npc.getDamage()));
-        expDrop.setText(Integer.toString(npc.getExpDrop()));
-        dropTable.setText(Integer.toString(npc.getDropTable()));
-        walkSpeed.setValue(npc.getMoveSpeed());
-        probStill.setValue(npc.getProbWalkStill());
-        probWalk.setValue(npc.getProbWalkStart());
-        shopId.setText(Integer.toString(npc.getShopID()));
-        isBankKeeper.setChecked(npc.isBankKeeper());
-        mapName.setText(npc.getDefaultSpawnLocation().getMapName());
-        mapX.setText(Short.toString(npc.getDefaultSpawnLocation().getX()));
-        mapY.setText(Short.toString(npc.getDefaultSpawnLocation().getY()));
-
-        // Load Appearance
-        appearanceTable.clear();
-        appearancePanel = new NPCAppearancePanel(this);
-        appearancePanel.buildAppearancePanel();
-        appearancePanel.load(npc);
-        appearancePanel.characterPreview();
-
-        deleteButton.setDisabled(false);
-    }
-
+    @Override
     public void build() {
         content = new VisTable(true);
         VisTextButton saveButton = new VisTextButton("Save");
@@ -170,25 +102,10 @@ public class NpcTab extends EditorTab {
 
         leftPane.add(entityIdTable).row();
 
-        textField(leftPane, "Name:", name);
-        textField(leftPane, "Faction:", faction);
-        textField(leftPane, "Health:", health);
-        textField(leftPane, "Damage:", damage);
-        textField(leftPane, "ExpDrop:", expDrop);
-        textField(leftPane, "DropTable:", dropTable);
-        valueSlider(leftPane, "Walk Speed:", walkSpeed);
-        valueSlider(leftPane, "Probability Still:", probStill);
-        valueSlider(leftPane, "Probability Walk:", probWalk);
-        textField(leftPane, "Shop ID:", shopId);
-        checkBox(leftPane, "Set as Bank Keeper?", isBankKeeper);
+        textField(leftPane, "ItemStack ID:", itemStackId);
+        textField(leftPane, "Respawn Time (minutes):", respawnTime);
 
-        validator.notEmpty(name, "Name must not be empty.");
-        validator.notEmpty(faction, "Faction must not be empty.");
-        validator.valueGreaterThan(health, "Health must be greater than 0.", 1, true);
-        validator.integerNumber(damage, "Damage must be a valid number.");
-        validator.integerNumber(expDrop, "Experience Drop must be a valid number.");
-        validator.integerNumber(dropTable, "Drop Table must be a valid number.");
-        validator.integerNumber(shopId, "Shop ID must be a valid number.");
+        validator.valueGreaterThan(itemStackId, "Map X must be greater than -1.", 0, true);
         validator.notEmpty(mapName, "Map name must not be empty.");
         validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
         validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
@@ -282,7 +199,6 @@ public class NpcTab extends EditorTab {
         mapYTable.add(new VisLabel("Spawn Y:")).grow().pad(1);
         mapYTable.add(mapY).pad(1);
         leftPane.add(mapYTable).expandX().fillX().pad(1).row();
-
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
         VisTextButton textButton = new VisTextButton("Print Details to Console");
@@ -293,23 +209,11 @@ public class NpcTab extends EditorTab {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                println(NpcTab.class, "--- Settings ---");
-                println(NpcTab.class, "EntityID: " + entityID.getText());
-                println(NpcTab.class, "Name: " + name.getText());
-                println(NpcTab.class, "Faction: " + faction.getText());
-                println(NpcTab.class, "Health: " + health.getText());
-                println(NpcTab.class, "Damage: " + damage.getText());
-                println(NpcTab.class, "ExpDrop: " + expDrop.getText());
-                println(NpcTab.class, "DropTable: " + dropTable.getText());
-                println(NpcTab.class, "WalkSpeed: " + walkSpeed.getValue());
-                println(NpcTab.class, "Probability Still: " + probStill.getValue());
-                println(NpcTab.class, "Probability Walk: " + probWalk.getValue());
-                println(NpcTab.class, "ShopID: " + shopId.getText());
-                println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
-                println(NpcTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
-                println(NpcTab.class, "--- Appearance ---");
-
-                appearancePanel.printDebug();
+                println(MonsterTab.class, "--- Settings ---");
+                println(MonsterTab.class, "EntityID: " + entityID.getText());
+                println(MonsterTab.class, "RespawnTime (minutes): " + respawnTime.getText());
+                println(MonsterTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
+                println(MonsterTab.class, "--- Appearance ---");
             }
         });
 
@@ -326,10 +230,9 @@ public class NpcTab extends EditorTab {
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
+//                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
 
@@ -337,14 +240,13 @@ public class NpcTab extends EditorTab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetValues();
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
 
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
@@ -354,98 +256,86 @@ public class NpcTab extends EditorTab {
                     @Override
                     public void yes() {
                         Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Entity deleted forever!");
-                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+//                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
                         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
                         ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
                         ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });
             }
         });
 
         content.add(leftPane).fill().pad(3).grow().left().top();
-        content.add(appearanceTable).fill().pad(3).grow().left().top().row();
+        content.add(buildItemStackViewer(itemStackDisplayTable)).fill().pad(3).grow().left().top().row();
 
         entityEditor.pack();
     }
 
-    void colorPicker(VisTable mainTable, String labelName, final VisSelectBox visSelectBox, final ColorPickerColorHandler colorPickerColorHandler) {
-        VisTable visTable = new VisTable();
-        VisLabel visLabel = new VisLabel(labelName);
-        VisTextButton visTextButton = new VisTextButton("Pick Color");
-        visTable.add(visLabel).grow().pad(1);
-        visTable.add(visSelectBox).pad(1);
-        visTable.add(visTextButton).pad(1);
-        mainTable.add(visTable).expandX().fillX().pad(1).row();
+    private VisTable buildItemStackViewer(VisTable visTable) {
+        final int imgSize = 64;
 
-        visSelectBox.addListener(new ChangeListener() {
+        // Talk to ItemStack manager and get the number of items.
+        final int amount = itemStackManager.getItemStackArraySize();
+
+        // Show itemStack info (name, picture, and tooltip);
+        ItemStack itemStack = itemStackManager.makeItemStack(0, 0);
+        VisImage visImage = new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegion()).buildVisImage();
+
+        // Show "scroll left" and "scroll right" buttons to change item
+        VisTextButton scrollLeft = new VisTextButton(" < ");
+        VisTextButton scrollRight = new VisTextButton(" > ");
+
+        scrollLeft.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                @SuppressWarnings("ConstantConditions") Color color = LibGDXColorList.getType((byte) visSelectBox.getSelectedIndex()).getColor();
-                colorPickerColorHandler.doColorChange(color);
-                colorPickerColorHandler.setFinishedColor(color);
+                if (itemStackIDNum < 0) {
+                    itemStackIDNum = amount - 1;
+
+                }
             }
         });
 
-        visTextButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.getStageHandler().getColorPickerController().show(colorPickerColorHandler);
-            }
-        });
+        visTable.add(new VisLabel(itemStack.getName())).row();
+
+        VisTable scrollTable = new VisTable();
+        scrollTable.add(scrollLeft);
+        scrollTable.add(visImage);
+        scrollTable.add(scrollRight);
+
+        visTable.add(scrollTable).row();
+
+        VisTable toolTipTable = new VisTable();
+        ItemStackToolTip itemStackToolTip = new ItemStackToolTip(itemStack, toolTipTable);
+
+        visTable.add(itemStackToolTip);
+
+        return visTable;
     }
 
-    @SuppressWarnings("SameParameterValue")
-    VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
-        VisTable innerTable = new VisTable();
+    private EntityEditorItemStackData generateDataOut(boolean save, boolean delete) {
 
-        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
-        TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(region));
-        textureRegionDrawable.setMinWidth(width);
-        textureRegionDrawable.setMinHeight(height);
+        EntityEditorItemStackData entityEditorData = new EntityEditorItemStackData();
 
-        VisImage texture = new VisImage(textureRegionDrawable);
-        texture.setWidth(width);
-        texture.setHeight(height);
-        texture.setColor(color);
-
-        innerTable.add(texture).expand().fillX().bottom().left().padBottom(padBottom);
-        return innerTable;
-    }
-
-    private EntityEditorData generateDataOut(boolean save, boolean delete) {
-        EntityEditorData entityEditorData = new EntityEditorData();
-
-        entityEditorData.setEntityType(EntityType.NPC);
         entityEditorData.setSpawn(true);
         entityEditorData.setSave(save);
         entityEditorData.setDelete(delete);
 
         // Basic data
         entityEditorData.setEntityID(entityIDNum);
-        entityEditorData.setName(name.getText());
-        entityEditorData.setFaction(faction.getText());
-        entityEditorData.setHealth(Integer.valueOf(health.getText()));
-        entityEditorData.setDamage(Integer.valueOf(damage.getText()));
-        entityEditorData.setExpDrop(Integer.valueOf(expDrop.getText()));
-        entityEditorData.setDropTable(Integer.valueOf(dropTable.getText()));
-        entityEditorData.setWalkSpeed(walkSpeed.getValue());
-        entityEditorData.setProbStop(probStill.getValue());
-        entityEditorData.setProbWalk(probWalk.getValue());
-        entityEditorData.setShopId(Short.valueOf(shopId.getText()));
-        entityEditorData.setBankKeeper(isBankKeeper.isChecked());
+        entityEditorData.setItemStackId(Integer.parseInt(itemStackId.getText()));
+        entityEditorData.setRespawnTime(Short.parseShort(respawnTime.getText()));
 
         // World data
         entityEditorData.setSpawnLocation(new Location(
@@ -453,9 +343,6 @@ public class NpcTab extends EditorTab {
                 Short.valueOf(mapX.getText()),
                 Short.valueOf(mapY.getText()))
         );
-
-        // Appearance
-        entityEditorData = appearancePanel.getDataOut(entityEditorData);
 
         return entityEditorData;
     }

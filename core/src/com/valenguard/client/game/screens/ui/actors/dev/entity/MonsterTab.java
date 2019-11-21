@@ -14,7 +14,6 @@ import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.rpg.EntityAlignment;
@@ -30,7 +29,7 @@ import lombok.Getter;
 
 import static com.valenguard.client.util.Log.println;
 
-public class MonsterTab extends Tab {
+public class MonsterTab extends EditorTab {
 
     private final EntityEditor entityEditor;
     private final String title;
@@ -65,7 +64,6 @@ public class MonsterTab extends Tab {
     private VisTable previewTable = new VisTable();
 
     MonsterTab(EntityEditor entityEditor) {
-        super(false, false);
         this.entityEditor = entityEditor;
         title = " Monster ";
 
@@ -76,7 +74,8 @@ public class MonsterTab extends Tab {
         build();
     }
 
-    void resetValues() {
+    @Override
+    public void resetValues() {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
         name.setText("");
@@ -129,6 +128,7 @@ public class MonsterTab extends Tab {
         deleteButton.setDisabled(false);
     }
 
+    @Override
     public void build() {
         content = new VisTable(true);
         VisTextButton saveButton = new VisTextButton("Save");
@@ -154,16 +154,16 @@ public class MonsterTab extends Tab {
 
         leftPane.add(entityIdTable).row();
 
-        entityEditor.textField(leftPane, "Name:", name);
-        entityEditor.selectBox(leftPane, "Alignment:", entityAlignment, EntityAlignment.values());
-        entityEditor.textField(leftPane, "Health:", health);
-        entityEditor.textField(leftPane, "Damage:", damage);
-        entityEditor.textField(leftPane, "ExpDrop:", expDrop);
-        entityEditor.textField(leftPane, "DropTable:", dropTable);
-        entityEditor.valueSlider(leftPane, "Walk Speed:", walkSpeed);
-        entityEditor.valueSlider(leftPane, "Probability Still:", probStill);
-        entityEditor.valueSlider(leftPane, "Probability Walk:", probWalk);
-        entityEditor.textField(leftPane, "Shop ID:", shopId);
+        textField(leftPane, "Name:", name);
+        selectBox(leftPane, "Alignment:", entityAlignment, EntityAlignment.values());
+        textField(leftPane, "Health:", health);
+        textField(leftPane, "Damage:", damage);
+        textField(leftPane, "ExpDrop:", expDrop);
+        textField(leftPane, "DropTable:", dropTable);
+        valueSlider(leftPane, "Walk Speed:", walkSpeed);
+        valueSlider(leftPane, "Probability Still:", probStill);
+        valueSlider(leftPane, "Probability Walk:", probWalk);
+        textField(leftPane, "Shop ID:", shopId);
 
         validator.notEmpty(name, "Name must not be empty.");
         validator.valueGreaterThan(health, "Health must be greater than 0.", 1, true);
