@@ -31,6 +31,7 @@ import static com.valenguard.client.util.Log.println;
 public class ItemStackDrop extends EditorTab {
 
     private final ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
+    private final int amount = itemStackManager.getItemStackArraySize();
     private final EntityEditor entityEditor;
     private final String title;
     private VisTable content;
@@ -73,6 +74,8 @@ public class ItemStackDrop extends EditorTab {
         mapName.setText("");
         mapX.setText("");
         mapY.setText("");
+
+        updateEditorDisplay();
     }
 
     // ItemStack
@@ -303,7 +306,7 @@ public class ItemStackDrop extends EditorTab {
                     itemStackIDNum = amount - 1;
                 }
 
-                updateEditorDisplay(amount);
+                updateEditorDisplay();
             }
         });
 
@@ -316,7 +319,7 @@ public class ItemStackDrop extends EditorTab {
                     itemStackIDNum = 0;
                 }
 
-                updateEditorDisplay(amount);
+                updateEditorDisplay();
             }
         });
 
@@ -330,19 +333,18 @@ public class ItemStackDrop extends EditorTab {
 
         visTable.add(scrollTable).row();
 
-        updateEditorDisplay(amount);
+        updateEditorDisplay();
 
         return visTable;
     }
 
-    private void updateEditorDisplay(int amount) {
-        amount = amount - 1;
+    private void updateEditorDisplay() {
         final int imgSize = 64;
         ItemStack itemStack = itemStackManager.makeItemStack(itemStackIDNum, 0);
         itemStackName.setText(itemStack.getName());
         itemStackId.setText(Integer.toString(itemStackIDNum));
         itemStackPreview.setDrawable(new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegion()).buildVisImage().getDrawable());
-        scrollProgress.setText(itemStackIDNum + " / " + amount);
+        scrollProgress.setText(itemStackIDNum + " / " + (amount - 1));
     }
 
     private EntityEditorItemStackData generateDataOut(boolean save, boolean delete) {
