@@ -18,7 +18,6 @@ import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackManager;
@@ -32,7 +31,6 @@ import static com.valenguard.client.util.Log.println;
 public class ItemStackDrop extends EditorTab {
 
     private final ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
-
     private final EntityEditor entityEditor;
     private final String title;
     private VisTable content;
@@ -53,6 +51,9 @@ public class ItemStackDrop extends EditorTab {
 
     @Getter
     private VisTable itemStackDisplayTable = new VisTable();
+    private VisLabel itemStackName = new VisLabel();
+    private VisLabel scrollProgress = new VisLabel();
+    private VisImage itemStackPreview = new VisImage();
 
     ItemStackDrop(EntityEditor entityEditor) {
         this.entityEditor = entityEditor;
@@ -66,6 +67,7 @@ public class ItemStackDrop extends EditorTab {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
         itemStackIDNum = 0;
+        itemStackId.setText("0");
         respawnTime.setText("");
         selectSpawnActivated = false;
         mapName.setText("");
@@ -104,8 +106,9 @@ public class ItemStackDrop extends EditorTab {
 
         textField(leftPane, "ItemStack ID:", itemStackId);
         textField(leftPane, "Respawn Time (minutes):", respawnTime);
+        itemStackId.setDisabled(true);
 
-        validator.valueGreaterThan(itemStackId, "Map X must be greater than -1.", 0, true);
+        validator.valueGreaterThan(respawnTime, "Respawn times must be greater than -1.", 0, true);
         validator.notEmpty(mapName, "Map name must not be empty.");
         validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
         validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
@@ -284,14 +287,8 @@ public class ItemStackDrop extends EditorTab {
     }
 
     private VisTable buildItemStackViewer(VisTable visTable) {
-        final int imgSize = 64;
-
         // Talk to ItemStack manager and get the number of items.
         final int amount = itemStackManager.getItemStackArraySize();
-
-        // Show itemStack info (name, picture, and tooltip);
-        ItemStack itemStack = itemStackManager.makeItemStack(0, 0);
-        VisImage visImage = new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegion()).buildVisImage();
 
         // Show "scroll left" and "scroll right" buttons to change item
         VisTextButton scrollLeft = new VisTextButton(" < ");
@@ -300,28 +297,52 @@ public class ItemStackDrop extends EditorTab {
         scrollLeft.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                itemStackIDNum--;
+
                 if (itemStackIDNum < 0) {
                     itemStackIDNum = amount - 1;
-
                 }
+
+                updateEditorDisplay(amount);
             }
         });
 
-        visTable.add(new VisLabel(itemStack.getName())).row();
+        scrollRight.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                itemStackIDNum++;
+
+                if (itemStackIDNum >= amount) {
+                    itemStackIDNum = 0;
+                }
+
+                updateEditorDisplay(amount);
+            }
+        });
+
+        visTable.add(itemStackName).row();
 
         VisTable scrollTable = new VisTable();
-        scrollTable.add(scrollLeft);
-        scrollTable.add(visImage);
-        scrollTable.add(scrollRight);
+        scrollTable.add(scrollLeft).pad(2);
+        scrollTable.add(itemStackPreview).pad(2);
+        scrollTable.add(scrollRight).pad(2);
+        scrollTable.add(scrollProgress).pad(2);
 
         visTable.add(scrollTable).row();
 
-        VisTable toolTipTable = new VisTable();
-        ItemStackToolTip itemStackToolTip = new ItemStackToolTip(itemStack, toolTipTable);
-
-        visTable.add(itemStackToolTip);
+        updateEditorDisplay(amount);
 
         return visTable;
+    }
+
+    private void updateEditorDisplay(int amount) {
+        amount = amount - 1;
+        final int imgSize = 64;
+        ItemStack itemStack = itemStackManager.makeItemStack(itemStackIDNum, 0);
+        itemStackName.setText(itemStack.getName());
+        itemStackId.setText(Integer.toString(itemStackIDNum));
+        itemStackPreview.setDrawable(new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegion()).buildVisImage().getDrawable());
+        scrollProgress.setText(itemStackIDNum + " / " + amount);
     }
 
     private EntityEditorItemStackData generateDataOut(boolean save, boolean delete) {
