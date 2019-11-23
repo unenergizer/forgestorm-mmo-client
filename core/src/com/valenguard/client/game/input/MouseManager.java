@@ -13,6 +13,7 @@ import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
+import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.ItemStackDrop;
@@ -241,24 +242,30 @@ public class MouseManager {
         /*
          * Build right click menu!
          */
-        final List<MovingEntity> movingEntityList = new ArrayList<MovingEntity>();
+        final List<Entity> entityList = new ArrayList<Entity>();
 
         for (Player player : EntityManager.getInstance().getPlayerEntityList().values()) {
             if (entityClickTest(player.getDrawX(), player.getDrawY())) {
-                movingEntityList.add(player);
+                entityList.add(player);
             }
         }
 
         for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                movingEntityList.add(movingEntity);
+                entityList.add(movingEntity);
+            }
+        }
+
+        for (ItemStackDrop itemStackDrop : EntityManager.getInstance().getItemStackDropList().values()) {
+            if (entityClickTest(itemStackDrop.getDrawX(), itemStackDrop.getDrawY())) {
+                entityList.add(itemStackDrop);
             }
         }
 
         // Send list of entities to the EntityDropDownMenu!
-        if (!movingEntityList.isEmpty()) {
+        if (!entityList.isEmpty()) {
             if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(movingEntityList, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
+            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
         }
 
         /*

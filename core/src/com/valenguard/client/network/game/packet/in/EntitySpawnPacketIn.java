@@ -52,7 +52,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         switch (entityType) {
             case SKILL_NODE:
+                entitySpawnPacket.setBodyTexture(clientHandler.readByte());
+                break;
             case ITEM_STACK:
+                if (Valenguard.getInstance().isAdmin()) {
+                    entitySpawnPacket.setItemStackId(clientHandler.readInt());
+                    entitySpawnPacket.setStackSize(clientHandler.readInt());
+                    entitySpawnPacket.setRespawnTimeMin(clientHandler.readInt());
+                    entitySpawnPacket.setRespawnTimeMax(clientHandler.readInt());
+                }
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case MONSTER:
@@ -154,7 +162,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         } else if (packetData.entityType == EntityType.NPC) {
             entity = spawnNPC(packetData, mapName);
         } else if (packetData.entityType == EntityType.ITEM_STACK) {
-            entity = spawnItem(packetData);
+            entity = spawnItemStackDrop(packetData);
         } else if (packetData.entityType == EntityType.MONSTER) {
             entity = spawnMonster(packetData, mapName);
         } else if (packetData.entityType == EntityType.SKILL_NODE) {
@@ -214,12 +222,13 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case NPC:
                 if (Valenguard.getInstance().isAdmin()) {
-                    ((NPC) entity).setDamage(packetData.damage);
-                    ((NPC) entity).setExpDrop(packetData.expDrop);
-                    ((NPC) entity).setDropTable(packetData.dropTable);
-                    ((NPC) entity).setProbWalkStill(packetData.probWalkStill);
-                    ((NPC) entity).setProbWalkStart(packetData.probWalkStart);
-                    ((NPC) entity).setDefaultSpawnLocation(packetData.defaultSpawnLocation);
+                    NPC npc = (NPC) entity;
+                    npc.setDamage(packetData.damage);
+                    npc.setExpDrop(packetData.expDrop);
+                    npc.setDropTable(packetData.dropTable);
+                    npc.setProbWalkStill(packetData.probWalkStill);
+                    npc.setProbWalkStart(packetData.probWalkStart);
+                    npc.setDefaultSpawnLocation(packetData.defaultSpawnLocation);
                 }
 
                 appearance.setHairTexture(packetData.hairTexture);
@@ -252,12 +261,13 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case MONSTER:
                 if (Valenguard.getInstance().isAdmin()) {
-                    ((Monster) entity).setDamage(packetData.damage);
-                    ((Monster) entity).setExpDrop(packetData.expDrop);
-                    ((Monster) entity).setDropTable(packetData.dropTable);
-                    ((Monster) entity).setProbWalkStill(packetData.probWalkStill);
-                    ((Monster) entity).setProbWalkStart(packetData.probWalkStart);
-                    ((Monster) entity).setDefaultSpawnLocation(packetData.defaultSpawnLocation);
+                    Monster monster = (Monster) entity;
+                    monster.setDamage(packetData.damage);
+                    monster.setExpDrop(packetData.expDrop);
+                    monster.setDropTable(packetData.dropTable);
+                    monster.setProbWalkStill(packetData.probWalkStill);
+                    monster.setProbWalkStart(packetData.probWalkStart);
+                    monster.setDefaultSpawnLocation(packetData.defaultSpawnLocation);
                 }
 
                 appearance.setMonsterBodyTexture(packetData.bodyTexture);
@@ -267,7 +277,16 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);
                 break;
             case SKILL_NODE:
+                appearance.setMonsterBodyTexture(packetData.bodyTexture);
+                break;
             case ITEM_STACK:
+                if (Valenguard.getInstance().isAdmin()) {
+                    ItemStackDrop itemStackDrop = (ItemStackDrop) entity;
+                    itemStackDrop.setItemStackId(packetData.itemStackId);
+                    itemStackDrop.setStackSize(packetData.stackSize);
+                    itemStackDrop.setRespawnTimeMin(packetData.respawnTimeMin);
+                    itemStackDrop.setRespawnTimeMax(packetData.respawnTimeMax);
+                }
                 appearance.setMonsterBodyTexture(packetData.bodyTexture);
                 break;
         }
@@ -324,7 +343,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         return skillNode;
     }
 
-    private Entity spawnItem(EntitySpawnPacket packetData) {
+    private Entity spawnItemStackDrop(EntitySpawnPacket packetData) {
         ItemStackDrop itemStackDrop = new ItemStackDrop();
         EntityManager.getInstance().addItemStackDrop(packetData.entityId, itemStackDrop);
         return itemStackDrop;
@@ -356,13 +375,19 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private final short entityId;
         private final EntityType entityType;
 
-        // Admin data
+        // Admin data AiEntity
         private int damage;
         private int expDrop;
         private int dropTable;
         private float probWalkStill;
         private float probWalkStart;
         private Location defaultSpawnLocation;
+
+        // Admin data ItemStackDrop
+        private int itemStackId;
+        private int stackSize;
+        private int respawnTimeMin;
+        private int respawnTimeMax;
 
         // Base data
         private String entityName;

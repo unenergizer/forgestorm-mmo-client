@@ -20,6 +20,7 @@ import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.ItemStackDrop;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackManager;
 import com.valenguard.client.game.world.maps.Location;
@@ -65,6 +66,24 @@ public class ItemStackDropTab extends EditorTab {
         this.title = " ItemStack Drop ";
 
         build();
+    }
+
+    public void loadEntity(ItemStackDrop itemStackDrop) {
+        resetValues();
+        entityIDNum = itemStackDrop.getServerEntityID();
+        entityID.setText(itemStackDrop.getServerEntityID());
+        itemStackIDNum = itemStackDrop.getItemStackId();
+        stackSize.setText(Integer.toString(itemStackDrop.getStackSize()));
+        respawnTimeMin.setText(Integer.toString(itemStackDrop.getRespawnTimeMin()));
+        respawnTimeMax.setText(Integer.toString(itemStackDrop.getRespawnTimeMax()));
+        mapName.setText(itemStackDrop.getCurrentMapLocation().getMapName());
+        mapX.setText(Short.toString(itemStackDrop.getCurrentMapLocation().getX()));
+        mapY.setText(Short.toString(itemStackDrop.getCurrentMapLocation().getY()));
+
+        // Load Appearance
+        updateEditorDisplay();
+
+        deleteButton.setDisabled(false);
     }
 
     @Override

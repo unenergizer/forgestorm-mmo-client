@@ -22,8 +22,10 @@ import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.AiEntity;
+import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
+import com.valenguard.client.game.world.entities.ItemStackDrop;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -79,15 +81,17 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    public void toggleMenu(List<MovingEntity> movingEntityList, float x, float y) {
+    public void toggleMenu(List<Entity> entityList, float x, float y) {
         cleanUpDropDownMenu(false);
         setPosition(x, y);
 
-        for (MovingEntity movingEntity : movingEntityList) {
-            dropDownTable.add(new MenuEntry(movingEntity)).expand().fill().row();
+        for (Entity entity : entityList) {
+            dropDownTable.add(new EditorMenuEntry(entity)).expand().fill().row();
+            if (entity instanceof MovingEntity)
+                dropDownTable.add(new MenuEntry((MovingEntity) entity)).expand().fill().row();
         }
 
-        addWalkHereButton(dropDownTable, movingEntityList.get(0).getCurrentMapLocation());
+        addWalkHereButton(dropDownTable, entityList.get(0).getCurrentMapLocation());
         addCancelButton(dropDownTable);
 
         pack();
@@ -153,6 +157,52 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         dropDownTable.clearChildren();
     }
 
+    class EditorMenuEntry extends VisTable {
+
+        private final Entity clickedEntity;
+        private PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+
+        EditorMenuEntry(Entity clickedEntity) {
+            this.clickedEntity = clickedEntity;
+
+            addEditEntityButton();
+        }
+
+        private void addEditEntityButton() {
+            if (clickedEntity.getEntityType() == EntityType.PLAYER ||
+                    clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER) return;
+            if (!Valenguard.getInstance().isAdmin()) return;
+
+            VisTextButton editEntityButton = new VisTextButton("Edit " + clickedEntity.getEntityName());
+            editEntityButton.setColor(Color.YELLOW);
+            add(editEntityButton).expand().fill().row();
+
+            editEntityButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    StageHandler stageHandler = ActorUtil.getStageHandler();
+
+                    EntityEditor entityEditor = stageHandler.getEntityEditor();
+                    if (clickedEntity.getEntityType() == EntityType.MONSTER) {
+                        entityEditor.getTabbedPane().switchTab(entityEditor.getMonsterTab());
+                        entityEditor.getMonsterTab().loadAiEntity((AiEntity) clickedEntity);
+                    } else if (clickedEntity.getEntityType() == EntityType.NPC) {
+                        entityEditor.getTabbedPane().switchTab(entityEditor.getNpcTab());
+                        entityEditor.getNpcTab().loadAiEntity((AiEntity) clickedEntity);
+                    } else if (clickedEntity.getEntityType() == EntityType.ITEM_STACK) {
+                        entityEditor.getTabbedPane().switchTab(entityEditor.getItemStackDropTab());
+                        entityEditor.getItemStackDropTab().loadEntity((ItemStackDrop) clickedEntity);
+                    }
+                    ActorUtil.fadeInWindow(entityEditor);
+
+                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
+                    cleanUpDropDownMenu(true);
+                }
+            });
+        }
+    }
+
     class MenuEntry extends VisTable {
 
         private final MovingEntity clickedEntity;
@@ -162,7 +212,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             this.clickedEntity = clickedEntity;
 
             addInspectPlayerButton();
-            addEditEntityButton();
             addOpenBankButton();
             addTargetButton();
             addAttackButton();
@@ -193,38 +242,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             });
         }
 
-        private void addEditEntityButton() {
-            if (!(clickedEntity instanceof AiEntity)) return;
-            if (!Valenguard.getInstance().isAdmin()) return;
-
-            VisTextButton editEntityButton = new VisTextButton("Edit " + clickedEntity.getEntityName());
-            editEntityButton.setColor(Color.YELLOW);
-            add(editEntityButton).expand().fill().row();
-
-            editEntityButton.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    StageHandler stageHandler = ActorUtil.getStageHandler();
-
-                    EntityEditor entityEditor = stageHandler.getEntityEditor();
-                    if (clickedEntity.getEntityType() == EntityType.MONSTER) {
-                        entityEditor.getTabbedPane().switchTab(entityEditor.getMonsterTab());
-                        entityEditor.getMonsterTab().loadAiEntity((AiEntity) clickedEntity);
-                    } else if (clickedEntity.getEntityType() == EntityType.NPC) {
-                        entityEditor.getTabbedPane().switchTab(entityEditor.getNpcTab());
-                        entityEditor.getNpcTab().loadAiEntity((AiEntity) clickedEntity);
-                    }
-                    ActorUtil.fadeInWindow(entityEditor);
-
-                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
-                    cleanUpDropDownMenu(true);
-                }
-            });
-        }
-
         private void addOpenBankButton() {
-            if (!(clickedEntity instanceof AiEntity)) return;
             if (!((AiEntity) clickedEntity).isBankKeeper()) return;
 
             VisTextButton openBankButton = new VisTextButton("Open Bank");
