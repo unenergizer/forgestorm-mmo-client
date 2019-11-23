@@ -373,6 +373,13 @@ public class ItemStackDropTab extends EditorTab {
         itemStackId.setText(Integer.toString(itemStackIDNum));
         itemStackPreview.setDrawable(new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegion()).buildVisImage().getDrawable());
         scrollProgress.setText(itemStackIDNum + " / " + (amount - 1));
+
+        if (itemStack.getStackable() == 1) {
+            stackSize.setText("1");
+            stackSize.setDisabled(true);
+        } else {
+            stackSize.setDisabled(false);
+        }
     }
 
     private ItemStackDropData generateDataOut(boolean save, boolean delete) {
