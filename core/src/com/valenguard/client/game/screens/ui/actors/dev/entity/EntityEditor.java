@@ -23,7 +23,7 @@ public class EntityEditor extends HideableVisWindow implements Buildable, Focusa
     private TabbedPane tabbedPane = new TabbedPane();
     private NpcTab npcTab = new NpcTab(this);
     private MonsterTab monsterTab = new MonsterTab(this);
-    private ItemStackDrop itemStackDropTab = new ItemStackDrop(this);
+    private ItemStackDropTab itemStackDropTab = new ItemStackDropTab(this);
 
     public EntityEditor() {
         super("Entity Editor");

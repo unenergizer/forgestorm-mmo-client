@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.valenguard.client.game.world.entities.AiEntity;
 
 public interface AppearancePanel {

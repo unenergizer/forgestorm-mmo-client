@@ -8,6 +8,8 @@ import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
@@ -205,41 +207,42 @@ public class NPCAppearancePanel implements AppearancePanel {
 
     @Override
     public EntityEditorData getDataOut(EntityEditorData entityEditorData) {
+        NPCData npcData = (NPCData) entityEditorData;
 
         byte noEquip = -1;
-        entityEditorData.setHairTexture((byte) hairData.getData());
+        npcData.setHairTexture((byte) hairData.getData());
 
         if (helmData.isUse()) {
-            entityEditorData.setHelmTexture((byte) helmData.getData());
+            npcData.setHelmTexture((byte) helmData.getData());
         } else {
-            entityEditorData.setHelmTexture(noEquip);
+            npcData.setHelmTexture(noEquip);
         }
 
         if (chestData.isUse()) {
-            entityEditorData.setChestTexture((byte) chestData.getData());
+            npcData.setChestTexture((byte) chestData.getData());
         } else {
-            entityEditorData.setChestTexture(noEquip);
+            npcData.setChestTexture(noEquip);
         }
 
         if (pantsData.isUse()) {
-            entityEditorData.setPantsTexture((byte) pantsData.getData());
+            npcData.setPantsTexture((byte) pantsData.getData());
         } else {
-            entityEditorData.setPantsTexture(noEquip);
+            npcData.setPantsTexture(noEquip);
         }
 
         if (shoesData.isUse()) {
-            entityEditorData.setShoesTexture((byte) shoesData.getData());
+            npcData.setShoesTexture((byte) shoesData.getData());
         } else {
-            entityEditorData.setShoesTexture(noEquip);
+            npcData.setShoesTexture(noEquip);
         }
 
 
-        entityEditorData.setHairColor(hairColor.getFinishedColor());
-        entityEditorData.setEyesColor(eyeColor.getFinishedColor());
-        entityEditorData.setSkinColor(skinColor.getFinishedColor());
-        entityEditorData.setGlovesColor(glovesColor.getFinishedColor());
+        npcData.setHairColor(hairColor.getFinishedColor());
+        npcData.setEyesColor(eyeColor.getFinishedColor());
+        npcData.setSkinColor(skinColor.getFinishedColor());
+        npcData.setGlovesColor(glovesColor.getFinishedColor());
 
-        return entityEditorData;
+        return npcData;
     }
 
     @Override

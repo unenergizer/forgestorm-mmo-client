@@ -1,5 +1,7 @@
 package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Appearance;
 
@@ -45,7 +47,7 @@ public class MonsterAppearancePanel implements AppearancePanel {
     @Override
     public EntityEditorData getDataOut(EntityEditorData entityEditorData) {
 
-        entityEditorData.setMonsterBodyTexture((byte) bodyData.getData());
+        ((MonsterData) entityEditorData).setMonsterBodyTexture((byte) bodyData.getData());
 
         return entityEditorData;
     }

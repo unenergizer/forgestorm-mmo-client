@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisSlider;
@@ -19,9 +20,10 @@ import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
-import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.network.game.packet.out.AdminEditorEntityPacketOut;
 
@@ -47,6 +49,7 @@ public class MonsterTab extends EditorTab {
     private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
     private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
     private VisValidatableTextField shopId = new VisValidatableTextField("-1");
+    private VisCheckBox isBankKeeper = new VisCheckBox("", false);
 
     @Getter
     private boolean selectSpawnActivated = false;
@@ -88,6 +91,7 @@ public class MonsterTab extends EditorTab {
         probStill.setValue(0);
         probWalk.setValue(0);
         shopId.setText("-1");
+        isBankKeeper.setChecked(false);
         selectSpawnActivated = false;
         mapName.setText("");
         mapX.setText("");
@@ -114,6 +118,7 @@ public class MonsterTab extends EditorTab {
         probStill.setValue(aiEntity.getProbWalkStill());
         probWalk.setValue(aiEntity.getProbWalkStart());
         shopId.setText(Integer.toString(aiEntity.getShopID()));
+        isBankKeeper.setChecked(aiEntity.isBankKeeper());
         mapName.setText(aiEntity.getDefaultSpawnLocation().getMapName());
         mapX.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getX()));
         mapY.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getY()));
@@ -164,6 +169,7 @@ public class MonsterTab extends EditorTab {
         valueSlider(leftPane, "Probability Still:", probStill);
         valueSlider(leftPane, "Probability Walk:", probWalk);
         textField(leftPane, "Shop ID:", shopId);
+        checkBox(leftPane, "Set as Bank Keeper?", isBankKeeper);
 
         validator.notEmpty(name, "Name must not be empty.");
         validator.valueGreaterThan(health, "Health must be greater than 0.", 1, true);
@@ -287,6 +293,7 @@ public class MonsterTab extends EditorTab {
                 println(MonsterTab.class, "Probability Still: " + probStill.getValue());
                 println(MonsterTab.class, "Probability Walk: " + probWalk.getValue());
                 println(MonsterTab.class, "ShopID: " + shopId.getText());
+                println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
                 println(MonsterTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
                 println(MonsterTab.class, "--- Appearance ---");
 
@@ -361,33 +368,25 @@ public class MonsterTab extends EditorTab {
     }
 
     private EntityEditorData generateDataOut(boolean save, boolean delete) {
-        EntityEditorData entityEditorData = new EntityEditorData();
-
-        entityEditorData.setEntityType(EntityType.MONSTER);
-        entityEditorData.setSpawn(true);
-        entityEditorData.setSave(save);
-        entityEditorData.setDelete(delete);
-
-        // Basic data
-        entityEditorData.setEntityID(entityIDNum);
-        entityEditorData.setName(name.getText());
-        entityEditorData.setEntityAlignment(entityAlignment.getSelected());
-        entityEditorData.setHealth(Integer.valueOf(health.getText()));
-        entityEditorData.setDamage(Integer.valueOf(damage.getText()));
-        entityEditorData.setExpDrop(Integer.valueOf(expDrop.getText()));
-        entityEditorData.setDropTable(Integer.valueOf(dropTable.getText()));
-        entityEditorData.setWalkSpeed(walkSpeed.getValue());
-        entityEditorData.setProbStop(probStill.getValue());
-        entityEditorData.setProbWalk(probWalk.getValue());
-        entityEditorData.setShopId(Short.valueOf(shopId.getText()));
-        entityEditorData.setBankKeeper(false); // TODO
-
-        // World data
-        entityEditorData.setSpawnLocation(new Location(
+        Location location = new Location(
                 mapName.getText(),
                 Short.valueOf(mapX.getText()),
-                Short.valueOf(mapY.getText()))
-        );
+                Short.valueOf(mapY.getText()));
+
+        EntityEditorData entityEditorData = new MonsterData(true, save, delete, location, entityIDNum);
+
+        // Basic data
+        ((MonsterData) entityEditorData).setName(name.getText());
+        ((MonsterData) entityEditorData).setEntityAlignment(entityAlignment.getSelected());
+        ((MonsterData) entityEditorData).setHealth(Integer.valueOf(health.getText()));
+        ((MonsterData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));
+        ((MonsterData) entityEditorData).setExpDrop(Integer.valueOf(expDrop.getText()));
+        ((MonsterData) entityEditorData).setDropTable(Integer.valueOf(dropTable.getText()));
+        ((MonsterData) entityEditorData).setWalkSpeed(walkSpeed.getValue());
+        ((MonsterData) entityEditorData).setProbStop(probStill.getValue());
+        ((MonsterData) entityEditorData).setProbWalk(probWalk.getValue());
+        ((MonsterData) entityEditorData).setShopId(Short.valueOf(shopId.getText()));
+        ((MonsterData) entityEditorData).setBankKeeper(isBankKeeper.isChecked());
 
         // Appearance
         entityEditorData = appearancePanel.getDataOut(entityEditorData);

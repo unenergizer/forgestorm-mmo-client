@@ -18,17 +18,19 @@ import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackManager;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.io.type.GameAtlas;
+import com.valenguard.client.network.game.packet.out.AdminEditorEntityPacketOut;
 
 import lombok.Getter;
 
 import static com.valenguard.client.util.Log.println;
 
-public class ItemStackDrop extends EditorTab {
+public class ItemStackDropTab extends EditorTab {
 
     private final ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
     private final int amount = itemStackManager.getItemStackArraySize();
@@ -40,7 +42,9 @@ public class ItemStackDrop extends EditorTab {
     private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
     private int itemStackIDNum = 0;
     private VisValidatableTextField itemStackId = new VisValidatableTextField();
-    private VisValidatableTextField respawnTime = new VisValidatableTextField();
+    private VisValidatableTextField stackSize = new VisValidatableTextField();
+    private VisValidatableTextField respawnTimeMin = new VisValidatableTextField();
+    private VisValidatableTextField respawnTimeMax = new VisValidatableTextField();
 
     @Getter
     private boolean selectSpawnActivated = false;
@@ -56,7 +60,7 @@ public class ItemStackDrop extends EditorTab {
     private VisLabel scrollProgress = new VisLabel();
     private VisImage itemStackPreview = new VisImage();
 
-    ItemStackDrop(EntityEditor entityEditor) {
+    ItemStackDropTab(EntityEditor entityEditor) {
         this.entityEditor = entityEditor;
         this.title = " ItemStack Drop ";
 
@@ -69,7 +73,9 @@ public class ItemStackDrop extends EditorTab {
         entityID.setText(Short.toString(entityIDNum));
         itemStackIDNum = 0;
         itemStackId.setText("0");
-        respawnTime.setText("");
+        stackSize.setText("1");
+        respawnTimeMin.setText("");
+        respawnTimeMax.setText("");
         selectSpawnActivated = false;
         mapName.setText("");
         mapX.setText("");
@@ -77,10 +83,6 @@ public class ItemStackDrop extends EditorTab {
 
         updateEditorDisplay();
     }
-
-    // ItemStack
-    // Respawn times (after pickup)
-    // Choose location
 
     @Override
     public void build() {
@@ -108,10 +110,14 @@ public class ItemStackDrop extends EditorTab {
         leftPane.add(entityIdTable).row();
 
         textField(leftPane, "ItemStack ID:", itemStackId);
-        textField(leftPane, "Respawn Time (minutes):", respawnTime);
+        textField(leftPane, "ItemStack Amount:", stackSize);
+        textField(leftPane, "Minimal Respawn Time (minutes):", respawnTimeMin);
+        textField(leftPane, "Maximal Respawn Time (minutes):", respawnTimeMax);
         itemStackId.setDisabled(true);
 
-        validator.valueGreaterThan(respawnTime, "Respawn times must be greater than -1.", 0, true);
+        validator.valueGreaterThan(stackSize, "Stack size must be greater than 0.", 1, true);
+        validator.valueGreaterThan(respawnTimeMin, "Respawn times must be greater than -1.", 0, true);
+        validator.valueGreaterThan(respawnTimeMax, "Respawn times must be greater than -1.", 0, true);
         validator.notEmpty(mapName, "Map name must not be empty.");
         validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
         validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
@@ -217,7 +223,10 @@ public class ItemStackDrop extends EditorTab {
             public void changed(ChangeEvent event, Actor actor) {
                 println(MonsterTab.class, "--- Settings ---");
                 println(MonsterTab.class, "EntityID: " + entityID.getText());
-                println(MonsterTab.class, "RespawnTime (minutes): " + respawnTime.getText());
+                println(MonsterTab.class, "ItemStackID: " + itemStackId.getText());
+                println(MonsterTab.class, "StackSize: " + stackSize.getText());
+                println(MonsterTab.class, "Min RespawnTime (minutes): " + respawnTimeMin.getText());
+                println(MonsterTab.class, "Max RespawnTime (minutes): " + respawnTimeMax.getText());
                 println(MonsterTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
                 println(MonsterTab.class, "--- Appearance ---");
             }
@@ -236,7 +245,7 @@ public class ItemStackDrop extends EditorTab {
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
+                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
                 ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
             }
@@ -262,7 +271,7 @@ public class ItemStackDrop extends EditorTab {
                     @Override
                     public void yes() {
                         Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Entity deleted forever!");
-//                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
                         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
@@ -347,25 +356,19 @@ public class ItemStackDrop extends EditorTab {
         scrollProgress.setText(itemStackIDNum + " / " + (amount - 1));
     }
 
-    private EntityEditorItemStackData generateDataOut(boolean save, boolean delete) {
-
-        EntityEditorItemStackData entityEditorData = new EntityEditorItemStackData();
-
-        entityEditorData.setSpawn(true);
-        entityEditorData.setSave(save);
-        entityEditorData.setDelete(delete);
-
-        // Basic data
-        entityEditorData.setEntityID(entityIDNum);
-        entityEditorData.setItemStackId(Integer.parseInt(itemStackId.getText()));
-        entityEditorData.setRespawnTime(Short.parseShort(respawnTime.getText()));
-
-        // World data
-        entityEditorData.setSpawnLocation(new Location(
+    private ItemStackDropData generateDataOut(boolean save, boolean delete) {
+        Location location = new Location(
                 mapName.getText(),
                 Short.valueOf(mapX.getText()),
-                Short.valueOf(mapY.getText()))
-        );
+                Short.valueOf(mapY.getText()));
+
+        ItemStackDropData entityEditorData = new ItemStackDropData(true, save, delete, location, entityIDNum);
+
+        // Basic data
+        entityEditorData.setItemStackId(Integer.parseInt(itemStackId.getText()));
+        entityEditorData.setAmount(Integer.parseInt(stackSize.getText()));
+        entityEditorData.setRespawnTimeMin(Short.parseShort(respawnTimeMin.getText()));
+        entityEditorData.setRespawnTimeMax(Short.parseShort(respawnTimeMax.getText()));
 
         return entityEditorData;
     }

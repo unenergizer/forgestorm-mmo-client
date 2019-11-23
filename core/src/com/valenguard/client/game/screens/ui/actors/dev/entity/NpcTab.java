@@ -24,9 +24,10 @@ import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
+import com.valenguard.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
-import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.io.type.GameAtlas;
@@ -426,33 +427,25 @@ public class NpcTab extends EditorTab {
     }
 
     private EntityEditorData generateDataOut(boolean save, boolean delete) {
-        EntityEditorData entityEditorData = new EntityEditorData();
-
-        entityEditorData.setEntityType(EntityType.NPC);
-        entityEditorData.setSpawn(true);
-        entityEditorData.setSave(save);
-        entityEditorData.setDelete(delete);
-
-        // Basic data
-        entityEditorData.setEntityID(entityIDNum);
-        entityEditorData.setName(name.getText());
-        entityEditorData.setFaction(faction.getText());
-        entityEditorData.setHealth(Integer.valueOf(health.getText()));
-        entityEditorData.setDamage(Integer.valueOf(damage.getText()));
-        entityEditorData.setExpDrop(Integer.valueOf(expDrop.getText()));
-        entityEditorData.setDropTable(Integer.valueOf(dropTable.getText()));
-        entityEditorData.setWalkSpeed(walkSpeed.getValue());
-        entityEditorData.setProbStop(probStill.getValue());
-        entityEditorData.setProbWalk(probWalk.getValue());
-        entityEditorData.setShopId(Short.valueOf(shopId.getText()));
-        entityEditorData.setBankKeeper(isBankKeeper.isChecked());
-
-        // World data
-        entityEditorData.setSpawnLocation(new Location(
+        Location location = new Location(
                 mapName.getText(),
                 Short.valueOf(mapX.getText()),
-                Short.valueOf(mapY.getText()))
-        );
+                Short.valueOf(mapY.getText()));
+
+        EntityEditorData entityEditorData = new NPCData(true, save, delete, location, entityIDNum);
+
+        // Basic data
+        ((NPCData) entityEditorData).setName(name.getText());
+        ((NPCData) entityEditorData).setFaction(faction.getText());
+        ((NPCData) entityEditorData).setHealth(Integer.valueOf(health.getText()));
+        ((NPCData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));
+        ((NPCData) entityEditorData).setExpDrop(Integer.valueOf(expDrop.getText()));
+        ((NPCData) entityEditorData).setDropTable(Integer.valueOf(dropTable.getText()));
+        ((NPCData) entityEditorData).setWalkSpeed(walkSpeed.getValue());
+        ((NPCData) entityEditorData).setProbStop(probStill.getValue());
+        ((NPCData) entityEditorData).setProbWalk(probWalk.getValue());
+        ((NPCData) entityEditorData).setShopId(Short.valueOf(shopId.getText()));
+        ((NPCData) entityEditorData).setBankKeeper(isBankKeeper.isChecked());
 
         // Appearance
         entityEditorData = appearancePanel.getDataOut(entityEditorData);

@@ -1,4 +1,4 @@
-package com.valenguard.client.game.screens.ui.actors.dev.entity;
+package com.valenguard.client.game.screens.ui.actors.dev.entity.data;
 
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.game.rpg.EntityAlignment;
@@ -10,17 +10,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EntityEditorData {
+public class NPCData extends EntityEditorData {
 
-    private EntityType entityType;
-
-    // Editor data
-    private boolean spawn;
-    private boolean save;
-    private boolean delete;
-
-    // Basic data
-    private short entityID;
     private String name;
     private String faction;
     private EntityAlignment entityAlignment;
@@ -34,12 +25,6 @@ public class EntityEditorData {
     private short shopId;
     private boolean bankKeeper;
 
-    // World data
-    private Location spawnLocation;
-
-    // Monster Appearance
-    private byte monsterBodyTexture;
-
     // NPC Appearance
     private byte hairTexture;
     private byte helmTexture;
@@ -50,4 +35,8 @@ public class EntityEditorData {
     private Color eyesColor;
     private Color skinColor;
     private Color glovesColor;
+
+    public NPCData(boolean spawn, boolean save, boolean delete, Location spawnLocation, short entityID) {
+        super(EntityType.NPC, spawn, save, delete, spawnLocation, entityID);
+    }
 }
