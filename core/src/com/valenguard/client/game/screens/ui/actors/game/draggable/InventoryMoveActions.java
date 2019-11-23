@@ -18,7 +18,7 @@ public class InventoryMoveActions {
                           ItemStack sourceItemStack, ItemStack targetItemStack) {
 
         boolean isStack = false;
-        if (targetItemStack != null && sourceItemStack.getStackable() > 0 && targetItemStack.getStackable() > 0
+        if (targetItemStack != null && sourceItemStack.getStackable() > 1 && targetItemStack.getStackable() > 1
                 && sourceItemStack.getItemStackType() == targetItemStack.getItemStackType()) {
 
             // TODO: Check max size if (true) -?> return

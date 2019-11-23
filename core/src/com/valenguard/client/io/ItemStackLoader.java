@@ -80,7 +80,7 @@ public class ItemStackLoader {
             if (stackable != null) {
                 itemStack.setStackable(stackable);
             } else {
-                itemStack.setStackable(0);
+                itemStack.setStackable(1);
             }
 
             itemStack.setAmount(-1);

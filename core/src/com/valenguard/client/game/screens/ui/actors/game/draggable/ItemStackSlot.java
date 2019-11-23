@@ -223,7 +223,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         stack.add(itemStackImage);
 
         // Add item amount
-        if (itemStack.getStackable() > 0) {
+        if (itemStack.getStackable() > 1) {
             displayItemAmount();
         } else {
             amountLabel.setText("");
@@ -261,7 +261,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         itemStackToolTip.registerToolTip();
 
         // Add item amount
-        if (itemStack.getStackable() > 0) {
+        if (itemStack.getStackable() > 1) {
             displayItemAmount();
         } else {
             amountLabel.remove();

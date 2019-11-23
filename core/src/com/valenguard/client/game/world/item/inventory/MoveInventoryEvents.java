@@ -112,7 +112,7 @@ public class MoveInventoryEvents {
             changeEquipment(toWindow.getItemStackSlot(toPosition), fromWindow.getItemStackSlot(fromPosition));
 
             // Unstack items
-            if (toItemStack != null && fromItemStack.getStackable() > 0 && toItemStack.getStackable() > 0
+            if (toItemStack != null && fromItemStack.getStackable() > 1 && toItemStack.getStackable() > 1
                     && fromItemStack.getItemStackType() == toItemStack.getItemStackType()) {
                 fromItemStack.setAmount(fromItemStack.getAmount() + toItemStack.getAmount());
                 toWindow.setItemStack(toPosition, fromItemStack);
