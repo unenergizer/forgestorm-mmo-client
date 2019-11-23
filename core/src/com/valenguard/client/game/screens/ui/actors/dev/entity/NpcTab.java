@@ -187,6 +187,7 @@ public class NpcTab extends EditorTab {
         validator.notEmpty(faction, "Faction must not be empty.");
         validator.valueGreaterThan(health, "Health must be greater than 0.", 1, true);
         validator.integerNumber(damage, "Damage must be a valid number.");
+        validator.valueGreaterThan(damage, "Damage must be greater than 1", 1);
         validator.integerNumber(expDrop, "Experience Drop must be a valid number.");
         validator.integerNumber(dropTable, "Drop Table must be a valid number.");
         validator.integerNumber(shopId, "Shop ID must be a valid number.");
