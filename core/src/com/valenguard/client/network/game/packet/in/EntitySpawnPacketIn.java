@@ -56,6 +56,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case ITEM_STACK:
                 if (Valenguard.getInstance().isAdmin()) {
+                    entitySpawnPacket.setSpawnedFromDropTable(clientHandler.readBoolean());
                     entitySpawnPacket.setItemStackId(clientHandler.readInt());
                     entitySpawnPacket.setStackSize(clientHandler.readInt());
                     entitySpawnPacket.setRespawnTimeMin(clientHandler.readInt());
@@ -282,6 +283,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             case ITEM_STACK:
                 if (Valenguard.getInstance().isAdmin()) {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) entity;
+                    itemStackDrop.setSpawnedFromDropTable(packetData.spawnedFromDropTable);
                     itemStackDrop.setItemStackId(packetData.itemStackId);
                     itemStackDrop.setStackSize(packetData.stackSize);
                     itemStackDrop.setRespawnTimeMin(packetData.respawnTimeMin);
@@ -384,6 +386,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private Location defaultSpawnLocation;
 
         // Admin data ItemStackDrop
+        private boolean spawnedFromDropTable;
         private int itemStackId;
         private int stackSize;
         private int respawnTimeMin;

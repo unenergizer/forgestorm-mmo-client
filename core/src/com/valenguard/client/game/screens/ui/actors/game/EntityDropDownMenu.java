@@ -172,6 +172,10 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             if (clickedEntity.getEntityType() == EntityType.PLAYER ||
                     clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER) return;
             if (!Valenguard.getInstance().isAdmin()) return;
+            if (clickedEntity.getEntityType() == EntityType.ITEM_STACK) {
+                // If this ItemStackDrop spawned from an Entity Kill, then don't allow editor button
+                if (((ItemStackDrop) clickedEntity).isSpawnedFromDropTable()) return;
+            }
 
             VisTextButton editEntityButton = new VisTextButton("Edit " + clickedEntity.getEntityName());
             editEntityButton.setColor(Color.YELLOW);
