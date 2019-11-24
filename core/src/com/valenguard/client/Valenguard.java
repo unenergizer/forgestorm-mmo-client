@@ -19,14 +19,16 @@ import com.valenguard.client.game.screens.ScreenType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.effects.EffectManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.scripting.NPCTextDialog;
+import com.valenguard.client.game.scripting.ScriptProcessor;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStackManager;
 import com.valenguard.client.game.world.item.inventory.MoveInventoryEvents;
 import com.valenguard.client.game.world.item.trade.TradeManager;
 import com.valenguard.client.game.world.maps.MapManager;
 import com.valenguard.client.io.FileManager;
-import com.valenguard.client.io.LanguageLoader;
 import com.valenguard.client.io.NetworkSettingsLoader;
+import com.valenguard.client.io.ScriptManager;
 import com.valenguard.client.network.ConnectionManager;
 import com.valenguard.client.network.game.ClientGameConnection;
 import com.valenguard.client.network.game.Consumer;
@@ -97,6 +99,8 @@ public class Valenguard extends Game {
     private AbilityManager abilityManager;
     private EffectManager effectManager;
     private LanguageManager languageManager;
+    private ScriptManager scriptManager;
+    private ScriptProcessor scriptProcessor;
 
     private TradeManager tradeManager;
 
@@ -139,6 +143,8 @@ public class Valenguard extends Game {
         abilityManager = new AbilityManager();
         effectManager = new EffectManager();
         languageManager = new LanguageManager();
+        scriptManager = new ScriptManager(ideRun);
+        scriptProcessor = new ScriptProcessor();
 
         // loadItems screens
         gameScreen = new GameScreen();

@@ -35,6 +35,7 @@ allprojects {
         jsoupVersion = '1.12.1'
         apacheCommonsCodec = '1.12'
         typingLabelVersion = '1.1.0'
+        rhinoVersion = '1.7.11'
     }
 
     repositories {
@@ -109,6 +110,7 @@ project(":core") {
         compile "org.jsoup:jsoup:$jsoupVersion"
         compile "commons-codec:commons-codec:$apacheCommonsCodec"
         compile "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
+        compile "org.mozilla:rhino:$rhinoVersion"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }

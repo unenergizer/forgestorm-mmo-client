@@ -35,7 +35,7 @@ public class MapManager implements Disposable {
     }
 
     private void loadDesktopJar() {
-        Collection<String> files = ResourceList.getMapResources(FilePaths.MAPS.getFilePath(), ".tmx");
+        Collection<String> files = ResourceList.getDirectoryResources(FilePaths.MAPS.getFilePath(), ".tmx");
 
         for (String fileName : files) {
             String mapName = fileName.substring(FilePaths.MAPS.getFilePath().length() + 1);

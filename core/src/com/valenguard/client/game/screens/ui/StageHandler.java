@@ -49,6 +49,7 @@ import com.valenguard.client.game.screens.ui.actors.login.RssAnnouncements;
 import com.valenguard.client.game.screens.ui.actors.login.VersionTable;
 import com.valenguard.client.game.screens.ui.actors.settings.FPSTable;
 import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
+import com.valenguard.client.game.scripting.NPCTextDialog;
 import com.valenguard.client.io.type.GameSkin;
 
 import lombok.Getter;
@@ -94,6 +95,7 @@ public class StageHandler implements Disposable {
     private StatusBar statusBar;
     private AbilityBar abilityBar;
     private ChatDialogue chatDialogue;
+    private NPCTextDialog npcTextDialog;
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
@@ -140,6 +142,7 @@ public class StageHandler implements Disposable {
         loginTable = new LoginTable();
         connectionStatusWindow = new ConnectionStatusWindow();
         rssAnnouncements = new RssAnnouncements();
+        npcTextDialog = new NPCTextDialog();
 
         stage.addActor(buttonTable.build());
         stage.addActor(versionTable.build());
@@ -218,6 +221,8 @@ public class StageHandler implements Disposable {
         stage.addActor(statusBar.build());
         stage.addActor(abilityBar.build());
         stage.addActor(chatDialogue.build());
+        stage.addActor(npcTextDialog.build());
+        Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
         ActorUtil.fadeInWindow(chatWindow);
 

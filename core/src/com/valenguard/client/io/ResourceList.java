@@ -14,7 +14,7 @@ import java.util.zip.ZipFile;
  */
 public class ResourceList {
 
-    public static Collection<String> getMapResources(String directory, String extension) {
+    public static Collection<String> getDirectoryResources(String directory, String extension) {
         final ArrayList<String> returnValue = new ArrayList<String>();
         final String classPath = System.getProperty("java.class.path", "./" + directory);
         final String[] classPathElements = classPath.split(System.getProperty("path.separator"));
