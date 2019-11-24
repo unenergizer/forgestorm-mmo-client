@@ -8,6 +8,7 @@ import com.valenguard.client.io.type.GameAtlas;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -93,7 +94,7 @@ public class EntityManager implements Disposable {
         return itemStackDropList.get(entityId);
     }
 
-    public void drawEntityBodies(float delta, SpriteBatch spriteBatch) {
+    public void drawEntityBodies(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
         // Draw Items on ground
         for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
             ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack((int) itemStackDrop.getAppearance().getMonsterBodyTexture(), 1);
@@ -103,13 +104,22 @@ public class EntityManager implements Disposable {
         for (StationaryEntity stationaryEntity : stationaryEntityList.values()) {
             spriteBatch.draw(Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getMonsterBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
+
+        PriorityQueue<MovingEntity> yAxisSortedEntities = new PriorityQueue<MovingEntity>();
+
         // Draw moving entities over items and stationary entities
-        for (MovingEntity movingEntity : aiEntityList.values()) {
-            movingEntity.getEntityAnimation().animate(delta, spriteBatch);
+        for (AiEntity movingEntity : aiEntityList.values()) {
+            yAxisSortedEntities.add(movingEntity);
         }
+
         // Draw player entities over items and stationary entities
         for (Player player : playerEntityList.values()) {
-            player.getEntityAnimation().animate(delta, spriteBatch);
+            yAxisSortedEntities.add(player);
+        }
+        yAxisSortedEntities.add(playerClient);
+        while (!yAxisSortedEntities.isEmpty()) {
+            MovingEntity movingEntity = yAxisSortedEntities.poll();
+            movingEntity.getEntityAnimation().animate(delta, spriteBatch);
         }
     }
 

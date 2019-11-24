@@ -160,8 +160,8 @@ public class GameScreen implements Screen {
         spriteBatch.setProjectionMatrix(camera.combined);
 
         // Animate
-        EntityManager.getInstance().drawEntityBodies(delta, spriteBatch);
-        playerClient.getEntityAnimation().animate(delta, spriteBatch);
+        EntityManager.getInstance().drawEntityBodies(delta, spriteBatch, playerClient);
+        //playerClient.getEntityAnimation().animate(delta, spriteBatch);
 
         spriteBatch.end();
 

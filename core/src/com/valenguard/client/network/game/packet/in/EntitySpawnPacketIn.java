@@ -126,6 +126,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setGlovesColor(new Color(clientHandler.readInt()));
                 entitySpawnPacket.setLeftHandTexture(clientHandler.readByte());
                 entitySpawnPacket.setRightHandTexture(clientHandler.readByte());
+                entitySpawnPacket.setScriptId(clientHandler.readInt());
                 break;
             case CLIENT_PLAYER:
             case PLAYER:
@@ -230,6 +231,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     npc.setProbWalkStill(packetData.probWalkStill);
                     npc.setProbWalkStart(packetData.probWalkStart);
                     npc.setDefaultSpawnLocation(packetData.defaultSpawnLocation);
+                    npc.setScriptId(packetData.scriptId);
                 }
 
                 appearance.setHairTexture(packetData.hairTexture);
@@ -418,6 +420,9 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private Color glovesColor;
         private byte leftHandTexture;
         private byte rightHandTexture;
+
+        // Scripting
+        private int scriptId;
 
         EntitySpawnPacket(short entityId, EntityType entityType) {
             this.entityId = entityId;
