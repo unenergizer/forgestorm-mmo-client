@@ -155,8 +155,8 @@ public class StageHandler implements Disposable {
 
         buildSharedActorsUI();
 
-        FocusManager.switchFocus(stage, loginTable.getAccountField());
-        stage.setKeyboardFocus(loginTable.getAccountField());
+        FocusManager.switchFocus(stage, loginTable.getUsernameField());
+        stage.setKeyboardFocus(loginTable.getUsernameField());
     }
 
     private void buildCharacterSelectUI() {

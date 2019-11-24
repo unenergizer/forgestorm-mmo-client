@@ -23,9 +23,9 @@ import lombok.Getter;
 @Getter
 public class LoginTable extends VisTable implements Buildable, Disposable {
 
-    private VisTextField accountField = null;
-    private VisTextField passwordField = null;
-    private VisTextButton loginButton = null;
+    private VisTextField usernameField = new VisTextField();
+    private VisTextField passwordField = new VisTextField();
+    private VisTextButton loginButton = new VisTextButton("");
 
     @Override
     public Actor build() {
@@ -46,27 +46,23 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
 
         // If the account field existed before a stage rebuild, keep its contents.
         // Basically if the player tries to connect but fails, keep their login id.
-        if (accountField == null) {
-            accountField = new VisTextField(null);
-            accountField.setFocusTraversal(false);
-            accountField.setMaxLength(12);
-        }
+        usernameField.setFocusTraversal(false);
+        usernameField.setMaxLength(12);
 
-        passwordField = new VisTextField(null);
         passwordField.setFocusTraversal(false);
         passwordField.setPasswordMode(true);
         passwordField.setPasswordCharacter('#');
         passwordField.setMaxLength(16);
 
         // Set prefilled credentials
-        accountField.setText(Valenguard.getInstance().getLoginCredentials().getUsername());
+        usernameField.setText(Valenguard.getInstance().getLoginCredentials().getUsername());
         passwordField.setText(Valenguard.getInstance().getLoginCredentials().getPassword());
 
-        loginButton = new VisTextButton("Login");
+        loginButton.setText("Login");
 
         // addUi widgets to table
         loginTable.add(accountLabel);
-        loginTable.add(accountField).uniform();
+        loginTable.add(usernameField).uniform();
         loginTable.row();
         loginTable.add(passwordLabel);
         loginTable.add(passwordField).uniform();
@@ -80,8 +76,10 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         add(mainTable);
 
         // setup event listeners
-        accountField.setTextFieldListener(new AccountInput());
+        usernameField.setTextFieldListener(new AccountInput());
         passwordField.setTextFieldListener(new PasswordInput());
+
+        usernameField.setCursorAtTextEnd();
 
         // login to network
         loginButton.addListener(new ChangeListener() {
@@ -116,7 +114,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         Gdx.input.setOnscreenKeyboardVisible(false); // logout the android keyboard
 
         // TODO: Use these details for user authentication
-        String username = accountField.getText();
+        String username = usernameField.getText();
         String password = passwordField.getText();
 
         // Clear password filed.
@@ -146,6 +144,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
             if (c == '\n' || c == '\r' || c == '\t') {
                 FocusManager.switchFocus(ActorUtil.getStage(), passwordField);
                 ActorUtil.getStage().setKeyboardFocus(passwordField);
+                passwordField.setCursorAtTextEnd();
             }
         }
     }
@@ -155,8 +154,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         public void keyTyped(VisTextField textField, char c) {
             if (c == '\t') {
                 // user hit tab, lets playerMove to account text field
-                FocusManager.switchFocus(ActorUtil.getStage(), accountField);
-                ActorUtil.getStage().setKeyboardFocus(accountField);
+                FocusManager.switchFocus(ActorUtil.getStage(), usernameField);
+                ActorUtil.getStage().setKeyboardFocus(usernameField);
             } else if (c == '\n' || c == '\r') {
                 // user hit enter, try login
                 attemptLogin();

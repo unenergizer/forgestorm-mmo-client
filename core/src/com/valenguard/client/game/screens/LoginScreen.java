@@ -5,7 +5,9 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -26,6 +28,7 @@ public class LoginScreen extends ScreenAdapter {
     private static final boolean PRINT_DEBUG = false;
 
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
+    private ScreenViewport screenViewport;
     private SpriteBatch spriteBatch;
     private Pixmap cursorPixmap;
     private Cursor cursor;
@@ -34,7 +37,9 @@ public class LoginScreen extends ScreenAdapter {
     public void show() {
         println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
-        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+
+        // Setup Camera
+        screenViewport = new ScreenViewport();
 
         // Load assets
         fileManager.loadAtlas(GameAtlas.ITEMS);
@@ -47,7 +52,7 @@ public class LoginScreen extends ScreenAdapter {
 //        Gdx.graphics.setCursor(cursor);
 
         // User Interface
-        ActorUtil.getStageHandler().init(null);
+        ActorUtil.getStageHandler().init(screenViewport);
 
         // Setup input controls
         InputMultiplexer multiplexer = new InputMultiplexer();
@@ -57,18 +62,23 @@ public class LoginScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(multiplexer);
 
         // Play audio
-        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
-            musicManager.playMusic(getClass(), (short) 0);
+        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+
+        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
+            if (!musicManager.isMusicPlaying()) musicManager.playMusic(getClass(), (short) 0);
+        }
     }
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(27, 23, 19, 0, true);
+        GraphicsUtils.clearScreen(24, 24, 24, 0, true);
+
+        Texture texture = fileManager.getTexture(GameTexture.LOGIN_BACKGROUND);
 
         // Draw textures
-//        spriteBatch.begin();
-//        spriteBatch.drawScreenEffect(fileManager.getTexture(GameTexture.LOGIN_BACKGROUND), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//        spriteBatch.end();
+        spriteBatch.begin();
+        spriteBatch.draw(texture, 0, 0, texture.getWidth(), texture.getHeight());
+        spriteBatch.end();
 
         // Render UI
         ActorUtil.getStageHandler().render(delta);

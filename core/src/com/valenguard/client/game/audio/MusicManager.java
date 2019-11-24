@@ -69,6 +69,11 @@ public class MusicManager implements Disposable {
         if (currentSong != null) currentSong.setVolume(volume);
     }
 
+    public boolean isMusicPlaying() {
+        if (currentSong == null) return false;
+        return currentSong.isPlaying();
+    }
+
     @Override
     public void dispose() {
         if (currentSong != null) currentSong.dispose();

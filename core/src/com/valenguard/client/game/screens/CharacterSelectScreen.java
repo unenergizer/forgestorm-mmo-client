@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.audio.MusicManager;
@@ -59,17 +60,19 @@ public class CharacterSelectScreen implements Screen {
         Gdx.input.setInputProcessor(multiplexer);
 
         // Play audio
-        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
-            musicManager.playMusic(getClass(), (short) 0);
+//        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
+//            musicManager.playMusic(getClass(), (short) 0);
     }
 
     @Override
     public void render(float delta) {
         GraphicsUtils.clearScreen();
 
+        Texture texture = fileManager.getTexture(GameTexture.LOGIN_BACKGROUND);
+
         // Draw textures
         spriteBatch.begin();
-        spriteBatch.draw(fileManager.getTexture(GameTexture.LOGIN_BACKGROUND), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        spriteBatch.draw(texture, 0, 0, texture.getWidth(), texture.getHeight());
         spriteBatch.end();
 
         // Render UI
