@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.valenguard.client.Valenguard;
@@ -26,27 +25,24 @@ public class CharacterSelectScreen implements Screen {
 
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
     private SpriteBatch spriteBatch;
-    private Pixmap cursorPixmap;
+    //    private Pixmap cursorPixmap;
     private Cursor cursor;
 
     @Override
     public void show() {
         println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
-        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
 
         // Load assets
         fileManager.loadAtlas(GameAtlas.ITEMS);
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
+        fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
 
         // Change cursor
 //        fileManager.loadPixmap(GamePixmap.CURSOR_1);
 //        cursorPixmap = fileManager.getPixmap(GamePixmap.CURSOR_1);
 //        cursor = Gdx.graphics.newCursor(cursorPixmap, cursorPixmap.getWidth() / 2, cursorPixmap.getHeight() / 2);
 //        Gdx.graphics.setCursor(cursor);
-
-        // Load Graphics
-        fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
 
         // User Interface
         ActorUtil.getStageHandler().dispose();
@@ -60,8 +56,10 @@ public class CharacterSelectScreen implements Screen {
         Gdx.input.setInputProcessor(multiplexer);
 
         // Play audio
-//        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic())
-//            musicManager.playMusic(getClass(), (short) 0);
+        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
+            if (!musicManager.isMusicPlaying()) musicManager.playMusic(getClass(), (short) 0);
+        }
     }
 
     @Override
