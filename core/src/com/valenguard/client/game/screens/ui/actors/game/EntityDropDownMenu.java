@@ -267,6 +267,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addOpenBankButton() {
+            if (clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER || clickedEntity.getEntityType() == EntityType.PLAYER)
+                return;
             if (!((AiEntity) clickedEntity).isBankKeeper()) return;
 
             VisTextButton openBankButton = new VisTextButton("Open Bank");
