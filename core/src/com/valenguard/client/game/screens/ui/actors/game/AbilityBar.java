@@ -100,4 +100,16 @@ public class AbilityBar extends VisTable implements Buildable {
         button.setDisabled(false);
         button.setColor(Color.WHITE);
     }
+
+    public void canUseAbilities(boolean bool) {
+        if (bool) {
+            actionOne.setDisabled(true);
+            actionTwo.setDisabled(true);
+            actionThree.setDisabled(true);
+        } else {
+            actionOne.setDisabled(false);
+            actionTwo.setDisabled(false);
+            actionThree.setDisabled(false);
+        }
+    }
 }

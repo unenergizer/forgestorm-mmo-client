@@ -3,6 +3,7 @@ package com.valenguard.client.game.world.entities;
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.SkillOpcodes;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.item.BankActions;
 import com.valenguard.client.game.world.maps.MoveDirection;
@@ -51,6 +52,29 @@ public class PlayerClient extends Player {
         if (distanceMoved >= 9) {
             distanceMoved = 0;
             showLevelUpMessage = false;
+        }
+    }
+
+    public void setTargetEntity(MovingEntity movingEntity) {
+        StageHandler stageHandler = ActorUtil.getStageHandler();
+        if (targetEntity == movingEntity || movingEntity == null) {
+            stageHandler.getChatWindow().appendChatMessage("[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
+        }
+        if (targetEntity == movingEntity) movingEntity = null;
+        if (targetEntity == this) return; // Do not target self
+        if (targetEntity != null) {
+            // remove name highlight
+            targetEntity.setPlayerClientTarget(false);
+        }
+
+        targetEntity = movingEntity;
+
+        if (targetEntity == null) {
+            stageHandler.getAbilityBar().canUseAbilities(false);
+        } else {
+            targetEntity.setPlayerClientTarget(true);
+            stageHandler.getChatWindow().appendChatMessage("[YELLOW]You targeted " + targetEntity.getEntityName() + ".");
+            stageHandler.getAbilityBar().canUseAbilities(false);
         }
     }
 }

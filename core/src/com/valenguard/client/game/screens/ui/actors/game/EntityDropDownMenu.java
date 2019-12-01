@@ -399,7 +399,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     playerClient.setTargetEntity(clickedEntity);
-                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[YELLOW]You targeted " + clickedEntity.getEntityName() + ".");
                     cleanUpDropDownMenu(true);
                 }
             });

@@ -1,7 +1,6 @@
 package com.valenguard.client.game.input;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Timer;
@@ -15,7 +14,6 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
-import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.ItemStackDrop;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.Player;
@@ -131,37 +129,26 @@ public class MouseManager {
             if (entityEditor.getMonsterTab().isSelectSpawnActivated()) return;
         }
 
-        Queue<MoveNode> moveNodes = null;
+        // Left Click target AiEntities
         for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
-
-            if (movingEntity.getEntityType() == EntityType.PLAYER) continue;
-
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-
-                // New Entity click so lets cancelTracking entityTracker
-                Valenguard.getInstance().getEntityTracker().cancelTracking();
-
-                Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), false);
-                if (testMoveNodes == null) break;
-
-                moveNodes = new LinkedList<MoveNode>();
-                for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                    moveNodes.add(testMoveNodes.remove());
-                }
-
                 Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
-                println(getClass(), "Interacting with moving entity");
-
-                // TODO: Interacting with moving entity code
                 EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[YELLOW]Now targeting " + movingEntity.getEntityName() + ".");
-                movingEntity.getAppearance().setBorderColor(Color.RED);
+                return;
+            }
+        }
 
-                break;
+        // Left Click Target Player entities
+        for (MovingEntity movingEntity : EntityManager.getInstance().getPlayerEntityList().values()) {
+            if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
+                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
+                EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
+                return;
             }
         }
 
         // Skill nodes like Mining and Fishing etc
+        Queue<MoveNode> moveNodes = null;
         for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
                 Location location = stationaryEntity.getCurrentMapLocation();

@@ -8,11 +8,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EntityAlignment {
-    HOSTILE(Color.RED),
-    NEUTRAL(Color.YELLOW),
-    FRIENDLY(Color.LIME);
+    HOSTILE(Color.RED, Color.FIREBRICK),
+    NEUTRAL(Color.YELLOW, Color.GOLD),
+    FRIENDLY(Color.LIME, Color.FOREST);
 
-    private final Color color;
+    private final Color highlightColor;
+    private final Color defaultColor;
 
     public static EntityAlignment getEntityAlignment(byte entityTypeByte) {
         for (EntityAlignment entityAlignment : EntityAlignment.values()) {

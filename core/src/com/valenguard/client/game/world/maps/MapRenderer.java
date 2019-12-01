@@ -13,6 +13,7 @@ import com.valenguard.client.game.screens.AntiBleedOrthogonalTiledMapRenderer;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.io.FilePaths;
 
 import lombok.Getter;
@@ -89,6 +90,8 @@ public class MapRenderer implements Disposable {
      */
     public void setTiledMap(String mapName) {
         EntityManager.getInstance().dispose(); // quick clear existing entities
+        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        if (playerClient != null) playerClient.setTargetEntity(null);
         gameMapNameFromServer = mapName;
         String filePath = FilePaths.MAPS.getFilePath() + "/" + mapName + ".tmx";
         println(getClass(), "Map Path: " + filePath, false, PRINT_DEBUG);

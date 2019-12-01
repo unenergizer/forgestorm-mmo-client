@@ -65,13 +65,22 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
     private float probWalkStart;
 
     /**
+     * Entity is the playerClientTarget
+     */
+    private boolean isPlayerClientTarget;
+
+    /**
      * Entity name drawing
      */
     public void drawEntityName() {
         float x = getDrawX() + 8;
         float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
-        GameTextUtil.drawMessage(getEntityName(), Color.WHITE, .5f, x, y);
+        if (this.isPlayerClientTarget || this instanceof PlayerClient) {
+            GameTextUtil.drawMessage(getEntityName(), Color.WHITE, .5f, x, y);
+        } else {
+            GameTextUtil.drawMessage(getEntityName(), Color.LIGHT_GRAY, .5f, x, y);
+        }
     }
 
     private float distanceMoved = 0;

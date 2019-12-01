@@ -25,6 +25,10 @@ public class AiEntity extends MovingEntity {
         float x = getDrawX() + 8;
         float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
-        GameTextUtil.drawMessage(getEntityName(), alignment.getColor(), .5f, x, y);
+        if (this.isPlayerClientTarget()) {
+            GameTextUtil.drawMessage(getEntityName(), alignment.getHighlightColor(), .5f, x, y);
+        } else {
+            GameTextUtil.drawMessage(getEntityName(), alignment.getDefaultColor(), .5f, x, y);
+        }
     }
 }
