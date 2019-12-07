@@ -10,11 +10,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SkinColorList {
 
-    SKIN_TONE_1(new Color(1, .913f, .77f, 1)),
-    SKIN_TONE_2(new Color(.97f, .72f, .49f, 1)),
-    SKIN_TONE_3(new Color(.85f, .43f, .32f, 1)),
-    SKIN_TONE_4(new Color(.52f, .243f, .2f, 1)),
-    SKIN_TONE_5(new Color(.24f, .12f, .12f, 1));
+    SKIN_TONE_0(new Color(1.0f, .88f, .84f, 1)),
+    SKIN_TONE_1(new Color(.99f, .72f, .60f, 1)),
+    SKIN_TONE_2(new Color(.81f, .54f, .44f, 1)),
+    SKIN_TONE_3(new Color(.69f, .32f, .19f, 1)),
+    SKIN_TONE_4(new Color(.44f, .15f, .10f, 1)),
+    SKIN_TONE_5(new Color(.29f, .11f, .07f, 1));
 
     private Color color;
 
@@ -29,6 +30,12 @@ public enum SkinColorList {
 
     public static Color randomColor() {
         return values()[RandomUtil.getNewRandom(0, values().length - 1)].getColor();
+    }
+
+    public static void printAll() {
+        for (SkinColorList list : SkinColorList.values()) {
+            System.out.println(Color.rgba8888(list.getColor()));
+        }
     }
 
     public byte getTypeByte() {
