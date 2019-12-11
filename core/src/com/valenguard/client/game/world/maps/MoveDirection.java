@@ -10,7 +10,7 @@ public enum MoveDirection {
     EAST("right"),
     NORTH("up"),
     WEST("left"),
-    NONE("down"); // Just defualt to down...
+    NONE("down"); // Just default to down...
 
     private String directionName;
 

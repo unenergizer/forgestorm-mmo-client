@@ -74,7 +74,7 @@ public class PlayerClient extends Player {
         } else {
             targetEntity.setPlayerClientTarget(true);
             stageHandler.getChatWindow().appendChatMessage("[YELLOW]You targeted " + targetEntity.getEntityName() + ".");
-            stageHandler.getAbilityBar().canUseAbilities(false);
+            stageHandler.getAbilityBar().canUseAbilities(true);
         }
     }
 }

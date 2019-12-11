@@ -18,10 +18,6 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     private final CharacterCreation characterCreation;
 
-    //    private VisSelectBox characterClass;
-//    private VisSelectBox characterRace;
-//    private VisSelectBox characterGender;
-//    private VisSelectBox characterColor;
     private VisValidatableTextField characterName;
 
     public CharacterCreation() {
@@ -33,18 +29,13 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     public Actor build() {
 
         VisTable topTable = new VisTable();
-//        VisTable optionTable = new VisTable();
+        VisTable optionTable = new VisTable();
 
         // Adding main character options
-//        optionTable.add(classSelect()).expand().fill().row();
-//        optionTable.add(raceSelect()).expand().fill().row();
-//        optionTable.add(genderSelect()).expand().fill().row();
-//        optionTable.add(colorSelect()).expand().fill().row();
-//        optionTable.add(outfitSelect()).expand().fill().row();
 
         VisTable characterDemo = new VisTable();
 
-//        topTable.add(optionTable).expand().fill();
+        topTable.add(optionTable).expand().fill();
         topTable.add(characterDemo).expand().fill();
 
         add(topTable).expand().fill().row();
@@ -61,37 +52,6 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         centerWindow();
         return this;
     }
-
-//    private Actor classSelect() {
-//        characterClass = new VisSelectBox();
-//        characterClass.setItems(CharacterClasses.values());
-//        return characterClass;
-//    }
-//
-//    private Actor raceSelect() {
-//        characterRace = new VisSelectBox();
-//        characterRace.setItems(CharacterRaces.values());
-//        return characterRace;
-//    }
-//
-//    private Actor genderSelect() {
-//        characterGender = new VisSelectBox();
-//        characterGender.setItems(CharacterGenders.values());
-//        return characterGender;
-//    }
-//
-//    private Actor colorSelect() {
-//        characterColor = new VisSelectBox();
-//        characterColor.setItems(LibGDXColorList.values());
-//        return characterColor;
-//    }
-//
-//    private Actor outfitSelect() {
-//        VisTable visTable = new VisTable();
-//
-//
-//        return visTable;
-//    }
 
     private VisTable confirmTable() {
         VisTable mainTable = new VisTable();
