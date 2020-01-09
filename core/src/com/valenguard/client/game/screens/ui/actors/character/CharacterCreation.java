@@ -81,6 +81,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 characterName.setText("");
                 ActorUtil.fadeOutWindow(characterCreation);
+                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCharacterSelectMenu());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });

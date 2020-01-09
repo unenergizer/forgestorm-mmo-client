@@ -11,12 +11,13 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.in.CharactersMenuLoadPacketIn;
 import com.valenguard.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.valenguard.client.network.game.packet.out.CharacterSelectPacketOut;
 
-public class CharacterSelectMenu extends VisTable implements Buildable {
+public class CharacterSelectMenu extends HideableVisWindow implements Buildable {
 
     private CharactersMenuLoadPacketIn.GameCharacter selectedCharacter;
 
@@ -25,6 +26,10 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
 
     private CharacterPreviewer characterPreviewer = new CharacterPreviewer();
     private int previewScale = 20;
+
+    public CharacterSelectMenu() {
+        super("");
+    }
 
     @Override
     public Actor build() {
@@ -44,6 +49,7 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
         createCharacter.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
+                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getCharacterSelectMenu());
                 ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCharacterCreation());
             }
         });
@@ -84,30 +90,30 @@ public class CharacterSelectMenu extends VisTable implements Buildable {
     }
 
     public void addCharacterButton(final CharactersMenuLoadPacketIn.GameCharacter character) {
-        final VisTextButton button = new VisTextButton(character.getName());
-        button.setColor(Color.LIGHT_GRAY);
+        final VisTextButton addCharacterButton = new VisTextButton(character.getName());
+        addCharacterButton.setColor(Color.LIGHT_GRAY);
 
-        characterButtonTable.add(button).fill().row();
+        characterButtonTable.add(addCharacterButton).fill().row();
 
-        button.addListener(new ChangeListener() {
+        addCharacterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 activeButton.setColor(Color.LIGHT_GRAY); // Clear the current active button color
 
                 // Set new active character information
                 selectedCharacter = character;
-                activeButton = button;
+                activeButton = addCharacterButton;
                 activeButton.setColor(Color.GREEN);
-                characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, 20);
+                characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
             }
         });
 
         // Set first character loaded in as the selected character
         if (selectedCharacter == null) {
-            activeButton = button;
+            activeButton = addCharacterButton;
             activeButton.setColor(Color.GREEN);
             selectedCharacter = character;
-            characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, 20);
+            characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
         }
     }
 
