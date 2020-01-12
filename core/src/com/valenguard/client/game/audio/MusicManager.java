@@ -12,7 +12,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class MusicManager implements Disposable {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final Map<Short, AudioData> gameMusic;
 

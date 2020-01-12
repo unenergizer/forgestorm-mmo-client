@@ -1,24 +1,16 @@
 package com.valenguard.client.io;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.valenguard.client.game.audio.AudioData;
-import com.valenguard.client.game.audio.AudioType;
-
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.valenguard.client.util.Log.println;
 
 public class ScriptLoader {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     public String loadScript(FileHandle fileHandle) {
 

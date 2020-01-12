@@ -11,7 +11,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class Skill {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
     private final SkillOpcodes skillOpcodes;
 
     Skill(SkillOpcodes skillOpcodes) {

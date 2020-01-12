@@ -10,7 +10,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class CharacterCreatorPacketOut extends AbstractClientPacketOut {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     //    private final CharacterClasses characterClass;
 //    private final CharacterGenders characterGender;

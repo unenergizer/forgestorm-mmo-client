@@ -64,7 +64,7 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class Valenguard extends Game {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final LoginCredentials loginCredentials = new LoginCredentials();
 

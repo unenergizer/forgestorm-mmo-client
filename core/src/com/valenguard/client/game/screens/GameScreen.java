@@ -36,7 +36,7 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class GameScreen implements Screen {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final StageHandler stageHandler;
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
@@ -244,8 +244,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void resume() {
+        // Resume game music, if applicable
         final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
-        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) musicManager.resumeMusic();
+        if (musicManager.isMusicPlaying()) musicManager.resumeMusic();
+
         /*
          * Here we set up a timer to return the game focus after a very short amount of time.
          * The reason we are doing this is to prevent a mouse click action from happening

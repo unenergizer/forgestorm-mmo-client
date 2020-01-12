@@ -10,7 +10,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class EffectManager implements GameQuitReset {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private List<ScreenEffect> screenEffectList = new ArrayList<ScreenEffect>();
 

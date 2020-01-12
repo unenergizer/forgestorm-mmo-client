@@ -12,7 +12,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class NetworkSettingsLoader {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     public NetworkSettings loadNetworkSettings() {
         Yaml yaml = new Yaml();
