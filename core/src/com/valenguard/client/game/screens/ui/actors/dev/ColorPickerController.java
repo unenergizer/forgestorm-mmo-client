@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerAdapter;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import lombok.Getter;
@@ -14,6 +14,7 @@ public class ColorPickerController extends Actor implements Buildable, Disposabl
 
     private final ColorPicker colorPicker = new ColorPicker();
 
+    private StageHandler stageHandler;
     @Getter
     private ColorPickerColorHandler currentColorPickerHandler;
 
@@ -21,7 +22,9 @@ public class ColorPickerController extends Actor implements Buildable, Disposabl
     private boolean disposed = false;
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
+
         colorPicker.setAllowAlphaEdit(true);
         colorPicker.setCloseAfterPickingFinished(true);
         colorPicker.setShowHexFields(true);
@@ -59,7 +62,7 @@ public class ColorPickerController extends Actor implements Buildable, Disposabl
 
     public void show(ColorPickerColorHandler currentContainer) {
         this.currentColorPickerHandler = currentContainer;
-        ActorUtil.getStage().addActor(colorPicker.fadeIn());
+        stageHandler.getStage().addActor(colorPicker.fadeIn());
         colorPicker.setZIndex(Integer.MAX_VALUE);
         colorPicker.setColor(currentContainer.getFinishedColor());
     }

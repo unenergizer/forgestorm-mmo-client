@@ -11,6 +11,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -21,19 +22,23 @@ import lombok.Getter;
 @Getter
 public class MainSettingsWindow extends HideableVisWindow implements Buildable, Focusable {
 
-    private WelcomeTab welcomeTab = new WelcomeTab();
-    private GameMechanicsTab gameMechanicsTab = new GameMechanicsTab();
-    private GraphicsTab graphicsTab = new GraphicsTab();
+    private final WelcomeTab welcomeTab;
+    private GameMechanicsTab gameMechanicsTab;
+    private GraphicsTab graphicsTab;
     private AudioTab audioTab = new AudioTab();
     private TestTab controlsTab = new TestTab("Controls");
     private TestTab socialTab = new TestTab("Social");
 
-    public MainSettingsWindow() {
+    public MainSettingsWindow(StageHandler stageHandler) {
         super("Client Settings");
+
+        this.welcomeTab = new WelcomeTab();
+        this.gameMechanicsTab = new GameMechanicsTab(stageHandler);
+        this.graphicsTab = new GraphicsTab(stageHandler);
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(true);

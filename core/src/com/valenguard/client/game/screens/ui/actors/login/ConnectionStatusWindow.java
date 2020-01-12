@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -23,7 +24,7 @@ public class ConnectionStatusWindow extends HideableVisWindow implements Buildab
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         hideableVisWindow.pad(30);
         hideableVisWindow.add(statusMessage);
         hideableVisWindow.setMovable(false);

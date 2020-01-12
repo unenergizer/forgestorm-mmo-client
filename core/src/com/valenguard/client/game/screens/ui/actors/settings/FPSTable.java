@@ -4,16 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class FPSTable extends VisTable implements Buildable {
 
-    private VisLabel fpsLabel;
+    private VisLabel fpsLabel = new VisLabel();
 
     @Override
-    public Actor build() {
-        fpsLabel = new VisLabel("FPS: 999");
+    public Actor build(final StageHandler stageHandler) {
         add(fpsLabel);
 
         addListener(new WindowResizeListener() {

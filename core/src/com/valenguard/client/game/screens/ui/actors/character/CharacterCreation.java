@@ -9,6 +9,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -18,6 +19,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     private final CharacterCreation characterCreation;
 
+    private StageHandler stageHandler;
     private VisValidatableTextField characterName;
 
     public CharacterCreation() {
@@ -26,7 +28,8 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
 
         VisTable topTable = new VisTable();
         VisTable optionTable = new VisTable();
@@ -81,7 +84,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 characterName.setText("");
                 ActorUtil.fadeOutWindow(characterCreation);
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCharacterSelectMenu());
+                ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });

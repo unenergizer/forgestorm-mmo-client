@@ -9,6 +9,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -32,7 +33,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         setFillParent(true);
 
         VisWindow visWindow = new VisWindow("Select Character");
@@ -49,8 +50,8 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
         createCharacter.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getCharacterSelectMenu());
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCharacterCreation());
+                ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
+                ActorUtil.fadeInWindow(stageHandler.getCharacterCreation());
             }
         });
 
@@ -85,7 +86,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                 Valenguard.connectionManager.logout();
             }
         });
-
+        setVisible(false);
         return this;
     }
 

@@ -18,7 +18,7 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.CHARACTERS_MENU_LOAD)
 public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenuLoadPacketIn.CharacterData> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

@@ -14,7 +14,7 @@ public class Skill {
     private static final boolean PRINT_DEBUG = true;
     private final SkillOpcodes skillOpcodes;
 
-    public Skill(SkillOpcodes skillOpcodes) {
+    Skill(SkillOpcodes skillOpcodes) {
         this.skillOpcodes = skillOpcodes;
     }
 

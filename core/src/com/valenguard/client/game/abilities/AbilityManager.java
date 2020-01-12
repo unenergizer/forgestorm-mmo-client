@@ -1,6 +1,7 @@
 package com.valenguard.client.game.abilities;
 
 import com.kotcrab.vis.ui.widget.VisImageButton;
+import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class AbilityManager {
+public class AbilityManager implements GameQuitReset {
 
     private Map<Short, Cooldown> cooldowns = new HashMap<Short, Cooldown>();
 
@@ -82,6 +83,11 @@ public class AbilityManager {
                 cooldown.abilityBar.setCoolingDown(cooldown.button);
             }
         }
+    }
+
+    @Override
+    public void reset() {
+        cooldowns.clear();
     }
 
     private class Cooldown {

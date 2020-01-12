@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -24,7 +25,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         incomingTradeRequestWindow = this;
 
         TextButton accept = new TextButton("Accept", VisUI.getSkin());
@@ -68,7 +69,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
 
         pack();
         setVisible(false);
-        Viewport viewport = ActorUtil.getStage().getViewport();
+        Viewport viewport = stageHandler.getStage().getViewport();
         setPosition(viewport.getScreenWidth() / 2, viewport.getScreenHeight() / 2);
         return this;
     }

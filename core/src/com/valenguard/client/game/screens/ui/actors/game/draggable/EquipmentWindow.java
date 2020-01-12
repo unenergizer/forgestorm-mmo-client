@@ -11,7 +11,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.SkillOpcodes;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -25,6 +25,8 @@ import lombok.Getter;
 
 @Getter
 public class EquipmentWindow extends ItemSlotContainer implements Buildable, Focusable {
+
+    private StageHandler stageHandler;
 
     private ItemStackSlot helmSlot;
     private ItemStackSlot ammoSlot;
@@ -84,7 +86,8 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         addCloseButton();
         setResizable(false);
 
@@ -209,9 +212,9 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
      */
     private ItemStackSlot buildSlot(EquipmentSlotTypes equipmentSlotTypes) {
         ItemStackSlot itemStackSlot = new ItemStackSlot(this, equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
-        itemStackSlot.build();
-        DragAndDrop dragAndDrop = ActorUtil.getStageHandler().getDragAndDrop();
-        dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
+        itemStackSlot.build(stageHandler);
+        DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
+        dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
         return itemStackSlot;
     }

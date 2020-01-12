@@ -15,6 +15,7 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class RssAnnouncements extends VisTable implements Buildable {
     private static final int MAX_FEED_ENTRIES = 6;
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
 
         List<SyndEntry> rssFeed = grabRssFeed();
 
@@ -37,6 +38,7 @@ public class RssAnnouncements extends VisTable implements Buildable {
 
         setPosition(10, 40);
         pack();
+        setVisible(false);
         return this;
     }
 

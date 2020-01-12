@@ -15,7 +15,8 @@ import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.audio.MusicManager;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
@@ -54,201 +55,120 @@ import com.valenguard.client.io.type.GameSkin;
 
 import lombok.Getter;
 
+import static com.valenguard.client.util.Log.println;
+
 @Getter
 public class StageHandler implements Disposable {
 
-    private Stage stage;
-    private PreStageEvent preStageEvent;
-    private PostStageEvent postStageEvent;
-    private DragAndDrop dragAndDrop;
-    private boolean initialized = false;
+    static {
+        VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
+    }
 
+    private Stage stage = new Stage();
+    private PreStageEvent preStageEvent = new PreStageEvent(this);
+    private PostStageEvent postStageEvent = new PostStageEvent(this);
+    private DragAndDrop dragAndDrop = new DragAndDrop();
     // login
-    private ButtonTable buttonTable;
-    private VersionTable versionTable;
-    private CopyrightTable copyrightTable;
-    private LoginTable loginTable;
-    private ConnectionStatusWindow connectionStatusWindow;
-    private RssAnnouncements rssAnnouncements;
-
+    private ButtonTable buttonTable = new ButtonTable();
+    private VersionTable versionTable = new VersionTable();
+    private CopyrightTable copyrightTable = new CopyrightTable();
+    private LoginTable loginTable = new LoginTable();
+    private ConnectionStatusWindow connectionStatusWindow = new ConnectionStatusWindow();
+    private RssAnnouncements rssAnnouncements = new RssAnnouncements();
     // character select
-    private CharacterSelectMenu characterSelectMenu;
-    private CharacterCreation characterCreation;
-
+    private CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
+    private CharacterCreation characterCreation = new CharacterCreation();
     // game
-    private FadeWindow fadeWindow;
-    private HelpWindow helpWindow;
-    private CreditsWindow creditsWindow;
-    private EscapeWindow escapeWindow;
-    private ChatWindow chatWindow;
-    private BagWindow bagWindow;
-    private BankWindow bankWindow;
-    private EquipmentWindow equipmentWindow;
-    private ButtonBar buttonBar;
-    private DebugTable debugTable;
-    private FPSTable fpsTable;
-    private EntityDropDownMenu entityDropDownMenu;
-    private ItemDropDownMenu itemDropDownMenu;
-    private TradeWindow tradeWindow;
-    private IncomingTradeRequestWindow incomingTradeRequestWindow;
-    private EntityShopWindow entityShopWindow;
-    private StatusBar statusBar;
-    private AbilityBar abilityBar;
-    private ChatDialogue chatDialogue;
-    private NPCTextDialog npcTextDialog;
+    private FadeWindow fadeWindow = new FadeWindow();
+    private HelpWindow helpWindow = new HelpWindow();
+    private CreditsWindow creditsWindow = new CreditsWindow();
+    private EscapeWindow escapeWindow = new EscapeWindow();
+    private ChatWindow chatWindow = new ChatWindow();
+    private BagWindow bagWindow = new BagWindow();
+    private BankWindow bankWindow = new BankWindow();
+    private EquipmentWindow equipmentWindow = new EquipmentWindow();
+    private ButtonBar buttonBar = new ButtonBar();
+    private DebugTable debugTable = new DebugTable();
+    private FPSTable fpsTable = new FPSTable();
+    private EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
+    private ItemDropDownMenu itemDropDownMenu = new ItemDropDownMenu();
+    private TradeWindow tradeWindow = new TradeWindow();
+    private IncomingTradeRequestWindow incomingTradeRequestWindow = new IncomingTradeRequestWindow();
+    private EntityShopWindow entityShopWindow = new EntityShopWindow();
+    private StatusBar statusBar = new StatusBar();
+    private AbilityBar abilityBar = new AbilityBar();
+    private ChatDialogue chatDialogue = new ChatDialogue();
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
-
+    private NPCTextDialog npcTextDialog = new NPCTextDialog();
     // developer
-    private DevMenu devMenu;
-    private EntityEditor entityEditor;
-    private ItemStackEditor itemStackEditor;
-
+    private DevMenu devMenu = new DevMenu();
+    private EntityEditor entityEditor = new EntityEditor();
+    private ItemStackEditor itemStackEditor = new ItemStackEditor();
     // shared
-    private MainSettingsWindow mainSettingsWindow;
-    private ColorPickerController colorPickerController;
+    private MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
+    private ColorPickerController colorPickerController = new ColorPickerController();
 
-    public void init(Viewport viewport) {
-        if (initialized) return;
-        initialized = true;
-        if (viewport != null) stage = new Stage(viewport);
-        else stage = new Stage();
-        preStageEvent = new PreStageEvent(this);
-        postStageEvent = new PostStageEvent(this);
-        dragAndDrop = new DragAndDrop();
+    public StageHandler() {
         dragAndDrop.setDragTime(0);
-        VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
-
-        // Build actors
-        switch (Valenguard.getInstance().getScreenType()) {
-            case LOGIN:
-                buildLoginScreenUI();
-                break;
-            case CHARACTER_SELECT:
-                buildCharacterSelectUI();
-                break;
-            case GAME:
-                if (Valenguard.getInstance().isAdmin()) buildGameTools();
-                buildGameScreenUI();
-                break;
-        }
+        addActors();
     }
 
-    private void buildLoginScreenUI() {
-        buttonTable = new ButtonTable();
-        versionTable = new VersionTable();
-        copyrightTable = new CopyrightTable();
-        loginTable = new LoginTable();
-        connectionStatusWindow = new ConnectionStatusWindow();
-        rssAnnouncements = new RssAnnouncements();
-        npcTextDialog = new NPCTextDialog();
-
-        stage.addActor(buttonTable.build());
-        stage.addActor(versionTable.build());
-        stage.addActor(copyrightTable.build());
-        stage.addActor(loginTable.build());
-        stage.addActor(connectionStatusWindow.build());
-        stage.addActor(rssAnnouncements.build());
-
-        buttonTable.setVisible(true);
-        versionTable.setVisible(true);
-        copyrightTable.setVisible(true);
-        loginTable.setVisible(true);
-
-        buildSharedActorsUI();
-
-        FocusManager.switchFocus(stage, loginTable.getUsernameField());
-        stage.setKeyboardFocus(loginTable.getUsernameField());
+    public void setViewport(Viewport viewport) {
+        stage.setViewport(viewport);
     }
 
-    private void buildCharacterSelectUI() {
-        buttonTable.setVisible(false);
-        versionTable.setVisible(false);
-        copyrightTable.setVisible(false);
-        loginTable.setVisible(false);
+    private void addActors() {
 
-        characterSelectMenu = new CharacterSelectMenu();
-        characterCreation = new CharacterCreation();
+        // Login
+        stage.addActor(buttonTable.build(this));
+        stage.addActor(versionTable.build(this));
+        stage.addActor(copyrightTable.build(this));
+        stage.addActor(loginTable.build(this));
+        stage.addActor(connectionStatusWindow.build(this));
+        stage.addActor(rssAnnouncements.build(this));
 
-        stage.addActor(characterSelectMenu.build());
-        stage.addActor(characterCreation.build());
-    }
+        // Character select
+        stage.addActor(characterSelectMenu.build(this));
+        stage.addActor(characterCreation.build(this));
 
-    private void buildGameScreenUI() {
+        // Game
         bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA4444);
         bgPixmap.setColor(new Color(0, 0, 0, 0.4f)); // ItemStack cell background
         bgPixmap.fill();
         itemStackCellBackground = new TextureRegionDrawable(new TextureRegion(new Texture(bgPixmap)));
 
-        // Quickly setup fade window!
-        fadeWindow = new FadeWindow();
-        stage.addActor(fadeWindow.build());
-
-        helpWindow = new HelpWindow();
-        creditsWindow = new CreditsWindow();
-        escapeWindow = new EscapeWindow();
-        chatWindow = new ChatWindow();
-        bagWindow = new BagWindow();
-        bankWindow = new BankWindow();
-        equipmentWindow = new EquipmentWindow();
-        buttonBar = new ButtonBar();
-        fpsTable = new FPSTable();
-        entityDropDownMenu = new EntityDropDownMenu();
-        itemDropDownMenu = new ItemDropDownMenu();
-        tradeWindow = new TradeWindow();
-        incomingTradeRequestWindow = new IncomingTradeRequestWindow();
-        entityShopWindow = new EntityShopWindow();
-        statusBar = new StatusBar();
-        abilityBar = new AbilityBar();
-        chatDialogue = new ChatDialogue();
-
-        stage.addActor(helpWindow.build());
-        stage.addActor(creditsWindow.build());
-        stage.addActor(chatWindow.build());
-        stage.addActor(bagWindow.build());
-        stage.addActor(bankWindow.build());
-        stage.addActor(equipmentWindow.build());
-        stage.addActor(escapeWindow.build());
-        stage.addActor(buttonBar.build());
-        stage.addActor(fpsTable.build());
-        stage.addActor(entityDropDownMenu.build());
-        stage.addActor(itemDropDownMenu.build());
-        stage.addActor(tradeWindow.build());
-        stage.addActor(incomingTradeRequestWindow.build());
+        stage.addActor(fadeWindow.build(this));
+        stage.addActor(helpWindow.build(this));
+        stage.addActor(creditsWindow.build(this));
+        stage.addActor(chatWindow.build(this));
+        stage.addActor(bagWindow.build(this));
+        stage.addActor(bankWindow.build(this));
+        stage.addActor(equipmentWindow.build(this));
+        stage.addActor(escapeWindow.build(this));
+        stage.addActor(buttonBar.build(this));
+        stage.addActor(fpsTable.build(this));
+        stage.addActor(entityDropDownMenu.build(this));
+        stage.addActor(itemDropDownMenu.build(this));
+        stage.addActor(tradeWindow.build(this));
+        stage.addActor(incomingTradeRequestWindow.build(this));
 //        stage.addActor(new TestToasts(stage));
-        stage.addActor(entityShopWindow.build());
-        stage.addActor(statusBar.build());
-        stage.addActor(abilityBar.build());
-        stage.addActor(chatDialogue.build());
-        stage.addActor(npcTextDialog.build());
-        Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
+        stage.addActor(entityShopWindow.build(this));
+        stage.addActor(statusBar.build(this));
+        stage.addActor(abilityBar.build(this));
+        stage.addActor(chatDialogue.build(this));
+        stage.addActor(npcTextDialog.build(this));
 
-        ActorUtil.fadeInWindow(chatWindow);
+        // Multi purpose
+        stage.addActor(mainSettingsWindow.build(this));
+        stage.addActor(debugTable.build(this));
 
-        buildSharedActorsUI();
-
-        FocusManager.resetFocus(stage); // Clear focus after building windows
-    }
-
-    private void buildGameTools() {
-        colorPickerController = new ColorPickerController();
-        devMenu = new DevMenu();
-        entityEditor = new EntityEditor();
-        itemStackEditor = new ItemStackEditor();
-
-        stage.addActor(devMenu.build());
-        stage.addActor(colorPickerController.build());
-        stage.addActor(entityEditor.build());
-        stage.addActor(itemStackEditor.build());
-    }
-
-    private void buildSharedActorsUI() {
-        mainSettingsWindow = new MainSettingsWindow();
-        debugTable = new DebugTable();
-
-        stage.addActor(mainSettingsWindow.build());
-        stage.addActor(debugTable.build());
+        // Dev tools
+        stage.addActor(devMenu.build(this));
+        stage.addActor(colorPickerController.build(this));
+        stage.addActor(entityEditor.build(this));
+        stage.addActor(itemStackEditor.build(this));
     }
 
     public void render(float delta) {
@@ -267,9 +187,9 @@ public class StageHandler implements Disposable {
         for (Actor actor : stage.getActors()) actor.fire(resizeEvent);
     }
 
+
     @Override
     public void dispose() {
-        initialized = false;
         VisUI.dispose();
         if (stage != null) {
             stage.dispose();
@@ -278,5 +198,72 @@ public class StageHandler implements Disposable {
         if (colorPickerController != null && !colorPickerController.isDisposed())
             colorPickerController.dispose();
         if (bgPixmap != null && !bgPixmap.isDisposed()) bgPixmap.dispose();
+    }
+
+    public void setUserInterface(UserInterfaceType userInterfaceType) {
+        Valenguard.getInstance().setUserInterfaceType(userInterfaceType);
+        hideAllUI();
+        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+
+        switch (userInterfaceType) {
+            case LOGIN:
+                // Play audio
+                if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
+                    if (!musicManager.isMusicPlaying())
+                        musicManager.playMusic(getClass(), (short) 0);
+                }
+
+                Valenguard.getInstance().gameWorldQuit();
+
+                buttonTable.setVisible(true);
+                versionTable.setVisible(true);
+                copyrightTable.setVisible(true);
+                loginTable.setVisible(true);
+                rssAnnouncements.setVisible(true);
+
+                FocusManager.switchFocus(stage, loginTable.getUsernameField());
+                stage.setKeyboardFocus(loginTable.getUsernameField());
+                loginTable.resetButton();
+                break;
+            case CHARACTER_SELECT:
+                // Play audio
+                if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
+                    if (!musicManager.isMusicPlaying())
+                        musicManager.playMusic(getClass(), (short) 0);
+                }
+
+                Valenguard.getInstance().gameWorldQuit();
+
+                characterSelectMenu.setVisible(true);
+                break;
+            case GAME:
+                musicManager.stopMusic(true);
+                if (Valenguard.getInstance().isAdmin()) {
+                    println(getClass(), "User is an admin!");
+                    devMenu.setVisible(true);
+                    if (!devMenu.isVisible()) {
+                        println(getClass(), "Still not visible....");
+                    } else {
+                        println(getClass(), "So it is visible???");
+                    }
+                }
+
+                Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
+
+                chatWindow.setVisible(true);
+                buttonBar.setVisible(true);
+                statusBar.setVisible(true);
+                abilityBar.setVisible(true);
+
+                FocusManager.resetFocus(stage); // Clear focus after building windows
+                break;
+        }
+    }
+
+    private void hideAllUI() {
+        // Set all current actors to non visible
+        for (Actor actor : stage.getActors()) {
+            if (actor.isVisible()) actor.setVisible(false);
+        }
     }
 }

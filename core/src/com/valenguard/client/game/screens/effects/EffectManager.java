@@ -1,12 +1,14 @@
 package com.valenguard.client.game.screens.effects;
 
+import com.valenguard.client.game.GameQuitReset;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import static com.valenguard.client.util.Log.println;
 
-public class EffectManager {
+public class EffectManager implements GameQuitReset {
 
     private static final boolean PRINT_DEBUG = true;
 
@@ -45,5 +47,10 @@ public class EffectManager {
 
     private boolean isReady(ScreenEffect screenEffect) {
         return screenEffect != null;
+    }
+
+    @Override
+    public void reset() {
+        screenEffectList.clear();
     }
 }

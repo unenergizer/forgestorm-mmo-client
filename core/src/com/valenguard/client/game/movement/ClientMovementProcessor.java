@@ -2,7 +2,6 @@ package com.valenguard.client.game.movement;
 
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.maps.Location;
@@ -120,7 +119,7 @@ public class ClientMovementProcessor {
         return nextNode;
     }
 
-    public void invalidateAllInput() {
+    void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
         Valenguard.gameScreen.getKeyboard().getKeyboardMovement().invalidateKeys();

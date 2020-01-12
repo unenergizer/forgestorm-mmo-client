@@ -12,10 +12,11 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.input.Keyboard;
 import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.input.MouseManager;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.maps.Location;
@@ -35,25 +36,23 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class GameScreen implements Screen {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
+    private final StageHandler stageHandler;
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
 
     private MapRenderer mapRenderer = new MapRenderer();
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
-
-    private InputMultiplexer multiplexer = new InputMultiplexer();
+    private SpriteBatch spriteBatch;
 
     private boolean gameFocused = true;
 
-    // TODO: RELOCATE
-    private SpriteBatch spriteBatch;
-    private Texture parallaxBackground;
-    private BitmapFont font;
+    private Keyboard keyboard = new Keyboard();
 
     // TODO: RELOCATE
-    private Keyboard keyboard = new Keyboard();
+    private Texture parallaxBackground;
+    private BitmapFont font;
 
     // TODO: RELOCATE
     private Texture hpBase;
@@ -61,6 +60,11 @@ public class GameScreen implements Screen {
 
     private Texture invalidTileLocationTexture;
     private Texture validTileLocationTexture;
+
+    public GameScreen(StageHandler stageHandler) {
+        println(getClass(), "Invoked constructor", false, PRINT_DEBUG);
+        this.stageHandler = stageHandler;
+    }
 
     @Override
     public void show() {
@@ -70,6 +74,7 @@ public class GameScreen implements Screen {
         // Setup camera
         camera = new AttachableCamera(ClientConstants.SCREEN_RESOLUTION, ClientConstants.ZOOM_DEFAULT);
         screenViewport = new ScreenViewport();
+        stageHandler.setViewport(screenViewport);
 
         // Load assets
         fileManager.loadFont(GameFont.TEST_FONT);
@@ -77,6 +82,7 @@ public class GameScreen implements Screen {
         font.setUseIntegerPositions(false);
 
         fileManager.loadAtlas(GameAtlas.CURSOR);
+        fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
         fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
         fileManager.loadAtlas(GameAtlas.SKILL_NODES);
@@ -89,20 +95,13 @@ public class GameScreen implements Screen {
 //        fileManager.loadPixmap(GamePixmap.CURSOR_1);
 //        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
-        // User Interface
-        ActorUtil.getStageHandler().dispose();
-        ActorUtil.getStageHandler().init(screenViewport);
-
         // Setup input controls
-        multiplexer.addProcessor(ActorUtil.getStageHandler().getPreStageEvent());
-        multiplexer.addProcessor(ActorUtil.getStage());
-        multiplexer.addProcessor(ActorUtil.getStageHandler().getPostStageEvent());
-        multiplexer.addProcessor(keyboard);
-        multiplexer.addProcessor(new Mouse());
-        Gdx.input.setInputProcessor(multiplexer);
-
-        // Handle Music
-        Valenguard.getInstance().getAudioManager().getMusicManager().stopMusic(true);
+        InputMultiplexer inputMultiplexer = Valenguard.getInstance().getInputMultiplexer();
+        inputMultiplexer.addProcessor(stageHandler.getPreStageEvent());
+        inputMultiplexer.addProcessor(stageHandler.getStage());
+        inputMultiplexer.addProcessor(stageHandler.getPostStageEvent());
+        inputMultiplexer.addProcessor(keyboard);
+        inputMultiplexer.addProcessor(new Mouse());
 
         // Create HealthBar textures
         final int width = 1;
@@ -132,11 +131,30 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         GraphicsUtils.clearScreen(Valenguard.getInstance().getMapManager().getBackgroundColor());
 
+        // Render
+        if (mapRenderer.isReadyToRender()) {
+            renderGame(delta);
+        } else {
+            renderAccountInformation();
+        }
+
+        stageHandler.render(delta);
+    }
+
+    private void renderAccountInformation() {
+        Texture texture = fileManager.getTexture(GameTexture.LOGIN_BACKGROUND);
+
+        spriteBatch.begin();
+        spriteBatch.draw(texture, 0, 0, texture.getWidth(), texture.getHeight());
+        spriteBatch.end();
+    }
+
+    private void renderGame(float delta) {
+        if (!mapRenderer.isReadyToRender()) return;
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         tickGameLogic(delta);
 
-        if (!mapRenderer.isReadyToRender()) return;
         camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
         camera.update();
 
@@ -199,7 +217,6 @@ public class GameScreen implements Screen {
         spriteBatch.end();
 
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
-        ActorUtil.getStageHandler().render(delta);
     }
 
     private void tickGameLogic(float delta) {
@@ -215,17 +232,20 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         camera.setToOrtho(false, width, height);
-        ActorUtil.getStageHandler().resize(width, height);
+        stageHandler.resize(width, height);
     }
 
     @Override
     public void pause() {
-        gameFocused = false;
         println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
+        gameFocused = false;
+        Valenguard.getInstance().getAudioManager().getMusicManager().pauseMusic();
     }
 
     @Override
     public void resume() {
+        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+        if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) musicManager.resumeMusic();
         /*
          * Here we set up a timer to return the game focus after a very short amount of time.
          * The reason we are doing this is to prevent a mouse click action from happening
@@ -249,12 +269,14 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
-        if (mapRenderer != null) mapRenderer.dispose();
+        mapRenderer.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
+        if (font != null) font.dispose();
         if (parallaxBackground != null) parallaxBackground.dispose();
         if (hpBase != null) hpBase.dispose();
         if (hpArea != null) hpArea.dispose();
         if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
+        stageHandler.dispose();
     }
 }

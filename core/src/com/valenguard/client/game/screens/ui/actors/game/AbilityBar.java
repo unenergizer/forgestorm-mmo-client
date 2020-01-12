@@ -11,6 +11,7 @@ import com.valenguard.client.game.abilities.AbilityManager;
 import com.valenguard.client.game.audio.AudioManager;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.io.type.GameAtlas;
@@ -36,7 +37,7 @@ public class AbilityBar extends VisTable implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
 
         VisTable buttonTable = new VisTable();
 
@@ -87,7 +88,7 @@ public class AbilityBar extends VisTable implements Buildable {
 
         pack();
         setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), 10 + 64);
-        setVisible(true);
+        setVisible(false);
         return this;
     }
 

@@ -3,7 +3,7 @@ package com.valenguard.client.game.screens.effects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.UserInterfaceType;
 
 public class LineDrawEffect extends ScreenEffect {
 
@@ -28,7 +28,7 @@ public class LineDrawEffect extends ScreenEffect {
 
     @Override
     public void performEffect(float deltaTime) {
-        if (Valenguard.getInstance().getScreenType() != ScreenType.GAME) return;
+        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
         if (!isStarted) {
             isStarted = true;
             shapeRenderer = new ShapeRenderer();

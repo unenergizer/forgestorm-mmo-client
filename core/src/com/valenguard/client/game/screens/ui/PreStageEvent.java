@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
-import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.effects.AlphaFlashEffect;
 import com.valenguard.client.game.screens.effects.BlackFlashEffect;
@@ -232,7 +232,7 @@ class PreStageEvent implements InputProcessor {
     public boolean keyDown(int keycode) {
         boolean bool;
         bool = anyScreenKeys(keycode);
-        if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+        if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
             bool = gameScreenOnlyKeys(keycode);
         }
         return bool;

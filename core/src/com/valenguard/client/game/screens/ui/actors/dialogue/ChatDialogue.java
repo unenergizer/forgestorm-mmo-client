@@ -5,6 +5,7 @@ import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 
@@ -25,7 +26,7 @@ public class ChatDialogue extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         button = new VisTextButton("->");
         messageDialogue = new TypingLabel("", VisUI.getSkin());
 

@@ -7,6 +7,7 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.LinkLabel;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -19,7 +20,7 @@ public class HelpWindow extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(false);

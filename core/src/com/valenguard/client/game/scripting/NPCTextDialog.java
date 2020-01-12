@@ -3,7 +3,7 @@ package com.valenguard.client.game.scripting;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisWindow;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -17,7 +17,7 @@ public class NPCTextDialog extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
 
         setResizable(false);
         centerWindow();

@@ -1,6 +1,8 @@
 package com.valenguard.client;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.valenguard.client.game.abilities.AbilityManager;
 import com.valenguard.client.game.audio.AudioManager;
 import com.valenguard.client.game.input.MouseManager;
@@ -12,14 +14,11 @@ import com.valenguard.client.game.movement.EntityTracker;
 import com.valenguard.client.game.rpg.EntityShopManager;
 import com.valenguard.client.game.rpg.FactionManager;
 import com.valenguard.client.game.rpg.Skills;
-import com.valenguard.client.game.screens.CharacterSelectScreen;
 import com.valenguard.client.game.screens.GameScreen;
-import com.valenguard.client.game.screens.LoginScreen;
-import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.effects.EffectManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
-import com.valenguard.client.game.scripting.NPCTextDialog;
 import com.valenguard.client.game.scripting.ScriptProcessor;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStackManager;
@@ -65,15 +64,13 @@ import static com.valenguard.client.util.Log.println;
 @Getter
 public class Valenguard extends Game {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     private final LoginCredentials loginCredentials = new LoginCredentials();
 
     private static Valenguard valenguard;
     public static ConnectionManager connectionManager;
     public static GameScreen gameScreen;
-    public static CharacterSelectScreen characterSelectScreen;
-    public static LoginScreen loginScreen;
 
     @Setter
     private boolean isAdmin = false;
@@ -101,10 +98,12 @@ public class Valenguard extends Game {
     private LanguageManager languageManager;
     private ScriptManager scriptManager;
     private ScriptProcessor scriptProcessor;
-
     private TradeManager tradeManager;
 
-    private ScreenType screenType;
+    private InputMultiplexer inputMultiplexer;
+
+    @Setter
+    private UserInterfaceType userInterfaceType;
 
     @Setter
     private boolean ideRun;
@@ -121,19 +120,22 @@ public class Valenguard extends Game {
     public void create() {
         println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
 
-        // loadItems managers
+        // load input
+        inputMultiplexer = new InputMultiplexer();
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
+        // load managers
         audioManager = new AudioManager();
         connectionManager = new ConnectionManager();
         outputStreamManager = new OutputStreamManager();
         fileManager = new FileManager();
         factionManager = new FactionManager();
         mapManager = new MapManager(ideRun);
-        stageHandler = new StageHandler();
+        windowManager = new WindowManager();
         clientMovementProcessor = new ClientMovementProcessor();
         clientPlayerMovementManager = new ClientPlayerMovementManager();
         entityMovementManager = new EntityMovementManager();
         mouseManager = new MouseManager();
-        windowManager = new WindowManager();
         itemStackManager = new ItemStackManager();
         skills = new Skills();
         entityTracker = new EntityTracker();
@@ -146,26 +148,11 @@ public class Valenguard extends Game {
         scriptManager = new ScriptManager(ideRun);
         scriptProcessor = new ScriptProcessor();
 
-        // loadItems screens
-        gameScreen = new GameScreen();
-        characterSelectScreen = new CharacterSelectScreen();
-        loginScreen = new LoginScreen();
-        setScreen(ScreenType.LOGIN);
-    }
-
-    public void setScreen(ScreenType screenType) {
-        this.screenType = screenType;
-        switch (screenType) {
-            case LOGIN:
-                setScreen(loginScreen);
-                break;
-            case CHARACTER_SELECT:
-                setScreen(characterSelectScreen);
-                break;
-            case GAME:
-                setScreen(gameScreen);
-                break;
-        }
+        // load screens
+        stageHandler = new StageHandler();
+        gameScreen = new GameScreen(stageHandler);
+        setScreen(gameScreen);
+        stageHandler.setUserInterface(UserInterfaceType.LOGIN);
     }
 
     @Override
@@ -189,17 +176,10 @@ public class Valenguard extends Game {
         fileManager.dispose();
         mapManager.dispose();
         stageHandler.dispose();
-        skills = null;
-
-        tradeManager = null;
-
         gameScreen.dispose();
-        gameScreen = null;
-        loginScreen.dispose();
-        loginScreen = null;
         connectionManager.disconnect();
-        connectionManager = null;
         EntityManager.getInstance().dispose();
+        stageHandler.dispose();
     }
 
     public void initializeNetwork() {
@@ -235,5 +215,15 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new InspectPlayerPacketIn());
                     }
                 });
+    }
+
+    public void gameWorldQuit() {
+        entityTracker.reset();
+        Valenguard.getInstance().getSkills().reset();
+        clientMovementProcessor.resetInput();
+        abilityManager.reset();
+        effectManager.reset();
+        tradeManager.reset();
+        EntityManager.getInstance().dispose();
     }
 }

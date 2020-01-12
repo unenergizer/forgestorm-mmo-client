@@ -1,6 +1,7 @@
 package com.valenguard.client.game.movement;
 
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -8,10 +9,9 @@ import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
-public class EntityTracker {
+public class EntityTracker implements GameQuitReset {
 
     private final PathFinding pathFinding = new PathFinding();
     private Location previousLocation;
@@ -66,4 +66,9 @@ public class EntityTracker {
         previousLocation = null;
     }
 
+    @Override
+    public void reset() {
+        cancelTracking();
+        pathFinding.finish();
+    }
 }

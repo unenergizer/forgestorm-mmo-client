@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -23,6 +24,7 @@ import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final ItemDropDownMenu itemDropDownMenu;
+    private StageHandler stageHandler;
     private VisTable dropDownTable = new VisTable();
     private InventoryType inventoryType;
     private byte slotIndex;
@@ -34,8 +36,9 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
-
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
+        
         add(dropDownTable).grow();
 
         addListener(new ForceCloseWindowListener() {
@@ -84,9 +87,9 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
-                BagWindow bagWindow = ActorUtil.getStageHandler().getBagWindow();
+                BagWindow bagWindow = stageHandler.getBagWindow();
                 if (bagWindow.isInventoryFull()) {
-                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("Cannot unequip because your bag is full!");
+                    stageHandler.getChatWindow().appendChatMessage("Cannot unequip because your bag is full!");
                     ActorUtil.fadeOutWindow(itemDropDownMenu);
                     return;
                 }
@@ -118,7 +121,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
-                EquipmentWindow equipmentWindow = ActorUtil.getStageHandler().getEquipmentWindow();
+                EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
 
                 ItemStackSlot targetSlot;
                 if (itemStack.getItemStackType() == ItemStackType.RING) {

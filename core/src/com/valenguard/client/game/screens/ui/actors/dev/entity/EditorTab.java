@@ -10,22 +10,33 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.game.rpg.EntityAlignment;
+import com.valenguard.client.game.screens.ui.StageHandler;
 
 import java.text.DecimalFormat;
 
+import lombok.Getter;
+
+@SuppressWarnings("SameParameterValue")
+@Getter
 public abstract class EditorTab extends Tab {
 
+    private final StageHandler stageHandler;
+    private final EntityEditor entityEditor;
     private final DecimalFormat decimalFormat = new DecimalFormat();
 
-    EditorTab() {
+    EditorTab(StageHandler stageHandler, EntityEditor entityEditor) {
         super(false, false);
+        this.stageHandler = stageHandler;
+        this.entityEditor = entityEditor;
         decimalFormat.setMaximumFractionDigits(2);
     }
 
     public abstract void resetValues();
+
     public abstract void build();
 
 
+    @SuppressWarnings("unchecked")
     void selectBox(VisTable mainTable, String labelName, VisSelectBox visSelectBox, EntityAlignment[] items) {
         visSelectBox.setItems(items);
         VisTable table = new VisTable();

@@ -3,7 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -17,8 +17,8 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
     }
 
     @Override
-    public Actor build() {
-        DragAndDrop dragAndDrop = ActorUtil.getStageHandler().getDragAndDrop();
+    public Actor build(final StageHandler stageHandler) {
+        DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         addCloseButton();
         setResizable(false);
 
@@ -27,10 +27,10 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
 
             // Create a slot for items
             ItemStackSlot itemStackSlot = new ItemStackSlot(this, InventoryType.BAG_1, i);
-            itemStackSlot.build();
+            itemStackSlot.build(stageHandler);
 
             add(itemStackSlot); // Add slot to BagWindow
-            dragAndDrop.addSource(new ItemStackSource(itemStackSlot, dragAndDrop));
+            dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
             itemStackSlots[i] = itemStackSlot;
@@ -52,12 +52,12 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(ActorUtil.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+                setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
             }
         });
 
         pack();
-        setPosition(ActorUtil.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+        setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
         setVisible(false);
         return this;
     }

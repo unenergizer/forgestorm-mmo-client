@@ -9,20 +9,22 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ScreenType;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.UserInterfaceType;
+import com.valenguard.client.game.screens.ui.StageHandler;
 
 import lombok.Getter;
 
 public class GameMechanicsTab extends Tab {
 
+    private final StageHandler stageHandler;
     @Getter
     private final VisCheckBox fpsCheckBox = new VisCheckBox("");
     private final String title;
     private Table content;
 
-    GameMechanicsTab() {
+    GameMechanicsTab(StageHandler stageHandler) {
         super(false, false);
+        this.stageHandler = stageHandler;
         title = " Game Mechanics ";
         build();
     }
@@ -41,13 +43,13 @@ public class GameMechanicsTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
-                if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
-                    ActorUtil.getStageHandler().getFpsTable().setVisible(fpsCheckBox.isChecked());
+                if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+                    stageHandler.getFpsTable().setVisible(fpsCheckBox.isChecked());
                     if (fpsCheckBox.isChecked())
-                        ActorUtil.getStageHandler().getDebugTable().setVisible(false);
+                        stageHandler.getDebugTable().setVisible(false);
                 } else {
                     event.cancel();
-                    Dialogs.showOKDialog(ActorUtil.getStage(), "Error!", "Option can only be set in-game.");
+                    Dialogs.showOKDialog(stageHandler.getStage(), "Error!", "Option can only be set in-game.");
                 }
                 event.handle();
             }

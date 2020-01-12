@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.AntiBleedOrthogonalTiledMapRenderer;
 import com.valenguard.client.game.screens.AttachableCamera;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -41,7 +42,9 @@ public class MapRenderer implements Disposable {
     }
 
     public boolean isReadyToRender() {
-        return orthogonalTiledMapRenderer != null && tiledMap != null;
+        return orthogonalTiledMapRenderer != null
+                && tiledMap != null
+                && Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME;
     }
 
     public void renderBottomMapLayers(AttachableCamera camera) {
@@ -112,5 +115,6 @@ public class MapRenderer implements Disposable {
     @Override
     public void dispose() {
         if (orthogonalTiledMapRenderer != null) orthogonalTiledMapRenderer.dispose();
+        if (tiledMap != null) tiledMap.dispose();
     }
 }

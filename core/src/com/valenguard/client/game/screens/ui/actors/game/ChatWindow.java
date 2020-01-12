@@ -18,7 +18,6 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.io.type.GameAtlas;
@@ -58,11 +57,10 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
 
         bitmapFont.getData().markupEnabled = true;
 
-        final StageHandler stageHandler = ActorUtil.getStageHandler();
         final int innerPadding = 5;
         pad(innerPadding);
         setResizable(true);

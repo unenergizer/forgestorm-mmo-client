@@ -63,7 +63,7 @@ public class MapManager implements Disposable {
      * @throws RuntimeException Requested map could not be found or was not loaded.
      */
     public GameMap getGameMap(String mapName) throws RuntimeException {
-        GameMap gameMap = null;
+        GameMap gameMap;
         if (gameMaps.containsKey(mapName)) {
             gameMap = gameMaps.get(mapName);
         } else if (gameMaps.containsKey(mapName.replace(".tmx", ""))) {

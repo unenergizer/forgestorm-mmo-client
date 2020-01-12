@@ -18,7 +18,7 @@ import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.rpg.EntityAlignment;
-import com.valenguard.client.game.screens.GameScreen;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.data.MonsterData;
@@ -33,7 +33,6 @@ import static com.valenguard.client.util.Log.println;
 
 public class MonsterTab extends EditorTab {
 
-    private final EntityEditor entityEditor;
     private final String title;
     private VisTable content;
 
@@ -66,8 +65,8 @@ public class MonsterTab extends EditorTab {
     @Getter
     private VisTable previewTable = new VisTable();
 
-    MonsterTab(EntityEditor entityEditor) {
-        this.entityEditor = entityEditor;
+    MonsterTab(StageHandler stageHandler, EntityEditor entityEditor) {
+        super(stageHandler, entityEditor);
         title = " Monster ";
 
         // SETUP DEFAULT CASE
@@ -197,7 +196,7 @@ public class MonsterTab extends EditorTab {
             }
         });
 
-        ((GameScreen) Valenguard.getInstance().getScreen()).getMultiplexer().addProcessor(new InputProcessor() {
+        Valenguard.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
             private MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
 
@@ -317,7 +316,7 @@ public class MonsterTab extends EditorTab {
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
             }
         });
 
@@ -334,28 +333,28 @@ public class MonsterTab extends EditorTab {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
-                    Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
+                    Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
                 }
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
-                Dialogs.showOptionDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
+                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
+                Dialogs.showOptionDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
                     @Override
                     public void yes() {
-                        Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Entity deleted forever!");
+                        Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Entity deleted forever!");
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
-                        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
-                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
-                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });
@@ -365,7 +364,7 @@ public class MonsterTab extends EditorTab {
         content.add(leftPane).fill().pad(3).grow().left().top();
         content.add(appearanceTable).fill().pad(3).grow().left().top().row();
 
-        entityEditor.pack();
+        getEntityEditor().pack();
     }
 
     private EntityEditorData generateDataOut(boolean save, boolean delete) {

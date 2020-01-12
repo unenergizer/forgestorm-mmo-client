@@ -11,6 +11,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.audio.MusicManager;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -19,7 +20,7 @@ import com.valenguard.client.game.screens.ui.actors.settings.MainSettingsWindow;
 public class ButtonTable extends VisTable implements Buildable {
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         VisTable buttonTable = new VisTable();
 
         /*
@@ -93,7 +94,7 @@ public class ButtonTable extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
-                MainSettingsWindow mainSettingsWindow = ActorUtil.getStageHandler().getMainSettingsWindow();
+                MainSettingsWindow mainSettingsWindow = stageHandler.getMainSettingsWindow();
                 if (!mainSettingsWindow.isVisible()) ActorUtil.fadeInWindow(mainSettingsWindow);
                 else ActorUtil.fadeOutWindow(mainSettingsWindow);
             }

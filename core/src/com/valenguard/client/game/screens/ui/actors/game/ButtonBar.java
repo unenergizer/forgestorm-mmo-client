@@ -20,11 +20,9 @@ import com.valenguard.client.io.type.GameAtlas;
 public class ButtonBar extends VisTable implements Buildable {
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
 
         VisTable buttonTable = new VisTable();
-
-        final StageHandler stageHandler = ActorUtil.getStageHandler();
 
         ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
         VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_076").buildTextureRegionDrawable(), "Character (" + KeyBinds.printKey(KeyBinds.EQUIPMENT_WINDOW) + ")");
@@ -62,7 +60,7 @@ public class ButtonBar extends VisTable implements Buildable {
                     ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
                     EntityManager.getInstance().getPlayerClient().closeBankWindow();
-                    ActorUtil.getStageHandler().getEntityShopWindow().closeShopWindow(false);
+                    stageHandler.getEntityShopWindow().closeShopWindow(false);
                     ActorUtil.fadeOutWindow(stageHandler.getHelpWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getCreditsWindow());
 
@@ -95,7 +93,7 @@ public class ButtonBar extends VisTable implements Buildable {
 
         pack();
         setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), 10);
-        setVisible(true);
+        setVisible(false);
         return this;
     }
 }

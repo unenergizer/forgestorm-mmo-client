@@ -4,13 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class CopyrightTable extends VisTable implements Buildable {
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         add(new VisLabel("Copyright © 2017-2020 RetroMMO. All Rights Reserved."));
 
         addListener(new WindowResizeListener() {

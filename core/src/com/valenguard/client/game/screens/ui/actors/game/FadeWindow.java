@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -17,12 +18,12 @@ public class FadeWindow extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         pad(0);
         setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         // Setting true here so the black screen is shown while the GameScreen is being setup.
-        setVisible(true);
+        setVisible(false);
 
         VisLabel visLabel = new VisLabel("Loading Area...");
         visLabel.setAlignment(Alignment.TOP.getAlignment());

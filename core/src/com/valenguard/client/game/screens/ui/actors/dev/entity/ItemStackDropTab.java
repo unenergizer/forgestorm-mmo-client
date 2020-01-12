@@ -15,8 +15,8 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
-import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -35,7 +35,6 @@ public class ItemStackDropTab extends EditorTab {
 
     private final ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
     private final int amount = itemStackManager.getItemStackArraySize();
-    private final EntityEditor entityEditor;
     private final String title;
     private VisTable content;
 
@@ -61,8 +60,8 @@ public class ItemStackDropTab extends EditorTab {
     private VisLabel scrollProgress = new VisLabel();
     private VisImage itemStackPreview = new VisImage();
 
-    ItemStackDropTab(EntityEditor entityEditor) {
-        this.entityEditor = entityEditor;
+    ItemStackDropTab(StageHandler stageHandler, EntityEditor entityEditor) {
+        super(stageHandler, entityEditor);
         this.title = " ItemStack Drop ";
 
         build();
@@ -156,7 +155,7 @@ public class ItemStackDropTab extends EditorTab {
             }
         });
 
-        ((GameScreen) Valenguard.getInstance().getScreen()).getMultiplexer().addProcessor(new InputProcessor() {
+        Valenguard.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
             private MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
 
@@ -266,7 +265,7 @@ public class ItemStackDropTab extends EditorTab {
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
             }
         });
 
@@ -283,28 +282,28 @@ public class ItemStackDropTab extends EditorTab {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
-                    Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
+                    Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
                 }
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
-                Dialogs.showOptionDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
+                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
+                Dialogs.showOptionDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
                     @Override
                     public void yes() {
-                        Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Entity deleted forever!");
+                        Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Entity deleted forever!");
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
-                        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
-                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
-                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });
@@ -314,7 +313,7 @@ public class ItemStackDropTab extends EditorTab {
         content.add(leftPane).fill().pad(3).grow().left().top();
         content.add(buildItemStackViewer(itemStackDisplayTable)).fill().pad(3).grow().left().top().row();
 
-        entityEditor.pack();
+        getEntityEditor().pack();
     }
 
     private VisTable buildItemStackViewer(VisTable visTable) {

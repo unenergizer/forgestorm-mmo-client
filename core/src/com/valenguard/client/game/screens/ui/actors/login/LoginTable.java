@@ -12,7 +12,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -23,12 +23,15 @@ import lombok.Getter;
 @Getter
 public class LoginTable extends VisTable implements Buildable, Disposable {
 
+    private StageHandler stageHandler;
     private VisTextField usernameField = new VisTextField();
     private VisTextField passwordField = new VisTextField();
     private VisTextButton loginButton = new VisTextButton("");
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
+
         VisTable mainTable = new VisTable(true);
         VisTable logoTable = new VisTable(true);
         HideableVisWindow loginWindow = new HideableVisWindow("");
@@ -129,6 +132,12 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         }
     }
 
+    public void resetButton() {
+        loginButton.setDisabled(false);
+        loginButton.setText("Login");
+        passwordField.setText(Valenguard.getInstance().getLoginCredentials().getPassword());
+    }
+
     /*****************************************************************
      * !!! TEXT FIELD LISTENERS !!!
      *
@@ -142,8 +151,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         public void keyTyped(VisTextField textField, char c) {
             // user hit enter/tab/etc, lets move to password text field
             if (c == '\n' || c == '\r' || c == '\t') {
-                FocusManager.switchFocus(ActorUtil.getStage(), passwordField);
-                ActorUtil.getStage().setKeyboardFocus(passwordField);
+                FocusManager.switchFocus(stageHandler.getStage(), passwordField);
+                stageHandler.getStage().setKeyboardFocus(passwordField);
                 passwordField.setCursorAtTextEnd();
             }
         }
@@ -154,8 +163,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         public void keyTyped(VisTextField textField, char c) {
             if (c == '\t') {
                 // user hit tab, lets playerMove to account text field
-                FocusManager.switchFocus(ActorUtil.getStage(), usernameField);
-                ActorUtil.getStage().setKeyboardFocus(usernameField);
+                FocusManager.switchFocus(stageHandler.getStage(), usernameField);
+                stageHandler.getStage().setKeyboardFocus(usernameField);
             } else if (c == '\n' || c == '\r') {
                 // user hit enter, try login
                 attemptLogin();

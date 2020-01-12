@@ -9,6 +9,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -21,16 +22,16 @@ public class EntityEditor extends HideableVisWindow implements Buildable, Focusa
 
     @Getter
     private TabbedPane tabbedPane = new TabbedPane();
-    private NpcTab npcTab = new NpcTab(this);
-    private MonsterTab monsterTab = new MonsterTab(this);
-    private ItemStackDropTab itemStackDropTab = new ItemStackDropTab(this);
+    private NpcTab npcTab;
+    private MonsterTab monsterTab;
+    private ItemStackDropTab itemStackDropTab;
 
     public EntityEditor() {
         super("Entity Editor");
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(true);
@@ -49,6 +50,10 @@ public class EntityEditor extends HideableVisWindow implements Buildable, Focusa
         add(tabbedPane.getTable()).expandX().fillX();
         row();
         add(mainTable).expand().fill();
+
+        npcTab = new NpcTab(stageHandler, this);
+        monsterTab = new MonsterTab(stageHandler, this);
+        itemStackDropTab = new ItemStackDropTab(stageHandler, this);
 
         tabbedPane.add(npcTab);
         tabbedPane.add(monsterTab);

@@ -15,6 +15,7 @@ import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.game.rpg.EntityShopManager;
 import com.valenguard.client.game.rpg.ShopOpcodes;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -47,6 +48,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
     private final VisTextButton nextPage = new VisTextButton("Next Page");
     private final VisTextButton exit = new VisTextButton("Exit Shop");
 
+    private StageHandler stageHandler;
     private VisTable pageContainer = new VisTable();
     private VisTable navTable = new VisTable();
 
@@ -62,7 +64,8 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         EntityShopWindow entityShopWindow = this;
         TableUtils.setSpacingDefaults(this);
         addCloseButton();
@@ -141,7 +144,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
     public void closeShopWindow(boolean playerMoved) {
         if (!shopWindowOpen) return;
         if (playerMoved)
-            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]Shop window closed because you moved.");
+            stageHandler.getChatWindow().appendChatMessage("[RED]Shop window closed because you moved.");
 
         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityShopWindow.class, (short) 0);
 
@@ -344,7 +347,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
                     itemStackToolTip.unregisterToolTip();
                     itemStackToolTip = null;
                 }
-                itemStackToolTip = new ItemStackToolTip(itemStack, this);
+                itemStackToolTip = new ItemStackToolTip(stageHandler, itemStack, this);
                 itemStackToolTip.registerToolTip();
             }
             pack();

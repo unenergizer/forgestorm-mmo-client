@@ -50,6 +50,7 @@ import java.util.Queue;
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final EntityDropDownMenu dropDownMenu;
+    private StageHandler stageHandler;
     private VisTable dropDownTable = new VisTable();
 
     private final PathFinding pathFinding = new PathFinding();
@@ -60,8 +61,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
-
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         add(dropDownTable).grow();
 
         addListener(new ForceCloseWindowListener() {
@@ -103,8 +104,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     private void sendTradeRequest(Player player) {
         Valenguard.getInstance().getEntityTracker().cancelTracking();
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, player.getServerEntityID())).sendPacket();
-        ActorUtil.getStageHandler().getTradeWindow().setTradeTarget(player);
-        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[Client] Sending trade request...");
+        stageHandler.getTradeWindow().setTradeTarget(player);
+        stageHandler.getChatWindow().appendChatMessage("[Client] Sending trade request...");
         cleanUpDropDownMenu(true);
     }
 
@@ -121,7 +122,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                 if (testMoveNodes == null) {
-                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable walk path.");
+                    stageHandler.getChatWindow().appendChatMessage("No suitable walk path.");
                     cleanUpDropDownMenu(true);
                     return;
                 }
@@ -186,7 +187,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    StageHandler stageHandler = ActorUtil.getStageHandler();
 
                     EntityEditor entityEditor = stageHandler.getEntityEditor();
                     if (clickedEntity.getEntityType() == EntityType.MONSTER) {
@@ -256,7 +256,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    StageHandler stageHandler = ActorUtil.getStageHandler();
 
                     new InspectPlayerPacketOut(clickedEntity.getServerEntityID()).sendPacket();
 
@@ -299,7 +298,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             if (testMoveNodes == null) {
                 if (!traverseToBankAccessPoint(clientLocation)) {
-                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
+                    stageHandler.getChatWindow().appendChatMessage("No suitable path to open bank.");
                 }
 
                 cleanUpDropDownMenu(true);
@@ -361,7 +360,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             if (testMoveNodes == null) {
                 if (!traverseToBankAccessPoint(clientLocation)) {
-                    ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to open bank.");
+                    stageHandler.getChatWindow().appendChatMessage("No suitable path to open bank.");
                 }
 
                 cleanUpDropDownMenu(true);
@@ -425,7 +424,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable path to attack.");
+                            stageHandler.getChatWindow().appendChatMessage("No suitable path to attack.");
                             cleanUpDropDownMenu(true);
                             return;
                         }
@@ -467,7 +466,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable walk path.");
+                            stageHandler.getChatWindow().appendChatMessage("No suitable walk path.");
                             cleanUpDropDownMenu(true);
                             return;
                         }
@@ -497,7 +496,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    final EntityShopWindow entityShopWindow = ActorUtil.getStageHandler().getEntityShopWindow();
+                    final EntityShopWindow entityShopWindow = stageHandler.getEntityShopWindow();
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedEntity.getFutureMapLocation();
 
@@ -511,7 +510,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]You are too far away to use this shop.");
+                            stageHandler.getChatWindow().appendChatMessage("[RED]You are too far away to use this shop.");
                             return;
                         }
 
@@ -550,7 +549,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                     if (testMoveNodes == null) {
-                        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("No suitable follow path.");
+                        stageHandler.getChatWindow().appendChatMessage("No suitable follow path.");
                         cleanUpDropDownMenu(true);
                         return;
                     }

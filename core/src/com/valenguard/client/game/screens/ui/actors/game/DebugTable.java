@@ -6,7 +6,8 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
-import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.UserInterfaceType;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -29,7 +30,7 @@ public class DebugTable extends VisTable implements Buildable {
     private final VisLabel damage = new VisLabel();
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         add(delta).left().row();
         add(fps).left().row();
         add(zoom).left().row();
@@ -84,7 +85,7 @@ public class DebugTable extends VisTable implements Buildable {
             damage.setText("Damage: " + playerClient.getAttributes().getDamage());
         }
 
-        if (mouseManager != null && Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+        if (mouseManager != null && Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
             cursorTile.setText("Cursor-Tile X: " + mouseManager.getMouseTileX() + ", Y: " + mouseManager.getMouseTileY());
             leftCursorTileClick.setText("Left-Click X: " + mouseManager.getLeftClickTileX() + ", Y: " + mouseManager.getLeftClickTileY());
             rightCursorTileClick.setText("Right-Click X: " + mouseManager.getRightClickTileX() + ", Y: " + mouseManager.getRightClickTileY());

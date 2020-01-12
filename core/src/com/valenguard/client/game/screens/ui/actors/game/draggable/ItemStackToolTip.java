@@ -8,12 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextArea;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.world.item.ItemStack;
 
 public class ItemStackToolTip extends HideableVisWindow {
 
+    private final StageHandler stageHandler;
     private final ItemStackToolTip itemStackToolTip;
 
     private VisTable toolTipTable;
@@ -22,8 +24,9 @@ public class ItemStackToolTip extends HideableVisWindow {
     private VisTextArea descTextArea;
     private InputListener inputListener;
 
-    public ItemStackToolTip(ItemStack itemStack, Actor itemStackActor) {
+    public ItemStackToolTip(StageHandler stageHandler, ItemStack itemStack, Actor itemStackActor) {
         super("");
+        this.stageHandler = stageHandler;
         this.itemStackToolTip = this;
         build(itemStack, itemStackActor);
     }
@@ -32,7 +35,7 @@ public class ItemStackToolTip extends HideableVisWindow {
      * Registers this {@link ItemStackToolTip} with the {@link com.valenguard.client.game.screens.ui.StageHandler}
      */
     public void registerToolTip() {
-        ActorUtil.getStage().addActor(itemStackToolTip);
+        stageHandler.getStage().addActor(itemStackToolTip);
     }
 
     /**
@@ -79,7 +82,7 @@ public class ItemStackToolTip extends HideableVisWindow {
      * @param itemStack The {@link ItemStack} to get tool tip information for.
      */
     private void setToolTipText(ItemStack itemStack) {
-        nameLabel.setText("[ID: " + Integer.toString(itemStack.getItemId()) + "] " + itemStack.getName());
+        nameLabel.setText("[ID: " + itemStack.getItemId() + "] " + itemStack.getName());
         typeLabel.setText(itemStack.getItemStackType().name());
         descTextArea.setText(itemStack.getDescription());
         descTextArea.setPrefRows(3);

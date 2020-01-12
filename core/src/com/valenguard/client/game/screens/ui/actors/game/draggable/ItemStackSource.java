@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.io.type.GameAtlas;
@@ -16,14 +17,16 @@ public class ItemStackSource extends DragAndDrop.Source {
 
     private static final int DRAG_IMAGE_SIZE = 24;
 
-    @Getter
-    private ItemStackSlot itemStackSlot;
+    private final StageHandler stageHandler;
     private final DragAndDrop dragManager;
+    @Getter
+    private final ItemStackSlot itemStackSlot;
 
-    ItemStackSource(ItemStackSlot itemStackSlot, DragAndDrop dragManager) {
+    ItemStackSource(StageHandler stageHandler, DragAndDrop dragManager, ItemStackSlot itemStackSlot) {
         super(itemStackSlot);
-        this.itemStackSlot = itemStackSlot;
+        this.stageHandler = stageHandler;
         this.dragManager = dragManager;
+        this.itemStackSlot = itemStackSlot;
     }
 
     @Override
@@ -48,8 +51,8 @@ public class ItemStackSource extends DragAndDrop.Source {
 
         itemStackSlot.setEmptyCellImage();
 
-        if (ActorUtil.getStageHandler().getItemDropDownMenu().isVisible()) {
-            ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getItemDropDownMenu());
+        if (stageHandler.getItemDropDownMenu().isVisible()) {
+            ActorUtil.fadeOutWindow(stageHandler.getItemDropDownMenu());
         }
 
         // The image to display when the item is picked up and is being moved to valid locations

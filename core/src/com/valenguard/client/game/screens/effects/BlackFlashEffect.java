@@ -1,7 +1,7 @@
 package com.valenguard.client.game.screens.effects;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.world.maps.MapRenderer;
 
 public class BlackFlashEffect extends ScreenEffect {
@@ -11,7 +11,7 @@ public class BlackFlashEffect extends ScreenEffect {
 
     @Override
     public void performEffect(float deltaTime) {
-        if (Valenguard.getInstance().getScreenType() != ScreenType.GAME) return;
+        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
         if (!isStarted) {
             isStarted = true;
             mapRenderer = Valenguard.gameScreen.getMapRenderer();

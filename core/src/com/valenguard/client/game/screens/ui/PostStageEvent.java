@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
-import com.valenguard.client.game.screens.ScreenType;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowEvent;
 
@@ -30,7 +30,7 @@ class PostStageEvent implements InputProcessor {
             if (forceCloseEvent.isHandled()) return true; // break here, do not open escape menu!
 
             //Finally... Open the Escape menu!
-            if (Valenguard.getInstance().getScreenType() == ScreenType.GAME) {
+            if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
                 if (!stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEscapeWindow());
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEscapeWindow());

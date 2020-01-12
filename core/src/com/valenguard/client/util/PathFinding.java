@@ -159,7 +159,7 @@ public class PathFinding {
         return moveNodes;
     }
 
-    private void finish() {
+    public void finish() {
         closedSet.clear();
         openSet.clear();
     }

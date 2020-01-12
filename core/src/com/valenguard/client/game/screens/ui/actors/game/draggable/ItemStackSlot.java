@@ -13,8 +13,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
@@ -23,12 +22,14 @@ import com.valenguard.client.io.type.GameAtlas;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ItemStackSlot extends VisTable implements Buildable {
+public class ItemStackSlot extends VisTable {
 
     /**
      * Used to places images in the UserInterface
      */
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+
+    private StageHandler stageHandler;
 
     /**
      * The slot index of this {@link ItemStackSlot}. This ID is used as locational data
@@ -104,11 +105,12 @@ public class ItemStackSlot extends VisTable implements Buildable {
         this.acceptedItemStackTypes = acceptedItemStackTypes;
     }
 
-    @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
+
         // Add ItemStack cell background
         VisTable visTable = new VisTable();
-        visTable.setBackground(ActorUtil.getStageHandler().getItemStackCellBackground());
+        visTable.setBackground(stageHandler.getItemStackCellBackground());
         stack.add(visTable);
 
         // Add ItemStack image or blank image to the cell
@@ -232,7 +234,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
         if (itemStackToolTip != null) {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
-            itemStackToolTip = new ItemStackToolTip(itemStack, itemStackImage);
+            itemStackToolTip = new ItemStackToolTip(stageHandler, itemStack, itemStackImage);
             itemStackToolTip.registerToolTip();
         }
     }
@@ -257,7 +259,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
         }
-        itemStackToolTip = new ItemStackToolTip(itemStack, itemStackImage);
+        itemStackToolTip = new ItemStackToolTip(stageHandler, itemStack, itemStackImage);
         itemStackToolTip.registerToolTip();
 
         // Add item amount
@@ -307,10 +309,10 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 if (tradeSlotLocked) return true;
 
                 // Trade Item click
-                if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) {
+                if (stageHandler.getTradeWindow().isVisible()) {
                     if (itemStack == null) return true; // Empty slot click!
 
-                    ActorUtil.getStageHandler().getTradeWindow().addItemFromInventory(itemStack, inventoryType, itemStackSlot);
+                    stageHandler.getTradeWindow().addItemFromInventory(itemStack, inventoryType, itemStackSlot);
                     return true;
                 }
 
@@ -326,7 +328,7 @@ public class ItemStackSlot extends VisTable implements Buildable {
                 if (button == Input.Buttons.RIGHT) {
                     // Bringing up options for the item!
                     if (itemStack != null) {
-                        ActorUtil.getStageHandler().getItemDropDownMenu().toggleMenu(itemStack, inventoryType, itemStackSlot, slotIndex,
+                        stageHandler.getItemDropDownMenu().toggleMenu(itemStack, inventoryType, itemStackSlot, slotIndex,
                                 itemSlotContainer.getX() + itemStackSlot.getX() + x,
                                 itemSlotContainer.getY() + itemStackSlot.getY() + y);
                     }

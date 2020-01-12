@@ -1,37 +1,37 @@
 package com.valenguard.client.game.screens.ui.actors.dev;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
+import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 
-public class DevMenu extends Actor implements Buildable {
+public class DevMenu extends VisTable implements Buildable {
 
     private MenuBar menuBar = new MenuBar();
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        VisTable menuTable = new VisTable();
 
-        if (!Valenguard.getInstance().isModerator()) return this;
-        Table table = new Table();
-        table.setFillParent(true);
-
-        table.add(menuBar.getTable()).expandX().row();
-        table.add().expand().fill();
-        ActorUtil.getStage().addActor(table);
+        menuTable.add(menuBar.getTable()).expandX().row();
+        menuTable.add().expand().fill();
+        add(menuTable);
 
         menuBar.addMenu(createModeratorMenu());
+        menuBar.addMenu(createToolsMenu(stageHandler));
 
-        if (!Valenguard.getInstance().isAdmin()) return this;
-        menuBar.addMenu(createToolsMenu());
-        setVisible(true);
+        pack();
+        setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());
+        setVisible(false);
         return this;
     }
 
@@ -46,13 +46,13 @@ public class DevMenu extends Actor implements Buildable {
         return moderatorMenu;
     }
 
-    private Menu createToolsMenu() {
+    private Menu createToolsMenu(final StageHandler stageHandler) {
         Menu toolsMenu = new Menu("Tools");
 
         toolsMenu.addItem(new MenuItem("Entity Editor", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
+                EntityEditor entityEditor = stageHandler.getEntityEditor();
                 entityEditor.resetValues();
                 ActorUtil.fadeInWindow(entityEditor);
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
@@ -62,7 +62,7 @@ public class DevMenu extends Actor implements Buildable {
         toolsMenu.addItem(new MenuItem("ItemStack Editor", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ItemStackEditor itemStackEditor = ActorUtil.getStageHandler().getItemStackEditor();
+                ItemStackEditor itemStackEditor = stageHandler.getItemStackEditor();
                 itemStackEditor.resetValues();
                 ActorUtil.fadeInWindow(itemStackEditor);
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);

@@ -17,6 +17,8 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.ENTITY_MOVE_UPDATE)
 public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.EntityMovePacket> {
 
@@ -56,7 +58,9 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         }
 
         if (movingEntity == null) {
-            throw new RuntimeException("Server tried to move an entity our client is not aware of. Check to make sure the server were on the correct map.");
+//            throw new RuntimeException("Server tried to move an entity our client is not aware of. Check to make sure the server were on the correct map.");
+            println(getClass(), "Server tried to move an entity our client is not aware of. Check to make sure the server were on the correct map.", true, true);
+            return;
         }
 
         if (MoveUtil.isEntityMoving(movingEntity)) {

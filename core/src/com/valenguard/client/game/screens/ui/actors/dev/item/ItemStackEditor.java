@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
@@ -29,7 +30,7 @@ public class ItemStackEditor extends HideableVisWindow implements Buildable, Foc
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         TableUtils.setSpacingDefaults(this);
         addCloseButton();
         setResizable(true);

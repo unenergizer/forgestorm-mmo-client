@@ -1,7 +1,7 @@
 package com.valenguard.client.network;
 
 import com.badlogic.gdx.Gdx;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.game.ClientGameConnection;
 import com.valenguard.client.network.game.Consumer;
@@ -56,8 +56,9 @@ public class ConnectionManager {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                Valenguard.getInstance().dispose();
-                Valenguard.getInstance().create();
+//                Valenguard.getInstance().dispose();
+//                Valenguard.getInstance().create();
+                ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.LOGIN);
             }
         });
     }

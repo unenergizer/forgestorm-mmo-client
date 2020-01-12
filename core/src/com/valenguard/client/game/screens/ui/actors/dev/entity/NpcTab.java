@@ -21,7 +21,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.MouseManager;
-import com.valenguard.client.game.screens.GameScreen;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
@@ -42,7 +42,6 @@ public class NpcTab extends EditorTab {
 
     static final int PREVIEW_SCALE = 10;
 
-    private final EntityEditor entityEditor;
     private final String title;
     private VisTable content;
 
@@ -75,9 +74,8 @@ public class NpcTab extends EditorTab {
     @Getter
     private VisTable previewTable = new VisTable();
 
-
-    NpcTab(EntityEditor entityEditor) {
-        this.entityEditor = entityEditor;
+    NpcTab(StageHandler getStageHandler, EntityEditor entityEditor) {
+        super(getStageHandler, entityEditor);
         title = " NPC ";
 
         // SETUP DEFAULT CASE
@@ -210,7 +208,7 @@ public class NpcTab extends EditorTab {
             }
         });
 
-        ((GameScreen) Valenguard.getInstance().getScreen()).getMultiplexer().addProcessor(new InputProcessor() {
+        Valenguard.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
             private MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
 
@@ -330,7 +328,7 @@ public class NpcTab extends EditorTab {
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
@@ -349,28 +347,28 @@ public class NpcTab extends EditorTab {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
-                    Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
+                    Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
                 }
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
-                Dialogs.showOptionDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
+                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
+                Dialogs.showOptionDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
                     @Override
                     public void yes() {
-                        Dialogs.showOKDialog(ActorUtil.getStage(), "EDITOR WARNING!", "Entity deleted forever!");
+                        Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Entity deleted forever!");
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
-                        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
-                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
-                        ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getEntityEditor());
+                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
                 });
@@ -380,7 +378,7 @@ public class NpcTab extends EditorTab {
         content.add(leftPane).fill().pad(3).grow().left().top();
         content.add(appearanceTable).fill().pad(3).grow().left().top().row();
 
-        entityEditor.pack();
+        getEntityEditor().pack();
     }
 
     void colorPicker(VisTable mainTable, String labelName, final VisSelectBox visSelectBox, final ColorPickerColorHandler colorPickerColorHandler) {
@@ -404,7 +402,7 @@ public class NpcTab extends EditorTab {
         visTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.getStageHandler().getColorPickerController().show(colorPickerColorHandler);
+                getStageHandler().getColorPickerController().show(colorPickerColorHandler);
             }
         });
     }

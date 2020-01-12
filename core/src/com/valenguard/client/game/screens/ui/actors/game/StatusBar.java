@@ -8,6 +8,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisWindow;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -52,7 +53,7 @@ public class StatusBar extends VisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         pad(5f);
         VisTable visTable = new VisTable();
 
@@ -103,7 +104,7 @@ public class StatusBar extends VisWindow implements Buildable {
 
         pack();
         setPosition(posX, posY - getHeight());
-        setVisible(true);
+        setVisible(false);
         return this;
     }
 }

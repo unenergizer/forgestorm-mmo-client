@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -27,7 +28,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
         escapeWindow = this;
         setMovable(false);
         TableUtils.setSpacingDefaults(this);
@@ -81,7 +82,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getHelpWindow());
+                ActorUtil.fadeInWindow(stageHandler.getHelpWindow());
                 return true;
             }
         });
@@ -90,7 +91,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getCreditsWindow());
+                ActorUtil.fadeInWindow(stageHandler.getCreditsWindow());
                 return true;
             }
         });
@@ -99,7 +100,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable, Focusa
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getMainSettingsWindow());
+                ActorUtil.fadeInWindow(stageHandler.getMainSettingsWindow());
                 return true;
             }
         });

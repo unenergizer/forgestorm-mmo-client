@@ -1,12 +1,12 @@
 package com.valenguard.client.game.screens;
 
-public enum ScreenType {
+public enum UserInterfaceType {
     LOGIN,
     CHARACTER_SELECT,
     GAME;
 
-    public static ScreenType getScreenType(byte screenByte) {
-        for (ScreenType screen : ScreenType.values()) {
+    public static UserInterfaceType getScreenType(byte screenByte) {
+        for (UserInterfaceType screen : UserInterfaceType.values()) {
             if ((byte) screen.ordinal() == screenByte) {
                 return screen;
             }

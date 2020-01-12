@@ -14,6 +14,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -45,6 +46,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
     private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
 
+    private StageHandler stageHandler;
     private TradeManager tradeManager;
 
     private TextButton accept;
@@ -64,7 +66,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     }
 
     @Override
-    public Actor build() {
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
+
         TableUtils.setSpacingDefaults(this);
         setResizable(false);
 
@@ -387,7 +391,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                     itemStackToolTip.unregisterToolTip();
                     itemStackToolTip = null;
                 }
-                itemStackToolTip = new ItemStackToolTip(itemStack, tradeCell);
+                itemStackToolTip = new ItemStackToolTip(stageHandler, itemStack, tradeCell);
                 itemStackToolTip.registerToolTip();
             }
 
@@ -401,9 +405,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                 int itemStackAmount = itemStack.getAmount();
                 String displayText = String.valueOf(itemStackAmount);
                 if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
-                    displayText = String.valueOf(itemStackAmount / 1000) + "K";
+                    displayText = itemStackAmount / 1000 + "K";
                 } else if (itemStackAmount >= 1000000) {
-                    displayText = String.valueOf(itemStackAmount / 1000000) + "M";
+                    displayText = itemStackAmount / 1000000 + "M";
                 }
 
                 amountLabel.setText(displayText);
