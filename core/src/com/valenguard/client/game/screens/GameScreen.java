@@ -246,7 +246,7 @@ public class GameScreen implements Screen {
     public void resume() {
         // Resume game music, if applicable
         final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
-        if (musicManager.isMusicPlaying()) musicManager.resumeMusic();
+        if (musicManager.isMusicPaused()) musicManager.resumeMusic();
 
         /*
          * Here we set up a timer to return the game focus after a very short amount of time.

@@ -20,6 +20,7 @@ public class MusicManager implements Disposable {
     private AudioPreferences audioPreferences = new AudioPreferences();
     private Music currentSong;
     private AudioData audioData;
+    private boolean isMusicPaused = false;
 
     MusicManager(Map<Short, AudioData> gameMusic) {
         this.gameMusic = gameMusic;
@@ -29,7 +30,7 @@ public class MusicManager implements Disposable {
         AudioData audioData = gameMusic.get(audioId);
 
         if (audioData == null) {
-            println(getClass(), "AudioID is null: " + audioId, true);
+            println(getClass(), "AudioID is null: " + audioId, true, PRINT_DEBUG);
             return;
         }
 
@@ -45,10 +46,10 @@ public class MusicManager implements Disposable {
         currentSong.setVolume(audioPreferences.getMusicVolume());
         currentSong.play();
 
-        println(getClass(), "AudioID: " + audioData.getAudioId());
-        println(getClass(), " -Playing: " + audioData.getFileName());
-        println(getClass(), " -Description: " + audioData.getDescription());
-        println(getClass(), " -Source: " + clazz);
+        println(getClass(), "AudioID: " + audioData.getAudioId(), true, PRINT_DEBUG);
+        println(getClass(), " -Playing: " + audioData.getFileName(), true, PRINT_DEBUG);
+        println(getClass(), " -Description: " + audioData.getDescription(), true, PRINT_DEBUG);
+        println(getClass(), " -Source: " + clazz, true, PRINT_DEBUG);
     }
 
     public void stopMusic(boolean dispose) {
@@ -57,12 +58,17 @@ public class MusicManager implements Disposable {
     }
 
     public void pauseMusic() {
-        if (currentSong != null && currentSong.isPlaying() && audioPreferences.isPauseMusicOnWindowLooseFocus())
+        if (currentSong != null && currentSong.isPlaying() && audioPreferences.isPauseMusicOnWindowLooseFocus()) {
             currentSong.pause();
+            isMusicPaused = true;
+        }
     }
 
     public void resumeMusic() {
-        if (currentSong != null && !currentSong.isPlaying()) currentSong.play();
+        if (currentSong != null && !currentSong.isPlaying()) {
+            currentSong.play();
+            isMusicPaused = false;
+        }
     }
 
     public void setVolume(float volume) {
@@ -72,6 +78,11 @@ public class MusicManager implements Disposable {
     public boolean isMusicPlaying() {
         if (currentSong == null) return false;
         return currentSong.isPlaying();
+    }
+
+    public boolean isMusicPaused() {
+        if (currentSong == null) return false;
+        return isMusicPaused;
     }
 
     @Override
