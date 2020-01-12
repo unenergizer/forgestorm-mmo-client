@@ -3,6 +3,7 @@ package com.valenguard.client.game.input;
 import com.badlogic.gdx.InputProcessor;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.UserInterfaceType;
 
 public class Mouse implements InputProcessor {
 
@@ -23,6 +24,7 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
         if (!Valenguard.gameScreen.isGameFocused()) return false;
         Valenguard.getInstance().getMouseManager().mouseClick(screenX, screenY, button);
         return false;
