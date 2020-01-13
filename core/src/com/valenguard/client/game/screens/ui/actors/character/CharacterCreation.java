@@ -62,10 +62,10 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         // Adding main character options
         VisTable characterOptions = new VisTable();
 
-        characterOptions.add(buildOptionTable(hairStyleOption)).row();
-        characterOptions.add(buildOptionTable(hairColorOption)).row();
-        characterOptions.add(buildOptionTable(eyeColorOption)).row();
-        characterOptions.add(buildOptionTable(skinColorOption)).row();
+        characterOptions.add(buildOptionTable(hairStyleOption)).pad(3).row();
+        characterOptions.add(buildOptionTable(hairColorOption)).pad(3).row();
+        characterOptions.add(buildOptionTable(eyeColorOption)).pad(3).row();
+        characterOptions.add(buildOptionTable(skinColorOption)).pad(3).row();
 
         VisTextButton randomize = new VisTextButton("Randomize");
         VisTextButton rotate = new VisTextButton("Rotate");
@@ -97,20 +97,20 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             }
         });
 
-        characterOptions.add(randomize).row();
-        characterOptions.add(rotate).row();
-        characterOptions.add(reset).row();
+        characterOptions.add(randomize).growX().pad(3).row();
+        characterOptions.add(rotate).growX().pad(3).row();
+        characterOptions.add(reset).growX().pad(3).row();
 
         rebuildPreviewTable();
-        topTable.add(previewTable).expand().fill();
-        topTable.add(characterOptions).expand().fill();
+        topTable.add(previewTable).expand().fill().pad(3);
+        topTable.add(characterOptions).expand().fill().pad(3);
 
-        add(topTable).expand().fill().row();
+        add(topTable).expand().fill().pad(3).row();
 
         // Confirm or cancel buttons
         VisTable confirmButtons = new VisTable();
-        confirmButtons.add(confirmTable(stageHandler)).expand().fill().align(Alignment.RIGHT.getAlignment());
-        add(confirmButtons).expand().fill().row();
+        confirmButtons.add(confirmTable(stageHandler)).expand().fill().align(Alignment.RIGHT.getAlignment()).pad(3);
+        add(confirmButtons).expand().fill().pad(3).row();
 
         setResizable(false);
         setVisible(false);
@@ -143,16 +143,16 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         validator.notEmpty(characterName, "Name must not be empty.");
 
         VisTable nameTable = new VisTable();
-        nameTable.add(new VisLabel("Name:  "));
-        nameTable.add(characterName);
+        nameTable.add(new VisLabel("Name:  ")).pad(3);
+        nameTable.add(characterName).pad(3);
 
         VisTable buttonTable = new VisTable();
-        buttonTable.add(cancel);
-        buttonTable.add(submit);
+        buttonTable.add(cancel).pad(3);
+        buttonTable.add(submit).pad(3);
 
-        mainTable.add(nameTable).row();
-        mainTable.add(buttonTable).align(Alignment.RIGHT.getAlignment()).row();
-        mainTable.add(errorLabel).align(Alignment.CENTER.getAlignment()).row();
+        mainTable.add(nameTable).pad(3).row();
+        mainTable.add(buttonTable).align(Alignment.RIGHT.getAlignment()).pad(3).row();
+        mainTable.add(errorLabel).align(Alignment.CENTER.getAlignment()).pad(3).row();
 
         cancel.addListener(new ChangeListener() {
             @Override
@@ -190,9 +190,9 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         final VisLabel optionName = new VisLabel(characterOption.optionName);
         VisTextButton right = new VisTextButton(">");
 
-        visTable.add(left);
-        visTable.add(optionName).expandX().fill();
-        visTable.add(right);
+        visTable.add(left).pad(3);
+        visTable.add(optionName).expandX().fill().pad(3);
+        visTable.add(right).pad(3);
 
         left.addListener(new ChangeListener() {
             @Override
