@@ -158,7 +158,6 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetCharacter();
-                characterName.setText("");
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
@@ -172,6 +171,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                resetCharacter(); // Clear current design, so next character creation is cleared.
             }
         });
         pack();
@@ -222,6 +222,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     }
 
     private void resetCharacter() {
+        characterName.clearText();
         hairStyleOption.reset();
         hairColorOption.reset();
         eyeColorOption.reset();
