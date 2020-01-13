@@ -19,6 +19,7 @@ import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
+import com.valenguard.client.game.screens.ui.actors.character.DeleteCharacter;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
@@ -78,6 +79,7 @@ public class StageHandler implements Disposable {
     // character select
     private CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
     private CharacterCreation characterCreation = new CharacterCreation();
+    private DeleteCharacter deleteCharacter = new DeleteCharacter();
     // game
     private FadeWindow fadeWindow = new FadeWindow();
     private HelpWindow helpWindow = new HelpWindow();
@@ -132,6 +134,7 @@ public class StageHandler implements Disposable {
         // Character select
         stage.addActor(characterSelectMenu.build(this));
         stage.addActor(characterCreation.build(this));
+        stage.addActor(deleteCharacter.build(this));
 
         // Game
         bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA4444);
@@ -234,6 +237,7 @@ public class StageHandler implements Disposable {
 
                 Valenguard.getInstance().gameWorldQuit();
 
+                connectionStatusWindow.setVisible(false);
                 characterSelectMenu.setVisible(true);
                 break;
             case GAME:

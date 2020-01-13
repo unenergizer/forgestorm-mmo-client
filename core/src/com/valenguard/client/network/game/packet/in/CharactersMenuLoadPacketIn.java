@@ -2,7 +2,6 @@ package com.valenguard.client.network.game.packet.in;
 
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMenu;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
@@ -81,11 +80,7 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
 
     @Override
     public void onEvent(CharacterData packetData) {
-        CharacterSelectMenu characterSelectMenu = ActorUtil.getStageHandler().getCharacterSelectMenu();
-        characterSelectMenu.reset();
-        for (GameCharacter character : packetData.characters) {
-            characterSelectMenu.addCharacterButton(character);
-        }
+        ActorUtil.getStageHandler().getCharacterSelectMenu().characterListPacketIn(packetData.characters);
     }
 
     @AllArgsConstructor

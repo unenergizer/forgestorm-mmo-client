@@ -20,10 +20,13 @@ import com.valenguard.client.network.game.packet.out.CharacterSelectPacketOut;
 
 public class CharacterSelectMenu extends HideableVisWindow implements Buildable {
 
+    private CharactersMenuLoadPacketIn.GameCharacter[] gameCharacterList;
     private CharactersMenuLoadPacketIn.GameCharacter selectedCharacter;
 
     private VisTable characterButtonTable = new VisTable();
     private VisTextButton activeButton;
+    private VisTextButton playButton;
+    private VisTextButton deleteButton;
 
     private CharacterPreviewer characterPreviewer = new CharacterPreviewer();
     private int previewScale = 20;
@@ -42,12 +45,12 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
 
         visWindow.add(characterButtonTable).growY().align(Alignment.TOP.getAlignment()).row();
 
-        VisTextButton createCharacter = new VisTextButton("Create Character");
-        visWindow.add(createCharacter).align(Alignment.BOTTOM.getAlignment()).row();
+        VisTextButton createCharacterButton = new VisTextButton("Create Character");
+        visWindow.add(createCharacterButton).align(Alignment.BOTTOM.getAlignment()).row();
 
         VisTable sideTable = new VisTable();
 
-        createCharacter.addListener(new ChangeListener() {
+        createCharacterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
@@ -57,11 +60,13 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
 
         VisTable bottomRow = new VisTable();
 
-        VisTextButton play = new VisTextButton("Play");
-        VisTextButton logout = new VisTextButton("Logout");
+        playButton = new VisTextButton("Play");
+        deleteButton = new VisTextButton("Delete Character");
+        VisTextButton logoutButton = new VisTextButton("Logout");
 
-        bottomRow.add(play).align(Alignment.CENTER.getAlignment());
-        bottomRow.add(logout).align(Alignment.RIGHT.getAlignment());
+        bottomRow.add(playButton).pad(3).align(Alignment.CENTER.getAlignment());
+        bottomRow.add(deleteButton).pad(3);
+        bottomRow.add(logoutButton).pad(3).align(Alignment.RIGHT.getAlignment());
 
         sideTable.add(characterPreviewer.getPreviewTable()).row();
         sideTable.add(bottomRow);
@@ -69,8 +74,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
         add(visWindow).fill();
         add(sideTable).expand().fill();
 
-
-        play.addListener(new ChangeListener() {
+        playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterSelectPacketOut(selectedCharacter.getCharacterId()).sendPacket();
@@ -78,7 +82,16 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             }
         });
 
-        logout.addListener(new ChangeListener() {
+        deleteButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
+                ActorUtil.fadeInWindow(stageHandler.getDeleteCharacter());
+                stageHandler.getDeleteCharacter().toggleDeleteWindow(selectedCharacter.getName(), selectedCharacter.getCharacterId());
+            }
+        });
+
+        logoutButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
@@ -90,34 +103,59 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
         return this;
     }
 
-    public void addCharacterButton(final CharactersMenuLoadPacketIn.GameCharacter character) {
-        final VisTextButton addCharacterButton = new VisTextButton(character.getName());
-        addCharacterButton.setColor(Color.LIGHT_GRAY);
+    void reprocessCharacterButtons(byte characterIndexToDelete) {
+        gameCharacterList[characterIndexToDelete] = null;
+        selectedCharacter = null;
+        addCharacterButtons();
+    }
 
-        characterButtonTable.add(addCharacterButton).fill().row();
+    private void addCharacterButtons() {
+        reset();
+        int buttonsAdded = 0;
+        for (final CharactersMenuLoadPacketIn.GameCharacter character : gameCharacterList) {
+            if (character == null) continue;
+            final VisTextButton addCharacterButton = new VisTextButton(character.getName());
+            addCharacterButton.setColor(Color.LIGHT_GRAY);
 
-        addCharacterButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                activeButton.setColor(Color.LIGHT_GRAY); // Clear the current active button color
+            characterButtonTable.add(addCharacterButton).pad(1).fill().row();
 
-                // Set new active character information
-                selectedCharacter = character;
+            addCharacterButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    activeButton.setColor(Color.LIGHT_GRAY); // Clear the current active button color
+
+                    // Set new active character information
+                    selectedCharacter = character;
+                    activeButton = addCharacterButton;
+                    activeButton.setColor(Color.GREEN);
+                    characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
+                }
+            });
+
+            // Set first character loaded in as the selected character
+            if (selectedCharacter == null) {
                 activeButton = addCharacterButton;
                 activeButton.setColor(Color.GREEN);
+                selectedCharacter = character;
                 characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
             }
-        });
+            buttonsAdded++;
+        }
 
-        // Set first character loaded in as the selected character
-        if (selectedCharacter == null) {
-            activeButton = addCharacterButton;
-            activeButton.setColor(Color.GREEN);
-            selectedCharacter = character;
-            characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
+        // Disable the playButton button if no characters are on the screen.
+        if (buttonsAdded == 0) {
+            playButton.setDisabled(true);
+            deleteButton.setDisabled(true);
+        } else {
+            playButton.setDisabled(false);
+            deleteButton.setDisabled(false);
         }
     }
 
+    public void characterListPacketIn(CharactersMenuLoadPacketIn.GameCharacter[] gameCharacterList) {
+        this.gameCharacterList = gameCharacterList;
+        addCharacterButtons();
+    }
 
     public void reset() {
         selectedCharacter = null;
