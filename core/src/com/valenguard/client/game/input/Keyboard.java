@@ -3,7 +3,9 @@ package com.valenguard.client.game.input;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.movement.KeyboardMovement;
+import com.valenguard.client.game.screens.UserInterfaceType;
 
 import lombok.Getter;
 
@@ -15,6 +17,7 @@ public class Keyboard implements InputProcessor {
     private KeyboardMovement keyboardMovement = new KeyboardMovement();
 
     public boolean keyDown(int keycode) {
+        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
 
         /*
          * Movement Debug
