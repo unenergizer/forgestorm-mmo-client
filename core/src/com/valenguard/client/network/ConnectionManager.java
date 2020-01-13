@@ -56,8 +56,6 @@ public class ConnectionManager {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-//                Valenguard.getInstance().dispose();
-//                Valenguard.getInstance().create();
                 ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.LOGIN);
             }
         });

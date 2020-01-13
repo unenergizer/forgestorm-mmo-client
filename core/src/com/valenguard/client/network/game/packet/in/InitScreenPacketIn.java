@@ -1,6 +1,5 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.game.shared.ClientHandler;
@@ -35,7 +34,7 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
                 break;
             case CHARACTER_SELECT:
                 // Network connection was successful.
-                Valenguard.connectionManager.threadSafeConnectionMessage("Connection successful!");
+//                Valenguard.connectionManager.threadSafeConnectionMessage("Connection successful!");
                 ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.CHARACTER_SELECT);
                 break;
             case GAME:
