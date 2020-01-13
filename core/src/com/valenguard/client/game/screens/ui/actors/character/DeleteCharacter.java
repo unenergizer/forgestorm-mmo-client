@@ -80,6 +80,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeOutWindow(deleteCharacterWindow);
                 ActorUtil.fadeInWindow(characterSelectMenu);
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                confirm.setDisabled(true);
             }
         });
 
@@ -89,6 +90,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeOutWindow(deleteCharacterWindow);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                confirm.setDisabled(true);
             }
         });
 
