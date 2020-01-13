@@ -110,7 +110,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
         this.characterListIndex = characterListIndex;
         deleteCodeBox.setText("");
         deleteCode = String.valueOf(RandomUtil.getNewRandom(10000, 99999));
-        characterNameLabel.setText("Character Name: " + characterName);
+        characterNameLabel.setText("[GREEN]Character Name: " + characterName);
         confirmStringLabel.setText("Enter [YELLOW]" + deleteCode + "[WHITE] to delete your character.");
         centerWindow();
         pack();
