@@ -218,12 +218,13 @@ public class Valenguard extends Game {
     }
 
     public void gameWorldQuit() {
-        entityTracker.reset();
-        Valenguard.getInstance().getSkills().reset();
+        entityTracker.gameQuitReset();
+        Valenguard.getInstance().getSkills().gameQuitReset();
         clientMovementProcessor.resetInput();
-        abilityManager.reset();
-        effectManager.reset();
-        tradeManager.reset();
+        abilityManager.gameQuitReset();
+        effectManager.gameQuitReset();
+        tradeManager.gameQuitReset();
+        stageHandler.getChatWindow().gameQuitReset();
         EntityManager.getInstance().dispose();
     }
 }

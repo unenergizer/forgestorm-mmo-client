@@ -19,6 +19,7 @@ import com.valenguard.client.game.screens.effects.LineDrawEffect;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
+import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.NPC;
@@ -57,6 +58,19 @@ class PreStageEvent implements InputProcessor {
      */
     private boolean gameScreenOnlyKeys(int keycode) {
         if (stageHandler.getChatWindow().isChatToggled()) return false;
+        /*
+         * Toggle Chat Box Focus
+         */
+        if (keycode == KeyBinds.CHAT_BOX_FOCUS) {
+            if (!stageHandler.getChatWindow().isChatToggled()) {
+                stageHandler.getChatWindow().toggleChatWindowActive(true);
+                return true;
+            }
+        }
+
+        // Fade out the chat window
+        ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
+        if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
 
         /*
          * Toggle TEMP EFFECTS
@@ -89,19 +103,6 @@ class PreStageEvent implements InputProcessor {
             if (!stageHandler.getChatWindow().isChatToggled()) {
                 PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
                 effectManager.addScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-                return true;
-            }
-        }
-
-        /*
-         * Toggle Chat Box Focus
-         */
-        if (keycode == KeyBinds.CHAT_BOX_FOCUS) {
-            if (!stageHandler.getChatWindow().isChatToggled()) {
-                FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getChatWindow().getMessageInput());
-                stageHandler.getStage().setKeyboardFocus(stageHandler.getChatWindow().getMessageInput());
-                stageHandler.getChatWindow().setChatToggled(true);
-                stageHandler.getChatWindow().getMessageInput().setText("");
                 return true;
             }
         }
@@ -252,6 +253,11 @@ class PreStageEvent implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+            // Fade out the chat window
+            ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
+            if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
+        }
         return false;
     }
 

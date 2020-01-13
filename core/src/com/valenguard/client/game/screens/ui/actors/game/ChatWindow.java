@@ -13,6 +13,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -23,16 +24,16 @@ import com.valenguard.client.network.game.packet.out.ChatMessagePacketOut;
 import java.util.Stack;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import static com.valenguard.client.util.Log.println;
 
 @Getter
-public class ChatWindow extends HideableVisWindow implements Buildable {
+public class ChatWindow extends HideableVisWindow implements Buildable, GameQuitReset {
 
     private static final String ENTER_MESSAGE = "Press Enter to send a message...";
 
     private StageHandler stageHandler;
+    private ChatWindow chatWindow;
     private VisScrollPane scrollPane;
     private VisTable messageTable;
     private VisTextField messageInput;
@@ -40,20 +41,21 @@ public class ChatWindow extends HideableVisWindow implements Buildable {
     /**
      * Determines if the chat area should be listening to text input.
      */
-    @Setter
     private boolean chatToggled = false;
+    private boolean windowFaded = false;
 
     private Stack<String> previousMessages = new Stack<String>();
     private int previousMessageIndex = -1;
     private String currentBufferString = "";
 
     public ChatWindow() {
-        super("", "chat-box");
+        super("");
     }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
+        this.chatWindow = this;
 
         final int innerPadding = 5;
         pad(innerPadding);
@@ -98,10 +100,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable {
         messageInput.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                chatToggled = true;
-                messageInput.setText("");
-                FocusManager.switchFocus(stageHandler.getStage(), messageInput);
-                stageHandler.getStage().setKeyboardFocus(messageInput);
+                toggleChatWindowActive(true);
                 return true;
             }
         });
@@ -111,10 +110,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 // TODO: Remove lines below. Add pop-up menu like wow to interact with chat.
-                chatToggled = true;
-                messageInput.setText("");
-                FocusManager.switchFocus(stageHandler.getStage(), messageInput);
-                stageHandler.getStage().setKeyboardFocus(messageInput);
+                toggleChatWindowActive(true);
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ChatWindow.class, (short) 0);
                 return true;
             }
@@ -157,22 +153,24 @@ public class ChatWindow extends HideableVisWindow implements Buildable {
                             new ChatMessagePacketOut(message).sendPacket();
                         }
 
-                        messageInput.setText(ENTER_MESSAGE);
-                        chatToggled = false;
-                        Gdx.input.setOnscreenKeyboardVisible(false);
-                        FocusManager.resetFocus(stageHandler.getStage());
+                        // Clear the players message.
+                        toggleChatWindowInactive(false, true);
                     } else if (chatToggled) {
                         // Player was typing a message but hit the escape key.
                         // Reset the focus back to the stage and save players message.
-                        chatToggled = false;
-                        Gdx.input.setOnscreenKeyboardVisible(false);
-                        FocusManager.resetFocus(stageHandler.getStage());
+                        toggleChatWindowInactive(false, false);
                     } else {
                         println(ChatWindow.class, "Something should happen here???", true);
                     }
                     return true;
                 }
                 return false;
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (isWindowFaded()) toggleChatWindowActive(true);
+                return true;
             }
         });
 
@@ -181,7 +179,28 @@ public class ChatWindow extends HideableVisWindow implements Buildable {
         add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
+        toggleChatWindowInactive(true, true);
         return this;
+    }
+
+    public void toggleChatWindowActive(boolean clearText) {
+        chatToggled = true;
+        windowFaded = false;
+        chatWindow.getColor().a = .8f;
+        if (clearText) messageInput.setText("");
+        FocusManager.switchFocus(stageHandler.getStage(), messageInput);
+        stageHandler.getStage().setKeyboardFocus(messageInput);
+    }
+
+    public void toggleChatWindowInactive(boolean fadeOutWindow, boolean setDefaultInputText) {
+        chatToggled = false;
+        if (fadeOutWindow) {
+            windowFaded = true;
+            chatWindow.getColor().a = .5f;
+        }
+        if (setDefaultInputText) messageInput.setText(ENTER_MESSAGE);
+        Gdx.input.setOnscreenKeyboardVisible(false);
+        FocusManager.resetFocus(stageHandler.getStage());
     }
 
     private void scrollUpThroughPreviousMessages() {
@@ -221,5 +240,10 @@ public class ChatWindow extends HideableVisWindow implements Buildable {
 
         scrollPane.layout();
         scrollPane.scrollTo(0, 0, 0, 0);
+    }
+
+    @Override
+    public void gameQuitReset() {
+        messageTable.clear();
     }
 }

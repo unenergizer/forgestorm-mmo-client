@@ -9,7 +9,7 @@ public class TradeManager implements GameQuitReset {
     public Integer tradeUUID = null;
 
     @Override
-    public void reset() {
+    public void gameQuitReset() {
         tradeUUID = null;
     }
 }

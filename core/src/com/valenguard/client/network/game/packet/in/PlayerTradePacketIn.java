@@ -123,7 +123,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
             // Stage 5: Final trade confirm
             case TRADE_OFFER_COMPLETE:
                 // TODO: Server will send items in different packet to client
-                // TODO: Close and reset trade window
+                // TODO: Close and gameQuitReset trade window
                 stageHandler.getTradeWindow().closeTradeWindow();
                 Valenguard.getInstance().getTradeManager().setTradeUUID(null); // Reset trade UUID
                 break;

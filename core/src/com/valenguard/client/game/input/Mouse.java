@@ -4,6 +4,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.UserInterfaceType;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 
 public class Mouse implements InputProcessor {
 
@@ -26,6 +28,10 @@ public class Mouse implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
         if (!Valenguard.gameScreen.isGameFocused()) return false;
+
+        ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
+        if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
+
         Valenguard.getInstance().getMouseManager().mouseClick(screenX, screenY, button);
         return false;
     }

@@ -50,7 +50,7 @@ public class EffectManager implements GameQuitReset {
     }
 
     @Override
-    public void reset() {
+    public void gameQuitReset() {
         screenEffectList.clear();
     }
 }

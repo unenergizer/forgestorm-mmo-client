@@ -148,7 +148,7 @@ public class TmxFileParser {
 
                     // Check for end of map width
                     if (currentX == mapWidth) {
-                        currentX = 0; // reset x counter
+                        currentX = 0; // gameQuitReset x counter
                         currentY--; // decrement y value
                     }
                 }
@@ -221,7 +221,7 @@ public class TmxFileParser {
             short tmxFileWidth = (short) (Short.parseShort(objectTagElement.getAttribute("width")) / ClientConstants.TILE_SIZE);
             short tmxFileHeight = (short) (Short.parseShort(objectTagElement.getAttribute("height")) / ClientConstants.TILE_SIZE);
 
-            int textId = (int) (Integer.parseInt(objectTagElement.getAttribute("textId")));
+            int textId = (Integer.parseInt(objectTagElement.getAttribute("textId")));
 
             for (int ii = tmxFileY; ii < tmxFileY + tmxFileHeight; ii++) {
                 for (int jj = tmxFileX; jj < tmxFileX + tmxFileWidth; jj++) {

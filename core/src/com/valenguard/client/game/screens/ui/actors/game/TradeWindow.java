@@ -430,7 +430,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                         // Send other player info that we are removing an item from trade
                         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), slotIndex)).sendPacket();
 
-                        // Remove trade item and reset the slot image
+                        // Remove trade item and gameQuitReset the slot image
                         setTradeCell(null, null);
                     }
                     return true;

@@ -67,7 +67,7 @@ public class EntityTracker implements GameQuitReset {
     }
 
     @Override
-    public void reset() {
+    public void gameQuitReset() {
         cancelTracking();
         pathFinding.finish();
     }

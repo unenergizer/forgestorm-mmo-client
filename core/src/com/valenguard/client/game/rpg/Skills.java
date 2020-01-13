@@ -26,7 +26,7 @@ public class Skills implements GameQuitReset, GameWorldSetup {
     }
 
     @Override
-    public void reset() {
+    public void gameQuitReset() {
         skillsMap.clear();
 
         setup();
