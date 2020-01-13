@@ -13,7 +13,6 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
-import com.valenguard.client.game.screens.ui.actors.ProperName;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.out.CharacterCreatorPacketOut;
@@ -124,7 +123,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         VisTextButton submit = new VisTextButton("Submit");
         VisLabel errorLabel = new VisLabel();
         FormValidator validator = new FormValidator(submit, errorLabel);
-        characterName = new VisValidatableTextField(new ProperName());
+        characterName = new VisValidatableTextField();
         characterName.setMaxLength(16);
         validator.notEmpty(characterName, "Name must not be empty.");
 
