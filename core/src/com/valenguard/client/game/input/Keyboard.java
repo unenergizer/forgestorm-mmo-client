@@ -6,6 +6,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.movement.KeyboardMovement;
 import com.valenguard.client.game.screens.UserInterfaceType;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 
 import lombok.Getter;
 
@@ -18,6 +19,7 @@ public class Keyboard implements InputProcessor {
 
     public boolean keyDown(int keycode) {
         if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
+        if (ActorUtil.getStageHandler().getChatWindow().isChatToggled()) return false;
 
         /*
          * Movement Debug

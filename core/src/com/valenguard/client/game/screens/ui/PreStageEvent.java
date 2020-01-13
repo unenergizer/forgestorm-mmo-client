@@ -56,6 +56,8 @@ class PreStageEvent implements InputProcessor {
      * @return True if key is handled, false otherwise.
      */
     private boolean gameScreenOnlyKeys(int keycode) {
+        if (stageHandler.getChatWindow().isChatToggled()) return false;
+
         /*
          * Toggle TEMP EFFECTS
          */
