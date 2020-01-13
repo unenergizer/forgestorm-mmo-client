@@ -2,13 +2,10 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.kotcrab.vis.ui.FocusManager;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
@@ -31,13 +28,11 @@ import lombok.Setter;
 import static com.valenguard.client.util.Log.println;
 
 @Getter
-public class ChatWindow extends HideableVisWindow implements Buildable, Focusable {
+public class ChatWindow extends HideableVisWindow implements Buildable {
 
     private static final String ENTER_MESSAGE = "Press Enter to send a message...";
 
-    private final BitmapFont bitmapFont = new BitmapFont();
-    private final Label.LabelStyle chatMessageStyle = new Label.LabelStyle(bitmapFont, null);
-
+    private StageHandler stageHandler;
     private VisScrollPane scrollPane;
     private VisTable messageTable;
     private VisTextField messageInput;
@@ -58,8 +53,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
 
     @Override
     public Actor build(final StageHandler stageHandler) {
-
-        bitmapFont.getData().markupEnabled = true;
+        this.stageHandler = stageHandler;
 
         final int innerPadding = 5;
         pad(innerPadding);
@@ -182,7 +176,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
             }
         });
 
-        add(scrollPane).colspan(2).grow();
+        add(scrollPane).colspan(2).growX().expandY().top();
         row();
         add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
@@ -221,21 +215,11 @@ public class ChatWindow extends HideableVisWindow implements Buildable, Focusabl
     }
 
     public void appendChatMessage(String message) {
-        VisLabel label = new VisLabel(message, chatMessageStyle);
+        VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
         label.setWrap(true);
-        messageTable.add(label).expandX().fillX().row();
+        messageTable.add(label).expandX().fillX().expandY().top().row();
 
         scrollPane.layout();
         scrollPane.scrollTo(0, 0, 0, 0);
-    }
-
-    @Override
-    public void focusLost() {
-
-    }
-
-    @Override
-    public void focusGained() {
-
     }
 }

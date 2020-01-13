@@ -174,7 +174,10 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 resetCharacter(); // Clear current design, so next character creation is cleared.
             }
         });
+
         pack();
+        setMovable(false);
+        centerWindow();
         return mainTable;
     }
 

@@ -23,7 +23,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
     private VisTextField deleteCodeBox = new VisTextField();
     private VisLabel characterNameLabel = new VisLabel();
-    private VisLabel confirmStringLabel = new VisLabel();
+    private VisLabel confirmStringLabel;
     private String deleteCode;
     private byte characterListIndex;
 
@@ -34,6 +34,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        confirmStringLabel = new VisLabel("", stageHandler.getMarkupStyle());
 
         VisTable layoutTable = new VisTable();
         VisImage visImage = new ImageBuilder(GameAtlas.ITEMS, "skill_165", 16 * 3).buildVisImage();
@@ -41,11 +42,15 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
         layoutTable.add(visImage).pad(3);
 
         VisTable infoTable = new VisTable();
-        infoTable.add("Are you sure you want to delete this character?").row();
-        infoTable.add("WARNING! This action can not be undone.").pad(3).row();
+
+        VisLabel infoLabel = new VisLabel("Are you sure you want to delete this character?");
+        VisLabel deleteWarning = new VisLabel("[RED]WARNING! This action can not be undone.", stageHandler.getMarkupStyle());
+
+        infoTable.add(infoLabel).row();
         infoTable.add(characterNameLabel).pad(3).row();
         infoTable.add(confirmStringLabel).pad(3).row();
         infoTable.add(deleteCodeBox).pad(3).row();
+        infoTable.add(deleteWarning).pad(3).row();
 
         VisTable buttonTable = new VisTable();
         final VisTextButton confirm = new VisTextButton("Confirm");
@@ -96,6 +101,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
         pack();
         centerWindow();
+        setMovable(false);
         setVisible(false);
         return this;
     }
@@ -105,7 +111,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
         deleteCodeBox.setText("");
         deleteCode = String.valueOf(RandomUtil.getNewRandom(10000, 99999));
         characterNameLabel.setText("Character Name: " + characterName);
-        confirmStringLabel.setText("Enter " + deleteCode + " to delete your character.");
+        confirmStringLabel.setText("Enter [YELLOW]" + deleteCode + "[WHITE] to delete your character.");
         centerWindow();
         pack();
     }

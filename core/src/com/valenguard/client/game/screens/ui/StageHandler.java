@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
@@ -69,6 +71,9 @@ public class StageHandler implements Disposable {
     private PreStageEvent preStageEvent = new PreStageEvent(this);
     private PostStageEvent postStageEvent = new PostStageEvent(this);
     private DragAndDrop dragAndDrop = new DragAndDrop();
+    private BitmapFont bitmapFont = VisUI.getSkin().getFont("default-font");
+    private Label.LabelStyle markupStyle = new Label.LabelStyle(bitmapFont, null);
+
     // login
     private ButtonTable buttonTable = new ButtonTable();
     private VersionTable versionTable = new VersionTable();
@@ -76,10 +81,12 @@ public class StageHandler implements Disposable {
     private LoginTable loginTable = new LoginTable();
     private ConnectionStatusWindow connectionStatusWindow = new ConnectionStatusWindow();
     private RssAnnouncements rssAnnouncements = new RssAnnouncements();
+
     // character select
     private CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
     private CharacterCreation characterCreation = new CharacterCreation();
     private DeleteCharacter deleteCharacter = new DeleteCharacter();
+
     // game
     private FadeWindow fadeWindow = new FadeWindow();
     private HelpWindow helpWindow = new HelpWindow();
@@ -104,16 +111,21 @@ public class StageHandler implements Disposable {
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
     private NPCTextDialog npcTextDialog = new NPCTextDialog();
+
     // developer
     private DevMenu devMenu = new DevMenu();
     private EntityEditor entityEditor = new EntityEditor();
     private ItemStackEditor itemStackEditor = new ItemStackEditor();
+
     // shared
     private MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
     private ColorPickerController colorPickerController = new ColorPickerController();
 
     public StageHandler() {
         dragAndDrop.setDragTime(0);
+        bitmapFont.getData().markupEnabled = true;
+
+        // WARNING! Only add actors after markup has been enabled!
         addActors();
     }
 
@@ -122,7 +134,6 @@ public class StageHandler implements Disposable {
     }
 
     private void addActors() {
-
         // Login
         stage.addActor(buttonTable.build(this));
         stage.addActor(versionTable.build(this));
@@ -201,6 +212,7 @@ public class StageHandler implements Disposable {
         if (colorPickerController != null && !colorPickerController.isDisposed())
             colorPickerController.dispose();
         if (bgPixmap != null && !bgPixmap.isDisposed()) bgPixmap.dispose();
+        bitmapFont.dispose();
     }
 
     public void setUserInterface(UserInterfaceType userInterfaceType) {
