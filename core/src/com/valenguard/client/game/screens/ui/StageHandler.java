@@ -224,8 +224,9 @@ public class StageHandler implements Disposable {
             case LOGIN:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying())
+                    if (!musicManager.isMusicPlaying() && Valenguard.gameScreen.isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
+                    }
                 }
 
                 Valenguard.getInstance().gameWorldQuit();
@@ -243,8 +244,9 @@ public class StageHandler implements Disposable {
             case CHARACTER_SELECT:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying())
+                    if (!musicManager.isMusicPlaying() && Valenguard.gameScreen.isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
+                    }
                 }
 
                 Valenguard.getInstance().gameWorldQuit();
