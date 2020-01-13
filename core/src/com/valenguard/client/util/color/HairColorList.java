@@ -8,7 +8,15 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum EyeColorList {
+public enum HairColorList {
+
+    PLAYER_DEFAULT(new Color(1, .913f, .77f, 1)),
+
+    WHITE(new Color(1, 1, 1, 1)),
+    LIGHT_GRAY(new Color(0xbfbfbfff)),
+    GRAY(new Color(0x7f7f7fff)),
+    DARK_GRAY(new Color(0x3f3f3fff)),
+    BLACK(new Color(0, 0, 0, 1)),
 
     BLUE(new Color(0, 0, 1, 1)),
     NAVY(new Color(0, 0, 0.5f, 1)),
@@ -30,6 +38,7 @@ public enum EyeColorList {
     ORANGE(new Color(0xffa500ff)),
 
     BROWN(new Color(0x8b4513ff)),
+    TAN(new Color(0xd2b48cff)),
     FIREBRICK(new Color(0xb22222ff)),
 
     RED(new Color(0xff0000ff)),
@@ -45,8 +54,8 @@ public enum EyeColorList {
 
     private Color color;
 
-    public static EyeColorList getType(byte typeByte) {
-        for (EyeColorList libGDXColorList : EyeColorList.values()) {
+    public static HairColorList getType(byte typeByte) {
+        for (HairColorList libGDXColorList : HairColorList.values()) {
             if ((byte) libGDXColorList.ordinal() == typeByte) {
                 return libGDXColorList;
             }
@@ -58,11 +67,11 @@ public enum EyeColorList {
         return values()[RandomUtil.getNewRandom(0, values().length - 1)].getColor();
     }
 
-    public byte getTypeByte() {
-        return (byte) this.ordinal();
-    }
-
     public static Color getColorFromOrdinal(int ordinalValue) {
         return values()[ordinalValue].getColor();
+    }
+
+    public byte getTypeByte() {
+        return (byte) this.ordinal();
     }
 }

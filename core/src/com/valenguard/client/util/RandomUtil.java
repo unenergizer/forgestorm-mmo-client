@@ -13,4 +13,8 @@ public class RandomUtil {
         return RANDOM.nextInt((max - min) + 1) + min;
     }
 
+    public static short getNewRandom(short min, short max) {
+        return (short) (RANDOM.nextInt((max - min) + 1) + min);
+    }
+
 }

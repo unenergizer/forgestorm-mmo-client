@@ -11,6 +11,10 @@ import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.FileManager;
 import com.valenguard.client.io.type.GameAtlas;
+import com.valenguard.client.util.color.EyeColorList;
+import com.valenguard.client.util.color.HairColorList;
+import com.valenguard.client.util.color.LibGDXColorList;
+import com.valenguard.client.util.color.SkinColorList;
 
 import lombok.Getter;
 
@@ -30,7 +34,7 @@ public class CharacterPreviewer {
      * @param previewScale  How large the preview should be.
      * @return A VisTable containing the generated preview image.
      */
-    public VisTable fillPreviewTable(Appearance appearance, MoveDirection moveDirection, int previewScale) {
+    VisTable fillPreviewTable(Appearance appearance, MoveDirection moveDirection, int previewScale) {
         previewTable.clearChildren(); // Clear previous image
 
         final String direction = moveDirection.getDirectionName();
@@ -120,5 +124,22 @@ public class CharacterPreviewer {
      */
     public void reset() {
         previewTable.clearChildren();
+    }
+
+    Appearance generateBasicAppearance() {
+        Appearance appearance = new Appearance();
+        appearance.setHairTexture((byte) 0);
+        appearance.setHelmTexture((byte) -1);
+        appearance.setChestTexture((byte) 1);
+        appearance.setPantsTexture((byte) 1);
+        appearance.setShoesTexture((byte) 1);
+        appearance.setHairColor(HairColorList.CORAL.getColor());
+        appearance.setEyeColor(EyeColorList.ROYAL.getColor());
+        appearance.setSkinColor(SkinColorList.SKIN_TONE_0.getColor());
+        appearance.setGlovesColor(LibGDXColorList.CLEAR.getColor());
+        appearance.setLeftHandTexture((byte) -1);
+        appearance.setRightHandTexture((byte) -1);
+
+        return appearance;
     }
 }

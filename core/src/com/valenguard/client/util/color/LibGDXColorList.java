@@ -72,4 +72,8 @@ public enum LibGDXColorList {
     public static Color randomColor() {
         return values()[RandomUtil.getNewRandom(0, values().length - 1)].getColor();
     }
+
+    public static Color getColorFromOrdinal(int ordinalValue) {
+        return values()[ordinalValue].getColor();
+    }
 }

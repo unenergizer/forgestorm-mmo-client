@@ -41,4 +41,8 @@ public enum SkinColorList {
     public byte getTypeByte() {
         return (byte) this.ordinal();
     }
+
+    public static Color getColorFromOrdinal(int ordinalValue) {
+        return values()[ordinalValue].getColor();
+    }
 }

@@ -13,41 +13,85 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.world.entities.Appearance;
+import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.out.CharacterCreatorPacketOut;
+import com.valenguard.client.util.color.EyeColorList;
+import com.valenguard.client.util.color.HairColorList;
+import com.valenguard.client.util.color.SkinColorList;
+
+import lombok.Getter;
+import lombok.Setter;
 
 public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     private final CharacterCreation characterCreation;
 
-    private StageHandler stageHandler;
+    private CharacterPreviewer characterPreviewer = new CharacterPreviewer();
     private VisValidatableTextField characterName;
+    private VisTable previewTable = new VisTable();
+    private Appearance appearance;
+
+    private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) 14); // Number of hair textures
+    private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1));
+    private CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1));
+    private CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1));
 
     public CharacterCreation() {
         super("Create a Character");
         this.characterCreation = this;
+
+        // Build default appearance;
+        this.appearance = characterPreviewer.generateBasicAppearance();
     }
+
+    /**
+     * Pick Hair Style
+     * Pick Hair Color
+     * Pick Eye Color
+     * Pick Skin Color
+     * <p>
+     * TODO: Pick Shirt Color
+     * TODO: Pick Pants Color
+     * TODO: Pick Shoes Color
+     * <p>
+     * TODO: RANDOMIZE APPEARANCE BUTTON
+     * TODO: Rotate Character Buttons
+     * ***************************************
+     * *   <- Hair Style ->    *
+     * CHARACTER   *   <- Hair Color ->    *
+     * PREVIEW    *   <- Eye  Color ->    *
+     * *   <- Skin Color ->    *
+     * *   Name [         ]    *
+     * *   [Submit] [Cancel]   *
+     * ***************************************
+     */
 
     @Override
     public Actor build(final StageHandler stageHandler) {
-        this.stageHandler = stageHandler;
 
         VisTable topTable = new VisTable();
-        VisTable optionTable = new VisTable();
 
         // Adding main character options
 
-        VisTable characterDemo = new VisTable();
+        VisTable characterOptions = new VisTable();
 
-        topTable.add(optionTable).expand().fill();
-        topTable.add(characterDemo).expand().fill();
+        characterOptions.add(buildOptionTable(hairStyleOption)).row();
+        characterOptions.add(buildOptionTable(hairColorOption)).row();
+        characterOptions.add(buildOptionTable(eyeColorOption)).row();
+        characterOptions.add(buildOptionTable(skinColorOption)).row();
+
+
+        rebuildPreviewTable();
+        topTable.add(previewTable).expand().fill();
+        topTable.add(characterOptions).expand().fill();
 
         add(topTable).expand().fill().row();
 
-        VisTable bottomTable = new VisTable();
-
-        bottomTable.add(confirmTable()).expand().fill().align(Alignment.RIGHT.getAlignment());
-
-        add(bottomTable).expand().fill().row();
+        // Confirm or cancel buttons
+        VisTable confirmButtons = new VisTable();
+        confirmButtons.add(confirmTable(stageHandler)).expand().fill().align(Alignment.RIGHT.getAlignment());
+        add(confirmButtons).expand().fill().row();
 
         setResizable(false);
         setVisible(false);
@@ -56,7 +100,19 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    private VisTable confirmTable() {
+    private void rebuildPreviewTable() {
+        previewTable.clear();
+
+        appearance.setHairTexture(hairStyleOption.optionValue);
+        appearance.setHairColor(HairColorList.getColorFromOrdinal(hairColorOption.optionValue));
+        appearance.setEyeColor(EyeColorList.getColorFromOrdinal(eyeColorOption.optionValue));
+        appearance.setSkinColor(SkinColorList.getColorFromOrdinal(skinColorOption.optionValue));
+
+        VisTable visImageTable = characterPreviewer.fillPreviewTable(appearance, MoveDirection.SOUTH, 15);
+        previewTable.add(visImageTable);
+    }
+
+    private VisTable confirmTable(final StageHandler stageHandler) {
         VisTable mainTable = new VisTable();
 
         VisTextButton cancel = new VisTextButton("Cancel");
@@ -92,13 +148,70 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         submit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new CharacterCreatorPacketOut(characterName.getText()).sendPacket();
+                new CharacterCreatorPacketOut(characterName.getText(), hairStyleOption.optionValue, hairColorOption.optionValue, eyeColorOption.optionValue, skinColorOption.optionValue).sendPacket();
                 ActorUtil.fadeOutWindow(characterCreation);
+                ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });
         pack();
         return mainTable;
+    }
+
+    private VisTable buildOptionTable(final CharacterOption characterOption) {
+        // TODO: Left and Right scroll buttons
+
+        VisTable visTable = new VisTable();
+
+        VisTextButton left = new VisTextButton("<");
+        final VisLabel optionName = new VisLabel(characterOption.optionName);
+        VisTextButton right = new VisTextButton(">");
+
+        visTable.add(left);
+        visTable.add(optionName).expandX().fill();
+        visTable.add(right);
+
+        left.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                byte optionValue = characterOption.getOptionValue();
+
+                characterOption.setOptionValue((byte) (optionValue - 1));
+
+                if (characterOption.getOptionValue() < 0) {
+                    characterOption.setOptionValue(characterOption.getMaxOptions());
+                }
+                rebuildPreviewTable();
+            }
+        });
+        right.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                byte optionValue = characterOption.getOptionValue();
+
+                characterOption.setOptionValue((byte) (optionValue + 1));
+
+                if (characterOption.getOptionValue() > characterOption.getMaxOptions()) {
+                    characterOption.setOptionValue((byte) 0);
+                }
+                rebuildPreviewTable();
+            }
+        });
+
+        return visTable;
+    }
+
+    @Getter
+    @Setter
+    class CharacterOption {
+        private final String optionName;
+        private final byte maxOptions;
+        private byte optionValue;
+
+        CharacterOption(String optionName, byte maxOptions) {
+            this.optionName = optionName;
+            this.maxOptions = maxOptions;
+        }
     }
 
 }
