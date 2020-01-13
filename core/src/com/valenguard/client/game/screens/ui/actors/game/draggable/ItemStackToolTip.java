@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextArea;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -22,6 +23,7 @@ public class ItemStackToolTip extends HideableVisWindow {
     private VisLabel nameLabel;
     private VisLabel typeLabel;
     private VisTextArea descTextArea;
+    private VisLabel debugInfo;
     private InputListener inputListener;
 
     public ItemStackToolTip(StageHandler stageHandler, ItemStack itemStack, Actor itemStackActor) {
@@ -60,9 +62,10 @@ public class ItemStackToolTip extends HideableVisWindow {
         pad(3);
 
         toolTipTable = new VisTable();
-        nameLabel = new VisLabel();
-        typeLabel = new VisLabel();
+        nameLabel = new VisLabel("", stageHandler.getMarkupStyle());
+        typeLabel = new VisLabel("", stageHandler.getMarkupStyle());
         descTextArea = new VisTextArea();
+        debugInfo = new VisLabel("", stageHandler.getMarkupStyle());
 
         setToolTipText(itemStack);
         addToolTipListener(itemStackActor);
@@ -70,6 +73,7 @@ public class ItemStackToolTip extends HideableVisWindow {
         toolTipTable.add(nameLabel).padBottom(3).row();
         toolTipTable.add(typeLabel).left().row();
         toolTipTable.add(descTextArea).left().row();
+        toolTipTable.add(debugInfo).left().row();
 
         add(toolTipTable);
         pack();
@@ -82,10 +86,12 @@ public class ItemStackToolTip extends HideableVisWindow {
      * @param itemStack The {@link ItemStack} to get tool tip information for.
      */
     private void setToolTipText(ItemStack itemStack) {
-        nameLabel.setText("[ID: " + itemStack.getItemId() + "] " + itemStack.getName());
-        typeLabel.setText(itemStack.getItemStackType().name());
+        nameLabel.setText("[YELLOW]" + itemStack.getName());
+        typeLabel.setText("[GRAY]" + itemStack.getItemStackType().name());
         descTextArea.setText(itemStack.getDescription());
         descTextArea.setPrefRows(3);
+        if (Valenguard.getInstance().isAdmin())
+            debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId() + "");
     }
 
     /**
