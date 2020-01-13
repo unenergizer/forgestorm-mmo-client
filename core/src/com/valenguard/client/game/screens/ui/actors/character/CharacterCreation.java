@@ -13,9 +13,11 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.ProperName;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.out.CharacterCreatorPacketOut;
+import com.valenguard.client.util.RandomUtil;
 import com.valenguard.client.util.color.EyeColorList;
 import com.valenguard.client.util.color.HairColorList;
 import com.valenguard.client.util.color.SkinColorList;
@@ -26,13 +28,14 @@ import lombok.Setter;
 public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     private final CharacterCreation characterCreation;
+    private final int maxHairStyles = 14;
 
     private CharacterPreviewer characterPreviewer = new CharacterPreviewer();
     private VisValidatableTextField characterName;
     private VisTable previewTable = new VisTable();
     private Appearance appearance;
 
-    private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) 14); // Number of hair textures
+    private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) maxHairStyles); // Number of hair textures
     private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1));
     private CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1));
     private CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1));
@@ -46,25 +49,9 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     }
 
     /**
-     * Pick Hair Style
-     * Pick Hair Color
-     * Pick Eye Color
-     * Pick Skin Color
-     * <p>
      * TODO: Pick Shirt Color
      * TODO: Pick Pants Color
      * TODO: Pick Shoes Color
-     * <p>
-     * TODO: RANDOMIZE APPEARANCE BUTTON
-     * TODO: Rotate Character Buttons
-     * ***************************************
-     * *   <- Hair Style ->    *
-     * CHARACTER   *   <- Hair Color ->    *
-     * PREVIEW    *   <- Eye  Color ->    *
-     * *   <- Skin Color ->    *
-     * *   Name [         ]    *
-     * *   [Submit] [Cancel]   *
-     * ***************************************
      */
 
     @Override
@@ -73,7 +60,6 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         VisTable topTable = new VisTable();
 
         // Adding main character options
-
         VisTable characterOptions = new VisTable();
 
         characterOptions.add(buildOptionTable(hairStyleOption)).row();
@@ -81,6 +67,25 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         characterOptions.add(buildOptionTable(eyeColorOption)).row();
         characterOptions.add(buildOptionTable(skinColorOption)).row();
 
+        VisTextButton randomize = new VisTextButton("Randomize");
+        VisTextButton reset = new VisTextButton("Reset");
+
+        randomize.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                randomizeCharacter();
+            }
+        });
+
+        reset.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                resetCharacter();
+            }
+        });
+
+        characterOptions.add(randomize).row();
+        characterOptions.add(reset).row();
 
         rebuildPreviewTable();
         topTable.add(previewTable).expand().fill();
@@ -119,7 +124,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         VisTextButton submit = new VisTextButton("Submit");
         VisLabel errorLabel = new VisLabel();
         FormValidator validator = new FormValidator(submit, errorLabel);
-        characterName = new VisValidatableTextField();
+        characterName = new VisValidatableTextField(new ProperName());
         characterName.setMaxLength(16);
         validator.notEmpty(characterName, "Name must not be empty.");
 
@@ -138,6 +143,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                resetCharacter();
                 characterName.setText("");
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
@@ -199,6 +205,22 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         });
 
         return visTable;
+    }
+
+    private void resetCharacter() {
+        hairStyleOption.setOptionValue((byte) 0);
+        hairColorOption.setOptionValue((byte) 0);
+        eyeColorOption.setOptionValue((byte) 0);
+        skinColorOption.setOptionValue((byte) 0);
+        rebuildPreviewTable();
+    }
+
+    private void randomizeCharacter() {
+        hairStyleOption.setOptionValue((byte) RandomUtil.getNewRandom(0, maxHairStyles));
+        hairColorOption.setOptionValue((byte) RandomUtil.getNewRandom(0, HairColorList.values().length - 1));
+        eyeColorOption.setOptionValue((byte) RandomUtil.getNewRandom(0, EyeColorList.values().length - 1));
+        skinColorOption.setOptionValue((byte) RandomUtil.getNewRandom(0, SkinColorList.values().length - 1));
+        rebuildPreviewTable();
     }
 
     @Getter
