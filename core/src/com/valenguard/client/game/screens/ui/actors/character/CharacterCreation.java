@@ -33,11 +33,12 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     private VisValidatableTextField characterName;
     private VisTable previewTable = new VisTable();
     private Appearance appearance;
+    private byte facingDirection = 0;
 
-    private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) maxHairStyles); // Number of hair textures
-    private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1));
-    private CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1));
-    private CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1));
+    private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) maxHairStyles, (byte) 0); // Number of hair textures
+    private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1), (byte) 22);
+    private CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1), (byte) 0);
+    private CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1), (byte) 1);
 
     public CharacterCreation() {
         super("Create a Character");
@@ -67,12 +68,25 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         characterOptions.add(buildOptionTable(skinColorOption)).row();
 
         VisTextButton randomize = new VisTextButton("Randomize");
+        VisTextButton rotate = new VisTextButton("Rotate");
         VisTextButton reset = new VisTextButton("Reset");
 
         randomize.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 randomizeCharacter();
+            }
+        });
+
+        rotate.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                facingDirection++;
+                if (facingDirection > 3) {
+                    // Rotate back to beginning, skipping the NONE value.
+                    facingDirection = 0;
+                }
+                rebuildPreviewTable();
             }
         });
 
@@ -84,6 +98,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         });
 
         characterOptions.add(randomize).row();
+        characterOptions.add(rotate).row();
         characterOptions.add(reset).row();
 
         rebuildPreviewTable();
@@ -112,8 +127,8 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         appearance.setEyeColor(EyeColorList.getColorFromOrdinal(eyeColorOption.optionValue));
         appearance.setSkinColor(SkinColorList.getColorFromOrdinal(skinColorOption.optionValue));
 
-        VisTable visImageTable = characterPreviewer.fillPreviewTable(appearance, MoveDirection.SOUTH, 15);
-        previewTable.add(visImageTable);
+        VisTable visImageTable = characterPreviewer.fillPreviewTable(appearance, MoveDirection.getDirection(facingDirection), 15);
+        previewTable.add(visImageTable).row();
     }
 
     private VisTable confirmTable(final StageHandler stageHandler) {
@@ -207,10 +222,10 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     }
 
     private void resetCharacter() {
-        hairStyleOption.setOptionValue((byte) 0);
-        hairColorOption.setOptionValue((byte) 0);
-        eyeColorOption.setOptionValue((byte) 0);
-        skinColorOption.setOptionValue((byte) 0);
+        hairStyleOption.reset();
+        hairColorOption.reset();
+        eyeColorOption.reset();
+        skinColorOption.reset();
         rebuildPreviewTable();
     }
 
@@ -227,11 +242,19 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     class CharacterOption {
         private final String optionName;
         private final byte maxOptions;
+        private final byte defaultOption;
         private byte optionValue;
 
-        CharacterOption(String optionName, byte maxOptions) {
+        CharacterOption(String optionName, byte maxOptions, byte defaultOption) {
             this.optionName = optionName;
             this.maxOptions = maxOptions;
+            this.defaultOption = defaultOption;
+
+            reset();
+        }
+
+        void reset() {
+            optionValue = defaultOption;
         }
     }
 

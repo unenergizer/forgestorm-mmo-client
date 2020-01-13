@@ -69,7 +69,11 @@ public class CharacterPreviewer {
         }
 
         // Eyes
-        imageStack.add(imageTable(width, 16 * previewScale, previewScale, "eyes_" + direction + "", appearance.getEyeColor()));
+        if (moveDirection != MoveDirection.NORTH) {
+            // Note: no eye image exist for north facing eyes (eyes not visible, as back
+            // of head is shown). This will prevent NullPointerException.
+            imageStack.add(imageTable(width, 16 * previewScale, previewScale, "eyes_" + direction + "", appearance.getEyeColor()));
+        }
 
         // Helmet & Hair
         if (appearance.getHelmTexture() != -1) {
