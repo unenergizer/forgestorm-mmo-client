@@ -58,8 +58,6 @@ import com.valenguard.client.io.type.GameSkin;
 
 import lombok.Getter;
 
-import static com.valenguard.client.util.Log.println;
-
 @Getter
 public class StageHandler implements Disposable {
 
@@ -256,18 +254,10 @@ public class StageHandler implements Disposable {
                 break;
             case GAME:
                 musicManager.stopMusic(true);
-                if (Valenguard.getInstance().isAdmin()) {
-                    println(getClass(), "User is an admin!");
-                    devMenu.setVisible(true);
-                    if (!devMenu.isVisible()) {
-                        println(getClass(), "Still not visible....");
-                    } else {
-                        println(getClass(), "So it is visible???");
-                    }
-                }
 
                 Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
+                if (Valenguard.getInstance().isAdmin()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);
                 buttonBar.setVisible(true);
                 statusBar.setVisible(true);
