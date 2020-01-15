@@ -231,7 +231,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         private void addTalkButton() {
             if (!(clickedEntity instanceof NPC)) return;
 
-            VisTextButton talkButton = new VisTextButton("Talk");
+            VisTextButton talkButton = new VisTextButton("Talk To " + clickedEntity.getEntityName());
             add(talkButton).expand().fill().row();
 
             talkButton.addListener(new ChangeListener() {
@@ -489,7 +489,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         private void addShopButton() {
             if (clickedEntity.getEntityType() == EntityType.PLAYER) return;
             if (((AiEntity) clickedEntity).getShopID() < 0) return;
-            VisTextButton shopButton = new VisTextButton("Shop " + clickedEntity.getEntityName());
+            VisTextButton shopButton = new VisTextButton("Open Shop");
             add(shopButton).expand().fill().row();
 
             shopButton.addListener(new ChangeListener() {
