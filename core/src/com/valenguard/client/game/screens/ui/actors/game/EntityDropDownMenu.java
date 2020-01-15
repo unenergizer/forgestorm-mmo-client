@@ -216,13 +216,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         MenuEntry(MovingEntity clickedEntity) {
             this.clickedEntity = clickedEntity;
 
-            addTalkButton();
-            addInspectPlayerButton();
             addOpenBankButton();
-            addTargetButton();
-            addAttackButton();
             addTradeButton();
             addShopButton();
+            addTalkButton();
+            addInspectPlayerButton();
+            addTargetButton();
+            addAttackButton();
             addFollowButton();
         }
 

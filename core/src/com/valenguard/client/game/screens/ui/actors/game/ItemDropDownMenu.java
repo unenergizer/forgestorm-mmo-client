@@ -171,6 +171,8 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     private void addDropButton(VisTable visTable) {
+        if (inventoryType == InventoryType.EQUIPMENT || inventoryType == InventoryType.BANK) return;
+
         VisTextButton dropItemStackButton = new VisTextButton("Drop");
         visTable.add(dropItemStackButton).expand().fill().row();
 
