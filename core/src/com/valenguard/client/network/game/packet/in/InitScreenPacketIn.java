@@ -36,6 +36,10 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
                 // Network connection was successful.
 //                Valenguard.connectionManager.threadSafeConnectionMessage("Connection successful!");
                 ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.CHARACTER_SELECT);
+
+                // Fade this screen in!
+                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+                ActorUtil.getStageHandler().getEscapeWindow().disableButtons(false);
                 break;
             case GAME:
                 ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.GAME);

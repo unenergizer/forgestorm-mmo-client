@@ -2,7 +2,6 @@ package com.valenguard.client.game.screens.ui;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.UserInterfaceType;
@@ -33,7 +32,6 @@ class PostStageEvent implements InputProcessor {
             if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
                 if (!stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEscapeWindow());
-                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEscapeWindow());
                 }
             }
             return true;
