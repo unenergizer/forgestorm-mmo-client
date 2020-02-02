@@ -13,11 +13,13 @@ public class DesktopLauncher {
 
     public static void main(String[] args) {
 
+        boolean forceLocalHost = false;
         boolean ideRun = false;
         String username = null;
         String password = null;
 
         for (String arg : args) {
+            if (arg.equalsIgnoreCase("forceLocalHost")) forceLocalHost = true;
             if (arg.equalsIgnoreCase("ideRun")) ideRun = true;
             if (arg.contains(usernameArg)) username = arg.replace(usernameArg, "");
             if (arg.contains(passwordArg)) password = arg.replace(passwordArg, "");
@@ -29,6 +31,9 @@ public class DesktopLauncher {
         config.title = "RetroMMO";
         config.width = ClientConstants.SCREEN_RESOLUTION.getWidth();
         config.height = ClientConstants.SCREEN_RESOLUTION.getHeight();
+        config.x = 0;
+        config.y = 0;
+
 
         config.addIcon("graphics/misc/icon-128.png", Files.FileType.Internal);
         config.addIcon("graphics/misc/icon-32.png", Files.FileType.Internal);
@@ -36,6 +41,7 @@ public class DesktopLauncher {
 
         Valenguard valenguard = Valenguard.getInstance();
         valenguard.setIdeRun(ideRun);
+        valenguard.setForceLocalHost(forceLocalHost);
 
         if (username != null && !username.isEmpty()) {
             valenguard.getLoginCredentials().setUsername(username);

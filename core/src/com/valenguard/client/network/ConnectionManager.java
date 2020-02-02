@@ -1,6 +1,7 @@
 package com.valenguard.client.network;
 
 import com.badlogic.gdx.Gdx;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.network.game.ClientGameConnection;
@@ -12,6 +13,8 @@ import com.valenguard.client.network.login.LoginState;
 
 import lombok.Getter;
 
+import static com.valenguard.client.util.Log.println;
+
 public class ConnectionManager {
 
     private ClientLoginConnection clientLoginConnection = new ClientLoginConnection(this);
@@ -20,6 +23,7 @@ public class ConnectionManager {
     private ClientGameConnection clientGameConnection = new ClientGameConnection(this);
 
     public void setupConnection(final NetworkSettings networkSettings, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
+        println(getClass(), "Force LocalHost: " + Valenguard.getInstance().isForceLocalHost());
 
         new Thread(new Runnable() {
             @Override

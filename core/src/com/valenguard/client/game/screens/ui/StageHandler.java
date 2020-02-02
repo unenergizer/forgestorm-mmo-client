@@ -30,6 +30,7 @@ import com.valenguard.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
 import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
+import com.valenguard.client.game.screens.ui.actors.game.CharacterInspectionWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
 import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
@@ -105,6 +106,7 @@ public class StageHandler implements Disposable {
     private StatusBar statusBar = new StatusBar();
     private AbilityBar abilityBar = new AbilityBar();
     private ChatDialogue chatDialogue = new ChatDialogue();
+    private CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
@@ -171,6 +173,7 @@ public class StageHandler implements Disposable {
         stage.addActor(abilityBar.build(this));
         stage.addActor(chatDialogue.build(this));
         stage.addActor(npcTextDialog.build(this));
+        stage.addActor(characterInspectionWindow.build(this));
 
         // Multi purpose
         stage.addActor(mainSettingsWindow.build(this));
@@ -255,7 +258,7 @@ public class StageHandler implements Disposable {
             case GAME:
                 musicManager.stopMusic(true);
 
-                Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
+//                Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
                 if (Valenguard.getInstance().isAdmin()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);

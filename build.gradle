@@ -13,6 +13,10 @@ buildscript {
         //noinspection GradleDependency
         classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.3'
+        // Proguard
+        // May 2018
+        // https://mvnrepository.com/artifact/net.sf.proguard/proguard-gradle
+        classpath 'net.sf.proguard:proguard-gradle:6.0.3'
     }
 }
 
@@ -35,7 +39,6 @@ allprojects {
         jsoupVersion = '1.12.1'
         apacheCommonsCodec = '1.12'
         typingLabelVersion = '1.1.0'
-        rhinoVersion = '1.7.11'
     }
 
     repositories {
@@ -110,7 +113,6 @@ project(":core") {
         compile "org.jsoup:jsoup:$jsoupVersion"
         compile "commons-codec:commons-codec:$apacheCommonsCodec"
         compile "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
-        compile "org.mozilla:rhino:$rhinoVersion"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }

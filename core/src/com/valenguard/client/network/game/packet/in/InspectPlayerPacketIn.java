@@ -10,8 +10,12 @@ import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.valenguard.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.INSPECT_PLAYER)
-public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacketIn.ChatMessagePacket> {
+public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacketIn.InspectPlayerPacket> {
+
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -21,20 +25,24 @@ public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacket
             itemIds[i] = clientHandler.readInt();
         }
 
-        return new ChatMessagePacket(itemIds);
+        return new InspectPlayerPacket(itemIds);
     }
 
     @Override
-    public void onEvent(ChatMessagePacket packetData) {
-        StringBuilder stringBuilder = new StringBuilder("Items: ");
-        for (int i = 0; i < ClientConstants.EQUIPMENT_INVENTORY_SIZE; i++) {
-            stringBuilder.append(packetData.itemIds[i]).append(", ");
+    public void onEvent(InspectPlayerPacket packetData) {
+        if (PRINT_DEBUG) {
+            StringBuilder stringBuilder = new StringBuilder("Items: ");
+            for (int i = 0; i < ClientConstants.EQUIPMENT_INVENTORY_SIZE; i++) {
+                stringBuilder.append(packetData.itemIds[i]).append(", ");
+            }
+            println(getClass(), stringBuilder.toString(), false, true);
         }
-        ActorUtil.getStageHandler().getChatWindow().appendChatMessage(stringBuilder.toString());
+
+        ActorUtil.getStageHandler().getCharacterInspectionWindow().inspectCharacter(packetData.itemIds);
     }
 
     @AllArgsConstructor
-    class ChatMessagePacket extends PacketData {
+    class InspectPlayerPacket extends PacketData {
         private int[] itemIds;
     }
 }

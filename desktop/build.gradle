@@ -1,3 +1,5 @@
+import proguard.gradle.ProGuardTask
+
 apply plugin: "java"
 
 sourceCompatibility = 1.6
@@ -23,32 +25,74 @@ task debug(dependsOn: classes, type: JavaExec) {
     debug = true
 }
 
-task dist(type: Jar) {
+task jar(type: Jar, dependsOn: classes, overwrite: true) {
+    description 'Assembles the classes and resources into a runnable jar file.'
+
+    // Defines the archiveName
+    archiveName = 'RetroMMO.jar'
+
+    // Add files
+//    from files(sourceSets.main.output.classesDir)
+//    from files(sourceSets.main.output.resourcesDir)
+//    from { configurations.compile.collect { zipTree(it) } }
+
     from files(sourceSets.main.output.classesDir)
     from {configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }}
     from files(project.assetsDir)
- 
+
+//    from fileTree(project.assetsDir) {
+//        include 'icons/**'
+//    }
+
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+
+    exclude('META-INF/versions/9/**')
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+task proguard(type: ProGuardTask, dependsOn: [jar]) {
+    description 'Obfuscates the previously built jar file.'
+    ext {
+        outDir = file("${jar.destinationDir}/proguard")
+        def pathWithoutExtension = "${outDir}/" + jar.archiveName.minus('.jar')
+        obfuscatedJarPath = "${pathWithoutExtension}.jar"
+        mappingPath = "${outDir}/mapping.map"
+        proguardConfig = 'proguard.cfg'
+    }
+    outDir.mkdirs()
+
+    injars jar.archivePath
+    outjars obfuscatedJarPath
+    printmapping mappingPath
+    configuration proguardConfig
+}
+
+task dist(type: Copy, dependsOn: [clean, jar, proguard]) {
+    group 'distribution'
+    description 'Deploy artifacts to distribution directories.'
+
+    tasks.findByName('jar').mustRunAfter 'clean'
+    tasks.findByName('proguard').mustRunAfter 'jar'
+}
+
+task distRaw(type: Copy, dependsOn: [clean, jar]) {
+    group 'distribution'
+    description 'Deploy artifacts to distribution directories WITHOUT Proguard.'
+
+    tasks.findByName('jar').mustRunAfter 'clean'
+}
+
+task distLibgdx(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from {configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }}
+    from files(project.assetsDir)
+
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
 }
 
-dist.dependsOn classes
-
-eclipse {
-    project {
-        name = appName + "-desktop"
-        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/android/assets'
-    }
-}
-
-task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
-  doLast {
-    def classpath = new XmlParser().parse(file(".classpath"))
-    new Node(classpath, "classpathentry", [ kind: 'src', path: 'assets' ])
-    def writer = new FileWriter(file(".classpath"))
-    def printer = new XmlNodePrinter(new PrintWriter(writer))
-    printer.setPreserveWhitespace(true)
-    printer.print(classpath)
-  }
-}
+distLibgdx.dependsOn classes

@@ -258,6 +258,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     new InspectPlayerPacketOut(clickedEntity.getServerEntityID()).sendPacket();
+                    stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedEntity);
 
                     stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player " + clickedEntity.getEntityName() + " equipment.");
                     cleanUpDropDownMenu(true);

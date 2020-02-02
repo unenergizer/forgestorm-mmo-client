@@ -19,7 +19,6 @@ import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.effects.EffectManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
-import com.valenguard.client.game.scripting.ScriptProcessor;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStackManager;
 import com.valenguard.client.game.world.item.inventory.MoveInventoryEvents;
@@ -97,7 +96,7 @@ public class Valenguard extends Game {
     private EffectManager effectManager;
     private LanguageManager languageManager;
     private ScriptManager scriptManager;
-    private ScriptProcessor scriptProcessor;
+    //    private ScriptProcessor scriptProcessor;
     private TradeManager tradeManager;
 
     private InputMultiplexer inputMultiplexer;
@@ -107,6 +106,9 @@ public class Valenguard extends Game {
 
     @Setter
     private boolean ideRun;
+
+    @Setter
+    private boolean forceLocalHost;
 
     private Valenguard() {
     }
@@ -146,7 +148,7 @@ public class Valenguard extends Game {
         effectManager = new EffectManager();
         languageManager = new LanguageManager();
         scriptManager = new ScriptManager(ideRun);
-        scriptProcessor = new ScriptProcessor();
+//        scriptProcessor = new ScriptProcessor();
 
         // load screens
         stageHandler = new StageHandler();

@@ -1,7 +1,5 @@
 package com.valenguard.client.game.world.entities;
 
-import com.valenguard.client.Valenguard;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +19,6 @@ public class NPC extends AiEntity {
      */
 
     public void chat() {
-        Valenguard.getInstance().getScriptProcessor().runScript(scriptId);
+//        Valenguard.getInstance().getScriptProcessor().runScript(scriptId);
     }
 }

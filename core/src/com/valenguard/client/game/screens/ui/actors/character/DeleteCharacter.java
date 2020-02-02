@@ -2,6 +2,7 @@ package com.valenguard.client.game.screens.ui.actors.character;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -21,6 +22,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
     private final DeleteCharacter deleteCharacterWindow;
 
+    private StageHandler stageHandler;
     private VisTextField deleteCodeBox = new VisTextField();
     private VisLabel characterNameLabel = new VisLabel();
     private VisLabel confirmStringLabel;
@@ -34,6 +36,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         confirmStringLabel = new VisLabel("", stageHandler.getMarkupStyle());
 
         VisTable layoutTable = new VisTable();
@@ -112,6 +115,8 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
         deleteCode = String.valueOf(RandomUtil.getNewRandom(10000, 99999));
         characterNameLabel.setText("[GREEN]Character Name: " + characterName);
         confirmStringLabel.setText("Enter [YELLOW]" + deleteCode + "[WHITE] to delete your character.");
+        FocusManager.switchFocus(stageHandler.getStage(), deleteCodeBox);
+        stageHandler.getStage().setKeyboardFocus(deleteCodeBox);
         centerWindow();
         pack();
     }
