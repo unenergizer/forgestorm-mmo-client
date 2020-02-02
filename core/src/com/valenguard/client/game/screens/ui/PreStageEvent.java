@@ -18,8 +18,8 @@ import com.valenguard.client.game.screens.effects.EffectManager;
 import com.valenguard.client.game.screens.effects.LineDrawEffect;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
-import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
+import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.NPC;
@@ -111,15 +111,15 @@ class PreStageEvent implements InputProcessor {
          * Tool bar keys
          * TODO: Figure out a cleaner way to do this...
          */
-        AbilityBar abilityBar = Valenguard.getInstance().getStageHandler().getAbilityBar();
+        GameButtonBar gameButtonBar = Valenguard.getInstance().getStageHandler().getGameButtonBar();
         if (keycode == KeyBinds.ACTION_1) {
-            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 0, abilityBar, abilityBar.getActionOne());
+            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 0, gameButtonBar, gameButtonBar.getActionOne());
         }
         if (keycode == KeyBinds.ACTION_2) {
-            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 1, abilityBar, abilityBar.getActionTwo());
+            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 1, gameButtonBar, gameButtonBar.getActionTwo());
         }
         if (keycode == KeyBinds.ACTION_3) {
-            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, abilityBar, abilityBar.getActionThree());
+            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, gameButtonBar, gameButtonBar.getActionThree());
         }
 
         /*

@@ -34,7 +34,6 @@ public class DesktopLauncher {
         config.x = 0;
         config.y = 0;
 
-
         config.addIcon("graphics/misc/icon-128.png", Files.FileType.Internal);
         config.addIcon("graphics/misc/icon-32.png", Files.FileType.Internal);
         config.addIcon("graphics/misc/icon-16.png", Files.FileType.Internal);

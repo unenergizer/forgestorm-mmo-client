@@ -3,7 +3,7 @@ package com.valenguard.client.game.abilities;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
-import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
+import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -25,7 +25,7 @@ public class AbilityManager implements GameQuitReset {
         combatAbilities = new AbilityLoader().loadAbilities();
     }
 
-    public void toggleAbility(short abilityID, AbilityBar abilityBar, VisImageButton button) {
+    public void toggleAbility(short abilityID, GameButtonBar gameButtonBar, VisImageButton button) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         if (playerClient.getTargetEntity() == null) {
             ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]You need to select a target first.");
@@ -60,7 +60,7 @@ public class AbilityManager implements GameQuitReset {
         new AbilityRequestPacketOut(abilityID, EntityManager.getInstance().getPlayerClient().getTargetEntity()).sendPacket();
 
         // Set cooldown time * 60 frames a second
-        cooldowns.put(abilityID, new Cooldown(abilityBar, button, ability.getCooldown() * 60));
+        cooldowns.put(abilityID, new Cooldown(gameButtonBar, button, ability.getCooldown() * 60));
     }
 
     public void updateCooldowns() {
@@ -70,7 +70,7 @@ public class AbilityManager implements GameQuitReset {
             Cooldown cooldown = entry.getValue();
             int cooldownRemaining = cooldown.remaining - 1;
             if (cooldownRemaining <= 0) {
-                cooldown.abilityBar.resetButton(cooldown.button);
+                cooldown.gameButtonBar.resetButton(cooldown.button);
                 iterator.remove();
             } else {
                 // initialAmount = ability.getCooldown();
@@ -80,7 +80,7 @@ public class AbilityManager implements GameQuitReset {
                 float displayPercent = (float) cooldownRemaining / cooldown.initCooldown;
                 cooldown.remaining = cooldownRemaining;
 
-                cooldown.abilityBar.setCoolingDown(cooldown.button);
+                cooldown.gameButtonBar.setCoolingDown(cooldown.button);
             }
         }
     }
@@ -91,13 +91,13 @@ public class AbilityManager implements GameQuitReset {
     }
 
     private class Cooldown {
-        private final AbilityBar abilityBar;
+        private final GameButtonBar gameButtonBar;
         private final VisImageButton button;
         private int remaining;
         private int initCooldown;
 
-        Cooldown(AbilityBar abilityBar, VisImageButton button, int time) {
-            this.abilityBar = abilityBar;
+        Cooldown(GameButtonBar gameButtonBar, VisImageButton button, int time) {
+            this.gameButtonBar = gameButtonBar;
             this.button = button;
             remaining = time;
             initCooldown = time;

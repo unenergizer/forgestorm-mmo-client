@@ -28,8 +28,6 @@ import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.valenguard.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
-import com.valenguard.client.game.screens.ui.actors.game.AbilityBar;
-import com.valenguard.client.game.screens.ui.actors.game.ButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.CharacterInspectionWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
 import com.valenguard.client.game.screens.ui.actors.game.CreditsWindow;
@@ -38,6 +36,7 @@ import com.valenguard.client.game.screens.ui.actors.game.EntityDropDownMenu;
 import com.valenguard.client.game.screens.ui.actors.game.EntityShopWindow;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.FadeWindow;
+import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ItemDropDownMenu;
@@ -95,7 +94,7 @@ public class StageHandler implements Disposable {
     private BagWindow bagWindow = new BagWindow();
     private BankWindow bankWindow = new BankWindow();
     private EquipmentWindow equipmentWindow = new EquipmentWindow();
-    private ButtonBar buttonBar = new ButtonBar();
+    private GameButtonBar gameButtonBar = new GameButtonBar();
     private DebugTable debugTable = new DebugTable();
     private FPSTable fpsTable = new FPSTable();
     private EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
@@ -104,7 +103,6 @@ public class StageHandler implements Disposable {
     private IncomingTradeRequestWindow incomingTradeRequestWindow = new IncomingTradeRequestWindow();
     private EntityShopWindow entityShopWindow = new EntityShopWindow();
     private StatusBar statusBar = new StatusBar();
-    private AbilityBar abilityBar = new AbilityBar();
     private ChatDialogue chatDialogue = new ChatDialogue();
     private CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
 
@@ -161,7 +159,7 @@ public class StageHandler implements Disposable {
         stage.addActor(bankWindow.build(this));
         stage.addActor(equipmentWindow.build(this));
         stage.addActor(escapeWindow.build(this));
-        stage.addActor(buttonBar.build(this));
+        stage.addActor(gameButtonBar.build(this));
         stage.addActor(fpsTable.build(this));
         stage.addActor(entityDropDownMenu.build(this));
         stage.addActor(itemDropDownMenu.build(this));
@@ -170,7 +168,6 @@ public class StageHandler implements Disposable {
 //        stage.addActor(new TestToasts(stage));
         stage.addActor(entityShopWindow.build(this));
         stage.addActor(statusBar.build(this));
-        stage.addActor(abilityBar.build(this));
         stage.addActor(chatDialogue.build(this));
         stage.addActor(npcTextDialog.build(this));
         stage.addActor(characterInspectionWindow.build(this));
@@ -262,9 +259,8 @@ public class StageHandler implements Disposable {
 
                 if (Valenguard.getInstance().isAdmin()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);
-                buttonBar.setVisible(true);
                 statusBar.setVisible(true);
-                abilityBar.setVisible(true);
+                gameButtonBar.setVisible(true);
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows
                 break;

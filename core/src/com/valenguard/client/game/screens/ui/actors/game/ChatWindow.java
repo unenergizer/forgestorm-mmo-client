@@ -60,7 +60,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         final int innerPadding = 5;
         pad(innerPadding);
         setResizable(true);
-        setPosition(0, 0);
+        setPosition(0, 40);
         setWidth(350);
         setHeight(150);
 

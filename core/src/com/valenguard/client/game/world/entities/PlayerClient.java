@@ -70,11 +70,11 @@ public class PlayerClient extends Player {
         targetEntity = movingEntity;
 
         if (targetEntity == null) {
-            stageHandler.getAbilityBar().canUseAbilities(false);
+            stageHandler.getGameButtonBar().canUseAbilities(false);
         } else {
             targetEntity.setPlayerClientTarget(true);
             stageHandler.getChatWindow().appendChatMessage("[YELLOW]You targeted " + targetEntity.getEntityName() + ".");
-            stageHandler.getAbilityBar().canUseAbilities(true);
+            stageHandler.getGameButtonBar().canUseAbilities(true);
         }
     }
 }
