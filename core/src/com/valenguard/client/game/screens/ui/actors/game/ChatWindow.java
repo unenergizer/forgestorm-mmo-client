@@ -60,7 +60,6 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         final int innerPadding = 5;
         pad(innerPadding);
         setResizable(true);
-        setPosition(0, 40);
         setWidth(350);
         setHeight(150);
 
@@ -174,11 +173,14 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             }
         });
 
+        GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
+
         add(scrollPane).colspan(2).growX().expandY().top();
         row();
         add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
+        setPosition(0, gameButtonBar.getY() + gameButtonBar.getHeight() + 15);
         toggleChatWindowInactive(true, true);
         return this;
     }

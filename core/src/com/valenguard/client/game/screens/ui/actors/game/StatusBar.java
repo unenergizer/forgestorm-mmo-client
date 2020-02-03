@@ -25,9 +25,6 @@ public class StatusBar extends VisWindow implements Buildable {
     private final VisLabel mpLabel = new VisLabel();
     private final VisProgressBar mpBar = new VisProgressBar(0, 100, 1, false);
 
-    private final VisLabel expLabel = new VisLabel();
-    private final VisProgressBar expBar = new VisProgressBar(0, 100, 1, false);
-
     public StatusBar() {
         super("");
     }
@@ -45,10 +42,6 @@ public class StatusBar extends VisWindow implements Buildable {
     }
 
     public void updateMana(int mana) {
-        // TODO
-    }
-
-    public void updateExp(int exp) {
         // TODO
     }
 
@@ -79,18 +72,6 @@ public class StatusBar extends VisWindow implements Buildable {
         mpLabel.setAlignment(Alignment.CENTER.getAlignment());
         mpStack.add(mpLabel);
         visTable.add(mpStack);
-        visTable.row();
-
-        // EXP ---------------------------------------
-        final VisLabel exp = new VisLabel("EXP: ");
-        visTable.add(exp);
-
-        final Stack expStack = new Stack();
-        expStack.add(expBar);
-        expLabel.setText("0/100");
-        expLabel.setAlignment(Alignment.CENTER.getAlignment());
-        expStack.add(expLabel);
-        visTable.add(expStack);
         visTable.row();
 
         add(visTable);

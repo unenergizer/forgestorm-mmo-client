@@ -35,6 +35,7 @@ import com.valenguard.client.game.screens.ui.actors.game.DebugTable;
 import com.valenguard.client.game.screens.ui.actors.game.EntityDropDownMenu;
 import com.valenguard.client.game.screens.ui.actors.game.EntityShopWindow;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
+import com.valenguard.client.game.screens.ui.actors.game.ExperienceBar;
 import com.valenguard.client.game.screens.ui.actors.game.FadeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
@@ -90,11 +91,12 @@ public class StageHandler implements Disposable {
     private HelpWindow helpWindow = new HelpWindow();
     private CreditsWindow creditsWindow = new CreditsWindow();
     private EscapeWindow escapeWindow = new EscapeWindow();
-    private ChatWindow chatWindow = new ChatWindow();
     private BagWindow bagWindow = new BagWindow();
     private BankWindow bankWindow = new BankWindow();
     private EquipmentWindow equipmentWindow = new EquipmentWindow();
     private GameButtonBar gameButtonBar = new GameButtonBar();
+    private ChatWindow chatWindow = new ChatWindow();
+    private ExperienceBar experienceBar = new ExperienceBar();
     private DebugTable debugTable = new DebugTable();
     private FPSTable fpsTable = new FPSTable();
     private EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
@@ -154,12 +156,13 @@ public class StageHandler implements Disposable {
         stage.addActor(fadeWindow.build(this));
         stage.addActor(helpWindow.build(this));
         stage.addActor(creditsWindow.build(this));
-        stage.addActor(chatWindow.build(this));
         stage.addActor(bagWindow.build(this));
         stage.addActor(bankWindow.build(this));
         stage.addActor(equipmentWindow.build(this));
         stage.addActor(escapeWindow.build(this));
         stage.addActor(gameButtonBar.build(this));
+        stage.addActor(chatWindow.build(this));
+        stage.addActor(experienceBar.build(this));
         stage.addActor(fpsTable.build(this));
         stage.addActor(entityDropDownMenu.build(this));
         stage.addActor(itemDropDownMenu.build(this));
@@ -260,6 +263,7 @@ public class StageHandler implements Disposable {
                 if (Valenguard.getInstance().isAdmin()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);
                 statusBar.setVisible(true);
+                experienceBar.setVisible(true);
                 gameButtonBar.setVisible(true);
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows

@@ -25,17 +25,29 @@ import lombok.Getter;
 
 public class GameButtonBar extends VisTable implements Buildable {
 
+    private static final int BUTTON_PADDING = 3;
+    private static final int BUTTON_TO_BUTTON_SPACE = 5;
+
     private final AbilityManager abilityManager = Valenguard.getInstance().getAbilityManager();
     private final AudioManager audioManager = Valenguard.getInstance().getAudioManager();
 
     private final GameButtonBar gameButtonBar;
 
     @Getter
-    private VisImageButton actionOne;
+    private VisImageButton action1;
     @Getter
-    private VisImageButton actionTwo;
+    private VisImageButton action2;
     @Getter
-    private VisImageButton actionThree;
+    private VisImageButton action3;
+    @Getter
+    private VisImageButton action4;
+    @Getter
+    private VisImageButton action5;
+    @Getter
+    private VisImageButton action6;
+
+    @Getter
+    private float abilityTableWidth;
 
     public GameButtonBar() {
         this.gameButtonBar = this;
@@ -46,6 +58,7 @@ public class GameButtonBar extends VisTable implements Buildable {
 
         VisTable abilityTable = buildAbilityButtons();
         final VisTable otherTable = buildOtherButtons(stageHandler);
+
 
         add(abilityTable).padRight(1);
         add(otherTable).align(Alignment.CENTER.getAlignment());
@@ -58,6 +71,7 @@ public class GameButtonBar extends VisTable implements Buildable {
         });
 
         pack();
+        abilityTableWidth = abilityTable.getWidth();
         setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), 10);
         setVisible(false);
         return this;
@@ -75,13 +89,19 @@ public class GameButtonBar extends VisTable implements Buildable {
 
     public void canUseAbilities(boolean bool) {
         if (bool) {
-            actionOne.setDisabled(true);
-            actionTwo.setDisabled(true);
-            actionThree.setDisabled(true);
+            action1.setDisabled(true);
+            action2.setDisabled(true);
+            action3.setDisabled(true);
+            action4.setDisabled(true);
+            action5.setDisabled(true);
+            action6.setDisabled(true);
         } else {
-            actionOne.setDisabled(false);
-            actionTwo.setDisabled(false);
-            actionThree.setDisabled(false);
+            action1.setDisabled(false);
+            action2.setDisabled(false);
+            action3.setDisabled(false);
+            action4.setDisabled(false);
+            action5.setDisabled(false);
+            action6.setDisabled(false);
         }
     }
 
@@ -89,37 +109,69 @@ public class GameButtonBar extends VisTable implements Buildable {
         VisTable buttonTable = new VisTable();
 
         ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 48);
-        actionOne = new VisImageButton(imageBuilder.setRegionName("skill_061").buildTextureRegionDrawable(), "Spell 1 (" + KeyBinds.printKey(KeyBinds.ACTION_1) + ")");
-        actionTwo = new VisImageButton(imageBuilder.setRegionName("weapon_arrow_06").buildTextureRegionDrawable(), "Spell 2 (" + KeyBinds.printKey(KeyBinds.ACTION_2) + ")");
-        actionThree = new VisImageButton(imageBuilder.setRegionName("quest_004").buildTextureRegionDrawable(), "Spell 3 (" + KeyBinds.printKey(KeyBinds.ACTION_3) + ")");
+        action1 = new VisImageButton(imageBuilder.setRegionName("skill_061").buildTextureRegionDrawable(), "Spell 1 (" + KeyBinds.printKey(KeyBinds.ACTION_1) + ")");
+        action2 = new VisImageButton(imageBuilder.setRegionName("weapon_arrow_06").buildTextureRegionDrawable(), "Spell 2 (" + KeyBinds.printKey(KeyBinds.ACTION_2) + ")");
+        action3 = new VisImageButton(imageBuilder.setRegionName("clear_cell").buildTextureRegionDrawable(), "Spell 3 (" + KeyBinds.printKey(KeyBinds.ACTION_3) + ")");
+        action4 = new VisImageButton(imageBuilder.setRegionName("clear_cell").buildTextureRegionDrawable(), "Spell 3 (" + KeyBinds.printKey(KeyBinds.ACTION_3) + ")");
+        action5 = new VisImageButton(imageBuilder.setRegionName("clear_cell").buildTextureRegionDrawable(), "Spell 3 (" + KeyBinds.printKey(KeyBinds.ACTION_3) + ")");
+        action6 = new VisImageButton(imageBuilder.setRegionName("clear_cell").buildTextureRegionDrawable(), "Spell 3 (" + KeyBinds.printKey(KeyBinds.ACTION_3) + ")");
 
-        actionThree.setColor(Color.RED);
-        actionThree.setDisabled(true);
+        action3.setDisabled(true);
+        action4.setDisabled(true);
+        action5.setDisabled(true);
+        action6.setDisabled(true);
 
-        buttonTable.add(actionOne).padRight(1);
-        buttonTable.add(actionTwo).padRight(1);
-        buttonTable.add(actionThree);
+        buttonTable.add(action1).padRight(BUTTON_PADDING);
+        buttonTable.add(action2).padRight(BUTTON_PADDING);
+        buttonTable.add(action3).padRight(BUTTON_PADDING);
+        buttonTable.add(action4).padRight(BUTTON_PADDING);
+        buttonTable.add(action5).padRight(BUTTON_PADDING);
+        buttonTable.add(action6).padRight(BUTTON_PADDING);
 
-        actionOne.addListener(new ChangeListener() {
+        action1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                abilityManager.toggleAbility((short) 0, gameButtonBar, actionOne);
+                abilityManager.toggleAbility((short) 0, gameButtonBar, action1);
                 audioManager.getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
             }
         });
 
-        actionTwo.addListener(new ChangeListener() {
+        action2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                abilityManager.toggleAbility((short) 1, gameButtonBar, actionTwo);
+                abilityManager.toggleAbility((short) 1, gameButtonBar, action2);
                 audioManager.getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
             }
         });
 
-        actionThree.addListener(new ChangeListener() {
+        action3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                abilityManager.toggleAbility((short) 2, gameButtonBar, actionThree);
+                abilityManager.toggleAbility((short) 2, gameButtonBar, action3);
+                audioManager.getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+            }
+        });
+
+        action4.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                abilityManager.toggleAbility((short) 2, gameButtonBar, action4);
+                audioManager.getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+            }
+        });
+
+        action5.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                abilityManager.toggleAbility((short) 2, gameButtonBar, action5);
+                audioManager.getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+            }
+        });
+
+        action6.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                abilityManager.toggleAbility((short) 2, gameButtonBar, action6);
                 audioManager.getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
             }
         });
@@ -131,26 +183,13 @@ public class GameButtonBar extends VisTable implements Buildable {
         VisTable buttonTable = new VisTable();
 
         ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 28);
-        VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_076").buildTextureRegionDrawable(), "Character (" + KeyBinds.printKey(KeyBinds.EQUIPMENT_WINDOW) + ")");
-        VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("quest_001").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
+        VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("quest_179").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
+        VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_168").buildTextureRegionDrawable(), "Character (" + KeyBinds.printKey(KeyBinds.EQUIPMENT_WINDOW) + ")");
         VisImageButton inventoryButton = new VisImageButton(imageBuilder.setRegionName("quest_121").buildTextureRegionDrawable(), "Inventory (" + KeyBinds.printKey(KeyBinds.INVENTORY_WINDOW) + ")");
 
-        buttonTable.add(characterButton).padRight(1);
-        buttonTable.add(escMenuButton).padRight(1);
+        buttonTable.add(escMenuButton).padRight(BUTTON_PADDING).padLeft(BUTTON_TO_BUTTON_SPACE);
+        buttonTable.add(characterButton).padRight(BUTTON_PADDING);
         buttonTable.add(inventoryButton);
-
-        characterButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
-                EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
-                if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    ActorUtil.fadeInWindow(equipmentWindow);
-                } else if (equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    ActorUtil.fadeOutWindow(equipmentWindow);
-                }
-            }
-        });
 
         escMenuButton.addListener(new ChangeListener() {
             @Override
@@ -174,6 +213,20 @@ public class GameButtonBar extends VisTable implements Buildable {
                 }
             }
         });
+
+        characterButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+                EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
+                if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    ActorUtil.fadeInWindow(equipmentWindow);
+                } else if (equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    ActorUtil.fadeOutWindow(equipmentWindow);
+                }
+            }
+        });
+
 
         inventoryButton.addListener(new ChangeListener() {
             @Override

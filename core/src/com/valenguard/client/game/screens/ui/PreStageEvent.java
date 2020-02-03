@@ -113,13 +113,13 @@ class PreStageEvent implements InputProcessor {
          */
         GameButtonBar gameButtonBar = Valenguard.getInstance().getStageHandler().getGameButtonBar();
         if (keycode == KeyBinds.ACTION_1) {
-            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 0, gameButtonBar, gameButtonBar.getActionOne());
+            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 0, gameButtonBar, gameButtonBar.getAction1());
         }
         if (keycode == KeyBinds.ACTION_2) {
-            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 1, gameButtonBar, gameButtonBar.getActionTwo());
+            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 1, gameButtonBar, gameButtonBar.getAction2());
         }
         if (keycode == KeyBinds.ACTION_3) {
-            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, gameButtonBar, gameButtonBar.getActionThree());
+            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, gameButtonBar, gameButtonBar.getAction3());
         }
 
         /*
