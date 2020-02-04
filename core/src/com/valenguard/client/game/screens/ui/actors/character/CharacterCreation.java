@@ -20,12 +20,18 @@ import com.valenguard.client.util.RandomUtil;
 import com.valenguard.client.util.color.EyeColorList;
 import com.valenguard.client.util.color.HairColorList;
 import com.valenguard.client.util.color.SkinColorList;
+import com.valenguard.client.util.string.NameGenerator;
+
+import java.io.IOException;
+import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
 
 public class CharacterCreation extends HideableVisWindow implements Buildable {
 
+    private final NameGenerator nameGenerator = new NameGenerator();
+    private final Random random = new Random();
     private final CharacterCreation characterCreation;
     private final int maxHairStyles = 14;
 
@@ -46,6 +52,13 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
 
         // Build default appearance;
         this.appearance = characterPreviewer.generateBasicAppearance();
+
+        // Setup name generate file
+        try {
+            nameGenerator.changeFile(NameGenerator.NameGenTypes.FANTASY);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -145,6 +158,15 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         VisTable nameTable = new VisTable();
         nameTable.add(new VisLabel("Name:  ")).pad(3);
         nameTable.add(characterName).pad(3);
+        VisTextButton generateName = new VisTextButton("Generate Name");
+        nameTable.add(generateName).pad(3);
+
+        generateName.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                characterName.setText(nameGenerator.compose(2 + random.nextInt(3)));
+            }
+        });
 
         VisTable buttonTable = new VisTable();
         buttonTable.add(cancel).pad(3);
