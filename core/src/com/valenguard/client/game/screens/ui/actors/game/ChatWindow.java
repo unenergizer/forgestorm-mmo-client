@@ -173,14 +173,14 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             }
         });
 
-        GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
+        ExperienceBar experienceBar = stageHandler.getExperienceBar();
 
         add(scrollPane).colspan(2).growX().expandY().top();
         row();
         add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
         setVisible(false);
-        setPosition(0, gameButtonBar.getY() + gameButtonBar.getHeight() + 15);
+        setPosition(0, experienceBar.getY() + experienceBar.getHeight() + 15);
         toggleChatWindowInactive(true, true);
         return this;
     }

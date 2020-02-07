@@ -95,8 +95,8 @@ public class StageHandler implements Disposable {
     private BankWindow bankWindow = new BankWindow();
     private EquipmentWindow equipmentWindow = new EquipmentWindow();
     private GameButtonBar gameButtonBar = new GameButtonBar();
-    private ChatWindow chatWindow = new ChatWindow();
     private ExperienceBar experienceBar = new ExperienceBar();
+    private ChatWindow chatWindow = new ChatWindow();
     private DebugTable debugTable = new DebugTable();
     private FPSTable fpsTable = new FPSTable();
     private EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
@@ -161,8 +161,8 @@ public class StageHandler implements Disposable {
         stage.addActor(equipmentWindow.build(this));
         stage.addActor(escapeWindow.build(this));
         stage.addActor(gameButtonBar.build(this));
-        stage.addActor(chatWindow.build(this));
         stage.addActor(experienceBar.build(this));
+        stage.addActor(chatWindow.build(this));
         stage.addActor(fpsTable.build(this));
         stage.addActor(entityDropDownMenu.build(this));
         stage.addActor(itemDropDownMenu.build(this));

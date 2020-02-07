@@ -29,17 +29,17 @@ public class ExperienceBar extends VisWindow implements Buildable {
     public Actor build(final StageHandler stageHandler) {
         pad(0);
         final GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
-
+        float width = gameButtonBar.getAbilityTableWidth();
         VisTable visTable = new VisTable();
 
         final Stack expStack = new Stack();
-        expStack.setWidth(gameButtonBar.getAbilityTableWidth());
-        expBar.setWidth(gameButtonBar.getAbilityTableWidth());
+        expStack.setWidth(width);
+        expBar.setWidth(width);
         expStack.add(expBar);
-        expLabel.setText("EXP 0/100");
+        expLabel.setText("EXP 50/100");
         expLabel.setAlignment(Alignment.CENTER.getAlignment());
         expStack.add(expLabel);
-        visTable.add(expStack);
+        visTable.add(expStack).padLeft(6).padRight(6).width(width - 12);
 
         add(visTable);
 
