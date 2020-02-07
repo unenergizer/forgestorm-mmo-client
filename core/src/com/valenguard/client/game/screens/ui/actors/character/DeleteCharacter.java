@@ -83,10 +83,10 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 CharacterSelectMenu characterSelectMenu = stageHandler.getCharacterSelectMenu();
-                characterSelectMenu.reprocessCharacterButtons(characterListIndex);
-                new CharacterDeletePacketOut(characterListIndex).sendPacket();
                 ActorUtil.fadeOutWindow(deleteCharacterWindow);
                 ActorUtil.fadeInWindow(characterSelectMenu);
+                characterSelectMenu.reprocessCharacterButtons(characterListIndex);
+                new CharacterDeletePacketOut(characterListIndex).sendPacket();
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
                 confirm.setDisabled(true);
             }

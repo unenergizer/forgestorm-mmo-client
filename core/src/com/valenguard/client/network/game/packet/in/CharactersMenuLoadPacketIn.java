@@ -2,6 +2,7 @@ package com.valenguard.client.network.game.packet.in;
 
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.character.GameCharacter;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
@@ -10,7 +11,6 @@ import com.valenguard.client.network.game.shared.PacketData;
 import com.valenguard.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import static com.valenguard.client.util.Log.println;
 
@@ -87,13 +87,4 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
     class CharacterData extends PacketData {
         private GameCharacter[] characters;
     }
-
-    @Getter
-    @AllArgsConstructor
-    public class GameCharacter {
-        private final String name;
-        private final byte characterId;
-        private final Appearance appearance;
-    }
-
 }

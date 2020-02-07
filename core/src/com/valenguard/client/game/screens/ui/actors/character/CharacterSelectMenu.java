@@ -14,14 +14,19 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.world.maps.MoveDirection;
-import com.valenguard.client.network.game.packet.in.CharactersMenuLoadPacketIn;
 import com.valenguard.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.valenguard.client.network.game.packet.out.CharacterSelectPacketOut;
 
+import java.util.Arrays;
+
 public class CharacterSelectMenu extends HideableVisWindow implements Buildable {
 
-    private CharactersMenuLoadPacketIn.GameCharacter[] gameCharacterList;
-    private CharactersMenuLoadPacketIn.GameCharacter selectedCharacter;
+    private final CharacterSelectMenu characterSelectMenu;
+
+    private StageHandler stageHandler;
+
+    private GameCharacter[] gameCharacterList;
+    private GameCharacter selectedCharacter;
 
     private VisTable characterButtonTable = new VisTable();
     private VisTextButton activeButton;
@@ -33,10 +38,12 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
 
     public CharacterSelectMenu() {
         super("");
+        this.characterSelectMenu = this;
     }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         setFillParent(true);
 
         VisWindow visWindow = new VisWindow("Select Character");
@@ -111,49 +118,72 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
 
     private void addCharacterButtons() {
         reset();
-        int buttonsAdded = 0;
-        for (final CharactersMenuLoadPacketIn.GameCharacter character : gameCharacterList) {
-            if (character == null) continue;
-            final VisTextButton addCharacterButton = new VisTextButton(character.getName());
-            addCharacterButton.setColor(Color.LIGHT_GRAY);
 
-            characterButtonTable.add(addCharacterButton).pad(1).fill().row();
-
-            addCharacterButton.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    activeButton.setColor(Color.LIGHT_GRAY); // Clear the current active button color
-
-                    // Set new active character information
-                    selectedCharacter = character;
-                    activeButton = addCharacterButton;
-                    activeButton.setColor(Color.GREEN);
-                    characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
-                }
-            });
-
-            // Set first character loaded in as the selected character
-            if (selectedCharacter == null) {
-                activeButton = addCharacterButton;
-                activeButton.setColor(Color.GREEN);
-                selectedCharacter = character;
-                characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
-            }
-            buttonsAdded++;
-        }
-
-        // Disable the playButton button if no characters are on the screen.
-        if (buttonsAdded == 0) {
+        // If the account doesn't have any characters, then we will show the
+        // character creation screen.
+        if (!doesAccountHaveCharacters()) {
+            characterSelectMenu.setVisible(false);
+            ActorUtil.fadeInWindow(stageHandler.getCharacterCreation());
             playButton.setDisabled(true);
             deleteButton.setDisabled(true);
         } else {
-            playButton.setDisabled(false);
-            deleteButton.setDisabled(false);
+
+            int buttonsAdded = 0;
+            for (final GameCharacter character : gameCharacterList) {
+                if (character == null) continue;
+                final VisTextButton addCharacterButton = new VisTextButton(character.getName());
+                addCharacterButton.setColor(Color.LIGHT_GRAY);
+
+                characterButtonTable.add(addCharacterButton).pad(1).fill().row();
+
+                addCharacterButton.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                        activeButton.setColor(Color.LIGHT_GRAY); // Clear the current active button color
+
+                        // Set new active character information
+                        selectedCharacter = character;
+                        activeButton = addCharacterButton;
+                        activeButton.setColor(Color.GREEN);
+                        characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
+                    }
+                });
+
+                // Set first character loaded in as the selected character
+                if (selectedCharacter == null) {
+                    activeButton = addCharacterButton;
+                    activeButton.setColor(Color.GREEN);
+                    selectedCharacter = character;
+                    characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
+                }
+                buttonsAdded++;
+            }
+
+            // Disable the playButton button if no characters are on the screen.
+            if (buttonsAdded == 0) {
+                playButton.setDisabled(true);
+                deleteButton.setDisabled(true);
+            } else {
+                playButton.setDisabled(false);
+                deleteButton.setDisabled(false);
+            }
         }
     }
 
-    public void characterListPacketIn(CharactersMenuLoadPacketIn.GameCharacter[] gameCharacterList) {
-        this.gameCharacterList = gameCharacterList;
+    private boolean doesAccountHaveCharacters() {
+        if (gameCharacterList.length == 0) return false;
+        for (GameCharacter gameCharacter : gameCharacterList) {
+            if (gameCharacter != null) return true;
+        }
+        return false; // Has no characters
+    }
+
+    public void showCharacterCreationScreen() {
+
+    }
+
+    public void characterListPacketIn(GameCharacter[] gameCharacterList) {
+        this.gameCharacterList = Arrays.copyOf(gameCharacterList, gameCharacterList.length);
         addCharacterButtons();
     }
 
