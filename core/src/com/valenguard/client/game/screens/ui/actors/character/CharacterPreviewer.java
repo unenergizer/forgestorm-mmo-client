@@ -34,7 +34,7 @@ public class CharacterPreviewer {
      * @param previewScale  How large the preview should be.
      * @return A VisTable containing the generated preview image.
      */
-    VisTable fillPreviewTable(Appearance appearance, MoveDirection moveDirection, int previewScale) {
+    public VisTable fillPreviewTable(Appearance appearance, MoveDirection moveDirection, int previewScale) {
         previewTable.clearChildren(); // Clear previous image
 
         final String direction = moveDirection.getDirectionName();
@@ -130,7 +130,7 @@ public class CharacterPreviewer {
         previewTable.clearChildren();
     }
 
-    Appearance generateBasicAppearance() {
+    public Appearance generateBasicAppearance() {
         Appearance appearance = new Appearance();
         appearance.setHairTexture((byte) 0);
         appearance.setHelmTexture((byte) -1);

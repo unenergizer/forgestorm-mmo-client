@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.Focusable;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
@@ -13,18 +14,24 @@ import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.character.CharacterPreviewer;
 import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.world.entities.Appearance;
+import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.EquipmentSlotTypes;
+import com.valenguard.client.game.world.maps.MoveDirection;
 
 import lombok.Getter;
 
 @Getter
 public class EquipmentWindow extends ItemSlotContainer implements Buildable, Focusable {
+
+    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer();
 
     private StageHandler stageHandler;
 
@@ -41,6 +48,8 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private ItemStackSlot weaponSlot;
     private ItemStackSlot shieldSlot;
     private ItemStackSlot pantsSlot;
+
+    private VisTable previewTable;
 
     private VisLabel levelTag = new VisLabel("Level: ");
     private VisLabel armorTag = new VisLabel("Armor:");
@@ -91,40 +100,43 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         addCloseButton();
         setResizable(false);
 
-        /*
-         Build Equipment Slots Table
-          */
-        VisTable equipmentSlotsTable = new VisTable();
+        ///////////////////////////////
 
-        // top table (head)
-        equipmentSlotsTable.add(helmSlot = buildSlot(EquipmentSlotTypes.HELM));
-        equipmentSlotsTable.row();
+        // Left side table
+        VisTable leftTable = new VisTable();
+        leftTable.add(helmSlot = buildSlot(EquipmentSlotTypes.HELM)).row();
+        leftTable.add(necklaceSlot = buildSlot(EquipmentSlotTypes.NECKLACE)).row();
+        leftTable.add(capeSlot = buildSlot(EquipmentSlotTypes.CAPE)).row();
+        leftTable.add(ringSlot0 = buildSlot(EquipmentSlotTypes.RING_0)).row();
+        leftTable.add(ringSlot1 = buildSlot(EquipmentSlotTypes.RING_1)).row();
 
-        // main table (body etc)
+        // Character Preview Table
+        previewTable = characterPreviewer.fillPreviewTable(characterPreviewer.generateBasicAppearance(), MoveDirection.SOUTH, 8);
+
+        // Right side table
+        VisTable rightTable = new VisTable();
+        rightTable.add(glovesSlot = buildSlot(EquipmentSlotTypes.GLOVES)).row();
+        rightTable.add(chestSlot = buildSlot(EquipmentSlotTypes.CHEST)).row();
+        rightTable.add(beltSlot = buildSlot(EquipmentSlotTypes.BELT)).row();
+        rightTable.add(pantsSlot = buildSlot(EquipmentSlotTypes.PANTS)).row();
+        rightTable.add(bootsSlot = buildSlot(EquipmentSlotTypes.BOOTS)).row();
+
+        // Put it all together
         VisTable mainTable = new VisTable();
+        mainTable.add(leftTable).padRight(4);
+        mainTable.add(previewTable);
+        mainTable.add(rightTable).padLeft(4);
 
-        mainTable.add(ammoSlot = buildSlot(EquipmentSlotTypes.AMMO));
-        mainTable.add(necklaceSlot = buildSlot(EquipmentSlotTypes.NECKLACE));
-        mainTable.add(capeSlot = buildSlot(EquipmentSlotTypes.CAPE));
-        mainTable.row();
+        // Bottom Table (center)
+        VisTable bottomTable = new VisTable();
+        bottomTable.add(weaponSlot = buildSlot(EquipmentSlotTypes.WEAPON));
+        bottomTable.add(shieldSlot = buildSlot(EquipmentSlotTypes.SHIELD));
+        bottomTable.add(ammoSlot = buildSlot(EquipmentSlotTypes.AMMO));
 
-        mainTable.add(ringSlot0 = buildSlot(EquipmentSlotTypes.RING_0));
-        mainTable.add(chestSlot = buildSlot(EquipmentSlotTypes.CHEST));
-        mainTable.add(glovesSlot = buildSlot(EquipmentSlotTypes.GLOVES));
-        mainTable.row();
 
-        mainTable.add(ringSlot1 = buildSlot(EquipmentSlotTypes.RING_1));
-        mainTable.add(beltSlot = buildSlot(EquipmentSlotTypes.BELT));
-        mainTable.add(bootsSlot = buildSlot(EquipmentSlotTypes.BOOTS));
-        equipmentSlotsTable.add(mainTable);
-        equipmentSlotsTable.row();
-
-        // main hand/off hand
-        VisTable weaponTable = new VisTable();
-        weaponTable.add(weaponSlot = buildSlot(EquipmentSlotTypes.WEAPON));
-        weaponTable.add(shieldSlot = buildSlot(EquipmentSlotTypes.SHIELD));
-        weaponTable.add(pantsSlot = buildSlot(EquipmentSlotTypes.PANTS));
-        equipmentSlotsTable.add(weaponTable);
+        VisTable equipmentSlotsTable = new VisTable();
+        equipmentSlotsTable.add(mainTable).row();
+        equipmentSlotsTable.add(bottomTable).align(Alignment.CENTER.getAlignment());
 
         itemStackSlots[0] = helmSlot;
         itemStackSlots[1] = chestSlot;
@@ -217,6 +229,13 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
         dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
         return itemStackSlot;
+    }
+
+    public void rebuildPreviewTable() {
+        previewTable.clearChildren();
+        Appearance appearance = EntityManager.getInstance().getPlayerClient().getAppearance();
+        VisTable visImageTable = characterPreviewer.fillPreviewTable(appearance, MoveDirection.SOUTH, 15);
+        previewTable.add(visImageTable).row();
     }
 
     @Override
