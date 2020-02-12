@@ -87,21 +87,21 @@ public class GameButtonBar extends VisTable implements Buildable {
         button.setColor(Color.WHITE);
     }
 
-    public void canUseAbilities(boolean bool) {
-        if (bool) {
-            action1.setDisabled(true);
-            action2.setDisabled(true);
-            action3.setDisabled(true);
-            action4.setDisabled(true);
-            action5.setDisabled(true);
-            action6.setDisabled(true);
-        } else {
+    public void canUseAbilities(boolean canUse) {
+        if (canUse) {
             action1.setDisabled(false);
             action2.setDisabled(false);
             action3.setDisabled(false);
             action4.setDisabled(false);
             action5.setDisabled(false);
             action6.setDisabled(false);
+        } else {
+            action1.setDisabled(true);
+            action2.setDisabled(true);
+            action3.setDisabled(true);
+            action4.setDisabled(true);
+            action5.setDisabled(true);
+            action6.setDisabled(true);
         }
     }
 
