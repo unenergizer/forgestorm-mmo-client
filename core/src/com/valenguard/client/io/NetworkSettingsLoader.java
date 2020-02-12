@@ -23,7 +23,7 @@ public class NetworkSettingsLoader {
         Map<String, Map<String, Object>> root = yaml.load(fileHandle.read());
 
         int loginPort = (Integer) root.get("login").get("port");
-        String loginIp = (String) root.get("game").get("ip");
+        String loginIp = (String) root.get("login").get("ip");
         int gamePort = (Integer) root.get("game").get("port");
         String gameIp = (String) root.get("game").get("ip");
 
