@@ -210,6 +210,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
+                if (packetData.entityType == EntityType.CLIENT_PLAYER) {
+                    Valenguard.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
+                }
+
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
                 println(getClass(), "Helm: " + appearance.getHelmTexture(), false, PRINT_DEBUG);
                 println(getClass(), "Chest: " + appearance.getChestTexture(), false, PRINT_DEBUG);

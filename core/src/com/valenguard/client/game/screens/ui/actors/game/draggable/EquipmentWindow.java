@@ -32,6 +32,7 @@ import lombok.Getter;
 public class EquipmentWindow extends ItemSlotContainer implements Buildable, Focusable {
 
     private final CharacterPreviewer characterPreviewer = new CharacterPreviewer();
+    private final int previewScale = 8;
 
     private StageHandler stageHandler;
 
@@ -111,7 +112,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         leftTable.add(ringSlot1 = buildSlot(EquipmentSlotTypes.RING_1)).row();
 
         // Character Preview Table
-        previewTable = characterPreviewer.fillPreviewTable(characterPreviewer.generateBasicAppearance(), MoveDirection.SOUTH, 8);
+        previewTable = characterPreviewer.fillPreviewTable(characterPreviewer.generateBasicAppearance(), MoveDirection.SOUTH, previewScale);
 
         // Right side table
         VisTable rightTable = new VisTable();
@@ -232,10 +233,9 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     }
 
     public void rebuildPreviewTable() {
-        previewTable.clearChildren();
         Appearance appearance = EntityManager.getInstance().getPlayerClient().getAppearance();
-        VisTable visImageTable = characterPreviewer.fillPreviewTable(appearance, MoveDirection.SOUTH, 15);
-        previewTable.add(visImageTable).row();
+        characterPreviewer.fillPreviewTable(appearance, MoveDirection.SOUTH, previewScale);
+        pack();
     }
 
     @Override
