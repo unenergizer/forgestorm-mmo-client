@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -56,7 +56,7 @@ public class NameGenerator {
     private ArrayList<String> pre = new ArrayList<String>();
     private ArrayList<String> mid = new ArrayList<String>();
     private ArrayList<String> sur = new ArrayList<String>();
-    private String fileName;
+    private FileHandle fileHandle;
 
     /**
      * Create new random name generator object.
@@ -71,8 +71,7 @@ public class NameGenerator {
      */
     public void changeFile(NameGenTypes nameGenTypes) throws IOException {
         if (nameGenTypes == null) throw new IOException("File name cannot be null");
-        FileHandle fileHandle = Gdx.files.internal("data/language/namegen/" + nameGenTypes.toString() + ".txt");
-        this.fileName = fileHandle.path();
+        fileHandle = Gdx.files.internal("data/language/namegen/" + nameGenTypes.toString() + ".txt");
         refresh();
     }
 
@@ -82,13 +81,10 @@ public class NameGenerator {
      */
     private void refresh() throws IOException {
 
-        FileReader input;
         BufferedReader bufRead;
         String line;
 
-        input = new FileReader(fileName);
-
-        bufRead = new BufferedReader(input);
+        bufRead = new BufferedReader(new InputStreamReader(fileHandle.read()));
         line = "";
 
         while (line != null) {
@@ -187,7 +183,7 @@ public class NameGenerator {
     public String compose(int syllables) {
         if (syllables > 2 && mid.size() == 0)
             throw new RuntimeException("You are trying to create a name with more than 3 parts, which requires middle parts, " +
-                    "which you have none in the file " + fileName + ". You should add some. Every word, which doesn't have + or - for a prefix is counted as a middle part.");
+                    "which you have none in the file " + fileHandle.name() + ". You should add some. Every word, which doesn't have + or - for a prefix is counted as a middle part.");
         if (pre.size() == 0)
             throw new RuntimeException("You have no prefixes to start creating a name. add some and use \"-\" prefix, to identify it as a prefix for a name. (example: -asd)");
         if (sur.size() == 0)
