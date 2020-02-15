@@ -12,7 +12,7 @@
   type: HELM
   atlas: ITEMS
   region: helmet_02
-  wearable: 30
+  wearable: 2
   armor: 2
   consume: false
 2:
@@ -21,7 +21,7 @@
   type: CHEST
   atlas: ITEMS
   region: armor_002
-  wearable: 0
+  wearable: 42
   armor: 6
   consume: false
 3:
@@ -64,7 +64,7 @@
   type: SHOES
   atlas: ITEMS
   region: boot_02
-  wearable: 2
+  wearable: 44
   armor: 2
   consume: false
 8:
@@ -82,7 +82,7 @@
   type: HELM
   atlas: ITEMS
   region: helmet_07
-  wearable: 22
+  wearable: 0
   armor: 10
   consume: false
 10:
@@ -140,7 +140,7 @@
   type: HELM
   atlas: ITEMS
   region: helmet_28
-  wearable: 39
+  wearable: 16
   armor: 11
   consume: false
 17:
@@ -149,7 +149,7 @@
   type: CHEST
   atlas: ITEMS
   region: armor_076
-  wearable: 25
+  wearable: 53
   armor: 1
   consume: false
 18:
@@ -186,7 +186,7 @@
   type: SHOES
   atlas: ITEMS
   region: boot_01
-  wearable: 1
+  wearable: 44
   armor: 10
   consume: false
 23:
