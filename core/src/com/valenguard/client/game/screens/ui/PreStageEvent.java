@@ -148,7 +148,7 @@ class PreStageEvent implements InputProcessor {
              */
             if (keycode == KeyBinds.EQUIPMENT_WINDOW) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
-                    ActorUtil.fadeInWindow(stageHandler.getEquipmentWindow());
+                    stageHandler.getEquipmentWindow().openWindow();
                     FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());
                 } else {
                     ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());

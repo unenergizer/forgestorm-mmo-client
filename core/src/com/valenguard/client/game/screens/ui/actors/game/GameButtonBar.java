@@ -220,7 +220,7 @@ public class GameButtonBar extends VisTable implements Buildable {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
                 EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                 if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    ActorUtil.fadeInWindow(equipmentWindow);
+                    equipmentWindow.openWindow();
                 } else if (equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeOutWindow(equipmentWindow);
                 }

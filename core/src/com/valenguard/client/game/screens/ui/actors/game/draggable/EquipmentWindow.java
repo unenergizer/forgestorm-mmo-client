@@ -13,6 +13,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterPreviewer;
 import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateListener;
@@ -24,15 +25,13 @@ import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.EquipmentSlotTypes;
-import com.valenguard.client.game.world.maps.MoveDirection;
 
 import lombok.Getter;
 
 @Getter
 public class EquipmentWindow extends ItemSlotContainer implements Buildable, Focusable {
 
-    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer();
-    private final int previewScale = 8;
+    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer(8);
 
     private StageHandler stageHandler;
 
@@ -51,6 +50,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private ItemStackSlot pantsSlot;
 
     private VisTable previewTable;
+    private int moveDirection = 0;
 
     private VisLabel levelTag = new VisLabel("Level: ");
     private VisLabel armorTag = new VisLabel("Armor:");
@@ -112,7 +112,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         leftTable.add(ringSlot1 = buildSlot(EquipmentSlotTypes.RING_1)).row();
 
         // Character Preview Table
-        previewTable = characterPreviewer.fillPreviewTable(characterPreviewer.generateBasicAppearance(), MoveDirection.SOUTH, previewScale);
+        previewTable = characterPreviewer.generatePreviewTable();
 
         // Right side table
         VisTable rightTable = new VisTable();
@@ -234,8 +234,15 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
 
     public void rebuildPreviewTable() {
         Appearance appearance = EntityManager.getInstance().getPlayerClient().getAppearance();
-        characterPreviewer.fillPreviewTable(appearance, MoveDirection.SOUTH, previewScale);
+        characterPreviewer.generateCharacterPreview(appearance, null);
         pack();
+    }
+
+    public void openWindow() {
+        getTitleLabel().setText(EntityManager.getInstance().getPlayerClient().getEntityName());
+        moveDirection = 0; // Reset Facing direction
+        rebuildPreviewTable();
+        if (!isVisible()) ActorUtil.fadeInWindow(this);
     }
 
     @Override

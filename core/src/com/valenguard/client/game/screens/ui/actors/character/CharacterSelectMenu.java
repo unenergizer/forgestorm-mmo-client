@@ -22,6 +22,7 @@ import java.util.Arrays;
 public class CharacterSelectMenu extends HideableVisWindow implements Buildable {
 
     private final CharacterSelectMenu characterSelectMenu;
+    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer(20);
 
     private StageHandler stageHandler;
 
@@ -33,8 +34,6 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
     private VisTextButton playButton;
     private VisTextButton deleteButton;
 
-    private CharacterPreviewer characterPreviewer = new CharacterPreviewer();
-    private int previewScale = 20;
 
     public CharacterSelectMenu() {
         super("");
@@ -75,7 +74,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
         bottomRow.add(deleteButton).pad(3);
         bottomRow.add(logoutButton).pad(3).align(Alignment.RIGHT.getAlignment());
 
-        sideTable.add(characterPreviewer.getPreviewTable()).row();
+        sideTable.add(characterPreviewer.generatePreviewTable()).row();
         sideTable.add(bottomRow);
 
         add(visWindow).fill();
@@ -134,7 +133,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                 final VisTextButton addCharacterButton = new VisTextButton(character.getName());
                 addCharacterButton.setColor(Color.LIGHT_GRAY);
 
-                characterButtonTable.add(addCharacterButton).pad(1).fill().row();
+                characterButtonTable.add(addCharacterButton).pad(1).expandX().row();
 
                 addCharacterButton.addListener(new ChangeListener() {
                     @Override
@@ -145,7 +144,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                         selectedCharacter = character;
                         activeButton = addCharacterButton;
                         activeButton.setColor(Color.GREEN);
-                        characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
+                        characterPreviewer.generateCharacterPreview(selectedCharacter.getAppearance(), MoveDirection.SOUTH);
                     }
                 });
 
@@ -154,7 +153,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                     activeButton = addCharacterButton;
                     activeButton.setColor(Color.GREEN);
                     selectedCharacter = character;
-                    characterPreviewer.fillPreviewTable(selectedCharacter.getAppearance(), MoveDirection.SOUTH, previewScale);
+                    characterPreviewer.generateCharacterPreview(selectedCharacter.getAppearance(), MoveDirection.SOUTH);
                 }
                 buttonsAdded++;
             }

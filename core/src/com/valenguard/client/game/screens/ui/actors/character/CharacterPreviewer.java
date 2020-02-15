@@ -2,10 +2,14 @@ package com.valenguard.client.game.screens.ui.actors.character;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
@@ -16,80 +20,151 @@ import com.valenguard.client.util.color.HairColorList;
 import com.valenguard.client.util.color.LibGDXColorList;
 import com.valenguard.client.util.color.SkinColorList;
 
-import lombok.Getter;
-
 public class CharacterPreviewer {
+
+    /**
+     * The multiplied scale of the Character preview.
+     */
+    private final int previewScale;
+
+    /**
+     * The main table that is added to the scene.
+     */
+    private VisTable mainTable = new VisTable();
 
     /**
      * This table will contain the generated preview image. Add this table to your scene.
      */
-    @Getter
     private VisTable previewTable = new VisTable();
+
+    /**
+     * The direction the character is facing.
+     */
+    private byte moveDirectionByte = 0;
+
+    /**
+     * Last known used appearance.
+     */
+    private Appearance lastUsedAppearance;
+
+    /**
+     * @param previewScale How large the preview should be.
+     */
+    public CharacterPreviewer(int previewScale) {
+        this.previewScale = previewScale;
+    }
+
+    public VisTable generatePreviewTable() {
+        generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
+
+        VisTextButton rotateLeft = new VisTextButton("<-");
+        VisTextButton rotateRight = new VisTextButton("->");
+
+        mainTable.add(previewTable).colspan(2).row();
+        mainTable.add(rotateLeft).align(Alignment.LEFT.getAlignment());
+        mainTable.add(rotateRight).align(Alignment.RIGHT.getAlignment());
+
+        rotateLeft.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                moveDirectionByte = (byte) (moveDirectionByte - 1);
+
+                if (moveDirectionByte < 0) {
+                    moveDirectionByte = 3;
+                }
+                generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
+            }
+        });
+        rotateRight.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                moveDirectionByte = (byte) (moveDirectionByte + 1);
+
+                if (moveDirectionByte > 3) {
+                    moveDirectionByte = 0;
+                }
+                generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
+            }
+        });
+
+        mainTable.pack();
+        return mainTable;
+    }
 
     /**
      * Generates a Scene2D preview of a player or npc character.
      *
-     * @param appearance    Contains data on what the entity will look like.
-     * @param moveDirection The facing direction of the entity.
-     * @param previewScale  How large the preview should be.
-     * @return A VisTable containing the generated preview image.
+     * @param appearance       Contains data on what the entity will look like.
+     * @param previewDirection The facing direction of the entity.
      */
-    public VisTable fillPreviewTable(Appearance appearance, MoveDirection moveDirection, int previewScale) {
+    public void generateCharacterPreview(Appearance appearance, MoveDirection previewDirection) {
         previewTable.clearChildren(); // Clear previous image
 
-        final String direction = moveDirection.getDirectionName();
-        final int width = 16 * previewScale;
+        if (appearance == null) {
+            appearance = generateBasicAppearance();
+        }
+
+        lastUsedAppearance = appearance;
+
+        if (previewDirection == null) {
+            previewDirection = MoveDirection.getDirection(moveDirectionByte);
+        } else {
+            moveDirectionByte = previewDirection.getDirectionByte();
+        }
+
+        assert previewDirection != null;
+        final String direction = previewDirection.getDirectionName();
+        final int width = 16 * this.previewScale;
 
         Stack imageStack = new Stack();
-        imageStack.setWidth(16 * previewScale);
-        imageStack.setHeight(16 * previewScale);
+        imageStack.setWidth(16 * this.previewScale);
+        imageStack.setHeight(16 * this.previewScale);
 
         // Head
-        imageStack.add(imageTable(width, 16 * previewScale, previewScale, "head_" + direction + "_naked", appearance.getSkinColor()));
+        imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "head_" + direction + "_naked", lastUsedAppearance.getSkinColor()));
 
         // Chest
-        imageStack.add(imageTable(width, 6 * previewScale, 4 * previewScale, "chest_" + direction + "_naked", appearance.getSkinColor()));
-        if (appearance.getChestTexture() != -1) {
-            imageStack.add(imageTable(width, 6 * previewScale, 4 * previewScale, "chest_" + direction + "_" + appearance.getChestTexture(), Color.WHITE));
+        imageStack.add(imageTable(width, 6 * this.previewScale, 4 * this.previewScale, "chest_" + direction + "_naked", lastUsedAppearance.getSkinColor()));
+        if (lastUsedAppearance.getChestTexture() != -1) {
+            imageStack.add(imageTable(width, 6 * this.previewScale, 4 * this.previewScale, "chest_" + direction + "_" + lastUsedAppearance.getChestTexture(), Color.WHITE));
         }
 
         // Gloves
-        imageStack.add(imageTable(width, 6 * previewScale, 4 * previewScale, "gloves_" + direction + "", appearance.getGlovesColor()));
+        imageStack.add(imageTable(width, 6 * this.previewScale, 4 * this.previewScale, "gloves_" + direction + "", lastUsedAppearance.getGlovesColor()));
 
         // Pants
-        imageStack.add(imageTable(width, 3 * previewScale, previewScale, "pants_" + direction + "_naked", appearance.getSkinColor()));
-        if (appearance.getPantsTexture() != -1) {
-            imageStack.add(imageTable(width, 3 * previewScale, previewScale, "pants_" + direction + "_" + appearance.getPantsTexture(), Color.WHITE));
+        imageStack.add(imageTable(width, 3 * this.previewScale, this.previewScale, "pants_" + direction + "_naked", lastUsedAppearance.getSkinColor()));
+        if (lastUsedAppearance.getPantsTexture() != -1) {
+            imageStack.add(imageTable(width, 3 * this.previewScale, this.previewScale, "pants_" + direction + "_" + lastUsedAppearance.getPantsTexture(), Color.WHITE));
         }
 
         // Shoes
-        imageStack.add(imageTable(width, previewScale, previewScale, "shoes_" + direction + "_naked", appearance.getSkinColor()));
-        if (appearance.getShoesTexture() != -1) {
-            imageStack.add(imageTable(width, previewScale, previewScale, "shoes_" + direction + "_" + appearance.getShoesTexture(), Color.WHITE));
+        imageStack.add(imageTable(width, this.previewScale, this.previewScale, "shoes_" + direction + "_naked", lastUsedAppearance.getSkinColor()));
+        if (lastUsedAppearance.getShoesTexture() != -1) {
+            imageStack.add(imageTable(width, this.previewScale, this.previewScale, "shoes_" + direction + "_" + lastUsedAppearance.getShoesTexture(), Color.WHITE));
         }
 
         // Eyes
-        if (moveDirection != MoveDirection.NORTH) {
+        if (previewDirection != MoveDirection.NORTH) {
             // Note: no eye image exist for north facing eyes (eyes not visible, as back
             // of head is shown). This will prevent NullPointerException.
-            imageStack.add(imageTable(width, 16 * previewScale, previewScale, "eyes_" + direction + "", appearance.getEyeColor()));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "eyes_" + direction + "", lastUsedAppearance.getEyeColor()));
         }
 
         // Helmet & Hair
-        if (appearance.getHelmTexture() != -1) {
-            imageStack.add(imageTable(width, 16 * previewScale, previewScale, "helm_" + direction + "_" + appearance.getHelmTexture(), Color.WHITE));
-            imageStack.add(imageTable(width, 16 * previewScale, previewScale, "helm_border_" + direction + "_" + appearance.getHelmTexture(), Color.BLACK));
+        if (lastUsedAppearance.getHelmTexture() != -1) {
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "helm_" + direction + "_" + lastUsedAppearance.getHelmTexture(), Color.WHITE));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "helm_border_" + direction + "_" + lastUsedAppearance.getHelmTexture(), Color.BLACK));
         } else {
-            imageStack.add(imageTable(width, 16 * previewScale, previewScale, "hair_" + direction + "_" + appearance.getHairTexture(), appearance.getHairColor()));
-            imageStack.add(imageTable(width, 16 * previewScale, previewScale, "hair_border_" + direction + "_" + appearance.getHairTexture(), Color.BLACK));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "hair_" + direction + "_" + lastUsedAppearance.getHairTexture(), lastUsedAppearance.getHairColor()));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "hair_border_" + direction + "_" + lastUsedAppearance.getHairTexture(), Color.BLACK));
         }
 
         // Body Border
-        imageStack.add(imageTable(width, 16 * previewScale, previewScale, "body_" + direction + "_border", Color.BLACK));
+        imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "body_" + direction + "_border", Color.BLACK));
 
         previewTable.add(imageStack);
-
-        return previewTable;
+        mainTable.pack();
     }
 
     /**
@@ -130,7 +205,7 @@ public class CharacterPreviewer {
         previewTable.clearChildren();
     }
 
-    public Appearance generateBasicAppearance() {
+    Appearance generateBasicAppearance() {
         Appearance appearance = new Appearance();
         appearance.setHairTexture((byte) 0);
         appearance.setHelmTexture((byte) -1);

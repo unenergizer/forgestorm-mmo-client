@@ -14,7 +14,6 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.world.entities.Appearance;
-import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.out.CharacterCreatorPacketOut;
 import com.valenguard.client.util.RandomUtil;
 import com.valenguard.client.util.color.EyeColorList;
@@ -35,11 +34,9 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     private final CharacterCreation characterCreation;
     private final int maxHairStyles = 14;
 
-    private CharacterPreviewer characterPreviewer = new CharacterPreviewer();
+    private CharacterPreviewer characterPreviewer = new CharacterPreviewer(15);
     private VisValidatableTextField characterName;
-    private VisTable previewTable = new VisTable();
     private Appearance appearance;
-    private byte facingDirection = 0;
 
     private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) maxHairStyles, (byte) 0); // Number of hair textures
     private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1), (byte) 22);
@@ -81,25 +78,12 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         characterOptions.add(buildOptionTable(skinColorOption)).pad(3).row();
 
         VisTextButton randomize = new VisTextButton("Randomize");
-        VisTextButton rotate = new VisTextButton("Rotate");
         VisTextButton reset = new VisTextButton("Reset");
 
         randomize.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 randomizeCharacter();
-            }
-        });
-
-        rotate.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                facingDirection++;
-                if (facingDirection > 3) {
-                    // Rotate back to beginning, skipping the NONE value.
-                    facingDirection = 0;
-                }
-                rebuildPreviewTable();
             }
         });
 
@@ -111,11 +95,9 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         });
 
         characterOptions.add(randomize).growX().pad(3).row();
-        characterOptions.add(rotate).growX().pad(3).row();
         characterOptions.add(reset).growX().pad(3).row();
 
-        rebuildPreviewTable();
-        topTable.add(previewTable).expand().fill().pad(3);
+        topTable.add(characterPreviewer.generatePreviewTable()).expand().fill().pad(3);
         topTable.add(characterOptions).expand().fill().pad(3);
 
         add(topTable).expand().fill().pad(3).row();
@@ -133,15 +115,12 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     }
 
     private void rebuildPreviewTable() {
-        previewTable.clear();
-
         appearance.setHairTexture(hairStyleOption.optionValue);
         appearance.setHairColor(HairColorList.getColorFromOrdinal(hairColorOption.optionValue));
         appearance.setEyeColor(EyeColorList.getColorFromOrdinal(eyeColorOption.optionValue));
         appearance.setSkinColor(SkinColorList.getColorFromOrdinal(skinColorOption.optionValue));
 
-        VisTable visImageTable = characterPreviewer.fillPreviewTable(appearance, MoveDirection.getDirection(facingDirection), 15);
-        previewTable.add(visImageTable).row();
+        characterPreviewer.generateCharacterPreview(appearance, null);
     }
 
     private VisTable confirmTable(final StageHandler stageHandler) {
