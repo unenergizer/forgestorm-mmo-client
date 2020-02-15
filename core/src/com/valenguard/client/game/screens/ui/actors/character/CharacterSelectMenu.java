@@ -133,7 +133,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                 final VisTextButton addCharacterButton = new VisTextButton(character.getName());
                 addCharacterButton.setColor(Color.LIGHT_GRAY);
 
-                characterButtonTable.add(addCharacterButton).pad(1).expandX().row();
+                characterButtonTable.add(addCharacterButton).pad(1).growX().row();
 
                 addCharacterButton.addListener(new ChangeListener() {
                     @Override

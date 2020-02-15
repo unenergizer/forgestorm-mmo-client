@@ -88,21 +88,12 @@ public class GameButtonBar extends VisTable implements Buildable {
     }
 
     public void canUseAbilities(boolean canUse) {
-        if (canUse) {
-            action1.setDisabled(false);
-            action2.setDisabled(false);
-            action3.setDisabled(false);
-            action4.setDisabled(false);
-            action5.setDisabled(false);
-            action6.setDisabled(false);
-        } else {
-            action1.setDisabled(true);
-            action2.setDisabled(true);
-            action3.setDisabled(true);
-            action4.setDisabled(true);
-            action5.setDisabled(true);
-            action6.setDisabled(true);
-        }
+        action1.setDisabled(!canUse);
+        action2.setDisabled(!canUse);
+        action3.setDisabled(!canUse);
+        action4.setDisabled(!canUse);
+        action5.setDisabled(!canUse);
+        action6.setDisabled(!canUse);
     }
 
     private VisTable buildAbilityButtons() {
