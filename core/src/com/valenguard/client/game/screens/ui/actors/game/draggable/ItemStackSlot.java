@@ -212,7 +212,7 @@ public class ItemStackSlot extends VisTable {
     /**
      * Displays an image that represents an empty {@link ItemStackSlot}
      */
-    public void setEmptyCellImage() {
+    void setEmptyCellImage() {
         if (itemStackImage != null) itemStackImage.remove();
         if (emptyCellImage == null) initEmptyCellImage(); // Equipment slot empty image
         if (itemStackToolTip != null) {
@@ -311,10 +311,10 @@ public class ItemStackSlot extends VisTable {
              * @see InputEvent */
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (tradeSlotLocked) return true;
+                if (itemStack == null) return true; // Empty slot click!
 
                 // Trade Item click
                 if (stageHandler.getTradeWindow().isVisible()) {
-                    if (itemStack == null) return true; // Empty slot click!
 
                     stageHandler.getTradeWindow().addItemFromInventory(itemStack, inventoryType, itemStackSlot);
                     return true;
@@ -332,13 +332,13 @@ public class ItemStackSlot extends VisTable {
                     return true;
                 }
 
+                // Show drop down menu
                 if (button == Input.Buttons.RIGHT) {
                     // Bringing up options for the item!
-                    if (itemStack != null) {
-                        stageHandler.getItemDropDownMenu().toggleMenu(itemStack, inventoryType, itemStackSlot, slotIndex,
-                                itemSlotContainer.getX() + itemStackSlot.getX() + x,
-                                itemSlotContainer.getY() + itemStackSlot.getY() + y);
-                    }
+                    stageHandler.getItemDropDownMenu().toggleMenu(itemStack, inventoryType, itemStackSlot, slotIndex,
+                            itemSlotContainer.getX() + itemStackSlot.getX() + x,
+                            itemSlotContainer.getY() + itemStackSlot.getY() + y);
+
                     return true;
                 }
 
