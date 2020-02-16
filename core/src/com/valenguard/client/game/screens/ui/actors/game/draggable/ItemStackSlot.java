@@ -202,6 +202,11 @@ public class ItemStackSlot extends VisTable {
         itemStack = null;
     }
 
+    void resetItemStackSlot() {
+        deleteStack();
+        setEmptyCellImage();
+    }
+
     /**
      * Displays an image that represents an empty {@link ItemStackSlot}
      */

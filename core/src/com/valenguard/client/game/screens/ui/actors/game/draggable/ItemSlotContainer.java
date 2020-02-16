@@ -67,4 +67,10 @@ public class ItemSlotContainer extends HideableVisWindow {
     public ItemStackSlot getItemStackSlot(byte slotIndex) {
         return itemStackSlots[slotIndex];
     }
+
+    public void resetItemSlotContainer() {
+        for (ItemStackSlot itemStackSlot : itemStackSlots) {
+            itemStackSlot.resetItemStackSlot();
+        }
+    }
 }

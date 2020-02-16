@@ -114,6 +114,11 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
                 // Waiting on server to do its thing... Fade in the big black window..
                 ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
                 disableButtons(true);
+
+                // Reset Inventories
+                stageHandler.getBagWindow().resetItemSlotContainer();
+                stageHandler.getBankWindow().resetItemSlotContainer();
+                stageHandler.getEquipmentWindow().resetItemSlotContainer();
                 return true;
             }
         });
