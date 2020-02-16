@@ -13,6 +13,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.network.game.packet.out.CharacterCreatorPacketOut;
 import com.valenguard.client.util.RandomUtil;
@@ -106,6 +107,13 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         VisTable confirmButtons = new VisTable();
         confirmButtons.add(confirmTable(stageHandler)).expand().fill().align(Alignment.RIGHT.getAlignment()).pad(3);
         add(confirmButtons).expand().fill().pad(3).row();
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                centerWindow();
+            }
+        });
 
         setResizable(false);
         setVisible(false);

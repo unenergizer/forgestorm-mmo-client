@@ -174,11 +174,13 @@ public class GameButtonBar extends VisTable implements Buildable {
         VisTable buttonTable = new VisTable();
 
         ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 28);
-        VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("quest_179").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
+        VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("drops_50").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
+        VisImageButton spellBookButton = new VisImageButton(imageBuilder.setRegionName("quest_165").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
         VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_168").buildTextureRegionDrawable(), "Character (" + KeyBinds.printKey(KeyBinds.EQUIPMENT_WINDOW) + ")");
         VisImageButton inventoryButton = new VisImageButton(imageBuilder.setRegionName("quest_121").buildTextureRegionDrawable(), "Inventory (" + KeyBinds.printKey(KeyBinds.INVENTORY_WINDOW) + ")");
 
         buttonTable.add(escMenuButton).padRight(BUTTON_PADDING).padLeft(BUTTON_TO_BUTTON_SPACE);
+        buttonTable.add(spellBookButton).padRight(BUTTON_PADDING);
         buttonTable.add(characterButton).padRight(BUTTON_PADDING);
         buttonTable.add(inventoryButton);
 
