@@ -13,22 +13,26 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.inventory.InventoryType;
 
 public class ItemStackToolTip extends HideableVisWindow {
 
     private final StageHandler stageHandler;
+    private final ItemStackSlot itemStackSlot;
     private final ItemStackToolTip itemStackToolTip;
 
     private VisTable toolTipTable;
     private VisLabel nameLabel;
     private VisLabel typeLabel;
     private VisTextArea descTextArea;
+    private VisLabel equipInfo;
     private VisLabel debugInfo;
     private InputListener inputListener;
 
-    public ItemStackToolTip(StageHandler stageHandler, ItemStack itemStack, Actor itemStackActor) {
+    public ItemStackToolTip(StageHandler stageHandler, ItemStackSlot itemStackSlot, ItemStack itemStack, Actor itemStackActor) {
         super("");
         this.stageHandler = stageHandler;
+        this.itemStackSlot = itemStackSlot;
         this.itemStackToolTip = this;
         build(itemStack, itemStackActor);
     }
@@ -65,6 +69,7 @@ public class ItemStackToolTip extends HideableVisWindow {
         nameLabel = new VisLabel("", stageHandler.getMarkupStyle());
         typeLabel = new VisLabel("", stageHandler.getMarkupStyle());
         descTextArea = new VisTextArea();
+        equipInfo = new VisLabel("", stageHandler.getMarkupStyle());
         debugInfo = new VisLabel("", stageHandler.getMarkupStyle());
 
         setToolTipText(itemStack);
@@ -73,6 +78,7 @@ public class ItemStackToolTip extends HideableVisWindow {
         toolTipTable.add(nameLabel).padBottom(3).row();
         toolTipTable.add(typeLabel).left().row();
         toolTipTable.add(descTextArea).left().row();
+        toolTipTable.add(equipInfo).left().row();
         toolTipTable.add(debugInfo).left().row();
 
         add(toolTipTable);
@@ -90,6 +96,17 @@ public class ItemStackToolTip extends HideableVisWindow {
         typeLabel.setText("[GRAY]" + itemStack.getItemStackType().name());
         descTextArea.setText(itemStack.getDescription());
         descTextArea.setPrefRows(3);
+
+        // Show tool-tip help info for equipping and uneqipping items.
+        if (itemStackSlot != null && itemStack.getItemStackType().isEquipable()) {
+            InventoryType inventoryType = itemStackSlot.getInventoryType();
+            if (inventoryType == InventoryType.BAG_1) {
+                equipInfo.setText("[GRAY]Shift+Click item to equip");
+            } else if (inventoryType == InventoryType.EQUIPMENT) {
+                equipInfo.setText("[GRAY]Shift+Click item to unequip");
+            }
+        }
+
         if (Valenguard.getInstance().isAdmin())
             debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId() + "");
     }

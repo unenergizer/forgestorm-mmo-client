@@ -241,7 +241,7 @@ public class ItemStackSlot extends VisTable {
         if (itemStackToolTip != null) {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
-            itemStackToolTip = new ItemStackToolTip(stageHandler, itemStack, itemStackImage);
+            itemStackToolTip = new ItemStackToolTip(stageHandler, this, itemStack, itemStackImage);
             itemStackToolTip.registerToolTip();
         }
     }
@@ -266,7 +266,7 @@ public class ItemStackSlot extends VisTable {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
         }
-        itemStackToolTip = new ItemStackToolTip(stageHandler, itemStack, itemStackImage);
+        itemStackToolTip = new ItemStackToolTip(stageHandler, this, itemStack, itemStackImage);
         itemStackToolTip.registerToolTip();
 
         // Add item amount
@@ -320,8 +320,8 @@ public class ItemStackSlot extends VisTable {
                     return true;
                 }
 
-                // Shift + Left click
-                if (button == Input.Buttons.LEFT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                // Shift + Left or Shift + Right click
+                if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 
                     EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                     if (inventoryType == InventoryType.BAG_1 && itemStack.getItemStackType().isEquipable()) {
@@ -329,10 +329,6 @@ public class ItemStackSlot extends VisTable {
                     } else if (inventoryType == InventoryType.EQUIPMENT) {
                         equipmentWindow.unequipItem(itemStack, itemStackSlot);
                     }
-                    return true;
-                }
-                // Shift + Right click
-                if (button == Input.Buttons.RIGHT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
                     return true;
                 }
 
