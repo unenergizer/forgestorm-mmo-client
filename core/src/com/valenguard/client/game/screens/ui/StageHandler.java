@@ -66,6 +66,9 @@ public class StageHandler implements Disposable {
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
     }
 
+    public final static float WINDOW_PAD_X = 5;
+    public final static float WINDOW_PAD_Y = 10;
+
     private Stage stage = new Stage();
     private PreStageEvent preStageEvent = new PreStageEvent(this);
     private PostStageEvent postStageEvent = new PostStageEvent(this);

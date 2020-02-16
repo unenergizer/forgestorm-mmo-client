@@ -13,6 +13,7 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class DevMenu extends VisTable implements Buildable {
 
@@ -28,6 +29,13 @@ public class DevMenu extends VisTable implements Buildable {
 
         menuBar.addMenu(createModeratorMenu());
         menuBar.addMenu(createToolsMenu(stageHandler));
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());
+            }
+        });
 
         pack();
         setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());

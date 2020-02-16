@@ -7,10 +7,13 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
 public class BagWindow extends ItemSlotContainer implements Buildable, Focusable {
+
+    private StageHandler stageHandler;
 
     public BagWindow() {
         super("Inventory", InventoryConstants.BAG_SIZE);
@@ -18,6 +21,7 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         addCloseButton();
         setResizable(false);
@@ -52,14 +56,26 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+                findPosition();
             }
         });
 
         pack();
-        setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+        findPosition();
         setVisible(false);
         return this;
+    }
+
+    private void findPosition() {
+        GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
+        float endPosition = gameButtonBar.getX() + gameButtonBar.getWidth() + gameButtonBar.getPadLeft();
+        float bagX = stageHandler.getStage().getViewport().getScreenWidth() - getWidth() - StageHandler.WINDOW_PAD_X;
+
+        if (endPosition > bagX) {
+            setPosition(bagX, gameButtonBar.getHeight() + gameButtonBar.getY());
+        } else {
+            setPosition(bagX, StageHandler.WINDOW_PAD_Y);
+        }
     }
 
     @Override

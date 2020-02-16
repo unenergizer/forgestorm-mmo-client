@@ -18,6 +18,7 @@ import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.ChatMessagePacketOut;
 
@@ -173,16 +174,36 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             }
         });
 
-        ExperienceBar experienceBar = stageHandler.getExperienceBar();
-
         add(scrollPane).colspan(2).growX().expandY().top();
         row();
         add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
+
+//        pack();
+        findPosition();
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                findPosition();
+            }
+        });
+
         setVisible(false);
-        setPosition(0, experienceBar.getY() + experienceBar.getHeight() + 15);
         toggleChatWindowInactive(true, true);
         return this;
+    }
+
+    private void findPosition() {
+        ExperienceBar experienceBar = stageHandler.getExperienceBar();
+        float endPosition = getX() + getWidth();
+
+        // If the chat box overlaps the experience bar, raise the chat box position up.
+        if (endPosition > experienceBar.getX()) {
+            setPosition(StageHandler.WINDOW_PAD_X, experienceBar.getY() + experienceBar.getHeight() + StageHandler.WINDOW_PAD_Y);
+        } else {
+            setPosition(StageHandler.WINDOW_PAD_X, StageHandler.WINDOW_PAD_Y);
+        }
     }
 
     public void toggleChatWindowActive(boolean clearText) {

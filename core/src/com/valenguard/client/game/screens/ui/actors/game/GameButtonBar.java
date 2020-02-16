@@ -66,13 +66,13 @@ public class GameButtonBar extends VisTable implements Buildable {
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), 10);
+                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), StageHandler.WINDOW_PAD_Y);
             }
         });
 
         pack();
         abilityTableWidth = abilityTable.getWidth();
-        setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), 10);
+        setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), StageHandler.WINDOW_PAD_Y);
         setVisible(false);
         return this;
     }
@@ -225,7 +225,7 @@ public class GameButtonBar extends VisTable implements Buildable {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    ActorUtil.fadeInWindow(bagWindow);
+                    ActorUtil.fadeInWindow(stageHandler.getBagWindow());
                 } else if (bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeOutWindow(bagWindow);
                 }

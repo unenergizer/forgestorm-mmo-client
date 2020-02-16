@@ -16,9 +16,6 @@ import com.valenguard.client.game.world.entities.PlayerClient;
 
 public class StatusBar extends VisWindow implements Buildable {
 
-    private final float posX = 5;
-    private final float posY = Gdx.graphics.getHeight() - 5;
-
     private final VisLabel hpLabel = new VisLabel();
     private final VisProgressBar hpBar = new VisProgressBar(0, 100, 1, false);
 
@@ -79,12 +76,12 @@ public class StatusBar extends VisWindow implements Buildable {
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(posX, posY - getHeight());
+                setPosition(StageHandler.WINDOW_PAD_X, Gdx.graphics.getHeight() - StageHandler.WINDOW_PAD_Y - getHeight());
             }
         });
 
         pack();
-        setPosition(posX, posY - getHeight());
+        setPosition(StageHandler.WINDOW_PAD_X, Gdx.graphics.getHeight() - StageHandler.WINDOW_PAD_Y - getHeight());
         setVisible(false);
         return this;
     }
