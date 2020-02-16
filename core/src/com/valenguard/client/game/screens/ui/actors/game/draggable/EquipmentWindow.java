@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -20,6 +21,7 @@ import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateListen
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
@@ -93,6 +95,51 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
 
     public EquipmentWindow() {
         super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
+    }
+
+    public void equipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
+        ItemStackSlot targetSlot;
+        if (sourceItemStack.getItemStackType() == ItemStackType.RING) {
+            // RING 0 -> SLOT 6
+            // RING 1 -> SLOT 7
+
+            boolean ring0Taken = getItemStack((byte) 8) != null;
+            targetSlot = ring0Taken ? getItemStackSlot((byte) 7) : getItemStackSlot((byte) 8);
+        } else {
+            targetSlot = getItemStackSlot(sourceItemStack.getItemStackType());
+        }
+
+        if (targetSlot.isTradeSlotLocked() || sourceSlot.isTradeSlotLocked()
+                || sourceSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory())
+            return;
+
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, sourceItemStack);
+        boolean targetContainsItem = targetSlot.getItemStack() != null;
+        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+
+        if (!targetContainsItem) {
+            sourceSlot.setEmptyCellImage();
+        }
+    }
+
+    public void unequipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
+        BagWindow bagWindow = stageHandler.getBagWindow();
+        if (bagWindow.isInventoryFull()) {
+            stageHandler.getChatWindow().appendChatMessage("Cannot unequip because your bag is full!");
+        }
+
+        ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot();
+
+        if (targetSlot.isTradeSlotLocked() || sourceSlot.isTradeSlotLocked()
+                || sourceSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory())
+            return;
+
+        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, sourceItemStack);
+
+        sourceSlot.setEmptyCellImage();
+
+        return;
     }
 
     @Override

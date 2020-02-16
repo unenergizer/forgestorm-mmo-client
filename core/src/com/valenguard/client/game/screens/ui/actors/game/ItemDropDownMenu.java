@@ -11,12 +11,8 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
-import com.valenguard.client.game.screens.ui.actors.game.draggable.InventoryMoveActions;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.valenguard.client.game.world.item.ItemStack;
-import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
@@ -38,7 +34,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
-        
+
         add(dropDownTable).grow();
 
         addListener(new ForceCloseWindowListener() {
@@ -87,24 +83,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
-                BagWindow bagWindow = stageHandler.getBagWindow();
-                if (bagWindow.isInventoryFull()) {
-                    stageHandler.getChatWindow().appendChatMessage("Cannot unequip because your bag is full!");
-                    ActorUtil.fadeOutWindow(itemDropDownMenu);
-                    return;
-                }
-
-                ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot();
-
-                if (targetSlot.isTradeSlotLocked() || sourceSlot.isTradeSlotLocked()
-                        || sourceSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory())
-                    return;
-
-                new InventoryMoveActions().moveItems(sourceSlot, targetSlot, itemStack, targetSlot.getItemStack());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, itemStack);
-
-                sourceSlot.setEmptyCellImage();
-
+                stageHandler.getEquipmentWindow().unequipItem(itemStack, sourceSlot);
                 cleanUpDropDownMenu(true);
             }
         });
@@ -121,31 +100,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
-                EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
-
-                ItemStackSlot targetSlot;
-                if (itemStack.getItemStackType() == ItemStackType.RING) {
-                    // RING 0 -> SLOT 6
-                    // RING 1 -> SLOT 7
-
-                    boolean ring0Taken = equipmentWindow.getItemStack((byte) 6) != null;
-                    targetSlot = ring0Taken ? equipmentWindow.getItemStackSlot((byte) 7) : equipmentWindow.getItemStackSlot((byte) 6);
-                } else {
-                    targetSlot = equipmentWindow.getItemStackSlot(itemStack.getItemStackType());
-                }
-
-                if (targetSlot.isTradeSlotLocked() || sourceSlot.isTradeSlotLocked()
-                        || sourceSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory())
-                    return;
-
-                boolean targetContainsItem = targetSlot.getItemStack() != null;
-                new InventoryMoveActions().moveItems(sourceSlot, targetSlot, itemStack, targetSlot.getItemStack());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, itemStack);
-
-                if (!targetContainsItem) {
-                    sourceSlot.setEmptyCellImage();
-                }
-
+                stageHandler.getEquipmentWindow().equipItem(itemStack, sourceSlot);
                 cleanUpDropDownMenu(true);
             }
         });

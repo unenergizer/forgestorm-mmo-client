@@ -120,6 +120,8 @@ public class ItemStackSlot extends VisTable {
             setItemStack(itemStack);
         }
 
+        addClickListener(this);
+
         // Add the stack to this table!
         add(stack).padLeft(2).padTop(2);
         return this;
@@ -273,9 +275,6 @@ public class ItemStackSlot extends VisTable {
         } else {
             amountLabel.remove();
         }
-
-        // Setup click listener
-        addClickListener(itemStack, this);
     }
 
     private void displayItemAmount() {
@@ -302,7 +301,7 @@ public class ItemStackSlot extends VisTable {
         }
     }
 
-    private void addClickListener(final ItemStack itemStack, final ItemStackSlot itemStackSlot) {
+    private void addClickListener(final ItemStackSlot itemStackSlot) {
         if (clickListener != null) removeListener(clickListener);
         stack.addListener(clickListener = new InputListener() {
 
@@ -323,6 +322,13 @@ public class ItemStackSlot extends VisTable {
 
                 // Shift + Left click
                 if (button == Input.Buttons.LEFT && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+
+                    EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
+                    if (inventoryType == InventoryType.BAG_1 && itemStack.getItemStackType().isEquipable()) {
+                        equipmentWindow.equipItem(itemStack, itemStackSlot);
+                    } else if (inventoryType == InventoryType.EQUIPMENT) {
+                        equipmentWindow.unequipItem(itemStack, itemStackSlot);
+                    }
                     return true;
                 }
                 // Shift + Right click
