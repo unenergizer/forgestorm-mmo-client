@@ -70,12 +70,12 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
     public void openWindow() {
         ActorUtil.fadeInWindow(this);
         findPosition();
-        stageHandler.getBankWindow().findPosition(false);
+        stageHandler.getBankWindow().findWindowPosition(false);
     }
 
     public void closeWindow() {
         ActorUtil.fadeOutWindow(this);
-        stageHandler.getBankWindow().findPosition(true);
+        stageHandler.getBankWindow().findWindowPosition(true);
     }
 
     private void findPosition() {

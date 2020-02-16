@@ -60,7 +60,7 @@ public class ItemSlotContainer extends HideableVisWindow {
 
     public void removeItemStack(byte slotIndex) {
         itemStackSlots[slotIndex].setEmptyCellImage();
-        itemStackSlots[slotIndex].deleteStack();
+        itemStackSlots[slotIndex].resetItemStackSlot();
         itemStackSlots[slotIndex].setMoveSlotLocked(false);
     }
 

@@ -200,12 +200,8 @@ public class ItemStackSlot extends VisTable {
     /**
      * Completely removes the {@link ItemStack} in this {@link ItemStackSlot}
      */
-    void deleteStack() {
-        itemStack = null;
-    }
-
     void resetItemStackSlot() {
-        deleteStack();
+        itemStack = null;
         setEmptyCellImage();
     }
 

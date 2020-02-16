@@ -17,6 +17,11 @@ public class InventoryMoveActions {
     public void moveItems(ItemStackSlot sourceItemStackSlot, ItemStackSlot itemStackTargetSlot,
                           ItemStack sourceItemStack, ItemStack targetItemStack) {
 
+        if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
+                || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
+            return;
+        }
+
         boolean isStack = false;
         if (targetItemStack != null && sourceItemStack.getStackable() > 1 && targetItemStack.getStackable() > 1
                 && sourceItemStack.getItemStackType() == targetItemStack.getItemStackType()) {
@@ -72,7 +77,7 @@ public class InventoryMoveActions {
         sourceItemStack.setAmount(sourceItemStack.getAmount() + targetItemStack.getAmount());
 
         itemStackTargetSlot.setItemStack(sourceItemStack);
-        sourceItemStackSlot.deleteStack();
+        sourceItemStackSlot.resetItemStackSlot();
     }
 
     /**
@@ -95,6 +100,6 @@ public class InventoryMoveActions {
      */
     private void setItemAction(ItemStackSlot itemStackTargetSlot, ItemStack sourceItemStack, ItemStackSlot sourceItemStackSlot) {
         itemStackTargetSlot.setItemStack(sourceItemStack);
-        sourceItemStackSlot.deleteStack();
+        sourceItemStackSlot.resetItemStackSlot();
     }
 }

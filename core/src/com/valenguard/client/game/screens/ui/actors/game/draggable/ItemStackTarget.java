@@ -69,13 +69,6 @@ public class ItemStackTarget extends DragAndDrop.Target {
         ItemStackSource itemStackSource = (ItemStackSource) source;
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
 
-        if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
-                || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
-            sourceItemStackSlot.setItemStack(sourceItemStack);
-            println(getClass(), "cannot move item at this time", false, PRINT_DEBUG);
-            return;
-        }
-
         // Play Sound FX
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 

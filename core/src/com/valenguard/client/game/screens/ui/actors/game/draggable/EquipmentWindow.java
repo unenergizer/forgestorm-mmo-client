@@ -109,10 +109,6 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
             targetSlot = getItemStackSlot(sourceItemStack.getItemStackType());
         }
 
-        if (targetSlot.isTradeSlotLocked() || sourceSlot.isTradeSlotLocked()
-                || sourceSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory())
-            return;
-
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, sourceItemStack);
         boolean targetContainsItem = targetSlot.getItemStack() != null;
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
@@ -129,10 +125,6 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         }
 
         ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot();
-
-        if (targetSlot.isTradeSlotLocked() || sourceSlot.isTradeSlotLocked()
-                || sourceSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory())
-            return;
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, sourceItemStack);

@@ -1,8 +1,12 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -28,6 +32,8 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
         addCloseButton();
         setResizable(false);
 
+        VisTable slotTable = new VisTable();
+
         int columnCount = 0;
         for (byte i = 0; i < InventoryConstants.BANK_SIZE; i++) {
 
@@ -35,7 +41,7 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
             ItemStackSlot itemStackSlot = new ItemStackSlot(this, InventoryType.BANK, i);
             itemStackSlot.build(stageHandler);
 
-            add(itemStackSlot); // Add slot to BagWindow
+            slotTable.add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
@@ -43,10 +49,34 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
             columnCount++;
 
             if (columnCount == InventoryConstants.BANK_WIDTH) {
-                row();
+                slotTable.row();
                 columnCount = 0;
             }
         }
+
+        VisTextButton depositBagItems = new VisTextButton("Deposit Bag Items");
+        VisTextButton depositWornItems = new VisTextButton("Deposit Worn Items");
+
+        VisTable buttonTable = new VisTable();
+        buttonTable.add(depositBagItems).align(Alignment.RIGHT.getAlignment());
+        buttonTable.add(depositWornItems).align(Alignment.RIGHT.getAlignment());
+
+        depositBagItems.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                depositItems(stageHandler.getBagWindow());
+            }
+        });
+
+        depositWornItems.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                depositItems(stageHandler.getEquipmentWindow());
+            }
+        });
+
+        add(slotTable).row();
+        add(buttonTable).align(Alignment.RIGHT.getAlignment());
 
         addListener(new ForceCloseWindowListener() {
             @Override
@@ -58,22 +88,33 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                findPosition(false);
+                findWindowPosition(false);
             }
         });
 
         pack();
-        findPosition(false);
+        findWindowPosition(false);
         setVisible(false);
         return this;
     }
 
-    public void openWindow() {
-        ActorUtil.fadeInWindow(this);
-        findPosition(false);
+    private void depositItems(ItemSlotContainer itemSlotContainer) {
+
+        for (ItemStackSlot itemStackSlot : itemSlotContainer.itemStackSlots) {
+            if (itemStackSlot.getItemStack() == null) continue;
+
+            ItemStackSlot targetItemStackSlot = getFreeItemStackSlot();
+
+            new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), null);
+        }
     }
 
-    void findPosition(boolean ignoreBagVisible) {
+    public void openWindow() {
+        ActorUtil.fadeInWindow(this);
+        findWindowPosition(false);
+    }
+
+    void findWindowPosition(boolean ignoreBagVisible) {
         BagWindow bagWindow = stageHandler.getBagWindow();
         float bagWindowY = bagWindow.getY() + bagWindow.getHeight();
         float bankWindowX = stageHandler.getStage().getViewport().getScreenWidth() - getWidth() - StageHandler.WINDOW_PAD_X;
