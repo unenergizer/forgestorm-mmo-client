@@ -175,7 +175,7 @@ public class GameButtonBar extends VisTable implements Buildable {
 
         ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 28);
         VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("drops_50").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
-        VisImageButton spellBookButton = new VisImageButton(imageBuilder.setRegionName("quest_165").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
+        VisImageButton spellBookButton = new VisImageButton(imageBuilder.setRegionName("quest_165").buildTextureRegionDrawable(), "Spell Book & Abilities (" + KeyBinds.printKey(KeyBinds.SPELL_BOOK) + ")");
         VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_168").buildTextureRegionDrawable(), "Character (" + KeyBinds.printKey(KeyBinds.EQUIPMENT_WINDOW) + ")");
         VisImageButton inventoryButton = new VisImageButton(imageBuilder.setRegionName("quest_121").buildTextureRegionDrawable(), "Inventory (" + KeyBinds.printKey(KeyBinds.INVENTORY_WINDOW) + ")");
 
@@ -227,9 +227,9 @@ public class GameButtonBar extends VisTable implements Buildable {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    ActorUtil.fadeInWindow(stageHandler.getBagWindow());
+                    stageHandler.getBagWindow().openWindow();
                 } else if (bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
-                    ActorUtil.fadeOutWindow(bagWindow);
+                    stageHandler.getBagWindow().closeWindow();
                 }
             }
         });

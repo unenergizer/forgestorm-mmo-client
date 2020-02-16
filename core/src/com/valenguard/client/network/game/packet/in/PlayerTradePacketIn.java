@@ -95,7 +95,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 ActorUtil.fadeOutWindow(stageHandler.getEntityDropDownMenu());
                 ActorUtil.fadeOutWindow(stageHandler.getItemDropDownMenu());
                 ActorUtil.fadeInWindow(tradeWindow);
-                ActorUtil.fadeInWindow(stageHandler.getBagWindow());
+                stageHandler.getBagWindow().openWindow();
                 break;
             case TRADE_REQUEST_TARGET_DECLINE:
                 stageHandler.getTradeWindow().closeTradeWindow();

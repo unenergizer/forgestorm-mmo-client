@@ -1,7 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.kotcrab.vis.ui.FocusManager;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
@@ -33,7 +32,7 @@ public class BankManagePacketIn implements PacketListener<BankManagePacketIn.Ban
         BankWindow bankWindow = stageHandler.getBankWindow();
         switch (packetData.bankAction) {
             case SERVER_OPEN:
-                ActorUtil.fadeInWindow(bankWindow);
+                bankWindow.openWindow();
                 FocusManager.switchFocus(stageHandler.getStage(), bankWindow);
                 EntityManager.getInstance().getPlayerClient().setBankOpen(true);
                 break;

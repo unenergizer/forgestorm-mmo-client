@@ -4,14 +4,18 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
 public class BankWindow extends ItemSlotContainer implements Buildable, Focusable {
+
+    private StageHandler stageHandler;
 
     public BankWindow() {
         super("Bank", InventoryConstants.BANK_SIZE);
@@ -19,6 +23,7 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         addCloseButton();
         setResizable(false);
@@ -53,14 +58,39 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+                findPosition(false);
             }
         });
 
         pack();
-        setPosition(stageHandler.getStage().getViewport().getScreenWidth() - getWidth(), 0);
+        findPosition(false);
         setVisible(false);
         return this;
+    }
+
+    public void openWindow() {
+        ActorUtil.fadeInWindow(this);
+        findPosition(false);
+    }
+
+    void findPosition(boolean ignoreBagVisible) {
+        BagWindow bagWindow = stageHandler.getBagWindow();
+        float bagWindowY = bagWindow.getY() + bagWindow.getHeight();
+        float bankWindowX = stageHandler.getStage().getViewport().getScreenWidth() - getWidth() - StageHandler.WINDOW_PAD_X;
+
+        if (bagWindow.isVisible() && !ignoreBagVisible) {
+            setPosition(bankWindowX, bagWindowY + StageHandler.WINDOW_PAD_Y);
+        } else {
+
+            GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
+            float endPosition = gameButtonBar.getX() + gameButtonBar.getWidth() + gameButtonBar.getPadLeft();
+
+            if (endPosition > bankWindowX) {
+                setPosition(bankWindowX, gameButtonBar.getHeight() + gameButtonBar.getY());
+            } else {
+                setPosition(bankWindowX, StageHandler.WINDOW_PAD_Y);
+            }
+        }
     }
 
     @Override

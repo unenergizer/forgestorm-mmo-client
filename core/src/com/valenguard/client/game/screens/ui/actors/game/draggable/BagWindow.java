@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -64,6 +65,17 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
         findPosition();
         setVisible(false);
         return this;
+    }
+
+    public void openWindow() {
+        ActorUtil.fadeInWindow(this);
+        findPosition();
+        stageHandler.getBankWindow().findPosition(false);
+    }
+
+    public void closeWindow() {
+        ActorUtil.fadeOutWindow(this);
+        stageHandler.getBankWindow().findPosition(true);
     }
 
     private void findPosition() {

@@ -32,8 +32,9 @@ public class KeyBinds {
      * WINDOWS
      */
     public static final int ESCAPE_ACTION = Input.Keys.ESCAPE;
+    public static final int SPELL_BOOK = Input.Keys.P;
     public static final int FULLSCREEN = Input.Keys.F10;
-    public static final int INVENTORY_WINDOW = Input.Keys.I;
+    public static final int INVENTORY_WINDOW = Input.Keys.B;
     public static final int EQUIPMENT_WINDOW = Input.Keys.C;
 
     /*
