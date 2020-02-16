@@ -63,7 +63,7 @@ public class KeyboardMovement {
 
         checkNotNull(node, "The node cannot be null!");
 
-        clientMovementProcessor.preProcessMovement(
+        clientMovementProcessor.postProcessMovement(
                 new InputData(
                         ClientMovementProcessor.MovementInput.KEYBOARD,
                         futureMoveNode,

@@ -2,6 +2,7 @@ package com.valenguard.client.game.movement;
 
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.GameQuitReset;
+import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -15,18 +16,18 @@ public class EntityTracker implements GameQuitReset {
 
     private final PathFinding pathFinding = new PathFinding();
     private Location previousLocation;
-    private MovingEntity entityToTrack;
+    private Entity entityToTrack;
 
     /**
      * Sets up the {@link EntityTracker} to start tracking an entity.
      *
-     * @param movingEntity The {@link MovingEntity} we want to follow or startTracking.
+     * @param entity The {@link MovingEntity} we want to follow or startTracking.
      */
-    public void startTracking(MovingEntity movingEntity) {
-        entityToTrack = movingEntity;
+    public void startTracking(Entity entity) {
+        entityToTrack = entity;
 
         // Create new location to not use MovingEntity location reference.
-        previousLocation = new Location(movingEntity.getCurrentMapLocation());
+        previousLocation = new Location(entity.getCurrentMapLocation());
     }
 
     /**
@@ -48,7 +49,7 @@ public class EntityTracker implements GameQuitReset {
                 Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                 if (!moveNodes.isEmpty()) {
-                    Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                    Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                             new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
                 }
             }

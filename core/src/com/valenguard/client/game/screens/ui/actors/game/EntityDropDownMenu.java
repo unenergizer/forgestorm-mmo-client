@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.ClickAction;
@@ -18,6 +17,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -44,8 +44,11 @@ import com.valenguard.client.network.game.packet.out.PlayerTradePacketOut;
 import com.valenguard.client.util.MoveNode;
 import com.valenguard.client.util.PathFinding;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import static com.valenguard.client.util.Log.println;
 
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
@@ -89,8 +92,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
         for (Entity entity : entityList) {
             dropDownTable.add(new EditorMenuEntry(entity)).expand().fill().row();
-            if (entity instanceof MovingEntity)
-                dropDownTable.add(new MenuEntry((MovingEntity) entity)).expand().fill().row();
+
+            // Adds players, monsters, and npcs;
+            dropDownTable.add(new MenuEntry(entity)).expand().fill().row();
         }
 
         addWalkHereButton(dropDownTable, entityList.get(0).getCurrentMapLocation());
@@ -110,7 +114,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     private void addWalkHereButton(VisTable visTable, final Location toLocation) {
-        VisTextButton walkHereButton = new VisTextButton("Walk Here");
+        LeftAlignTextButton walkHereButton = new LeftAlignTextButton("Walk Here");
         visTable.add(walkHereButton).expand().fill().row();
 
         walkHereButton.addListener(new ChangeListener() {
@@ -129,7 +133,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                 Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                         new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                             @Override
                             public void postMoveAction() {
@@ -142,7 +146,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     private void addCancelButton(VisTable visTable) {
-        VisTextButton cancelButton = new VisTextButton("Cancel");
+        LeftAlignTextButton cancelButton = new LeftAlignTextButton("Cancel");
         visTable.add(cancelButton).expand().fill().row();
 
         cancelButton.addListener(new ChangeListener() {
@@ -179,7 +183,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 if (((ItemStackDrop) clickedEntity).isSpawnedFromDropTable()) return;
             }
 
-            VisTextButton editEntityButton = new VisTextButton("Edit " + clickedEntity.getEntityName());
+            LeftAlignTextButton editEntityButton = new LeftAlignTextButton("Edit " + clickedEntity.getEntityName());
             editEntityButton.setColor(Color.YELLOW);
             add(editEntityButton).expand().fill().row();
 
@@ -210,28 +214,102 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     class MenuEntry extends VisTable {
 
-        private final MovingEntity clickedEntity;
+        private MovingEntity clickedMovingEntity;
         private PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        private Color nameColor = Color.GRAY;
+        private String entityName;
 
-        MenuEntry(MovingEntity clickedEntity) {
-            this.clickedEntity = clickedEntity;
+        MenuEntry(Entity clickedEntity) {
 
-            addOpenBankButton();
-            addTradeButton();
-            addShopButton();
-            addTalkButton();
-            addInspectPlayerButton();
-            addTargetButton();
-            addAttackButton();
-            addFollowButton();
+            if (clickedEntity instanceof MovingEntity)
+                this.clickedMovingEntity = (MovingEntity) clickedEntity;
+
+            if (clickedEntity instanceof AiEntity) {
+                nameColor = ((AiEntity) clickedEntity).getAlignment().getDefaultColor();
+            } else if (clickedEntity instanceof ItemStackDrop) {
+                nameColor = Color.YELLOW;
+            }
+            entityName = "[#" + nameColor + "]" + clickedEntity.getEntityName();
+
+            if (clickedEntity instanceof MovingEntity) {
+                addOpenBankButton();
+                addTradeButton();
+                addShopButton();
+                addTalkButton();
+                addInspectPlayerButton();
+                addTargetButton();
+                addAttackButton();
+                addFollowButton();
+            } else if (clickedEntity instanceof ItemStackDrop) {
+                addPickupButton((ItemStackDrop) clickedEntity);
+            }
+        }
+
+        private void addPickupButton(final ItemStackDrop itemStackDrop) {
+            LeftAlignTextButton pickupButton = new LeftAlignTextButton("Pick up " + entityName);
+            add(pickupButton).expand().fill().row();
+
+            pickupButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    // Picking up ItemStacks from the ground
+
+                    Queue<MoveNode> moveNodes = null;
+                    PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+                    Location clientLocation = playerClient.getFutureMapLocation();
+                    Location location = itemStackDrop.getCurrentMapLocation();
+
+                    if (clientLocation.isWithinDistance(location, (short) 1)) {
+                        // The player is requesting to interact with the entity.
+                        if (!MoveUtil.isEntityMoving(playerClient)) {
+                            println(getClass(), "ItemStack clicked! ID: " + itemStackDrop.getServerEntityID());
+                            new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
+                        }
+                    } else {
+                        // New Entity click so lets cancelTracking entityTracker
+                        Valenguard.getInstance().getEntityTracker().cancelTracking();
+
+                        // Top right quad
+                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), location.getX(), location.getY(), clientLocation.getMapName(), true);
+                        if (testMoveNodes == null) return;
+                        moveNodes = new LinkedList<MoveNode>();
+                        for (int i = testMoveNodes.size() - 1; i > 0; i--) {
+                            moveNodes.add(testMoveNodes.remove());
+                        }
+
+                        println(getClass(), "Generated path to itemstack");
+                    }
+
+                    // Click to walk path finding
+                    if (moveNodes == null) {
+                        // New Entity click so lets cancelTracking entityTracker
+                        Valenguard.getInstance().getEntityTracker().cancelTracking();
+                        moveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), location.getX(), location.getY(), clientLocation.getMapName(), false);
+                    }
+
+                    if (moveNodes != null) {
+
+                        Valenguard.getInstance().getEntityTracker().startTracking(itemStackDrop);
+                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
+                                    @Override
+                                    public void postMoveAction() {
+                                        new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
+                                    }
+                                }));
+                    }
+                    cleanUpDropDownMenu(true);
+                }
+
+            });
         }
 
         // Talk, OpenBank, Attack, Trade, Shop, Follow, Exit, Walk Here
 
         private void addTalkButton() {
-            if (!(clickedEntity instanceof NPC)) return;
+            if (!(clickedMovingEntity instanceof NPC)) return;
 
-            VisTextButton talkButton = new VisTextButton("Talk To " + clickedEntity.getEntityName());
+            LeftAlignTextButton talkButton = new LeftAlignTextButton("Talk To " + entityName);
             add(talkButton).expand().fill().row();
 
             talkButton.addListener(new ChangeListener() {
@@ -239,17 +317,17 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent changeEvent, Actor actor) {
 
                     Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedEntity.getFutureMapLocation();
+                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
                     attemptTraverseTalk(clientLocation, toLocation);
-
+                    cleanUpDropDownMenu(true);
                 }
             });
         }
 
         private void addInspectPlayerButton() {
-            if (clickedEntity instanceof AiEntity) return;
+            if (clickedMovingEntity instanceof AiEntity) return;
 
-            VisTextButton inspectPlayerButton = new VisTextButton("Inspect " + clickedEntity.getEntityName());
+            LeftAlignTextButton inspectPlayerButton = new LeftAlignTextButton("Inspect " + entityName);
             add(inspectPlayerButton).expand().fill().row();
 
             inspectPlayerButton.addListener(new ChangeListener() {
@@ -257,21 +335,21 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
-                    new InspectPlayerPacketOut(clickedEntity.getServerEntityID()).sendPacket();
-                    stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedEntity);
+                    new InspectPlayerPacketOut(clickedMovingEntity.getServerEntityID()).sendPacket();
+                    stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedMovingEntity);
 
-                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player " + clickedEntity.getEntityName() + " equipment.");
+                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player " + entityName + " equipment.");
                     cleanUpDropDownMenu(true);
                 }
             });
         }
 
         private void addOpenBankButton() {
-            if (clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER || clickedEntity.getEntityType() == EntityType.PLAYER)
+            if (clickedMovingEntity.getEntityType() == EntityType.CLIENT_PLAYER || clickedMovingEntity.getEntityType() == EntityType.PLAYER)
                 return;
-            if (!((AiEntity) clickedEntity).isBankKeeper()) return;
+            if (!((AiEntity) clickedMovingEntity).isBankKeeper()) return;
 
-            VisTextButton openBankButton = new VisTextButton("Open Bank");
+            LeftAlignTextButton openBankButton = new LeftAlignTextButton("Open Bank");
             add(openBankButton).fill().row();
 
             openBankButton.addListener(new ChangeListener() {
@@ -280,7 +358,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedEntity.getFutureMapLocation();
+                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
                     // Check to see if the player is next to the bank teller
                     if (clientLocation.isWithinDistance(toLocation, ClientConstants.MAX_BANK_DISTANCE)) {
@@ -308,8 +386,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-            Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-            Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+            Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+            Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                     new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
@@ -320,7 +398,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
         private boolean traverseToBankAccessPoint(Location clientLocation) {
             // Check to see if there is a bank access point around where the entity is
-            Location clickedEntityLocation = clickedEntity.getFutureMapLocation();
+            Location clickedEntityLocation = clickedMovingEntity.getFutureMapLocation();
             Location northAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) 1);
             Location eastAccessPoint = new Location(clickedEntityLocation).add((short) 1, (short) 0);
             Location southAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) -1);
@@ -343,8 +421,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 return false;
             }
 
-            Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-            Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+            Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+            Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                     new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes, new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
@@ -372,13 +450,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-            Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-            Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes,
+            Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+            Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes,
                     new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
                             Valenguard.getInstance().getEntityTracker().cancelTracking();
-                            NPC npc = (NPC) clickedEntity;
+                            NPC npc = (NPC) clickedMovingEntity;
                             npc.chat();
                         }
                     }));
@@ -391,21 +469,21 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addTargetButton() {
-            VisTextButton attackButton = new VisTextButton("Target " + clickedEntity.getEntityName());
+            LeftAlignTextButton attackButton = new LeftAlignTextButton("Target " + entityName);
             add(attackButton).expand().fill().row();
 
             attackButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    playerClient.setTargetEntity(clickedEntity);
+                    playerClient.setTargetEntity(clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
         }
 
         private void addAttackButton() {
-            VisTextButton attackButton = new VisTextButton("Attack " + clickedEntity.getEntityName());
+            LeftAlignTextButton attackButton = new LeftAlignTextButton("Attack " + entityName);
             add(attackButton).expand().fill().row();
 
             attackButton.addListener(new ChangeListener() {
@@ -413,13 +491,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedEntity.getFutureMapLocation();
-                    playerClient.setTargetEntity(clickedEntity);
+                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
+                    playerClient.setTargetEntity(clickedMovingEntity);
 
                     if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
-                            new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, clickedEntity)).sendPacket();
+                            new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, clickedMovingEntity)).sendPacket();
                         }
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -432,12 +510,12 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                        Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
-                                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, clickedEntity)).sendPacket();
+                                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, clickedMovingEntity)).sendPacket();
                                     }
                                 }));
                     }
@@ -447,8 +525,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addTradeButton() {
-            if (clickedEntity.getEntityType() != EntityType.PLAYER) return;
-            VisTextButton tradeButton = new VisTextButton("Trade with " + clickedEntity.getEntityName());
+            if (clickedMovingEntity.getEntityType() != EntityType.PLAYER) return;
+            LeftAlignTextButton tradeButton = new LeftAlignTextButton("Trade with " + entityName);
             add(tradeButton).expand().fill().row();
 
             tradeButton.addListener(new ChangeListener() {
@@ -456,12 +534,12 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedEntity.getFutureMapLocation();
+                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
                     if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
-                            sendTradeRequest((Player) clickedEntity);
+                            sendTradeRequest((Player) clickedMovingEntity);
                         }
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -474,12 +552,12 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                        Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
-                                        sendTradeRequest((Player) clickedEntity);
+                                        sendTradeRequest((Player) clickedMovingEntity);
                                     }
                                 }));
                     }
@@ -488,9 +566,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addShopButton() {
-            if (clickedEntity.getEntityType() == EntityType.PLAYER) return;
-            if (((AiEntity) clickedEntity).getShopID() < 0) return;
-            VisTextButton shopButton = new VisTextButton("Open Shop");
+            if (clickedMovingEntity.getEntityType() == EntityType.PLAYER) return;
+            if (((AiEntity) clickedMovingEntity).getShopID() < 0) return;
+            LeftAlignTextButton shopButton = new LeftAlignTextButton("Open Shop");
             add(shopButton).expand().fill().row();
 
             shopButton.addListener(new ChangeListener() {
@@ -499,13 +577,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     final EntityShopWindow entityShopWindow = stageHandler.getEntityShopWindow();
                     Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedEntity.getFutureMapLocation();
+                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
                     if (clientLocation.isWithinDistance(toLocation, ClientConstants.MAX_SHOP_DISTANCE)) {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
-                            new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedEntity.getServerEntityID())).sendPacket();
-                            entityShopWindow.loadShop(clickedEntity, ((AiEntity) clickedEntity).getShopID());
+                            new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
+                            entityShopWindow.loadShop(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
                         }
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -517,14 +595,14 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                        Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
                                         Valenguard.getInstance().getEntityTracker().cancelTracking();
-                                        new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedEntity.getServerEntityID())).sendPacket();
-                                        entityShopWindow.loadShop(clickedEntity, ((AiEntity) clickedEntity).getShopID());
+                                        new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
+                                        entityShopWindow.loadShop(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
                                     }
                                 }));
                     }
@@ -534,10 +612,10 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addFollowButton() {
-            if (clickedEntity instanceof AiEntity && ((AiEntity) clickedEntity).isBankKeeper())
+            if (clickedMovingEntity instanceof AiEntity && ((AiEntity) clickedMovingEntity).isBankKeeper())
                 return;
 
-            VisTextButton followButton = new VisTextButton("Follow " + clickedEntity.getEntityName());
+            LeftAlignTextButton followButton = new LeftAlignTextButton("Follow " + entityName);
             add(followButton).expand().fill().row();
 
             followButton.addListener(new ChangeListener() {
@@ -545,7 +623,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedEntity.getFutureMapLocation();
+                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
@@ -557,8 +635,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                     Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                    Valenguard.getInstance().getEntityTracker().startTracking(clickedEntity);
-                    Valenguard.getInstance().getClientMovementProcessor().preProcessMovement(
+                    Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                    Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
                             new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
                     cleanUpDropDownMenu(true);
                 }

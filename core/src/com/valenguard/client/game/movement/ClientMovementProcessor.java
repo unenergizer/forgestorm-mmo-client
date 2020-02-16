@@ -26,7 +26,7 @@ public class ClientMovementProcessor {
     @Setter
     private MovementInput currentMovementInput = MovementInput.NONE;
 
-    public void preProcessMovement(InputData latestInput) {
+    public void postProcessMovement(InputData latestInput) {
         this.inputData = latestInput;
     }
 

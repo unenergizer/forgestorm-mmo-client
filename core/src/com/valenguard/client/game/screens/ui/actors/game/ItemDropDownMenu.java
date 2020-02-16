@@ -3,14 +3,17 @@ package com.valenguard.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.InventoryMoveActions;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
@@ -64,8 +67,10 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
         addUnequip(dropDownTable, itemStack);
         addEquipOption(dropDownTable, itemStack);
+        addDeposit(dropDownTable, itemStack);
+        addWithdraw(dropDownTable, itemStack);
         addConsumeButton(dropDownTable, itemStack);
-        addDropButton(dropDownTable);
+        addDropButton(dropDownTable, itemStack);
         addCancelButton(dropDownTable);
 
         pack();
@@ -73,10 +78,66 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         this.setZIndex(Integer.MAX_VALUE);
     }
 
+    private void addDeposit(VisTable visTable, final ItemStack itemStack) {
+        if (!stageHandler.getBankWindow().isVisible()) return;
+        if (inventoryType == InventoryType.BANK) return;
+
+        LeftAlignTextButton depositItem = new LeftAlignTextButton("Deposit [YELLOW]" + itemStack.getName());
+        visTable.add(depositItem).expand().fill().row();
+
+        depositItem.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Check again, if player closes bank, the menu does not reflect that
+                if (stageHandler.getBankWindow().isVisible()) {
+                    BankWindow bankWindow = stageHandler.getBankWindow();
+                    ItemStackSlot targetItemStackSlot = bankWindow.getFreeItemStackSlot();
+                    if (targetItemStackSlot != null) {
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                        new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
+                    } else {
+                        stageHandler.getChatWindow().appendChatMessage("[RED]Your bank is full!");
+                    }
+                } else {
+                    stageHandler.getChatWindow().appendChatMessage("[RED]Your bank must be open to deposit items.");
+                }
+                cleanUpDropDownMenu(true);
+            }
+        });
+    }
+
+    private void addWithdraw(VisTable visTable, final ItemStack itemStack) {
+        if (!stageHandler.getBankWindow().isVisible()) return;
+        if (inventoryType != InventoryType.BANK) return;
+
+        LeftAlignTextButton withdrawItem = new LeftAlignTextButton("Withdraw [YELLOW]" + itemStack.getName());
+        visTable.add(withdrawItem).expand().fill().row();
+
+        withdrawItem.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Check again, if player closes bank, the menu does not reflect that
+                if (stageHandler.getBankWindow().isVisible()) {
+                    BagWindow bagWindow = stageHandler.getBagWindow();
+                    ItemStackSlot targetItemStackSlot = bagWindow.getFreeItemStackSlot();
+                    if (targetItemStackSlot != null) {
+                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                        new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
+                    } else {
+                        stageHandler.getChatWindow().appendChatMessage("[RED]Your inventory is full!");
+                    }
+                } else {
+                    stageHandler.getChatWindow().appendChatMessage("[RED]Your bank must be open to withdraw items.");
+                }
+                cleanUpDropDownMenu(true);
+            }
+        });
+    }
+
     private void addUnequip(VisTable visTable, final ItemStack itemStack) {
         if (inventoryType != InventoryType.EQUIPMENT) return;
 
-        VisTextButton dropItemStackButton = new VisTextButton("UnEquip");
+        LeftAlignTextButton dropItemStackButton = new LeftAlignTextButton("UnEquip [YELLOW]" + itemStack.getName());
         visTable.add(dropItemStackButton).expand().fill().row();
 
         dropItemStackButton.addListener(new ChangeListener() {
@@ -93,7 +154,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         if (inventoryType == InventoryType.EQUIPMENT) return;
         if (!itemStack.getItemStackType().isEquipable()) return;
 
-        VisTextButton dropItemStackButton = new VisTextButton("Equip");
+        LeftAlignTextButton dropItemStackButton = new LeftAlignTextButton("Equip [YELLOW]" + itemStack.getName());
         visTable.add(dropItemStackButton).expand().fill().row();
 
         dropItemStackButton.addListener(new ChangeListener() {
@@ -109,7 +170,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     private void addConsumeButton(VisTable visTable, ItemStack itemStack) {
         if (!itemStack.isConsumable()) return;
 
-        VisTextButton dropItemStackButton = new VisTextButton("Consume");
+        LeftAlignTextButton dropItemStackButton = new LeftAlignTextButton("Consume [YELLOW]" + itemStack.getName());
         visTable.add(dropItemStackButton).expand().fill().row();
 
         dropItemStackButton.addListener(new ChangeListener() {
@@ -125,10 +186,10 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         });
     }
 
-    private void addDropButton(VisTable visTable) {
+    private void addDropButton(VisTable visTable, ItemStack itemStack) {
         if (inventoryType == InventoryType.EQUIPMENT || inventoryType == InventoryType.BANK) return;
 
-        VisTextButton dropItemStackButton = new VisTextButton("Drop");
+        LeftAlignTextButton dropItemStackButton = new LeftAlignTextButton("Drop [YELLOW]" + itemStack.getName());
         visTable.add(dropItemStackButton).expand().fill().row();
 
         dropItemStackButton.addListener(new ChangeListener() {
@@ -142,7 +203,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     private void addCancelButton(VisTable visTable) {
-        VisTextButton cancelButton = new VisTextButton("Cancel");
+        LeftAlignTextButton cancelButton = new LeftAlignTextButton("Cancel");
         visTable.add(cancelButton).expand().fill().row();
 
         cancelButton.addListener(new ChangeListener() {

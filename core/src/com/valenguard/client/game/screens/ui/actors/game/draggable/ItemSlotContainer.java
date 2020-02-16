@@ -2,15 +2,16 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
 import com.valenguard.client.game.world.item.ItemStack;
-import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 
 public class ItemSlotContainer extends HideableVisWindow {
 
     final ItemStackSlot[] itemStackSlots;
+    private final int containerSize;
 
     ItemSlotContainer(String title, int containerSize) {
         super(title);
         itemStackSlots = new ItemStackSlot[containerSize];
+        this.containerSize = containerSize;
     }
 
     public ItemStack getItemStack(byte slotIndex) {
@@ -23,7 +24,7 @@ public class ItemSlotContainer extends HideableVisWindow {
      * @param itemStack The {@link ItemStack} to add to the players inventory.
      */
     public void addItemStack(ItemStack itemStack) {
-        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
+        for (byte i = 0; i < containerSize; i++) {
 
             // Find empty slot
             if (itemStackSlots[i].getItemStack() != null) continue;
@@ -35,7 +36,7 @@ public class ItemSlotContainer extends HideableVisWindow {
     }
 
     public ItemStackSlot getFreeItemStackSlot() {
-        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
+        for (byte i = 0; i < containerSize; i++) {
             if (itemStackSlots[i].getItemStack() == null) {
                 return itemStackSlots[i];
             }
@@ -45,7 +46,7 @@ public class ItemSlotContainer extends HideableVisWindow {
 
     public boolean isInventoryFull() {
         boolean foundFreeSlot = false;
-        for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
+        for (byte i = 0; i < containerSize; i++) {
             if (itemStackSlots[i].getItemStack() == null) {
                 foundFreeSlot = true;
                 break;
