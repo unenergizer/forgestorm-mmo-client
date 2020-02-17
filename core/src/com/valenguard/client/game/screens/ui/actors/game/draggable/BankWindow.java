@@ -106,7 +106,6 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
             if (itemStackSlot.getItemStack() == null) continue;
 
             ItemStackSlot targetItemStackSlot = getFreeItemStackSlot();
-
             new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), null);
         }
     }

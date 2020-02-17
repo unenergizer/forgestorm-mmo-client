@@ -329,9 +329,10 @@ public class ItemStackSlot extends VisTable {
 
                 // CTRL + Left or Shift + Right click
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+                    if (!itemStack.getItemStackType().isEquipable()) return true;
 
                     EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
-                    if (inventoryType == InventoryType.BAG_1 && itemStack.getItemStackType().isEquipable()) {
+                    if (inventoryType == InventoryType.BAG_1 || inventoryType == InventoryType.BANK) {
                         equipmentWindow.equipItem(itemStack, itemStackSlot);
                     } else if (inventoryType == InventoryType.EQUIPMENT) {
                         equipmentWindow.unequipItem(itemStack, itemStackSlot);
