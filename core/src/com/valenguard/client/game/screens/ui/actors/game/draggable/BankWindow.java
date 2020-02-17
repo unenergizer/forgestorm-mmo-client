@@ -7,6 +7,7 @@ import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -14,6 +15,7 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
@@ -147,5 +149,24 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
     @Override
     public void focusGained() {
 
+    }
+
+    void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {
+        if (!stageHandler.getBankWindow().isVisible()) {
+            stageHandler.getChatWindow().appendChatMessage("[RED]Cannot transfer item because the bank is not open!");
+            return;
+        }
+
+        if (itemSlotContainer.isInventoryFull()) {
+            stageHandler.getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
+            return;
+        }
+
+        ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot();
+
+        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+
+        sourceSlot.setEmptyCellImage();
     }
 }

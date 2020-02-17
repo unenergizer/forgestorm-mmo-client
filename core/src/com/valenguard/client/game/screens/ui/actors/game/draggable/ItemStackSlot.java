@@ -319,6 +319,17 @@ public class ItemStackSlot extends VisTable {
                 // Shift + Left or Shift + Right click
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 
+                    if (inventoryType == InventoryType.BAG_1) {
+                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBankWindow());
+                    } else if (inventoryType == InventoryType.BANK) {
+                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBagWindow());
+                    }
+                    return true;
+                }
+
+                // CTRL + Left or Shift + Right click
+                if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+
                     EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                     if (inventoryType == InventoryType.BAG_1 && itemStack.getItemStackType().isEquipable()) {
                         equipmentWindow.equipItem(itemStack, itemStackSlot);

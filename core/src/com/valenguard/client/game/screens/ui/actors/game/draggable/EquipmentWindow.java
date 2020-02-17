@@ -21,7 +21,6 @@ import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateListen
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
@@ -62,7 +61,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     private VisLabel armorValue = new VisLabel("00000");
     private VisLabel damageValue = new VisLabel("00000");
 
-    public ItemStackSlot getItemStackSlot(ItemStackType itemStackType) {
+    private ItemStackSlot getItemStackSlot(ItemStackType itemStackType) {
         switch (itemStackType) {
             case HELM:
                 return helmSlot;
@@ -109,7 +108,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
             targetSlot = getItemStackSlot(sourceItemStack.getItemStackType());
         }
 
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, sourceItemStack);
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
         boolean targetContainsItem = targetSlot.getItemStack() != null;
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
 
@@ -121,17 +120,16 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     public void unequipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
         BagWindow bagWindow = stageHandler.getBagWindow();
         if (bagWindow.isInventoryFull()) {
-            stageHandler.getChatWindow().appendChatMessage("Cannot unequip because your bag is full!");
+            stageHandler.getChatWindow().appendChatMessage("[RED]Cannot unequip because your bag is full!");
+            return;
         }
 
         ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot();
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(ItemDropDownMenu.class, sourceItemStack);
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         sourceSlot.setEmptyCellImage();
-
-        return;
     }
 
     @Override

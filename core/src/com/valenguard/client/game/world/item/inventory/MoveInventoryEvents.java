@@ -34,7 +34,7 @@ public class MoveInventoryEvents {
     public void receivedNonMoveRequest() {
         if (previousMovements.isEmpty() || syncingInventory) return;
 
-        println(getClass(), "Rewinding the inventory.");
+        println(getClass(), "Rewinding the inventory.", true, PRINT_DEBUG);
 
         // Setting the inventory back to it's previous state!
         for (InventoryMoveData previousMove : previousMovements) {
@@ -135,17 +135,17 @@ public class MoveInventoryEvents {
 
                 // TODO: Resync the inventory because it's out of sync.
 
-                println(getClass(), "Move request response was not the same as the servers.", true);
-                println(getClass(), "-------SERVER-------", true);
-                println(getClass(), "fromPosition = " + inventoryMoveData.getFromPosition(), true);
-                println(getClass(), "toPosition = " + inventoryMoveData.getToPosition(), true);
-                println(getClass(), "fromWindow = " + inventoryMoveData.getFromWindow(), true);
-                println(getClass(), "toWindow = " + inventoryMoveData.getToWindow(), true);
-                println(getClass(), "-------CLIENT-------", true);
-                println(getClass(), "fromPosition = " + previousMove.getFromPosition(), true);
-                println(getClass(), "toPosition = " + previousMove.getToPosition(), true);
-                println(getClass(), "fromWindow = " + previousMove.getFromWindow(), true);
-                println(getClass(), "toWindow = " + previousMove.getToWindow(), true);
+                println(getClass(), "Move request response was not the same as the servers.", true, PRINT_DEBUG);
+                println(getClass(), "-------SERVER-------", true, PRINT_DEBUG);
+                println(getClass(), "fromPosition = " + inventoryMoveData.getFromPosition(), true, PRINT_DEBUG);
+                println(getClass(), "toPosition = " + inventoryMoveData.getToPosition(), true, PRINT_DEBUG);
+                println(getClass(), "fromWindow = " + inventoryMoveData.getFromWindow(), true, PRINT_DEBUG);
+                println(getClass(), "toWindow = " + inventoryMoveData.getToWindow(), true, PRINT_DEBUG);
+                println(getClass(), "-------CLIENT-------", true, PRINT_DEBUG);
+                println(getClass(), "fromPosition = " + previousMove.getFromPosition(), true, PRINT_DEBUG);
+                println(getClass(), "toPosition = " + previousMove.getToPosition(), true, PRINT_DEBUG);
+                println(getClass(), "fromWindow = " + previousMove.getFromWindow(), true, PRINT_DEBUG);
+                println(getClass(), "toWindow = " + previousMove.getToWindow(), true, PRINT_DEBUG);
 
             } else {
                 toWindow.getItemStackSlot(previousMove.getToPosition()).setMoveSlotLocked(false); // Unlocking the inventory position!
@@ -155,15 +155,15 @@ public class MoveInventoryEvents {
     }
 
     public void changeEquipment(ItemStackSlot itemStackTargetSlot, ItemStackSlot sourceItemStackSlot) {
-        println(getClass(), "changeEquipment()");
+        println(getClass(), "changeEquipment()", true, PRINT_DEBUG);
         if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
             equipItem(itemStackTargetSlot, sourceItemStackSlot.getItemStack());
         } else if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT) {
-            println(getClass(), "From equipment to other inventory");
+            println(getClass(), "From equipment to other inventory", true, PRINT_DEBUG);
             if (itemStackTargetSlot.getItemStack() != null) { // Swapping
                 equipItem(sourceItemStackSlot, itemStackTargetSlot.getItemStack());
             } else { // Removing equipment
-                println(getClass(), "Removing equipment");
+                println(getClass(), "Removing equipment", true, PRINT_DEBUG);
 
                 switch (sourceItemStackSlot.getAcceptedItemStackTypes()[0]) {
                     case HELM:

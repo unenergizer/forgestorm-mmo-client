@@ -100,10 +100,11 @@ public class ItemStackToolTip extends HideableVisWindow {
         // Show tool-tip help info for equipping and uneqipping items.
         if (itemStackSlot != null && itemStack.getItemStackType().isEquipable()) {
             InventoryType inventoryType = itemStackSlot.getInventoryType();
+
             if (inventoryType == InventoryType.BAG_1) {
-                equipInfo.setText("[GRAY]Shift+Click item to equip");
+                equipInfo.setText("[GRAY]CTRL+Click item to equip");
             } else if (inventoryType == InventoryType.EQUIPMENT) {
-                equipInfo.setText("[GRAY]Shift+Click item to unequip");
+                equipInfo.setText("[GRAY]CTRL+Click item to unequip");
             }
         }
 
