@@ -92,7 +92,7 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
         float x = getDrawX() + 8;
         float y = getDrawY() + 8 + distanceMoved;
 
-        GameTextUtil.drawMessage(Integer.toString(damageTaken), Color.RED, 1f, x, y);
+        GameTextUtil.drawMessage(Integer.toString(damageTaken), Color.RED, .5f, x, y);
 
         distanceMoved = distanceMoved + 0.11f;
         if (distanceMoved >= 9) {

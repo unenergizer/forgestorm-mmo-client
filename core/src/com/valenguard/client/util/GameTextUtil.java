@@ -21,11 +21,11 @@ public class GameTextUtil {
     }
 
     public static void drawMessage(String message, Color color, BitmapFont font, float fontScale, SpriteBatch spriteBatch, float x, float y) {
-        // Draw shadow message
-        font.getData().setScale(fontScale);
-        font.setColor(Color.BLACK);
-        glyphLayout.setText(font, message);
-        font.draw(spriteBatch, message, x - (glyphLayout.width / 2) + .3f, y - .3f);
+//        // Draw shadow message
+//        font.getData().setScale(fontScale);
+//        font.setColor(Color.BLACK);
+//        glyphLayout.setText(font, message);
+//        font.draw(spriteBatch, message, x - (glyphLayout.width / 2) + .3f, y - .3f);
 
         // Draw colored message
         font.getData().setScale(fontScale);

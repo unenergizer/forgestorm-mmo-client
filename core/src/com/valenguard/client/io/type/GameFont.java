@@ -2,7 +2,10 @@ package com.valenguard.client.io.type;
 
 @SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
 public enum GameFont {
-    TEST_FONT("testfont.fnt");
+    TEST_FONT("testfont.fnt"),
+    PIXEL("pixel.fnt"),
+    VISITOR("visitor.fnt"),
+    PIXEL_UNICODE("pixel_unicode.fnt");
 
     private final String filePath;
 

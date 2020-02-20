@@ -77,8 +77,9 @@ public class GameScreen implements Screen {
         stageHandler.setViewport(screenViewport);
 
         // Load assets
-        fileManager.loadFont(GameFont.TEST_FONT);
-        font = fileManager.getFont(GameFont.TEST_FONT);
+        GameFont gameFont = GameFont.PIXEL;
+        fileManager.loadFont(gameFont);
+        font = fileManager.getFont(gameFont);
         font.setUseIntegerPositions(false);
 
         fileManager.loadAtlas(GameAtlas.CURSOR);

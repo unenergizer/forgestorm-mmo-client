@@ -13,7 +13,7 @@ public class ClientConstants {
     public static final String WEB_REGISTER = "https://forgestorm.com/register/";
     public static final String WEB_LOST_PASSWORD = "https://forgestorm.com/lost-password/";
     public static final short TILE_SIZE = 16;
-    public static final float namePlateDistanceInPixels = 4;
+    public static final float namePlateDistanceInPixels = 6;
 
     public static final short MAX_SHOP_DISTANCE = 5;
     public static final short MAX_BANK_DISTANCE = 5;
