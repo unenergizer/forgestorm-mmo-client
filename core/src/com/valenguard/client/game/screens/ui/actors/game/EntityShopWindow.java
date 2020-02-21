@@ -3,10 +3,15 @@ package com.valenguard.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -206,7 +211,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         for (int i = 0; i < blankSpots; i++) {
             EntityShopWindowSlot entityShopWindowSlot = new EntityShopWindowSlot(null, 0, (short) -1);
             entityShopWindowSlot.setItemStackCell();
-            lastShopPage.add(entityShopWindowSlot);
+            lastShopPage.add(entityShopWindowSlot).pad(5);
 
             columnCount++;
 
@@ -246,6 +251,11 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         println(getClass(), "Shop Pages: " + shopPages.size());
         changeShopPage(0);
         getTitleLabel().setText(movingEntity.getEntityName() + "'s Shop");
+        if (shopPages.size() == 1) {
+            previousPage.setVisible(false);
+            nextPage.setVisible(false);
+            pageDisplay.setVisible(false);
+        }
         ActorUtil.fadeInWindow(this);
     }
 
@@ -269,9 +279,42 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
         if (shopPages != null) shopPages.clear();
         shopPages = null;
         currentPageIndex = 0;
+        previousPage.setVisible(true);
+        nextPage.setVisible(true);
+        pageDisplay.setVisible(true);
         previousPage.setDisabled(true);
         nextPage.setDisabled(false);
         getTitleLabel().setText("Shop Name: Null");
+    }
+
+    /**
+     * EDIT: unenregizer -> Override this method so that we can call {@link #closeShopWindow(boolean)} ()} instead of close();
+     * Adds close button to window, next to window title. After pressing that button, {@link #close()} is called. If nothing
+     * else was added to title table, and current title alignment is center then the title will be automatically centered.
+     */
+    @Override
+    public void addCloseButton() {
+        Label titleLabel = getTitleLabel();
+        Table titleTable = getTitleTable();
+
+        VisImageButton closeButton = new VisImageButton("close-window");
+        titleTable.add(closeButton).padRight(-getPadRight() + 0.7f);
+        closeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                closeShopWindow(false);
+            }
+        });
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                event.cancel();
+                return true;
+            }
+        });
+
+        if (titleLabel.getLabelAlign() == Align.center && titleTable.getChildren().size == 2)
+            titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
     }
 
     /**
@@ -317,7 +360,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
                 itemStackImage = imageBuilder.setRegionName("clear").buildVisImage();
             }
 
-            add(itemStackImage).expand().fill().align(Alignment.LEFT.getAlignment()).padRight(3); // Set next image
+            add(itemStackImage).align(Alignment.LEFT.getAlignment()); // Set next image
 
             if (itemStack != null) {
                 // Setup name tag and price
@@ -329,9 +372,9 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
                 priceTable.add(button);
                 priceTable.add(new ImageBuilder(GameAtlas.ITEMS, 16).setRegionName("drops_44").buildVisImage());
                 priceTable.add(new VisLabel(Integer.toString(price)));
-                slotTable.add(priceTable).align(Alignment.BOTTOM_RIGHT.getAlignment());
+                slotTable.add(priceTable).growX().align(Alignment.BOTTOM_RIGHT.getAlignment());
 
-                add(slotTable).expand().fill().align(Alignment.RIGHT.getAlignment());
+                add(slotTable).growX();
 
                 button.addListener(new ChangeListener() {
                     @Override
