@@ -23,6 +23,7 @@ import com.valenguard.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.EquipmentSlotTypes;
@@ -124,7 +125,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
             return;
         }
 
-        ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot();
+        ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot(sourceItemStack);
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
@@ -270,7 +271,8 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
     }
 
     public void rebuildPreviewTable() {
-        Appearance appearance = EntityManager.getInstance().getPlayerClient().getAppearance();
+        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        Appearance appearance = playerClient.getAppearance();
         characterPreviewer.generateCharacterPreview(appearance, null);
         pack();
     }

@@ -12,7 +12,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class InventoryMoveActions {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     public void moveItems(ItemStackSlot sourceItemStackSlot, ItemStackSlot itemStackTargetSlot,
                           ItemStack sourceItemStack, ItemStack targetItemStack) {
@@ -42,6 +42,14 @@ public class InventoryMoveActions {
         println(getClass(), "toWindow  = " + inventoryMoveType.getToWindow(), false, PRINT_DEBUG);
         println(getClass(), "fromPosition  = " + sourceItemStackSlot.getSlotIndex(), false, PRINT_DEBUG);
         println(getClass(), "toPosition  = " + itemStackTargetSlot.getSlotIndex(), false, PRINT_DEBUG);
+        println(getClass(), "fromItemStack  = " + sourceItemStackSlot.getItemStack().getName(), false, PRINT_DEBUG);
+
+        if (itemStackTargetSlot.getItemStack() != null) {
+            println(getClass(), "toItemStack  = " + itemStackTargetSlot.getItemStack().getName(), false, PRINT_DEBUG);
+        } else {
+            println(getClass(), "toItemStack  = null", false, PRINT_DEBUG);
+        }
+
         new InventoryPacketOut(new InventoryActions(
                 InventoryActions.ActionType.MOVE,
                 inventoryMoveType.getFromWindow(),
@@ -65,8 +73,10 @@ public class InventoryMoveActions {
         if (targetItemStack != null) {
 
             if (isStack) {
+                println(getClass(), "Doing: stackItemAction");
                 stackItemAction(itemStackTargetSlot, sourceItemStack, targetItemStack, sourceItemStackSlot);
             } else {
+                println(getClass(), "Doing: swapItemAction");
                 swapItemAction(itemStackTargetSlot, sourceItemStack, targetItemStack, sourceItemStackSlot);
             }
 

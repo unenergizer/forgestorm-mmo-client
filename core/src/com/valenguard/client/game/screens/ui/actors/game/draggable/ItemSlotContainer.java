@@ -35,9 +35,27 @@ public class ItemSlotContainer extends HideableVisWindow {
         }
     }
 
-    public ItemStackSlot getFreeItemStackSlot() {
+    /**
+     * This will test to see if we have an empty slot in the target container.
+     *
+     * @param itemStack The {@link ItemStack} that we want to move.
+     * @return An {@link ItemStackSlot} if one is free or if the item we are moving can
+     * be stacked into a slot that contains that same {@link ItemStack}.
+     */
+    public ItemStackSlot getFreeItemStackSlot(ItemStack itemStack) {
         for (byte i = 0; i < containerSize; i++) {
-            if (itemStackSlots[i].getItemStack() == null) {
+
+            // Test for empty slot
+            if (itemStackSlots[i].getItemStack() == null) return itemStackSlots[i];
+
+            ItemStack targetItemStack = itemStackSlots[i].getItemStack();
+            boolean bothStackable = itemStack.getStackable() > 1 && targetItemStack.getStackable() > 1;
+            boolean bothSameID = itemStack.getItemId() == targetItemStack.getItemId();
+            // TODO: Make then test for the below line.
+            //  boolean notOverMax = itemStack.getAmount() + targetItemStack.getAmount() < itemStack.getMaxStackSize();
+
+            // Test for stackable slot
+            if (bothStackable && bothSameID) {
                 return itemStackSlots[i];
             }
         }
@@ -48,6 +66,11 @@ public class ItemSlotContainer extends HideableVisWindow {
         boolean foundFreeSlot = false;
         for (byte i = 0; i < containerSize; i++) {
             if (itemStackSlots[i].getItemStack() == null) {
+                // Found an empty slot
+                foundFreeSlot = true;
+                break;
+            } else if (itemStackSlots[i].getItemStack().getStackable() > 1) {
+                // Found a stackable slot
                 foundFreeSlot = true;
                 break;
             }

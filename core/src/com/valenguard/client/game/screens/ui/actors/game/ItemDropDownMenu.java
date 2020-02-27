@@ -91,7 +91,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                 // Check again, if player closes bank, the menu does not reflect that
                 if (stageHandler.getBankWindow().isVisible()) {
                     BankWindow bankWindow = stageHandler.getBankWindow();
-                    ItemStackSlot targetItemStackSlot = bankWindow.getFreeItemStackSlot();
+                    ItemStackSlot targetItemStackSlot = bankWindow.getFreeItemStackSlot(itemStack);
                     if (targetItemStackSlot != null) {
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                         new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
@@ -119,7 +119,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                 // Check again, if player closes bank, the menu does not reflect that
                 if (stageHandler.getBankWindow().isVisible()) {
                     BagWindow bagWindow = stageHandler.getBagWindow();
-                    ItemStackSlot targetItemStackSlot = bagWindow.getFreeItemStackSlot();
+                    ItemStackSlot targetItemStackSlot = bagWindow.getFreeItemStackSlot(itemStack);
                     if (targetItemStackSlot != null) {
                         Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                         new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
