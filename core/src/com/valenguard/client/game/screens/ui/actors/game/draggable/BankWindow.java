@@ -131,6 +131,8 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
     }
 
     public void openWindow() {
+        BagWindow bagWindow = stageHandler.getBagWindow();
+        if (!bagWindow.isVisible()) ActorUtil.fadeInWindow(bagWindow);
         ActorUtil.fadeInWindow(this);
         findWindowPosition(false);
     }
