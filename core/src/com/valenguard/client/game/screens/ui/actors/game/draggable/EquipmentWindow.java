@@ -216,7 +216,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
+                return true; // Handle window click through
             }
         });
 
