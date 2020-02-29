@@ -2,7 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -121,12 +120,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
             }
         });
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true; // Prevent click-through
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

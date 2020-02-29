@@ -1,8 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.settings;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -68,12 +66,7 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
         tabbedPane.add(socialTab);
         tabbedPane.switchTab(0);
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

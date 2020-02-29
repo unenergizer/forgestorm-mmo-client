@@ -1,8 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.Focusable;
@@ -82,12 +80,7 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
         add(slotTable).row();
         add(buttonTable).align(Alignment.RIGHT.getAlignment());
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true; // Handle window click through
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

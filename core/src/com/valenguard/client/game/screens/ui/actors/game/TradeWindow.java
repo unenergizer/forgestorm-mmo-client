@@ -143,12 +143,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             }
         });
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true; // Prevent click-through
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

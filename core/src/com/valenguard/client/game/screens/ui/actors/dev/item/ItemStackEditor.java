@@ -1,8 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.dev.item;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -57,12 +55,7 @@ public class ItemStackEditor extends HideableVisWindow implements Buildable, Foc
         tabbedPane.add(consumableTab);
         tabbedPane.switchTab(0);
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

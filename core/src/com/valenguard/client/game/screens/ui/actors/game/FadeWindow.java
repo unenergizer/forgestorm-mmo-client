@@ -2,8 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -29,12 +27,7 @@ public class FadeWindow extends HideableVisWindow implements Buildable {
         visLabel.setAlignment(Alignment.TOP.getAlignment());
         add(visLabel).expand().fill().padTop(5);
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new WindowResizeListener() {
             @Override

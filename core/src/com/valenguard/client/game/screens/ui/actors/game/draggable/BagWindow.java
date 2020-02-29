@@ -2,7 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -54,12 +53,8 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
                 columnCount = 0;
             }
         }
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true; // Handle window click through
-            }
-        });
+
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

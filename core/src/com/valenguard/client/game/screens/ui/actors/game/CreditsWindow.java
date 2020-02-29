@@ -2,8 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.LinkLabel;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -61,12 +59,7 @@ public class CreditsWindow extends HideableVisWindow implements Buildable {
 
         add(mainTable);
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override

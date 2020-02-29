@@ -1,8 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.Focusable;
@@ -213,12 +211,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         add(equipmentSlotsTable).grow().align(Align.top).padRight(10);
         add(equipmentStatsTable).expandY().align(Align.top);
 
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true; // Handle window click through
-            }
-        });
+        stopWindowClickThrough();
 
         addListener(new ForceCloseWindowListener() {
             @Override
