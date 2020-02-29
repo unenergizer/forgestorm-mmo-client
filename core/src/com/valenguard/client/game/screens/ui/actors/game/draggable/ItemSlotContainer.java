@@ -62,20 +62,8 @@ public class ItemSlotContainer extends HideableVisWindow {
         return null;
     }
 
-    boolean isInventoryFull() {
-        boolean foundFreeSlot = false;
-        for (byte i = 0; i < containerSize; i++) {
-            if (itemStackSlots[i].getItemStack() == null) {
-                // Found an empty slot
-                foundFreeSlot = true;
-                break;
-            } else if (itemStackSlots[i].getItemStack().getStackable() > 1) {
-                // Found a stackable slot
-                foundFreeSlot = true;
-                break;
-            }
-        }
-        return !foundFreeSlot;
+    boolean isInventoryFull(ItemStack itemStack) {
+        return getFreeItemStackSlot(itemStack) == null;
     }
 
     public void setItemStack(byte slotIndex, ItemStack itemStack) {

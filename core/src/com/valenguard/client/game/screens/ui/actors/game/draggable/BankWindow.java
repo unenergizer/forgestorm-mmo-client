@@ -19,8 +19,6 @@ import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
-import static com.valenguard.client.util.Log.println;
-
 public class BankWindow extends ItemSlotContainer implements Buildable, Focusable {
 
     private StageHandler stageHandler;
@@ -103,28 +101,15 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
     }
 
     private void depositItems(ItemSlotContainer itemSlotContainer) {
-//        List<ItemStackSlot> freeSlots = new ArrayList<ItemStackSlot>();
-//
-//        for (ItemStackSlot bankSlot : itemStackSlots) {
-//            if (bankSlot.getItemStack() == null) {
-//                freeSlots.add(bankSlot);
-//                continue;
-//            } else if () {
-//
-//            }
-//        }
-
         for (ItemStackSlot itemStackSlot : itemSlotContainer.itemStackSlots) {
             if (itemStackSlot.getItemStack() == null) continue;
 
             ItemStackSlot targetItemStackSlot = getFreeItemStackSlot(itemStackSlot.getItemStack());
 
             if (targetItemStackSlot != null) {
-                println(getClass(), "targetItemStackSlot not null");
                 ItemStack targetItemStack = targetItemStackSlot.getItemStack();
                 new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), targetItemStack);
             } else {
-                println(getClass(), "targetItemStackSlot is null");
                 new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), null);
             }
         }
@@ -178,7 +163,7 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
             return;
         }
 
-        if (itemSlotContainer.isInventoryFull()) {
+        if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
             stageHandler.getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
             return;
         }

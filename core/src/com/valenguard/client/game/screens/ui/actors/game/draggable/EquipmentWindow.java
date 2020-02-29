@@ -120,7 +120,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
 
     public void unequipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
         BagWindow bagWindow = stageHandler.getBagWindow();
-        if (bagWindow.isInventoryFull()) {
+        if (bagWindow.isInventoryFull(sourceItemStack)) {
             stageHandler.getChatWindow().appendChatMessage("[RED]Cannot unequip because your bag is full!");
             return;
         }
