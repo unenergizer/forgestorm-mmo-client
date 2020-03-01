@@ -160,13 +160,13 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private void cleanUpDropDownMenu(boolean closeWindow) {
         if (closeWindow) ActorUtil.fadeOutWindow(dropDownMenu);
+        dropDownTable.clearListeners();
         dropDownTable.clearChildren();
     }
 
     class EditorMenuEntry extends VisTable {
 
         private final Entity clickedEntity;
-        private PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
 
         EditorMenuEntry(Entity clickedEntity) {
             this.clickedEntity = clickedEntity;

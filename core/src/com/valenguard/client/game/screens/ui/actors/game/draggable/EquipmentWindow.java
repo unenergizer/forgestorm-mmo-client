@@ -9,6 +9,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.SkillOpcodes;
+import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -20,6 +21,7 @@ import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
+import com.valenguard.client.io.type.GameAtlas;
 
 import lombok.Getter;
 
@@ -90,9 +92,14 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
           */
         VisTable equipmentStatsTable = new VisTable();
 
+        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
+        final int padRight = 3;
         VisTable tagTable = new VisTable();
+        tagTable.add(imageBuilder.setRegionName("skill_alt_076").buildVisImage()).padRight(padRight);
         tagTable.add(levelTag).align(Align.topLeft).row();
+        tagTable.add(imageBuilder.setRegionName("shield_10").buildVisImage()).padRight(padRight);
         tagTable.add(armorTag).align(Align.topLeft).row();
+        tagTable.add(imageBuilder.setRegionName("weapon_axe_21").buildVisImage()).padRight(padRight);
         tagTable.add(damageTag).align(Align.topLeft).row();
 
         VisTable valuesTable = new VisTable();
