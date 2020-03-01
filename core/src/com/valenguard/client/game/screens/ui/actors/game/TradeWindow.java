@@ -386,7 +386,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                     itemStackToolTip.unregisterToolTip();
                     itemStackToolTip = null;
                 }
-                itemStackToolTip = new ItemStackToolTip(stageHandler, lockedItemStackSlot, itemStack, tradeCell);
+                itemStackToolTip = new ItemStackToolTip(stageHandler, lockedItemStackSlot, itemStack, tradeCell, false);
                 itemStackToolTip.registerToolTip();
             }
 

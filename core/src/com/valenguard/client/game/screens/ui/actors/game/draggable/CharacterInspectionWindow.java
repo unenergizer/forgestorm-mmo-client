@@ -1,0 +1,88 @@
+package com.valenguard.client.game.screens.ui.actors.game.draggable;
+
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
+import com.valenguard.client.ClientConstants;
+import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.Buildable;
+import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
+import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
+import com.valenguard.client.game.world.entities.Player;
+import com.valenguard.client.game.world.item.ItemStack;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+public class CharacterInspectionWindow extends ItemSlotContainer implements Buildable {
+
+    private StageHandler stageHandler;
+    private EquipmentPreview equipmentPreview = new EquipmentPreview();
+
+    @Setter
+    private Player playerToInspect;
+
+    public CharacterInspectionWindow() {
+        super("Inspect Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
+    }
+
+    @Override
+    public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
+        addCloseButton();
+        setResizable(false);
+
+        Actor equipmentSlotsTable = equipmentPreview.build(stageHandler, this, itemStackSlots);
+        add(equipmentSlotsTable).grow().align(Align.top).padRight(10);
+
+        stopWindowClickThrough();
+
+        addListener(new ForceCloseWindowListener() {
+            @Override
+            public void handleClose() {
+
+            }
+        });
+
+        addListener(new WindowResizeListener() {
+            @Override
+            public void resize() {
+                findPosition();
+            }
+        });
+
+        pack();
+        findPosition();
+        setVisible(false);
+        return this;
+    }
+
+    private void findPosition() {
+        ChatWindow chatWindow = stageHandler.getChatWindow();
+        float y = chatWindow.getY() + chatWindow.getHeight() + 15;
+        setPosition(StageHandler.WINDOW_PAD_X, y);
+    }
+
+    public void inspectCharacter(int[] itemIds) {
+        getTitleLabel().setText("Inspecting: " + playerToInspect.getEntityName());
+        equipmentPreview.resetFacingDirection();
+        equipmentPreview.rebuildPreviewTable(playerToInspect);
+
+        // Clear old items
+        resetItemSlotContainer();
+
+        // Set Items
+        for (int itemId : itemIds) {
+            if (itemId == -1) continue;
+            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemId, 0);
+            ItemStackSlot targetSlot = equipmentPreview.getItemStackSlot(itemStack.getItemStackType());
+            targetSlot.setCharacterInspectionSlot(true); // Prevent Item from being moved
+            targetSlot.setItemStack(itemStack);
+        }
+
+        if (!isVisible()) ActorUtil.fadeInWindow(this);
+    }
+}

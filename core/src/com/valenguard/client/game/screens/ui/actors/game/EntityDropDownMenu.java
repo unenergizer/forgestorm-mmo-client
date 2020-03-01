@@ -338,7 +338,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     new InspectPlayerPacketOut(clickedMovingEntity.getServerEntityID()).sendPacket();
                     stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedMovingEntity);
 
-                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player " + entityName + " equipment.");
+                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player [GOLD]" + clickedMovingEntity.getEntityName() + "s [YELLOW]equipment.");
                     cleanUpDropDownMenu(true);
                 }
             });

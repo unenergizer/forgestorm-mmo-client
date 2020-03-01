@@ -15,7 +15,7 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INSPECT_PLAYER)
 public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacketIn.InspectPlayerPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

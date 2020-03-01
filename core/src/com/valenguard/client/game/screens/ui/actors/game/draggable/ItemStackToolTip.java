@@ -28,12 +28,14 @@ public class ItemStackToolTip extends HideableVisWindow {
     private VisLabel equipInfo;
     private VisLabel debugInfo;
     private InputListener inputListener;
+    private boolean showEquipHowTo;
 
-    public ItemStackToolTip(StageHandler stageHandler, ItemStackSlot itemStackSlot, ItemStack itemStack, Actor itemStackActor) {
+    public ItemStackToolTip(StageHandler stageHandler, ItemStackSlot itemStackSlot, ItemStack itemStack, Actor itemStackActor, boolean showEquipHowTo) {
         super("");
         this.stageHandler = stageHandler;
         this.itemStackSlot = itemStackSlot;
         this.itemStackToolTip = this;
+        this.showEquipHowTo = showEquipHowTo;
         build(itemStack, itemStackActor);
     }
 
@@ -78,7 +80,7 @@ public class ItemStackToolTip extends HideableVisWindow {
         toolTipTable.add(nameLabel).padBottom(3).row();
         toolTipTable.add(typeLabel).left().row();
         toolTipTable.add(descTextArea).left().row();
-        toolTipTable.add(equipInfo).left().row();
+        if (showEquipHowTo) toolTipTable.add(equipInfo).left().row();
         toolTipTable.add(debugInfo).left().row();
 
         add(toolTipTable);
@@ -98,13 +100,15 @@ public class ItemStackToolTip extends HideableVisWindow {
         descTextArea.setPrefRows(3);
 
         // Show tool-tip help info for equipping and uneqipping items.
-        if (itemStackSlot != null && itemStack.getItemStackType().isEquipable()) {
-            InventoryType inventoryType = itemStackSlot.getInventoryType();
+        if (showEquipHowTo) {
+            if (itemStackSlot != null && itemStack.getItemStackType().isEquipable()) {
+                InventoryType inventoryType = itemStackSlot.getInventoryType();
 
-            if (inventoryType == InventoryType.BAG_1) {
-                equipInfo.setText("[GRAY]CTRL+Click item to equip");
-            } else if (inventoryType == InventoryType.EQUIPMENT) {
-                equipInfo.setText("[GRAY]CTRL+Click item to unequip");
+                if (inventoryType == InventoryType.BAG_1) {
+                    equipInfo.setText("[GRAY]CTRL+Click item to equip");
+                } else if (inventoryType == InventoryType.EQUIPMENT) {
+                    equipInfo.setText("[GRAY]CTRL+Click item to unequip");
+                }
             }
         }
 

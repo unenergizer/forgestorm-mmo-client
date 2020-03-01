@@ -384,7 +384,7 @@ public class EntityShopWindow extends HideableVisWindow implements Buildable {
                     itemStackToolTip.unregisterToolTip();
                     itemStackToolTip = null;
                 }
-                itemStackToolTip = new ItemStackToolTip(stageHandler, null, itemStack, this);
+                itemStackToolTip = new ItemStackToolTip(stageHandler, null, itemStack, this, false);
                 itemStackToolTip.registerToolTip();
             }
             pack();

@@ -84,6 +84,16 @@ public class ItemStackSlot extends VisTable {
     private boolean moveSlotLocked = false;
 
     /**
+     * If true, then this slot is used for the {@link CharacterInspectionWindow}.
+     * Since it's an inspection window, we don't want to allow the player to
+     * drag an {@link ItemStack} from the window. This makes the slot for display
+     * only.
+     */
+    @Getter
+    @Setter
+    private boolean characterInspectionSlot = false;
+
+    /**
      * Shows information about this {@link ItemStackSlot}
      */
     private ItemStackToolTip itemStackToolTip;
@@ -203,6 +213,10 @@ public class ItemStackSlot extends VisTable {
     void resetItemStackSlot() {
         itemStack = null;
         setEmptyCellImage();
+        if (itemStackToolTip != null) {
+            itemStackToolTip.unregisterToolTip();
+            itemStackToolTip = null;
+        }
     }
 
     /**
@@ -237,7 +251,7 @@ public class ItemStackSlot extends VisTable {
         if (itemStackToolTip != null) {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
-            itemStackToolTip = new ItemStackToolTip(stageHandler, this, itemStack, itemStackImage);
+            itemStackToolTip = new ItemStackToolTip(stageHandler, this, itemStack, itemStackImage, !characterInspectionSlot);
             itemStackToolTip.registerToolTip();
         }
     }
@@ -262,7 +276,7 @@ public class ItemStackSlot extends VisTable {
             itemStackToolTip.unregisterToolTip();
             itemStackToolTip = null;
         }
-        itemStackToolTip = new ItemStackToolTip(stageHandler, this, itemStack, itemStackImage);
+        itemStackToolTip = new ItemStackToolTip(stageHandler, this, itemStack, itemStackImage, !characterInspectionSlot);
         itemStackToolTip.registerToolTip();
 
         // Add item amount
@@ -306,6 +320,7 @@ public class ItemStackSlot extends VisTable {
              * event is {@link Event#handle() handled}.
              * @see InputEvent */
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (characterInspectionSlot) return true;
                 if (tradeSlotLocked) return true;
                 if (itemStack == null) return true; // Empty slot click!
 

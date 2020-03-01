@@ -37,6 +37,7 @@ public class ItemStackSource extends DragAndDrop.Source {
 
     @Override
     public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
+        if (itemStackSlot.isCharacterInspectionSlot()) return null;
         if (itemStackSlot.isTradeSlotLocked()) return null;
 
         ItemStack itemStack = itemStackSlot.getItemStack();

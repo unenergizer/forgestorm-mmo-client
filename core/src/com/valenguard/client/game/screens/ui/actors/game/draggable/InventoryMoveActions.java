@@ -19,8 +19,8 @@ public class InventoryMoveActions {
 
         // If the target slot is null, do not move items..
         if (itemStackTargetSlot == null) return;
-        
-        if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
+
+        if (sourceItemStackSlot.isCharacterInspectionSlot() || sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
                 || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
             return;
         }
