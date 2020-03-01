@@ -185,6 +185,9 @@ public class MoveInventoryEvents {
                     case SHIELD:
                         EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.RIGHT_HAND);
                         break;
+                    case GLOVES:
+                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.GLOVES_COLOR);
+                        break;
                 }
             }
         }
@@ -211,6 +214,9 @@ public class MoveInventoryEvents {
                 break;
             case SHIELD:
                 EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.RIGHT_HAND, ((WearableItemStack) equipItem).getTextureId());
+                break;
+            case GLOVES:
+                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.GLOVES_COLOR, ((WearableItemStack) equipItem).getColor());
                 break;
         }
     }

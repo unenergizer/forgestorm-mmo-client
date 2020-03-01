@@ -8,6 +8,7 @@ import lombok.Setter;
 public class WearableItemStack extends ItemStack {
 
     private short textureId;
+    private int color;
 
     public WearableItemStack(int itemId) {
         super(itemId);
@@ -17,6 +18,7 @@ public class WearableItemStack extends ItemStack {
     public Object clone() {
         WearableItemStack wearableItemStack = (WearableItemStack) super.clone();
         wearableItemStack.setTextureId(textureId);
+        wearableItemStack.setColor(color);
         return wearableItemStack;
     }
 

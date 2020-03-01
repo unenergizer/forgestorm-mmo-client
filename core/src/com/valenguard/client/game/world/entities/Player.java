@@ -1,9 +1,11 @@
 package com.valenguard.client.game.world.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.entities.animations.human.HumanAnimation;
 import com.valenguard.client.io.type.GameAtlas;
+import com.valenguard.client.util.color.LibGDXColorList;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +22,7 @@ public class Player extends MovingEntity {
         getEntityAnimation().loadAll(gameAtlas);
     }
 
-    public void setBodyPart(AppearanceType appearanceType, short textureId) {
+    public void setBodyPart(AppearanceType appearanceType, int textureId) {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
         Appearance appearance = getAppearance();
 
@@ -28,26 +30,26 @@ public class Player extends MovingEntity {
             case MONSTER_BODY_TEXTURE:
                 break;
             case HAIR_TEXTURE:
-                humanAnimation.loadHair(characterTextureAtlas, textureId);
+                humanAnimation.loadHair(characterTextureAtlas, (short) textureId);
                 appearance.setHairTexture((byte) textureId);
                 break;
             case HELM_TEXTURE:
-                humanAnimation.loadHelm(characterTextureAtlas, textureId);
+                humanAnimation.loadHelm(characterTextureAtlas, (short) textureId);
                 humanAnimation.setShowHelm(true);
                 appearance.setHelmTexture((byte) textureId);
                 break;
             case CHEST_TEXTURE:
-                humanAnimation.loadChest(characterTextureAtlas, textureId);
+                humanAnimation.loadChest(characterTextureAtlas, (short) textureId);
                 humanAnimation.setShowChest(true);
                 appearance.setChestTexture((byte) textureId);
                 break;
             case PANTS_TEXTURE:
-                humanAnimation.loadPants(characterTextureAtlas, textureId);
+                humanAnimation.loadPants(characterTextureAtlas, (short) textureId);
                 humanAnimation.setShowPants(true);
                 appearance.setPantsTexture((byte) textureId);
                 break;
             case SHOES_TEXTURE:
-                humanAnimation.loadShoes(characterTextureAtlas, textureId);
+                humanAnimation.loadShoes(characterTextureAtlas, (short) textureId);
                 humanAnimation.setShowShoes(true);
                 appearance.setShoesTexture((byte) textureId);
                 break;
@@ -58,16 +60,18 @@ public class Player extends MovingEntity {
             case SKIN_COLOR:
                 break;
             case GLOVES_COLOR:
+                humanAnimation.setShowGloves(true);
+                appearance.setGlovesColor(new Color(textureId));
                 break;
             case BORDER_COLOR:
                 break;
             case LEFT_HAND:
-                humanAnimation.loadLeftHand(characterTextureAtlas, textureId);
+                humanAnimation.loadLeftHand(characterTextureAtlas, (short) textureId);
                 humanAnimation.setShowLeftHand(true);
                 appearance.setLeftHandTexture((byte) textureId);
                 break;
             case RIGHT_HAND:
-                humanAnimation.loadRightHand(characterTextureAtlas, textureId);
+                humanAnimation.loadRightHand(characterTextureAtlas, (short) textureId);
                 humanAnimation.setShowRightHand(true);
                 appearance.setRightHandTexture((byte) textureId);
                 break;
@@ -97,6 +101,7 @@ public class Player extends MovingEntity {
                 break;
             case GLOVES_COLOR:
                 humanAnimation.setShowGloves(false);
+                appearance.setGlovesColor(LibGDXColorList.CLEAR.getColor());
                 break;
             case LEFT_HAND:
                 humanAnimation.setShowLeftHand(false);

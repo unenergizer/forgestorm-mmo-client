@@ -132,6 +132,7 @@
   type: GLOVES
   atlas: ITEMS
   region: glove_29
+  color: -1
   armor: 5
   consume: false
 16:

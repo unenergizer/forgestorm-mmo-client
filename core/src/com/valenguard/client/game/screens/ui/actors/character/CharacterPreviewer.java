@@ -101,7 +101,7 @@ public class CharacterPreviewer {
         previewTable.clearChildren(); // Clear previous image
 
         if (appearance == null) {
-            appearance = generateBasicAppearance();
+            appearance = generateInvisibleAppearance();
         }
 
         lastUsedAppearance = appearance;
@@ -218,6 +218,24 @@ public class CharacterPreviewer {
         appearance.setGlovesColor(LibGDXColorList.CLEAR.getColor());
         appearance.setLeftHandTexture((byte) -1);
         appearance.setRightHandTexture((byte) -1);
+
+        return appearance;
+    }
+
+    Appearance generateInvisibleAppearance() {
+        Appearance appearance = new Appearance();
+        appearance.setHairTexture((byte) 0);
+        appearance.setHelmTexture((byte) -1);
+        appearance.setChestTexture((byte) -1);
+        appearance.setPantsTexture((byte) -1);
+        appearance.setShoesTexture((byte) -1);
+        appearance.setHairColor(LibGDXColorList.CLEAR.getColor());
+        appearance.setEyeColor(LibGDXColorList.CLEAR.getColor());
+        appearance.setSkinColor(LibGDXColorList.CLEAR.getColor());
+        appearance.setGlovesColor(Color.CLEAR);
+        appearance.setLeftHandTexture((byte) -1);
+        appearance.setRightHandTexture((byte) -1);
+        appearance.setBorderColor(LibGDXColorList.CLEAR.getColor());
 
         return appearance;
     }

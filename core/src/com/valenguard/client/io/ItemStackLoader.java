@@ -59,6 +59,12 @@ public class ItemStackLoader {
                 ((WearableItemStack) itemStack).setTextureId(wearable.shortValue());
             }
 
+            Integer color = (Integer) itemNode.get("color");
+            if (type == ItemStackType.GLOVES) {
+                itemStack = new WearableItemStack(itemId);
+                ((WearableItemStack) itemStack).setColor(color);
+            }
+
             /*
              * Get item stats
              */
@@ -96,7 +102,10 @@ public class ItemStackLoader {
 
             println(getClass(), "Damage: " + attributes.getDamage(), false, PRINT_DEBUG && attributes.getDamage() != 0);
             println(getClass(), "Armor: " + attributes.getArmor(), false, PRINT_DEBUG && attributes.getArmor() != 0);
-
+            if (itemStack instanceof WearableItemStack) {
+                println(getClass(), "TextureId: " + ((WearableItemStack) itemStack).getTextureId(), false, PRINT_DEBUG);
+                println(getClass(), "Color: " + ((WearableItemStack) itemStack).getColor(), false, PRINT_DEBUG);
+            }
             println(PRINT_DEBUG);
 
             itemStacks.add(itemStack);
