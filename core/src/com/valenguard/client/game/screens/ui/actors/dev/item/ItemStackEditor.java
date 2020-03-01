@@ -1,7 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.dev.item;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -17,7 +16,7 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import lombok.Getter;
 
 @Getter
-public class ItemStackEditor extends HideableVisWindow implements Buildable, Focusable {
+public class ItemStackEditor extends HideableVisWindow implements Buildable {
 
     private WearableTab wearableTab = new WearableTab();
     private AmmoTab ammoTab = new AmmoTab();
@@ -79,13 +78,5 @@ public class ItemStackEditor extends HideableVisWindow implements Buildable, Foc
 
     public void resetValues() {
         // TODO!
-    }
-
-    @Override
-    public void focusLost() {
-    }
-
-    @Override
-    public void focusGained() {
     }
 }

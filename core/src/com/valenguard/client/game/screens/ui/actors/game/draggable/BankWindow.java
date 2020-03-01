@@ -3,7 +3,6 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -19,7 +18,7 @@ import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
-public class BankWindow extends ItemSlotContainer implements Buildable, Focusable {
+public class BankWindow extends ItemSlotContainer implements Buildable {
 
     private StageHandler stageHandler;
 
@@ -112,7 +111,7 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
                 ItemStack targetItemStack = targetItemStackSlot.getItemStack();
                 new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), targetItemStack);
             } else {
-                new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), null);
+                new InventoryMoveActions().moveItems(itemStackSlot, null, itemStackSlot.getItemStack(), null);
             }
         }
     }
@@ -147,16 +146,6 @@ public class BankWindow extends ItemSlotContainer implements Buildable, Focusabl
     @Override
     protected void close() {
         EntityManager.getInstance().getPlayerClient().closeBankWindow();
-    }
-
-    @Override
-    public void focusLost() {
-
-    }
-
-    @Override
-    public void focusGained() {
-
     }
 
     void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {

@@ -2,7 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
@@ -24,7 +23,7 @@ import com.valenguard.client.game.world.item.ItemStackType;
 import lombok.Getter;
 
 @Getter
-public class EquipmentWindow extends ItemSlotContainer implements Buildable, Focusable {
+public class EquipmentWindow extends ItemSlotContainer implements Buildable {
 
     private StageHandler stageHandler;
     private EquipmentPreview equipmentPreview = new EquipmentPreview();
@@ -154,15 +153,5 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable, Foc
         equipmentPreview.resetFacingDirection();
         rebuildPreviewTable();
         if (!isVisible()) ActorUtil.fadeInWindow(this);
-    }
-
-    @Override
-    public void focusLost() {
-
-    }
-
-    @Override
-    public void focusGained() {
-
     }
 }

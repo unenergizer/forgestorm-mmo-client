@@ -2,7 +2,6 @@ package com.valenguard.client.game.screens.ui.actors.settings;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -18,7 +17,7 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import lombok.Getter;
 
 @Getter
-public class MainSettingsWindow extends HideableVisWindow implements Buildable, Focusable {
+public class MainSettingsWindow extends HideableVisWindow implements Buildable {
 
     private final WelcomeTab welcomeTab;
     private GameMechanicsTab gameMechanicsTab;
@@ -87,14 +86,6 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable, 
         centerWindow();
         setVisible(false);
         return this;
-    }
-
-    @Override
-    public void focusLost() {
-    }
-
-    @Override
-    public void focusGained() {
     }
 
     private class TestTab extends Tab {

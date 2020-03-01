@@ -1,7 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
@@ -16,7 +15,7 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import lombok.Getter;
 
 @Getter
-public class EntityEditor extends HideableVisWindow implements Buildable, Focusable {
+public class EntityEditor extends HideableVisWindow implements Buildable {
 
     @Getter
     private TabbedPane tabbedPane = new TabbedPane();
@@ -83,13 +82,5 @@ public class EntityEditor extends HideableVisWindow implements Buildable, Focusa
         npcTab.resetValues();
         monsterTab.resetValues();
         itemStackDropTab.resetValues();
-    }
-
-    @Override
-    public void focusLost() {
-    }
-
-    @Override
-    public void focusGained() {
     }
 }

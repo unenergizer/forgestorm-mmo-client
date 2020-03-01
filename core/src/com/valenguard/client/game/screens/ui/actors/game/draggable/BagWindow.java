@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.Focusable;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -19,7 +18,7 @@ import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
-public class BagWindow extends ItemSlotContainer implements Buildable, Focusable {
+public class BagWindow extends ItemSlotContainer implements Buildable {
 
     private StageHandler stageHandler;
 
@@ -127,15 +126,5 @@ public class BagWindow extends ItemSlotContainer implements Buildable, Focusable
 
         if (titleLabel.getLabelAlign() == Align.center && titleTable.getChildren().size == 2)
             titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
-    }
-
-    @Override
-    public void focusLost() {
-
-    }
-
-    @Override
-    public void focusGained() {
-
     }
 }
