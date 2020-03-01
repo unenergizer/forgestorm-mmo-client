@@ -14,6 +14,14 @@ public enum CursorDrawType {
 
     // Skills
     MINING("skill_mining", 8);
+    // Tree cutting -> Axe Icon
+    // Fishing -> Net or Fishing Rod Icon
+
+    // Combat -> Sword Icon
+    // NPC talk -> Speech Bubble Icon
+    // NPC Shop -> Bag Icon
+    // Bank -> Money Icon
+    // Pickup Item -> Hand Icon
 
     private String drawableRegion;
     private int size;

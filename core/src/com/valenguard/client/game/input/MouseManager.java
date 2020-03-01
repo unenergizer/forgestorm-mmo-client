@@ -3,6 +3,7 @@ package com.valenguard.client.game.input;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.ClientConstants;
 import com.valenguard.client.Valenguard;
@@ -284,16 +285,25 @@ public class MouseManager {
         println(getClass(), "Back Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
+    private CursorDrawType lastCursorDrawType = CursorDrawType.NO_DRAWABLE;
+    private TextureRegionDrawable cursorDrawable;
+
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch) {
         GameMap gameMap = playerClient.getGameMap();
         if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
         CursorDrawType cursorDrawType = gameMap.getMapTiles()[mouseTileX][mouseTileY].getCursorDrawType();
+
+        if (cursorDrawType != lastCursorDrawType && cursorDrawType != CursorDrawType.NO_DRAWABLE) {
+            lastCursorDrawType = cursorDrawType;
+            cursorDrawable = new ImageBuilder(GameAtlas.CURSOR, cursorDrawType.getDrawableRegion(), cursorDrawType.getSize()).buildTextureRegionDrawable();
+        }
+
         if (cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
         spriteBatch.begin();
         fadeOut.draw(spriteBatch,
-                new ImageBuilder(GameAtlas.CURSOR, cursorDrawType.getDrawableRegion(), cursorDrawType.getSize()).buildTextureRegionDrawable(),
-                mouseWorldX - (cursorDrawType.getSize() / 2),
-                mouseWorldY - (cursorDrawType.getSize() / 2),
+                cursorDrawable,
+                mouseWorldX - cursorDrawType.getSize() / 2f,
+                mouseWorldY - cursorDrawType.getSize() / 2f,
                 cursorDrawType.getSize(),
                 cursorDrawType.getSize());
         spriteBatch.end();
