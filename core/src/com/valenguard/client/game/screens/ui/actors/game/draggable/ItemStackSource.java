@@ -73,9 +73,8 @@ public class ItemStackSource extends DragAndDrop.Source {
         inventoryPayload.setInvalidDragActor(image);
 
         // Highlight acceptable slot, if the item is wearable
-        EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
-        if (itemStack.getItemStackType().isEquipable() && equipmentWindow.isVisible()) {
-            highlightedEquipmentSlot = equipmentWindow.addSlotHighlight(itemStack);
+        if (itemStack.getItemStackType().isEquipable()) {
+            highlightedEquipmentSlot = stageHandler.getEquipmentWindow().addSlotHighlight(itemStack);
             slotHighlighted = true;
         }
 
