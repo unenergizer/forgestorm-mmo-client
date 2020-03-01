@@ -1,6 +1,5 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
@@ -17,8 +16,6 @@ import lombok.AllArgsConstructor;
 @Opcode(getOpcode = Opcodes.BANK_MANAGEMENT)
 public class BankManagePacketIn implements PacketListener<BankManagePacketIn.BankManagePacket> {
 
-    private final static boolean PRINT_DEBUG = false;
-
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final byte bankAction = clientHandler.readByte();
@@ -33,7 +30,6 @@ public class BankManagePacketIn implements PacketListener<BankManagePacketIn.Ban
         switch (packetData.bankAction) {
             case SERVER_OPEN:
                 bankWindow.openWindow();
-                FocusManager.switchFocus(stageHandler.getStage(), bankWindow);
                 EntityManager.getInstance().getPlayerClient().setBankOpen(true);
                 break;
             case SERVER_CLOSE:

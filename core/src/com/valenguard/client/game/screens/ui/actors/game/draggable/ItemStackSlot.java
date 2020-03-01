@@ -29,6 +29,9 @@ public class ItemStackSlot extends VisTable {
      */
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
 
+    @Getter
+    private final Color emptySlotColor = new Color(1f, 1f, 1f, .2f);
+
     private StageHandler stageHandler;
 
     /**
@@ -203,7 +206,7 @@ public class ItemStackSlot extends VisTable {
             }
             // Fades out the image for the empty cell. Primarily used by EquipmentBag to
             // indicate an empty ItemStack cell.
-            emptyCellImage.setColor(new Color(1f, 1f, 1f, .2f));
+            emptyCellImage.setColor(emptySlotColor);
         }
     }
 
@@ -308,6 +311,14 @@ public class ItemStackSlot extends VisTable {
             itemStackImage.setColor(new Color(1, 0f, 0f, .5f));
         } else {
             itemStackImage.setColor(new Color(1, 1, 1, 1f));
+        }
+    }
+
+    void highlightSlot(Color color) {
+        if (itemStack != null) {
+            itemStackImage.setColor(color);
+        } else {
+            emptyCellImage.setColor(color);
         }
     }
 

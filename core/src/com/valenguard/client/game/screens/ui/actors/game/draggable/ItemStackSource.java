@@ -22,6 +22,9 @@ public class ItemStackSource extends DragAndDrop.Source {
     @Getter
     private final ItemStackSlot itemStackSlot;
 
+    private boolean slotHighlighted = false;
+    private ItemStackSlot highlightedEquipmentSlot;
+
     ItemStackSource(StageHandler stageHandler, DragAndDrop dragManager, ItemStackSlot itemStackSlot) {
         super(itemStackSlot);
         this.stageHandler = stageHandler;
@@ -33,6 +36,12 @@ public class ItemStackSource extends DragAndDrop.Source {
     public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target) {
         if (target == null && !itemStackSlot.isTradeSlotLocked()) itemStackSlot.setItemImage();
 
+        // Remove slot highlight
+        if (slotHighlighted) {
+            stageHandler.getEquipmentWindow().removeSlotHighlight(highlightedEquipmentSlot);
+            slotHighlighted = false;
+            highlightedEquipmentSlot = null;
+        }
     }
 
     @Override
@@ -50,8 +59,6 @@ public class ItemStackSource extends DragAndDrop.Source {
         DragAndDrop.Payload inventoryPayload = new DragAndDrop.Payload();
         inventoryPayload.setObject(itemStack);
 
-        itemStackSlot.setEmptyCellImage();
-
         if (stageHandler.getItemDropDownMenu().isVisible()) {
             ActorUtil.fadeOutWindow(stageHandler.getItemDropDownMenu());
         }
@@ -64,6 +71,13 @@ public class ItemStackSource extends DragAndDrop.Source {
         image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
         image.setColor(Color.RED);
         inventoryPayload.setInvalidDragActor(image);
+
+        // Highlight acceptable slot, if the item is wearable
+        EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
+        if (itemStack.getItemStackType().isEquipable() && equipmentWindow.isVisible()) {
+            highlightedEquipmentSlot = equipmentWindow.addSlotHighlight(itemStack);
+            slotHighlighted = true;
+        }
 
         // Sets where the image will be shown relative to the mouse
         dragManager.setDragActorPosition(image.getWidth() / 2, -image.getHeight() / 2);

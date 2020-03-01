@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -153,5 +154,23 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
         equipmentPreview.resetFacingDirection();
         rebuildPreviewTable();
         if (!isVisible()) ActorUtil.fadeInWindow(this);
+    }
+
+    ItemStackSlot addSlotHighlight(ItemStack itemStack) {
+        ItemStackSlot itemStackSlot = equipmentPreview.getItemStackSlot(itemStack.getItemStackType());
+        if (itemStackSlot.getItemStack() != null) {
+            itemStackSlot.highlightSlot(Color.GREEN);
+        } else {
+            itemStackSlot.highlightSlot(new Color(0f, 1f, 0f, .6f));
+        }
+        return itemStackSlot;
+    }
+
+    void removeSlotHighlight(ItemStackSlot itemStackSlot) {
+        if (itemStackSlot.getItemStack() != null) {
+            itemStackSlot.highlightSlot(Color.WHITE);
+        } else {
+            itemStackSlot.highlightSlot(itemStackSlot.getEmptySlotColor());
+        }
     }
 }

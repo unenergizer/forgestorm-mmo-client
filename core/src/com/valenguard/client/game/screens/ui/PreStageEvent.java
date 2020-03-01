@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.kotcrab.vis.ui.FocusManager;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.UserInterfaceType;
@@ -136,7 +135,6 @@ class PreStageEvent implements InputProcessor {
             if (keycode == KeyBinds.INVENTORY_WINDOW) {
                 if (!stageHandler.getBagWindow().isVisible()) {
                     stageHandler.getBagWindow().openWindow();
-                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getBagWindow());
                 } else {
                     stageHandler.getBagWindow().closeWindow();
                 }
@@ -149,7 +147,6 @@ class PreStageEvent implements InputProcessor {
             if (keycode == KeyBinds.EQUIPMENT_WINDOW) {
                 if (!stageHandler.getEquipmentWindow().isVisible()) {
                     stageHandler.getEquipmentWindow().openWindow();
-                    FocusManager.switchFocus(stageHandler.getStage(), stageHandler.getEquipmentWindow());
                 } else {
                     ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
                 }
