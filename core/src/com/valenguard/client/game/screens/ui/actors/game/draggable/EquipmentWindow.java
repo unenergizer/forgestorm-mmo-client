@@ -3,6 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
@@ -30,10 +31,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
 
     private StageHandler stageHandler;
     private EquipmentPreview equipmentPreview = new EquipmentPreview();
-
-    private VisLabel levelTag = new VisLabel("Level: ");
-    private VisLabel armorTag = new VisLabel("Armor:");
-    private VisLabel damageTag = new VisLabel("Damage:");
+    private ImageBuilder statIconBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
 
     private VisLabel levelValue = new VisLabel("0000");
     private VisLabel armorValue = new VisLabel("00000");
@@ -90,29 +88,14 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
         /*
          Build Equipment Stats Table
           */
-        VisTable equipmentStatsTable = new VisTable();
-
-        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
-        final int padRight = 3;
-        VisTable tagTable = new VisTable();
-        tagTable.add(imageBuilder.setRegionName("skill_alt_076").buildVisImage()).padRight(padRight);
-        tagTable.add(levelTag).align(Align.topLeft).row();
-        tagTable.add(imageBuilder.setRegionName("shield_10").buildVisImage()).padRight(padRight);
-        tagTable.add(armorTag).align(Align.topLeft).row();
-        tagTable.add(imageBuilder.setRegionName("weapon_axe_21").buildVisImage()).padRight(padRight);
-        tagTable.add(damageTag).align(Align.topLeft).row();
-
-        VisTable valuesTable = new VisTable();
-        valuesTable.add(levelValue).align(Align.topRight).row();
-        valuesTable.add(armorValue).align(Align.topRight).row();
-        valuesTable.add(damageValue).align(Align.topRight).row();
-
-        equipmentStatsTable.add(tagTable).expandY().align(Align.topLeft).padRight(8);
-        equipmentStatsTable.add(valuesTable).expandY().align(Align.topRight);
+        VisTable statsTable = new VisTable();
+        statsTable.add(addStatType("skill_alt_076", "Level", levelValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("shield_10", "Armor", armorValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("weapon_axe_21", "Damage", damageValue)).align(Alignment.LEFT.getAlignment()).growX().row();
 
         // Display equipment and stats table on the main table
         add(equipmentSlotsTable).grow().align(Align.top).padRight(10);
-        add(equipmentStatsTable).expandY().align(Align.top);
+        add(statsTable).expandY().align(Align.top).padRight(10);
 
         stopWindowClickThrough();
 
@@ -149,6 +132,17 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
         centerWindow();
         setVisible(false);
         return this;
+    }
+
+    private VisTable addStatType(String iconTexture, String statType, VisLabel valueLable) {
+        final int padRight = 3;
+        VisTable visTable = new VisTable();
+
+        visTable.add(statIconBuilder.setRegionName(iconTexture).buildVisImage()).padRight(padRight);
+        visTable.add(new VisLabel(statType + ":")).padRight(10).growX();
+        visTable.add(valueLable);
+
+        return visTable;
     }
 
     public void rebuildPreviewTable() {
