@@ -33,9 +33,13 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
     private EquipmentPreview equipmentPreview = new EquipmentPreview();
     private ImageBuilder statIconBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
 
-    private VisLabel levelValue = new VisLabel("0000");
-    private VisLabel armorValue = new VisLabel("00000");
-    private VisLabel damageValue = new VisLabel("00000");
+    private VisLabel levelValue = new VisLabel("0");
+    private VisLabel armorValue = new VisLabel("0");
+    private VisLabel damageValue = new VisLabel("0");
+    private VisLabel fireValue = new VisLabel("0");
+    private VisLabel iceValue = new VisLabel("0");
+    private VisLabel lightningValue = new VisLabel("0");
+    private VisLabel poisonValue = new VisLabel("0");
 
     public EquipmentWindow() {
         super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
@@ -91,7 +95,11 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
         VisTable statsTable = new VisTable();
         statsTable.add(addStatType("skill_alt_076", "Level", levelValue)).align(Alignment.LEFT.getAlignment()).growX().row();
         statsTable.add(addStatType("shield_10", "Armor", armorValue)).align(Alignment.LEFT.getAlignment()).growX().row();
-        statsTable.add(addStatType("weapon_axe_21", "Damage", damageValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("weapon_axe_21", "Physical Damage", damageValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("skill_001", "Fire Damage", fireValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("skill_alt_077", "Ice Damage", iceValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("skill_015", "Lightning Damage", lightningValue)).align(Alignment.LEFT.getAlignment()).growX().row();
+        statsTable.add(addStatType("skill_028", "Poison Damage", poisonValue)).align(Alignment.LEFT.getAlignment()).growX().row();
 
         // Display equipment and stats table on the main table
         add(equipmentSlotsTable).grow().align(Align.top).padRight(10);
