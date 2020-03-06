@@ -346,9 +346,9 @@ public class ItemStackSlot extends VisTable {
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 
                     if (inventoryType == InventoryType.BAG_1) {
-                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBankWindow());
+                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBankWindow().getItemSlotContainer());
                     } else if (inventoryType == InventoryType.BANK) {
-                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBagWindow());
+                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBagWindow().getItemSlotContainer());
                     }
                     return true;
                 }
@@ -370,8 +370,8 @@ public class ItemStackSlot extends VisTable {
                 if (button == Input.Buttons.RIGHT) {
                     // Bringing up options for the item!
                     stageHandler.getItemDropDownMenu().toggleMenu(itemStack, inventoryType, itemStackSlot, slotIndex,
-                            itemSlotContainer.getX() + itemStackSlot.getX() + x,
-                            itemSlotContainer.getY() + itemStackSlot.getY() + y);
+                            itemSlotContainer.getParentActor().getX() + itemStackSlot.getX() + x,
+                            itemSlotContainer.getParentActor().getY() + itemStackSlot.getY() + y);
 
                     return true;
                 }

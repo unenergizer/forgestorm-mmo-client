@@ -80,11 +80,11 @@ public class MoveInventoryEvents {
     private ItemSlotContainer getItemSlotContainer(byte inventoryByte) {
         InventoryType inventoryType = InventoryType.values()[inventoryByte];
         if (inventoryType == InventoryType.BAG_1) {
-            return ActorUtil.getStageHandler().getBagWindow();
+            return ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer();
         } else if (inventoryType == InventoryType.BANK) {
-            return ActorUtil.getStageHandler().getBankWindow();
+            return ActorUtil.getStageHandler().getBankWindow().getItemSlotContainer();
         } else if (inventoryType == InventoryType.EQUIPMENT) {
-            return ActorUtil.getStageHandler().getEquipmentWindow();
+            return ActorUtil.getStageHandler().getEquipmentWindow().getItemSlotContainer();
         }
         throw new RuntimeException("Impossible Case!");
     }

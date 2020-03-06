@@ -1,15 +1,19 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
-import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.valenguard.client.game.world.item.ItemStack;
 
-public class ItemSlotContainer extends HideableVisWindow {
+import lombok.Getter;
 
+public class ItemSlotContainer {
+
+    @Getter
+    private final Actor parentActor;
     final ItemStackSlot[] itemStackSlots;
     private final int containerSize;
 
-    ItemSlotContainer(String title, int containerSize) {
-        super(title);
+    ItemSlotContainer(Actor parentActor, int containerSize) {
+        this.parentActor = parentActor;
         itemStackSlots = new ItemStackSlot[containerSize];
         this.containerSize = containerSize;
     }

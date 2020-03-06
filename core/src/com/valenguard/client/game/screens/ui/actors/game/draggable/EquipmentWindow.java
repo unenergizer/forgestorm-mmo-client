@@ -27,7 +27,7 @@ import com.valenguard.client.io.type.GameAtlas;
 import lombok.Getter;
 
 @Getter
-public class EquipmentWindow extends ItemSlotContainer implements Buildable {
+public class EquipmentWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
     private EquipmentPreview equipmentPreview = new EquipmentPreview();
@@ -51,8 +51,8 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
             // RING 0 -> SLOT 6
             // RING 1 -> SLOT 7
 
-            boolean ring0Taken = getItemStack((byte) 8) != null;
-            targetSlot = ring0Taken ? getItemStackSlot((byte) 7) : getItemStackSlot((byte) 8);
+            boolean ring0Taken = getItemSlotContainer().getItemStack((byte) 8) != null;
+            targetSlot = ring0Taken ? getItemSlotContainer().getItemStackSlot((byte) 7) : getItemSlotContainer().getItemStackSlot((byte) 8);
         } else {
             targetSlot = equipmentPreview.getItemStackSlot(sourceItemStack.getItemStackType());
         }
@@ -68,12 +68,12 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
 
     public void unequipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
         BagWindow bagWindow = stageHandler.getBagWindow();
-        if (bagWindow.isInventoryFull(sourceItemStack)) {
+        if (bagWindow.getItemSlotContainer().isInventoryFull(sourceItemStack)) {
             stageHandler.getChatWindow().appendChatMessage("[RED]Cannot unequip because your bag is full!");
             return;
         }
 
-        ItemStackSlot targetSlot = bagWindow.getFreeItemStackSlot(sourceItemStack);
+        ItemStackSlot targetSlot = bagWindow.getItemSlotContainer().getFreeItemStackSlot(sourceItemStack);
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
@@ -87,7 +87,7 @@ public class EquipmentWindow extends ItemSlotContainer implements Buildable {
         addCloseButton();
         setResizable(false);
 
-        Actor equipmentSlotsTable = equipmentPreview.build(stageHandler, this, itemStackSlots);
+        Actor equipmentSlotsTable = equipmentPreview.build(stageHandler, getItemSlotContainer(), getItemSlotContainer().itemStackSlots);
 
         /*
          Build Equipment Stats Table

@@ -18,7 +18,7 @@ import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
-public class BankWindow extends ItemSlotContainer implements Buildable {
+public class BankWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
 
@@ -39,14 +39,14 @@ public class BankWindow extends ItemSlotContainer implements Buildable {
         for (byte i = 0; i < InventoryConstants.BANK_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(this, InventoryType.BANK, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.BANK, i);
             itemStackSlot.build(stageHandler);
 
             slotTable.add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
-            itemStackSlots[i] = itemStackSlot;
+            getItemSlotContainer().itemStackSlots[i] = itemStackSlot;
             columnCount++;
 
             if (columnCount == InventoryConstants.BANK_WIDTH) {
@@ -65,14 +65,14 @@ public class BankWindow extends ItemSlotContainer implements Buildable {
         depositBagItems.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                depositItems(stageHandler.getBagWindow());
+                depositItems(stageHandler.getBagWindow().getItemSlotContainer());
             }
         });
 
         depositWornItems.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                depositItems(stageHandler.getEquipmentWindow());
+                depositItems(stageHandler.getEquipmentWindow().getItemSlotContainer());
             }
         });
 
@@ -105,7 +105,7 @@ public class BankWindow extends ItemSlotContainer implements Buildable {
         for (ItemStackSlot itemStackSlot : itemSlotContainer.itemStackSlots) {
             if (itemStackSlot.getItemStack() == null) continue;
 
-            ItemStackSlot targetItemStackSlot = getFreeItemStackSlot(itemStackSlot.getItemStack());
+            ItemStackSlot targetItemStackSlot = getItemSlotContainer().getFreeItemStackSlot(itemStackSlot.getItemStack());
 
             if (targetItemStackSlot != null) {
                 ItemStack targetItemStack = targetItemStackSlot.getItemStack();

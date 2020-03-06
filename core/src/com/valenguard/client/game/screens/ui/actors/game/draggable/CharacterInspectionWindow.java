@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class CharacterInspectionWindow extends ItemSlotContainer implements Buildable {
+public class CharacterInspectionWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
     private EquipmentPreview equipmentPreview = new EquipmentPreview();
@@ -35,7 +35,7 @@ public class CharacterInspectionWindow extends ItemSlotContainer implements Buil
         addCloseButton();
         setResizable(false);
 
-        Actor equipmentSlotsTable = equipmentPreview.build(stageHandler, this, itemStackSlots);
+        Actor equipmentSlotsTable = equipmentPreview.build(stageHandler, getItemSlotContainer(), getItemSlotContainer().itemStackSlots);
         add(equipmentSlotsTable).grow().align(Align.top).padRight(10);
 
         stopWindowClickThrough();
@@ -72,7 +72,7 @@ public class CharacterInspectionWindow extends ItemSlotContainer implements Buil
         equipmentPreview.rebuildPreviewTable(playerToInspect);
 
         // Clear old items
-        resetItemSlotContainer();
+        getItemSlotContainer().resetItemSlotContainer();
 
         // Set Items
         for (int itemId : itemIds) {

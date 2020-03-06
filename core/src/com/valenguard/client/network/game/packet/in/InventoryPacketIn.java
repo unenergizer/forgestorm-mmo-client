@@ -104,30 +104,30 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             case GIVE:
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getBagWindow().addItemStack(itemStack);
+                ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer().addItemStack(itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
             case REMOVE:
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                ActorUtil.getStageHandler().getBagWindow().removeItemStack(packetData.slotIndex);
+                ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer().removeItemStack(packetData.slotIndex);
                 println(getClass(), packetData.actionType + ": Removing the item at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
             case SET_BAG:
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getBagWindow().setItemStack(packetData.slotIndex, itemStack);
+                ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
             case SET_BANK:
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getBankWindow().setItemStack(packetData.slotIndex, itemStack);
+                ActorUtil.getStageHandler().getBankWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
             case SET_EQUIPMENT:
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getEquipmentWindow().setItemStack(packetData.slotIndex, itemStack);
+                ActorUtil.getStageHandler().getEquipmentWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
         }

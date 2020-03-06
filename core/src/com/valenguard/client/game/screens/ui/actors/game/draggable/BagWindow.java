@@ -18,7 +18,7 @@ import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
-public class BagWindow extends ItemSlotContainer implements Buildable {
+public class BagWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
 
@@ -37,14 +37,14 @@ public class BagWindow extends ItemSlotContainer implements Buildable {
         for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(this, InventoryType.BAG_1, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.BAG_1, i);
             itemStackSlot.build(stageHandler);
 
             add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
-            itemStackSlots[i] = itemStackSlot;
+            getItemSlotContainer().itemStackSlots[i] = itemStackSlot;
             columnCount++;
 
             if (columnCount == InventoryConstants.BAG_WIDTH) {

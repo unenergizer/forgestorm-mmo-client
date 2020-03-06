@@ -116,9 +116,9 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
                 disableButtons(true);
 
                 // Reset Inventories
-                stageHandler.getBagWindow().resetItemSlotContainer();
-                stageHandler.getBankWindow().resetItemSlotContainer();
-                stageHandler.getEquipmentWindow().resetItemSlotContainer();
+                stageHandler.getBagWindow().getItemSlotContainer().resetItemSlotContainer();
+                stageHandler.getBankWindow().getItemSlotContainer().resetItemSlotContainer();
+                stageHandler.getEquipmentWindow().getItemSlotContainer().resetItemSlotContainer();
                 return true;
             }
         });
