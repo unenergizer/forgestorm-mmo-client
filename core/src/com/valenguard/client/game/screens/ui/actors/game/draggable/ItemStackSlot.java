@@ -27,7 +27,7 @@ public class ItemStackSlot extends VisTable {
     /**
      * Used to places images in the UserInterface
      */
-    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+    private final ImageBuilder imageBuilder;
 
     @Getter
     private final Color emptySlotColor = new Color(1f, 1f, 1f, .2f);
@@ -105,17 +105,19 @@ public class ItemStackSlot extends VisTable {
 
     private ItemSlotContainer itemSlotContainer;
 
-    ItemStackSlot(ItemSlotContainer itemSlotContainer, InventoryType inventoryType, byte slotIndex) {
+    ItemStackSlot(ItemSlotContainer itemSlotContainer, InventoryType inventoryType, float iconSize, byte slotIndex) {
         this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = inventoryType;
         this.slotIndex = slotIndex;
+        this.imageBuilder = new ImageBuilder(GameAtlas.ITEMS, iconSize);
     }
 
-    ItemStackSlot(ItemSlotContainer itemSlotContainer, byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
+    ItemStackSlot(ItemSlotContainer itemSlotContainer, float iconSize, byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
         this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = InventoryType.EQUIPMENT;
         this.slotIndex = slotIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
+        this.imageBuilder = new ImageBuilder(GameAtlas.ITEMS, iconSize);
     }
 
     public Actor build(final StageHandler stageHandler) {

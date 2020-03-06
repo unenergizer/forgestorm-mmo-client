@@ -105,7 +105,7 @@ public class EquipmentPreview extends VisTable {
      * @return A {@link ItemStackSlot} to place in this {@link EquipmentPreview}
      */
     private ItemStackSlot buildSlot(ItemSlotContainer itemSlotContainer, EquipmentSlotTypes equipmentSlotTypes) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(itemSlotContainer, equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
+        ItemStackSlot itemStackSlot = new ItemStackSlot(itemSlotContainer, 32, equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
         itemStackSlot.build(stageHandler);
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));

@@ -42,7 +42,7 @@ public class HotBar extends VisTable implements Buildable {
         for (byte i = 0; i < InventoryConstants.HOT_BAR_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.HOT_BAR, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.HOT_BAR, 48, i);
             itemStackSlot.build(stageHandler);
 
             abilityTable.add(itemStackSlot); // Add slot to BagWindow

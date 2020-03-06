@@ -39,7 +39,7 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
         for (byte i = 0; i < InventoryConstants.BANK_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.BANK, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.BANK, 32, i);
             itemStackSlot.build(stageHandler);
 
             slotTable.add(itemStackSlot); // Add slot to BagWindow
