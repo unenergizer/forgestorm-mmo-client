@@ -46,6 +46,7 @@ import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.CharacterInspectionWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.HotBar;
 import com.valenguard.client.game.screens.ui.actors.login.ButtonTable;
 import com.valenguard.client.game.screens.ui.actors.login.ConnectionStatusWindow;
 import com.valenguard.client.game.screens.ui.actors.login.CopyrightTable;
@@ -98,6 +99,7 @@ public class StageHandler implements Disposable {
     private BankWindow bankWindow = new BankWindow();
     private EquipmentWindow equipmentWindow = new EquipmentWindow();
     private GameButtonBar gameButtonBar = new GameButtonBar();
+    private HotBar hotBar = new HotBar();
     private ExperienceBar experienceBar = new ExperienceBar();
     private ChatWindow chatWindow = new ChatWindow();
     private DebugTable debugTable = new DebugTable();
@@ -164,6 +166,7 @@ public class StageHandler implements Disposable {
         stage.addActor(equipmentWindow.build(this));
         stage.addActor(escapeWindow.build(this));
         stage.addActor(gameButtonBar.build(this));
+        stage.addActor(hotBar.build(this));
         stage.addActor(experienceBar.build(this));
         stage.addActor(chatWindow.build(this));
         stage.addActor(fpsTable.build(this));
@@ -268,6 +271,7 @@ public class StageHandler implements Disposable {
                 statusBar.setVisible(true);
                 experienceBar.setVisible(true);
                 gameButtonBar.setVisible(true);
+                hotBar.setVisible(true);
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows
                 break;

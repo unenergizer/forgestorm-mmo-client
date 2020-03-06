@@ -66,13 +66,13 @@ public class GameButtonBar extends VisTable implements Buildable {
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), StageHandler.WINDOW_PAD_Y);
+                setPosition((Gdx.graphics.getWidth() / 2f) - (getWidth() / 2) + (otherTable.getWidth() / 2), StageHandler.WINDOW_PAD_Y);
             }
         });
 
         pack();
         abilityTableWidth = abilityTable.getWidth();
-        setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2) + (otherTable.getWidth() / 2), StageHandler.WINDOW_PAD_Y);
+        setPosition((Gdx.graphics.getWidth() / 2f) - (getWidth() / 2) + (otherTable.getWidth() / 2), StageHandler.WINDOW_PAD_Y);
         setVisible(false);
         return this;
     }

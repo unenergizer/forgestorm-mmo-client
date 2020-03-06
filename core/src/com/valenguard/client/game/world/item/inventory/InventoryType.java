@@ -12,7 +12,8 @@ public enum InventoryType {
     BAG_2((byte) 2),
     BAG_3((byte) 3),
     BAG_4((byte) 4),
-    BANK((byte) 5);
+    BANK((byte) 5),
+    HOT_BAR((byte) 6);
 
     private byte inventoryTypeIndex;
 }
