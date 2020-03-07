@@ -1,6 +1,7 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.item.ItemStack;
 
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class ItemSlotContainer {
         this.containerSize = containerSize;
     }
 
-    public ItemStack getItemStack(byte slotIndex) {
+    ItemStack getItemStack(byte slotIndex) {
         return itemStackSlots[slotIndex].getItemStack();
     }
 
@@ -80,7 +81,7 @@ public class ItemSlotContainer {
         itemStackSlots[slotIndex].setMoveSlotLocked(false);
     }
 
-    public ItemStackSlot getItemStackSlot(byte slotIndex) {
+    ItemStackSlot getItemStackSlot(byte slotIndex) {
         return itemStackSlots[slotIndex];
     }
 
@@ -88,5 +89,19 @@ public class ItemSlotContainer {
         for (ItemStackSlot itemStackSlot : itemStackSlots) {
             itemStackSlot.resetItemStackSlot();
         }
+    }
+
+    void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {
+        if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
+            Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
+            return;
+        }
+
+        ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
+
+        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+
+        sourceSlot.setEmptyCellImage();
     }
 }

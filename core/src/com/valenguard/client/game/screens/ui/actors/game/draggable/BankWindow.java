@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -146,24 +145,5 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
     @Override
     protected void close() {
         EntityManager.getInstance().getPlayerClient().closeBankWindow();
-    }
-
-    void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {
-        if (!stageHandler.getBankWindow().isVisible()) {
-            stageHandler.getChatWindow().appendChatMessage("[RED]Cannot transfer item because the bank is not open!");
-            return;
-        }
-
-        if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
-            stageHandler.getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
-            return;
-        }
-
-        ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
-
-        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
-
-        sourceSlot.setEmptyCellImage();
     }
 }

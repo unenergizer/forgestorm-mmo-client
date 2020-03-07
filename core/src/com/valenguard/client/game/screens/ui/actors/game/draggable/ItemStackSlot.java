@@ -352,10 +352,32 @@ public class ItemStackSlot extends VisTable {
                 // Shift + Left or Shift + Right click
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 
+                    boolean isBankOpen = stageHandler.getBankWindow().isVisible();
+                    boolean isBagOpen = stageHandler.getBagWindow().isVisible();
+
+                    ItemSlotContainer bag = stageHandler.getBagWindow().getItemSlotContainer();
+                    ItemSlotContainer bank = stageHandler.getBankWindow().getItemSlotContainer();
+                    ItemSlotContainer hotBar = stageHandler.getHotBar().getItemSlotContainer();
+
+                    // Note: InventoryType is the container we are clicking in.
                     if (inventoryType == InventoryType.BAG_1) {
-                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBankWindow().getItemSlotContainer());
+                        if (isBankOpen) {
+                            bag.swapInventories(itemStack, itemStackSlot, bank);
+                        } else {
+                            bag.swapInventories(itemStack, itemStackSlot, hotBar);
+                        }
+                    } else if (inventoryType == InventoryType.HOT_BAR) {
+                        if (isBankOpen) {
+                            hotBar.swapInventories(itemStack, itemStackSlot, bank);
+                        } else {
+                            hotBar.swapInventories(itemStack, itemStackSlot, bag);
+                        }
                     } else if (inventoryType == InventoryType.BANK) {
-                        stageHandler.getBankWindow().swapInventories(itemStack, itemStackSlot, stageHandler.getBagWindow().getItemSlotContainer());
+                        if (isBagOpen) {
+                            bank.swapInventories(itemStack, itemStackSlot, bag);
+                        } else {
+                            bank.swapInventories(itemStack, itemStackSlot, hotBar);
+                        }
                     }
                     return true;
                 }
@@ -365,7 +387,9 @@ public class ItemStackSlot extends VisTable {
                     if (!itemStack.getItemStackType().isEquipable()) return true;
 
                     EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
-                    if (inventoryType == InventoryType.BAG_1 || inventoryType == InventoryType.BANK) {
+                    if (inventoryType == InventoryType.BAG_1
+                            || inventoryType == InventoryType.BANK
+                            || inventoryType == InventoryType.HOT_BAR) {
                         equipmentWindow.equipItem(itemStack, itemStackSlot);
                     } else if (inventoryType == InventoryType.EQUIPMENT) {
                         equipmentWindow.unequipItem(itemStack, itemStackSlot);
