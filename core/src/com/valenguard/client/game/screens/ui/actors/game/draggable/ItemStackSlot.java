@@ -175,7 +175,7 @@ public class ItemStackSlot extends VisTable {
                     emptyCellImage = imageBuilder.setRegionName("armor_001").buildVisImage();
                     break;
                 case PANTS:
-                    emptyCellImage = imageBuilder.setRegionName("armor_002").buildVisImage();
+                    emptyCellImage = imageBuilder.setRegionName("pants_01").buildVisImage();
                     break;
                 case SHOES:
                     emptyCellImage = imageBuilder.setRegionName("boot_02").buildVisImage();

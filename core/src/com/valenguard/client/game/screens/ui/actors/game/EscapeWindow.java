@@ -115,10 +115,8 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
                 disableButtons(true);
 
-                // Reset Inventories
-                stageHandler.getBagWindow().getItemSlotContainer().resetItemSlotContainer();
-                stageHandler.getBankWindow().getItemSlotContainer().resetItemSlotContainer();
-                stageHandler.getEquipmentWindow().getItemSlotContainer().resetItemSlotContainer();
+                // Reset
+                Valenguard.getInstance().gameWorldQuit();
                 return true;
             }
         });

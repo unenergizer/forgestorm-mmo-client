@@ -20,7 +20,7 @@ import static com.valenguard.client.util.Log.println;
 // TODO: movement or it would have to wait on a response from the server.
 public class MoveInventoryEvents {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
 
@@ -85,6 +85,8 @@ public class MoveInventoryEvents {
             return ActorUtil.getStageHandler().getBankWindow().getItemSlotContainer();
         } else if (inventoryType == InventoryType.EQUIPMENT) {
             return ActorUtil.getStageHandler().getEquipmentWindow().getItemSlotContainer();
+        } else if (inventoryType == InventoryType.HOT_BAR) {
+            return ActorUtil.getStageHandler().getHotBar().getItemSlotContainer();
         }
         throw new RuntimeException("Impossible Case!");
     }

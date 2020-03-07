@@ -50,7 +50,8 @@ public class InventoryActions {
         REMOVE((byte) 0x05),
         SET_BAG((byte) 0x06),
         SET_BANK((byte) 0x07),
-        SET_EQUIPMENT((byte) 0x08);
+        SET_EQUIPMENT((byte) 0x08),
+        SET_HOT_BAR((byte) 0x09);
 
         private byte getActionType;
 

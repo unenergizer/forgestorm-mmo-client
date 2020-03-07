@@ -227,6 +227,10 @@ public class Valenguard extends Game {
         effectManager.gameQuitReset();
         tradeManager.gameQuitReset();
         stageHandler.getChatWindow().gameQuitReset();
+        stageHandler.getBagWindow().getItemSlotContainer().resetItemSlotContainer();
+        stageHandler.getBankWindow().getItemSlotContainer().resetItemSlotContainer();
+        stageHandler.getEquipmentWindow().getItemSlotContainer().resetItemSlotContainer();
+        stageHandler.getHotBar().getItemSlotContainer().resetItemSlotContainer();
         EntityManager.getInstance().dispose();
     }
 }

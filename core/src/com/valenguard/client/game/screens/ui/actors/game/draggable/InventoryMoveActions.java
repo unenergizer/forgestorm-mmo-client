@@ -12,7 +12,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class InventoryMoveActions {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     public void moveItems(ItemStackSlot sourceItemStackSlot, ItemStackSlot itemStackTargetSlot,
                           ItemStack sourceItemStack, ItemStack targetItemStack) {

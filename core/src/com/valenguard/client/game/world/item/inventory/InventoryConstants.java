@@ -9,9 +9,9 @@ public class InventoryConstants {
     private static final int BANK_HEIGHT = 6;
     public static final int BANK_SIZE = BANK_WIDTH * BANK_HEIGHT;
 
+    public static final int EQUIPMENT_SIZE = 12;
+
     public static final int HOT_BAR_WIDTH = 6;
     private static final int HOT_BAR_HEIGHT = 1;
     public static final int HOT_BAR_SIZE = HOT_BAR_WIDTH * HOT_BAR_HEIGHT;
-
-    public static final int EQUIPMENT_SIZE = 12;
 }

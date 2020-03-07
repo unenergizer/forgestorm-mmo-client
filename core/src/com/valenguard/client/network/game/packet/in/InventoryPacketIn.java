@@ -18,7 +18,7 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -58,6 +58,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             case SET_BAG:
             case SET_BANK:
             case SET_EQUIPMENT:
+            case SET_HOT_BAR:
                 slotIndex = clientHandler.readByte();
                 itemId = clientHandler.readInt();
                 itemAmount = clientHandler.readInt();
@@ -128,6 +129,12 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
                 ActorUtil.getStageHandler().getEquipmentWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
+                println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
+                break;
+            case SET_HOT_BAR:
+                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                ActorUtil.getStageHandler().getHotBar().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
         }

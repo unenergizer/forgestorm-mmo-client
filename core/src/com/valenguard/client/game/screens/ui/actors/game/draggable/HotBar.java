@@ -42,14 +42,14 @@ public class HotBar extends VisTable implements Buildable {
         for (byte i = 0; i < InventoryConstants.HOT_BAR_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.HOT_BAR, 48, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(itemSlotContainer, InventoryType.HOT_BAR, 48, i);
             itemStackSlot.build(stageHandler);
 
             abilityTable.add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
-            getItemSlotContainer().itemStackSlots[i] = itemStackSlot;
+            itemSlotContainer.itemStackSlots[i] = itemStackSlot;
             columnCount++;
 
             if (columnCount == InventoryConstants.HOT_BAR_WIDTH) {
@@ -69,9 +69,11 @@ public class HotBar extends VisTable implements Buildable {
             }
         });
 
-        final float x = (Gdx.graphics.getWidth() / 2f) - (getWidth() / 2) + (otherTable.getWidth() / 2);
-//        final float y = StageHandler.WINDOW_PAD_Y;
-        final float y = StageHandler.WINDOW_PAD_Y + 200;
+        pack();
+
+        final float x = (Gdx.graphics.getWidth() / 2f) - (getWidth() / 2);
+        final float y = StageHandler.WINDOW_PAD_Y;
+//        final float y = StageHandler.WINDOW_PAD_Y + 200;
 
         setPosition(x, y);
         addListener(new WindowResizeListener() {
@@ -81,7 +83,6 @@ public class HotBar extends VisTable implements Buildable {
             }
         });
 
-        pack();
 //        abilityTableWidth = abilityTable.getWidth();
 
         pack();

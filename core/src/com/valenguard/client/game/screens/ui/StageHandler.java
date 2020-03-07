@@ -270,7 +270,7 @@ public class StageHandler implements Disposable {
                 chatWindow.setVisible(true);
                 statusBar.setVisible(true);
                 experienceBar.setVisible(true);
-                gameButtonBar.setVisible(true);
+//                gameButtonBar.setVisible(true); TODO: Completely remove
                 hotBar.setVisible(true);
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows
