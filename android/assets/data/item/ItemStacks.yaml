@@ -192,10 +192,10 @@
   consume: false
 23:
   name: "Basic pants"
-  desc: "ICON DONT MAKE NO SENSE- YA I KNOW..."
+  desc: "They look basic and feel basic."
   type: PANTS
   atlas: ITEMS
-  region: skill_055
+  region: pants_20
   wearable: 23
   armor: 10
   consume: false
