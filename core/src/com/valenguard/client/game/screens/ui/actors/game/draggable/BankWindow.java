@@ -54,12 +54,21 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
             }
         }
 
-        VisTextButton depositBagItems = new VisTextButton("Deposit Bag Items");
-        VisTextButton depositWornItems = new VisTextButton("Deposit Worn Items");
+        VisTextButton depositHotBarItems = new VisTextButton("Deposit Tool Bar");
+        VisTextButton depositBagItems = new VisTextButton("Deposit Bag");
+        VisTextButton depositWornItems = new VisTextButton("Deposit Equipment");
 
         VisTable buttonTable = new VisTable();
-        buttonTable.add(depositBagItems).align(Alignment.RIGHT.getAlignment());
-        buttonTable.add(depositWornItems).align(Alignment.RIGHT.getAlignment());
+        buttonTable.add(depositHotBarItems).pad(2).align(Alignment.RIGHT.getAlignment());
+        buttonTable.add(depositBagItems).pad(2).align(Alignment.RIGHT.getAlignment());
+        buttonTable.add(depositWornItems).pad(2).align(Alignment.RIGHT.getAlignment());
+
+        depositHotBarItems.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                depositItems(stageHandler.getHotBar().getItemSlotContainer());
+            }
+        });
 
         depositBagItems.addListener(new ChangeListener() {
             @Override
