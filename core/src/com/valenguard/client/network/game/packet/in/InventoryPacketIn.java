@@ -18,7 +18,7 @@ import static com.valenguard.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INVENTORY_UPDATE)
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
