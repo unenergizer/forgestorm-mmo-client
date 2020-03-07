@@ -32,6 +32,8 @@ public class ItemStackSlot extends VisTable {
     @Getter
     private final Color emptySlotColor = new Color(1f, 1f, 1f, .2f);
 
+    private final float iconSize;
+
     private StageHandler stageHandler;
 
     /**
@@ -109,12 +111,14 @@ public class ItemStackSlot extends VisTable {
         this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = inventoryType;
         this.slotIndex = slotIndex;
+        this.iconSize = iconSize;
         this.imageBuilder = new ImageBuilder(GameAtlas.ITEMS, iconSize);
     }
 
     ItemStackSlot(ItemSlotContainer itemSlotContainer, float iconSize, byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
         this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = InventoryType.EQUIPMENT;
+        this.iconSize = iconSize;
         this.slotIndex = slotIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
         this.imageBuilder = new ImageBuilder(GameAtlas.ITEMS, iconSize);
@@ -261,6 +265,7 @@ public class ItemStackSlot extends VisTable {
         }
     }
 
+
     /**
      * Places the {@link ItemStack} into this {@link ItemStackSlot}
      *
@@ -273,7 +278,7 @@ public class ItemStackSlot extends VisTable {
         this.itemStack = itemStack;
         emptyCellImage.remove();
         amountLabel.remove();
-        itemStackImage = new ImageBuilder(GameAtlas.ITEMS, 32).setRegionName(itemStack.getTextureRegion()).buildVisImage();
+        itemStackImage = new ImageBuilder(GameAtlas.ITEMS, iconSize).setRegionName(itemStack.getTextureRegion()).buildVisImage();
         stack.add(itemStackImage);
 
         // Setup tool tip
