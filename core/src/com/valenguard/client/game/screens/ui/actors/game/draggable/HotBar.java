@@ -119,6 +119,8 @@ public class HotBar extends VisTable implements Buildable {
                     stageHandler.getEntityShopWindow().closeShopWindow(false);
                     ActorUtil.fadeOutWindow(stageHandler.getHelpWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getCreditsWindow());
+                    ActorUtil.fadeOutWindow(stageHandler.getEntityDropDownMenu());
+                    ActorUtil.fadeOutWindow(stageHandler.getItemDropDownMenu());
 
                     ActorUtil.fadeInWindow(escapeWindow);
                 } else {

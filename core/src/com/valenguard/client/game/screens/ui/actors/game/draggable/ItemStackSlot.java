@@ -349,15 +349,14 @@ public class ItemStackSlot extends VisTable {
                     return true;
                 }
 
+                ItemSlotContainer bag = stageHandler.getBagWindow().getItemSlotContainer();
+                ItemSlotContainer bank = stageHandler.getBankWindow().getItemSlotContainer();
+                ItemSlotContainer hotBar = stageHandler.getHotBar().getItemSlotContainer();
+                boolean isBankOpen = stageHandler.getBankWindow().isVisible();
+                boolean isBagOpen = stageHandler.getBagWindow().isVisible();
+
                 // Shift + Left or Shift + Right click
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-
-                    boolean isBankOpen = stageHandler.getBankWindow().isVisible();
-                    boolean isBagOpen = stageHandler.getBagWindow().isVisible();
-
-                    ItemSlotContainer bag = stageHandler.getBagWindow().getItemSlotContainer();
-                    ItemSlotContainer bank = stageHandler.getBankWindow().getItemSlotContainer();
-                    ItemSlotContainer hotBar = stageHandler.getHotBar().getItemSlotContainer();
 
                     // Note: InventoryType is the container we are clicking in.
                     if (inventoryType == InventoryType.BAG_1) {
@@ -392,7 +391,12 @@ public class ItemStackSlot extends VisTable {
                             || inventoryType == InventoryType.HOT_BAR) {
                         equipmentWindow.equipItem(itemStack, itemStackSlot);
                     } else if (inventoryType == InventoryType.EQUIPMENT) {
-                        equipmentWindow.unequipItem(itemStack, itemStackSlot);
+                        boolean isHotBarFull = hotBar.isInventoryFull(itemStack);
+                        if (!isBagOpen && !isHotBarFull) {
+                            equipmentWindow.unequipItem(hotBar, itemStack, itemStackSlot);
+                        } else {
+                            equipmentWindow.unequipItem(bag, itemStack, itemStackSlot);
+                        }
                     }
                     return true;
                 }

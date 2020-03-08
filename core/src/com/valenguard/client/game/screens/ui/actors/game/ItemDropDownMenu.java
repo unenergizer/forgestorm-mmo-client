@@ -144,7 +144,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
-                stageHandler.getEquipmentWindow().unequipItem(itemStack, sourceSlot);
+                stageHandler.getEquipmentWindow().unequipItem(stageHandler.getBagWindow().getItemSlotContainer(), itemStack, sourceSlot);
                 cleanUpDropDownMenu(true);
             }
         });

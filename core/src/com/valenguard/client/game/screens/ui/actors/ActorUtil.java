@@ -32,14 +32,14 @@ public class ActorUtil {
     public static boolean fadeInWindow(HideableVisWindow hideableVisWindow) {
         boolean visibleStatus = hideableVisWindow.isVisible();
         if (!visibleStatus) hideableVisWindow.fadeIn().setVisible(true);
-        hideableVisWindow.setZIndex(999);
+        hideableVisWindow.toFront();
         return visibleStatus;
     }
 
     public static boolean fadeInWindow(HideableVisWindow hideableVisWindow, float time) {
         boolean visibleStatus = hideableVisWindow.isVisible();
         if (!visibleStatus) hideableVisWindow.fadeIn(time).setVisible(true);
-        hideableVisWindow.setZIndex(999);
+        hideableVisWindow.toFront();
         return visibleStatus;
     }
 

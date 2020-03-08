@@ -66,14 +66,13 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
         }
     }
 
-    public void unequipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
-        BagWindow bagWindow = stageHandler.getBagWindow();
-        if (bagWindow.getItemSlotContainer().isInventoryFull(sourceItemStack)) {
+    public void unequipItem(ItemSlotContainer itemSlotContainer, ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
+        if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
             stageHandler.getChatWindow().appendChatMessage("[RED]Cannot unequip because your bag is full!");
             return;
         }
 
-        ItemStackSlot targetSlot = bagWindow.getItemSlotContainer().getFreeItemStackSlot(sourceItemStack);
+        ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
