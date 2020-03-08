@@ -232,6 +232,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     public void addItemFromInventory(ItemStack itemStack, InventoryType inventoryType, ItemStackSlot lockedItemStackSlot) {
         if (inventoryType == InventoryType.BANK) return; // Bank click!
         if (inventoryType == InventoryType.EQUIPMENT) return; // Equipment click!
+        if (inventoryType == InventoryType.HOT_BAR) return; // HotBar click!
 
         if (lockTrade) return; // Trade accepted, waiting on final confirm
 

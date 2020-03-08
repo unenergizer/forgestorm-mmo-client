@@ -9,7 +9,7 @@ public class ItemSlotContainerWindow extends HideableVisWindow {
 
     private final ItemSlotContainer itemSlotContainer;
 
-    public ItemSlotContainerWindow(String title, int containerSize) {
+    ItemSlotContainerWindow(String title, int containerSize) {
         super(title);
         this.itemSlotContainer = new ItemSlotContainer(this, containerSize);
     }
