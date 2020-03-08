@@ -14,6 +14,17 @@ public class InventoryActions {
     private byte interactInventory;
     private byte slotIndex;
 
+    public InventoryActions(ActionType actionType, byte fromWindow, byte toWindow, byte fromPosition, byte toPosition,
+                            byte interactInventory, byte slotIndex) {
+        this.actionType = actionType;
+        this.fromPosition = fromPosition;
+        this.toPosition = toPosition;
+        this.fromWindow = fromWindow;
+        this.toWindow = toWindow;
+        this.interactInventory = interactInventory;
+        this.slotIndex = slotIndex;
+    }
+
     public InventoryActions(ActionType actionType, InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
         this.actionType = actionType;
         this.fromWindow = fromWindow.getInventoryTypeIndex();
@@ -26,6 +37,27 @@ public class InventoryActions {
         this.actionType = actionType;
         this.interactInventory = interactInventory;
         this.slotIndex = slotIndex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof InventoryActions)) return false;
+        InventoryActions otherAction = (InventoryActions) o;
+
+        if (otherAction.actionType != actionType) return false;
+
+        return otherAction.fromPosition == fromPosition &&
+                otherAction.toPosition == toPosition &&
+                otherAction.fromWindow == fromWindow &&
+                otherAction.toWindow == toWindow &&
+                otherAction.interactInventory == interactInventory &&
+                otherAction.slotIndex == slotIndex;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("action=%s, fromPosition=%s, toPosition=%s, fromWindow=%s, toWindow=%s, interactInventory=%s, slotIndex=%s",
+                actionType, fromPosition, toPosition, fromWindow, toWindow, interactInventory, slotIndex);
     }
 
     @Getter
@@ -46,12 +78,8 @@ public class InventoryActions {
         /**
          * SERVER -> CLIENT
          */
-        GIVE((byte) 0x04),
-        REMOVE((byte) 0x05),
-        SET_BAG((byte) 0x06),
-        SET_BANK((byte) 0x07),
-        SET_EQUIPMENT((byte) 0x08),
-        SET_HOT_BAR((byte) 0x09);
+        REMOVE((byte) 0x04),
+        SET((byte) 0x05);
 
         private byte getActionType;
 

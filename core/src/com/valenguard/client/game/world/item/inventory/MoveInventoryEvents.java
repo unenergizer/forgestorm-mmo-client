@@ -9,11 +9,6 @@ import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.WearableItemStack;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-import lombok.Getter;
-
 import static com.valenguard.client.util.Log.println;
 
 // TODO: dropping items is not handled. The dropping of items would have to behave like a
@@ -21,61 +16,6 @@ import static com.valenguard.client.util.Log.println;
 public class MoveInventoryEvents {
 
     private static final boolean PRINT_DEBUG = false;
-
-    private final Queue<InventoryMoveData> previousMovements = new LinkedList<InventoryMoveData>();
-
-    @Getter
-    private boolean syncingInventory = false;
-
-    public void addPreviousMovement(InventoryMoveData previousMove) {
-        previousMovements.add(previousMove);
-    }
-
-    public void receivedNonMoveRequest() {
-        if (previousMovements.isEmpty() || syncingInventory) return;
-
-        println(getClass(), "Rewinding the inventory.", true, PRINT_DEBUG);
-
-        // Setting the inventory back to it's previous state!
-        for (InventoryMoveData previousMove : previousMovements) {
-            byte fromPosition = previousMove.getFromPosition();
-            byte toPosition = previousMove.getToPosition();
-
-            ItemSlotContainer fromWindow = getItemSlotContainer(previousMove.getFromWindow());
-            ItemSlotContainer toWindow = getItemSlotContainer(previousMove.getToWindow());
-
-            ItemStack fromItemStack = fromWindow.getItemStack(fromPosition);
-            ItemStack toItemStack = toWindow.getItemStack(toPosition);
-
-            changeEquipment(toWindow.getItemStackSlot(toPosition), fromWindow.getItemStackSlot(fromPosition));
-
-            // Flipping the order
-            if (!previousMove.isStacking()) {
-                fromWindow.setItemStack(fromPosition, toItemStack);
-                toWindow.setItemStack(toPosition, fromItemStack);
-            } else {
-                int unStackAmount = previousMove.getAddedAmount();
-
-                ItemStack unStack = new ItemStack(toItemStack.getItemId());
-                unStack.setAmount(unStackAmount);
-
-                toItemStack.setAmount(toItemStack.getAmount() - unStackAmount);
-                fromWindow.setItemStack(fromPosition, unStack);
-            }
-
-            // Unlocking the movement but sync locking instead
-            toWindow.getItemStackSlot(toPosition).setMoveSlotLocked(false);
-
-        }
-
-        // Locking the inventory!
-        syncingInventory = true;
-
-        // 1. walk back all of are moves...
-        // 2. lock the inventory
-        // 3. wait for server responses
-        // unlock inventory
-    }
 
     private ItemSlotContainer getItemSlotContainer(byte inventoryByte) {
         InventoryType inventoryType = InventoryType.values()[inventoryByte];
@@ -92,7 +32,7 @@ public class MoveInventoryEvents {
     }
 
 
-    public void moveItems(InventoryMoveData inventoryMoveData) {
+    /*public void moveItems(InventoryMoveData inventoryMoveData) {
         InventoryMoveData previousMove = previousMovements.remove();
 
         ItemSlotContainer fromWindow = getItemSlotContainer(previousMove.getFromWindow());
@@ -155,7 +95,7 @@ public class MoveInventoryEvents {
         }
 
     }
-
+*/
     public void changeEquipment(ItemStackSlot itemStackTargetSlot, ItemStackSlot sourceItemStackSlot) {
         println(getClass(), "changeEquipment()", true, PRINT_DEBUG);
         if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {

@@ -3,7 +3,6 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
-import com.valenguard.client.game.world.item.inventory.InventoryMoveData;
 import com.valenguard.client.game.world.item.inventory.InventoryMoveType;
 import com.valenguard.client.game.world.item.inventory.InventoryMovementUtil;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
@@ -20,10 +19,10 @@ public class InventoryMoveActions {
         // If the target slot is null, do not move items..
         if (itemStackTargetSlot == null) return;
 
-        if (sourceItemStackSlot.isCharacterInspectionSlot() || sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
+        /*if (sourceItemStackSlot.isCharacterInspectionSlot() || sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
                 || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
             return;
-        }
+        }*/
 
         boolean isStack = false;
         if (targetItemStack != null && sourceItemStack.getStackable() > 1 && targetItemStack.getStackable() > 1
@@ -35,7 +34,7 @@ public class InventoryMoveActions {
 
         InventoryMoveType inventoryMoveType = InventoryMovementUtil.getWindowMovementInfo(sourceItemStackSlot.getInventoryType(), itemStackTargetSlot.getInventoryType());
 
-        itemStackTargetSlot.setMoveSlotLocked(true);
+        //itemStackTargetSlot.setMoveSlotLocked(true);
 
         println(getClass(), "Sending movement packet", false, PRINT_DEBUG);
         println(getClass(), "fromWindow  = " + inventoryMoveType.getFromWindow(), false, PRINT_DEBUG);
@@ -58,7 +57,7 @@ public class InventoryMoveActions {
                 itemStackTargetSlot.getSlotIndex()
         )).sendPacket();
 
-        Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
+        /*Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
                 new InventoryMoveData(
                         sourceItemStackSlot.getSlotIndex(),
                         itemStackTargetSlot.getSlotIndex(),
@@ -66,7 +65,7 @@ public class InventoryMoveActions {
                         inventoryMoveType.getToWindow().getInventoryTypeIndex(),
                         isStack,
                         sourceItemStack.getAmount()
-                ));
+                ));*/
 
         Valenguard.getInstance().getMoveInventoryEvents().changeEquipment(itemStackTargetSlot, sourceItemStackSlot);
 

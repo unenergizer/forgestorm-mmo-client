@@ -4,7 +4,7 @@ import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
 
 public class ClientConstants {
     public static final String GAME_VERSION = "0.1.0";
-    public static final ScreenResolutions SCREEN_RESOLUTION = ScreenResolutions.DESKTOP_1024_768;
+    public static final ScreenResolutions SCREEN_RESOLUTION = ScreenResolutions.DESKTOP_800_600;
     public static final float ZOOM_DEFAULT = 0.25f;
     public static final float ZOOM_CHANGE = 0.025f;
     public static final float ZOOM_LIMIT_OUT = 0.5f;

@@ -1,10 +1,11 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
-import com.valenguard.client.game.world.item.inventory.InventoryMoveData;
+import com.valenguard.client.game.world.item.inventory.InventorySyncher;
+import com.valenguard.client.game.world.item.inventory.InventoryUtil;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
@@ -26,11 +27,12 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         int itemId = 0;
         int itemAmount = 0;
         byte slotIndex = 0;
+        byte interactiveInventory = 0;
 
-        byte fromPosition = -1;
-        byte toPosition = -1;
-        byte fromWindow = -1;
-        byte toWindow = -1;
+        byte fromPosition = 0;
+        byte toPosition = 0;
+        byte fromWindow = 0;
+        byte toWindow = 0;
 
         InventoryActions.ActionType actionType = InventoryActions.ActionType.getActionType(inventoryAction);
 
@@ -48,17 +50,12 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             case USE:
                 // TODO
                 break;
-            case GIVE:
-                itemId = clientHandler.readInt();
-                itemAmount = clientHandler.readInt();
-                break;
             case REMOVE:
+                interactiveInventory = clientHandler.readByte();
                 slotIndex = clientHandler.readByte();
                 break;
-            case SET_BAG:
-            case SET_BANK:
-            case SET_EQUIPMENT:
-            case SET_HOT_BAR:
+            case SET:
+                interactiveInventory = clientHandler.readByte();
                 slotIndex = clientHandler.readByte();
                 itemId = clientHandler.readInt();
                 itemAmount = clientHandler.readInt();
@@ -70,6 +67,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 itemId,
                 itemAmount,
                 slotIndex,
+                interactiveInventory,
                 fromPosition,
                 toPosition,
                 fromWindow,
@@ -83,7 +81,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
 
         switch (packetData.actionType) {
             case MOVE:
-                Valenguard.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
+                /*Valenguard.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
                         packetData.fromPosition,
                         packetData.toPosition,
                         packetData.fromWindow,
@@ -91,10 +89,10 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                         false,
                         0
 
-                ));
+                ));*/
                 break;
             case CONSUME:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                // Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 println(getClass(), "The client consumed an item!", false, PRINT_DEBUG);
                 // TODO: later on we would change the visible display of the itemstack to represent
                 // TODO: the amount of consumption left on the item
@@ -102,42 +100,28 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
             case USE:
                 // TODO
                 break;
-            case GIVE:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer().addItemStack(itemStack);
-                println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
-                break;
             case REMOVE:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer().removeItemStack(packetData.slotIndex);
+                //Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                ItemSlotContainer removeContainer = InventoryUtil.getItemSlotContainer(packetData.interactiveInventory);
+                removeContainer.removeItemStack(packetData.slotIndex);
                 println(getClass(), packetData.actionType + ": Removing the item at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
-            case SET_BAG:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+            case SET:
+                //Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
-                println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
-                break;
-            case SET_BANK:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getBankWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
-                println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
-                break;
-            case SET_EQUIPMENT:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getEquipmentWindow().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
-                println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
-                break;
-            case SET_HOT_BAR:
-                Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ActorUtil.getStageHandler().getHotBar().getItemSlotContainer().setItemStack(packetData.slotIndex, itemStack);
+                ItemSlotContainer setContainer = InventoryUtil.getItemSlotContainer(packetData.interactiveInventory);
+                setContainer.setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
         }
+
+        //byte fromWindow, byte toWindow, byte fromPosition, byte toPosition,
+        //                            byte interactInventory, byte slotIndex
+
+        InventoryActions action = new InventoryActions(packetData.actionType, packetData.fromWindow, packetData.toWindow,
+                packetData.fromPosition, packetData.toPosition, packetData.interactiveInventory, packetData.slotIndex);
+
+        InventorySyncher.serverActionResponse(action);
     }
 
     @AllArgsConstructor
@@ -147,6 +131,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         private final int itemAmount;
         private final byte slotIndex;
 
+        private byte interactiveInventory;
         private byte fromPosition;
         private byte toPosition;
         private byte fromWindow;
