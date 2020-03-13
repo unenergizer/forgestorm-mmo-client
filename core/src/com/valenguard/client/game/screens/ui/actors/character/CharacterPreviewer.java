@@ -101,7 +101,7 @@ public class CharacterPreviewer {
         previewTable.clearChildren(); // Clear previous image
 
         if (appearance == null) {
-            appearance = generateInvisibleAppearance();
+            appearance = generateBasicAppearance();
         }
 
         lastUsedAppearance = appearance;
@@ -154,14 +154,14 @@ public class CharacterPreviewer {
         // Helmet & Hair
         if (lastUsedAppearance.getHelmTexture() != -1) {
             imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "helm_" + direction + "_" + lastUsedAppearance.getHelmTexture(), Color.WHITE));
-            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "helm_border_" + direction + "_" + lastUsedAppearance.getHelmTexture(), Color.BLACK));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "helm_border_" + direction + "_" + lastUsedAppearance.getHelmTexture(), lastUsedAppearance.getBorderColor()));
         } else {
             imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "hair_" + direction + "_" + lastUsedAppearance.getHairTexture(), lastUsedAppearance.getHairColor()));
-            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "hair_border_" + direction + "_" + lastUsedAppearance.getHairTexture(), Color.BLACK));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "hair_border_" + direction + "_" + lastUsedAppearance.getHairTexture(), lastUsedAppearance.getBorderColor()));
         }
 
         // Body Border
-        imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "body_" + direction + "_border", Color.BLACK));
+        imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "body_" + direction + "_border", lastUsedAppearance.getBorderColor()));
 
         previewTable.add(imageStack);
         mainTable.pack();

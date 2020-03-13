@@ -13,6 +13,7 @@ import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
+import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.valenguard.client.network.game.packet.out.CharacterSelectPacketOut;
@@ -28,6 +29,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
 
     private GameCharacter[] gameCharacterList;
     private GameCharacter selectedCharacter;
+    private Appearance appearance;
 
     private VisTable characterButtonTable = new VisTable();
     private VisTextButton activeButton;
@@ -38,6 +40,9 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
     public CharacterSelectMenu() {
         super("");
         this.characterSelectMenu = this;
+
+        // Build default appearance;
+        this.appearance = characterPreviewer.generateInvisibleAppearance();
     }
 
     @Override
@@ -73,6 +78,8 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
         bottomRow.add(playButton).pad(3).align(Alignment.CENTER.getAlignment());
         bottomRow.add(deleteButton).pad(3);
         bottomRow.add(logoutButton).pad(3).align(Alignment.RIGHT.getAlignment());
+
+        characterPreviewer.generateCharacterPreview(appearance, null);
 
         sideTable.add(characterPreviewer.generatePreviewTable()).row();
         sideTable.add(bottomRow);
@@ -175,10 +182,6 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             if (gameCharacter != null) return true;
         }
         return false; // Has no characters
-    }
-
-    public void showCharacterCreationScreen() {
-
     }
 
     public void characterListPacketIn(GameCharacter[] gameCharacterList) {
