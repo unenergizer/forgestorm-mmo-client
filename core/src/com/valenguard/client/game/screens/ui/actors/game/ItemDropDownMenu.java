@@ -29,6 +29,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     private byte slotIndex;
     private ItemStackSlot sourceSlot;
 
+
     public ItemDropDownMenu() {
         super("Choose Option");
         this.itemDropDownMenu = this;
@@ -64,6 +65,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         this.inventoryType = inventoryType;
         this.slotIndex = slotIndex;
         this.sourceSlot = sourceSlot;
+
 
         addUnequip(dropDownTable, itemStack);
         addEquipOption(dropDownTable, itemStack);
