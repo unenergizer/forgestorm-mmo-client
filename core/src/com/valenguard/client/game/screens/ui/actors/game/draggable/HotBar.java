@@ -17,9 +17,13 @@ import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
+import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.io.type.GameAtlas;
+import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
 import lombok.Getter;
 
@@ -27,6 +31,8 @@ public class HotBar extends VisTable implements Buildable {
 
     private static final int BUTTON_PADDING = 3;
     private static final int BUTTON_TO_BUTTON_SPACE = 5;
+
+    private StageHandler stageHandler;
 
     @Getter
     private final ItemSlotContainer itemSlotContainer = new ItemSlotContainer(this, InventoryConstants.HOT_BAR_SIZE);
@@ -36,6 +42,7 @@ public class HotBar extends VisTable implements Buildable {
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         final VisTable otherTable = buildOtherButtons(stageHandler);
 
@@ -161,5 +168,28 @@ public class HotBar extends VisTable implements Buildable {
         });
 
         return buttonTable;
+    }
+
+    public void hotBarInteract(byte slotIndex) {
+        ItemStackSlot sourceSlot = itemSlotContainer.getItemStackSlot(slotIndex);
+        ItemStack itemStack = sourceSlot.getItemStack();
+
+
+        if (itemStack == null) return;
+
+        ItemStackType itemStackType = itemStack.getItemStackType();
+
+        if (itemStackType.isEquipable()) {
+            Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+            stageHandler.getEquipmentWindow().equipItem(itemStack, sourceSlot);
+        } else if (itemStackType.isConsumable()) {
+            Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+            new InventoryPacketOut(new InventoryActions(
+                    InventoryActions.ActionType.CONSUME,
+                    InventoryType.HOT_BAR.getInventoryTypeIndex(),
+                    slotIndex)).sendPacket();
+        }
+        // TODO: Magic/Ability:
+        //  Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, gameButtonBar, gameButtonBar.getAction3());
     }
 }

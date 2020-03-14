@@ -18,6 +18,7 @@ import com.valenguard.client.game.screens.effects.LineDrawEffect;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.WindowModes;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.HotBar;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.NPC;
@@ -107,18 +108,14 @@ class PreStageEvent implements InputProcessor {
 
         /*
          * Tool bar keys
-         * TODO: Figure out a cleaner way to do this...
          */
-//        GameButtonBar gameButtonBar = Valenguard.getInstance().getStageHandler().getGameButtonBar();
-//        if (keycode == KeyBinds.ACTION_1) {
-//            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 0, gameButtonBar, gameButtonBar.getAction1());
-//        }
-//        if (keycode == KeyBinds.ACTION_2) {
-//            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 1, gameButtonBar, gameButtonBar.getAction2());
-//        }
-//        if (keycode == KeyBinds.ACTION_3) {
-//            Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, gameButtonBar, gameButtonBar.getAction3());
-//        }
+        HotBar hotBar = stageHandler.getHotBar();
+        if (keycode == KeyBinds.ACTION_1) hotBar.hotBarInteract((byte) 0);
+        if (keycode == KeyBinds.ACTION_2) hotBar.hotBarInteract((byte) 1);
+        if (keycode == KeyBinds.ACTION_3) hotBar.hotBarInteract((byte) 2);
+        if (keycode == KeyBinds.ACTION_4) hotBar.hotBarInteract((byte) 3);
+        if (keycode == KeyBinds.ACTION_5) hotBar.hotBarInteract((byte) 4);
+        if (keycode == KeyBinds.ACTION_6) hotBar.hotBarInteract((byte) 5);
 
         /*
          * Make sure these windows are closed...

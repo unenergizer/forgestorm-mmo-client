@@ -44,6 +44,9 @@ public class KeyBinds {
     public static final int ACTION_1 = Input.Keys.NUM_1;
     public static final int ACTION_2 = Input.Keys.NUM_2;
     public static final int ACTION_3 = Input.Keys.NUM_3;
+    public static final int ACTION_4 = Input.Keys.NUM_4;
+    public static final int ACTION_5 = Input.Keys.NUM_5;
+    public static final int ACTION_6 = Input.Keys.NUM_6;
 
     public static String printKey(int key) {
         return Input.Keys.toString(key);

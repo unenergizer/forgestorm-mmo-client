@@ -49,4 +49,13 @@ public enum ItemStackType {
         }
     }
 
+    public boolean isConsumable() {
+        switch (this) {
+            case POTION:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }
