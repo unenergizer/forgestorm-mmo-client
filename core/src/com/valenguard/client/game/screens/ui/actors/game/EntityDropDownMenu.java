@@ -101,8 +101,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         addCancelButton(dropDownTable);
 
         pack();
-
         ActorUtil.fadeInWindow(dropDownMenu);
+        toFront();
     }
 
     private void sendTradeRequest(Player player) {
