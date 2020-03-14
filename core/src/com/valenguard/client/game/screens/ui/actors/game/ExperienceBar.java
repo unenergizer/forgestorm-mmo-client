@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.draggable.HotBar;
 
 public class ExperienceBar extends VisWindow implements Buildable {
 
@@ -28,8 +29,8 @@ public class ExperienceBar extends VisWindow implements Buildable {
     @Override
     public Actor build(final StageHandler stageHandler) {
         pad(0);
-        final GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
-        float width = gameButtonBar.getAbilityTableWidth();
+        final HotBar hotBar = stageHandler.getHotBar();
+        float width = hotBar.getItemStackTableWidth();
         VisTable visTable = new VisTable();
 
         final Stack expStack = new Stack();
@@ -48,12 +49,12 @@ public class ExperienceBar extends VisWindow implements Buildable {
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(gameButtonBar.getX(), gameButtonBar.getHeight() + 15);
+                setPosition(hotBar.getX(), hotBar.getHeight() + 15);
             }
         });
 
-        setWidth(gameButtonBar.getWidth());
-        setPosition(gameButtonBar.getX(), gameButtonBar.getHeight() + 15);
+        setWidth(hotBar.getWidth());
+        setPosition(hotBar.getX(), hotBar.getHeight() + 15);
         pack();
         setVisible(false);
         return this;

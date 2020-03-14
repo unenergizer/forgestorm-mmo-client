@@ -36,7 +36,6 @@ import com.valenguard.client.game.screens.ui.actors.game.EntityShopWindow;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ExperienceBar;
 import com.valenguard.client.game.screens.ui.actors.game.FadeWindow;
-import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ItemDropDownMenu;
@@ -98,7 +97,6 @@ public class StageHandler implements Disposable {
     private BagWindow bagWindow = new BagWindow();
     private BankWindow bankWindow = new BankWindow();
     private EquipmentWindow equipmentWindow = new EquipmentWindow();
-    private GameButtonBar gameButtonBar = new GameButtonBar();
     private HotBar hotBar = new HotBar();
     private ExperienceBar experienceBar = new ExperienceBar();
     private ChatWindow chatWindow = new ChatWindow();
@@ -165,7 +163,6 @@ public class StageHandler implements Disposable {
         stage.addActor(bankWindow.build(this));
         stage.addActor(equipmentWindow.build(this));
         stage.addActor(escapeWindow.build(this));
-        stage.addActor(gameButtonBar.build(this));
         stage.addActor(hotBar.build(this));
         stage.addActor(experienceBar.build(this));
         stage.addActor(chatWindow.build(this));
@@ -270,7 +267,6 @@ public class StageHandler implements Disposable {
                 chatWindow.setVisible(true);
                 statusBar.setVisible(true);
                 experienceBar.setVisible(true);
-//                gameButtonBar.setVisible(true); TODO: Completely remove
                 hotBar.setVisible(true);
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows

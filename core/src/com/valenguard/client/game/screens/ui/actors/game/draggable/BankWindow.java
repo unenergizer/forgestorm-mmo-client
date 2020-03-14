@@ -11,7 +11,7 @@ import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
+import com.valenguard.client.game.screens.ui.actors.game.ExperienceBar;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
@@ -140,11 +140,18 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
             setPosition(bankWindowX, bagWindowY + StageHandler.WINDOW_PAD_Y);
         } else {
 
-            GameButtonBar gameButtonBar = stageHandler.getGameButtonBar();
-            float endPosition = gameButtonBar.getX() + gameButtonBar.getWidth() + gameButtonBar.getPadLeft();
+            HotBar hotBar = stageHandler.getHotBar();
+            float hotBarEnd = hotBar.getX() + hotBar.getWidth() + hotBar.getPadLeft();
 
-            if (endPosition > bankWindowX) {
-                setPosition(bankWindowX, gameButtonBar.getHeight() + gameButtonBar.getY());
+            if (hotBarEnd > bankWindowX) {
+                ExperienceBar experienceBar = stageHandler.getExperienceBar();
+                float expBarEnd = experienceBar.getX() + experienceBar.getWidth() + experienceBar.getPadLeft();
+
+                if (expBarEnd > bankWindowX) {
+                    setPosition(bankWindowX, experienceBar.getHeight() + experienceBar.getY() + StageHandler.WINDOW_PAD_Y);
+                } else {
+                    setPosition(bankWindowX, hotBar.getHeight() + hotBar.getY() + StageHandler.WINDOW_PAD_Y);
+                }
             } else {
                 setPosition(bankWindowX, StageHandler.WINDOW_PAD_Y);
             }

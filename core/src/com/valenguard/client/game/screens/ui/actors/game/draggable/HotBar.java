@@ -16,7 +16,6 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
-import com.valenguard.client.game.screens.ui.actors.game.GameButtonBar;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
@@ -32,12 +31,15 @@ public class HotBar extends VisTable implements Buildable {
     @Getter
     private final ItemSlotContainer itemSlotContainer = new ItemSlotContainer(this, InventoryConstants.HOT_BAR_SIZE);
 
+    @Getter
+    private float itemStackTableWidth;
+
     @Override
     public Actor build(final StageHandler stageHandler) {
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         final VisTable otherTable = buildOtherButtons(stageHandler);
 
-        VisTable abilityTable = new VisTable();
+        VisTable itemStackTable = new VisTable();
         int columnCount = 0;
         for (byte i = 0; i < InventoryConstants.HOT_BAR_SIZE; i++) {
 
@@ -45,7 +47,7 @@ public class HotBar extends VisTable implements Buildable {
             ItemStackSlot itemStackSlot = new ItemStackSlot(itemSlotContainer, InventoryType.HOT_BAR, 48, i);
             itemStackSlot.build(stageHandler);
 
-            abilityTable.add(itemStackSlot); // Add slot to BagWindow
+            itemStackTable.add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
             dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
 
@@ -53,13 +55,13 @@ public class HotBar extends VisTable implements Buildable {
             columnCount++;
 
             if (columnCount == InventoryConstants.HOT_BAR_WIDTH) {
-                abilityTable.row();
+                itemStackTable.row();
                 columnCount = 0;
             }
         }
 
 
-        add(abilityTable).padRight(1);
+        add(itemStackTable).padRight(1);
         add(otherTable).align(Alignment.CENTER.getAlignment());
 
         addListener(new ForceCloseWindowListener() {
@@ -71,23 +73,25 @@ public class HotBar extends VisTable implements Buildable {
 
         pack();
 
-        final float x = (Gdx.graphics.getWidth() / 2f) - (getWidth() / 2);
-        final float y = StageHandler.WINDOW_PAD_Y;
-//        final float y = StageHandler.WINDOW_PAD_Y + 200;
-
-        setPosition(x, y);
+        findPosition(otherTable.getWidth());
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(x, y);
+                findPosition(otherTable.getWidth());
             }
         });
 
-//        abilityTableWidth = abilityTable.getWidth();
-
+        itemStackTableWidth = itemStackTable.getWidth();
         pack();
         setVisible(false);
         return this;
+    }
+
+    private void findPosition(float otherTableWidth) {
+        final float x = (Gdx.graphics.getWidth() / 2f) - (getWidth() / 2) + (otherTableWidth / 2);
+        final float y = StageHandler.WINDOW_PAD_Y;
+
+        setPosition(x, y);
     }
 
     private VisTable buildOtherButtons(final StageHandler stageHandler) {
@@ -107,7 +111,7 @@ public class HotBar extends VisTable implements Buildable {
         escMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 EscapeWindow escapeWindow = stageHandler.getEscapeWindow();
                 if (!escapeWindow.isVisible()) {
 
@@ -132,7 +136,7 @@ public class HotBar extends VisTable implements Buildable {
         characterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                 if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     equipmentWindow.openWindow();
@@ -146,7 +150,7 @@ public class HotBar extends VisTable implements Buildable {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameButtonBar.class, (short) 0);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     stageHandler.getBagWindow().openWindow();

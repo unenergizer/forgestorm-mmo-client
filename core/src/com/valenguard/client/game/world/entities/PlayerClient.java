@@ -69,12 +69,13 @@ public class PlayerClient extends Player {
 
         targetEntity = movingEntity;
 
-        if (targetEntity == null) {
-            stageHandler.getGameButtonBar().canUseAbilities(false);
-        } else {
-            targetEntity.setPlayerClientTarget(true);
-            stageHandler.getChatWindow().appendChatMessage("[YELLOW]You targeted " + targetEntity.getEntityName() + ".");
-            stageHandler.getGameButtonBar().canUseAbilities(true);
-        }
+        // TODO: Remove/Redo old GameButtonBar abilities setup
+//        if (targetEntity == null) {
+//            stageHandler.getGameButtonBar().canUseAbilities(false);
+//        } else {
+//            targetEntity.setPlayerClientTarget(true);
+//            stageHandler.getChatWindow().appendChatMessage("[YELLOW]You targeted " + targetEntity.getEntityName() + ".");
+//            stageHandler.getGameButtonBar().canUseAbilities(true);
+//        }
     }
 }
