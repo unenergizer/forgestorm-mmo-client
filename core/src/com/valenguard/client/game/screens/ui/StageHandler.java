@@ -26,6 +26,7 @@ import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.valenguard.client.game.screens.ui.actors.dev.world.WorldBuilder;
 import com.valenguard.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
@@ -119,6 +120,7 @@ public class StageHandler implements Disposable {
     private DevMenu devMenu = new DevMenu();
     private EntityEditor entityEditor = new EntityEditor();
     private ItemStackEditor itemStackEditor = new ItemStackEditor();
+    private WorldBuilder worldBuilder = new WorldBuilder();
 
     // shared
     private MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
@@ -187,6 +189,7 @@ public class StageHandler implements Disposable {
         stage.addActor(colorPickerController.build(this));
         stage.addActor(entityEditor.build(this));
         stage.addActor(itemStackEditor.build(this));
+        stage.addActor(worldBuilder.build(this));
     }
 
     public void render(float delta) {

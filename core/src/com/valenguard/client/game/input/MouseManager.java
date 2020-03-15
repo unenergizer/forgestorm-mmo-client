@@ -2,6 +2,11 @@ package com.valenguard.client.game.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
@@ -13,6 +18,7 @@ import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
+import com.valenguard.client.game.screens.ui.actors.dev.world.WorldBuilder;
 import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.ItemStackDrop;
@@ -122,6 +128,33 @@ public class MouseManager {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         Location clientLocation = playerClient.getFutureMapLocation();
 
+        WorldBuilder worldBuilder = ActorUtil.getStageHandler().getWorldBuilder();
+        if (worldBuilder.isVisible()) {
+            TiledMap tiledMap = Valenguard.gameScreen.getMapRenderer().getTiledMap();
+            MapLayers layers = tiledMap.getLayers();
+            TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(worldBuilder.getActiveDrawLayer());
+            TiledMapTileLayer.Cell cell = layer.getCell(mouseTileX, mouseTileY);
+
+            if (cell == null) {
+                println(getClass(), "Cell was null, creating a new one!");
+                cell = new TiledMapTileLayer.Cell();
+            } else {
+                println(getClass(), "Cell found!");
+            }
+
+            println(getClass(), "TiledMapLayer: " + layer.getName() + ", Is Null: " + (layer == null) + ", Width: " + layer.getWidth() + ", Height: " + layer.getHeight());
+            println(getClass(), "Cell Null: " + (cell == null) + ", Cell X: " + mouseTileX + ", Cell Y: " + mouseTileY);
+            TextureRegion textureRegion = worldBuilder.getWorldBuilderTile();
+
+            if (cell.getTile() == null) {
+                StaticTiledMapTile tiledMapTile = new StaticTiledMapTile(textureRegion);
+                cell.setTile(tiledMapTile);
+                layer.setCell(mouseTileX, mouseTileY, cell);
+            } else {
+                cell.getTile().setTextureRegion(textureRegion);
+            }
+
+        }
 
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
         EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();

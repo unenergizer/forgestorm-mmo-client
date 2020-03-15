@@ -1,0 +1,34 @@
+
+tiles.png
+size: 128,32
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+decoration
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+door
+  rotate: false
+  xy: 56, 2
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: 0
+roof
+  rotate: false
+  xy: 20, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+wall
+  rotate: false
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0

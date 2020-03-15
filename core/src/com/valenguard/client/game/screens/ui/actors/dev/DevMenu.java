@@ -57,6 +57,14 @@ public class DevMenu extends VisTable implements Buildable {
     private Menu createToolsMenu(final StageHandler stageHandler) {
         Menu toolsMenu = new Menu("Tools");
 
+        toolsMenu.addItem(new MenuItem("World Builder", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ActorUtil.fadeInWindow(stageHandler.getWorldBuilder());
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+            }
+        }));
+
         toolsMenu.addItem(new MenuItem("Entity Editor", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

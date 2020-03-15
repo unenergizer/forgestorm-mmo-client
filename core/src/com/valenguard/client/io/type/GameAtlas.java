@@ -7,7 +7,9 @@ public enum GameAtlas {
     ITEMS("items.atlas"),
     ENTITY_CHARACTER("character.atlas"),
     ENTITY_MONSTER("monster.atlas"),
-    SKILL_NODES("skillnodes.atlas");
+    SKILL_NODES("skillnodes.atlas"),
+
+    TILES("tiles.atlas");
 
     private final String filePath;
 
