@@ -72,10 +72,10 @@ public class InventoryMoveActions {
         if (targetItemStack != null) {
 
             if (isStack) {
-                println(getClass(), "Doing: stackItemAction");
+                println(getClass(), "Doing: stackItemAction", false, PRINT_DEBUG);
                 stackItemAction(itemStackTargetSlot, sourceItemStack, targetItemStack, sourceItemStackSlot);
             } else {
-                println(getClass(), "Doing: swapItemAction");
+                println(getClass(), "Doing: swapItemAction", false, PRINT_DEBUG);
                 swapItemAction(itemStackTargetSlot, sourceItemStack, targetItemStack, sourceItemStackSlot);
             }
 
