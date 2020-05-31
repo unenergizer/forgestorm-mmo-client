@@ -70,7 +70,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
-        messageInput.setMaxLength(255);
+        messageInput.setMaxLength(127); // Max chat length is 0x7F.
 
         scrollPane = new VisScrollPane(messageTable);
         scrollPane.setOverscroll(false, false);
