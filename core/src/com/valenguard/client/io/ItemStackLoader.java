@@ -18,7 +18,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class ItemStackLoader {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     /**
      * Load all items from file and store in memory for quick reference.
@@ -66,6 +66,14 @@ public class ItemStackLoader {
             }
 
             /*
+             * Get Skill Information
+             */
+            Integer skillID = (Integer) itemNode.get("skillID");
+            if (skillID != null) {
+                itemStack.setSkillID(skillID);
+            }
+
+            /*
              * Get item stats
              */
             Attributes attributes = new Attributes();
@@ -106,6 +114,7 @@ public class ItemStackLoader {
                 println(getClass(), "TextureId: " + ((WearableItemStack) itemStack).getTextureId(), false, PRINT_DEBUG);
                 println(getClass(), "Color: " + ((WearableItemStack) itemStack).getColor(), false, PRINT_DEBUG);
             }
+            println(getClass(), "SkillId: " + skillID, false, PRINT_DEBUG && skillID != null);
             println(PRINT_DEBUG);
 
             itemStacks.add(itemStack);

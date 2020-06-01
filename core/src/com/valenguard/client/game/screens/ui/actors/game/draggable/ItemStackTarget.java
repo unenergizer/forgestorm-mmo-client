@@ -3,6 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
 import static com.valenguard.client.util.Log.println;
@@ -35,6 +36,11 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
         if (sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked())
             return false;
+
+        // Prevent the movement of BOOK_SKILL items
+        if (sourceItemStackSlot.getItemStack().getItemStackType() == ItemStackType.BOOK_SKILL) {
+            if (itemStackTargetSlot.getInventoryType() != InventoryType.HOT_BAR) return false;
+        }
 
         return checkCanEquip(sourceItemStackSlot);
     }

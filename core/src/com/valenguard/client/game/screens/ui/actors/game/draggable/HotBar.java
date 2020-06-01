@@ -27,6 +27,8 @@ import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
 
 import lombok.Getter;
 
+import static com.valenguard.client.util.Log.println;
+
 public class HotBar extends VisTable implements Buildable {
 
     private static final int BUTTON_PADDING = 3;
@@ -188,8 +190,10 @@ public class HotBar extends VisTable implements Buildable {
                     InventoryActions.ActionType.CONSUME,
                     InventoryType.HOT_BAR.getInventoryTypeIndex(),
                     slotIndex)).sendPacket();
+        } else if (itemStack.getSkillID() != null) {
+            // Magic and/or Abilities
+            Valenguard.getInstance().getAbilityManager().toggleAbility(sourceSlot, itemStack);
+            println(getClass(), "HotBarInteract (BOOK_SKILL) SkillID: " + itemStack.getSkillID());
         }
-        // TODO: Magic/Ability:
-        //  Valenguard.getInstance().getAbilityManager().toggleAbility((short) 2, gameButtonBar, gameButtonBar.getAction3());
     }
 }

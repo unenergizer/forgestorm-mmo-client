@@ -3,6 +3,7 @@ package com.valenguard.client;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.valenguard.client.game.abilities.AbilityManager;
 import com.valenguard.client.game.audio.AudioManager;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.language.LanguageManager;
@@ -91,7 +92,7 @@ public class Valenguard extends Game {
     private Skills skills;
     private EntityShopManager entityShopManager;
     private MoveInventoryEvents moveInventoryEvents;
-    //    private AbilityManager abilityManager; TODO: Redo to use ItemStacks
+    private AbilityManager abilityManager;
     private EffectManager effectManager;
     private LanguageManager languageManager;
     private ScriptManager scriptManager;
@@ -143,7 +144,7 @@ public class Valenguard extends Game {
         tradeManager = new TradeManager();
         entityShopManager = new EntityShopManager();
         moveInventoryEvents = new MoveInventoryEvents();
-//        abilityManager = new AbilityManager(); TODO: REDO to use ItemStacks
+        abilityManager = new AbilityManager();
         effectManager = new EffectManager();
         languageManager = new LanguageManager();
         scriptManager = new ScriptManager(ideRun);
@@ -222,7 +223,7 @@ public class Valenguard extends Game {
         entityTracker.gameQuitReset();
         Valenguard.getInstance().getSkills().gameQuitReset();
         clientMovementProcessor.resetInput();
-//        abilityManager.gameQuitReset();
+        abilityManager.gameQuitReset();
         effectManager.gameQuitReset();
         tradeManager.gameQuitReset();
         stageHandler.getChatWindow().gameQuitReset();

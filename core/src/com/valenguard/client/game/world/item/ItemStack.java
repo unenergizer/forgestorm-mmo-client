@@ -19,6 +19,10 @@ public class ItemStack implements Cloneable {
     private int amount;
     private boolean isConsumable;
 
+    // Any regular item can have a skill ID attached to it.
+    // A skill could be a player skill or a special item with a cool down.
+    private Integer skillID;
+
     private Attributes attributes;
 
     public ItemStack(int itemId) {
@@ -37,6 +41,7 @@ public class ItemStack implements Cloneable {
         itemStack.setTextureRegion(textureRegion);
         itemStack.setAttributes(attributes);
         itemStack.setConsumable(isConsumable);
+        itemStack.setSkillID(skillID);
         return itemStack;
     }
 

@@ -241,7 +241,7 @@ public class GameScreen implements Screen {
         Valenguard.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient(), delta);
         Valenguard.getInstance().getEntityMovementManager().tick(delta);
         Valenguard.getInstance().getEntityTracker().track();
-//        Valenguard.getInstance().getAbilityManager().updateCooldowns();
+        Valenguard.getInstance().getAbilityManager().updateCooldowns();
         Valenguard.getInstance().getEffectManager().tickScreenEffect(delta);
     }
 

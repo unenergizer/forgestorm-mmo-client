@@ -10,6 +10,7 @@ import com.valenguard.client.ClientConstants;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.valenguard.client.game.world.entities.Entity;
+import com.valenguard.client.util.BetterCameraZoom;
 
 import lombok.Getter;
 
@@ -50,19 +51,20 @@ public class AttachableCamera extends OrthographicCamera {
         position.y = MathUtils.clamp(py, cameraMinY, cameraMaxY);
     }
 
-    public void scrollZoomLevel(float amount) {
-        float change = zoom + amount;
-
-        if (change <= ClientConstants.ZOOM_LIMIT_IN) {
-            change = ClientConstants.ZOOM_LIMIT_IN;
-        } else if (change >= ClientConstants.ZOOM_LIMIT_OUT) {
-            change = ClientConstants.ZOOM_LIMIT_OUT;
-        }
-
-        zoom = change;
-        lastZoomLevel = change;
-        ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
-        println(getClass(), "[Scroll] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel, false, PRINT_DEBUG);
+    public void scrollZoomLevel(int amount) {
+        zoom = BetterCameraZoom.findNextZoomValue(zoom, amount);
+//        float change = zoom + amount;
+//
+//        if (change <= ClientConstants.ZOOM_LIMIT_IN) {
+//            change = ClientConstants.ZOOM_LIMIT_IN;
+//        } else if (change >= ClientConstants.ZOOM_LIMIT_OUT) {
+//            change = ClientConstants.ZOOM_LIMIT_OUT;
+//        }
+//
+//        zoom = change;
+//        lastZoomLevel = change;
+//        ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
+//        println(getClass(), "[Scroll] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel, false, PRINT_DEBUG);
     }
 
     public void changeZoomLevel(float amount) {

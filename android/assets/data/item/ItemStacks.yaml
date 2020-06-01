@@ -205,6 +205,20 @@
   type: MATERIAL
   atlas: ITEMS
   region: material_14
-  wearable: 23
-  armor: 10
+  consume: false
+25:
+  name: "Test MAT Skill"
+  desc: "Sword Slash (Ability)"
+  type: MATERIAL
+  atlas: ITEMS
+  region: skill_003
+  skillID: 0
+  consume: false
+26:
+  name: "Test BOOK Skill"
+  desc: "Arrow of Death (Ability)"
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_021
+  skillID: 1
   consume: false

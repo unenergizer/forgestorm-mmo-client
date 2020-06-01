@@ -105,6 +105,7 @@ public class ItemStackSlot extends VisTable {
 
     private InputListener clickListener;
 
+    @Getter
     private ItemSlotContainer itemSlotContainer;
 
     ItemStackSlot(ItemSlotContainer itemSlotContainer, InventoryType inventoryType, float iconSize, byte slotIndex) {
@@ -358,6 +359,12 @@ public class ItemStackSlot extends VisTable {
                 // Shift + Left or Shift + Right click
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 
+                    // Prevent the movement of BOOK_SKILL items
+                    if (itemStack.getItemStackType() == ItemStackType.BOOK_SKILL) {
+                        stageHandler.getChatWindow().appendChatMessage("[RED] This can not be moved to your inventory.");
+                        return true;
+                    }
+
                     // Note: InventoryType is the container we are clicking in.
                     if (inventoryType == InventoryType.BAG_1) {
                         if (isBankOpen) {
@@ -383,6 +390,13 @@ public class ItemStackSlot extends VisTable {
 
                 // CTRL + Left or Shift + Right click
                 if ((button == Input.Buttons.LEFT || button == Input.Buttons.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT)) {
+
+                    // Prevent the movement of BOOK_SKILL items
+                    if (itemStack.getItemStackType() == ItemStackType.BOOK_SKILL) {
+                        stageHandler.getChatWindow().appendChatMessage("[RED] This can not be moved to your inventory.");
+                        return true;
+                    }
+
                     if (!itemStack.getItemStackType().isEquipable()) return true;
 
                     EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();

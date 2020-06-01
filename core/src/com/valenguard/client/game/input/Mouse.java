@@ -54,7 +54,7 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        Valenguard.gameScreen.getCamera().scrollZoomLevel(amount * ClientConstants.ZOOM_CHANGE);
+        Valenguard.gameScreen.getCamera().scrollZoomLevel(amount);
         return false;
     }
 }

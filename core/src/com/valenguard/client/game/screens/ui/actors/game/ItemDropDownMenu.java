@@ -16,9 +16,12 @@ import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.InventoryMoveActions;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 import com.valenguard.client.network.game.packet.out.InventoryPacketOut;
+
+import static com.valenguard.client.util.Log.println;
 
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
@@ -65,12 +68,16 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         this.slotIndex = slotIndex;
         this.sourceSlot = sourceSlot;
 
-        addUnequip(dropDownTable, itemStack);
-        addEquipOption(dropDownTable, itemStack);
-        addDeposit(dropDownTable, itemStack);
-        addWithdraw(dropDownTable, itemStack);
-        addConsumeButton(dropDownTable, itemStack);
-        addDropButton(dropDownTable, itemStack);
+        if (itemStack.getItemStackType() == ItemStackType.BOOK_SKILL) {
+            addRemoveBookSkillButton(dropDownTable, itemStack, slotIndex);
+        } else {
+            addUnequip(dropDownTable, itemStack);
+            addEquipOption(dropDownTable, itemStack);
+            addDeposit(dropDownTable, itemStack);
+            addWithdraw(dropDownTable, itemStack);
+            addConsumeButton(dropDownTable, itemStack);
+            addDropButton(dropDownTable, itemStack);
+        }
         addCancelButton(dropDownTable);
 
         pack();
@@ -197,6 +204,24 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.DROP, inventoryType.getInventoryTypeIndex(), slotIndex)).sendPacket();
+                cleanUpDropDownMenu(true);
+            }
+        });
+    }
+
+    private void addRemoveBookSkillButton(VisTable visTable, final ItemStack itemStack, final byte slotIndex) {
+        LeftAlignTextButton removeItemStackButton = new LeftAlignTextButton("Remove Skill [YELLOW]" + itemStack.getName());
+        visTable.add(removeItemStackButton).expand().fill().row();
+
+        removeItemStackButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+//                sourceSlot.getItemSlotContainer().removeItemStack(slotIndex);
+                // TODO: Tell server the skill (ItemStack) was removed? SEND REMOVE PACKET!
+                println(ItemDropDownMenu.class, "Remove Skill Button clicked");
+
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.REMOVE, inventoryType.getInventoryTypeIndex(), slotIndex)).sendPacket();
                 cleanUpDropDownMenu(true);
             }
         });
