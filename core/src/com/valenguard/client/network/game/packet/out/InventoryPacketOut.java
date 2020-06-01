@@ -8,7 +8,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class InventoryPacketOut extends AbstractClientPacketOut {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
     private final InventoryActions inventoryAction;
 
     public InventoryPacketOut(InventoryActions inventoryAction) {
