@@ -14,6 +14,7 @@ import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.ExperienceBar;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.InventoryConstants;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
@@ -112,6 +113,7 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
     private void depositItems(ItemSlotContainer itemSlotContainer) {
         for (ItemStackSlot itemStackSlot : itemSlotContainer.itemStackSlots) {
             if (itemStackSlot.getItemStack() == null) continue;
+            if (itemStackSlot.getItemStack().getItemStackType() == ItemStackType.BOOK_SKILL) continue;
 
             ItemStackSlot targetItemStackSlot = getItemSlotContainer().getFreeItemStackSlot(itemStackSlot.getItemStack());
 
