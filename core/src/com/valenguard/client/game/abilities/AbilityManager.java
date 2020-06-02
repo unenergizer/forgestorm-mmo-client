@@ -12,6 +12,7 @@ import com.valenguard.client.io.AbilityLoader;
 import com.valenguard.client.network.game.packet.out.AbilityRequestPacketOut;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class AbilityManager implements GameQuitReset {
@@ -67,25 +68,25 @@ public class AbilityManager implements GameQuitReset {
     }
 
     public void updateCooldowns() {
-//        Iterator<Map.Entry<Short, Cooldown>> iterator = cooldowns.entrySet().iterator();
-//        while (iterator.hasNext()) {
-//            Map.Entry<Short, Cooldown> entry = iterator.next();
-//            Cooldown cooldown = entry.getValue();
-//            int cooldownRemaining = cooldown.remaining - 1;
-//            if (cooldownRemaining <= 0) {
+        Iterator<Map.Entry<Short, Cooldown>> iterator = cooldowns.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Short, Cooldown> entry = iterator.next();
+            Cooldown cooldown = entry.getValue();
+            int cooldownRemaining = cooldown.remaining - 1;
+            if (cooldownRemaining <= 0) {
 //                cooldown.gameButtonBar.resetButton(cooldown.button);
-//                iterator.remove();
-//            } else {
-//                // initialAmount = ability.getCooldown();
-//                //
-//                // percentOfBarToDisplay = cooldownRemaining / initialAmount
-//
-//                float displayPercent = (float) cooldownRemaining / cooldown.initCooldown;
-//                cooldown.remaining = cooldownRemaining;
-//
+                iterator.remove();
+            } else {
+                // initialAmount = ability.getCooldown();
+                //
+                // percentOfBarToDisplay = cooldownRemaining / initialAmount
+
+                float displayPercent = (float) cooldownRemaining / cooldown.initCooldown;
+                cooldown.remaining = cooldownRemaining;
+
 //                cooldown.gameButtonBar.setCoolingDown(cooldown.button);
-//            }
-//        }
+            }
+        }
     }
 
     @Override
