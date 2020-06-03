@@ -21,10 +21,10 @@ public class ExperienceBar extends VisWindow implements Buildable {
         super("");
     }
 
-
-//    public void updateExp(int exp) {
-//        // TODO
-//    }
+    public void updateExp(float percentToLevel, int currentExp, int currentLevel, int nextLevelExp) {
+        expLabel.setText("LVL " + currentLevel + ", EXP " + currentExp + "/" + nextLevelExp);
+        expBar.setValue(percentToLevel);
+    }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
@@ -37,14 +37,14 @@ public class ExperienceBar extends VisWindow implements Buildable {
         expStack.setWidth(width);
         expBar.setWidth(width);
         expStack.add(expBar);
-        expLabel.setText("EXP 50/100");
+        expLabel.setText("EXP 0/0");
         expLabel.setAlignment(Alignment.CENTER.getAlignment());
         expStack.add(expLabel);
         visTable.add(expStack).padLeft(6).padRight(6).width(width - 12);
 
         add(visTable);
 
-        expBar.setValue(50);
+        expBar.setValue(0);
 
         addListener(new WindowResizeListener() {
             @Override

@@ -31,6 +31,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class HotBar extends VisTable implements Buildable {
 
+    private static final boolean PRINT_DEBUG = false;
     private static final int BUTTON_PADDING = 3;
     private static final int BUTTON_TO_BUTTON_SPACE = 5;
 
@@ -193,7 +194,7 @@ public class HotBar extends VisTable implements Buildable {
         } else if (itemStack.getSkillID() != null) {
             // Magic and/or Abilities
             Valenguard.getInstance().getAbilityManager().toggleAbility(sourceSlot, itemStack);
-            println(getClass(), "HotBarInteract (BOOK_SKILL) SkillID: " + itemStack.getSkillID());
+            println(getClass(), "HotBarInteract (BOOK_SKILL) SkillID: " + itemStack.getSkillID(), false, PRINT_DEBUG);
         }
     }
 }

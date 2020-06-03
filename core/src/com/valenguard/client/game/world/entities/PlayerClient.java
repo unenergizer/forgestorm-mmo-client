@@ -44,7 +44,7 @@ public class PlayerClient extends Player {
         if (!showLevelUpMessage) return;
         float x = getDrawX() + 8;
         float y = getDrawY() + 18 + distanceMoved;
-        String level = "Level " + Valenguard.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getLevel();
+        String level = "Level " + Valenguard.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getCurrentLevel();
 
         GameTextUtil.drawMessage(level, Color.YELLOW, 1f, x, y);
 
