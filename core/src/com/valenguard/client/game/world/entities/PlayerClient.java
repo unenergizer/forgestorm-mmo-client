@@ -59,6 +59,7 @@ public class PlayerClient extends Player {
         StageHandler stageHandler = ActorUtil.getStageHandler();
         if (targetEntity == movingEntity || movingEntity == null) {
             stageHandler.getChatWindow().appendChatMessage("[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
+            stageHandler.getTargetStatusBar().setVisible(false);
         }
         if (targetEntity == movingEntity) movingEntity = null;
         if (targetEntity == this) return; // Do not target self
@@ -68,6 +69,8 @@ public class PlayerClient extends Player {
         }
 
         targetEntity = movingEntity;
+
+        stageHandler.getTargetStatusBar().initTarget(movingEntity);
 
         // TODO: Remove/Redo old GameButtonBar abilities setup
 //        if (targetEntity == null) {

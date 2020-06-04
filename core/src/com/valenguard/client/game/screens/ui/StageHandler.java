@@ -41,6 +41,7 @@ import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.valenguard.client.game.screens.ui.actors.game.StatusBar;
+import com.valenguard.client.game.screens.ui.actors.game.TargetStatusBar;
 import com.valenguard.client.game.screens.ui.actors.game.TradeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.BankWindow;
@@ -109,6 +110,7 @@ public class StageHandler implements Disposable {
     private IncomingTradeRequestWindow incomingTradeRequestWindow = new IncomingTradeRequestWindow();
     private EntityShopWindow entityShopWindow = new EntityShopWindow();
     private StatusBar statusBar = new StatusBar();
+    private TargetStatusBar targetStatusBar = new TargetStatusBar();
     private ChatDialogue chatDialogue = new ChatDialogue();
     private CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
 
@@ -176,6 +178,7 @@ public class StageHandler implements Disposable {
 //        stage.addActor(new TestToasts(stage));
         stage.addActor(entityShopWindow.build(this));
         stage.addActor(statusBar.build(this));
+        stage.addActor(targetStatusBar.build(this));
         stage.addActor(chatDialogue.build(this));
         stage.addActor(npcTextDialog.build(this));
         stage.addActor(characterInspectionWindow.build(this));

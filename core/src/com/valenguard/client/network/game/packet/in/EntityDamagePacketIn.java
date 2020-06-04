@@ -1,6 +1,7 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.actors.game.TargetStatusBar;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.MovingEntity;
@@ -54,6 +55,11 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
         println(getClass(), "[" + movingEntity.getEntityName() + "] Health Before: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
         movingEntity.setCurrentHealth(packetData.health);
         println(getClass(), "[" + movingEntity.getEntityName() + "] Health After: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
+
+        TargetStatusBar targetStatusBar = Valenguard.getInstance().getStageHandler().getTargetStatusBar();
+        if (targetStatusBar.getMovingEntity().getServerEntityID() == movingEntity.getServerEntityID()) {
+            targetStatusBar.updateHealth(movingEntity.getCurrentHealth());
+        }
     }
 
     @AllArgsConstructor
