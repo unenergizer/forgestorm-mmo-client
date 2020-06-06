@@ -3,6 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.inventory.InventoryType;
 
 import lombok.Getter;
 
@@ -21,23 +22,6 @@ public class ItemSlotContainer {
 
     ItemStack getItemStack(byte slotIndex) {
         return itemStackSlots[slotIndex].getItemStack();
-    }
-
-    /**
-     * Adds an {@link ItemStack} to an empty slot.
-     *
-     * @param itemStack The {@link ItemStack} to add to the players inventory.
-     */
-    public void addItemStack(ItemStack itemStack) {
-        for (byte i = 0; i < containerSize; i++) {
-
-            // Find empty slot
-            if (itemStackSlots[i].getItemStack() != null) continue;
-
-            // Empty slot found. Placing item
-            itemStackSlots[i].setItemStack(itemStack);
-            return;
-        }
     }
 
     /**
@@ -103,5 +87,10 @@ public class ItemSlotContainer {
         Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         sourceSlot.setEmptyCellImage();
+    }
+
+    void magicItemInteract(ItemStackSlot sourceSlot, ItemStack itemStack) {
+        if (sourceSlot.getInventoryType() == InventoryType.BANK) return;
+        Valenguard.getInstance().getAbilityManager().toggleAbility(sourceSlot, itemStack);
     }
 }

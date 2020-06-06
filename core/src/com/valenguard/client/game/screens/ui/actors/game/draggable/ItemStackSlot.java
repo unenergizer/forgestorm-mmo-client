@@ -350,9 +350,9 @@ public class ItemStackSlot extends VisTable {
                     return true;
                 }
 
-                ItemSlotContainer bag = stageHandler.getBagWindow().getItemSlotContainer();
-                ItemSlotContainer bank = stageHandler.getBankWindow().getItemSlotContainer();
-                ItemSlotContainer hotBar = stageHandler.getHotBar().getItemSlotContainer();
+                ItemSlotContainer bagContainer = stageHandler.getBagWindow().getItemSlotContainer();
+                ItemSlotContainer bankContainer = stageHandler.getBankWindow().getItemSlotContainer();
+                ItemSlotContainer hotBarContainer = stageHandler.getHotBar().getItemSlotContainer();
                 boolean isBankOpen = stageHandler.getBankWindow().isVisible();
                 boolean isBagOpen = stageHandler.getBagWindow().isVisible();
 
@@ -368,21 +368,21 @@ public class ItemStackSlot extends VisTable {
                     // Note: InventoryType is the container we are clicking in.
                     if (inventoryType == InventoryType.BAG_1) {
                         if (isBankOpen) {
-                            bag.swapInventories(itemStack, itemStackSlot, bank);
+                            bagContainer.swapInventories(itemStack, itemStackSlot, bankContainer);
                         } else {
-                            bag.swapInventories(itemStack, itemStackSlot, hotBar);
+                            bagContainer.swapInventories(itemStack, itemStackSlot, hotBarContainer);
                         }
                     } else if (inventoryType == InventoryType.HOT_BAR) {
                         if (isBankOpen) {
-                            hotBar.swapInventories(itemStack, itemStackSlot, bank);
+                            hotBarContainer.swapInventories(itemStack, itemStackSlot, bankContainer);
                         } else {
-                            hotBar.swapInventories(itemStack, itemStackSlot, bag);
+                            hotBarContainer.swapInventories(itemStack, itemStackSlot, bagContainer);
                         }
                     } else if (inventoryType == InventoryType.BANK) {
                         if (isBagOpen) {
-                            bank.swapInventories(itemStack, itemStackSlot, bag);
+                            bankContainer.swapInventories(itemStack, itemStackSlot, bagContainer);
                         } else {
-                            bank.swapInventories(itemStack, itemStackSlot, hotBar);
+                            bankContainer.swapInventories(itemStack, itemStackSlot, hotBarContainer);
                         }
                     }
                     return true;
@@ -405,14 +405,22 @@ public class ItemStackSlot extends VisTable {
                             || inventoryType == InventoryType.HOT_BAR) {
                         equipmentWindow.equipItem(itemStack, itemStackSlot);
                     } else if (inventoryType == InventoryType.EQUIPMENT) {
-                        boolean isHotBarFull = hotBar.isInventoryFull(itemStack);
+                        boolean isHotBarFull = hotBarContainer.isInventoryFull(itemStack);
                         if (!isBagOpen && !isHotBarFull) {
-                            equipmentWindow.unequipItem(hotBar, itemStack, itemStackSlot);
+                            equipmentWindow.unequipItem(hotBarContainer, itemStack, itemStackSlot);
                         } else {
-                            equipmentWindow.unequipItem(bag, itemStack, itemStackSlot);
+                            equipmentWindow.unequipItem(bagContainer, itemStack, itemStackSlot);
                         }
                     }
                     return true;
+                }
+
+                // Do Magic Ability
+                if (button == Input.Buttons.LEFT) {
+                    if (itemStack.getItemStackType() == ItemStackType.BOOK_SKILL || itemStack.getSkillID() != null) {
+                        itemSlotContainer.magicItemInteract(itemStackSlot, itemStack);
+                        return true;
+                    }
                 }
 
                 // Show drop down menu

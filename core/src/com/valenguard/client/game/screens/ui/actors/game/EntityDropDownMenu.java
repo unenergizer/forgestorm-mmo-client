@@ -32,6 +32,8 @@ import com.valenguard.client.game.world.entities.NPC;
 import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.BankActions;
+import com.valenguard.client.game.world.item.ItemStack;
+import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.trade.TradePacketInfoOut;
 import com.valenguard.client.game.world.item.trade.TradeStatusOpcode;
 import com.valenguard.client.game.world.maps.Location;
@@ -247,7 +249,16 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addPickupButton(final ItemStackDrop itemStackDrop) {
-            LeftAlignTextButton pickupButton = new LeftAlignTextButton("Pick up " + entityName);
+            // This is only used to get data about the ItemStack drop
+            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getItemStackId(), 1);
+
+            LeftAlignTextButton pickupButton;
+            if (itemStack.getItemStackType() == ItemStackType.GOLD) {
+                pickupButton = new LeftAlignTextButton("Pick up [GOLD]" + entityName);
+            } else {
+                pickupButton = new LeftAlignTextButton("Pick up " + entityName);
+            }
+
             add(pickupButton).expand().fill().row();
 
             pickupButton.addListener(new ChangeListener() {
