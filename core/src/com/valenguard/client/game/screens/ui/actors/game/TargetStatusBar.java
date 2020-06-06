@@ -10,9 +10,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.MovingEntity;
-import com.valenguard.client.game.world.entities.PlayerClient;
 
 import lombok.Getter;
 
@@ -25,7 +23,7 @@ public class TargetStatusBar extends VisWindow implements Buildable {
     private StageHandler stageHandler;
 
     @Getter
-    private MovingEntity movingEntity;
+    private MovingEntity targetEntity;
 
     public TargetStatusBar() {
         super("");
@@ -33,7 +31,7 @@ public class TargetStatusBar extends VisWindow implements Buildable {
 
     public void initTarget(MovingEntity movingEntity) {
         if (movingEntity == null) return;
-        this.movingEntity = movingEntity;
+        this.targetEntity = movingEntity;
         if (!isVisible()) setVisible(true);
         targetName.setText(movingEntity.getEntityName());
         initHealth(movingEntity.getCurrentHealth(), movingEntity.getMaxHealth());
@@ -45,10 +43,12 @@ public class TargetStatusBar extends VisWindow implements Buildable {
         hpLabel.setText(health + "/" + maxHealth);
     }
 
-    public void updateHealth(int health) {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        hpBar.setValue(health);
-        hpLabel.setText(health + "/" + playerClient.getMaxHealth());
+    public void updateHealth(MovingEntity movingEntity) {
+        if (targetEntity.getEntityType() == movingEntity.getEntityType()) return;
+        if (targetEntity.getServerEntityID() == movingEntity.getServerEntityID()) return;
+
+        hpBar.setValue(targetEntity.getCurrentHealth());
+        hpLabel.setText(targetEntity.getCurrentHealth() + "/" + targetEntity.getMaxHealth());
     }
 
     @Override
