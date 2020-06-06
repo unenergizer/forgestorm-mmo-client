@@ -11,7 +11,7 @@ public class InventoryConstants {
 
     public static final int EQUIPMENT_SIZE = 12;
 
-    public static final int HOT_BAR_WIDTH = 6;
+    public static final int HOT_BAR_WIDTH = 10;
     private static final int HOT_BAR_HEIGHT = 1;
     public static final int HOT_BAR_SIZE = HOT_BAR_WIDTH * HOT_BAR_HEIGHT;
 }

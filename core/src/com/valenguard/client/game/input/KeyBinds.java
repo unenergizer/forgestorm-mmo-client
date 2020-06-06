@@ -47,6 +47,10 @@ public class KeyBinds {
     public static final int ACTION_4 = Input.Keys.NUM_4;
     public static final int ACTION_5 = Input.Keys.NUM_5;
     public static final int ACTION_6 = Input.Keys.NUM_6;
+    public static final int ACTION_7 = Input.Keys.NUM_7;
+    public static final int ACTION_8 = Input.Keys.NUM_8;
+    public static final int ACTION_9 = Input.Keys.NUM_9;
+    public static final int ACTION_10 = Input.Keys.NUM_0;
 
     public static String printKey(int key) {
         return Input.Keys.toString(key);

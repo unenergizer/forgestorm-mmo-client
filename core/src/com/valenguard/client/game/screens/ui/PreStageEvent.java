@@ -116,6 +116,10 @@ class PreStageEvent implements InputProcessor {
         if (keycode == KeyBinds.ACTION_4) hotBar.hotBarInteract((byte) 3);
         if (keycode == KeyBinds.ACTION_5) hotBar.hotBarInteract((byte) 4);
         if (keycode == KeyBinds.ACTION_6) hotBar.hotBarInteract((byte) 5);
+        if (keycode == KeyBinds.ACTION_7) hotBar.hotBarInteract((byte) 6);
+        if (keycode == KeyBinds.ACTION_8) hotBar.hotBarInteract((byte) 7);
+        if (keycode == KeyBinds.ACTION_9) hotBar.hotBarInteract((byte) 8);
+        if (keycode == KeyBinds.ACTION_10) hotBar.hotBarInteract((byte) 9);
 
         /*
          * Make sure these windows are closed...
