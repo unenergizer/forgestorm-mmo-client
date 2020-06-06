@@ -16,6 +16,7 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.EscapeWindow;
+import com.valenguard.client.game.screens.ui.actors.game.paging.SkillBookWindow;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
@@ -130,7 +131,7 @@ public class HotBar extends VisTable implements Buildable {
                     ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
                     EntityManager.getInstance().getPlayerClient().closeBankWindow();
-                    stageHandler.getEntityShopWindow().closeShopWindow(false);
+                    stageHandler.getPagedItemStackWindow().closePagedWindow(false);
                     ActorUtil.fadeOutWindow(stageHandler.getHelpWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getCreditsWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getEntityDropDownMenu());
@@ -139,6 +140,19 @@ public class HotBar extends VisTable implements Buildable {
                     ActorUtil.fadeInWindow(escapeWindow);
                 } else {
                     ActorUtil.fadeOutWindow(escapeWindow);
+                }
+            }
+        });
+
+        spellBookButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                SkillBookWindow skillBookWindow = stageHandler.getSpellBookWindow();
+                if (!skillBookWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    skillBookWindow.openWindow();
+                } else if (skillBookWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
+                    ActorUtil.fadeOutWindow(skillBookWindow);
                 }
             }
         });

@@ -21,6 +21,7 @@ import com.valenguard.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.valenguard.client.game.screens.ui.actors.game.paging.EntityShopWindow;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -575,7 +576,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    final EntityShopWindow entityShopWindow = stageHandler.getEntityShopWindow();
+                    final EntityShopWindow pagedItemStackWindow = stageHandler.getPagedItemStackWindow();
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
@@ -583,7 +584,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         // The player is requesting to interact with the entity.
                         if (!MoveUtil.isEntityMoving(playerClient)) {
                             new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
-                            entityShopWindow.loadShop(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
+                            pagedItemStackWindow.openWindow(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
                         }
                     } else {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -602,7 +603,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                                     public void postMoveAction() {
                                         Valenguard.getInstance().getEntityTracker().cancelTracking();
                                         new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
-                                        entityShopWindow.loadShop(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
+                                        pagedItemStackWindow.openWindow(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
                                     }
                                 }));
                     }

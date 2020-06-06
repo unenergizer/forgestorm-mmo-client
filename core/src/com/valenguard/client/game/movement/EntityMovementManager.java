@@ -2,7 +2,8 @@ package com.valenguard.client.game.movement;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.game.screens.ui.actors.ActorUtil;
+import com.valenguard.client.Valenguard;
+import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.MovingEntity;
 import com.valenguard.client.game.world.entities.Player;
@@ -45,12 +46,14 @@ public class EntityMovementManager {
         // Check if entity shop should close
         if (!(entity instanceof PlayerClient)) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            MovingEntity shopOwner = ActorUtil.getStageHandler().getEntityShopWindow().getShopOwnerEntity();
+            StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
+            MovingEntity shopOwner = stageHandler.getPagedItemStackWindow().getShopOwnerEntity();
             if (entity != shopOwner) return;
+            // The
             if (!shopOwner.getFutureMapLocation().isWithinDistance(playerClient.getCurrentMapLocation(), (short) 5) ||
                     !shopOwner.getCurrentMapLocation().isWithinDistance(playerClient.getCurrentMapLocation(), (short) 5)) {
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]You are too far away from shop owner. Closing shop.");
-                ActorUtil.getStageHandler().getEntityShopWindow().closeShopWindow(false);
+                stageHandler.getChatWindow().appendChatMessage("[RED]You are too far away from shop owner. Closing shop.");
+                stageHandler.getPagedItemStackWindow().closePagedWindow(false);
             }
         }
     }

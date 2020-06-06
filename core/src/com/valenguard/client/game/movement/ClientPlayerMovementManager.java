@@ -32,7 +32,7 @@ public class ClientPlayerMovementManager {
 
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
         playerClient.closeBankWindow();
-        ActorUtil.getStageHandler().getEntityShopWindow().closeShopWindow(true);
+        ActorUtil.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
         playerMove(playerClient, movements, null);
     }
 
@@ -60,7 +60,7 @@ public class ClientPlayerMovementManager {
 
     private void processNextNode(PlayerClient playerClient) {
         playerClient.closeBankWindow();
-        ActorUtil.getStageHandler().getEntityShopWindow().closeShopWindow(true);
+        ActorUtil.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
 
         println(getClass(), "Processing next node", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
