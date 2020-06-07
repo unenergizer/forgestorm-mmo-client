@@ -76,6 +76,7 @@ public class ItemStackSlot extends VisTable {
      * A label that represents the amount of the {@link ItemStack}
      */
     private VisLabel amountLabel = new VisLabel();
+    private VisLabel countdownLabel = new VisLabel();
     private Stack stack = new Stack();
 
     /**
@@ -107,6 +108,9 @@ public class ItemStackSlot extends VisTable {
 
     @Getter
     private ItemSlotContainer itemSlotContainer;
+
+    @Getter
+    private boolean magicItemActivated = false;
 
     ItemStackSlot(ItemSlotContainer itemSlotContainer, InventoryType inventoryType, float iconSize, byte slotIndex) {
         this.itemSlotContainer = itemSlotContainer;
@@ -145,6 +149,35 @@ public class ItemStackSlot extends VisTable {
         // Add the stack to this table!
         add(stack).padLeft(2).padTop(2);
         return this;
+    }
+
+    /**
+     * An ability or magical item that has just been activated.
+     */
+    public void activateItemStack() {
+        magicItemActivated = true;
+        itemStackImage.setColor(Color.DARK_GRAY);
+        countdownLabel.setAlignment(Alignment.CENTER.getAlignment());
+        stack.add(countdownLabel);
+    }
+
+    /**
+     * An ability or magical item that has just finished cooling down.
+     */
+    public void resetItemStack() {
+        magicItemActivated = false;
+        itemStackImage.setColor(Color.WHITE);
+        stack.removeActor(countdownLabel);
+    }
+
+    /**
+     * Updates the remaining countdown of the magic item.
+     */
+    public void updateCountdown(int timeRemaining) {
+        // TODO: Figure out how to cleanly show seconds and milliseconds remaining
+//        float time = (float) timeRemaining / 60;
+//        countdownLabel.setText(StringUtils.abbreviateString(Float.toString(time), 4));
+        countdownLabel.setText(timeRemaining);
     }
 
     /**

@@ -48,6 +48,7 @@ public class ItemStackSource extends DragAndDrop.Source {
     public DragAndDrop.Payload dragStart(InputEvent event, float x, float y, int pointer) {
         if (itemStackSlot.isCharacterInspectionSlot()) return null;
         if (itemStackSlot.isTradeSlotLocked()) return null;
+        if (itemStackSlot.isMagicItemActivated()) return null;
         if (Valenguard.getInstance().getTradeManager().isTradeActive()) return null;
 
         ItemStack itemStack = itemStackSlot.getItemStack();

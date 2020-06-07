@@ -72,20 +72,16 @@ public class AbilityManager implements GameQuitReset {
         while (iterator.hasNext()) {
             Map.Entry<Short, Cooldown> entry = iterator.next();
             Cooldown cooldown = entry.getValue();
-            int cooldownRemaining = cooldown.remaining - 1;
-            if (cooldownRemaining <= 0) {
-//                cooldown.gameButtonBar.resetButton(cooldown.button);
+
+            if (cooldown.remaining == cooldown.initCooldown) {
+                cooldown.sourceSlot.activateItemStack();
+            } else if (cooldown.remaining <= 0) {
+                cooldown.sourceSlot.resetItemStack();
                 iterator.remove();
-            } else {
-                // initialAmount = ability.getCooldown();
-                //
-                // percentOfBarToDisplay = cooldownRemaining / initialAmount
-
-                float displayPercent = (float) cooldownRemaining / cooldown.initCooldown;
-                cooldown.remaining = cooldownRemaining;
-
-//                cooldown.gameButtonBar.setCoolingDown(cooldown.button);
             }
+
+            cooldown.sourceSlot.updateCountdown(cooldown.remaining);
+            cooldown.remaining = cooldown.remaining - 1;
         }
     }
 
