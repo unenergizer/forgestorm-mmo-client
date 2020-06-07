@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.Valenguard;
@@ -14,30 +13,17 @@ import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackTool
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.io.type.GameAtlas;
 
-class SpellBookSlot extends PagedWindowSlot {
+class SkillBookSlot extends PagedWindowSlot {
 
     private final StageHandler stageHandler;
     private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
-
-    /**
-     * The {@link ItemStack} that is being sold by the vendor
-     */
     private final ItemStack itemStack;
-
-    /**
-     * The price of the {@link ItemStack}
-     */
-    private final int price;
 
     private ItemStackToolTip itemStackToolTip;
 
-    private short slotID;
-
-    SpellBookSlot(StageHandler stageHandler, ItemStack itemStack, int price, short slotID) {
+    SkillBookSlot(StageHandler stageHandler, ItemStack itemStack) {
         this.stageHandler = stageHandler;
         this.itemStack = itemStack;
-        this.price = price;
-        this.slotID = slotID;
     }
 
     @Override
@@ -58,12 +44,10 @@ class SpellBookSlot extends PagedWindowSlot {
             VisTable slotTable = new VisTable();
             slotTable.add(itemStack.getName()).align(Alignment.TOP_LEFT.getAlignment()).row();
 
-            VisTable priceTable = new VisTable();
-            VisTextButton button = new VisTextButton("Buy");
-            priceTable.add(button);
-            priceTable.add(new ImageBuilder(GameAtlas.ITEMS, 16).setRegionName("drops_44").buildVisImage());
-            priceTable.add(new VisLabel(Integer.toString(price)));
-            slotTable.add(priceTable).growX().align(Alignment.BOTTOM_RIGHT.getAlignment());
+            VisTable visTable = new VisTable();
+            VisTextButton button = new VisTextButton("Add to HotBar");
+            visTable.add(button);
+            slotTable.add(visTable).growX().align(Alignment.BOTTOM_RIGHT.getAlignment());
 
             add(slotTable).growX();
 

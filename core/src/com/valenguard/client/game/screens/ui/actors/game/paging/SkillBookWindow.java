@@ -1,10 +1,9 @@
 package com.valenguard.client.game.screens.ui.actors.game.paging;
 
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.rpg.EntityShopManager;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackManager;
-import com.valenguard.client.game.world.item.inventory.ShopItemStackInfo;
+import com.valenguard.client.game.world.item.ItemStackType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +24,15 @@ public class SkillBookWindow extends PagedWindow {
 
     @Override
     List<PagedWindowSlot> loadPagedWindowSlots() {
-        // TODO REMOVE ALL OF THIS AND REDO USING SPELL BOOK SPECIFIC CODE!
-        short shopID = 0;
-        EntityShopManager entityShopManager = Valenguard.getInstance().getEntityShopManager();
         ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
+        int size = itemStackManager.getItemStackArraySize();
 
         // Generate shop slots
         List<PagedWindowSlot> windowSlots = new ArrayList<PagedWindowSlot>();
-        for (int i = 0; i < entityShopManager.getShopItemList(shopID).size(); i++) {
-            ShopItemStackInfo shopItemStackInfo = entityShopManager.getShopItemStackInfo(shopID, i);
-            ItemStack itemStack = itemStackManager.makeItemStack(entityShopManager.getItemIdForShop(shopID, i), 1);
-            windowSlots.add(new SpellBookSlot(stageHandler, itemStack, shopItemStackInfo.getPrice(), (short) i));
+        for (int i = 0; i < size; i++) {
+            ItemStack itemStack = itemStackManager.makeItemStack(i, 1);
+            if (itemStack.getItemStackType() != ItemStackType.BOOK_SKILL) continue;
+            windowSlots.add(new SkillBookSlot(stageHandler, itemStack));
         }
 
         return windowSlots;

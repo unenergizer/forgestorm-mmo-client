@@ -207,18 +207,66 @@
   region: material_14
   consume: false
 25:
-  name: "Test MAT Skill"
-  desc: "Sword Slash (Ability)"
-  type: MATERIAL
+  name: "Basic Punch"
+  desc: "Punches your opponent."
+  type: BOOK_SKILL
   atlas: ITEMS
-  region: skill_003
+  region: skill_051
   skillID: 0
   consume: false
 26:
-  name: "Test BOOK Skill"
-  desc: "Arrow of Death (Ability)"
+  name: "Basic Shoot"
+  desc: "Shoot an arrow at your opponent."
   type: BOOK_SKILL
   atlas: ITEMS
-  region: skill_021
+  region: skill_068
+  skillID: 1
+  consume: false
+27:
+  name: "Fire Ball"
+  desc: "Launches a fireball at your opponent."
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_001
+  skillID: 1
+  consume: false
+28:
+  name: "Ice Barrage"
+  desc: "Launches shards of ice at your opponent."
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_011
+  skillID: 1
+  consume: false
+29:
+  name: "Ground Spikes"
+  desc: "Bring spikes up from the ground to penetrate your opponent."
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_018
+  skillID: 1
+  consume: false
+30:
+  name: "Bubble Shield"
+  desc: "Raises a temporary shield to protect you."
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_035
+  skillID: 1
+  consume: false
+31:
+  name: "Quick Burst"
+  desc: "Run faster for a short time."
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_035
+  skillID: 1
+  consume: false
+32:
+  name: "Vine Trap"
+  desc: "Raise vines from the ground to trap your opponent for a limited time."
+  type: BOOK_SKILL
+  atlas: ITEMS
+  region: skill_084
   skillID: 1
   consume: false

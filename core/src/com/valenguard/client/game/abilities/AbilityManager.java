@@ -16,9 +16,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class AbilityManager implements GameQuitReset {
-    // TODO: REDO TO USE ITEMSTACKS!
-    //  When redoing this, make sure to search for "AbilityManager"
-    //  in the project to make sure we fix and enable everything.
 
     private Map<Short, Cooldown> cooldowns = new HashMap<Short, Cooldown>();
 
