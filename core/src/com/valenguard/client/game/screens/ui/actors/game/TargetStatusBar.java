@@ -44,6 +44,7 @@ public class TargetStatusBar extends VisWindow implements Buildable {
     }
 
     public void updateHealth(MovingEntity movingEntity) {
+        if (targetEntity == null) return;
         if (targetEntity.getEntityType() == movingEntity.getEntityType()) return;
         if (targetEntity.getServerEntityID() == movingEntity.getServerEntityID()) return;
 

@@ -259,7 +259,7 @@
   desc: "Run faster for a short time."
   type: BOOK_SKILL
   atlas: ITEMS
-  region: skill_035
+  region: skill_alt_074
   skillID: 1
   consume: false
 32:
