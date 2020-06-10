@@ -11,7 +11,7 @@ import java.util.List;
 public class SkillBookWindow extends PagedWindow {
 
     public SkillBookWindow() {
-        super("Skill Book", 2, 6);
+        super("Skill Book - NOT FUNCTIONAL", 2, 6);
     }
 
     public void openWindow() {

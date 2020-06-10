@@ -19,7 +19,10 @@ import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.dev.world.WorldBuilder;
+import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
+import com.valenguard.client.game.world.entities.MovingEntity;
+import com.valenguard.client.game.world.entities.Player;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.game.world.maps.MapRenderer;
@@ -30,6 +33,8 @@ import com.valenguard.client.io.type.GameFont;
 import com.valenguard.client.io.type.GameTexture;
 import com.valenguard.client.util.GraphicsUtils;
 import com.valenguard.client.util.PixmapUtil;
+
+import java.util.Map;
 
 import lombok.Getter;
 
@@ -43,7 +48,7 @@ public class GameScreen implements Screen {
     private final StageHandler stageHandler;
     private final FileManager fileManager = Valenguard.getInstance().getFileManager();
 
-    private MapRenderer mapRenderer = new MapRenderer();
+    private MapRenderer mapRenderer;
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
     private SpriteBatch spriteBatch;
@@ -63,6 +68,11 @@ public class GameScreen implements Screen {
     private Texture invalidTileLocationTexture;
     private Texture validTileLocationTexture;
 
+    @Getter
+    private Texture shadow;
+    @Getter
+    private Texture shadowHighlight;
+
     public GameScreen(StageHandler stageHandler) {
         println(getClass(), "Invoked constructor", false, PRINT_DEBUG);
         this.stageHandler = stageHandler;
@@ -72,6 +82,7 @@ public class GameScreen implements Screen {
     public void show() {
         println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
+        mapRenderer = new MapRenderer(spriteBatch);
 
         // Setup camera
         camera = new AttachableCamera(ClientConstants.SCREEN_RESOLUTION, ClientConstants.ZOOM_DEFAULT);
@@ -90,6 +101,11 @@ public class GameScreen implements Screen {
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
         fileManager.loadAtlas(GameAtlas.SKILL_NODES);
         fileManager.loadAtlas(GameAtlas.TILES);
+
+        fileManager.loadTexture(GameTexture.SHADOW);
+        shadow = fileManager.getTexture(GameTexture.SHADOW);
+        fileManager.loadTexture(GameTexture.SHADOW_HIGHLIGHT);
+        shadowHighlight = fileManager.getTexture(GameTexture.SHADOW_HIGHLIGHT);
 
         fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
@@ -167,35 +183,48 @@ public class GameScreen implements Screen {
 
         camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
         camera.update();
+        spriteBatch.begin();
 
         //TODO RELOCATE PARALLAX BG
         if (mapRenderer.getGameMapNameFromServer().equals("floating_island")) {
-            spriteBatch.begin();
             srcX += 2;
             srcY -= 3;
             if (srcX >= parallaxBackground.getWidth()) srcX = 0;
             if (srcY <= -parallaxBackground.getHeight()) srcY = 0;
             spriteBatch.draw(parallaxBackground, -parallaxBackground.getWidth(), -parallaxBackground.getHeight(), srcX, srcY, Gdx.graphics.getWidth() + parallaxBackground.getWidth() * 2, Gdx.graphics.getHeight() + parallaxBackground.getHeight() * 2);
-            spriteBatch.end();
         }
 
         mapRenderer.renderBottomMapLayers(camera);
 
         // Draw Screen Effects
+        spriteBatch.end();
         Valenguard.getInstance().getEffectManager().drawScreenEffect();
-
         spriteBatch.begin();
+
         spriteBatch.setProjectionMatrix(camera.combined);
+
+        // Draw Shadow
+        final int distance = -2;
+        Map<Short, AiEntity> aiEntityMap = EntityManager.getInstance().getAiEntityList();
+        for (AiEntity aiEntity : aiEntityMap.values()) {
+            spriteBatch.draw(shadow, aiEntity.getDrawX(), aiEntity.getDrawY() + distance);
+        }
+        Map<Short, Player> playerEntityList = EntityManager.getInstance().getPlayerEntityList();
+        for (Player player : playerEntityList.values()) {
+            spriteBatch.draw(shadow, player.getDrawX(), player.getDrawY() + distance);
+        }
+        MovingEntity movingEntity = playerClient.getTargetEntity();
+        if (movingEntity != null) {
+            spriteBatch.draw(shadowHighlight, movingEntity.getDrawX(), movingEntity.getDrawY() + distance);
+        }
+        Player player = EntityManager.getInstance().getPlayerClient();
+        spriteBatch.draw(shadow, player.getDrawX(), player.getDrawY() + distance);
 
         // Animate
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch, playerClient);
-        //playerClient.getEntityAnimation().animate(delta, spriteBatch);
-
-        spriteBatch.end();
 
         mapRenderer.renderOverheadMapLayers();
 
-        spriteBatch.begin();
         // Draw Names
         EntityManager.getInstance().drawEntityNames();
         playerClient.drawEntityName();
@@ -231,9 +260,9 @@ public class GameScreen implements Screen {
             int y = mouseManager.getMouseTileY() * 16;
             spriteBatch.draw(stageHandler.getWorldBuilder().getWorldBuilderTile(), x, y, 16, 16);
         }
-        spriteBatch.end();
 
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
+        spriteBatch.end();
     }
 
     private void tickGameLogic(float delta) {
@@ -296,6 +325,8 @@ public class GameScreen implements Screen {
         if (hpArea != null) hpArea.dispose();
         if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
+        if (shadow != null) shadow.dispose();
+        if (shadowHighlight != null) shadowHighlight.dispose();
         stageHandler.dispose();
     }
 }

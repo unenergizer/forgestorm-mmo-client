@@ -1,5 +1,6 @@
 package com.valenguard.client.game.screens;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -8,8 +9,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class AntiBleedOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer {
 
-    public AntiBleedOrthogonalTiledMapRenderer(TiledMap map) {
-        super(fixTilesPixelBleeding(map));
+    public AntiBleedOrthogonalTiledMapRenderer(TiledMap map, SpriteBatch spriteBatch) {
+        super(fixTilesPixelBleeding(map), spriteBatch);
     }
 
     private static TiledMap fixTilesPixelBleeding(TiledMap tiledMap) {

@@ -332,14 +332,12 @@ public class MouseManager {
         }
 
         if (cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
-        spriteBatch.begin();
         fadeOut.draw(spriteBatch,
                 cursorDrawable,
                 mouseWorldX - cursorDrawType.getSize() / 2f,
                 mouseWorldY - cursorDrawType.getSize() / 2f,
                 cursorDrawType.getSize(),
                 cursorDrawType.getSize());
-        spriteBatch.end();
     }
 
     public void drawMoveNodes(SpriteBatch spriteBatch) {

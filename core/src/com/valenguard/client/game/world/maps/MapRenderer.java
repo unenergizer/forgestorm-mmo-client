@@ -1,5 +1,6 @@
 package com.valenguard.client.game.world.maps;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
@@ -25,12 +26,18 @@ public class MapRenderer implements Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final SpriteBatch spriteBatch;
+
     @Getter
     private TiledMap tiledMap;
     private AntiBleedOrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 
     @Getter
     private String gameMapNameFromServer;
+
+    public MapRenderer(SpriteBatch spriteBatch) {
+        this.spriteBatch = spriteBatch;
+    }
 
     public void setMapColor(float red, float green, float blue, float alpha) {
         if (!isReadyToRender()) return;
@@ -51,12 +58,10 @@ public class MapRenderer implements Disposable {
         AnimatedTiledMapTile.updateAnimationBaseTime();
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
-        orthogonalTiledMapRenderer.getBatch().begin();
         for (MapLayer layer : tiledMap.getLayers()) {
             if (layer.getName().equals("overhead")) continue;
             renderLayer(layer);
         }
-        orthogonalTiledMapRenderer.getBatch().end();
     }
 
     private void renderLayer(MapLayer layer) {
@@ -81,9 +86,7 @@ public class MapRenderer implements Disposable {
     }
 
     public void renderOverheadMapLayers() {
-        orthogonalTiledMapRenderer.getBatch().begin();
         orthogonalTiledMapRenderer.renderTileLayer((TiledMapTileLayer) tiledMap.getLayers().get("overhead"));
-        orthogonalTiledMapRenderer.getBatch().end();
     }
 
     /**
@@ -103,7 +106,7 @@ public class MapRenderer implements Disposable {
         tiledMap = Valenguard.getInstance().getFileManager().getTiledMap(filePath);
 
         if (orthogonalTiledMapRenderer == null) {
-            orthogonalTiledMapRenderer = new AntiBleedOrthogonalTiledMapRenderer(tiledMap);
+            orthogonalTiledMapRenderer = new AntiBleedOrthogonalTiledMapRenderer(tiledMap, spriteBatch);
         } else {
             orthogonalTiledMapRenderer.setMap(Valenguard.getInstance().getFileManager().getTiledMap(filePath));
         }
