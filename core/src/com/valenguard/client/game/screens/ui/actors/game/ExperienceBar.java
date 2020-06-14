@@ -12,7 +12,12 @@ import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.HotBar;
 
+import static com.valenguard.client.util.Log.println;
+
+
 public class ExperienceBar extends VisWindow implements Buildable {
+
+    private static final boolean PRINT_DEBUG = false;
 
     private final VisLabel expLabel = new VisLabel();
     private final VisProgressBar expBar = new VisProgressBar(0, 100, 1, false);
@@ -22,8 +27,12 @@ public class ExperienceBar extends VisWindow implements Buildable {
     }
 
     public void updateExp(float percentToLevel, int currentExp, int currentLevel, int nextLevelExp) {
-        expLabel.setText("LVL " + currentLevel + ", EXP " + currentExp + "/" + nextLevelExp);
+        String exp = "LVL " + currentLevel + ", EXP " + currentExp + "/" + nextLevelExp;
+        expLabel.setText(exp);
         expBar.setValue(percentToLevel);
+
+        println(getClass(), exp, false, PRINT_DEBUG);
+        println(getClass(), "Visible: " + isVisible(), false, PRINT_DEBUG);
     }
 
     @Override

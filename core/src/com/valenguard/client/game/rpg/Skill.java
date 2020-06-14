@@ -62,7 +62,9 @@ public class Skill {
         float barPercent = getBarPercent(experience, currentLevel, currentLevelExp, nextLevel, nextLevelExp);
 
         // Update UI
-        Valenguard.getInstance().getStageHandler().getExperienceBar().updateExp(barPercent, experience, currentLevel, nextLevelExp);
+        if (skillOpcodes == SkillOpcodes.MELEE) {
+            Valenguard.getInstance().getStageHandler().getExperienceBar().updateExp(barPercent, experience, currentLevel, nextLevelExp);
+        }
 
         // Update UI values
         ExperienceUpdateEvent experienceUpdateEvent = new ExperienceUpdateEvent(skillOpcodes, currentLevel);
@@ -70,14 +72,8 @@ public class Skill {
             actor.fire(experienceUpdateEvent);
         }
 
-        if (!initialized) {
-            println(getClass(), "<" + skillOpcodes.name() + "> Set the player's experience to: " + expGained, false, PRINT_DEBUG);
-            initialized = true;
-            return;
-        }
-
         // The player has leveled up
-        if (previousLevel != currentLevel) {
+        if (previousLevel != currentLevel && initialized) {
             println(getClass(), "The player has leveled up!", false, PRINT_DEBUG);
 
             // TODO: TELL TO SHOW MESSAGE
@@ -87,6 +83,11 @@ public class Skill {
             Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[GREEN]You are now level " + currentLevel);
         }
 
+        if (!initialized) {
+            println(getClass(), "<" + skillOpcodes.name() + "> Set the player's experience to: " + expGained, false, PRINT_DEBUG);
+            initialized = true;
+            return;
+        }
 
         println(getClass(), "-------------------------------------------------------------", false, PRINT_DEBUG);
     }
