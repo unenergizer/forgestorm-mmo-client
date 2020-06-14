@@ -6,6 +6,7 @@ public class Opcodes {
      * SHARED
      */
     public static final byte PING = 0x00;
+    public static final byte PROFILE_REQUEST = 0x79;
     public static final byte INSPECT_PLAYER = 0x7A;
     public static final byte BANK_MANAGEMENT = 0x7B;
     public static final byte PLAYER_TRADE = 0x7C;

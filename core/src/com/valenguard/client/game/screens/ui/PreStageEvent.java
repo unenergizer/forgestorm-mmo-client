@@ -123,9 +123,10 @@ class PreStageEvent implements InputProcessor {
 
         /*
          * Open Player Profile
+         * TODO: REMOVE ME. THIS IS FOR DEBUGGING ONLY!
          */
         if (keycode == Input.Keys.MINUS) {
-            stageHandler.getPlayerProfileWindow().openPlayerProfile(EntityManager.getInstance().getPlayerClient());
+            stageHandler.getPlayerProfileWindow().requestPlayerProfile(EntityManager.getInstance().getPlayerClient());
         }
 
         /*

@@ -51,6 +51,7 @@ import com.valenguard.client.network.game.packet.in.InventoryPacketIn;
 import com.valenguard.client.network.game.packet.in.MovingEntityTeleportPacketIn;
 import com.valenguard.client.network.game.packet.in.PingPacketIn;
 import com.valenguard.client.network.game.packet.in.PlayerTradePacketIn;
+import com.valenguard.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.valenguard.client.network.game.packet.in.SkillExperiencePacketIn;
 import com.valenguard.client.network.game.packet.out.OutputStreamManager;
 import com.valenguard.client.network.game.shared.EventBus;
@@ -215,6 +216,7 @@ public class Valenguard extends Game {
                         eventBus.registerListener(new EntityUpdatePacketIn());
                         eventBus.registerListener(new InitClientPrivilegePacketIn());
                         eventBus.registerListener(new InspectPlayerPacketIn());
+                        eventBus.registerListener(new ProfileRequestPacketIn());
                     }
                 });
     }
