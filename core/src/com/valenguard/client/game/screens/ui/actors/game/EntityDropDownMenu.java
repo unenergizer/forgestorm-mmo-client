@@ -243,9 +243,26 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 addTargetButton();
                 addAttackButton();
                 addFollowButton();
+                addViewProfileButton();
             } else if (clickedEntity instanceof ItemStackDrop) {
                 addPickupButton((ItemStackDrop) clickedEntity);
             }
+        }
+
+        private void addViewProfileButton() {
+            if (!(clickedMovingEntity instanceof Player)) return;
+
+            LeftAlignTextButton openPlayerProfileButton = new LeftAlignTextButton("Open " + entityName + "'s Profile");
+            add(openPlayerProfileButton).expand().fill().row();
+
+            openPlayerProfileButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    stageHandler.getPlayerProfileWindow().openPlayerProfile((Player) clickedMovingEntity);
+                    cleanUpDropDownMenu(true);
+                }
+            });
         }
 
         private void addPickupButton(final ItemStackDrop itemStackDrop) {

@@ -122,6 +122,13 @@ class PreStageEvent implements InputProcessor {
         if (keycode == KeyBinds.ACTION_10) hotBar.hotBarInteract((byte) 9);
 
         /*
+         * Open Player Profile
+         */
+        if (keycode == Input.Keys.MINUS) {
+            stageHandler.getPlayerProfileWindow().openPlayerProfile(EntityManager.getInstance().getPlayerClient());
+        }
+
+        /*
          * Make sure these windows are closed...
          */
         if (!stageHandler.getChatWindow().isChatToggled()

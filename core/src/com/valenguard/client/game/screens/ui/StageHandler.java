@@ -39,6 +39,7 @@ import com.valenguard.client.game.screens.ui.actors.game.FadeWindow;
 import com.valenguard.client.game.screens.ui.actors.game.HelpWindow;
 import com.valenguard.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.valenguard.client.game.screens.ui.actors.game.ItemDropDownMenu;
+import com.valenguard.client.game.screens.ui.actors.game.PlayerProfileWindow;
 import com.valenguard.client.game.screens.ui.actors.game.StatusBar;
 import com.valenguard.client.game.screens.ui.actors.game.TargetStatusBar;
 import com.valenguard.client.game.screens.ui.actors.game.TradeWindow;
@@ -61,6 +62,8 @@ import com.valenguard.client.game.scripting.NPCTextDialog;
 import com.valenguard.client.io.type.GameSkin;
 
 import lombok.Getter;
+
+import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class StageHandler implements Disposable {
@@ -115,6 +118,7 @@ public class StageHandler implements Disposable {
     private TargetStatusBar targetStatusBar = new TargetStatusBar();
     private ChatDialogue chatDialogue = new ChatDialogue();
     private CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
+    private PlayerProfileWindow playerProfileWindow = new PlayerProfileWindow();
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
@@ -185,6 +189,7 @@ public class StageHandler implements Disposable {
         stage.addActor(chatDialogue.build(this));
         stage.addActor(npcTextDialog.build(this));
         stage.addActor(characterInspectionWindow.build(this));
+        stage.addActor(playerProfileWindow.build(this));
 
         // Multi purpose
         stage.addActor(mainSettingsWindow.build(this));
@@ -217,6 +222,9 @@ public class StageHandler implements Disposable {
 
     @Override
     public void dispose() {
+        if (playerProfileWindow != null) {
+            playerProfileWindow.dispose();
+        }
         VisUI.dispose();
         if (stage != null) {
             stage.dispose();
