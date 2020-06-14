@@ -59,6 +59,9 @@ public class GameScreen implements Screen {
 
     // TODO: RELOCATE
     private Texture parallaxBackground;
+    private int srcX = 0; //TODO RELOCATE PARALLAX BG
+    private int srcY = 0; //TODO RELOCATE PARALLAX BG
+
     private BitmapFont font;
 
     // TODO: RELOCATE
@@ -70,8 +73,9 @@ public class GameScreen implements Screen {
 
     @Getter
     private Texture shadow;
-    @Getter
-    private Texture shadowHighlight;
+    private int distance;
+    private Color darkGray;
+    private Color red;
 
     public GameScreen(StageHandler stageHandler) {
         println(getClass(), "Invoked constructor", false, PRINT_DEBUG);
@@ -102,11 +106,17 @@ public class GameScreen implements Screen {
         fileManager.loadAtlas(GameAtlas.SKILL_NODES);
         fileManager.loadAtlas(GameAtlas.TILES);
 
+        // Entity Shadows
         fileManager.loadTexture(GameTexture.SHADOW);
         shadow = fileManager.getTexture(GameTexture.SHADOW);
-        fileManager.loadTexture(GameTexture.SHADOW_HIGHLIGHT);
-        shadowHighlight = fileManager.getTexture(GameTexture.SHADOW_HIGHLIGHT);
 
+        distance = -3;
+        darkGray = Color.DARK_GRAY;
+        darkGray.a = .7f;
+        red = Color.RED;
+        red.a = .7f;
+
+        // Parallax Background
         fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
         parallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -149,9 +159,6 @@ public class GameScreen implements Screen {
             worldBuilder.setWorldBuilderTile(textureAtlas.findRegion("decoration"));
         }
     }
-
-    private int srcX = 0; //TODO RELOCATE PARALLAX BG
-    private int srcY = 0; //TODO RELOCATE PARALLAX BG
 
     @Override
     public void render(float delta) {
@@ -203,8 +210,8 @@ public class GameScreen implements Screen {
 
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        // Draw Shadow
-        final int distance = -2;
+        // Draw Shadow and Shadow color
+        spriteBatch.setColor(darkGray);
         Map<Short, AiEntity> aiEntityMap = EntityManager.getInstance().getAiEntityList();
         for (AiEntity aiEntity : aiEntityMap.values()) {
             spriteBatch.draw(shadow, aiEntity.getDrawX(), aiEntity.getDrawY() + distance);
@@ -215,10 +222,13 @@ public class GameScreen implements Screen {
         }
         MovingEntity movingEntity = playerClient.getTargetEntity();
         if (movingEntity != null) {
-            spriteBatch.draw(shadowHighlight, movingEntity.getDrawX(), movingEntity.getDrawY() + distance);
+            spriteBatch.setColor(red);
+            spriteBatch.draw(shadow, movingEntity.getDrawX(), movingEntity.getDrawY() + distance);
         }
         Player player = EntityManager.getInstance().getPlayerClient();
+        spriteBatch.setColor(darkGray);
         spriteBatch.draw(shadow, player.getDrawX(), player.getDrawY() + distance);
+        spriteBatch.setColor(Color.WHITE); // RESET COLOR
 
         // Animate
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch, playerClient);
@@ -326,7 +336,6 @@ public class GameScreen implements Screen {
         if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
         if (shadow != null) shadow.dispose();
-        if (shadowHighlight != null) shadowHighlight.dispose();
         stageHandler.dispose();
     }
 }
