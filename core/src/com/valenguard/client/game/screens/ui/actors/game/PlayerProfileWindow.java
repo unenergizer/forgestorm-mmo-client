@@ -3,14 +3,19 @@ package com.valenguard.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.valenguard.client.Valenguard;
-import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -72,7 +77,7 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
         messageCount.setText("Message Count: " + xenforoProfilePacket.getMessageCount());
         trophyPoints.setText("Trophy Points: " + xenforoProfilePacket.getTrophyPoints());
         reactionScore.setText("Reaction Score: " + xenforoProfilePacket.getReactionScore());
-        profileURLButton.setText("Visit " + currentPlayer + "'s Profile");
+        profileURLButton.setText("Visit " + xenforoProfilePacket.getAccountName() + "'s Profile");
         profileURL = "https://forgestorm.com/members/" + xenforoProfilePacket.getAccountName() + "." + xenforoProfilePacket.getXenforoUserID() + "/";
 
 
@@ -82,10 +87,11 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
             profilePicture.setDrawable(profilePicturesCache.get(currentPlayer));
         } else {
             // Download Picture
-            String pictureURL = "";
+            String pictureURL;
 
             if (xenforoProfilePacket.getGravatarHash().isEmpty()) {
                 // No gravatar, try to get avatar from ForgeStorm website
+                @SuppressWarnings("IntegerDivisionInFloatingPointContext")
                 int folderID = (int) Math.floor(xenforoProfilePacket.getXenforoUserID() / 1000);
                 pictureURL = "https://forgestorm.com/data/avatars/s/" + folderID + "/" + xenforoProfilePacket.getXenforoUserID() + ".jpg";
             } else {
@@ -153,5 +159,34 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
         for (Texture texture : profilePicturesCache.values()) {
             if (texture != null) texture.dispose();
         }
+        profilePicturesCache.clear();
+    }
+
+    /**
+     * Replace default addCloseButton(). When clicked, we just hide the window.
+     */
+    @Override
+    public void addCloseButton() {
+        Label titleLabel = getTitleLabel();
+        Table titleTable = getTitleTable();
+
+        VisImageButton closeButton = new VisImageButton("close-window");
+        titleTable.add(closeButton).padRight(-getPadRight() + 0.7f);
+        closeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                setVisible(false);
+            }
+        });
+        closeButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                event.cancel();
+                return true;
+            }
+        });
+
+        if (titleLabel.getLabelAlign() == Align.center && titleTable.getChildren().size == 2)
+            titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
     }
 }
