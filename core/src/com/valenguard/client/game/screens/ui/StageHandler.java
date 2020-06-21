@@ -24,6 +24,7 @@ import com.valenguard.client.game.screens.ui.actors.character.CharacterSelectMen
 import com.valenguard.client.game.screens.ui.actors.character.DeleteCharacter;
 import com.valenguard.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.valenguard.client.game.screens.ui.actors.dev.DevMenu;
+import com.valenguard.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.valenguard.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.valenguard.client.game.screens.ui.actors.dev.world.WorldBuilder;
@@ -129,6 +130,7 @@ public class StageHandler implements Disposable {
     private EntityEditor entityEditor = new EntityEditor();
     private ItemStackEditor itemStackEditor = new ItemStackEditor();
     private WorldBuilder worldBuilder = new WorldBuilder();
+    private PixelFXTest pixelFXTest = new PixelFXTest();
 
     // shared
     private MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
@@ -201,6 +203,7 @@ public class StageHandler implements Disposable {
         stage.addActor(entityEditor.build(this));
         stage.addActor(itemStackEditor.build(this));
         stage.addActor(worldBuilder.build(this));
+        stage.addActor(pixelFXTest.build(this));
     }
 
     public void render(float delta) {
@@ -224,6 +227,9 @@ public class StageHandler implements Disposable {
     public void dispose() {
         if (playerProfileWindow != null) {
             playerProfileWindow.dispose();
+        }
+        if (pixelFXTest != null) {
+            pixelFXTest.dispose();
         }
         VisUI.dispose();
         if (stage != null) {

@@ -87,6 +87,14 @@ public class DevMenu extends VisTable implements Buildable {
         toolsMenu.addItem(new MenuItem("Warp Editor"));
         toolsMenu.addItem(new MenuItem("Professions Editor"));
         toolsMenu.addItem(new MenuItem("Factions Editor"));
+        toolsMenu.addItem(new MenuItem("Pixel FX", new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                PixelFXTest pixelFXTest = stageHandler.getPixelFXTest();
+                ActorUtil.fadeInWindow(pixelFXTest);
+                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+            }
+        }));
 
         return toolsMenu;
     }

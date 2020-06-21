@@ -18,6 +18,7 @@ import com.valenguard.client.game.input.Keyboard;
 import com.valenguard.client.game.input.Mouse;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
+import com.valenguard.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.valenguard.client.game.screens.ui.actors.dev.world.WorldBuilder;
 import com.valenguard.client.game.world.entities.AiEntity;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -270,6 +271,9 @@ public class GameScreen implements Screen {
             int y = mouseManager.getMouseTileY() * 16;
             spriteBatch.draw(stageHandler.getWorldBuilder().getWorldBuilderTile(), x, y, 16, 16);
         }
+
+        PixelFXTest pixelFXTest = Valenguard.getInstance().getStageHandler().getPixelFXTest();
+        if (pixelFXTest != null) pixelFXTest.render(delta, spriteBatch);
 
         Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         spriteBatch.end();
