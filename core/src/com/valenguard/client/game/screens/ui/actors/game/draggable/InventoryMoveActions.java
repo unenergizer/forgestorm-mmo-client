@@ -1,6 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
 import com.valenguard.client.game.world.item.inventory.InventoryMoveType;
@@ -20,7 +20,7 @@ public class InventoryMoveActions {
         if (itemStackTargetSlot == null) return;
 
         /*if (sourceItemStackSlot.isCharacterInspectionSlot() || sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
-                || sourceItemStackSlot.isMoveSlotLocked() || Valenguard.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
+                || sourceItemStackSlot.isMoveSlotLocked() || ClientMain.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
             return;
         }*/
 
@@ -57,7 +57,7 @@ public class InventoryMoveActions {
                 itemStackTargetSlot.getSlotIndex()
         )).sendPacket();
 
-        /*Valenguard.getInstance().getMoveInventoryEvents().addPreviousMovement(
+        /*ClientMain.getInstance().getMoveInventoryEvents().addPreviousMovement(
                 new InventoryMoveData(
                         sourceItemStackSlot.getSlotIndex(),
                         itemStackTargetSlot.getSlotIndex(),
@@ -67,7 +67,7 @@ public class InventoryMoveActions {
                         sourceItemStack.getAmount()
                 ));*/
 
-        Valenguard.getInstance().getMoveInventoryEvents().changeEquipment(itemStackTargetSlot, sourceItemStackSlot);
+        ClientMain.getInstance().getMoveInventoryEvents().changeEquipment(itemStackTargetSlot, sourceItemStackSlot);
 
         if (targetItemStack != null) {
 

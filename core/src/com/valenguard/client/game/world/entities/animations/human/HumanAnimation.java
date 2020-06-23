@@ -167,8 +167,8 @@ public class HumanAnimation extends EntityAnimation {
         loadGloves(textureAtlas);
         loadBorder(textureAtlas);
 
-//        Valenguard.getInstance().getFileManager().loadAtlas(GameAtlas.ITEMS);
-//        TextureAtlas itemAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS);
+//        ClientMain.getInstance().getFileManager().loadAtlas(GameAtlas.ITEMS);
+//        TextureAtlas itemAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS);
 
         // Left Hand Item
         if (appearance.getLeftHandTexture() != -1) {

@@ -1,6 +1,6 @@
 package com.valenguard.client.game.world.maps;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +33,7 @@ public class Tile {
 
     public String getTileText() {
         if (tileText != -1) {
-            Valenguard.getInstance().getLanguageManager().getString(tileText);
+            ClientMain.getInstance().getLanguageManager().getString(tileText);
         }
         return null;
     }

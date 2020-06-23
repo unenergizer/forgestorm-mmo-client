@@ -9,7 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.utils.Disposable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.AntiBleedOrthogonalTiledMapRenderer;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.game.screens.UserInterfaceType;
@@ -51,7 +51,7 @@ public class MapRenderer implements Disposable {
     public boolean isReadyToRender() {
         return orthogonalTiledMapRenderer != null
                 && tiledMap != null
-                && Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME;
+                && ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME;
     }
 
     public void renderBottomMapLayers(AttachableCamera camera) {
@@ -102,13 +102,13 @@ public class MapRenderer implements Disposable {
         String filePath = FilePaths.MAPS.getFilePath() + "/" + mapName + ".tmx";
         println(getClass(), "Map Path: " + filePath, false, PRINT_DEBUG);
         println(getClass(), "Map Name: " + mapName, false, PRINT_DEBUG);
-        Valenguard.getInstance().getFileManager().loadTiledMap(filePath);
-        tiledMap = Valenguard.getInstance().getFileManager().getTiledMap(filePath);
+        ClientMain.getInstance().getFileManager().loadTiledMap(filePath);
+        tiledMap = ClientMain.getInstance().getFileManager().getTiledMap(filePath);
 
         if (orthogonalTiledMapRenderer == null) {
             orthogonalTiledMapRenderer = new AntiBleedOrthogonalTiledMapRenderer(tiledMap, spriteBatch);
         } else {
-            orthogonalTiledMapRenderer.setMap(Valenguard.getInstance().getFileManager().getTiledMap(filePath));
+            orthogonalTiledMapRenderer.setMap(ClientMain.getInstance().getFileManager().getTiledMap(filePath));
         }
 
         // Map loaded, now fade it in!

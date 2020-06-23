@@ -7,7 +7,7 @@ import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -61,7 +61,7 @@ public class DevMenu extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeInWindow(stageHandler.getWorldBuilder());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
 
@@ -71,7 +71,7 @@ public class DevMenu extends VisTable implements Buildable {
                 EntityEditor entityEditor = stageHandler.getEntityEditor();
                 entityEditor.resetValues();
                 ActorUtil.fadeInWindow(entityEditor);
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
         toolsMenu.addItem(new MenuItem("Drop Table Editor"));
@@ -81,7 +81,7 @@ public class DevMenu extends VisTable implements Buildable {
                 ItemStackEditor itemStackEditor = stageHandler.getItemStackEditor();
                 itemStackEditor.resetValues();
                 ActorUtil.fadeInWindow(itemStackEditor);
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
         toolsMenu.addItem(new MenuItem("Warp Editor"));
@@ -92,7 +92,7 @@ public class DevMenu extends VisTable implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 PixelFXTest pixelFXTest = stageHandler.getPixelFXTest();
                 ActorUtil.fadeInWindow(pixelFXTest);
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
 

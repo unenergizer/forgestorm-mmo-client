@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.out;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 
 import lombok.Getter;
 
@@ -20,7 +20,7 @@ public abstract class AbstractClientPacketOut {
      * Sends the packet to the player.
      */
     public void sendPacket() {
-        Valenguard.getInstance().getOutputStreamManager().addClientOutPacket(this);
+        ClientMain.getInstance().getOutputStreamManager().addClientOutPacket(this);
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.shared;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.network.game.packet.out.AbstractClientPacketOut;
 import com.valenguard.client.network.game.packet.out.ValenguardOutputStream;
 
@@ -125,7 +125,7 @@ public class ClientHandler {
         } catch (IOException e) {
 
             if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-                Valenguard.connectionManager.logout();
+                ClientMain.connectionManager.logout();
             }
 
         }
@@ -154,7 +154,7 @@ public class ClientHandler {
 
     private void handleIOException(IOException e) {
         if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-            Valenguard.connectionManager.logout();
+            ClientMain.connectionManager.logout();
         }
         e.printStackTrace();
     }

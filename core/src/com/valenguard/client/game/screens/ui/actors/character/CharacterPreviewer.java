@@ -10,7 +10,7 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.maps.MoveDirection;
 import com.valenguard.client.io.FileManager;
@@ -180,7 +180,7 @@ public class CharacterPreviewer {
     private VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
         VisTable innerTable = new VisTable();
 
-        FileManager fileManager = Valenguard.getInstance().getFileManager();
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
 
         fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
 

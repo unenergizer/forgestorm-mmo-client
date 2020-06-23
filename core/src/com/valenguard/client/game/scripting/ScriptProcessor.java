@@ -19,7 +19,7 @@ public class ScriptProcessor {
 //
 //    public void runScript(int scriptId) {
 //
-//        String script = Valenguard.getInstance().getScriptManager().getScript(scriptId);
+//        String script = ClientMain.getInstance().getScriptManager().getScript(scriptId);
 //
 //        StringBuilder upload = new StringBuilder(WRAPPER_FUNCTIONS);
 //        upload.append(script);

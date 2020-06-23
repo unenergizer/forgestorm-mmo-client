@@ -19,6 +19,6 @@ public class NPC extends AiEntity {
      */
 
     public void chat() {
-//        Valenguard.getInstance().getScriptProcessor().runScript(scriptId);
+//        ClientMain.getInstance().getScriptProcessor().runScript(scriptId);
     }
 }

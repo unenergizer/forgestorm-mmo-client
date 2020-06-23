@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
@@ -21,9 +21,9 @@ public class InitClientPrivilegePacketIn implements PacketListener<InitClientPri
 
     @Override
     public void onEvent(ClientPrivilegePacket packetData) {
-        Valenguard valenguard = Valenguard.getInstance();
-        valenguard.setAdmin(packetData.isAdmin);
-        valenguard.setModerator(packetData.isMod);
+        ClientMain clientMain = ClientMain.getInstance();
+        clientMain.setAdmin(packetData.isAdmin);
+        clientMain.setModerator(packetData.isMod);
     }
 
     @AllArgsConstructor

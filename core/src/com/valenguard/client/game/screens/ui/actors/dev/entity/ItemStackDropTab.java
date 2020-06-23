@@ -13,7 +13,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -33,7 +33,7 @@ import static com.valenguard.client.util.Log.println;
 
 public class ItemStackDropTab extends EditorTab {
 
-    private final ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
+    private final ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
     private final int amount = itemStackManager.getItemStackArraySize();
     private final String title;
     private VisTable content;
@@ -151,13 +151,13 @@ public class ItemStackDropTab extends EditorTab {
                 mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
                 selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
-                Valenguard.getInstance().getMouseManager().setHighlightHoverTile(true);
+                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(true);
             }
         });
 
-        Valenguard.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
+        ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
+            private MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
@@ -188,7 +188,7 @@ public class ItemStackDropTab extends EditorTab {
                 mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
                 mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
-                Valenguard.getInstance().getMouseManager().setHighlightHoverTile(false);
+                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(false);
                 return true;
             }
 
@@ -279,7 +279,7 @@ public class ItemStackDropTab extends EditorTab {
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
@@ -292,19 +292,19 @@ public class ItemStackDropTab extends EditorTab {
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
                         ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
                         ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
                         ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });
             }

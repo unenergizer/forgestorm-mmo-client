@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.character.CharacterCreation;
@@ -63,8 +63,6 @@ import com.valenguard.client.game.scripting.NPCTextDialog;
 import com.valenguard.client.io.type.GameSkin;
 
 import lombok.Getter;
-
-import static com.valenguard.client.util.Log.println;
 
 @Getter
 public class StageHandler implements Disposable {
@@ -243,20 +241,20 @@ public class StageHandler implements Disposable {
     }
 
     public void setUserInterface(UserInterfaceType userInterfaceType) {
-        Valenguard.getInstance().setUserInterfaceType(userInterfaceType);
+        ClientMain.getInstance().setUserInterfaceType(userInterfaceType);
         hideAllUI();
-        MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+        MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
 
         switch (userInterfaceType) {
             case LOGIN:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying() && Valenguard.gameScreen.isGameFocused()) {
+                    if (!musicManager.isMusicPlaying() && ClientMain.gameScreen.isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
                     }
                 }
 
-                Valenguard.getInstance().gameWorldQuit();
+                ClientMain.getInstance().gameWorldQuit();
 
                 buttonTable.setVisible(true);
                 versionTable.setVisible(true);
@@ -271,12 +269,12 @@ public class StageHandler implements Disposable {
             case CHARACTER_SELECT:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying() && Valenguard.gameScreen.isGameFocused()) {
+                    if (!musicManager.isMusicPlaying() && ClientMain.gameScreen.isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
                     }
                 }
 
-                Valenguard.getInstance().gameWorldQuit();
+                ClientMain.getInstance().gameWorldQuit();
 
                 connectionStatusWindow.setVisible(false);
                 characterSelectMenu.setVisible(true);
@@ -284,9 +282,9 @@ public class StageHandler implements Disposable {
             case GAME:
                 musicManager.stopMusic(true);
 
-//                Valenguard.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
+//                ClientMain.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
-                if (Valenguard.getInstance().isAdmin()) devMenu.setVisible(true);
+                if (ClientMain.getInstance().isAdmin()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);
                 statusBar.setVisible(true);
                 experienceBar.setVisible(true);

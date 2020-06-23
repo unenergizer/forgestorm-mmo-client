@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
 import com.valenguard.client.game.movement.InputData;
 import com.valenguard.client.game.movement.MoveUtil;
@@ -110,7 +110,7 @@ public class MouseManager {
     }
 
     private Vector3 cameraXYtoTiledMapXY(final int screenX, final int screenY) {
-        return Valenguard.gameScreen.getCamera().unproject(clickLocation.set(screenX, screenY, 0));
+        return ClientMain.gameScreen.getCamera().unproject(clickLocation.set(screenX, screenY, 0));
     }
 
     private boolean entityClickTest(float drawX, float drawY) {
@@ -130,7 +130,7 @@ public class MouseManager {
 
         WorldBuilder worldBuilder = ActorUtil.getStageHandler().getWorldBuilder();
         if (worldBuilder.isVisible()) {
-            TiledMap tiledMap = Valenguard.gameScreen.getMapRenderer().getTiledMap();
+            TiledMap tiledMap = ClientMain.gameScreen.getMapRenderer().getTiledMap();
             MapLayers layers = tiledMap.getLayers();
             TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(worldBuilder.getActiveDrawLayer());
             TiledMapTileLayer.Cell cell = layer.getCell(mouseTileX, mouseTileY);
@@ -166,7 +166,7 @@ public class MouseManager {
         // Left Click target AiEntities
         for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
+                ClientMain.getInstance().getEntityTracker().startTracking(movingEntity);
                 EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
                 return;
             }
@@ -175,7 +175,7 @@ public class MouseManager {
         // Left Click Target Player entities
         for (MovingEntity movingEntity : EntityManager.getInstance().getPlayerEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                Valenguard.getInstance().getEntityTracker().startTracking(movingEntity);
+                ClientMain.getInstance().getEntityTracker().startTracking(movingEntity);
                 EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
                 return;
             }
@@ -194,7 +194,7 @@ public class MouseManager {
                     }
                 } else {
                     // New Entity click so lets cancelTracking entityTracker
-                    Valenguard.getInstance().getEntityTracker().cancelTracking();
+                    ClientMain.getInstance().getEntityTracker().cancelTracking();
 
                     // Top right quad
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), true);
@@ -222,7 +222,7 @@ public class MouseManager {
                     }
                 } else {
                     // New Entity click so lets cancelTracking entityTracker
-                    Valenguard.getInstance().getEntityTracker().cancelTracking();
+                    ClientMain.getInstance().getEntityTracker().cancelTracking();
 
                     // Top right quad
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), true);
@@ -241,13 +241,13 @@ public class MouseManager {
         // Click to walk path finding
         if (moveNodes == null) {
             // New Entity click so lets cancelTracking entityTracker
-            Valenguard.getInstance().getEntityTracker().cancelTracking();
+            ClientMain.getInstance().getEntityTracker().cancelTracking();
             moveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), false);
         }
 
         if (moveNodes == null) return;
 
-        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
     }
 
@@ -286,7 +286,7 @@ public class MouseManager {
         // Send list of entities to the EntityDropDownMenu!
         if (!entityList.isEmpty()) {
             if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, Valenguard.gameScreen.getCamera().viewportHeight - screenY);
+            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, ClientMain.gameScreen.getCamera().viewportHeight - screenY);
         }
 
         /*
@@ -341,8 +341,8 @@ public class MouseManager {
     }
 
     public void drawMoveNodes(SpriteBatch spriteBatch) {
-        if (Valenguard.getInstance().getClientMovementProcessor().getCurrentMovementInput() == ClientMovementProcessor.MovementInput.MOUSE) {
-            Queue<MoveNode> remainingMoveNodes = Valenguard.getInstance().getClientPlayerMovementManager().getMovements();
+        if (ClientMain.getInstance().getClientMovementProcessor().getCurrentMovementInput() == ClientMovementProcessor.MovementInput.MOUSE) {
+            Queue<MoveNode> remainingMoveNodes = ClientMain.getInstance().getClientPlayerMovementManager().getMovements();
             for (MoveNode moveNode : remainingMoveNodes) {
                 spriteBatch.draw(new ImageBuilder(GameAtlas.CURSOR, "path_find").buildTextureRegionDrawable().getRegion(), moveNode.getWorldX() * ClientConstants.TILE_SIZE, moveNode.getWorldY() * ClientConstants.TILE_SIZE);
             }

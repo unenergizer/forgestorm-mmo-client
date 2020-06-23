@@ -9,7 +9,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -27,7 +27,7 @@ public class ButtonTable extends VisTable implements Buildable {
          * Play Login Screen Music Toggle
          */
         VisTable musicTable = new VisTable();
-        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+        final MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
         final VisCheckBox playLoginMusicCheckBox = new VisCheckBox("");
         playLoginMusicCheckBox.setChecked(musicManager.getAudioPreferences().isPlayLoginScreenMusic());
         musicTable.add(new VisLabel("Play Music")).padRight(3).right();
@@ -58,7 +58,7 @@ public class ButtonTable extends VisTable implements Buildable {
         playLoginMusicCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 musicManager.getAudioPreferences().setPlayLoginScreenMusic(playLoginMusicCheckBox.isChecked());
                 if (!playLoginMusicCheckBox.isChecked()) {
                     musicManager.stopMusic(true);
@@ -75,7 +75,7 @@ public class ButtonTable extends VisTable implements Buildable {
         registerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(ClientConstants.WEB_REGISTER);
             }
         });
@@ -84,7 +84,7 @@ public class ButtonTable extends VisTable implements Buildable {
         forgotPasswordButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(ClientConstants.WEB_LOST_PASSWORD);
             }
         });
@@ -93,7 +93,7 @@ public class ButtonTable extends VisTable implements Buildable {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 MainSettingsWindow mainSettingsWindow = stageHandler.getMainSettingsWindow();
                 if (!mainSettingsWindow.isVisible()) ActorUtil.fadeInWindow(mainSettingsWindow);
                 else ActorUtil.fadeOutWindow(mainSettingsWindow);
@@ -104,7 +104,7 @@ public class ButtonTable extends VisTable implements Buildable {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.app.exit();
             }
         });

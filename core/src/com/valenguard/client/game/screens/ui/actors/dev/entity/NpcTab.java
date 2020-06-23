@@ -19,7 +19,7 @@ import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -121,7 +121,7 @@ public class NpcTab extends EditorTab {
         entityID.setText(npc.getServerEntityID());
 
         name.setText(npc.getEntityName());
-        faction.setText(Valenguard.getInstance().getFactionManager().getFactionFromByte(npc.getFaction()));
+        faction.setText(ClientMain.getInstance().getFactionManager().getFactionFromByte(npc.getFaction()));
         health.setText(Integer.toString(npc.getMaxHealth()));
         damage.setText(Integer.toString(npc.getDamage()));
         expDrop.setText(Integer.toString(npc.getExpDrop()));
@@ -204,13 +204,13 @@ public class NpcTab extends EditorTab {
                 mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
                 selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
-                Valenguard.getInstance().getMouseManager().setHighlightHoverTile(true);
+                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(true);
             }
         });
 
-        Valenguard.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
+        ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
+            private MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
@@ -241,7 +241,7 @@ public class NpcTab extends EditorTab {
                 mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
                 mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
-                Valenguard.getInstance().getMouseManager().setHighlightHoverTile(false);
+                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(false);
                 return true;
             }
 
@@ -329,7 +329,7 @@ public class NpcTab extends EditorTab {
                 new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
                 ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
 
@@ -337,14 +337,14 @@ public class NpcTab extends EditorTab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetValues();
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
 
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
@@ -357,19 +357,19 @@ public class NpcTab extends EditorTab {
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
                         ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
                         ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
                         ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
                 });
             }
@@ -411,7 +411,7 @@ public class NpcTab extends EditorTab {
     VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
         VisTable innerTable = new VisTable();
 
-        TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
+        TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(region));
         textureRegionDrawable.setMinWidth(width);
         textureRegionDrawable.setMinHeight(height);

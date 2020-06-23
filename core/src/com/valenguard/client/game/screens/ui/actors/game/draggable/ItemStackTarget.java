@@ -1,7 +1,7 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackType;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
@@ -76,7 +76,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
 
         // Play Sound FX
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         // The client is simply picking up and placing down the item in the exact same position.
         if (sourceItemStackSlot.getSlotIndex() == itemStackTargetSlot.getSlotIndex() &&

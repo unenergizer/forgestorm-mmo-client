@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.TradeWindow;
@@ -79,10 +79,10 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 1: Init trade
             case TRADE_REQUEST_INIT_SENDER:
-                Valenguard.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
+                ClientMain.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
                 break;
             case TRADE_REQUEST_INIT_TARGET:
-                Valenguard.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
+                ClientMain.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
                 ActorUtil.fadeInWindow(stageHandler.getIncomingTradeRequestWindow());
                 ActorUtil.getStageHandler().getTradeWindow().setTradeTarget(EntityManager.getInstance().getPlayerEntity(packetData.tradeTargetUUID));
                 break;
@@ -125,7 +125,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 // TODO: Server will send items in different packet to client
                 // TODO: Close and gameQuitReset trade window
                 stageHandler.getTradeWindow().closeTradeWindow();
-                Valenguard.getInstance().getTradeManager().setTradeUUID(null); // Reset trade UUID
+                ClientMain.getInstance().getTradeManager().setTradeUUID(null); // Reset trade UUID
                 break;
 
             // Generic trade cancel

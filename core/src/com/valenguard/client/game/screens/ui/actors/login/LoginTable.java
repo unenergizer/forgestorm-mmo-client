@@ -11,7 +11,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -40,8 +40,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         VisTable loginTable = new VisTable(true);
 
         // create login widgets
-        Valenguard.getInstance().getFileManager().loadTexture(GameTexture.LOGO_BIG);
-        Texture logoTexture = Valenguard.getInstance().getFileManager().getTexture(GameTexture.LOGO_BIG);
+        ClientMain.getInstance().getFileManager().loadTexture(GameTexture.LOGO_BIG);
+        Texture logoTexture = ClientMain.getInstance().getFileManager().getTexture(GameTexture.LOGO_BIG);
         VisImage logoImage = new VisImage(logoTexture);
         logoTable.add(logoImage).minSize(logoTexture.getWidth(), logoTexture.getHeight()).maxSize(logoTexture.getWidth(), logoTexture.getHeight());
         VisLabel accountLabel = new VisLabel("Username");
@@ -58,8 +58,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         passwordField.setMaxLength(16);
 
         // Set prefilled credentials
-        usernameField.setText(Valenguard.getInstance().getLoginCredentials().getUsername());
-        passwordField.setText(Valenguard.getInstance().getLoginCredentials().getPassword());
+        usernameField.setText(ClientMain.getInstance().getLoginCredentials().getUsername());
+        passwordField.setText(ClientMain.getInstance().getLoginCredentials().getPassword());
 
         loginButton.setText("Login");
 
@@ -89,7 +89,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 attemptLogin();
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
             }
         });
 
@@ -107,7 +107,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
 
     @Override
     public void dispose() {
-        Valenguard.getInstance().getFileManager().unloadAsset(GameTexture.LOGO_BIG.getFilePath());
+        ClientMain.getInstance().getFileManager().unloadAsset(GameTexture.LOGO_BIG.getFilePath());
     }
 
     /**
@@ -125,17 +125,17 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         loginButton.setDisabled(true);
         loginButton.setText("Logging in...");
 
-        if (!Valenguard.connectionManager.getClientGameConnection().isConnected()) {
-            Valenguard.getInstance().getLoginCredentials().setUsername(username);
-            Valenguard.getInstance().getLoginCredentials().setPassword(password);
-            Valenguard.getInstance().initializeNetwork();
+        if (!ClientMain.connectionManager.getClientGameConnection().isConnected()) {
+            ClientMain.getInstance().getLoginCredentials().setUsername(username);
+            ClientMain.getInstance().getLoginCredentials().setPassword(password);
+            ClientMain.getInstance().initializeNetwork();
         }
     }
 
     public void resetButton() {
         loginButton.setDisabled(false);
         loginButton.setText("Login");
-        passwordField.setText(Valenguard.getInstance().getLoginCredentials().getPassword());
+        passwordField.setText(ClientMain.getInstance().getLoginCredentials().getPassword());
     }
 
     /*****************************************************************

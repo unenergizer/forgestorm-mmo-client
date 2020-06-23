@@ -2,7 +2,7 @@ package com.valenguard.client.game.screens.ui;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -29,7 +29,7 @@ class PostStageEvent implements InputProcessor {
             if (forceCloseEvent.isHandled()) return true; // break here, do not open escape menu!
 
             //Finally... Open the Escape menu!
-            if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+            if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
                 if (!stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEscapeWindow());
                 }

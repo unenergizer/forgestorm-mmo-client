@@ -1,7 +1,7 @@
 package com.valenguard.client.game.rpg;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.event.ExperienceUpdateEvent;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -63,7 +63,7 @@ public class Skill {
 
         // Update UI
         if (skillOpcodes == SkillOpcodes.MELEE) {
-            Valenguard.getInstance().getStageHandler().getExperienceBar().updateExp(barPercent, experience, currentLevel, nextLevelExp);
+            ClientMain.getInstance().getStageHandler().getExperienceBar().updateExp(barPercent, experience, currentLevel, nextLevelExp);
         }
 
         // Update UI values
@@ -80,7 +80,7 @@ public class Skill {
             EntityManager.getInstance().getPlayerClient().setShowLevelUpMessage(true);
 
             // check if they have gained a level and do skill level animation effect / send chat msg ect..
-            Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[GREEN]You are now level " + currentLevel);
+            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage("[GREEN]You are now level " + currentLevel);
         }
 
         if (!initialized) {

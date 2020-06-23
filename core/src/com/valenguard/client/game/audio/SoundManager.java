@@ -2,7 +2,7 @@ package com.valenguard.client.game.audio;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.item.ItemStack;
 
 import java.util.Map;
@@ -41,8 +41,8 @@ public class SoundManager implements Disposable {
             currentSound.dispose();
         }
 
-        Valenguard.getInstance().getFileManager().loadSound(audioData);
-        currentSound = Valenguard.getInstance().getFileManager().getSound(audioData);
+        ClientMain.getInstance().getFileManager().loadSound(audioData);
+        currentSound = ClientMain.getInstance().getFileManager().getSound(audioData);
         id = currentSound.play();
         currentSound.setVolume(id, audioPreferences.getSoundEffectsVolume());
 

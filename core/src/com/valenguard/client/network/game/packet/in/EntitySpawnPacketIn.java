@@ -2,7 +2,7 @@ package com.valenguard.client.network.game.packet.in;
 
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.EntityAlignment;
 import com.valenguard.client.game.screens.AttachableCamera;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -55,7 +55,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case ITEM_STACK:
-                if (Valenguard.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin()) {
                     entitySpawnPacket.setSpawnedFromDropTable(clientHandler.readBoolean());
                     entitySpawnPacket.setItemStackId(clientHandler.readInt());
                     entitySpawnPacket.setStackSize(clientHandler.readInt());
@@ -65,8 +65,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case MONSTER:
-                if (Valenguard.getInstance().isAdmin()) {
-                    println(getClass(), "Reading in extra MONSTER data.", false, Valenguard.getInstance().isAdmin() && PRINT_DEBUG);
+                if (ClientMain.getInstance().isAdmin()) {
+                    println(getClass(), "Reading in extra MONSTER data.", false, ClientMain.getInstance().isAdmin() && PRINT_DEBUG);
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -90,8 +90,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case NPC:
-                if (Valenguard.getInstance().isAdmin()) {
-                    println(getClass(), "Reading in extra NPC data.", false, Valenguard.getInstance().isAdmin() && PRINT_DEBUG);
+                if (ClientMain.getInstance().isAdmin()) {
+                    println(getClass(), "Reading in extra NPC data.", false, ClientMain.getInstance().isAdmin() && PRINT_DEBUG);
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -155,7 +155,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
-        String mapName = Valenguard.gameScreen.getMapRenderer().getGameMapNameFromServer();
+        String mapName = ClientMain.gameScreen.getMapRenderer().getGameMapNameFromServer();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             entity = spawnClientPlayer(packetData, mapName);
@@ -211,7 +211,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
                 if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-                    Valenguard.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
+                    ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
                 }
 
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
@@ -227,7 +227,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
                 break;
             case NPC:
-                if (Valenguard.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin()) {
                     NPC npc = (NPC) entity;
                     npc.setDamage(packetData.damage);
                     npc.setExpDrop(packetData.expDrop);
@@ -267,7 +267,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
                 break;
             case MONSTER:
-                if (Valenguard.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin()) {
                     Monster monster = (Monster) entity;
                     monster.setDamage(packetData.damage);
                     monster.setExpDrop(packetData.expDrop);
@@ -287,7 +287,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 appearance.setMonsterBodyTexture(packetData.bodyTexture);
                 break;
             case ITEM_STACK:
-                if (Valenguard.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin()) {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) entity;
                     itemStackDrop.setSpawnedFromDropTable(packetData.spawnedFromDropTable);
                     itemStackDrop.setItemStackId(packetData.itemStackId);
@@ -302,13 +302,13 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String mapName) {
         PlayerClient playerClient = new PlayerClient();
-        AttachableCamera camera = Valenguard.gameScreen.getCamera();
+        AttachableCamera camera = ClientMain.gameScreen.getCamera();
 
         // Attach entity to camera
         camera.attachEntity(playerClient);
 
-        Valenguard.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
-        Valenguard.getInstance().getMouseManager().setInvalidate(false);
+        ClientMain.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
+        ClientMain.getInstance().getMouseManager().setInvalidate(false);
 
         setMovingEntityVars(playerClient, packetData, mapName);
 

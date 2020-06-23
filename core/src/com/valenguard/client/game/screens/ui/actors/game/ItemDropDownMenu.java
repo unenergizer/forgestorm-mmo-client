@@ -3,7 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -100,7 +100,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                     BankWindow bankWindow = stageHandler.getBankWindow();
                     ItemStackSlot targetItemStackSlot = bankWindow.getItemSlotContainer().getFreeItemStackSlot(itemStack);
                     if (targetItemStackSlot != null) {
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                         new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
                     } else {
                         stageHandler.getChatWindow().appendChatMessage("[RED]Your bank is full!");
@@ -128,7 +128,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                     BagWindow bagWindow = stageHandler.getBagWindow();
                     ItemStackSlot targetItemStackSlot = bagWindow.getItemSlotContainer().getFreeItemStackSlot(itemStack);
                     if (targetItemStackSlot != null) {
-                        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                         new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
                     } else {
                         stageHandler.getChatWindow().appendChatMessage("[RED]Your inventory is full!");
@@ -150,7 +150,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 stageHandler.getEquipmentWindow().unequipItem(stageHandler.getBagWindow().getItemSlotContainer(), itemStack, sourceSlot);
                 cleanUpDropDownMenu(true);
             }
@@ -167,7 +167,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 stageHandler.getEquipmentWindow().equipItem(itemStack, sourceSlot);
                 cleanUpDropDownMenu(true);
             }
@@ -183,7 +183,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 new InventoryPacketOut(new InventoryActions(
                         InventoryActions.ActionType.CONSUME,
                         inventoryType.getInventoryTypeIndex(),
@@ -202,7 +202,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         dropItemStackButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.DROP, inventoryType.getInventoryTypeIndex(), slotIndex)).sendPacket();
                 cleanUpDropDownMenu(true);
             }
@@ -220,7 +220,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                 // TODO: Tell server the skill (ItemStack) was removed? SEND REMOVE PACKET!
                 println(ItemDropDownMenu.class, "Remove Skill Button clicked");
 
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 new InventoryPacketOut(new InventoryActions(InventoryActions.ActionType.REMOVE, inventoryType.getInventoryTypeIndex(), slotIndex)).sendPacket();
                 cleanUpDropDownMenu(true);
             }
@@ -234,7 +234,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         cancelButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                 cleanUpDropDownMenu(true);
             }
         });

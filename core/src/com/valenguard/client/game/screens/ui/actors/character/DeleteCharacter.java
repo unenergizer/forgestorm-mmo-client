@@ -8,7 +8,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -87,7 +87,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeInWindow(characterSelectMenu);
                 characterSelectMenu.reprocessCharacterButtons(characterListIndex);
                 new CharacterDeletePacketOut(characterListIndex).sendPacket();
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
                 confirm.setDisabled(true);
             }
         });
@@ -97,7 +97,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeOutWindow(deleteCharacterWindow);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
                 confirm.setDisabled(true);
             }
         });

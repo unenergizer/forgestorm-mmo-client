@@ -2,7 +2,7 @@ package com.valenguard.client.game.movement;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.MovingEntity;
@@ -46,7 +46,7 @@ public class EntityMovementManager {
         // Check if entity shop should close
         if (!(entity instanceof PlayerClient)) {
             PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            StageHandler stageHandler = Valenguard.getInstance().getStageHandler();
+            StageHandler stageHandler = ClientMain.getInstance().getStageHandler();
             MovingEntity shopOwner = stageHandler.getPagedItemStackWindow().getShopOwnerEntity();
             if (entity != shopOwner) return;
             // The

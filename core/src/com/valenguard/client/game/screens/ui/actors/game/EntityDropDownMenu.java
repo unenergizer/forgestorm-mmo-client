@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.ClickAction;
 import com.valenguard.client.game.movement.AbstractPostProcessor;
 import com.valenguard.client.game.movement.ClientMovementProcessor;
@@ -109,7 +109,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     }
 
     private void sendTradeRequest(Player player) {
-        Valenguard.getInstance().getEntityTracker().cancelTracking();
+        ClientMain.getInstance().getEntityTracker().cancelTracking();
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, player.getServerEntityID())).sendPacket();
         stageHandler.getTradeWindow().setTradeTarget(player);
         stageHandler.getChatWindow().appendChatMessage("[Client] Sending trade request...");
@@ -123,7 +123,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         walkHereButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                 Location clientLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
@@ -136,7 +136,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                 Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                         new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                             @Override
                             public void postMoveAction() {
@@ -155,7 +155,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         cancelButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                 cleanUpDropDownMenu(true);
             }
         });
@@ -180,7 +180,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         private void addEditEntityButton() {
             if (clickedEntity.getEntityType() == EntityType.PLAYER ||
                     clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER) return;
-            if (!Valenguard.getInstance().isAdmin()) return;
+            if (!ClientMain.getInstance().isAdmin()) return;
             if (clickedEntity.getEntityType() == EntityType.ITEM_STACK) {
                 // If this ItemStackDrop spawned from an Entity Kill, then don't allow editor button
                 if (((ItemStackDrop) clickedEntity).isSpawnedFromDropTable()) return;
@@ -193,7 +193,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             editEntityButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     EntityEditor entityEditor = stageHandler.getEntityEditor();
                     if (clickedEntity.getEntityType() == EntityType.MONSTER) {
@@ -258,7 +258,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             openPlayerProfileButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     stageHandler.getPlayerProfileWindow().requestPlayerProfile((Player) clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
@@ -267,7 +267,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
         private void addPickupButton(final ItemStackDrop itemStackDrop) {
             // This is only used to get data about the ItemStack drop
-            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getItemStackId(), 1);
+            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getItemStackId(), 1);
 
             LeftAlignTextButton pickupButton;
             if (itemStack.getItemStackType() == ItemStackType.GOLD) {
@@ -296,7 +296,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         }
                     } else {
                         // New Entity click so lets cancelTracking entityTracker
-                        Valenguard.getInstance().getEntityTracker().cancelTracking();
+                        ClientMain.getInstance().getEntityTracker().cancelTracking();
 
                         // Top right quad
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), location.getX(), location.getY(), clientLocation.getMapName(), true);
@@ -312,14 +312,14 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     // Click to walk path finding
                     if (moveNodes == null) {
                         // New Entity click so lets cancelTracking entityTracker
-                        Valenguard.getInstance().getEntityTracker().cancelTracking();
+                        ClientMain.getInstance().getEntityTracker().cancelTracking();
                         moveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), location.getX(), location.getY(), clientLocation.getMapName(), false);
                     }
 
                     if (moveNodes != null) {
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(itemStackDrop);
-                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                        ClientMain.getInstance().getEntityTracker().startTracking(itemStackDrop);
+                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
@@ -362,7 +362,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             inspectPlayerButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     new InspectPlayerPacketOut(clickedMovingEntity.getServerEntityID()).sendPacket();
                     stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedMovingEntity);
@@ -384,7 +384,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             openBankButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
@@ -415,8 +415,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-            Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-            Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+            ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+            ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                     new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
@@ -450,8 +450,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 return false;
             }
 
-            Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-            Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+            ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+            ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                     new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes, new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
@@ -479,12 +479,12 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-            Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-            Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes,
+            ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+            ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes,
                     new AbstractPostProcessor() {
                         @Override
                         public void postMoveAction() {
-                            Valenguard.getInstance().getEntityTracker().cancelTracking();
+                            ClientMain.getInstance().getEntityTracker().cancelTracking();
                             NPC npc = (NPC) clickedMovingEntity;
                             npc.chat();
                         }
@@ -504,7 +504,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             attackButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     playerClient.setTargetEntity(clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
@@ -518,7 +518,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             attackButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
                     playerClient.setTargetEntity(clickedMovingEntity);
@@ -539,8 +539,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                        ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
@@ -561,7 +561,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             tradeButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
@@ -581,8 +581,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                        ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
@@ -603,7 +603,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             shopButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     final EntityShopWindow pagedItemStackWindow = stageHandler.getPagedItemStackWindow();
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
@@ -624,12 +624,12 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                         Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                        Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                        Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                        ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
                                     @Override
                                     public void postMoveAction() {
-                                        Valenguard.getInstance().getEntityTracker().cancelTracking();
+                                        ClientMain.getInstance().getEntityTracker().cancelTracking();
                                         new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
                                         pagedItemStackWindow.openWindow(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
                                     }
@@ -650,7 +650,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             followButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
 
@@ -664,8 +664,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                     Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
-                    Valenguard.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                    Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                    ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
+                    ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                             new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
                     cleanUpDropDownMenu(true);
                 }

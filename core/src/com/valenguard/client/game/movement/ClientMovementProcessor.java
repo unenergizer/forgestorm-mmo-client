@@ -1,7 +1,7 @@
 package com.valenguard.client.game.movement;
 
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.maps.Location;
@@ -61,13 +61,13 @@ public class ClientMovementProcessor {
             checkArgument(inputData.getMoveNodes().size() == 1, "The input nodes was not one for keyboard input.");
 
             playerClient.setPredictedMoveDirection(getPredictedDirection(playerClient, playerClient.getCurrentMapLocation()));
-            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
 
             currentMovementInput = MovementInput.KEYBOARD;
 
         } else if (inputData.getMovementInput() == MovementInput.MOUSE) {
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
+            ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
 
             currentMovementInput = MovementInput.MOUSE;
         }
@@ -87,7 +87,7 @@ public class ClientMovementProcessor {
                 checkArgument(predictedDirection != MoveDirection.NONE, "Move direction was NONE when it is not suppose to be.");
 
                 playerClient.setPredictedMoveDirection(predictedDirection);
-                Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
+                ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
 
             } else if (currentMovementInput == MovementInput.KEYBOARD) {
                 MoveDirection predictedDirection = getPredictedDirection(playerClient, playerClient.getFutureMapLocation());
@@ -99,7 +99,7 @@ public class ClientMovementProcessor {
         } else if (inputData.getMovementInput() == MovementInput.MOUSE) {
             // This just overwrite the current queue
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-            Valenguard.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
 
             currentMovementInput = MovementInput.MOUSE;
         }
@@ -122,8 +122,8 @@ public class ClientMovementProcessor {
     void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
-        Valenguard.gameScreen.getKeyboard().getKeyboardMovement().invalidateKeys();
-        Valenguard.getInstance().getMouseManager().invalidateMouse();
+        ClientMain.gameScreen.getKeyboard().getKeyboardMovement().invalidateKeys();
+        ClientMain.getInstance().getMouseManager().invalidateMouse();
         if (EntityManager.getInstance().getPlayerClient() != null) {
             EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
         }

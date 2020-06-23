@@ -2,7 +2,7 @@ package com.valenguard.client.game.screens.effects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.UserInterfaceType;
 
 public class CircleDrawEffect extends ScreenEffect {
@@ -30,7 +30,7 @@ public class CircleDrawEffect extends ScreenEffect {
 
     @Override
     public void performEffect(float deltaTime) {
-        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
+        if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
         if (!isStarted) {
             isStarted = true;
             shapeRenderer = new ShapeRenderer();

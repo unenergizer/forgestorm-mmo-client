@@ -1,7 +1,7 @@
 package com.valenguard.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.Color;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -44,7 +44,7 @@ public class PlayerClient extends Player {
         if (!showLevelUpMessage) return;
         float x = getDrawX() + 8;
         float y = getDrawY() + 18 + distanceMoved;
-        String level = "Level " + Valenguard.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getCurrentLevel();
+        String level = "Level " + ClientMain.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getCurrentLevel();
 
         GameTextUtil.drawMessage(level, Color.YELLOW, 1f, x, y);
 

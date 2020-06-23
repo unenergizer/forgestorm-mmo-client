@@ -9,7 +9,7 @@ import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.audio.AudioPreferences;
 import com.valenguard.client.game.audio.MusicManager;
 
@@ -26,7 +26,7 @@ class AudioTab extends Tab {
 
     private void build() {
         content = new VisTable(true);
-        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+        final MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
         final AudioPreferences audioPreferences = musicManager.getAudioPreferences();
 
         /*

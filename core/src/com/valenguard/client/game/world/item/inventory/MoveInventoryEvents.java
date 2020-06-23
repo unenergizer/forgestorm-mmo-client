@@ -1,6 +1,6 @@
 package com.valenguard.client.game.world.item.inventory;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
@@ -68,7 +68,7 @@ public class MoveInventoryEvents {
                 }
             }
         }
-        Valenguard.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
+        ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
     }
 
     private void equipItem(ItemStackSlot itemStackSlot, ItemStack equipItem) {

@@ -1,6 +1,6 @@
 package com.valenguard.client.game.screens.effects;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.world.maps.MapRenderer;
 
@@ -11,10 +11,10 @@ public class AlphaFlashEffect extends ScreenEffect {
 
     @Override
     public void performEffect(float deltaTime) {
-        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
+        if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
         if (!isStarted) {
             isStarted = true;
-            mapRenderer = Valenguard.gameScreen.getMapRenderer();
+            mapRenderer = ClientMain.gameScreen.getMapRenderer();
         }
 
         if (num > 1) {

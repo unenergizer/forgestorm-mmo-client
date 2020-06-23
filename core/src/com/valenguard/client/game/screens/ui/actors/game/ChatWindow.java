@@ -12,7 +12,7 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -111,7 +111,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 // TODO: Remove lines below. Add pop-up menu like wow to interact with chat.
                 toggleChatWindowActive(true);
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ChatWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ChatWindow.class, (short) 0);
                 return true;
             }
         });

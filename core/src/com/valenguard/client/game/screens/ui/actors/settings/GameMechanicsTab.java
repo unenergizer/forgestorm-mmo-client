@@ -8,7 +8,7 @@ import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.StageHandler;
 
@@ -42,8 +42,8 @@ public class GameMechanicsTab extends Tab {
         fpsCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
-                if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
                     stageHandler.getFpsTable().setVisible(fpsCheckBox.isChecked());
                     if (fpsCheckBox.isChecked())
                         stageHandler.getDebugTable().setVisible(false);

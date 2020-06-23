@@ -1,6 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.paging;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.game.rpg.EntityShopManager;
 import com.valenguard.client.game.rpg.ShopOpcodes;
@@ -40,8 +40,8 @@ public class EntityShopWindow extends PagedWindow {
 
     @Override
     List<PagedWindowSlot> loadPagedWindowSlots() {
-        EntityShopManager entityShopManager = Valenguard.getInstance().getEntityShopManager();
-        ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
+        EntityShopManager entityShopManager = ClientMain.getInstance().getEntityShopManager();
+        ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
 
         // Generate shop slots
         List<PagedWindowSlot> windowSlots = new ArrayList<PagedWindowSlot>();

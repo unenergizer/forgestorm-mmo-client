@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.audio.MusicManager;
 import com.valenguard.client.game.input.Keyboard;
 import com.valenguard.client.game.input.Mouse;
@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
     private static final boolean PRINT_DEBUG = false;
 
     private final StageHandler stageHandler;
-    private final FileManager fileManager = Valenguard.getInstance().getFileManager();
+    private final FileManager fileManager = ClientMain.getInstance().getFileManager();
 
     private MapRenderer mapRenderer;
     private AttachableCamera camera;
@@ -127,7 +127,7 @@ public class GameScreen implements Screen {
 //        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // Setup input controls
-        InputMultiplexer inputMultiplexer = Valenguard.getInstance().getInputMultiplexer();
+        InputMultiplexer inputMultiplexer = ClientMain.getInstance().getInputMultiplexer();
         inputMultiplexer.addProcessor(stageHandler.getPreStageEvent());
         inputMultiplexer.addProcessor(stageHandler.getStage());
         inputMultiplexer.addProcessor(stageHandler.getPostStageEvent());
@@ -156,14 +156,14 @@ public class GameScreen implements Screen {
 
         WorldBuilder worldBuilder = stageHandler.getWorldBuilder();
         if (worldBuilder.getWorldBuilderTile() == null) {
-            TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+            TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
             worldBuilder.setWorldBuilderTile(textureAtlas.findRegion("decoration"));
         }
     }
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(Valenguard.getInstance().getMapManager().getBackgroundColor());
+        GraphicsUtils.clearScreen(ClientMain.getInstance().getMapManager().getBackgroundColor());
 
         // Render
         if (mapRenderer.isReadyToRender()) {
@@ -206,7 +206,7 @@ public class GameScreen implements Screen {
 
         // Draw Screen Effects
         spriteBatch.end();
-        Valenguard.getInstance().getEffectManager().drawScreenEffect();
+        ClientMain.getInstance().getEffectManager().drawScreenEffect();
         spriteBatch.begin();
 
         spriteBatch.setProjectionMatrix(camera.combined);
@@ -235,7 +235,7 @@ public class GameScreen implements Screen {
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch, playerClient);
 
         // Draw damage animations
-        Valenguard.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
+        ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
 
         mapRenderer.renderOverheadMapLayers();
 
@@ -255,7 +255,7 @@ public class GameScreen implements Screen {
         playerClient.drawLevelUpMessage();
 
         // Draw mouse
-        MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
+        MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
         mouseManager.drawMoveNodes(spriteBatch);
         if (mouseManager.isHighlightHoverTile()) {
             int x = mouseManager.getMouseTileX() * 16;
@@ -275,20 +275,20 @@ public class GameScreen implements Screen {
             spriteBatch.draw(stageHandler.getWorldBuilder().getWorldBuilderTile(), x, y, 16, 16);
         }
 
-        PixelFXTest pixelFXTest = Valenguard.getInstance().getStageHandler().getPixelFXTest();
+        PixelFXTest pixelFXTest = ClientMain.getInstance().getStageHandler().getPixelFXTest();
         if (pixelFXTest != null) pixelFXTest.render(delta, spriteBatch);
 
-        Valenguard.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
+        ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         spriteBatch.end();
     }
 
     private void tickGameLogic(float delta) {
-        Valenguard.getInstance().getClientMovementProcessor().processMovement(EntityManager.getInstance().getPlayerClient());
-        Valenguard.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient(), delta);
-        Valenguard.getInstance().getEntityMovementManager().tick(delta);
-        Valenguard.getInstance().getEntityTracker().track();
-        Valenguard.getInstance().getAbilityManager().updateCooldowns();
-        Valenguard.getInstance().getEffectManager().tickScreenEffect(delta);
+        ClientMain.getInstance().getClientMovementProcessor().processMovement(EntityManager.getInstance().getPlayerClient());
+        ClientMain.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient(), delta);
+        ClientMain.getInstance().getEntityMovementManager().tick(delta);
+        ClientMain.getInstance().getEntityTracker().track();
+        ClientMain.getInstance().getAbilityManager().updateCooldowns();
+        ClientMain.getInstance().getEffectManager().tickScreenEffect(delta);
     }
 
     @Override
@@ -302,13 +302,13 @@ public class GameScreen implements Screen {
     public void pause() {
         println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
         gameFocused = false;
-        Valenguard.getInstance().getAudioManager().getMusicManager().pauseMusic();
+        ClientMain.getInstance().getAudioManager().getMusicManager().pauseMusic();
     }
 
     @Override
     public void resume() {
         // Resume game music, if applicable
-        final MusicManager musicManager = Valenguard.getInstance().getAudioManager().getMusicManager();
+        final MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
         if (musicManager.isMusicPaused()) musicManager.resumeMusic();
 
         /*

@@ -8,7 +8,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -169,7 +169,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 resetCharacter();
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });
 
@@ -179,7 +179,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 new CharacterCreatorPacketOut(characterName.getText(), hairStyleOption.optionValue, hairColorOption.optionValue, eyeColorOption.optionValue, skinColorOption.optionValue).sendPacket();
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
                 resetCharacter(); // Clear current design, so next character creation is cleared.
             }
         });

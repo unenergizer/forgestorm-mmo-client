@@ -62,13 +62,13 @@ import lombok.Setter;
 import static com.valenguard.client.util.Log.println;
 
 @Getter
-public class Valenguard extends Game {
+public class ClientMain extends Game {
 
     private static final boolean PRINT_DEBUG = false;
 
     private final LoginCredentials loginCredentials = new LoginCredentials();
 
-    private static Valenguard valenguard;
+    private static ClientMain clientMain;
     public static ConnectionManager connectionManager;
     public static GameScreen gameScreen;
 
@@ -111,12 +111,12 @@ public class Valenguard extends Game {
     @Setter
     private boolean forceLocalHost;
 
-    private Valenguard() {
+    private ClientMain() {
     }
 
-    public static Valenguard getInstance() {
-        if (valenguard == null) valenguard = new Valenguard();
-        return valenguard;
+    public static ClientMain getInstance() {
+        if (clientMain == null) clientMain = new ClientMain();
+        return clientMain;
     }
 
     @Override
@@ -224,7 +224,7 @@ public class Valenguard extends Game {
 
     public void gameWorldQuit() {
         entityTracker.gameQuitReset();
-        Valenguard.getInstance().getSkills().gameQuitReset();
+        skills.gameQuitReset();
         clientMovementProcessor.resetInput();
         abilityManager.gameQuitReset();
         effectManager.gameQuitReset();

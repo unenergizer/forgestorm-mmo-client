@@ -3,7 +3,7 @@ package com.valenguard.client.game.screens.ui.actors;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 
 public class ActorUtil {
@@ -44,7 +44,7 @@ public class ActorUtil {
     }
 
     public static StageHandler getStageHandler() {
-        return Valenguard.getInstance().getStageHandler();
+        return ClientMain.getInstance().getStageHandler();
     }
 
     public static Stage getStage() {

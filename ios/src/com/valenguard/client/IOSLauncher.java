@@ -10,7 +10,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(Valenguard.getInstance(), config);
+        return new IOSApplication(ClientMain.getInstance(), config);
     }
 
     public static void main(String[] argv) {

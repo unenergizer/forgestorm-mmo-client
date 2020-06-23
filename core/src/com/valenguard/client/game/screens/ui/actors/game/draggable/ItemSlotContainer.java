@@ -1,7 +1,7 @@
 package com.valenguard.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryType;
 
@@ -77,20 +77,20 @@ public class ItemSlotContainer {
 
     void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {
         if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
-            Valenguard.getInstance().getStageHandler().getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
+            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
             return;
         }
 
         ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         sourceSlot.setEmptyCellImage();
     }
 
     void magicItemInteract(ItemStackSlot sourceSlot, ItemStack itemStack) {
         if (sourceSlot.getInventoryType() == InventoryType.BANK) return;
-        Valenguard.getInstance().getAbilityManager().toggleAbility(sourceSlot, itemStack);
+        ClientMain.getInstance().getAbilityManager().toggleAbility(sourceSlot, itemStack);
     }
 }

@@ -34,7 +34,7 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
                 break;
             case CHARACTER_SELECT:
                 // Network connection was successful.
-//                Valenguard.connectionManager.threadSafeConnectionMessage("Connection successful!");
+//                ClientMain.connectionManager.threadSafeConnectionMessage("Connection successful!");
                 ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.CHARACTER_SELECT);
 
                 // Fade this screen in!

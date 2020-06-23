@@ -9,7 +9,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.event.WindowResizeListener;
@@ -124,7 +124,7 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
         profileURLButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(profileURL);
             }
         });

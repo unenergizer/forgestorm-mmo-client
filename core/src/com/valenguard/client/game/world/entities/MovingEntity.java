@@ -2,7 +2,7 @@ package com.valenguard.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.screens.GameScreen;
 import com.valenguard.client.game.world.entities.animations.EntityAnimation;
@@ -110,7 +110,7 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
         float y = getDrawY() + 16;
         float width = 14;
         float xPos = x - (width / 2);
-        GameScreen gameScreen = Valenguard.gameScreen;
+        GameScreen gameScreen = ClientMain.gameScreen;
         gameScreen.getSpriteBatch().draw(gameScreen.getHpBase(), xPos, y, width, 1);
         gameScreen.getSpriteBatch().draw(gameScreen.getHpArea(), xPos, y, width * ((float) currentHealth / maxHealth), 1);
     }

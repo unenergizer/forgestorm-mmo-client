@@ -2,7 +2,7 @@ package com.valenguard.client.io;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.network.NetworkSettings;
 
 import org.yaml.snakeyaml.Yaml;
@@ -27,7 +27,7 @@ public class NetworkSettingsLoader {
         int gamePort = (Integer) root.get("game").get("port");
         String gameIp = (String) root.get("game").get("ip");
 
-        boolean forceLocalHost = Valenguard.getInstance().isForceLocalHost();
+        boolean forceLocalHost = ClientMain.getInstance().isForceLocalHost();
         if (forceLocalHost) {
             loginIp = "localhost";
             gameIp = "localhost";

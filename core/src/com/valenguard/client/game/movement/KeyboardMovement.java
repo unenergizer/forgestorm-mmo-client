@@ -1,6 +1,6 @@
 package com.valenguard.client.game.movement;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -48,11 +48,11 @@ public class KeyboardMovement {
         if (moveDirection == null) return;
 
         // New Entity click so lets cancelTracking entityTracker
-        Valenguard.getInstance().getEntityTracker().cancelTracking();
+        ClientMain.getInstance().getEntityTracker().cancelTracking();
 
         addMoveKey(moveDirection);
 
-        ClientMovementProcessor clientMovementProcessor = Valenguard.getInstance().getClientMovementProcessor();
+        ClientMovementProcessor clientMovementProcessor = ClientMain.getInstance().getClientMovementProcessor();
 
         Queue<MoveNode> futureMoveNode = clientMovementProcessor.getNodeForDirection(
                 playerClient,
@@ -102,7 +102,7 @@ public class KeyboardMovement {
         MoveDirection remainingMoveDirection = getRemainingMoveKey();
         // The player is no longer pressing any keys
         if (remainingMoveDirection == null) {
-            Valenguard.getInstance().getClientMovementProcessor().letOffAllKeys(playerClient);
+            ClientMain.getInstance().getClientMovementProcessor().letOffAllKeys(playerClient);
             return;
         }
 

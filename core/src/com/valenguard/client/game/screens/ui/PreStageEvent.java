@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.WindowManager;
@@ -74,7 +74,7 @@ class PreStageEvent implements InputProcessor {
         /*
          * Toggle TEMP EFFECTS
          */
-        EffectManager effectManager = Valenguard.getInstance().getEffectManager();
+        EffectManager effectManager = ClientMain.getInstance().getEffectManager();
 
         if (keycode == Input.Keys.NUMPAD_1) {
             if (!stageHandler.getChatWindow().isChatToggled()) {
@@ -210,7 +210,7 @@ class PreStageEvent implements InputProcessor {
          * Toggle Full Screen
          */
         if (keycode == KeyBinds.FULLSCREEN) {
-            WindowManager windowManager = Valenguard.getInstance().getWindowManager();
+            WindowManager windowManager = ClientMain.getInstance().getWindowManager();
             if (windowManager.getCurrentWindowMode() != WindowModes.WINDOW) {
                 stageHandler.getMainSettingsWindow().getGraphicsTab().setWindowMode(WindowModes.WINDOW);
             } else {
@@ -240,7 +240,7 @@ class PreStageEvent implements InputProcessor {
     public boolean keyDown(int keycode) {
         boolean bool;
         bool = anyScreenKeys(keycode);
-        if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+        if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
             bool = gameScreenOnlyKeys(keycode);
         }
         return bool;
@@ -258,7 +258,7 @@ class PreStageEvent implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+        if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
             // Fade out the chat window
             ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
             if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);

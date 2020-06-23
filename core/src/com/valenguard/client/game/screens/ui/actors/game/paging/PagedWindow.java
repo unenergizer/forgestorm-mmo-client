@@ -12,7 +12,7 @@ import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -67,7 +67,7 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
         previousPage.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
 
                 if (currentPageIndex > 0) {
                     currentPageIndex--;
@@ -81,7 +81,7 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
         nextPage.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
 
                 if (currentPageIndex < pages.size() - 1) {
                     currentPageIndex++;
@@ -124,7 +124,7 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
             stageHandler.getChatWindow().appendChatMessage("[RED]" + getTitleLabel().getText() + " closed because you moved.");
         }
 
-        Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
 
         ActorUtil.fadeOutWindow(this);
 

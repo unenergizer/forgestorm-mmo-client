@@ -1,6 +1,6 @@
 package com.valenguard.client.game.screens.ui.actors.game.paging;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.ItemStackManager;
 import com.valenguard.client.game.world.item.ItemStackType;
@@ -24,7 +24,7 @@ public class SkillBookWindow extends PagedWindow {
 
     @Override
     List<PagedWindowSlot> loadPagedWindowSlots() {
-        ItemStackManager itemStackManager = Valenguard.getInstance().getItemStackManager();
+        ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
         int size = itemStackManager.getItemStackArraySize();
 
         // Generate shop slots

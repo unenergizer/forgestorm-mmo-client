@@ -3,7 +3,7 @@ package com.valenguard.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -77,7 +77,7 @@ public class CharacterInspectionWindow extends ItemSlotContainerWindow implement
         // Set Items
         for (int itemId : itemIds) {
             if (itemId == -1) continue;
-            ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemId, 0);
+            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemId, 0);
             ItemStackSlot targetSlot = equipmentPreview.getItemStackSlot(itemStack.getItemStackType());
             targetSlot.setCharacterInspectionSlot(true); // Prevent Item from being moved
             targetSlot.setItemStack(itemStack);

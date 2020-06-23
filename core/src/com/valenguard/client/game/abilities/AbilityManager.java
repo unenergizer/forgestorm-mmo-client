@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
@@ -43,7 +43,7 @@ public class AbilityManager implements GameQuitReset, Disposable {
         combatAbilities = new AbilityLoader().loadAbilities();
 
         // Load Atlas
-        FileManager fileManager = Valenguard.getInstance().getFileManager();
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
         fileManager.loadAtlas(GameAtlas.PIXEL_FX);
         textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
     }

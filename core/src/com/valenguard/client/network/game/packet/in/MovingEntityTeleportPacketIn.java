@@ -1,7 +1,7 @@
 package com.valenguard.client.network.game.packet.in;
 
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.MovingEntity;
@@ -37,7 +37,7 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
                 movingEntity = EntityManager.getInstance().getPlayerClient();
-                Valenguard.getInstance().getClientMovementProcessor().resetInput();
+                ClientMain.getInstance().getClientMovementProcessor().resetInput();
                 break;
             case PLAYER:
                 movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);

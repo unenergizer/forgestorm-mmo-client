@@ -1,6 +1,6 @@
 package com.valenguard.client.game.movement;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.world.entities.Entity;
 import com.valenguard.client.game.world.entities.EntityManager;
@@ -49,7 +49,7 @@ public class EntityTracker implements GameQuitReset {
                 Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
 
                 if (!moveNodes.isEmpty()) {
-                    Valenguard.getInstance().getClientMovementProcessor().postProcessMovement(
+                    ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
                             new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
                 }
             }

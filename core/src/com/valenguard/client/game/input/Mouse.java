@@ -1,8 +1,7 @@
 package com.valenguard.client.game.input;
 
 import com.badlogic.gdx.InputProcessor;
-import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.ChatWindow;
@@ -26,13 +25,13 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
-        if (!Valenguard.gameScreen.isGameFocused()) return false;
+        if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
+        if (!ClientMain.gameScreen.isGameFocused()) return false;
 
         ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
         if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
 
-        Valenguard.getInstance().getMouseManager().mouseClick(screenX, screenY, button);
+        ClientMain.getInstance().getMouseManager().mouseClick(screenX, screenY, button);
         return false;
     }
 
@@ -48,13 +47,13 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        Valenguard.getInstance().getMouseManager().mouseMove(screenX, screenY);
+        ClientMain.getInstance().getMouseManager().mouseMove(screenX, screenY);
         return false;
     }
 
     @Override
     public boolean scrolled(int amount) {
-        Valenguard.gameScreen.getCamera().scrollZoomLevel(amount);
+        ClientMain.gameScreen.getCamera().scrollZoomLevel(amount);
         return false;
     }
 }

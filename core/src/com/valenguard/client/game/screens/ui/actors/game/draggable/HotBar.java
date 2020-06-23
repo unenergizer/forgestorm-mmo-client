@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.KeyBinds;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -119,7 +119,7 @@ public class HotBar extends VisTable implements Buildable {
         escMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 EscapeWindow escapeWindow = stageHandler.getEscapeWindow();
                 if (!escapeWindow.isVisible()) {
 
@@ -144,7 +144,7 @@ public class HotBar extends VisTable implements Buildable {
         spellBookButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 SkillBookWindow skillBookWindow = stageHandler.getSpellBookWindow();
                 if (!skillBookWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     skillBookWindow.openWindow();
@@ -157,7 +157,7 @@ public class HotBar extends VisTable implements Buildable {
         characterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                 if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     equipmentWindow.openWindow();
@@ -171,7 +171,7 @@ public class HotBar extends VisTable implements Buildable {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     stageHandler.getBagWindow().openWindow();
@@ -194,10 +194,10 @@ public class HotBar extends VisTable implements Buildable {
         ItemStackType itemStackType = itemStack.getItemStackType();
 
         if (itemStackType.isEquipable()) {
-            Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+            ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
             stageHandler.getEquipmentWindow().equipItem(itemStack, sourceSlot);
         } else if (itemStackType.isConsumable()) {
-            Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+            ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
             new InventoryPacketOut(new InventoryActions(
                     InventoryActions.ActionType.CONSUME,
                     InventoryType.HOT_BAR.getInventoryTypeIndex(),

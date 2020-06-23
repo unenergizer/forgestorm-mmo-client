@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
 import com.valenguard.client.network.game.shared.Opcodes;
@@ -28,8 +28,8 @@ public class InitializeGameMapPacketIn implements PacketListener<InitializeGameM
         println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
 
         println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
-        Valenguard.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);
-        Valenguard.getInstance().getClientMovementProcessor().resetInput();
+        ClientMain.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);
+        ClientMain.getInstance().getClientMovementProcessor().resetInput();
     }
 
     @AllArgsConstructor

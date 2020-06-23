@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class GameTextUtil {
     private static final GlyphLayout glyphLayout = new GlyphLayout();
 
     public static void drawMessage(String message, Color color, float fontScale, float x, float y) {
-        drawMessage(message, color, Valenguard.gameScreen.getFont(), fontScale, Valenguard.gameScreen.getSpriteBatch(), x, y);
+        drawMessage(message, color, ClientMain.gameScreen.getFont(), fontScale, ClientMain.gameScreen.getSpriteBatch(), x, y);
     }
 
     public static void drawMessage(String message, Color color, BitmapFont font, float fontScale, SpriteBatch spriteBatch, float x, float y) {

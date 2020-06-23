@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.item.inventory.InventoryActions;
@@ -81,7 +81,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
 
         switch (packetData.actionType) {
             case MOVE:
-                /*Valenguard.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
+                /*ClientMain.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
                         packetData.fromPosition,
                         packetData.toPosition,
                         packetData.fromWindow,
@@ -92,7 +92,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 ));*/
                 break;
             case CONSUME:
-                // Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                // ClientMain.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 println(getClass(), "The client consumed an item!", false, PRINT_DEBUG);
                 // TODO: later on we would change the visible display of the itemstack to represent
                 // TODO: the amount of consumption left on the item
@@ -101,14 +101,14 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 // TODO
                 break;
             case REMOVE:
-                //Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                //ClientMain.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
                 ItemSlotContainer removeContainer = InventoryUtil.getItemSlotContainer(packetData.interactiveInventory);
                 removeContainer.removeItemStack(packetData.slotIndex);
                 println(getClass(), packetData.actionType + ": Removing the item at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
             case SET:
-                //Valenguard.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                //ClientMain.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
                 ItemSlotContainer setContainer = InventoryUtil.getItemSlotContainer(packetData.interactiveInventory);
                 setContainer.setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);

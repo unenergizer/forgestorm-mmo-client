@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -81,7 +81,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         help.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getHelpWindow());
                 return true;
@@ -90,7 +90,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         credits.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getCreditsWindow());
                 return true;
@@ -99,7 +99,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         settings.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getMainSettingsWindow());
                 return true;
@@ -108,7 +108,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         logout.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_CHARACTER).sendPacket();
 
                 // Waiting on server to do its thing... Fade in the big black window..
@@ -116,16 +116,16 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
                 disableButtons(true);
 
                 // Reset
-                Valenguard.getInstance().gameWorldQuit();
+                ClientMain.getInstance().gameWorldQuit();
                 return true;
             }
         });
 
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
-                Valenguard.connectionManager.disconnect();
+                ClientMain.connectionManager.disconnect();
                 Gdx.app.exit();
                 return true;
             }
@@ -133,7 +133,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         returnToGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 return true;
             }

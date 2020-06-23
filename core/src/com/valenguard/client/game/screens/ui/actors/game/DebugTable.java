@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -62,16 +62,16 @@ public class DebugTable extends VisTable implements Buildable {
         if (!isVisible()) return;
 
         final PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        final MouseManager mouseManager = Valenguard.getInstance().getMouseManager();
+        final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
 
         this.delta.setText("DeltaTime: " + Math.round(delta * 100000.0) / 100000.0);
         fps.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-        if (Valenguard.gameScreen.getCamera() != null) {
-            zoom.setText("Zoom: " + Valenguard.gameScreen.getCamera().zoom);
+        if (ClientMain.gameScreen.getCamera() != null) {
+            zoom.setText("Zoom: " + ClientMain.gameScreen.getCamera().zoom);
         }
 
-        if (Valenguard.connectionManager.getClientGameConnection().isConnected()) {
-            ms.setText("MS: " + Valenguard.connectionManager.getClientGameConnection().getPing());
+        if (ClientMain.connectionManager.getClientGameConnection().isConnected()) {
+            ms.setText("MS: " + ClientMain.connectionManager.getClientGameConnection().getPing());
         } else {
             ms.setText("MS: Not connected to server.");
         }
@@ -85,7 +85,7 @@ public class DebugTable extends VisTable implements Buildable {
             damage.setText("Damage: " + playerClient.getAttributes().getDamage());
         }
 
-        if (mouseManager != null && Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+        if (mouseManager != null && ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
             cursorTile.setText("Cursor-Tile X: " + mouseManager.getMouseTileX() + ", Y: " + mouseManager.getMouseTileY());
             leftCursorTileClick.setText("Left-Click X: " + mouseManager.getLeftClickTileX() + ", Y: " + mouseManager.getLeftClickTileY());
             rightCursorTileClick.setText("Right-Click X: " + mouseManager.getRightClickTileX() + ", Y: " + mouseManager.getRightClickTileY());

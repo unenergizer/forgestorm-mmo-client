@@ -7,7 +7,7 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.Attributes;
 import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
@@ -57,7 +57,7 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
             targetSlot = equipmentPreview.getItemStackSlot(sourceItemStack.getItemStackType());
         }
 
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
         boolean targetContainsItem = targetSlot.getItemStack() != null;
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
 
@@ -75,7 +75,7 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
         ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
 
         new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         sourceSlot.setEmptyCellImage();
     }

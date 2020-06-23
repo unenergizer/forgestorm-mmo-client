@@ -1,6 +1,6 @@
 package com.valenguard.client.game.world.maps;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.entities.Entity;
 
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class Location {
      * @return The map data that relates to this location object.
      */
     public GameMap getMapData() {
-        return Valenguard.getInstance().getMapManager().getGameMap(mapName);
+        return ClientMain.getInstance().getMapManager().getGameMap(mapName);
     }
 
     public Location add(short x, short y) {

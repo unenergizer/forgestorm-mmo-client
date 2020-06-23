@@ -12,7 +12,7 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -72,7 +72,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         TableUtils.setSpacingDefaults(this);
         setResizable(false);
 
-        tradeManager = Valenguard.getInstance().getTradeManager();
+        tradeManager = ClientMain.getInstance().getTradeManager();
 
         // Setup notify table
         VisTable statusTable = new VisTable();
@@ -123,7 +123,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
                     // First accept check (trade confirmed)
                     new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_CONFIRM, tradeManager.getTradeUUID())).sendPacket();
@@ -134,7 +134,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
                     new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
                 } else if (lockTrade) {
@@ -252,7 +252,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
     public void addItemFromPacket(int itemStackUUID, int itemAmount) {
         // Find an empty trade slot
-        ItemStack itemStack = Valenguard.getInstance().getItemStackManager().makeItemStack(itemStackUUID, itemAmount);
+        ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackUUID, itemAmount);
         TradeWindowSlot tradeWindowSlot = findEmptySlot(false);
         tradeWindowSlot.setTradeCell(itemStack, null);
     }
@@ -419,7 +419,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             stack.addListener(clickListener = new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindowSlot.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindowSlot.class, (short) 0);
                     if (itemStack != null && isClientPlayerSlot && !lockTrade) {
                         println(getClass(), "removed item from trade window");
 

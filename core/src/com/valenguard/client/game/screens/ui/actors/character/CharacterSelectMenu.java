@@ -8,7 +8,7 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
@@ -91,7 +91,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterSelectPacketOut(selectedCharacter.getCharacterId()).sendPacket();
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
             }
         });
 
@@ -108,8 +108,8 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
-                Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
-                Valenguard.connectionManager.logout();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
+                ClientMain.connectionManager.logout();
             }
         });
         setVisible(false);

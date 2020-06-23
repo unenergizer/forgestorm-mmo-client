@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextArea;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -112,7 +112,7 @@ public class ItemStackToolTip extends HideableVisWindow {
             }
         }
 
-        if (Valenguard.getInstance().isAdmin())
+        if (ClientMain.getInstance().isAdmin())
             debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId() + "");
     }
 

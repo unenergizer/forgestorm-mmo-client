@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -40,7 +40,7 @@ public class PixelFXTest extends HideableVisWindow implements Buildable, Disposa
     @Override
     public Actor build(StageHandler stageHandler) {
         // Load Atlas
-        FileManager fileManager = Valenguard.getInstance().getFileManager();
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
         fileManager.loadAtlas(GameAtlas.PIXEL_FX);
         textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
         Array<TextureAtlas.AtlasRegion> list = textureAtlas.getRegions();

@@ -6,7 +6,7 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
@@ -54,7 +54,7 @@ class SkillBookSlot extends PagedWindowSlot {
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
                     // Send packet here
                     // TODO: Send spell_book slot update here
 //                    new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.BUY, slotID)).sendPacket();

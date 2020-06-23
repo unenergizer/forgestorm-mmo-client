@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.SkillOpcodes;
 import com.valenguard.client.network.game.shared.ClientHandler;
 import com.valenguard.client.network.game.shared.Opcode;
@@ -30,7 +30,7 @@ public class SkillExperiencePacketIn implements PacketListener<SkillExperiencePa
         println(getClass(), "Opcode: " + SkillOpcodes.getSkillOpcode(packetData.skillOpcode), false, PRINT_DEBUG);
         println(getClass(), "Experience: " + packetData.experienceGained, false, PRINT_DEBUG);
 
-        Valenguard.getInstance().getSkills()
+        ClientMain.getInstance().getSkills()
                 .getSkill(SkillOpcodes.getSkillOpcode(packetData.skillOpcode))
                 .addExperience(packetData.experienceGained);
     }

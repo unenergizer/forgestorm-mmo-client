@@ -2,7 +2,7 @@ package com.valenguard.client.network.game.packet.in;
 
 
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
@@ -46,7 +46,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
                 playerClient.setDrawX(resyncLocation.getX() * ClientConstants.TILE_SIZE);
                 playerClient.setDrawY(resyncLocation.getY() * ClientConstants.TILE_SIZE);
 
-                Valenguard.getInstance().getClientMovementProcessor().resetInput();
+                ClientMain.getInstance().getClientMovementProcessor().resetInput();
                 return;
             case PLAYER:
                 movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
@@ -66,7 +66,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         if (MoveUtil.isEntityMoving(movingEntity)) {
             movingEntity.addLocationToFutureQueue(new Location(movingEntity.getMapName(), packetData.futureX, packetData.futureY));
         } else {
-            Valenguard.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getMapName(), packetData.futureX, packetData.futureY));
+            ClientMain.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getMapName(), packetData.futureX, packetData.futureY));
         }
     }
 

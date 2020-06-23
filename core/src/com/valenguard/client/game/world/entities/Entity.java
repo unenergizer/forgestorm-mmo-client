@@ -1,6 +1,6 @@
 package com.valenguard.client.game.world.entities;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.maps.GameMap;
 import com.valenguard.client.game.world.maps.Location;
@@ -49,6 +49,6 @@ public class Entity {
     }
 
     public GameMap getGameMap() {
-        return Valenguard.getInstance().getMapManager().getGameMap(mapName);
+        return ClientMain.getInstance().getMapManager().getGameMap(mapName);
     }
 }

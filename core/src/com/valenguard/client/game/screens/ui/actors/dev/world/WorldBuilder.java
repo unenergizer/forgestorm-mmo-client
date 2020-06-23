@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.Buildable;
 import com.valenguard.client.game.screens.ui.actors.HideableVisWindow;
@@ -67,7 +67,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         roofObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
                 worldBuilderTile = textureAtlas.findRegion("roof");
                 activeDrawLayer = "overhead";
             }
@@ -76,7 +76,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         wallObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
                 worldBuilderTile = textureAtlas.findRegion("wall");
                 activeDrawLayer = "walls";
             }
@@ -85,7 +85,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         doorObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
                 worldBuilderTile = textureAtlas.findRegion("door");
                 activeDrawLayer = "decoration";
             }
@@ -94,7 +94,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         decorationObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = Valenguard.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
                 worldBuilderTile = textureAtlas.findRegion("decoration");
                 activeDrawLayer = "decoration";
             }
@@ -105,7 +105,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         printMap.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TiledMap tiledMap = Valenguard.gameScreen.getMapRenderer().getTiledMap();
+                TiledMap tiledMap = ClientMain.gameScreen.getMapRenderer().getTiledMap();
                 MapLayers layers = tiledMap.getLayers();
 
                 println(clazz, "" + tiledMap.toString());

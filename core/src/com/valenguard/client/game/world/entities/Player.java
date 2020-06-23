@@ -2,7 +2,7 @@ package com.valenguard.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.entities.animations.human.HumanAnimation;
 import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.util.color.LibGDXColorList;
@@ -18,7 +18,7 @@ public class Player extends MovingEntity {
 
     @Override
     public void loadTextures(GameAtlas gameAtlas) {
-        characterTextureAtlas = Valenguard.getInstance().getFileManager().getAtlas(gameAtlas);
+        characterTextureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
         getEntityAnimation().loadAll(gameAtlas);
     }
 

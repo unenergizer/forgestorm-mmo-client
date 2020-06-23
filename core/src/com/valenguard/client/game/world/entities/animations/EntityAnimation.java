@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.movement.MoveUtil;
 import com.valenguard.client.game.world.entities.Appearance;
 import com.valenguard.client.game.world.entities.MovingEntity;
@@ -33,7 +33,7 @@ public abstract class EntityAnimation {
     }
 
     public void loadAll(GameAtlas gameAtlas) {
-        load(Valenguard.getInstance().getFileManager().getAtlas(gameAtlas));
+        load(ClientMain.getInstance().getFileManager().getAtlas(gameAtlas));
     }
 
     protected abstract void load(TextureAtlas textureAtlas);

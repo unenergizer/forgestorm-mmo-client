@@ -1,6 +1,6 @@
 package com.valenguard.client.network.game.packet.in;
 
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.world.entities.EntityManager;
 import com.valenguard.client.game.world.entities.EntityType;
 import com.valenguard.client.game.world.entities.MovingEntity;
@@ -35,7 +35,7 @@ public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
                 movingEntity = EntityManager.getInstance().getPlayerClient();
-                Valenguard.getInstance().getStageHandler().getStatusBar().updateHealth(movingEntity.getCurrentHealth() + packetData.healthGiven);
+                ClientMain.getInstance().getStageHandler().getStatusBar().updateHealth(movingEntity.getCurrentHealth() + packetData.healthGiven);
                 break;
             case PLAYER:
                 movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
@@ -50,7 +50,7 @@ public class EntityHealthPacketIn implements PacketListener<EntityHealthPacketIn
         movingEntity.setCurrentHealth(movingEntity.getCurrentHealth() + packetData.healthGiven);
         println(getClass(), "[" + movingEntity.getEntityName() + "] Health After: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
 
-        Valenguard.getInstance().getStageHandler().getTargetStatusBar().updateHealth(movingEntity);
+        ClientMain.getInstance().getStageHandler().getTargetStatusBar().updateHealth(movingEntity);
     }
 
     @AllArgsConstructor

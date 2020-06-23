@@ -2,7 +2,7 @@ package com.valenguard.client.game.movement;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.input.MouseManager;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.world.entities.PlayerClient;
@@ -89,7 +89,7 @@ public class ClientPlayerMovementManager {
 
             movements.clear();
             playerClient.setWarping(true);
-            Valenguard.getInstance().getClientMovementProcessor().invalidateAllInput();
+            ClientMain.getInstance().getClientMovementProcessor().invalidateAllInput();
 
             // Since we are warping, fade out the screen!
             ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
@@ -107,7 +107,7 @@ public class ClientPlayerMovementManager {
         if (!MoveUtil.isEntityMoving(playerClient)) return;
 
         // Fades the mouse out as soon as the player starts moving.
-        FadeOut mouseFadeOut = Valenguard.getInstance().getMouseManager().getFadeOut();
+        FadeOut mouseFadeOut = ClientMain.getInstance().getMouseManager().getFadeOut();
         if (!mouseFadeOut.isFading()) {
             mouseFadeOut.startFade(MouseManager.NUM_TICKS_TO_FADE_MOUSE);
         }
@@ -137,7 +137,7 @@ public class ClientPlayerMovementManager {
                 // Setting the future here to prevent the snapping forward of
                 // the player on the next startTracking.
                 playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
-                Queue<MoveNode> singleMoveNode = Valenguard.getInstance().getClientMovementProcessor().getNodeForDirection(
+                Queue<MoveNode> singleMoveNode = ClientMain.getInstance().getClientMovementProcessor().getNodeForDirection(
                         playerClient,
                         playerClient.getFutureMapLocation(),
                         playerClient.getPredictedMoveDirection());
@@ -172,7 +172,7 @@ public class ClientPlayerMovementManager {
 
         // The player is no longer moving.
         playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-        Valenguard.getInstance().getClientMovementProcessor().setCurrentMovementInput(ClientMovementProcessor.MovementInput.NONE);
+        ClientMain.getInstance().getClientMovementProcessor().setCurrentMovementInput(ClientMovementProcessor.MovementInput.NONE);
 
         if (abstractPostProcessor != null) {
             abstractPostProcessor.postMoveAction();

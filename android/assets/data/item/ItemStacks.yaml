@@ -1,6 +1,6 @@
 0:
   name: "Gold"
-  desc: "The Currency of Valenguard."
+  desc: "The Currency of RetroMMO."
   type: GOLD
   atlas: ITEMS
   region: drops_44

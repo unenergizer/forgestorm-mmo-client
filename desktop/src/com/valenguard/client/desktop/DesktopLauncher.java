@@ -4,7 +4,7 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 
 public class DesktopLauncher {
 
@@ -38,17 +38,17 @@ public class DesktopLauncher {
         config.addIcon("graphics/misc/icon-32.png", Files.FileType.Internal);
         config.addIcon("graphics/misc/icon-16.png", Files.FileType.Internal);
 
-        Valenguard valenguard = Valenguard.getInstance();
-        valenguard.setIdeRun(ideRun);
-        valenguard.setForceLocalHost(forceLocalHost);
+        ClientMain clientMain = ClientMain.getInstance();
+        clientMain.setIdeRun(ideRun);
+        clientMain.setForceLocalHost(forceLocalHost);
 
         if (username != null && !username.isEmpty()) {
-            valenguard.getLoginCredentials().setUsername(username);
+            clientMain.getLoginCredentials().setUsername(username);
         }
         if (password != null && !password.isEmpty()) {
-            valenguard.getLoginCredentials().setPassword(password);
+            clientMain.getLoginCredentials().setPassword(password);
         }
 
-        new LwjglApplication(valenguard, config);
+        new LwjglApplication(clientMain, config);
     }
 }

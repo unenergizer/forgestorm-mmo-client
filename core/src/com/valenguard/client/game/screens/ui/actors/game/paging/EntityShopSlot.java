@@ -7,7 +7,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.rpg.EntityShopAction;
 import com.valenguard.client.game.rpg.ShopOpcodes;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
@@ -73,7 +73,7 @@ class EntityShopSlot extends PagedWindowSlot {
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    Valenguard.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
                     // Send packet here
                     new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.BUY, slotID)).sendPacket();
                 }

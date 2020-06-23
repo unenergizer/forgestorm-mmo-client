@@ -13,7 +13,7 @@ import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.valenguard.client.ClientConstants;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.UserInterfaceType;
 import com.valenguard.client.game.screens.WindowManager;
 import com.valenguard.client.game.screens.ui.StageHandler;
@@ -41,7 +41,7 @@ public class GraphicsTab extends Tab {
 
     private void build() {
         content = new VisTable(true);
-        final WindowManager windowManager = Valenguard.getInstance().getWindowManager();
+        final WindowManager windowManager = ClientMain.getInstance().getWindowManager();
 
         /*
          * Zoom Level
@@ -53,7 +53,7 @@ public class GraphicsTab extends Tab {
 
         slider.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (Valenguard.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) {
+                if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) {
                     Dialogs.showOKDialog(stageHandler.getStage(), "Error!", "Option can only be set in-game.");
                     return true;
                 }
@@ -64,8 +64,8 @@ public class GraphicsTab extends Tab {
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (Valenguard.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
-                    Valenguard.gameScreen.getCamera().changeZoomLevel(slider.getValue());
+                if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+                    ClientMain.gameScreen.getCamera().changeZoomLevel(slider.getValue());
                 } else {
                     event.cancel();
                 }

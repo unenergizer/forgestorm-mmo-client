@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.kotcrab.vis.ui.widget.VisImage;
-import com.valenguard.client.Valenguard;
+import com.valenguard.client.ClientMain;
 import com.valenguard.client.game.screens.ui.ImageBuilder;
 import com.valenguard.client.game.screens.ui.StageHandler;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
@@ -49,7 +49,7 @@ public class ItemStackSource extends DragAndDrop.Source {
         if (itemStackSlot.isCharacterInspectionSlot()) return null;
         if (itemStackSlot.isTradeSlotLocked()) return null;
         if (itemStackSlot.isMagicItemActivated()) return null;
-        if (Valenguard.getInstance().getTradeManager().isTradeActive()) return null;
+        if (ClientMain.getInstance().getTradeManager().isTradeActive()) return null;
 
         ItemStack itemStack = itemStackSlot.getItemStack();
 
@@ -84,7 +84,7 @@ public class ItemStackSource extends DragAndDrop.Source {
         dragManager.setDragActorPosition(image.getWidth() / 2, -image.getHeight() / 2);
 
         // Play Sound FX
-        Valenguard.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStackSlot.getItemStack());
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStackSlot.getItemStack());
 
         return inventoryPayload;
     }
