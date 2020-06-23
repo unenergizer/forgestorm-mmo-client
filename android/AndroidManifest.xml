@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.valenguard.client">
+    package="com.forgestorm.client">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/GdxTheme">
         <activity
-            android:name="com.valenguard.client.AndroidLauncher"
+            android:name="com.forgestorm.client.AndroidLauncher"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
