@@ -234,6 +234,9 @@ public class GameScreen implements Screen {
         // Animate
         EntityManager.getInstance().drawEntityBodies(delta, spriteBatch, playerClient);
 
+        // Draw damage animations
+        Valenguard.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
+
         mapRenderer.renderOverheadMapLayers();
 
         // Draw Names

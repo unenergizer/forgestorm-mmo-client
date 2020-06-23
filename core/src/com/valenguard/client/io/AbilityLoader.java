@@ -39,7 +39,7 @@ public class AbilityLoader {
              */
             String name = (String) itemNode.get("name");
             AbilityType abilityType = AbilityType.valueOf((String) itemNode.get("abilityType"));
-//            Short animation = (Short) itemNode.get("animation");
+            String animation = (String) itemNode.get("animation");
             Integer damageMin = (Integer) itemNode.get("damageMin");
             Integer damageMax = (Integer) itemNode.get("damageMax");
             Integer cooldown = (Integer) itemNode.get("cooldown");
@@ -49,7 +49,7 @@ public class AbilityLoader {
             ability.setAbilityId((short) abilityId);
             ability.setName(name);
             ability.setAbilityType(abilityType);
-//            ability.setAbilityAnimation(animation);
+            ability.setAbilityAnimation(animation);
             ability.setDamageMin(damageMin);
             ability.setDamageMax(damageMax);
             ability.setCooldown(cooldown);

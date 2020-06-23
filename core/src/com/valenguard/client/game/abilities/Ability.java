@@ -9,7 +9,7 @@ public class Ability {
     private String name;
     private AbilityType abilityType;
 
-    private Short abilityAnimation;
+    private String abilityAnimation;
 
     private Integer cooldown;
 

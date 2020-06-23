@@ -1,5 +1,11 @@
 package com.valenguard.client.game.abilities;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Disposable;
+import com.valenguard.client.Valenguard;
 import com.valenguard.client.game.GameQuitReset;
 import com.valenguard.client.game.screens.ui.actors.ActorUtil;
 import com.valenguard.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
@@ -9,20 +15,37 @@ import com.valenguard.client.game.world.entities.PlayerClient;
 import com.valenguard.client.game.world.item.ItemStack;
 import com.valenguard.client.game.world.maps.Location;
 import com.valenguard.client.io.AbilityLoader;
+import com.valenguard.client.io.FileManager;
+import com.valenguard.client.io.type.GameAtlas;
 import com.valenguard.client.network.game.packet.out.AbilityRequestPacketOut;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-public class AbilityManager implements GameQuitReset {
+import static com.valenguard.client.util.Log.println;
+
+public class AbilityManager implements GameQuitReset, Disposable {
+
+    private static final boolean PRINT_DEBUG = false;
+
+    private TextureAtlas textureAtlas;
 
     private Map<Short, Cooldown> cooldowns = new HashMap<Short, Cooldown>();
 
     private Map<Short, Ability> combatAbilities;
 
+    private List<AbilityAnimation> abilityAnimationList = new ArrayList<AbilityAnimation>();
+
     public AbilityManager() {
         combatAbilities = new AbilityLoader().loadAbilities();
+
+        // Load Atlas
+        FileManager fileManager = Valenguard.getInstance().getFileManager();
+        fileManager.loadAtlas(GameAtlas.PIXEL_FX);
+        textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
     }
 
     public void toggleAbility(ItemStackSlot sourceSlot, ItemStack itemStack) {
@@ -60,6 +83,9 @@ public class AbilityManager implements GameQuitReset {
 
         new AbilityRequestPacketOut(abilityID, EntityManager.getInstance().getPlayerClient().getTargetEntity()).sendPacket();
 
+        // Play ability animation instantly for client (regardless of successful hit
+        abilityAnimationList.add(new AbilityAnimation(targetEntity, ability));
+
         // Set cooldown time * 60 frames a second
         cooldowns.put(abilityID, new Cooldown(sourceSlot, ability.getCooldown() * 60));
     }
@@ -82,14 +108,57 @@ public class AbilityManager implements GameQuitReset {
         }
     }
 
+    public void drawAnimation(float deltaTime, SpriteBatch spriteBatch) {
+        Iterator<AbilityAnimation> iterator = abilityAnimationList.iterator();
+
+        while (iterator.hasNext()) {
+            AbilityAnimation abilityAnimation = iterator.next();
+            abilityAnimation.stateTime += deltaTime;
+
+            TextureRegion currentFrame = abilityAnimation.animation.getKeyFrame(abilityAnimation.stateTime, true);
+
+            // TODO: Alignment of animations on top of entities is not correct...
+            int x = (int) (abilityAnimation.targetEntity.getDrawX() + (16 / 2) - (currentFrame.getRegionWidth() / 2));
+            int y = (int) (abilityAnimation.targetEntity.getDrawY() + (16 / 2) - (currentFrame.getRegionHeight() / 2));
+
+            spriteBatch.draw(currentFrame, x, y);
+
+            if (abilityAnimation.animation.isAnimationFinished(abilityAnimation.stateTime)) {
+                iterator.remove();
+                println(getClass(), "Animation finished. Removing..", false , PRINT_DEBUG);
+                println(getClass(), "Animations left: " + abilityAnimationList.size(), false , PRINT_DEBUG);
+            }
+        }
+    }
+
     @Override
     public void gameQuitReset() {
         cooldowns.clear();
+        abilityAnimationList.clear();
+    }
+
+    @Override
+    public void dispose() {
+        textureAtlas.dispose();
+    }
+
+    private class AbilityAnimation {
+
+        private final MovingEntity targetEntity;
+        private final Animation<TextureRegion> animation;
+
+        private float stateTime = 0f;
+
+        private AbilityAnimation(MovingEntity targetEntity, Ability ability) {
+            this.targetEntity = targetEntity;
+            this.animation = new Animation<TextureRegion>(.3f, textureAtlas.findRegions(ability.getAbilityAnimation()), Animation.PlayMode.NORMAL);
+        }
     }
 
     private class Cooldown {
         private final ItemStackSlot sourceSlot;
         private int remaining;
+
         private int initCooldown;
 
         Cooldown(ItemStackSlot sourceSlot, int time) {
@@ -97,5 +166,6 @@ public class AbilityManager implements GameQuitReset {
             remaining = time;
             initCooldown = time;
         }
+
     }
 }

@@ -183,6 +183,7 @@ public class Valenguard extends Game {
         connectionManager.disconnect();
         EntityManager.getInstance().dispose();
         stageHandler.dispose();
+        abilityManager.dispose();
     }
 
     public void initializeNetwork() {
