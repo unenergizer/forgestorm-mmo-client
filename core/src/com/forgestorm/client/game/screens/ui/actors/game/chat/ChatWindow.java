@@ -291,6 +291,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         private VisScrollPane scrollPane;
         private VisTable messageTable;
 
+        private VisTextButton channelButton;
+        private int unreadMessages;
+
         ChatChannel(ChatChannelType chatChannelType) {
             this.chatChannel = this;
             this.chatChannelType = chatChannelType;
@@ -304,6 +307,12 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
             scrollPane.layout();
             scrollPane.scrollTo(0, 0, 0, 0);
+
+            // Count unreadMessages
+            if (activeChatChannel != chatChannel) {
+                unreadMessages += 1;
+                channelButton.setText(chatChannelType.name() + " +" + unreadMessages);
+            }
         }
 
         public ChatChannel build(final StageHandler stageHandler) {
@@ -317,7 +326,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             add(scrollPane).growX().expandY().top();
 
             // Add chat button
-            VisTextButton channelButton = new VisTextButton(chatChannelType.name());
+            channelButton = new VisTextButton(chatChannelType.name());
             channelTable.add(channelButton).padRight(3);
 
             channelButton.addListener(new InputListener() {
@@ -326,8 +335,8 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                     // Chat channel click. Lets set the correct chat channel
                     if (activeChatChannel != chatChannel) {
                         // Clear current chat channel
-                        chatChannelWrapperTable.removeActor(activeChatChannel);
-                        chatChannelWrapperTable.clear();
+                        chatChannelWrapperTable.removeActor(activeChatChannel); // Remove without clearing
+                        chatChannelWrapperTable.clear(); // Clears previous table formatting
 
                         // Setup this channel
                         activeChatChannel = chatChannel;
@@ -336,6 +345,10 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                         // Do scrolling...
                         scrollPane.layout();
                         scrollPane.scrollTo(0, 0, 0, 0);
+
+                        // Remove unread messages
+                        unreadMessages = 0;
+                        channelButton.setText(chatChannelType.name());
                     }
                     return false;
                 }
