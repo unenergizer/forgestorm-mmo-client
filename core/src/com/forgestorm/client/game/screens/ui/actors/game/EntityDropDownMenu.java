@@ -113,7 +113,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         ClientMain.getInstance().getEntityTracker().cancelTracking();
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, player.getServerEntityID())).sendPacket();
         stageHandler.getTradeWindow().setTradeTarget(player);
-        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[Client] Sending trade request...");
         stageHandler.getChatWindow().appendChatMessage(ChatChannelType.TRADE, "[Client] Sending trade request...");
         cleanUpDropDownMenu(true);
     }
@@ -534,7 +533,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable path to attack.");
                             stageHandler.getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "No suitable path to attack.");
                             cleanUpDropDownMenu(true);
                             return;

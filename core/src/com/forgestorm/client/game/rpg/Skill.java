@@ -81,7 +81,6 @@ public class Skill {
             EntityManager.getInstance().getPlayerClient().setShowLevelUpMessage(true);
 
             // check if they have gained a level and do skill level animation effect / send chat msg ect..
-            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[GREEN]You are now level " + currentLevel);
             ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[GREEN]You are now level " + currentLevel);
         }
 

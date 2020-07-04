@@ -53,7 +53,6 @@ public class AbilityManager implements GameQuitReset, Disposable {
         short abilityID = (short) (int) itemStack.getSkillID();
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         if (playerClient.getTargetEntity() == null) {
-            ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You need to select a target first.");
             ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You need to select a target first.");
             return;
         }
@@ -70,17 +69,14 @@ public class AbilityManager implements GameQuitReset, Disposable {
 
             int distanceAway = playerLocation.getDistanceAway(targetLocation);
             if (distanceAway < ability.getDistanceMin()) {
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You are too close to " + targetEntity.getEntityName() + " to do this.");
                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too close to " + targetEntity.getEntityName() + " to do this.");
                 return;
             } else if (distanceAway > ability.getDistanceMax()) {
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
                 return;
             }
         } else {
             if (!playerLocation.isWithinDistance(targetLocation, (short) 1)) { // TODO: This should be based on weapon distance reach
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
                 ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
                 return;
             }

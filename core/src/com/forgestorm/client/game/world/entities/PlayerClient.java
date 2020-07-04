@@ -59,7 +59,6 @@ public class PlayerClient extends Player {
     public void setTargetEntity(MovingEntity movingEntity) {
         StageHandler stageHandler = ActorUtil.getStageHandler();
         if (targetEntity == movingEntity || movingEntity == null) {
-            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
             stageHandler.getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
             stageHandler.getTargetStatusBar().setVisible(false);
         }
