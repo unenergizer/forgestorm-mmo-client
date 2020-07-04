@@ -1,16 +1,10 @@
-package com.forgestorm.client.game.screens.ui.actors.game;
+package com.forgestorm.client.game.screens.ui.actors.game.chat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.kotcrab.vis.ui.FocusManager;
-import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextField;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.GameQuitReset;
@@ -19,9 +13,20 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.screens.ui.actors.game.ExperienceBar;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.ChatMessagePacketOut;
+import com.kotcrab.vis.ui.FocusManager;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisImageButton;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisScrollPane;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTextField;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import lombok.Getter;
@@ -35,8 +40,6 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
     private StageHandler stageHandler;
     private ChatWindow chatWindow;
-    private VisScrollPane scrollPane;
-    private VisTable messageTable;
     private VisTextField messageInput;
 
     /**
@@ -49,8 +52,19 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
     private int previousMessageIndex = -1;
     private String currentBufferString = "";
 
+    private List<ChatChannel> chatChannelList = new ArrayList<ChatChannel>();
+
+    private VisTable channelTable;
+    private VisTable chatChannelWrapperTable;
+
     public ChatWindow() {
         super("");
+    }
+
+    public void showChannel(ChatChannelType chatChannelType) {
+        for (ChatChannel chatChannel : chatChannelList) {
+            if (chatChannel.chatChannelType == chatChannelType) chatChannel.setVisible(true);
+        }
     }
 
     @Override
@@ -64,37 +78,26 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         setWidth(350);
         setHeight(150);
 
-        VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
+        // Build test buttons
+        channelTable = new VisTable();
 
-        messageTable = new VisTable();
+        // Build channels
+        chatChannelWrapperTable = new VisTable();
+
+        chatChannelList.add(new ChatChannel(ChatChannelType.GENERAL).build(stageHandler));
+        chatChannelList.add(new ChatChannel(ChatChannelType.COMBAT).build(stageHandler));
+        chatChannelList.add(new ChatChannel(ChatChannelType.TRADE).build(stageHandler));
+
+        for (ChatChannel chatChannel : chatChannelList) {
+            chatChannelWrapperTable.add(chatChannel);
+            println(getClass(), "Added ChatChannel: " + chatChannel.chatChannelType);
+        }
+
+        VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
         messageInput.setMaxLength(127); // Max chat length is 0x7F.
-
-        scrollPane = new VisScrollPane(messageTable);
-        scrollPane.setOverscroll(false, false);
-        scrollPane.setFlickScroll(false);
-        scrollPane.setFadeScrollBars(true);
-        scrollPane.setScrollbarsOnTop(true);
-        scrollPane.setScrollingDisabled(true, false);
-
-        // Prevent client from typing in message area
-        messageTable.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                stageHandler.getStage().setKeyboardFocus(null);
-                Gdx.input.setOnscreenKeyboardVisible(false);
-                return false;
-            }
-
-            @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-                stageHandler.getStage().setKeyboardFocus(null);
-                Gdx.input.setOnscreenKeyboardVisible(false);
-                return true;
-            }
-        });
 
         // Toggled input via mouse
         messageInput.addListener(new InputListener() {
@@ -174,7 +177,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             }
         });
 
-        add(scrollPane).colspan(2).growX().expandY().top();
+        add(channelTable).colspan(2).align(Alignment.LEFT.getAlignment());
+        row();
+        add(chatChannelWrapperTable).colspan(2).growX().expandY().top();
         row();
         add(chatMenuButton).padRight(3);
         add(messageInput).expandX().fillX().padTop(3);
@@ -236,37 +241,113 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
         String displayMessage = previousMessages.get(previousMessages.size() - 1 - previousMessageIndex);
 
-        setMessage(displayMessage);
+        setInputMessage(displayMessage);
     }
 
     private void scrollDownThroughPreviousMessages() {
         if (previousMessages.isEmpty()) return;
         previousMessageIndex = Math.max(-1, previousMessageIndex - 1);
         if (previousMessageIndex == -1) {
-            setMessage(currentBufferString);
+            setInputMessage(currentBufferString);
             return;
         }
 
         String displayMessage = previousMessages.get(previousMessages.size() - 1 - previousMessageIndex);
-        setMessage(displayMessage);
+        setInputMessage(displayMessage);
     }
 
-    private void setMessage(String message) {
+    private void setInputMessage(String message) {
         messageInput.setText(message);
         messageInput.setCursorAtTextEnd();
     }
 
-    public void appendChatMessage(String message) {
-        VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
-        label.setWrap(true);
-        messageTable.add(label).expandX().fillX().expandY().top().row();
+//    public void appendChatMessage(ChatChannelType chatChannelType, String message) {
+//        VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
+//        label.setWrap(true);
+//        messageTable.add(label).expandX().fillX().expandY().top().row();
+//
+//        scrollPane.layout();
+//        scrollPane.scrollTo(0, 0, 0, 0);
+//    }
 
-        scrollPane.layout();
-        scrollPane.scrollTo(0, 0, 0, 0);
+    public void appendChatMessage(ChatChannelType chatChannelType, String chatMessage) {
+        for (ChatChannel chatChannel : chatChannelList) {
+            if (chatChannel.chatChannelType == chatChannelType)
+                chatChannel.appendChatMessage(chatMessage);
+        }
     }
 
     @Override
     public void gameQuitReset() {
-        messageTable.clear();
+        println(getClass(), "GameQuitReset....");
+        for (ChatChannel chatChannel : chatChannelList) {
+            chatChannel.gameQuitReset();
+        }
+//        chatChannelList.clear();
+    }
+
+    private class ChatChannel extends VisTable implements Buildable, GameQuitReset {
+
+        private final ChatChannel chatChannel;
+        private final ChatChannelType chatChannelType;
+        private VisScrollPane scrollPane;
+        private VisTable messageTable;
+
+        ChatChannel(ChatChannelType chatChannelType) {
+            this.chatChannel = this;
+            this.chatChannelType = chatChannelType;
+        }
+
+        public void appendChatMessage(String message) {
+            println(getClass(), "IsVisible: " + chatChannel.isVisible() + ", ChannelType: " + chatChannelType + ", Message: " + message);
+            VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
+            label.setWrap(true);
+            messageTable.add(label).expandX().fillX().expandY().top().row();
+
+            scrollPane.layout();
+            scrollPane.scrollTo(0, 0, 0, 0);
+        }
+
+        public ChatChannel build(final StageHandler stageHandler) {
+            messageTable = new VisTable();
+            scrollPane = new VisScrollPane(messageTable);
+            scrollPane.setOverscroll(false, false);
+            scrollPane.setFlickScroll(false);
+            scrollPane.setFadeScrollBars(true);
+            scrollPane.setScrollbarsOnTop(true);
+            scrollPane.setScrollingDisabled(true, false);
+            add(scrollPane).growX().expandY().top();
+
+            // Define visibility
+            if (chatChannelType != ChatChannelType.GENERAL) setVisible(false);
+
+            // Add chat button
+            VisTextButton channelButton = new VisTextButton(chatChannelType.name());
+            channelTable.add(channelButton).padRight(3);
+
+            // Prevent client from typing in message area
+            messageTable.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    stageHandler.getStage().setKeyboardFocus(null);
+                    Gdx.input.setOnscreenKeyboardVisible(false);
+                    return false;
+                }
+
+                @Override
+                public boolean keyDown(InputEvent event, int keycode) {
+                    stageHandler.getStage().setKeyboardFocus(null);
+                    Gdx.input.setOnscreenKeyboardVisible(false);
+                    return true;
+                }
+            });
+            return this;
+        }
+
+        @Override
+        public void gameQuitReset() {
+            println(getClass(), "GameQuitReset....");
+//            messageTable.clearChildren();
+        }
     }
 }

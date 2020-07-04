@@ -3,6 +3,7 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -68,7 +69,7 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
 
     public void unequipItem(ItemSlotContainer itemSlotContainer, ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
         if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
-            stageHandler.getChatWindow().appendChatMessage("[RED]Cannot unequip because your bag is full!");
+            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL,"[RED]Cannot unequip because your bag is full!");
             return;
         }
 

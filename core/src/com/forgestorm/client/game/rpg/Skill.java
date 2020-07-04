@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.event.ExperienceUpdateEvent;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.entities.EntityManager;
 
 import lombok.Getter;
@@ -80,7 +81,8 @@ public class Skill {
             EntityManager.getInstance().getPlayerClient().setShowLevelUpMessage(true);
 
             // check if they have gained a level and do skill level animation effect / send chat msg ect..
-            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage("[GREEN]You are now level " + currentLevel);
+            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[GREEN]You are now level " + currentLevel);
+            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[GREEN]You are now level " + currentLevel);
         }
 
         if (!initialized) {

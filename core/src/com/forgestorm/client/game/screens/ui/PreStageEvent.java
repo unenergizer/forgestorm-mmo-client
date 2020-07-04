@@ -17,7 +17,7 @@ import com.forgestorm.client.game.screens.effects.EffectManager;
 import com.forgestorm.client.game.screens.effects.LineDrawEffect;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.constant.WindowModes;
-import com.forgestorm.client.game.screens.ui.actors.game.ChatWindow;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.HotBar;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.screens.ui.actors.game.ChatWindow;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 
 public class Mouse implements InputProcessor {
 

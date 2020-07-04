@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.inventory.InventoryType;
 
@@ -77,7 +78,7 @@ public class ItemSlotContainer {
 
     void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {
         if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
-            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage("[RED]Cannot transfer item because the inventory is full!");
+            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Cannot transfer item because the inventory is full!");
             return;
         }
 

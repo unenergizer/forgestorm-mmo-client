@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
@@ -30,7 +31,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilder;
 import com.forgestorm.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeEvent;
-import com.forgestorm.client.game.screens.ui.actors.game.ChatWindow;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.CreditsWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.DebugTable;
 import com.forgestorm.client.game.screens.ui.actors.game.EntityDropDownMenu;
@@ -286,6 +287,7 @@ public class StageHandler implements Disposable {
 
                 if (ClientMain.getInstance().isAdmin()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);
+                chatWindow.showChannel(ChatChannelType.GENERAL);
                 statusBar.setVisible(true);
                 experienceBar.setVisible(true);
                 hotBar.setVisible(true);

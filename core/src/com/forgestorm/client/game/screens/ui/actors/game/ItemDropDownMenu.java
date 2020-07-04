@@ -2,7 +2,6 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -11,6 +10,7 @@ import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.BankWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.InventoryMoveActions;
@@ -20,6 +20,7 @@ import com.forgestorm.client.game.world.item.ItemStackType;
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
 import com.forgestorm.client.game.world.item.inventory.InventoryType;
 import com.forgestorm.client.network.game.packet.out.InventoryPacketOut;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -103,10 +104,10 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                         ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                         new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
                     } else {
-                        stageHandler.getChatWindow().appendChatMessage("[RED]Your bank is full!");
+                        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Your bank is full!");
                     }
                 } else {
-                    stageHandler.getChatWindow().appendChatMessage("[RED]Your bank must be open to deposit items.");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Your bank must be open to deposit items.");
                 }
                 cleanUpDropDownMenu(true);
             }
@@ -131,10 +132,10 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
                         ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                         new InventoryMoveActions().moveItems(sourceSlot, targetItemStackSlot, itemStack, null);
                     } else {
-                        stageHandler.getChatWindow().appendChatMessage("[RED]Your inventory is full!");
+                        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Your inventory is full!");
                     }
                 } else {
-                    stageHandler.getChatWindow().appendChatMessage("[RED]Your bank must be open to withdraw items.");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Your bank must be open to withdraw items.");
                 }
                 cleanUpDropDownMenu(true);
             }

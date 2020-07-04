@@ -3,7 +3,6 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.ClickAction;
@@ -21,6 +20,7 @@ import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.EntityShopWindow;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Entity;
@@ -46,6 +46,7 @@ import com.forgestorm.client.network.game.packet.out.InspectPlayerPacketOut;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.client.util.PathFinding;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -112,7 +113,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         ClientMain.getInstance().getEntityTracker().cancelTracking();
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, player.getServerEntityID())).sendPacket();
         stageHandler.getTradeWindow().setTradeTarget(player);
-        stageHandler.getChatWindow().appendChatMessage("[Client] Sending trade request...");
+        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[Client] Sending trade request...");
+        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.TRADE, "[Client] Sending trade request...");
         cleanUpDropDownMenu(true);
     }
 
@@ -129,7 +131,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                 if (testMoveNodes == null) {
-                    stageHandler.getChatWindow().appendChatMessage("No suitable walk path.");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable walk path.");
                     cleanUpDropDownMenu(true);
                     return;
                 }
@@ -208,7 +210,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     }
                     ActorUtil.fadeInWindow(entityEditor);
 
-                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]Editing " + clickedEntity.getEntityName() + ".");
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -367,7 +369,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     new InspectPlayerPacketOut(clickedMovingEntity.getServerEntityID()).sendPacket();
                     stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedMovingEntity);
 
-                    stageHandler.getChatWindow().appendChatMessage("[YELLOW]Inspecting player [GOLD]" + clickedMovingEntity.getEntityName() + "s [YELLOW]equipment.");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]Inspecting player [GOLD]" + clickedMovingEntity.getEntityName() + "s [YELLOW]equipment.");
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -406,7 +408,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             if (testMoveNodes == null) {
                 if (!traverseToBankAccessPoint(clientLocation)) {
-                    stageHandler.getChatWindow().appendChatMessage("No suitable path to open bank.");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable path to open bank.");
                 }
 
                 cleanUpDropDownMenu(true);
@@ -468,7 +470,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             if (testMoveNodes == null) {
                 if (!traverseToBankAccessPoint(clientLocation)) {
-                    stageHandler.getChatWindow().appendChatMessage("No suitable path to open bank.");
+                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable path to open bank.");
                 }
 
                 cleanUpDropDownMenu(true);
@@ -532,7 +534,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage("No suitable path to attack.");
+                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable path to attack.");
+                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "No suitable path to attack.");
                             cleanUpDropDownMenu(true);
                             return;
                         }
@@ -574,7 +577,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage("No suitable walk path.");
+                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable walk path.");
+                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.TRADE, "No suitable walk path.");
                             cleanUpDropDownMenu(true);
                             return;
                         }
@@ -618,7 +622,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                         if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage("[RED]You are too far away to use this shop.");
+                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You are too far away to use this shop.");
                             return;
                         }
 
@@ -657,7 +661,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                     Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
 
                     if (testMoveNodes == null) {
-                        stageHandler.getChatWindow().appendChatMessage("No suitable follow path.");
+                        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable follow path.");
                         cleanUpDropDownMenu(true);
                         return;
                     }

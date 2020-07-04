@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.Player;
@@ -52,7 +53,7 @@ public class EntityMovementManager {
             // The
             if (!shopOwner.getFutureMapLocation().isWithinDistance(playerClient.getCurrentMapLocation(), (short) 5) ||
                     !shopOwner.getCurrentMapLocation().isWithinDistance(playerClient.getCurrentMapLocation(), (short) 5)) {
-                stageHandler.getChatWindow().appendChatMessage("[RED]You are too far away from shop owner. Closing shop.");
+                stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You are too far away from shop owner. Closing shop.");
                 stageHandler.getPagedItemStackWindow().closePagedWindow(false);
             }
         }

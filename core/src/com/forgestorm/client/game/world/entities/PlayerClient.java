@@ -5,6 +5,7 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.rpg.SkillOpcodes;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.item.BankActions;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
@@ -34,7 +35,7 @@ public class PlayerClient extends Player {
 
     public void closeBankWindow() {
         if (!isBankOpen) return;
-        ActorUtil.getStageHandler().getChatWindow().appendChatMessage("[RED]Bank window closed because you moved.");
+        ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Bank window closed because you moved.");
         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getBankWindow());
         isBankOpen = false;
         new BankManagePacketOut(BankActions.PLAYER_REQUEST_CLOSE).sendPacket();
@@ -58,7 +59,8 @@ public class PlayerClient extends Player {
     public void setTargetEntity(MovingEntity movingEntity) {
         StageHandler stageHandler = ActorUtil.getStageHandler();
         if (targetEntity == movingEntity || movingEntity == null) {
-            stageHandler.getChatWindow().appendChatMessage("[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
+            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
+            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
             stageHandler.getTargetStatusBar().setVisible(false);
         }
         if (targetEntity == movingEntity) movingEntity = null;

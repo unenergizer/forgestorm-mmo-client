@@ -8,16 +8,17 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.ItemStackType;
 import com.forgestorm.client.game.world.item.inventory.InventoryType;
 import com.forgestorm.client.io.type.GameAtlas;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -394,7 +395,7 @@ public class ItemStackSlot extends VisTable {
 
                     // Prevent the movement of BOOK_SKILL items
                     if (itemStack.getItemStackType() == ItemStackType.BOOK_SKILL) {
-                        stageHandler.getChatWindow().appendChatMessage("[RED] This can not be moved to your inventory.");
+                        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED] This can not be moved to your inventory.");
                         return true;
                     }
 
@@ -426,7 +427,7 @@ public class ItemStackSlot extends VisTable {
 
                     // Prevent the movement of BOOK_SKILL items
                     if (itemStack.getItemStackType() == ItemStackType.BOOK_SKILL) {
-                        stageHandler.getChatWindow().appendChatMessage("[RED] This can not be moved to your inventory.");
+                        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED] This can not be moved to your inventory.");
                         return true;
                     }
 
