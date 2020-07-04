@@ -139,6 +139,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
+                if (!activeChatChannel.chatChannelType.isCanSendMessages()) return false;
 
                 if (keycode == Input.Keys.UP && chatToggled) {
                     scrollUpThroughPreviousMessages();
@@ -349,6 +350,13 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                         // Remove unread messages
                         unreadMessages = 0;
                         channelButton.setText(chatChannelType.name());
+
+                        // See if we can send messages in for this channel
+                        if (chatChannelType.isCanSendMessages()) {
+                            messageInput.setDisabled(false);
+                        } else {
+                            messageInput.setDisabled(true);
+                        }
                     }
                     return false;
                 }

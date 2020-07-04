@@ -1,10 +1,17 @@
 package com.forgestorm.client.game.screens.ui.actors.game.chat;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public enum ChatChannelType {
-    GENERAL,
-    COMBAT,
-    TRADE,
-    STAFF;
+    GENERAL(true),
+    COMBAT(false),
+    TRADE(true),
+    STAFF(true);
+
+    @Getter
+    private boolean canSendMessages;
 
     public static ChatChannelType getChannelType(byte enumIndex) {
         for (ChatChannelType chatChannelType : ChatChannelType.values()) {
