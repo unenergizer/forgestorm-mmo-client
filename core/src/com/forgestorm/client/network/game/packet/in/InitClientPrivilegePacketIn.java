@@ -1,6 +1,7 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.Opcode;
 import com.forgestorm.client.network.game.shared.Opcodes;
@@ -24,6 +25,11 @@ public class InitClientPrivilegePacketIn implements PacketListener<InitClientPri
         ClientMain clientMain = ClientMain.getInstance();
         clientMain.setAdmin(packetData.isAdmin);
         clientMain.setModerator(packetData.isMod);
+
+        // Setup staff chat channel, if applicable...
+        if (packetData.isAdmin || packetData.isMod) {
+            clientMain.getStageHandler().getChatWindow().addChatChannel(ChatChannelType.STAFF);
+        }
     }
 
     @AllArgsConstructor

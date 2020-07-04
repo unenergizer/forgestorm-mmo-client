@@ -3,7 +3,8 @@ package com.forgestorm.client.game.screens.ui.actors.game.chat;
 public enum ChatChannelType {
     GENERAL,
     COMBAT,
-    TRADE;
+    TRADE,
+    STAFF;
 
     public static ChatChannelType getChannelType(byte enumIndex) {
         for (ChatChannelType chatChannelType : ChatChannelType.values()) {

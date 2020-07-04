@@ -71,6 +71,10 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         }
     }
 
+    public void addChatChannel(ChatChannelType chatChannelType) {
+        chatChannelList.add(new ChatChannel(chatChannelType).build(stageHandler));
+    }
+
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
@@ -88,18 +92,15 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         // Build channels
         chatChannelWrapperTable = new VisTable();
 
-        chatChannelList.add(new ChatChannel(ChatChannelType.GENERAL).build(stageHandler));
-        chatChannelList.add(new ChatChannel(ChatChannelType.COMBAT).build(stageHandler));
-        chatChannelList.add(new ChatChannel(ChatChannelType.TRADE).build(stageHandler));
+        addChatChannel(ChatChannelType.GENERAL);
+        addChatChannel(ChatChannelType.COMBAT);
+        addChatChannel(ChatChannelType.TRADE);
 
-        // Add all chat channels to the window
+        // Set active chat channel
         activeChatChannel = chatChannelList.get(0);
         chatChannelWrapperTable.add(chatChannelList.get(0)).growX().expandY();
 
-//        for (ChatChannel chatChannel : chatChannelList) {
-//            chatChannelWrapperTable.add(chatChannel).growX().expandY();
-//        }
-
+        // Setup message input area
         VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
