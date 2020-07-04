@@ -11,4 +11,8 @@ public enum ChatChannelType {
         }
         throw new RuntimeException("ChatChannel type miss match! Byte Received: " + enumIndex);
     }
+
+    public static byte getByte(ChatChannelType chatChannelType) {
+        return (byte) chatChannelType.ordinal();
+    }
 }

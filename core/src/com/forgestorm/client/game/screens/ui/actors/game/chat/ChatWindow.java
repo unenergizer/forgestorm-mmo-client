@@ -57,6 +57,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
     private VisTable channelTable;
     private VisTable chatChannelWrapperTable;
 
+    // Active Chat Channel
+    private ChatChannel activeChatChannel;
+
     public ChatWindow() {
         super("");
     }
@@ -88,16 +91,27 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         chatChannelList.add(new ChatChannel(ChatChannelType.COMBAT).build(stageHandler));
         chatChannelList.add(new ChatChannel(ChatChannelType.TRADE).build(stageHandler));
 
-        for (ChatChannel chatChannel : chatChannelList) {
-            chatChannelWrapperTable.add(chatChannel);
-            println(getClass(), "Added ChatChannel: " + chatChannel.chatChannelType);
-        }
+        // Add all chat channels to the window
+        activeChatChannel = chatChannelList.get(0);
+        chatChannelWrapperTable.add(chatChannelList.get(0)).growX().expandY();
+
+//        for (ChatChannel chatChannel : chatChannelList) {
+//            chatChannelWrapperTable.add(chatChannel).growX().expandY();
+//        }
 
         VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
         messageInput.setMaxLength(127); // Max chat length is 0x7F.
+
+        // Build Window
+        add(channelTable).colspan(2).align(Alignment.LEFT.getAlignment());
+        row();
+        add(chatChannelWrapperTable).colspan(2).growX().expandY().top();
+        row();
+        add(chatMenuButton).padRight(3);
+        add(messageInput).expandX().fillX().padTop(3);
 
         // Toggled input via mouse
         messageInput.addListener(new InputListener() {
@@ -153,7 +167,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                             previousMessages.push(message);
 
                             currentBufferString = "";
-                            new ChatMessagePacketOut(message).sendPacket();
+                            new ChatMessagePacketOut(activeChatChannel.chatChannelType, message).sendPacket();
                         }
 
                         // Clear the players message.
@@ -176,13 +190,6 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                 return true;
             }
         });
-
-        add(channelTable).colspan(2).align(Alignment.LEFT.getAlignment());
-        row();
-        add(chatChannelWrapperTable).colspan(2).growX().expandY().top();
-        row();
-        add(chatMenuButton).padRight(3);
-        add(messageInput).expandX().fillX().padTop(3);
 
 //        pack();
         findPosition();
@@ -261,15 +268,6 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         messageInput.setCursorAtTextEnd();
     }
 
-//    public void appendChatMessage(ChatChannelType chatChannelType, String message) {
-//        VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
-//        label.setWrap(true);
-//        messageTable.add(label).expandX().fillX().expandY().top().row();
-//
-//        scrollPane.layout();
-//        scrollPane.scrollTo(0, 0, 0, 0);
-//    }
-
     public void appendChatMessage(ChatChannelType chatChannelType, String chatMessage) {
         for (ChatChannel chatChannel : chatChannelList) {
             if (chatChannel.chatChannelType == chatChannelType)
@@ -318,12 +316,30 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             scrollPane.setScrollingDisabled(true, false);
             add(scrollPane).growX().expandY().top();
 
-            // Define visibility
-            if (chatChannelType != ChatChannelType.GENERAL) setVisible(false);
-
             // Add chat button
             VisTextButton channelButton = new VisTextButton(chatChannelType.name());
             channelTable.add(channelButton).padRight(3);
+
+            channelButton.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    // Chat channel click. Lets set the correct chat channel
+                    if (activeChatChannel != chatChannel) {
+                        // Clear current chat channel
+                        chatChannelWrapperTable.removeActor(activeChatChannel);
+                        chatChannelWrapperTable.clear();
+
+                        // Setup this channel
+                        activeChatChannel = chatChannel;
+                        chatChannelWrapperTable.add(chatChannel).growX().expandY();
+
+                        // Do scrolling...
+                        scrollPane.layout();
+                        scrollPane.scrollTo(0, 0, 0, 0);
+                    }
+                    return false;
+                }
+            });
 
             // Prevent client from typing in message area
             messageTable.addListener(new InputListener() {
@@ -346,8 +362,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
         @Override
         public void gameQuitReset() {
-            println(getClass(), "GameQuitReset....");
-//            messageTable.clearChildren();
+            messageTable.clearChildren();
         }
     }
 }
