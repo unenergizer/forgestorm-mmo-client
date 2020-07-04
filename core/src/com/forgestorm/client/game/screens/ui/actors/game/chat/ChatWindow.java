@@ -36,6 +36,7 @@ import static com.forgestorm.client.util.Log.println;
 @Getter
 public class ChatWindow extends HideableVisWindow implements Buildable, GameQuitReset {
 
+    private static final boolean PRINT_DEBUG = false;
     private static final String ENTER_MESSAGE = "Press Enter to send a message...";
 
     private StageHandler stageHandler;
@@ -277,11 +278,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
     @Override
     public void gameQuitReset() {
-        println(getClass(), "GameQuitReset....");
         for (ChatChannel chatChannel : chatChannelList) {
             chatChannel.gameQuitReset();
         }
-//        chatChannelList.clear();
     }
 
     private class ChatChannel extends VisTable implements Buildable, GameQuitReset {
@@ -300,7 +299,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         }
 
         public void appendChatMessage(String message) {
-            println(getClass(), "IsVisible: " + chatChannel.isVisible() + ", ChannelType: " + chatChannelType + ", Message: " + message);
+            println(getClass(), "IsVisible: " + chatChannel.isVisible() + ", ChannelType: " + chatChannelType + ", Message: " + message, false, PRINT_DEBUG);
             VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
             label.setWrap(true);
             messageTable.add(label).expandX().fillX().expandY().top().row();

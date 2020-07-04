@@ -13,7 +13,7 @@ import static com.forgestorm.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.CHAT)
 public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.ChatMessagePacket> {
 
-    private final static boolean PRINT_DEBUG = true;
+    private final static boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
