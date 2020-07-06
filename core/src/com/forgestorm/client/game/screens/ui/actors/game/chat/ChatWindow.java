@@ -72,7 +72,17 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
     }
 
     public void addChatChannel(ChatChannelType chatChannelType) {
-        chatChannelList.add(new ChatChannel(chatChannelType).build(stageHandler));
+        // Check to make sure that the channel doesn't already exist
+        boolean chatExists = false;
+        for (ChatChannel chatChannel : chatChannelList) {
+            if (chatChannel.chatChannelType == chatChannelType) {
+                chatExists = true;
+                break;
+            }
+        }
+        if (!chatExists) {
+            chatChannelList.add(new ChatChannel(chatChannelType).build(stageHandler));
+        }
     }
 
     @Override
