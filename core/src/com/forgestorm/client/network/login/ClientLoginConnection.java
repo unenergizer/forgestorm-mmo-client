@@ -90,8 +90,9 @@ public class ClientLoginConnection {
 
             boolean loginSuccess = inputStream.readBoolean();
             if (!loginSuccess) {
-                println(getClass(), "Login Failed");
-                loginState.failState(inputStream.readUTF());
+                LoginFailReason loginFailReason = LoginFailReason.getLoginFailReason(inputStream.readByte());
+                println(getClass(), "Login Failed: " + loginFailReason.getFailReasonMessage());
+                loginState.failState(loginFailReason);
             } else {
                 println(getClass(), "Login Success");
                 loginState.successState(UUID.fromString(inputStream.readUTF()));
@@ -100,7 +101,7 @@ public class ClientLoginConnection {
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
-            return new LoginState().failState("Failed to connect.");
+            return new LoginState().failState(LoginFailReason.FAILED_TO_CONNECT);
         }
 
         return loginState;

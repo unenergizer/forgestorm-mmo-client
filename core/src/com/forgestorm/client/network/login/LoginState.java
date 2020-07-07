@@ -9,18 +9,17 @@ public class LoginState {
 
     private UUID uuid;
     private Boolean loginSuccess;
-    private String failReason;
+    private LoginFailReason loginFailReason;
 
-    LoginState failState(String failReason) {
-        this.failReason = failReason;
+    LoginState failState(LoginFailReason loginFailReason) {
+        this.loginFailReason = loginFailReason;
         loginSuccess = false;
         return this;
     }
 
-    LoginState successState(UUID uuid) {
+    void successState(UUID uuid) {
         this.uuid = uuid;
         loginSuccess = true;
-        return this;
     }
 
 }

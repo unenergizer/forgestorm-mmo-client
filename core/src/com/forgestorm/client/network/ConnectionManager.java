@@ -36,7 +36,7 @@ public class ConnectionManager {
                 LoginState loginState = clientLoginConnection.authenticate(loginCredentials);
 
                 if (!loginState.getLoginSuccess()) {
-                    threadSafeConnectionMessage(loginState.getFailReason());
+                    threadSafeConnectionMessage(loginState.getLoginFailReason().getFailReasonMessage());
                     logout();
                     return;
                 }
@@ -72,12 +72,17 @@ public class ConnectionManager {
      * @param infoMessage The message we want to send.
      */
     public void threadSafeConnectionMessage(final String infoMessage) {
-        Gdx.app.postRunnable(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                ActorUtil.getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        ClientMain.getInstance().getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
+                    }
+                });
             }
-        });
+        }).start();
     }
 
     public void disconnect() {
