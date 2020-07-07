@@ -115,7 +115,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
-        messageInput.setMaxLength(127); // Max chat length is 0x7F.
+        messageInput.setMaxLength(ClientConstants.MAX_CHAT_LENGTH); // Max chat length is 0x7F.
 
         // Build Window
         add(channelTable).colspan(2).align(Alignment.LEFT.getAlignment());
