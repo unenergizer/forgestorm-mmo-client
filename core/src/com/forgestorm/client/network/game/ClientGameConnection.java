@@ -117,39 +117,34 @@ public class ClientGameConnection {
         // Create our server handler
         clientHandler = new ClientHandler(socket, new ForgeStormOutputStream(outputStream), inputStream);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                println(ClientGameConnection.class, "Connection established! Receiving packets!");
-                connectionManager.threadSafeConnectionMessage("Connection established! Receiving packets!");
-                while (connected) {
-                    try {
+        println(ClientGameConnection.class, "Connection established! Receiving packets!");
+        connectionManager.threadSafeConnectionMessage("Connection established! Receiving packets!");
+        while (connected) {
+            try {
 
-                        byte opcodeByte = clientHandler.getInputStream().readByte();
-                        byte numberOfRepeats = 1;
-                        if (((opcodeByte >>> 8) & 0x01) != 0) {
+                byte opcodeByte = clientHandler.getInputStream().readByte();
+                byte numberOfRepeats = 1;
+                if (((opcodeByte >>> 8) & 0x01) != 0) {
 
-                            // Removing the special bit.
-                            opcodeByte = (byte) (opcodeByte & 0x7F);
-                            numberOfRepeats = clientHandler.getInputStream().readByte();
-                        }
+                    // Removing the special bit.
+                    opcodeByte = (byte) (opcodeByte & 0x7F);
+                    numberOfRepeats = clientHandler.getInputStream().readByte();
+                }
 
-                        for (byte i = 0; i < numberOfRepeats; i++)
-                            eventBus.decodeListenerOnNetworkThread(opcodeByte, clientHandler);
+                for (byte i = 0; i < numberOfRepeats; i++)
+                    eventBus.decodeListenerOnNetworkThread(opcodeByte, clientHandler);
 
-                    } catch (NullPointerException e) {
-                        // Socket closed
-                        println(ClientGameConnection.class, "Tried to read data, but socket closed!", true);
-                    } catch (IOException e) {
-                        // Socket closed
-                        if (!(e instanceof SocketException && !connected)) {
-                            connectionManager.logout();
-                            break;
-                        }
-                    }
+            } catch (NullPointerException e) {
+                // Socket closed
+                println(ClientGameConnection.class, "Tried to read data, but socket closed!", true);
+            } catch (IOException e) {
+                // Socket closed
+                if (!(e instanceof SocketException && !connected)) {
+                    connectionManager.logout();
+                    break;
                 }
             }
-        }, "receive_packets").start();
+        }
     }
 
     /**
