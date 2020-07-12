@@ -77,8 +77,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         // Setup notify table
         VisTable statusTable = new VisTable();
 
-        playerTradeStatus.setText("You have not confirmed.");
-        targetTradeStatus.setText("Target not confirmed.");
+        playerTradeStatus.setText("[RED]You have not confirmed.");
+        targetTradeStatus.setText("[RED]Target not confirmed.");
 
 
         playerTradeStatus.setAlignment(Alignment.CENTER.getAlignment());
@@ -176,9 +176,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             accept.setDisabled(true);
             cancel.setText("Cancel Confirmation");
 
-            playerTradeStatus.setText("You Confirmed!");
+            playerTradeStatus.setText("[GREEN]You Confirmed!");
         } else {
-            targetTradeStatus.setText("Target Confirmed!");
+            targetTradeStatus.setText("[GREEN]Target Confirmed!");
         }
     }
 
@@ -193,9 +193,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             accept.setDisabled(false);
             cancel.setText("Cancel");
 
-            playerTradeStatus.setText("You have not confirmed.");
+            playerTradeStatus.setText("[RED]You have not confirmed.");
         } else {
-            targetTradeStatus.setText("Target not confirmed.");
+            targetTradeStatus.setText("[RED]Target not confirmed.");
         }
     }
 
@@ -290,8 +290,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         accept.setDisabled(false);
         cancel.setText("Cancel");
 
-        playerTradeStatus.setText("You have not confirmed.");
-        targetTradeStatus.setText("Target not confirmed.");
+        playerTradeStatus.setText("[RED]You have not confirmed.");
+        targetTradeStatus.setText("[RED]Target not confirmed.");
 
         // Reset trade slots
         for (TradeWindowSlot tradeWindowSlot : playerClientTradeSlots) {
