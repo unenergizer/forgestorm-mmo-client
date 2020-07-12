@@ -23,7 +23,7 @@ public class ChatMessagePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         if (message == null) return;
         if (message.isEmpty()) return;
         if (message.contains(Character.toString('\n'))) return; // enter

@@ -12,7 +12,7 @@ public class CharacterDeletePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         write.writeByte(characterListIndex);
     }
 }

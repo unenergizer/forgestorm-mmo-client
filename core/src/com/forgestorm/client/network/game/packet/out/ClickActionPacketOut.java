@@ -13,7 +13,7 @@ public class ClickActionPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         write.writeByte(clickAction.getClickAction());
         write.writeByte(clickAction.getClickedEntity().getEntityType().getEntityTypeByte());
         write.writeShort(clickAction.getClickedEntity().getServerEntityID());

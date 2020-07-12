@@ -12,7 +12,7 @@ public class InspectPlayerPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ValenguardOutputStream write) {
+    void createPacket(ForgeStormOutputStream write) {
         write.writeShort(serverEntityID);
     }
 }

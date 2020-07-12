@@ -26,7 +26,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "valenguard"
+        appName = "forgestorm"
         gdxVersion = '1.9.9' // Version 1.9.10 breaks TMX maps...
         roboVMVersion = '2.3.1'
         box2DLightsVersion = '1.4'

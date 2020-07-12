@@ -15,7 +15,7 @@ public class PlayerTradePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         println(getClass(), "Opcode: " + tradePacketInfoOut.getTradeStatusOpcode());
 
         write.writeByte(tradePacketInfoOut.getTradeStatusOpcode().getTradeOpcodeByte());

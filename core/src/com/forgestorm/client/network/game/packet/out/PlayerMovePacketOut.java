@@ -16,7 +16,7 @@ public class PlayerMovePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         checkArgument(!EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().equals(attemptLocation),
                 "Locations can not be equal!");
         write.writeShort(attemptLocation.getX());

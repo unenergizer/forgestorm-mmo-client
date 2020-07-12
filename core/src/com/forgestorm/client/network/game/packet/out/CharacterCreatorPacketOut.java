@@ -24,7 +24,7 @@ public class CharacterCreatorPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ValenguardOutputStream write) {
+    void createPacket(ForgeStormOutputStream write) {
 
         println(getClass(), "Name: " + characterName, false, PRINT_DEBUG);
         println(getClass(), "HairTexture: " + hairTexture, false, PRINT_DEBUG);

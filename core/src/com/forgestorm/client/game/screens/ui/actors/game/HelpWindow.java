@@ -27,7 +27,7 @@ public class HelpWindow extends HideableVisWindow implements Buildable {
         mainTable.pad(3);
 
         mainTable.add(new VisLabel("Forums:")).left().padBottom(5).row();
-        mainTable.add(new LinkLabel("http://valenguard.com/")).padBottom(15).row();
+        mainTable.add(new LinkLabel("http://forgestorm.com/")).padBottom(15).row();
         mainTable.add(new VisLabel("Discord:")).left().padBottom(5).row();
         mainTable.add(new LinkLabel("https://discord.gg/NhtvMgR")).row();
 

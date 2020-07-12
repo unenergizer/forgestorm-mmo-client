@@ -13,7 +13,7 @@ public class EntityShopPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ValenguardOutputStream write) {
+    void createPacket(ForgeStormOutputStream write) {
         write.writeByte(entityShopAction.getShopOpcode().getShopOpcodeByte());
 
         switch (entityShopAction.getShopOpcode()) {

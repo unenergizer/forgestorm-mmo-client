@@ -26,5 +26,5 @@ public abstract class AbstractClientPacketOut {
     /**
      * Creates the packet.
      */
-    abstract void createPacket(ValenguardOutputStream write);
+    abstract void createPacket(ForgeStormOutputStream write);
 }

@@ -2,7 +2,7 @@ package com.forgestorm.client.network.game.shared;
 
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.network.game.packet.out.AbstractClientPacketOut;
-import com.forgestorm.client.network.game.packet.out.ValenguardOutputStream;
+import com.forgestorm.client.network.game.packet.out.ForgeStormOutputStream;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -21,7 +21,7 @@ import static com.forgestorm.client.util.Log.println;
 @Getter
 public class ClientHandler {
     private Socket socket;
-    private ValenguardOutputStream valenguardOutputStream;
+    private ForgeStormOutputStream forgeStormOutputStream;
     private DataInputStream inputStream;
 
     @FunctionalInterface
@@ -133,12 +133,12 @@ public class ClientHandler {
     }
 
     public int fillCurrentBuffer(AbstractClientPacketOut abstractClientPacketOut) {
-        return valenguardOutputStream.fillCurrentBuffer(abstractClientPacketOut);
+        return forgeStormOutputStream.fillCurrentBuffer(abstractClientPacketOut);
     }
 
     public void writeBuffers() {
         try {
-            valenguardOutputStream.writeBuffers();
+            forgeStormOutputStream.writeBuffers();
         } catch (IOException e) {
             handleIOException(e);
         }
@@ -146,7 +146,7 @@ public class ClientHandler {
 
     public void flushBuffer() {
         try {
-            valenguardOutputStream.flush();
+            forgeStormOutputStream.flush();
         } catch (IOException e) {
             handleIOException(e);
         }
@@ -166,10 +166,10 @@ public class ClientHandler {
     public void closeConnection() {
         try {
             if (socket != null) socket.close();
-            if (valenguardOutputStream != null) valenguardOutputStream.close();
+            if (forgeStormOutputStream != null) forgeStormOutputStream.close();
             if (inputStream != null) inputStream.close();
             socket = null;
-            valenguardOutputStream = null;
+            forgeStormOutputStream = null;
             inputStream = null;
         } catch (IOException e) {
             e.printStackTrace();

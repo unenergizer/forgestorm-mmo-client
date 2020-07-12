@@ -16,7 +16,7 @@ public class CharacterSelectPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ValenguardOutputStream write) {
+    void createPacket(ForgeStormOutputStream write) {
         println(getClass(), "Selecting character ID: " + characterId, false, PRINT_DEBUG);
         write.writeByte(characterId);
     }

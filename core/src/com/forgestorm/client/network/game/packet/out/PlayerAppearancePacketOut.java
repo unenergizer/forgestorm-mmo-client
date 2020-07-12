@@ -13,7 +13,7 @@ class PlayerAppearancePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         write.writeShort(headId);
         write.writeShort(bodyId);
     }

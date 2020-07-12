@@ -12,7 +12,7 @@ public class ProfileRequestPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         write.writeShort(serverEntityID);
     }
 }

@@ -13,7 +13,7 @@ public class BankManagePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         write.writeByte(bankAction.getTypeByte());
     }
 }

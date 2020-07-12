@@ -18,7 +18,7 @@ public class InventoryPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         InventoryActions.ActionType action = inventoryAction.getActionType();
         write.writeByte(action.getGetActionType());
 

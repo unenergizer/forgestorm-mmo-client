@@ -4,7 +4,7 @@ sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "com.valenguard.client.IOSLauncher"
+	mainClassName = "com.forgestorm.client.IOSLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build

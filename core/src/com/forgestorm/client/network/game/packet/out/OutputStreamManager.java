@@ -27,7 +27,7 @@ public class OutputStreamManager {
 
                 bufferOffsetCheck = thisBufferSize;
 
-                clientHandler.getValenguardOutputStream().createNewBuffers(abstractClientPacketOut);
+                clientHandler.getForgeStormOutputStream().createNewBuffers(abstractClientPacketOut);
                 // This happened to be the last packet so we should add the
                 // to be written. Write and flush it.
                 if (outputContexts.peek() == null) {
@@ -37,18 +37,18 @@ public class OutputStreamManager {
 
             } else { // The current buffer fits into the current packet
 
-                ValenguardOutputStream valenguardOutputStream = clientHandler.getValenguardOutputStream();
+                ForgeStormOutputStream forgeStormOutputStream = clientHandler.getForgeStormOutputStream();
 
-                if (!valenguardOutputStream.currentBuffersInitialized()) {
-                    valenguardOutputStream.createNewBuffers(abstractClientPacketOut);
+                if (!forgeStormOutputStream.currentBuffersInitialized()) {
+                    forgeStormOutputStream.createNewBuffers(abstractClientPacketOut);
                 } else {
 
-                    boolean opcodesMatch = valenguardOutputStream.doOpcodesMatch(abstractClientPacketOut);
+                    boolean opcodesMatch = forgeStormOutputStream.doOpcodesMatch(abstractClientPacketOut);
                     if (opcodesMatch) {
-                        valenguardOutputStream.appendBewBuffer();
+                        forgeStormOutputStream.appendBewBuffer();
                     } else {
                         clientHandler.writeBuffers();
-                        valenguardOutputStream.createNewBuffers(abstractClientPacketOut);
+                        forgeStormOutputStream.createNewBuffers(abstractClientPacketOut);
                     }
                 }
 

@@ -18,7 +18,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.valenguard.client"
+        applicationId "com.forgestorm.client"
         minSdkVersion 9
         targetSdkVersion 28
         versionCode 1
@@ -82,7 +82,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.valenguard.client/com.valenguard.client.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.forgestorm.client/com.forgestorm.client.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.

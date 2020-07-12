@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
-public class ValenguardOutputStream {
+public class ForgeStormOutputStream {
 
     private final DataOutputStream dataOutputStream;
 
-    public ValenguardOutputStream(DataOutputStream dataOutputStream) {
+    public ForgeStormOutputStream(DataOutputStream dataOutputStream) {
         this.dataOutputStream = dataOutputStream;
     }
 

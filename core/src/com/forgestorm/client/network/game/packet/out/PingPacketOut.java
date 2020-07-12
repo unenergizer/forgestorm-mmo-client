@@ -9,7 +9,7 @@ public class PingPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         //Nothing to write. Sending opcode only.
     }
 }

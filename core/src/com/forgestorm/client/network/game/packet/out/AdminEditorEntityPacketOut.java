@@ -17,7 +17,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         if (entityEditorData == null) return;
 
         write.writeByte(entityEditorData.getEntityType().getEntityTypeByte());

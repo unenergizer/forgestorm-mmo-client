@@ -2,7 +2,7 @@ package com.forgestorm.client.network.game;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.network.ConnectionManager;
-import com.forgestorm.client.network.game.packet.out.ValenguardOutputStream;
+import com.forgestorm.client.network.game.packet.out.ForgeStormOutputStream;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.EventBus;
 
@@ -115,7 +115,7 @@ public class ClientGameConnection {
         }
 
         // Create our server handler
-        clientHandler = new ClientHandler(socket, new ValenguardOutputStream(outputStream), inputStream);
+        clientHandler = new ClientHandler(socket, new ForgeStormOutputStream(outputStream), inputStream);
 
         new Thread(new Runnable() {
             @Override

@@ -15,7 +15,7 @@ public class AbilityRequestPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ValenguardOutputStream write) {
+    protected void createPacket(ForgeStormOutputStream write) {
         write.writeShort(abilityId);
         write.writeByte(movingEntity.getEntityType().getEntityTypeByte());
         write.writeShort(movingEntity.getServerEntityID());
