@@ -112,7 +112,7 @@ project(":core") {
         compile "com.rometools:rome:$romeVersion"
         compile "org.jsoup:jsoup:$jsoupVersion"
         compile "commons-codec:commons-codec:$apacheCommonsCodec"
-        compile "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
+//        compile "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
         compileOnly "org.projectlombok:lombok:$lombokVersion"
     }
 }
