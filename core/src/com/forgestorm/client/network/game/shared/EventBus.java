@@ -1,5 +1,7 @@
 package com.forgestorm.client.network.game.shared;
 
+import com.badlogic.gdx.utils.Disposable;
+
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Queue;
@@ -9,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static com.forgestorm.client.util.Log.println;
 
 @SuppressWarnings("unchecked")
-public class EventBus {
+public class EventBus implements Disposable {
 
     private final Map<Byte, PacketListener> packetListenerMap = new ConcurrentHashMap<Byte, PacketListener>();
     private final Queue<PacketData> decodedPackets = new ConcurrentLinkedQueue<PacketData>();
@@ -60,5 +62,12 @@ public class EventBus {
         if (packetListener == null) return;
         //noinspection unchecked
         packetListener.onEvent(packetData);
+    }
+
+    @Override
+    public void dispose() {
+        packetListenerMap.clear();
+        decodedPackets.clear();
+        println(getClass(), "Event bus dispose");
     }
 }
