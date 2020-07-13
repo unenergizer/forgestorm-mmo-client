@@ -111,11 +111,11 @@ public class ClientLoginConnection {
         println(ClientLoginConnection.class, "Closing network connection.");
         try {
             if (socket != null) socket.close();
-            if (outputStream != null) outputStream.close();
             if (inputStream != null) inputStream.close();
+            if (outputStream != null) outputStream.close();
             socket = null;
-            outputStream = null;
             inputStream = null;
+            outputStream = null;
         } catch (IOException e) {
             e.printStackTrace();
         }
