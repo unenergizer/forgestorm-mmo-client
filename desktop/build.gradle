@@ -66,6 +66,10 @@ task proguard(type: ProGuardTask, dependsOn: [jar]) {
 
     injars jar.archivePath
     outjars obfuscatedJarPath
+
+    libraryjars "${System.getProperty('java.home')}/lib/rt.jar"
+    libraryjars "${System.getProperty('java.home')}/lib/jce.jar"
+
     printmapping mappingPath
     configuration proguardConfig
 }
