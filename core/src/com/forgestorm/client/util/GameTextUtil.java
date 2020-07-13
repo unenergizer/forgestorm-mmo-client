@@ -17,7 +17,7 @@ public class GameTextUtil {
     private static final GlyphLayout glyphLayout = new GlyphLayout();
 
     public static void drawMessage(String message, Color color, float fontScale, float x, float y) {
-        drawMessage(message, color, ClientMain.gameScreen.getFont(), fontScale, ClientMain.gameScreen.getSpriteBatch(), x, y);
+        drawMessage(message, color, ClientMain.getInstance().getGameScreen().getFont(), fontScale, ClientMain.getInstance().getGameScreen().getSpriteBatch(), x, y);
     }
 
     public static void drawMessage(String message, Color color, BitmapFont font, float fontScale, SpriteBatch spriteBatch, float x, float y) {

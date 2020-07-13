@@ -110,7 +110,7 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
         float y = getDrawY() + 16;
         float width = 14;
         float xPos = x - (width / 2);
-        GameScreen gameScreen = ClientMain.gameScreen;
+        GameScreen gameScreen = ClientMain.getInstance().getGameScreen();
         gameScreen.getSpriteBatch().draw(gameScreen.getHpBase(), xPos, y, width, 1);
         gameScreen.getSpriteBatch().draw(gameScreen.getHpArea(), xPos, y, width * ((float) currentHealth / maxHealth), 1);
     }

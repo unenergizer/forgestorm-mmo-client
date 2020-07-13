@@ -14,7 +14,7 @@ public class AlphaFlashEffect extends ScreenEffect {
         if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return;
         if (!isStarted) {
             isStarted = true;
-            mapRenderer = ClientMain.gameScreen.getMapRenderer();
+            mapRenderer = ClientMain.getInstance().getGameScreen().getMapRenderer();
         }
 
         if (num > 1) {

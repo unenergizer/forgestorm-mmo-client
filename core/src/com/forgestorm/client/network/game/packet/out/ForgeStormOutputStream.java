@@ -137,6 +137,7 @@ public class ForgeStormOutputStream {
     }
 
     public void close() throws IOException {
+        flush();
         dataOutputStream.close();
     }
 }

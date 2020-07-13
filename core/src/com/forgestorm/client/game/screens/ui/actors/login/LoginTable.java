@@ -125,10 +125,10 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         loginButton.setDisabled(true);
         loginButton.setText("Logging in...");
 
-        if (!ClientMain.connectionManager.getClientGameConnection().isConnected()) {
+        if (!ClientMain.getInstance().getConnectionManager().getClientGameConnection().isConnected()) {
             ClientMain.getInstance().getLoginCredentials().setUsername(username);
             ClientMain.getInstance().getLoginCredentials().setPassword(password);
-            ClientMain.getInstance().initializeNetwork();
+            ClientMain.getInstance().getConnectionManager().connect();
         }
     }
 

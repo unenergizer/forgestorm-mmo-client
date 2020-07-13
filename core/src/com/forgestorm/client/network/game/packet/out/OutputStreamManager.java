@@ -1,11 +1,12 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class OutputStreamManager {
+public class OutputStreamManager implements Disposable {
 
     private static final int MAX_BUFFER_SIZE = 500;
 
@@ -63,5 +64,10 @@ public class OutputStreamManager {
 
     void addClientOutPacket(AbstractClientPacketOut abstractClientPacketOut) {
         outputContexts.add(abstractClientPacketOut);
+    }
+
+    @Override
+    public void dispose() {
+        outputContexts.clear();
     }
 }

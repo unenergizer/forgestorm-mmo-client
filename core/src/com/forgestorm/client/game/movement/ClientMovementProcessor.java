@@ -122,7 +122,7 @@ public class ClientMovementProcessor {
     void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
-        ClientMain.gameScreen.getKeyboard().getKeyboardMovement().invalidateKeys();
+        ClientMain.getInstance().getGameScreen().getKeyboard().getKeyboardMovement().invalidateKeys();
         ClientMain.getInstance().getMouseManager().invalidateMouse();
         if (EntityManager.getInstance().getPlayerClient() != null) {
             EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);

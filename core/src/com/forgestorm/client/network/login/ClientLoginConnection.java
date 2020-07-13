@@ -104,10 +104,12 @@ public class ClientLoginConnection {
             return new LoginState().failState(LoginFailReason.FAILED_TO_CONNECT);
         }
 
+        // Login state is now completed. Close the sockets.
+        disconnect();
         return loginState;
     }
 
-    public void disconnect() {
+    private void disconnect() {
         println(ClientLoginConnection.class, "Closing network connection.");
         try {
             if (socket != null) socket.close();

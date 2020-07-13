@@ -20,7 +20,7 @@ public abstract class AbstractClientPacketOut {
      * Sends the packet to the player.
      */
     public void sendPacket() {
-        ClientMain.getInstance().getOutputStreamManager().addClientOutPacket(this);
+        ClientMain.getInstance().getConnectionManager().getOutputStreamManager().addClientOutPacket(this);
     }
 
     /**

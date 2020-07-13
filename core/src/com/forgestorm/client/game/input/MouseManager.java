@@ -110,7 +110,7 @@ public class MouseManager {
     }
 
     private Vector3 cameraXYtoTiledMapXY(final int screenX, final int screenY) {
-        return ClientMain.gameScreen.getCamera().unproject(clickLocation.set(screenX, screenY, 0));
+        return ClientMain.getInstance().getGameScreen().getCamera().unproject(clickLocation.set(screenX, screenY, 0));
     }
 
     private boolean entityClickTest(float drawX, float drawY) {
@@ -130,7 +130,7 @@ public class MouseManager {
 
         WorldBuilder worldBuilder = ActorUtil.getStageHandler().getWorldBuilder();
         if (worldBuilder.isVisible()) {
-            TiledMap tiledMap = ClientMain.gameScreen.getMapRenderer().getTiledMap();
+            TiledMap tiledMap = ClientMain.getInstance().getGameScreen().getMapRenderer().getTiledMap();
             MapLayers layers = tiledMap.getLayers();
             TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(worldBuilder.getActiveDrawLayer());
             TiledMapTileLayer.Cell cell = layer.getCell(mouseTileX, mouseTileY);
@@ -286,7 +286,7 @@ public class MouseManager {
         // Send list of entities to the EntityDropDownMenu!
         if (!entityList.isEmpty()) {
             if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, ClientMain.gameScreen.getCamera().viewportHeight - screenY);
+            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, ClientMain.getInstance().getGameScreen().getCamera().viewportHeight - screenY);
         }
 
         /*

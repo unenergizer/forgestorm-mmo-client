@@ -53,7 +53,6 @@ import com.forgestorm.client.network.game.packet.in.PingPacketIn;
 import com.forgestorm.client.network.game.packet.in.PlayerTradePacketIn;
 import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.forgestorm.client.network.game.packet.in.SkillExperiencePacketIn;
-import com.forgestorm.client.network.game.packet.out.OutputStreamManager;
 import com.forgestorm.client.network.game.shared.EventBus;
 
 import lombok.Getter;
@@ -69,8 +68,8 @@ public class ClientMain extends Game {
     private final LoginCredentials loginCredentials = new LoginCredentials();
 
     private static ClientMain clientMain;
-    public static ConnectionManager connectionManager;
-    public static GameScreen gameScreen;
+    private ConnectionManager connectionManager;
+    private GameScreen gameScreen;
 
     @Setter
     private boolean isAdmin = false;
@@ -88,7 +87,6 @@ public class ClientMain extends Game {
     private ClientPlayerMovementManager clientPlayerMovementManager;
     private EntityMovementManager entityMovementManager;
     private MouseManager mouseManager;
-    private OutputStreamManager outputStreamManager;
     private ItemStackManager itemStackManager;
     private Skills skills;
     private EntityShopManager entityShopManager;
@@ -129,8 +127,7 @@ public class ClientMain extends Game {
 
         // load managers
         audioManager = new AudioManager();
-        connectionManager = new ConnectionManager();
-        outputStreamManager = new OutputStreamManager();
+//        connectionManager = new ConnectionManager();
         fileManager = new FileManager();
         factionManager = new FactionManager();
         mapManager = new MapManager(ideRun);
@@ -156,6 +153,8 @@ public class ClientMain extends Game {
         gameScreen = new GameScreen(stageHandler);
         setScreen(gameScreen);
         stageHandler.setUserInterface(UserInterfaceType.LOGIN);
+
+        initializeNetwork();
     }
 
     @Override
@@ -169,7 +168,7 @@ public class ClientMain extends Game {
         super.render();
 
         if (clientGameConnection.isConnected()) {
-            outputStreamManager.sendPackets(clientGameConnection.getClientHandler());
+            connectionManager.getOutputStreamManager().sendPackets(clientGameConnection.getClientHandler());
         }
     }
 
@@ -186,11 +185,10 @@ public class ClientMain extends Game {
         abilityManager.dispose();
     }
 
-    public void initializeNetwork() {
+    private void initializeNetwork() {
         println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
-
         NetworkSettingsLoader networkSettingsLoader = new NetworkSettingsLoader();
-        connectionManager.setupConnection(
+        connectionManager = new ConnectionManager(
                 networkSettingsLoader.loadNetworkSettings(),
                 loginCredentials,
                 new Consumer<EventBus>() {
@@ -220,6 +218,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new ProfileRequestPacketIn());
                     }
                 });
+
     }
 
     public void gameWorldQuit() {

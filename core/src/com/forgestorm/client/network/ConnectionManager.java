@@ -7,6 +7,7 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
 import com.forgestorm.client.network.game.LoginCredentials;
+import com.forgestorm.client.network.game.packet.out.OutputStreamManager;
 import com.forgestorm.client.network.game.shared.EventBus;
 import com.forgestorm.client.network.login.ClientLoginConnection;
 import com.forgestorm.client.network.login.LoginState;
@@ -15,26 +16,64 @@ import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class ConnectionManager extends Thread {
+public class ConnectionManager {
 
-    private ClientLoginConnection clientLoginConnection = new ClientLoginConnection(this);
+    private final NetworkSettings networkSettings;
+    private final LoginCredentials loginCredentials;
+    private final Consumer<EventBus> registerListeners;
 
     @Getter
-    private ClientGameConnection clientGameConnection = new ClientGameConnection(this);
+    private final ClientGameConnection clientGameConnection = new ClientGameConnection(this);
+    private final ClientLoginConnection clientLoginConnection = new ClientLoginConnection(this);
 
-    private NetworkSettings networkSettings;
-    private LoginCredentials loginCredentials;
-    private Consumer<EventBus> registerListeners;
+    private NetworkThread networkThread;
+    private int networkThreadsCreated = 0;
 
-    public void setupConnection(final NetworkSettings networkSettings, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
+    @Getter
+    private OutputStreamManager outputStreamManager;
+
+    public ConnectionManager(final NetworkSettings networkSettings, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
         println(getClass(), "Force LocalHost: " + ClientMain.getInstance().isForceLocalHost());
         this.networkSettings = networkSettings;
         this.loginCredentials = loginCredentials;
         this.registerListeners = registerListeners;
-
-        this.start();
     }
 
+    /**
+     * Creates a new {@link NetworkThread} to authenticate the user and then send/receive packets.
+     */
+    public void connect() {
+        if (networkThread != null) {
+            throw new RuntimeException("Trying to create a new network thread.");
+        }
+
+        outputStreamManager = new OutputStreamManager();
+
+        networkThreadsCreated++;
+        networkThread = new NetworkThread(networkThreadsCreated);
+        networkThread.start();
+    }
+
+    /**
+     * Called when we want to end the {@link NetworkThread}.
+     */
+    public void disconnect() {
+        if (outputStreamManager != null) {
+            outputStreamManager.dispose();
+            outputStreamManager = null;
+        }
+
+        clientGameConnection.disconnect();
+
+        if (networkThread != null) {
+            networkThread.interrupt();
+            networkThread = null;
+        }
+    }
+
+    /**
+     * Called when the player logs out of the game network.
+     */
     public void logout() {
         disconnect();
 
@@ -66,32 +105,34 @@ public class ConnectionManager extends Thread {
         }).start();
     }
 
-    @Override
-    public void run() {
-        if (!clientLoginConnection.openConnection(networkSettings.getLoginIp(), networkSettings.getLoginPort())) {
-            return;
+    /**
+     * This class contains the main network loop.
+     */
+    private class NetworkThread extends Thread {
+
+        NetworkThread(final int initCount) {
+            setName("NetworkThread number " + initCount);
         }
 
-        LoginState loginState = clientLoginConnection.authenticate(loginCredentials);
+        @Override
+        public void run() {
+            if (!clientLoginConnection.openConnection(networkSettings.getLoginIp(), networkSettings.getLoginPort())) {
+                return;
+            }
 
-        if (!loginState.getLoginSuccess()) {
-            threadSafeConnectionMessage(loginState.getLoginFailReason().getFailReasonMessage());
-            logout();
-            return;
+            LoginState loginState = clientLoginConnection.authenticate(loginCredentials);
+
+            if (!loginState.getLoginSuccess()) {
+                threadSafeConnectionMessage(loginState.getLoginFailReason().getFailReasonMessage());
+                logout();
+                return;
+            }
+
+            clientGameConnection.openConnection(
+                    loginState.getUuid(),
+                    networkSettings.getGameIp(),
+                    networkSettings.getGamePort(),
+                    registerListeners);
         }
-
-        clientLoginConnection.disconnect();
-
-        clientGameConnection.openConnection(
-                loginState.getUuid(),
-                networkSettings.getGameIp(),
-                networkSettings.getGamePort(),
-                registerListeners);
     }
-
-    public void disconnect() {
-        clientLoginConnection.disconnect();
-        clientGameConnection.disconnect();
-    }
-
 }

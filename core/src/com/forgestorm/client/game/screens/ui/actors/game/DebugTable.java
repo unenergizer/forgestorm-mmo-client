@@ -66,12 +66,12 @@ public class DebugTable extends VisTable implements Buildable {
 
         this.delta.setText("DeltaTime: " + Math.round(delta * 100000.0) / 100000.0);
         fps.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-        if (ClientMain.gameScreen.getCamera() != null) {
-            zoom.setText("Zoom: " + ClientMain.gameScreen.getCamera().zoom);
+        if (ClientMain.getInstance().getGameScreen().getCamera() != null) {
+            zoom.setText("Zoom: " + ClientMain.getInstance().getGameScreen().getCamera().zoom);
         }
 
-        if (ClientMain.connectionManager.getClientGameConnection().isConnected()) {
-            ms.setText("MS: " + ClientMain.connectionManager.getClientGameConnection().getPing());
+        if (ClientMain.getInstance().getConnectionManager().getClientGameConnection().isConnected()) {
+            ms.setText("MS: " + ClientMain.getInstance().getConnectionManager().getClientGameConnection().getPing());
         } else {
             ms.setText("MS: Not connected to server.");
         }

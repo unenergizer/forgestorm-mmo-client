@@ -26,7 +26,7 @@ public class Mouse implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
-        if (!ClientMain.gameScreen.isGameFocused()) return false;
+        if (!ClientMain.getInstance().getGameScreen().isGameFocused()) return false;
 
         ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
         if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
@@ -53,7 +53,7 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        ClientMain.gameScreen.getCamera().scrollZoomLevel(amount);
+        ClientMain.getInstance().getGameScreen().getCamera().scrollZoomLevel(amount);
         return false;
     }
 }

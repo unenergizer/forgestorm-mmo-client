@@ -155,7 +155,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
-        String mapName = ClientMain.gameScreen.getMapRenderer().getGameMapNameFromServer();
+        String mapName = ClientMain.getInstance().getGameScreen().getMapRenderer().getGameMapNameFromServer();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             entity = spawnClientPlayer(packetData, mapName);
@@ -302,12 +302,12 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String mapName) {
         PlayerClient playerClient = new PlayerClient();
-        AttachableCamera camera = ClientMain.gameScreen.getCamera();
+        AttachableCamera camera = ClientMain.getInstance().getGameScreen().getCamera();
 
         // Attach entity to camera
         camera.attachEntity(playerClient);
 
-        ClientMain.gameScreen.getKeyboard().getKeyboardMovement().setInvalidated(false);
+        ClientMain.getInstance().getGameScreen().getKeyboard().getKeyboardMovement().setInvalidated(false);
         ClientMain.getInstance().getMouseManager().setInvalidate(false);
 
         setMovingEntityVars(playerClient, packetData, mapName);

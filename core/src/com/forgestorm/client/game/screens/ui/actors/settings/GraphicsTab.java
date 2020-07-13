@@ -65,7 +65,7 @@ public class GraphicsTab extends Tab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
-                    ClientMain.gameScreen.getCamera().changeZoomLevel(slider.getValue());
+                    ClientMain.getInstance().getGameScreen().getCamera().changeZoomLevel(slider.getValue());
                 } else {
                     event.cancel();
                 }

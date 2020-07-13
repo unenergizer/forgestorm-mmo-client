@@ -250,7 +250,7 @@ public class StageHandler implements Disposable {
             case LOGIN:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying() && ClientMain.gameScreen.isGameFocused()) {
+                    if (!musicManager.isMusicPlaying() && ClientMain.getInstance().getGameScreen().isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
                     }
                 }
@@ -270,7 +270,7 @@ public class StageHandler implements Disposable {
             case CHARACTER_SELECT:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying() && ClientMain.gameScreen.isGameFocused()) {
+                    if (!musicManager.isMusicPlaying() && ClientMain.getInstance().getGameScreen().isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
                     }
                 }

@@ -105,7 +105,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         printMap.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TiledMap tiledMap = ClientMain.gameScreen.getMapRenderer().getTiledMap();
+                TiledMap tiledMap = ClientMain.getInstance().getGameScreen().getMapRenderer().getTiledMap();
                 MapLayers layers = tiledMap.getLayers();
 
                 println(clazz, "" + tiledMap.toString());

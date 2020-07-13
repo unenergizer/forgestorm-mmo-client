@@ -125,7 +125,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
-                ClientMain.connectionManager.disconnect();
+                ClientMain.getInstance().getConnectionManager().disconnect();
                 Gdx.app.exit();
                 return true;
             }

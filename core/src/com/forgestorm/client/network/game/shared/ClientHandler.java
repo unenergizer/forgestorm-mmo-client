@@ -125,7 +125,7 @@ public class ClientHandler {
         } catch (IOException e) {
 
             if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-                ClientMain.connectionManager.logout();
+                ClientMain.getInstance().getConnectionManager().logout();
             }
 
         }
@@ -154,7 +154,7 @@ public class ClientHandler {
 
     private void handleIOException(IOException e) {
         if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-            ClientMain.connectionManager.logout();
+            ClientMain.getInstance().getConnectionManager().logout();
         }
         e.printStackTrace();
     }

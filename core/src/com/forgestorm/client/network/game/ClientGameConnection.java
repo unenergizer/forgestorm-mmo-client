@@ -31,7 +31,7 @@ public class ClientGameConnection {
     private long ping = 0;
     private UUID uuid;
     private ClientHandler clientHandler;
-    private boolean connected;
+    private volatile boolean connected;
 
     public ClientGameConnection(final ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
@@ -75,7 +75,6 @@ public class ClientGameConnection {
 
         registerListeners.accept(eventBus);
         receivePackets(socket);
-
     }
 
     /**
@@ -151,7 +150,6 @@ public class ClientGameConnection {
      * Safely closes a network connection.
      */
     public void disconnect() {
-        println(ClientGameConnection.class, "Closing network connection.");
         connected = false;
         if (clientHandler != null) clientHandler.closeConnection();
     }

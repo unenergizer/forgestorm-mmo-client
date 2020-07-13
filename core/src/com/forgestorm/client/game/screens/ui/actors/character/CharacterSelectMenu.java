@@ -109,7 +109,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
-                ClientMain.connectionManager.logout();
+                ClientMain.getInstance().getConnectionManager().logout();
             }
         });
         setVisible(false);

@@ -22,7 +22,7 @@ public class PingPacketIn implements PacketListener<PingPacketIn.PingInPacket> {
     public void onEvent(PingInPacket packetData) {
         //TODO: Come back and see if we need to send the server the clients process time in order to get the accurate ping on the server end.
         // Also, this could be a bad idea as the client could not be in sync or the client hacker sends back bad times
-        ClientMain.connectionManager.getClientGameConnection().setPing(packetData.serverCalcPing - (System.currentTimeMillis() - packetData.firstTime));
+        ClientMain.getInstance().getConnectionManager().getClientGameConnection().setPing(packetData.serverCalcPing - (System.currentTimeMillis() - packetData.firstTime));
         new PingPacketOut().sendPacket();
     }
 

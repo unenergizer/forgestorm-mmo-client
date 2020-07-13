@@ -28,7 +28,7 @@ public class InitializeGameMapPacketIn implements PacketListener<InitializeGameM
         println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
 
         println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
-        ClientMain.gameScreen.getMapRenderer().setTiledMap(packetData.gameMap);
+        ClientMain.getInstance().getGameScreen().getMapRenderer().setTiledMap(packetData.gameMap);
         ClientMain.getInstance().getClientMovementProcessor().resetInput();
     }
 
