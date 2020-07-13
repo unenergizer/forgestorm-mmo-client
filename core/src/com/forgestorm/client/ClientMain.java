@@ -58,12 +58,8 @@ import com.forgestorm.client.network.game.shared.EventBus;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.forgestorm.client.util.Log.println;
-
 @Getter
 public class ClientMain extends Game {
-
-    private static final boolean PRINT_DEBUG = false;
 
     private final LoginCredentials loginCredentials = new LoginCredentials();
 
@@ -119,15 +115,12 @@ public class ClientMain extends Game {
 
     @Override
     public void create() {
-        println(getClass(), "Invoked: create()", false, PRINT_DEBUG);
-
         // load input
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         // load managers
         audioManager = new AudioManager();
-//        connectionManager = new ConnectionManager();
         fileManager = new FileManager();
         factionManager = new FactionManager();
         mapManager = new MapManager(ideRun);
@@ -174,7 +167,6 @@ public class ClientMain extends Game {
 
     @Override
     public void dispose() {
-        println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
         fileManager.dispose();
         mapManager.dispose();
         stageHandler.dispose();
@@ -186,7 +178,6 @@ public class ClientMain extends Game {
     }
 
     private void initializeNetwork() {
-        println(getClass(), "Invoked: initializeNetwork()", false, PRINT_DEBUG);
         NetworkSettingsLoader networkSettingsLoader = new NetworkSettingsLoader();
         connectionManager = new ConnectionManager(
                 networkSettingsLoader.loadNetworkSettings(),
@@ -218,7 +209,6 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new ProfileRequestPacketIn());
                     }
                 });
-
     }
 
     public void gameWorldQuit() {
