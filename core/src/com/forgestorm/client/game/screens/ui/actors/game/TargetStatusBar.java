@@ -45,15 +45,16 @@ public class TargetStatusBar extends VisWindow implements Buildable {
 
     public void updateHealth(MovingEntity movingEntity) {
         if (targetEntity == null) return;
-        if (targetEntity.getEntityType() == movingEntity.getEntityType()) return;
-        if (targetEntity.getServerEntityID() == movingEntity.getServerEntityID()) return;
+        if (targetEntity.getEntityType() != movingEntity.getEntityType()) return;
+        if (targetEntity.getServerEntityID() != movingEntity.getServerEntityID()) return;
 
         hpBar.setValue(targetEntity.getCurrentHealth());
         hpLabel.setText(targetEntity.getCurrentHealth() + "/" + targetEntity.getMaxHealth());
     }
 
     public void hideTargetStatusBar(Short entityId) {
-        if (entityId != null && targetEntity != null && entityId != targetEntity.getServerEntityID()) return;
+        if (entityId != null && targetEntity != null && entityId != targetEntity.getServerEntityID())
+            return;
         setVisible(false);
         targetEntity = null;
     }
