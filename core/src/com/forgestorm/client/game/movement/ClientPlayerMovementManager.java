@@ -30,6 +30,8 @@ public class ClientPlayerMovementManager {
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
     private AbstractPostProcessor abstractPostProcessor;
 
+    private Queue<MoveNode> movesSentToServer = new LinkedList<MoveNode>();
+
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
         playerClient.closeBankWindow();
         ActorUtil.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
@@ -99,6 +101,7 @@ public class ClientPlayerMovementManager {
             ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityDropDownMenu());
         }
 
+//        movesSentToServer.add(futureLocation);
         new PlayerMovePacketOut(futureLocation).sendPacket();
     }
 
@@ -118,12 +121,41 @@ public class ClientPlayerMovementManager {
         int futureX = playerClient.getFutureMapLocation().getX();
         int futureY = playerClient.getFutureMapLocation().getY();
 
-        playerClient.setWalkTime(playerClient.getWalkTime() + delta);
+        int slowDown = 1;
+        if (movesSentToServer.size() > 1) {
+            slowDown = movesSentToServer.size();
+        }
 
-        playerClient.setDrawX(Interpolation.linear.apply(currentX, futureX, playerClient.getWalkTime() / playerClient.getMoveSpeed()) * ClientConstants.TILE_SIZE);
-        playerClient.setDrawY(Interpolation.linear.apply(currentY, futureY, playerClient.getWalkTime() / playerClient.getMoveSpeed()) * ClientConstants.TILE_SIZE);
+        //
 
-        if (playerClient.getWalkTime() <= playerClient.getMoveSpeed()) return;
+        // Walk time (0, 1)
+        // walkTime += moveSpeed * SOME_VARIABLE_THAT_MOVES_THE_ENTITY_A_DECENT_SPEED
+
+        // moveSpeed = 1 means 1 tile per second
+        // in 60 ticks walkTime would go 0-1
+        // moveSpeed = 2 means 2 tiles per second
+        // in 60 ticks walkTime would go 0-1
+
+        // TICKS_PER_SECOND = 60
+        // walkTime += moveSpeed / TICK_PER_SECOND
+
+
+        // TODO: Include delta variable in calculation
+        // TODO: divide by the queue
+
+        float frameMove = (playerClient.getMoveSpeed() / 60F) / slowDown;
+
+        playerClient.setWalkTime(playerClient.getWalkTime() + frameMove);
+
+        float interpolatedX = Interpolation.linear.apply(currentX, futureX, playerClient.getWalkTime()) * ClientConstants.TILE_SIZE;
+        float interpolatedY = Interpolation.linear.apply(currentY, futureY, playerClient.getWalkTime()) * ClientConstants.TILE_SIZE;
+
+        playerClient.setDrawX(interpolatedX);
+        playerClient.setDrawY(interpolatedY);
+
+        if (playerClient.getWalkTime() < 1.0F) return;
+
+//        if (playerClient.getWalkTime() <= playerClient.getMoveSpeed()) return;
 
         // There are no more movements to go
         if (movements.isEmpty()) {

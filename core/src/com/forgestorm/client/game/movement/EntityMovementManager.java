@@ -60,7 +60,6 @@ public class EntityMovementManager {
     }
 
     private void updateEntitiesPosition(MovingEntity entity, float delta) {
-        entity.setWalkTime(entity.getWalkTime() + delta);
 
         int currentX = entity.getCurrentMapLocation().getX();
         int currentY = entity.getCurrentMapLocation().getY();
@@ -68,10 +67,15 @@ public class EntityMovementManager {
         int futureX = entity.getFutureMapLocation().getX();
         int futureY = entity.getFutureMapLocation().getY();
 
-        entity.setDrawX(Interpolation.linear.apply(currentX, futureX, entity.getWalkTime() / entity.getMoveSpeed()) * ClientConstants.TILE_SIZE);
-        entity.setDrawY(Interpolation.linear.apply(currentY, futureY, entity.getWalkTime() / entity.getMoveSpeed()) * ClientConstants.TILE_SIZE);
+        // TODO: need some sorta speedup/slowdown for entities?
+        float frameMove = (entity.getMoveSpeed() / 60F);
 
-        if (entity.getWalkTime() <= entity.getMoveSpeed()) return;
+        entity.setWalkTime(entity.getWalkTime() + frameMove);
+
+        entity.setDrawX(Interpolation.linear.apply(currentX, futureX, entity.getWalkTime()) * ClientConstants.TILE_SIZE);
+        entity.setDrawY(Interpolation.linear.apply(currentY, futureY, entity.getWalkTime()) * ClientConstants.TILE_SIZE);
+
+        if (entity.getWalkTime() < 1.0F) return;
 
         if (entity.getFutureLocationRequests().isEmpty()) {
 
