@@ -31,6 +31,7 @@ public class Opcodes {
     public static final byte CHARACTERS_MENU_LOAD = 0x0C;
     public static final byte ENTITY_UPDATE_SPEED = 0x0D;
     public static final byte INIT_CLIENT_PRIVILEGE = 0x0E;
+    public static final byte CLIENT_MOVE_RESYNC = 0x0F;
 
     /**
      * CLIENT -> SERVER

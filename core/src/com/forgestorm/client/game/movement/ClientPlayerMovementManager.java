@@ -30,6 +30,7 @@ public class ClientPlayerMovementManager {
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
     private AbstractPostProcessor abstractPostProcessor;
 
+    @Getter
     private Queue<MoveNode> movesSentToServer = new LinkedList<MoveNode>();
 
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
@@ -101,7 +102,8 @@ public class ClientPlayerMovementManager {
             ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityDropDownMenu());
         }
 
-//        movesSentToServer.add(futureLocation);
+        movesSentToServer.add(nextNode);
+
         new PlayerMovePacketOut(futureLocation).sendPacket();
     }
 
@@ -126,22 +128,9 @@ public class ClientPlayerMovementManager {
             slowDown = movesSentToServer.size();
         }
 
-        //
-
-        // Walk time (0, 1)
-        // walkTime += moveSpeed * SOME_VARIABLE_THAT_MOVES_THE_ENTITY_A_DECENT_SPEED
-
-        // moveSpeed = 1 means 1 tile per second
-        // in 60 ticks walkTime would go 0-1
-        // moveSpeed = 2 means 2 tiles per second
-        // in 60 ticks walkTime would go 0-1
-
-        // TICKS_PER_SECOND = 60
-        // walkTime += moveSpeed / TICK_PER_SECOND
-
-
         // TODO: Include delta variable in calculation
-        // TODO: divide by the queue
+
+        println(getClass(), "Size of slow down queue: " + slowDown, true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
         float frameMove = (playerClient.getMoveSpeed() / 60F) / slowDown;
 
@@ -154,8 +143,6 @@ public class ClientPlayerMovementManager {
         playerClient.setDrawY(interpolatedY);
 
         if (playerClient.getWalkTime() < 1.0F) return;
-
-//        if (playerClient.getWalkTime() <= playerClient.getMoveSpeed()) return;
 
         // There are no more movements to go
         if (movements.isEmpty()) {

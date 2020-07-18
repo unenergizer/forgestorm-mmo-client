@@ -35,6 +35,7 @@ import com.forgestorm.client.network.game.packet.in.AiEntityDataPacketIn;
 import com.forgestorm.client.network.game.packet.in.BankManagePacketIn;
 import com.forgestorm.client.network.game.packet.in.CharactersMenuLoadPacketIn;
 import com.forgestorm.client.network.game.packet.in.ChatMessagePacketIn;
+import com.forgestorm.client.network.game.packet.in.ClientMoveResyncPacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityAppearancePacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityAttributesUpdatePacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityDamagePacketIn;
@@ -207,6 +208,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new InitClientPrivilegePacketIn());
                         eventBus.registerListener(new InspectPlayerPacketIn());
                         eventBus.registerListener(new ProfileRequestPacketIn());
+                        eventBus.registerListener(new ClientMoveResyncPacketIn());
                     }
                 });
     }

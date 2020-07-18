@@ -1,8 +1,8 @@
 package com.forgestorm.client.network.game.packet.in;
 
 
-import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.movement.ClientPlayerMovementManager;
 import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
@@ -14,6 +14,7 @@ import com.forgestorm.client.network.game.shared.Opcode;
 import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.client.util.MoveNode;
 
 import lombok.AllArgsConstructor;
 
@@ -38,15 +39,19 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
-                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                Location resyncLocation = new Location(playerClient.getMapName(), packetData.futureX, packetData.futureY);
 
-                playerClient.setCurrentMapLocation(resyncLocation);
-                playerClient.setFutureMapLocation(resyncLocation);
-                playerClient.setDrawX(resyncLocation.getX() * ClientConstants.TILE_SIZE);
-                playerClient.setDrawY(resyncLocation.getY() * ClientConstants.TILE_SIZE);
+                ClientPlayerMovementManager movementManager = ClientMain.getInstance().getClientPlayerMovementManager();
 
-                ClientMain.getInstance().getClientMovementProcessor().resetInput();
+                MoveNode moveNode = movementManager.getMovesSentToServer().poll();
+                if (moveNode == null) {
+                    println(getClass(), "The response for the client's movement was received but no move node was not the move queue.");
+                    return;
+                }
+
+                if (moveNode.getWorldX() != packetData.futureX || moveNode.getWorldY() != packetData.futureY) {
+                    println(getClass(), "The response for the client's movement did not match what was expected.");
+                }
+
                 return;
             case PLAYER:
                 movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);

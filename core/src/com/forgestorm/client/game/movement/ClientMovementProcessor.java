@@ -119,6 +119,8 @@ public class ClientMovementProcessor {
         return nextNode;
     }
 
+    // TODO: do we need to clear the movements and movesSendToServer list?
+
     void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
