@@ -242,7 +242,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 addTalkButton();
                 addInspectPlayerButton();
                 addTargetButton();
-                addAttackButton();
                 addFollowButton();
                 addViewProfileButton();
             } else if (clickedEntity instanceof ItemStackDrop) {
@@ -507,48 +506,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     playerClient.setTargetEntity(clickedMovingEntity);
-                    cleanUpDropDownMenu(true);
-                }
-            });
-        }
-
-        private void addAttackButton() {
-            LeftAlignTextButton attackButton = new LeftAlignTextButton("Attack " + entityName);
-            add(attackButton).expand().fill().row();
-
-            attackButton.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
-                    playerClient.setTargetEntity(clickedMovingEntity);
-
-                    if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
-                        // The player is requesting to interact with the entity.
-                        if (!MoveUtil.isEntityMoving(playerClient)) {
-                            new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, clickedMovingEntity)).sendPacket();
-                        }
-                    } else {
-                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-                        if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "No suitable path to attack.");
-                            cleanUpDropDownMenu(true);
-                            return;
-                        }
-
-                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-                        ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                                    @Override
-                                    public void postMoveAction() {
-                                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, clickedMovingEntity)).sendPacket();
-                                    }
-                                }));
-                    }
                     cleanUpDropDownMenu(true);
                 }
             });
