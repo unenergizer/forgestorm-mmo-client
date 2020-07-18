@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.in;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -31,6 +32,7 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
 
     @Override
     public void onEvent(EntityDespawnPacket packetData) {
+        ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(packetData.entityId);
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
                 println(getClass(), "Tried to despawn CLIENT_PLAYER type!", true);

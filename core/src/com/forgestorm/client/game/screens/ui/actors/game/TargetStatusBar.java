@@ -2,15 +2,15 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.Buildable;
-import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.forgestorm.client.game.world.entities.MovingEntity;
 
 import lombok.Getter;
 
@@ -50,6 +50,12 @@ public class TargetStatusBar extends VisWindow implements Buildable {
 
         hpBar.setValue(targetEntity.getCurrentHealth());
         hpLabel.setText(targetEntity.getCurrentHealth() + "/" + targetEntity.getMaxHealth());
+    }
+
+    public void hideTargetStatusBar(Short entityId) {
+        if (entityId != null && targetEntity != null && entityId != targetEntity.getServerEntityID()) return;
+        setVisible(false);
+        targetEntity = null;
     }
 
     @Override
