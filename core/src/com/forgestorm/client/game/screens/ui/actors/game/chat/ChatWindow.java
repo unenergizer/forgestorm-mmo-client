@@ -394,6 +394,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         @Override
         public void gameQuitReset() {
             messageTable.clearChildren();
+            channelButton.setText(chatChannelType.name()); // Reset button to remove "unread messages" notification
         }
     }
 }
