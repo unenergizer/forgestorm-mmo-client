@@ -119,15 +119,13 @@ public class ClientMovementProcessor {
         return nextNode;
     }
 
-    // TODO: do we need to clear the movements and movesSendToServer list?
-
     void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
         ClientMain.getInstance().getGameScreen().getKeyboard().getKeyboardMovement().invalidateKeys();
         ClientMain.getInstance().getMouseManager().invalidateMouse();
         if (EntityManager.getInstance().getPlayerClient() != null) {
-            EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
+            clearPlayerClientInput();
         }
     }
 
@@ -135,8 +133,16 @@ public class ClientMovementProcessor {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
         if (EntityManager.getInstance().getPlayerClient() != null) {
-            EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
+            clearPlayerClientInput();
         }
+    }
+
+    // TODO this may still be wrong
+    private void clearPlayerClientInput() {
+        ClientPlayerMovementManager manager = ClientMain.getInstance().getClientPlayerMovementManager();
+        manager.getMovements().clear();
+        manager.getMovesSentToServer().clear();
+        EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
     }
 
     public enum MovementInput {

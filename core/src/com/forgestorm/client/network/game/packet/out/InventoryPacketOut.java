@@ -32,16 +32,20 @@ public class InventoryPacketOut extends AbstractClientPacketOut {
 
             // Combining the windows into a single byte.
             byte windowsBytes = (byte) ((inventoryAction.getFromWindow() << 4) | inventoryAction.getToWindow());
+
             write.writeByte(windowsBytes);
-        } else if (action == InventoryActions.ActionType.DROP
-                || action == InventoryActions.ActionType.CONSUME
-                || action == InventoryActions.ActionType.REMOVE) {
 
-            write.writeByte(inventoryAction.getInteractInventory());
-            write.writeByte(inventoryAction.getSlotIndex());
-
-            println(getClass(), "InteractiveInventory: " + inventoryAction.getInteractInventory(), false, PRINT_DEBUG);
-            println(getClass(), "SlotIndex: " + inventoryAction.getSlotIndex(), false, PRINT_DEBUG);
         }
+
+//        else if (action == InventoryActions.ActionType.DROP
+//                || action == InventoryActions.ActionType.CONSUME
+//                || action == InventoryActions.ActionType.REMOVE) {
+//
+//            write.writeByte(inventoryAction.getInteractInventory());
+//            write.writeByte(inventoryAction.getSlotIndex());
+//
+//            println(getClass(), "InteractiveInventory: " + inventoryAction.getInteractInventory(), false, PRINT_DEBUG);
+//            println(getClass(), "SlotIndex: " + inventoryAction.getSlotIndex(), false, PRINT_DEBUG);
+//        }
     }
 }
