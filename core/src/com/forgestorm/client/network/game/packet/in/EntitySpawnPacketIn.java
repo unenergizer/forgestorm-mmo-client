@@ -180,12 +180,17 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
 
+        println(getClass(), "===[ SPAWN IN ]================================", false, PRINT_DEBUG);
         println(getClass(), "entityType: " + packetData.entityType, false, PRINT_DEBUG);
         println(getClass(), "entityId: " + packetData.entityId, false, PRINT_DEBUG);
         println(getClass(), "entityName: " + packetData.entityName, false, PRINT_DEBUG);
-        println(getClass(), "MapName: " + packetData, false, PRINT_DEBUG);
+        println(getClass(), "MapName: NULL?", false, PRINT_DEBUG);
         println(getClass(), "tileX: " + packetData.tileX, false, PRINT_DEBUG);
         println(getClass(), "tileY: " + packetData.tileY, false, PRINT_DEBUG);
+        println(getClass(), "directional Byte: " + packetData.moveDirection, false, PRINT_DEBUG);
+        println(getClass(), "move speed: " + packetData.moveSpeed, false, PRINT_DEBUG);
+        println(getClass(), "MaxHP: " + packetData.maxHealth, false, PRINT_DEBUG);
+        println(getClass(), "CurrentHp: " + packetData.currentHealth, false, PRINT_DEBUG);
 
         Appearance appearance = new Appearance();
         entity.setAppearance(appearance);
@@ -371,11 +376,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         // setup health
         entity.setMaxHealth(packetData.maxHealth);
         entity.setCurrentHealth(packetData.currentHealth);
-
-        println(getClass(), "directional Byte: " + packetData.moveDirection, false, PRINT_DEBUG);
-        println(getClass(), "move speed: " + packetData.moveSpeed, false, PRINT_DEBUG);
-        println(getClass(), "MaxHP: " + packetData.maxHealth, false, PRINT_DEBUG);
-        println(getClass(), "CurrentHp: " + packetData.currentHealth, false, PRINT_DEBUG);
     }
 
     @Setter

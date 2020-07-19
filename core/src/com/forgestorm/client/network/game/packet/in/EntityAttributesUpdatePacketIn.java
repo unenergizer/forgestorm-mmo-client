@@ -25,7 +25,7 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
-        final byte entityType = clientHandler.readByte();
+        final EntityType entityType = EntityType.getEntityType(clientHandler.readByte());
         final int armor = clientHandler.readInt();
         final int damage = clientHandler.readInt();
 
@@ -33,7 +33,12 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
         attributesUpdate.setArmor(armor);
         attributesUpdate.setDamage(damage);
 
-        return new EntityAttributesUpdatePacket(entityId, EntityType.getEntityType(entityType), attributesUpdate);
+        println(getClass(), "EntityId: " + entityId, false, PRINT_DEBUG);
+        println(getClass(), "EntityType: " + entityType, false, PRINT_DEBUG);
+        println(getClass(), "Armor: " + armor, false, PRINT_DEBUG);
+        println(getClass(), "Damage: " + damage, false, PRINT_DEBUG);
+
+        return new EntityAttributesUpdatePacket(entityId, entityType, attributesUpdate);
     }
 
     @Override
