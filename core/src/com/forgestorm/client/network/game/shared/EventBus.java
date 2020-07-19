@@ -1,7 +1,5 @@
 package com.forgestorm.client.network.game.shared;
 
-import com.badlogic.gdx.utils.Disposable;
-
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Queue;
@@ -11,8 +9,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static com.forgestorm.client.util.Log.println;
 
 @SuppressWarnings("unchecked")
-public class EventBus implements Disposable {
+public class EventBus {
 
+    private static final boolean PRINT_DEBUG = true;
     private final Map<Byte, PacketListener> packetListenerMap = new ConcurrentHashMap<Byte, PacketListener>();
     private final Queue<PacketData> decodedPackets = new ConcurrentLinkedQueue<PacketData>();
 
@@ -37,6 +36,7 @@ public class EventBus implements Disposable {
 
     public void decodeListenerOnNetworkThread(byte opcode, ClientHandler clientHandler) {
         PacketListener packetListener = getPacketListener(opcode);
+        println(getClass(), "PACKET IN: " + packetListener, false, PRINT_DEBUG);
         if (packetListener == null) return;
         PacketData packetData = packetListener.decodePacket(clientHandler);
         packetData.setOpcode(opcode);
@@ -64,10 +64,8 @@ public class EventBus implements Disposable {
         packetListener.onEvent(packetData);
     }
 
-    @Override
-    public void dispose() {
-        packetListenerMap.clear();
+    public void disconnect() {
         decodedPackets.clear();
-        println(getClass(), "Event bus dispose");
+        println(getClass(), "Event bus dispose", false, PRINT_DEBUG);
     }
 }

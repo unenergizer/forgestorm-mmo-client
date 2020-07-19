@@ -152,6 +152,6 @@ public class ClientGameConnection {
     public void disconnect() {
         connected = false;
         if (clientHandler != null) clientHandler.closeConnection();
-        eventBus.dispose();
+        eventBus.disconnect();
     }
 }

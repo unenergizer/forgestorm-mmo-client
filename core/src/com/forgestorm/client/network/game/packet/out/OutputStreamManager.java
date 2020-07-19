@@ -6,8 +6,11 @@ import com.forgestorm.client.network.game.shared.ClientHandler;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import static com.forgestorm.client.util.Log.println;
+
 public class OutputStreamManager implements Disposable {
 
+    private static final boolean PRINT_DEBUG = true;
     private static final int MAX_BUFFER_SIZE = 500;
 
     private final Queue<AbstractClientPacketOut> outputContexts = new LinkedList<AbstractClientPacketOut>();
@@ -16,6 +19,8 @@ public class OutputStreamManager implements Disposable {
         int bufferOffsetCheck = 0;
         AbstractClientPacketOut abstractClientPacketOut;
         while ((abstractClientPacketOut = outputContexts.poll()) != null) {
+
+            println(getClass(), "PACKET OUT: " + abstractClientPacketOut, false, PRINT_DEBUG);
 
             int thisBufferSize = clientHandler.fillCurrentBuffer(abstractClientPacketOut);
             bufferOffsetCheck += thisBufferSize;
