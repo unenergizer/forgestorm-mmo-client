@@ -94,7 +94,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
                 ActorUtil.fadeOutWindow(stageHandler.getEntityDropDownMenu());
                 ActorUtil.fadeOutWindow(stageHandler.getItemDropDownMenu());
-                ActorUtil.fadeInWindow(tradeWindow);
+                tradeWindow.openWindow();
                 stageHandler.getBagWindow().openWindow();
                 break;
             case TRADE_REQUEST_TARGET_DECLINE:
@@ -130,9 +130,8 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Generic trade cancel
             case TRADE_CANCELED:
-                if (stageHandler.getTradeWindow().isVisible()) {
-                    stageHandler.getTradeWindow().closeTradeWindow();
-                }
+                stageHandler.getTradeWindow().closeTradeWindow();
+
                 if (stageHandler.getIncomingTradeRequestWindow().isVisible()) {
                     ActorUtil.fadeOutWindow(stageHandler.getIncomingTradeRequestWindow());
                 }

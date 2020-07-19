@@ -56,6 +56,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     private VisLabel targetTradeStatus = new VisLabel();
 
     private boolean lockTrade = false;
+    private boolean tradeWindowOpen = false;
 
     @Setter
     @Getter
@@ -235,6 +236,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         if (inventoryType == InventoryType.HOT_BAR) return; // HotBar click!
 
         if (lockTrade) return; // Trade accepted, waiting on final confirm
+        if (!tradeWindowOpen) return; // Trade window is closed or fading out. Do not add items.
 
         // Find an empty trade slot
         TradeWindowSlot tradeWindowSlot = findEmptySlot(true);
@@ -284,7 +286,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     }
 
     public void closeTradeWindow() {
+        tradeWindowOpen = false;
         ActorUtil.fadeOutWindow(this);
+        fadeOut();
         lockTrade = false;
         accept.setText("Accept");
         accept.setDisabled(false);
@@ -292,7 +296,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
         playerTradeStatus.setText("[RED]You have not confirmed.");
         targetTradeStatus.setText("[RED]Target not confirmed.");
+    }
 
+    public void openWindow() {
         // Reset trade slots
         for (TradeWindowSlot tradeWindowSlot : playerClientTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
@@ -300,6 +306,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         for (TradeWindowSlot tradeWindowSlot : targetPlayerTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
         }
+
+        ActorUtil.fadeInWindow(this);
+        centerWindow();
+        tradeWindowOpen = true;
     }
 
     /**
