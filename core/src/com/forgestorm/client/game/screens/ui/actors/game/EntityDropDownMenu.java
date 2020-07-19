@@ -48,6 +48,7 @@ import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.client.util.PathFinding;
 import com.kotcrab.vis.ui.widget.VisTable;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -61,6 +62,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     private VisTable dropDownTable = new VisTable();
 
     private final PathFinding pathFinding = new PathFinding();
+
+    private final List<Entity> entityArray = new ArrayList<Entity>();
 
     public EntityDropDownMenu() {
         super("Choose Option");
@@ -99,6 +102,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
             // Adds players, monsters, and npcs;
             dropDownTable.add(new MenuEntry(entity)).expand().fill().row();
+
+            entityArray.add(entity);
         }
 
         addWalkHereButton(dropDownTable, entityList.get(0).getCurrentMapLocation());
@@ -166,6 +171,19 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         if (closeWindow) ActorUtil.fadeOutWindow(dropDownMenu);
         dropDownTable.clearListeners();
         dropDownTable.clearChildren();
+        entityArray.clear();
+    }
+
+    public void closeDropDownMenu(EntityType entityType, short entityId) {
+        boolean clean = false;
+        for (Entity entity : entityArray) {
+            if (entity.getEntityType() != entityType) continue;
+            if (entity.getServerEntityID() == entityId) {
+                clean = true;
+                break;
+            }
+        }
+        if (clean) cleanUpDropDownMenu(true);
     }
 
     class EditorMenuEntry extends VisTable {

@@ -32,7 +32,6 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
 
     @Override
     public void onEvent(EntityDespawnPacket packetData) {
-        ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(packetData.entityId);
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
                 println(getClass(), "Tried to despawn CLIENT_PLAYER type!", true);
@@ -51,6 +50,8 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
                 EntityManager.getInstance().removeStationaryEntity(packetData.entityId);
                 break;
         }
+        ClientMain.getInstance().getStageHandler().getEntityDropDownMenu().closeDropDownMenu(packetData.entityType, packetData.entityId);
+        ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(packetData.entityId);
     }
 
     @AllArgsConstructor
