@@ -296,9 +296,17 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
         playerTradeStatus.setText("[RED]You have not confirmed.");
         targetTradeStatus.setText("[RED]Target not confirmed.");
+        clearTradeSlots();
     }
 
     public void openWindow() {
+        clearTradeSlots();
+        ActorUtil.fadeInWindow(this);
+        centerWindow();
+        tradeWindowOpen = true;
+    }
+
+    private void clearTradeSlots() {
         // Reset trade slots
         for (TradeWindowSlot tradeWindowSlot : playerClientTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
@@ -306,10 +314,6 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         for (TradeWindowSlot tradeWindowSlot : targetPlayerTradeSlots) {
             tradeWindowSlot.setTradeCell(null, null);
         }
-
-        ActorUtil.fadeInWindow(this);
-        centerWindow();
-        tradeWindowOpen = true;
     }
 
     /**
