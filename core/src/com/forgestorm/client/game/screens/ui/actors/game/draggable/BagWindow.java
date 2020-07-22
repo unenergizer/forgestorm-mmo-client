@@ -1,19 +1,14 @@
 package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.widget.VisImageButton;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.world.item.inventory.InventoryConstants;
 import com.forgestorm.client.game.world.item.inventory.InventoryType;
 
@@ -22,14 +17,19 @@ public class BagWindow extends ItemSlotContainerWindow implements Buildable {
     private StageHandler stageHandler;
 
     public BagWindow() {
-        super("Inventory", InventoryConstants.BAG_SIZE);
+        super("Inventory", InventoryConstants.BAG_SIZE, InventoryType.BAG_1);
     }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
-        addCloseButton();
+        addCloseButton(new CloseButtonCallBack() {
+            @Override
+            public void closeButtonClicked() {
+                closeWindow();
+            }
+        });
         setResizable(false);
 
         int columnCount = 0;
@@ -83,6 +83,10 @@ public class BagWindow extends ItemSlotContainerWindow implements Buildable {
     public void closeWindow() {
         ActorUtil.fadeOutWindow(this);
         stageHandler.getBankWindow().findWindowPosition(true);
+        ItemDropDownMenu itemDropDownMenu = ClientMain.getInstance().getStageHandler().getItemDropDownMenu();
+        if (itemDropDownMenu.getInventoryType() == getInventoryType()) {
+            itemDropDownMenu.cleanUpDropDownMenu(true);
+        }
     }
 
     private void findPosition() {
@@ -95,35 +99,5 @@ public class BagWindow extends ItemSlotContainerWindow implements Buildable {
         } else {
             setPosition(bagX, StageHandler.WINDOW_PAD_Y);
         }
-    }
-
-    /**
-     * EDIT: unenregizer -> Override this method so that we can call {@link #closeWindow()} instead of close();
-     * Adds close button to window, next to window title. After pressing that button, {@link #close()} is called. If nothing
-     * else was added to title table, and current title alignment is center then the title will be automatically centered.
-     */
-    @Override
-    public void addCloseButton() {
-        Label titleLabel = getTitleLabel();
-        Table titleTable = getTitleTable();
-
-        VisImageButton closeButton = new VisImageButton("close-window");
-        titleTable.add(closeButton).padRight(-getPadRight() + 0.7f);
-        closeButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                closeWindow();
-            }
-        });
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                event.cancel();
-                return true;
-            }
-        });
-
-        if (titleLabel.getLabelAlign() == Align.center && titleTable.getChildren().size == 2)
-            titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
     }
 }

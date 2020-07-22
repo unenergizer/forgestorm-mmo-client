@@ -3,6 +3,8 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -23,14 +25,20 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
     private StageHandler stageHandler;
 
     public BankWindow() {
-        super("Bank", InventoryConstants.BANK_SIZE);
+        super("Bank", InventoryConstants.BANK_SIZE, InventoryType.BANK);
     }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
-        addCloseButton();
+        addCloseButton(new CloseButtonCallBack() {
+            @Override
+            public void closeButtonClicked() {
+                ItemDropDownMenu itemDropDownMenu = ClientMain.getInstance().getStageHandler().getItemDropDownMenu();
+                if (itemDropDownMenu.getInventoryType() == getInventoryType()) itemDropDownMenu.cleanUpDropDownMenu(true);
+            }
+        });
         setResizable(false);
 
         VisTable slotTable = new VisTable();

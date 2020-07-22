@@ -71,6 +71,10 @@ public class HideableVisWindow extends VisWindow {
      */
     @Override
     public void addCloseButton() {
+        addCloseButton(null);
+    }
+
+    public void addCloseButton(final CloseButtonCallBack closeButtonCallBack) {
         Label titleLabel = getTitleLabel();
         Table titleTable = getTitleTable();
 
@@ -80,6 +84,7 @@ public class HideableVisWindow extends VisWindow {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 fadeOut(FADE_TIME);
+                if (closeButtonCallBack != null) closeButtonCallBack.closeButtonClicked();
             }
         });
         closeButton.addListener(new ClickListener() {
@@ -92,5 +97,9 @@ public class HideableVisWindow extends VisWindow {
 
         if (titleLabel.getLabelAlign() == Align.center && titleTable.getChildren().size == 2)
             titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
+    }
+
+    public abstract class CloseButtonCallBack {
+        public abstract void closeButtonClicked();
     }
 }

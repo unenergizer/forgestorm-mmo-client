@@ -22,6 +22,8 @@ import com.forgestorm.client.game.world.item.inventory.InventoryType;
 import com.forgestorm.client.network.game.packet.out.InventoryPacketOut;
 import com.kotcrab.vis.ui.widget.VisTable;
 
+import lombok.Getter;
+
 import static com.forgestorm.client.util.Log.println;
 
 public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
@@ -29,6 +31,8 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
     private final ItemDropDownMenu itemDropDownMenu;
     private StageHandler stageHandler;
     private VisTable dropDownTable = new VisTable();
+
+    @Getter
     private InventoryType inventoryType;
     private byte slotIndex;
     private ItemStackSlot sourceSlot;
@@ -241,7 +245,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
         });
     }
 
-    private void cleanUpDropDownMenu(boolean closeWindow) {
+    public void cleanUpDropDownMenu(boolean closeWindow) {
         if (closeWindow) ActorUtil.fadeOutWindow(itemDropDownMenu);
         dropDownTable.clearChildren();
     }

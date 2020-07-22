@@ -12,6 +12,7 @@ import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.item.ItemStack;
+import com.forgestorm.client.game.world.item.inventory.InventoryType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ public class CharacterInspectionWindow extends ItemSlotContainerWindow implement
     private Player playerToInspect;
 
     public CharacterInspectionWindow() {
-        super("Inspect Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
+        super("Inspect Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);
     }
 
     @Override

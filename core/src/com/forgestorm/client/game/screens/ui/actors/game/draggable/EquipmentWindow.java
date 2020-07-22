@@ -3,7 +3,9 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
+import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
+import com.forgestorm.client.game.world.item.inventory.InventoryType;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -43,7 +45,7 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
     private VisLabel poisonValue = new VisLabel("0");
 
     public EquipmentWindow() {
-        super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE);
+        super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);
     }
 
     public void equipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
@@ -84,7 +86,13 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
-        addCloseButton();
+        addCloseButton(new CloseButtonCallBack() {
+            @Override
+            public void closeButtonClicked() {
+                ItemDropDownMenu itemDropDownMenu = ClientMain.getInstance().getStageHandler().getItemDropDownMenu();
+                if (itemDropDownMenu.getInventoryType() == getInventoryType()) itemDropDownMenu.cleanUpDropDownMenu(true);
+            }
+        });
         setResizable(false);
 
         Actor equipmentSlotsTable = equipmentPreview.build(stageHandler, getItemSlotContainer(), getItemSlotContainer().itemStackSlots);
