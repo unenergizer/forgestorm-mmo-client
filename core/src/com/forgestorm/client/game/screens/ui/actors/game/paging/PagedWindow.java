@@ -1,12 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.game.paging;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -16,7 +11,6 @@ import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.kotcrab.vis.ui.util.TableUtils;
-import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -54,7 +48,12 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
         this.stageHandler = stageHandler;
         PagedWindow pagedWindow = this;
         TableUtils.setSpacingDefaults(this);
-        addCloseButton();
+        addCloseButton(new CloseButtonCallBack() {
+            @Override
+            public void closeButtonClicked() {
+                closePagedWindow(false);
+            }
+        });
         setResizable(false);
 
         pagedWindow.add(pageDisplay).row();
@@ -274,35 +273,5 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
         pageDisplay.setVisible(true);
         previousPage.setDisabled(true);
         nextPage.setDisabled(false);
-    }
-
-    /**
-     * EDIT: unenregizer -> Override this method so that we can call {@link #closePagedWindow(boolean)} ()} instead of close();
-     * Adds close button to window, next to window title. After pressing that button, {@link #close()} is called. If nothing
-     * else was added to title table, and current title alignment is center then the title will be automatically centered.
-     */
-    @Override
-    public void addCloseButton() {
-        Label titleLabel = getTitleLabel();
-        Table titleTable = getTitleTable();
-
-        VisImageButton closeButton = new VisImageButton("close-window");
-        titleTable.add(closeButton).padRight(-getPadRight() + 0.7f);
-        closeButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                closePagedWindow(false);
-            }
-        });
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                event.cancel();
-                return true;
-            }
-        });
-
-        if (titleLabel.getLabelAlign() == Align.center && titleTable.getChildren().size == 2)
-            titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
     }
 }
