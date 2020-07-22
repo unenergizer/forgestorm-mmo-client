@@ -44,7 +44,7 @@ public class MonsterTab extends EditorTab {
     private VisValidatableTextField damage = new VisValidatableTextField();
     private VisValidatableTextField expDrop = new VisValidatableTextField();
     private VisValidatableTextField dropTable = new VisValidatableTextField();
-    private VisSlider walkSpeed = new VisSlider(.1f, .99f, .01f, false);
+    private VisValidatableTextField walkSpeed = new VisValidatableTextField();
     private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
     private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
     private VisValidatableTextField shopId = new VisValidatableTextField("-1");
@@ -86,7 +86,7 @@ public class MonsterTab extends EditorTab {
         damage.setText("");
         expDrop.setText("");
         dropTable.setText("");
-        walkSpeed.setValue(0);
+        walkSpeed.setText("");
         probStill.setValue(0);
         probWalk.setValue(0);
         shopId.setText("-1");
@@ -113,7 +113,7 @@ public class MonsterTab extends EditorTab {
         damage.setText(Integer.toString(aiEntity.getDamage()));
         expDrop.setText(Integer.toString(aiEntity.getExpDrop()));
         dropTable.setText(Integer.toString(aiEntity.getDropTable()));
-        walkSpeed.setValue(aiEntity.getMoveSpeed());
+        walkSpeed.setText(Float.toString(aiEntity.getDropTable()));
         probStill.setValue(aiEntity.getProbWalkStill());
         probWalk.setValue(aiEntity.getProbWalkStart());
         shopId.setText(Integer.toString(aiEntity.getShopID()));
@@ -164,7 +164,9 @@ public class MonsterTab extends EditorTab {
         textField(leftPane, "Damage:", damage);
         textField(leftPane, "ExpDrop:", expDrop);
         textField(leftPane, "DropTable:", dropTable);
-        valueSlider(leftPane, "Walk Speed:", walkSpeed);
+        validator.floatNumber(walkSpeed, "Walk Speed must be a valid number.");
+        validator.valueLesserThan(walkSpeed, "Walk Speed must be less than 59.", 59, true);
+        validator.valueGreaterThan(walkSpeed, "Walk Speed must be greater than 0.", 0, true);
         valueSlider(leftPane, "Probability Still:", probStill);
         valueSlider(leftPane, "Probability Walk:", probWalk);
         textField(leftPane, "Shop ID:", shopId);
@@ -289,7 +291,7 @@ public class MonsterTab extends EditorTab {
                 println(MonsterTab.class, "Damage: " + damage.getText());
                 println(MonsterTab.class, "ExpDrop: " + expDrop.getText());
                 println(MonsterTab.class, "DropTable: " + dropTable.getText());
-                println(MonsterTab.class, "WalkSpeed: " + walkSpeed.getValue());
+                println(MonsterTab.class, "WalkSpeed: " + walkSpeed.getText());
                 println(MonsterTab.class, "Probability Still: " + probStill.getValue());
                 println(MonsterTab.class, "Probability Walk: " + probWalk.getValue());
                 println(MonsterTab.class, "ShopID: " + shopId.getText());
@@ -382,7 +384,7 @@ public class MonsterTab extends EditorTab {
         ((MonsterData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));
         ((MonsterData) entityEditorData).setExpDrop(Integer.valueOf(expDrop.getText()));
         ((MonsterData) entityEditorData).setDropTable(Integer.valueOf(dropTable.getText()));
-        ((MonsterData) entityEditorData).setWalkSpeed(walkSpeed.getValue());
+        ((MonsterData) entityEditorData).setWalkSpeed(Float.valueOf(dropTable.getText()));
         ((MonsterData) entityEditorData).setProbStop(probStill.getValue());
         ((MonsterData) entityEditorData).setProbWalk(probWalk.getValue());
         ((MonsterData) entityEditorData).setShopId(Short.valueOf(shopId.getText()));
