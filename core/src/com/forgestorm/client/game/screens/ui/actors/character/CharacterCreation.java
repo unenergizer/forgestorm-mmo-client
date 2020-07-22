@@ -2,12 +2,6 @@ package com.forgestorm.client.game.screens.ui.actors.character;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -15,12 +9,19 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.entities.Appearance;
+import com.forgestorm.client.network.game.CharacterCreatorResponses;
 import com.forgestorm.client.network.game.packet.out.CharacterCreatorPacketOut;
 import com.forgestorm.client.util.RandomUtil;
 import com.forgestorm.client.util.color.EyeColorList;
 import com.forgestorm.client.util.color.HairColorList;
 import com.forgestorm.client.util.color.SkinColorList;
 import com.forgestorm.client.util.string.NameGenerator;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.util.form.FormValidator;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 
 import java.io.IOException;
 import java.util.Random;
@@ -35,6 +36,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     private final CharacterCreation characterCreation;
     private final int maxHairStyles = 14;
 
+    private StageHandler stageHandler;
     private CharacterPreviewer characterPreviewer = new CharacterPreviewer(15);
     private VisValidatableTextField characterName;
     private Appearance appearance;
@@ -43,6 +45,9 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1), (byte) 22);
     private CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1), (byte) 0);
     private CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1), (byte) 1);
+
+    private VisTextButton submit = new VisTextButton("Submit");
+    private VisLabel errorLabel = new VisLabel();
 
     public CharacterCreation() {
         super("Create a Character");
@@ -67,7 +72,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     @Override
     public Actor build(final StageHandler stageHandler) {
-
+        this.stageHandler = stageHandler;
         VisTable topTable = new VisTable();
 
         // Adding main character options
@@ -135,8 +140,6 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         VisTable mainTable = new VisTable();
 
         VisTextButton cancel = new VisTextButton("Cancel");
-        VisTextButton submit = new VisTextButton("Submit");
-        VisLabel errorLabel = new VisLabel();
         FormValidator validator = new FormValidator(submit, errorLabel);
         characterName = new VisValidatableTextField();
         characterName.setMaxLength(16);
@@ -176,11 +179,8 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         submit.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                submit.setDisabled(true);
                 new CharacterCreatorPacketOut(characterName.getText(), hairStyleOption.optionValue, hairColorOption.optionValue, eyeColorOption.optionValue, skinColorOption.optionValue).sendPacket();
-                ActorUtil.fadeOutWindow(characterCreation);
-                ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
-                resetCharacter(); // Clear current design, so next character creation is cleared.
             }
         });
 
@@ -188,6 +188,30 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
         setMovable(false);
         centerWindow();
         return mainTable;
+    }
+
+    public void creationSuccess() {
+        ActorUtil.fadeOutWindow(characterCreation);
+        ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
+        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+        resetCharacter(); // Clear current design, so next character creation is cleared.
+        submit.setDisabled(false);
+        errorLabel.setText("");
+    }
+
+    public void creationFail(CharacterCreatorResponses characterCreatorResponses) {
+        submit.setDisabled(false);
+        switch (characterCreatorResponses) {
+            case FAIL_BLACKLIST_NAME:
+                errorLabel.setText("[RED]Name not available!");
+                break;
+            case FAIL_NAME_TAKEN:
+                errorLabel.setText("[RED]Name taken!");
+                break;
+            case FAIL_TOO_MANY_CHARACTERS:
+                errorLabel.setText("[RED]You can not create any more characters!");
+                break;
+        }
     }
 
     private VisTable buildOptionTable(final CharacterOption characterOption) {

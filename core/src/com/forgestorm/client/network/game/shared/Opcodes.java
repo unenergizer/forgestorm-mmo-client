@@ -32,6 +32,7 @@ public class Opcodes {
     public static final byte ENTITY_UPDATE_SPEED = 0x0D;
     public static final byte INIT_CLIENT_PRIVILEGE = 0x0E;
     public static final byte CLIENT_MOVE_RESYNC = 0x0F;
+    public static final byte CHARACTER_CREATOR_ERROR = 0x10;
 
     /**
      * CLIENT -> SERVER

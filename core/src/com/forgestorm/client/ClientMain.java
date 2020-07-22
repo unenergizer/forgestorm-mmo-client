@@ -33,6 +33,7 @@ import com.forgestorm.client.network.game.Consumer;
 import com.forgestorm.client.network.game.LoginCredentials;
 import com.forgestorm.client.network.game.packet.in.AiEntityDataPacketIn;
 import com.forgestorm.client.network.game.packet.in.BankManagePacketIn;
+import com.forgestorm.client.network.game.packet.in.CharacterCreatorPacketIn;
 import com.forgestorm.client.network.game.packet.in.CharactersMenuLoadPacketIn;
 import com.forgestorm.client.network.game.packet.in.ChatMessagePacketIn;
 import com.forgestorm.client.network.game.packet.in.ClientMoveResyncPacketIn;
@@ -209,6 +210,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new InspectPlayerPacketIn());
                         eventBus.registerListener(new ProfileRequestPacketIn());
                         eventBus.registerListener(new ClientMoveResyncPacketIn());
+                        eventBus.registerListener(new CharacterCreatorPacketIn());
                     }
                 });
     }
