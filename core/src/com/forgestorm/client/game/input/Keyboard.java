@@ -37,6 +37,7 @@ public class Keyboard implements InputProcessor {
     }
 
     public boolean keyUp(int keycode) {
+        if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
         keyboardMovement.keyUp(keycode);
         return false;
     }
