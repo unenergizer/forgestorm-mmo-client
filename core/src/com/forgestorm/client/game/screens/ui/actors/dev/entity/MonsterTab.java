@@ -113,7 +113,7 @@ public class MonsterTab extends EditorTab {
         damage.setText(Integer.toString(aiEntity.getDamage()));
         expDrop.setText(Integer.toString(aiEntity.getExpDrop()));
         dropTable.setText(Integer.toString(aiEntity.getDropTable()));
-        walkSpeed.setText(Float.toString(aiEntity.getDropTable()));
+        walkSpeed.setText(Float.toString(aiEntity.getMoveSpeed()));
         probStill.setValue(aiEntity.getProbWalkStill());
         probWalk.setValue(aiEntity.getProbWalkStart());
         shopId.setText(Integer.toString(aiEntity.getShopID()));
@@ -164,9 +164,7 @@ public class MonsterTab extends EditorTab {
         textField(leftPane, "Damage:", damage);
         textField(leftPane, "ExpDrop:", expDrop);
         textField(leftPane, "DropTable:", dropTable);
-        validator.floatNumber(walkSpeed, "Walk Speed must be a valid number.");
-        validator.valueLesserThan(walkSpeed, "Walk Speed must be less than 59.", 59, true);
-        validator.valueGreaterThan(walkSpeed, "Walk Speed must be greater than 0.", 0, true);
+        textField(leftPane, "Walk Speed:", walkSpeed);
         valueSlider(leftPane, "Probability Still:", probStill);
         valueSlider(leftPane, "Probability Walk:", probWalk);
         textField(leftPane, "Shop ID:", shopId);
@@ -178,6 +176,9 @@ public class MonsterTab extends EditorTab {
         validator.valueGreaterThan(damage, "Damage must be greater than 1", 1);
         validator.integerNumber(expDrop, "Experience Drop must be a valid number.");
         validator.integerNumber(dropTable, "Drop Table must be a valid number.");
+        validator.floatNumber(walkSpeed, "Walk Speed must be a valid number.");
+        validator.valueLesserThan(walkSpeed, "Walk Speed must be less than 59.", 59, true);
+        validator.valueGreaterThan(walkSpeed, "Walk Speed must be greater than 0.", 0, true);
         validator.integerNumber(shopId, "Shop ID must be a valid number.");
         validator.notEmpty(mapName, "Map name must not be empty.");
         validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
@@ -384,7 +385,7 @@ public class MonsterTab extends EditorTab {
         ((MonsterData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));
         ((MonsterData) entityEditorData).setExpDrop(Integer.valueOf(expDrop.getText()));
         ((MonsterData) entityEditorData).setDropTable(Integer.valueOf(dropTable.getText()));
-        ((MonsterData) entityEditorData).setWalkSpeed(Float.valueOf(dropTable.getText()));
+        ((MonsterData) entityEditorData).setWalkSpeed(Float.valueOf(walkSpeed.getText()));
         ((MonsterData) entityEditorData).setProbStop(probStill.getValue());
         ((MonsterData) entityEditorData).setProbWalk(probWalk.getValue());
         ((MonsterData) entityEditorData).setShopId(Short.valueOf(shopId.getText()));
