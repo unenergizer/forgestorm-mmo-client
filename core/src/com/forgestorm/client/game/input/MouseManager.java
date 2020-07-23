@@ -26,6 +26,7 @@ import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.entities.StationaryEntity;
+import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.maps.CursorDrawType;
 import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.game.world.maps.Location;
@@ -219,6 +220,8 @@ public class MouseManager {
                     if (!MoveUtil.isEntityMoving(playerClient)) {
                         println(getClass(), "ItemStack clicked! ID: " + itemStackDrop.getServerEntityID());
                         new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
+                        ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getItemStackId(), 1);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
                     }
                 } else {
                     // New Entity click so lets cancelTracking entityTracker
