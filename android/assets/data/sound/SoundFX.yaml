@@ -1,5 +1,5 @@
 0:
-  fileName: "PP_UI_Select_1_3.wav"
+  fileName: "UI/FA_Select_Button_1_1.wav"
   description: "ui click"
 1:
   fileName: "Coin1.mp3"
@@ -25,3 +25,37 @@
 8:
   fileName: "GetItem1.mp3"
   description: "material move"
+9:
+  fileName: "UI/FA_Error_Button_1.wav"
+  description: "Charcter Delete Screen"
+10:
+  fileName: "UI/CGM3_Error_Button_03_2.wav"
+  description: "Charcter Delete Confirm"
+11:
+  fileName: "UI/FA_Confirm_Button_1_1.wav"
+  description: "Login Button"
+12:
+  fileName: "UI/FA_Confirm_Button_1_3.wav"
+  description: "Character Play Button"
+13:
+  fileName: "UI/CGM3_Error_Button_03_2.wav"
+  description: "Logout Button"
+14:
+  fileName: "UI/CGM3_Select_Button_01_1.wav"
+  description: "Character change #1"
+15:
+  fileName: "UI/CGM3_Cute_Chirpy_Button_02_4.wav"
+  description: "Hideable VisWindow Close"
+16:
+  fileName: "UI/CGM3_Cute_Chirpy_Button_02_4.wav"
+  description: "Character create"
+17:
+  fileName: "UI/LQ_Back_Button.wav"
+  description: "Rotate Character Left/Right"
+18:
+  fileName: "UI/CGM3_Error_Button_02_2.wav"
+  description: "Cancel Character Creation"
+19:
+  fileName: "UI/CGM3_Cute_Chirpy_Button_02_1.wav"
+  description: "Generate Random Character name"
+ 

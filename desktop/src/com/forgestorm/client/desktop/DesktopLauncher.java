@@ -15,12 +15,14 @@ public class DesktopLauncher {
 
         boolean forceLocalHost = false;
         boolean ideRun = false;
+        boolean playIntroMusic = true;
         String username = null;
         String password = null;
 
         for (String arg : args) {
             if (arg.equalsIgnoreCase("forceLocalHost")) forceLocalHost = true;
             if (arg.equalsIgnoreCase("ideRun")) ideRun = true;
+            if (arg.equalsIgnoreCase("playIntroMusic")) playIntroMusic = false;
             if (arg.contains(usernameArg)) username = arg.replace(usernameArg, "");
             if (arg.contains(passwordArg)) password = arg.replace(passwordArg, "");
         }
@@ -41,6 +43,7 @@ public class DesktopLauncher {
         ClientMain clientMain = ClientMain.getInstance();
         clientMain.setIdeRun(ideRun);
         clientMain.setForceLocalHost(forceLocalHost);
+        clientMain.setPlayIntroMusic(playIntroMusic);
 
         if (username != null && !username.isEmpty()) {
             clientMain.getLoginCredentials().setUsername(username);

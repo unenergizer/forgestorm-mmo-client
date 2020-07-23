@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.kotcrab.vis.ui.util.TableUtils;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -17,6 +14,9 @@ import com.forgestorm.client.game.screens.ui.actors.character.CharacterLogout;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.network.game.packet.out.CharacterLogoutPacketOut;
+import com.kotcrab.vis.ui.util.TableUtils;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class EscapeWindow extends HideableVisWindow implements Buildable {
 
@@ -108,7 +108,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         logout.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 13);
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_CHARACTER).sendPacket();
 
                 // Waiting on server to do its thing... Fade in the big black window..

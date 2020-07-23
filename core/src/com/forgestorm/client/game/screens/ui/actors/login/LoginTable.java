@@ -89,7 +89,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 attemptLogin();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 11);
             }
         });
 

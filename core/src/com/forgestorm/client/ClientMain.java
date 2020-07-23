@@ -107,6 +107,9 @@ public class ClientMain extends Game {
     @Setter
     private boolean forceLocalHost;
 
+    @Setter
+    private boolean playIntroMusic;
+
     private ClientMain() {
     }
 

@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.character.CharacterCreation;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
@@ -85,6 +87,7 @@ public class HideableVisWindow extends VisWindow {
             public void changed(ChangeEvent event, Actor actor) {
                 fadeOut(FADE_TIME);
                 if (closeButtonCallBack != null) closeButtonCallBack.closeButtonClicked();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 15);
             }
         });
         closeButton.addListener(new ClickListener() {

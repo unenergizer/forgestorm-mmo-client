@@ -90,6 +90,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 randomizeCharacter();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 19);
             }
         });
 
@@ -97,6 +98,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetCharacter();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });
 
@@ -155,6 +157,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 characterName.setText(nameGenerator.compose(2 + random.nextInt(3)));
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 19);
             }
         });
 
@@ -172,7 +175,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 resetCharacter();
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 18);
             }
         });
 
@@ -181,6 +184,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 submit.setDisabled(true);
                 new CharacterCreatorPacketOut(characterName.getText(), hairStyleOption.optionValue, hairColorOption.optionValue, eyeColorOption.optionValue, skinColorOption.optionValue).sendPacket();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 16);
             }
         });
 
@@ -238,6 +242,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                     characterOption.setOptionValue(characterOption.getMaxOptions());
                 }
                 rebuildPreviewTable();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
         right.addListener(new ChangeListener() {
@@ -251,6 +256,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                     characterOption.setOptionValue((byte) 0);
                 }
                 rebuildPreviewTable();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
 

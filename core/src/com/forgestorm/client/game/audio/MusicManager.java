@@ -24,6 +24,7 @@ public class MusicManager implements Disposable {
 
     MusicManager(Map<Short, AudioData> gameMusic) {
         this.gameMusic = gameMusic;
+        audioPreferences.setPlayLoginScreenMusic(ClientMain.getInstance().isPlayIntroMusic());
     }
 
     public void playMusic(Class clazz, short audioId) {

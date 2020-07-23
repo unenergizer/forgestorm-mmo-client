@@ -9,6 +9,6 @@ public class AudioPreferences {
     private float soundEffectsVolume = 0.5f;
     private float ambientVolume = 0.5f;
 
-    private boolean playLoginScreenMusic = false;
+    private boolean playLoginScreenMusic = true;
     private boolean pauseMusicOnWindowLooseFocus = true;
 }

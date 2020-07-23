@@ -73,6 +73,7 @@ public class CharacterPreviewer {
                     moveDirectionByte = 3;
                 }
                 generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
         rotateRight.addListener(new ChangeListener() {
@@ -84,6 +85,7 @@ public class CharacterPreviewer {
                     moveDirectionByte = 0;
                 }
                 generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
 

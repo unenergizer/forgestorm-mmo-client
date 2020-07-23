@@ -87,7 +87,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeInWindow(characterSelectMenu);
                 characterSelectMenu.reprocessCharacterButtons(characterListIndex);
                 new CharacterDeletePacketOut(characterListIndex).sendPacket();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 10);
                 confirm.setDisabled(true);
             }
         });

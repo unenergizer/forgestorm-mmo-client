@@ -4,10 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -17,6 +13,10 @@ import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.forgestorm.client.network.game.packet.out.CharacterSelectPacketOut;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisWindow;
 
 import java.util.Arrays;
 
@@ -66,6 +66,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
                 ActorUtil.fadeInWindow(stageHandler.getCharacterCreation());
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 16);
             }
         });
 
@@ -91,7 +92,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterSelectPacketOut(selectedCharacter.getCharacterId()).sendPacket();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 12);
             }
         });
 
@@ -101,6 +102,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                 ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
                 ActorUtil.fadeInWindow(stageHandler.getDeleteCharacter());
                 stageHandler.getDeleteCharacter().toggleDeleteWindow(selectedCharacter.getName(), selectedCharacter.getCharacterId());
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 9);
             }
         });
 
@@ -108,8 +110,8 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 0);
                 ClientMain.getInstance().getConnectionManager().logout();
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 13);
             }
         });
         setVisible(false);
@@ -152,6 +154,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                         activeButton = addCharacterButton;
                         activeButton.setColor(Color.GREEN);
                         characterPreviewer.generateCharacterPreview(selectedCharacter.getAppearance(), MoveDirection.SOUTH);
+                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 14);
                     }
                 });
 
