@@ -2,28 +2,28 @@
   fileName: "UI/FA_Select_Button_1_1.wav"
   description: "ui click"
 1:
-  fileName: "Coin1.mp3"
+  fileName: "item/Coin1.mp3"
   description: "money move"
 2:
-  fileName: "ui_menu_button_click_14.wav"
+  fileName: "item/ui_menu_button_click_14.wav"
   description: "potion move"
 3:
-  fileName: "ArmorDrop2.mp3"
+  fileName: "item/ArmorDrop2.mp3"
   description: "armor move"
 4:
-  fileName: "MetalWeaponDrop1.mp3"
+  fileName: "item/MetalWeaponDrop1.mp3"
   description: "weapon move"
 5:
-  fileName: "WoodenWeaponPickUp5.mp3"
+  fileName: "item/WoodenWeaponPickUp5.mp3"
   description: "bow and arrow move"
 6:
-  fileName: "Jewel5.mp3"
+  fileName: "item/Jewel5.mp3"
   description: "ring move"
 7:
-  fileName: "Jewel2.mp3"
+  fileName: "item/Jewel2.mp3"
   description: "necklace move"
 8:
-  fileName: "GetItem1.mp3"
+  fileName: "item/GetItem1.mp3"
   description: "material move"
 9:
   fileName: "UI/FA_Error_Button_1.wav"
