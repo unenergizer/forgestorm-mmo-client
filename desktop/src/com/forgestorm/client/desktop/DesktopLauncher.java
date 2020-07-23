@@ -22,7 +22,7 @@ public class DesktopLauncher {
         for (String arg : args) {
             if (arg.equalsIgnoreCase("forceLocalHost")) forceLocalHost = true;
             if (arg.equalsIgnoreCase("ideRun")) ideRun = true;
-            if (arg.equalsIgnoreCase("playIntroMusic")) playIntroMusic = false;
+            if (arg.equalsIgnoreCase("muteIntroMusic")) playIntroMusic = false;
             if (arg.contains(usernameArg)) username = arg.replace(usernameArg, "");
             if (arg.contains(passwordArg)) password = arg.replace(passwordArg, "");
         }
