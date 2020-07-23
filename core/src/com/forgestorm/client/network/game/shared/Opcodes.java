@@ -46,5 +46,6 @@ public class Opcodes {
     public static final byte CHARACTER_LOGOUT = 0x07;
     public static final byte ABILITY_REQUEST = 0x08;
     public static final byte ADMIN_EDITOR_ENTITY = 0x09;
+    public static final byte NPC_DIALOGUE = 0x0A;
 
 }

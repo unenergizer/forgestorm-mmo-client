@@ -43,6 +43,7 @@ import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
 import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
 import com.forgestorm.client.network.game.packet.out.EntityShopPacketOut;
 import com.forgestorm.client.network.game.packet.out.InspectPlayerPacketOut;
+import com.forgestorm.client.network.game.packet.out.NPCDialoguePacketOut;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.client.util.PathFinding;
@@ -365,8 +366,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
                     Location clientLocation = playerClient.getFutureMapLocation();
                     Location toLocation = clickedMovingEntity.getFutureMapLocation();
+
                     attemptTraverseTalk(clientLocation, toLocation);
-                    cleanUpDropDownMenu(true);
                 }
             });
         }
@@ -504,7 +505,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                         public void postMoveAction() {
                             ClientMain.getInstance().getEntityTracker().cancelTracking();
                             NPC npc = (NPC) clickedMovingEntity;
-                            npc.chat();
+                            new NPCDialoguePacketOut(npc).sendPacket();
                         }
                     }));
 
