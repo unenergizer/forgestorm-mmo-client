@@ -11,7 +11,7 @@ import static com.forgestorm.client.util.Log.println;
 @SuppressWarnings("unchecked")
 public class EventBus {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
     private final Map<Byte, PacketListener> packetListenerMap = new ConcurrentHashMap<Byte, PacketListener>();
     private final Queue<PacketData> decodedPackets = new ConcurrentLinkedQueue<PacketData>();
 
