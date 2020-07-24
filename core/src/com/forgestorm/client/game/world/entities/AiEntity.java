@@ -17,6 +17,8 @@ public class AiEntity extends MovingEntity {
 
     private Location defaultSpawnLocation;
 
+    private FirstInteraction firstInteraction = FirstInteraction.ATTACK;
+
     /**
      * Entity name drawing
      */

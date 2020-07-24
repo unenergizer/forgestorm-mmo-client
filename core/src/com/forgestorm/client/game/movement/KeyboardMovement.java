@@ -47,8 +47,8 @@ public class KeyboardMovement {
 
         if (moveDirection == null) return;
 
-        // New Entity click so lets cancelTracking entityTracker
-        ClientMain.getInstance().getEntityTracker().cancelTracking();
+        // New Entity click so lets cancelFollow entityTracker
+        ClientMain.getInstance().getEntityTracker().cancelFollow();
 
         addMoveKey(moveDirection);
 

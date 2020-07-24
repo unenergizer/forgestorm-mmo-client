@@ -11,6 +11,7 @@ import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
+import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.entities.Monster;
 import com.forgestorm.client.game.world.entities.MovingEntity;
@@ -77,6 +78,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     short y = clientHandler.readShort();
                     entitySpawnPacket.setDefaultSpawnLocation(new Location(mapName, x, y));
                 }
+
+                entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
                 entitySpawnPacket.setShopID(clientHandler.readShort());
 
                 entitySpawnPacket.setEntityAlignment(EntityAlignment.getEntityAlignment(clientHandler.readByte()));
@@ -103,6 +106,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     entitySpawnPacket.setDefaultSpawnLocation(new Location(mapName, x, y));
                 }
 
+                entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
                 entitySpawnPacket.setShopID(clientHandler.readShort());
                 entitySpawnPacket.setBankKeeper(clientHandler.readBoolean());
 
@@ -333,6 +337,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnMonster(EntitySpawnPacket packetData, String mapName) {
         AiEntity entity = new Monster();
+        entity.setFirstInteraction(packetData.firstInteraction);
         entity.setShopID(packetData.shopID);
         entity.setAlignment(packetData.entityAlignment);
         setMovingEntityVars(entity, packetData, mapName);
@@ -342,6 +347,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     private Entity spawnNPC(EntitySpawnPacket packetData, String mapName) {
         NPC npc = new NPC();
+        npc.setFirstInteraction(packetData.firstInteraction);
         npc.setShopID(packetData.shopID);
         npc.setAlignment(packetData.entityAlignment);
         npc.setFaction(packetData.entityFaction);
@@ -410,6 +416,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private byte entityFaction;
         private short shopID;
         private boolean isBankKeeper;
+        private FirstInteraction firstInteraction;
 
         // Appearance data
         private byte bodyTexture;

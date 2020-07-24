@@ -80,7 +80,7 @@ public class HashingUtil {
                     collectFiles(f, fileInputStreams, includeHiddenFiles);
                 } else {
                     try {
-                        System.out.println("\t" + f.getAbsolutePath());
+                        println(HashingUtil.class,  "\t" + f.getAbsolutePath());
                         fileInputStreams.add(new FileInputStream(f));
                     } catch (FileNotFoundException e) {
                         throw new AssertionError(e.getMessage() + ": file should never not be found!");

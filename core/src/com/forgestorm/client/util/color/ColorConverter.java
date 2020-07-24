@@ -1,5 +1,7 @@
 package com.forgestorm.client.util.color;
 
+import static com.forgestorm.client.util.Log.println;
+
 public class ColorConverter {
 
     /**
@@ -31,13 +33,13 @@ public class ColorConverter {
     public static void colorFromRGB(float red, float green, float blue) {
 
 
-//        System.out.println(red + ", " + green + ", " + blue);
+//        println(getClass(),  red + ", " + green + ", " + blue);
 
         float r = red / 255f;
         float g = green / 255f;
         float b = blue / 255f;
 
-//        System.out.println(r + "f, " + g + "f, " + b + "f");
+//        println(getClass(),  r + "f, " + g + "f, " + b + "f");
 
         String sr = Float.toString(r).replace("0.", ".").substring(0, Math.min(10, 3));
         String sg = Float.toString(g).replace("0.", ".").substring(0, Math.min(10, 3));
@@ -46,8 +48,8 @@ public class ColorConverter {
 
         String num = "SKIN_TONE_" + i + "(new Color(" + sr + "f, " + sg + "f, " + sb + "f" + ", 1)),";
 
-        System.out.println(num);
-//        System.out.println();
+        println(ColorConverter.class, num);
+//        println(getClass(),  );
 
 
         i++;

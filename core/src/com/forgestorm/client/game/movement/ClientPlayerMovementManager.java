@@ -42,7 +42,8 @@ public class ClientPlayerMovementManager {
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements, AbstractPostProcessor abstractPostProcessor) {
         if (movements.isEmpty()) return;
         this.movements = movements;
-        if (abstractPostProcessor != null) this.abstractPostProcessor = abstractPostProcessor;
+//        if (abstractPostProcessor != null) this.abstractPostProcessor = abstractPostProcessor;
+        this.abstractPostProcessor = abstractPostProcessor;
         // todo: consider checking to see if they're moving
 
         if (!checkSingleNode(playerClient)) return;
@@ -154,7 +155,7 @@ public class ClientPlayerMovementManager {
                 println(getClass(), "Predicted to move  the player: " + predictedDirection, false, PRINT_DEBUG);
 
                 // Setting the future here to prevent the snapping forward of
-                // the player on the next startTracking.
+                // the player on the next follow.
                 playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
                 Queue<MoveNode> singleMoveNode = ClientMain.getInstance().getClientMovementProcessor().getNodeForDirection(
                         playerClient,

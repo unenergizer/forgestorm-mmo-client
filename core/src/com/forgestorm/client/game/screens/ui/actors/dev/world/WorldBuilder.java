@@ -46,7 +46,7 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
     public Actor build(StageHandler stageHandler) {
         this.stageHandler = stageHandler;
 
-        VisLabel tileType = new VisLabel("[GREEN]Select Tile Type");
+        VisLabel tileType = new VisLabel("[GREEN]Select Tile TrackType");
         VisTextButton roofObject = new VisTextButton("Roof");
         VisTextButton wallObject = new VisTextButton("Wall");
         VisTextButton doorObject = new VisTextButton("Door");

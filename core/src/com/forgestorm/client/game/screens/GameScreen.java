@@ -286,7 +286,8 @@ public class GameScreen implements Screen {
         ClientMain.getInstance().getClientMovementProcessor().processMovement(EntityManager.getInstance().getPlayerClient());
         ClientMain.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient(), delta);
         ClientMain.getInstance().getEntityMovementManager().tick(delta);
-        ClientMain.getInstance().getEntityTracker().track();
+        ClientMain.getInstance().getEntityTracker().followTick();
+        ClientMain.getInstance().getEntityTracker().walkToTick();
         ClientMain.getInstance().getAbilityManager().updateCooldowns();
         ClientMain.getInstance().getEffectManager().tickScreenEffect(delta);
     }

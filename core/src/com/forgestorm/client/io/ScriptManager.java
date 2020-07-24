@@ -48,7 +48,7 @@ public class ScriptManager {
         Collection<String> files = ResourceList.getDirectoryResources(FilePaths.SCRIPTS.getFilePath(), ".js");
 
         for (String fileName : files) {
-            //System.out.println(fileName);
+            //println(getClass(),  fileName);
             //String mapName = fileName.substring(FilePaths.MAPS.getFilePath().length() + 1);
             //FileHandle fileHandle = Gdx.files.internal(FilePaths.MAPS.getFilePath() + "/" + mapName);
             // gameMaps.put(mapName.replace(".tmx", ""), TmxFileParser.loadXMLFile(fileHandle));

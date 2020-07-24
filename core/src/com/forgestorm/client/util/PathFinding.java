@@ -26,6 +26,9 @@ public class PathFinding {
 
     private final MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];
 
+    private MoveNode currentClosestNode;
+    private List<MoveNode> currentShortestPath;
+
     private int calculateHeuristic(int ax, int ay, int bx, int by) {
         return Math.abs(bx - ax) + Math.abs(by - ay);
     }
@@ -110,8 +113,11 @@ public class PathFinding {
         }
     }
 
-    public Queue<MoveNode> findPath(short startX, short startY, short finalX, short finalY, String mapName, boolean ignoreFinalCollision) {
-        if (!initialConditions(startX, startY, finalX, finalY, ignoreFinalCollision)) return null;
+    public PathSolution findPath(short startX, short startY, short finalX, short finalY, String mapName, boolean ignoreFinalCollision) {
+        if (!initialConditions(startX, startY, finalX, finalY, ignoreFinalCollision))
+            return new PathSolution(false, new LinkedList<MoveNode>());
+
+        currentClosestNode = null;
 
         initializeGrid(startX, startY, finalX, finalY, mapName, ignoreFinalCollision);
 
@@ -125,20 +131,26 @@ public class PathFinding {
 
             if (current.equals(goalNode)) {
 
-                List<MoveNode> pathFound = new LinkedList<MoveNode>();
-                MoveNode iterateNode = current;
-
-                pathFound.add(iterateNode);
-                while (iterateNode.getParentNode() != null) {
-                    pathFound.add(iterateNode.getParentNode());
-                    iterateNode = iterateNode.getParentNode();
-                }
+                List<MoveNode> pathFound = makePath(current);
 
                 finish();
                 Collections.reverse(pathFound);
                 @SuppressWarnings("unchecked") Queue<MoveNode> queuePath = (Queue<MoveNode>) pathFound;
                 queuePath.remove(); // Removing the node the player is standing on.
-                return queuePath;
+                return new PathSolution(true, queuePath);
+            } else {
+
+                if (currentClosestNode == null) {
+                    currentClosestNode = current;
+                    currentShortestPath = makePath(current);
+                } else {
+                    if (calculateHeuristic(currentClosestNode.getWorldX(), currentClosestNode.getWorldY(),
+                            goalNode.getWorldX(), goalNode.getWorldY()) >
+                            calculateHeuristic(current.getWorldX(), current.getWorldY(), goalNode.getWorldX(), goalNode.getWorldY())) {
+                        currentClosestNode = current;
+                        currentShortestPath = makePath(current);
+                    }
+                }
             }
 
             openSet.remove(current);
@@ -148,7 +160,28 @@ public class PathFinding {
         }
 
         finish();
-        return null;
+
+
+        if (currentClosestNode != null) {
+            Collections.reverse(currentShortestPath);
+            @SuppressWarnings("unchecked") Queue<MoveNode> queuePath = (Queue<MoveNode>) currentShortestPath;
+            queuePath.remove(); // Removing the node the player is standing on.
+            return new PathSolution(false, queuePath);
+        }
+
+        return new PathSolution(false, new LinkedList<MoveNode>());
+    }
+
+    private List<MoveNode> makePath(MoveNode node) {
+        List<MoveNode> pathFound = new LinkedList<MoveNode>();
+        MoveNode iterateNode = node;
+
+        pathFound.add(iterateNode);
+        while (iterateNode.getParentNode() != null) {
+            pathFound.add(iterateNode.getParentNode());
+            iterateNode = iterateNode.getParentNode();
+        }
+        return pathFound;
     }
 
     public Queue<MoveNode> removeLastNode(Queue<MoveNode> testMoveNodes) {

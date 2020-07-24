@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static jdk.nashorn.internal.objects.Global.println;
+
 public class DirectoryDownloader {
 
     private static final String filesDirectory = System.getProperty("user.home") + File.separator + "ForgeStorm";
@@ -63,12 +65,12 @@ public class DirectoryDownloader {
     private void makeDirectoryIfNotExist() {
         File filesDirectoryTest = new File(filesDirectory + File.separator + directoryName);
 
-        System.out.println(filesDirectoryTest.getAbsoluteFile());
+        println(getClass(),  filesDirectoryTest.getAbsoluteFile());
 
         if (!filesDirectoryTest.exists()) {
             if (filesDirectoryTest.mkdir()) {
 
-                System.out.println("WHAHWHWA CANNOTMAKE");
+                println(getClass(),  "WHAHWHWA CANNOTMAKE");
 
                 // todo: can they even play the game?
                 System.exit(1);
@@ -141,7 +143,7 @@ public class DirectoryDownloader {
 
             } else {
 
-                System.out.println("File: " + fileName + " is up to date!");
+                println(getClass(),  "File: " + fileName + " is up to date!");
 
             }
         }

@@ -3,15 +3,7 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.input.ClickAction;
-import com.forgestorm.client.game.movement.AbstractPostProcessor;
-import com.forgestorm.client.game.movement.ClientMovementProcessor;
-import com.forgestorm.client.game.movement.InputData;
-import com.forgestorm.client.game.movement.MoveUtil;
-import com.forgestorm.client.game.rpg.EntityShopAction;
-import com.forgestorm.client.game.rpg.ShopOpcodes;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
@@ -21,9 +13,9 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.screens.ui.actors.game.paging.EntityShopWindow;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Entity;
+import com.forgestorm.client.game.world.entities.EntityInteract;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.ItemStackDrop;
@@ -31,38 +23,20 @@ import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.NPC;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.item.BankActions;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.ItemStackType;
-import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
-import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MapUtil;
-import com.forgestorm.client.game.world.maps.Tile;
-import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
-import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
-import com.forgestorm.client.network.game.packet.out.EntityShopPacketOut;
 import com.forgestorm.client.network.game.packet.out.InspectPlayerPacketOut;
-import com.forgestorm.client.network.game.packet.out.NPCDialoguePacketOut;
-import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
-import com.forgestorm.client.util.MoveNode;
-import com.forgestorm.client.util.PathFinding;
 import com.kotcrab.vis.ui.widget.VisTable;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-import static com.forgestorm.client.util.Log.println;
 
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final EntityDropDownMenu dropDownMenu;
     private StageHandler stageHandler;
     private VisTable dropDownTable = new VisTable();
-
-    private final PathFinding pathFinding = new PathFinding();
 
     private final List<Entity> entityArray = new ArrayList<Entity>();
 
@@ -115,14 +89,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         toFront();
     }
 
-    private void sendTradeRequest(Player player) {
-        ClientMain.getInstance().getEntityTracker().cancelTracking();
-        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_INIT_TARGET, player.getServerEntityID())).sendPacket();
-        stageHandler.getTradeWindow().setTradeTarget(player);
-        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.TRADE, "[Client] Sending trade request...");
-        cleanUpDropDownMenu(true);
-    }
-
     private void addWalkHereButton(VisTable visTable, final Location toLocation) {
         LeftAlignTextButton walkHereButton = new LeftAlignTextButton("Walk Here");
         visTable.add(walkHereButton).expand().fill().row();
@@ -131,25 +97,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-
-                Location clientLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
-                Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-                if (testMoveNodes == null) {
-                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable walk path.");
-                    cleanUpDropDownMenu(true);
-                    return;
-                }
-
-                Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-                ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                        new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                            @Override
-                            public void postMoveAction() {
-                            }
-                        }));
-
+                ClientMain.getInstance().getEntityTracker().walkTo(toLocation.getX(), toLocation.getY(), false);
                 cleanUpDropDownMenu(true);
             }
         });
@@ -239,7 +187,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
         private MovingEntity clickedMovingEntity;
         private PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        private Color nameColor = Color.GRAY;
         private String entityName;
 
         MenuEntry(Entity clickedEntity) {
@@ -247,6 +194,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             if (clickedEntity instanceof MovingEntity)
                 this.clickedMovingEntity = (MovingEntity) clickedEntity;
 
+            Color nameColor = Color.GRAY;
             if (clickedEntity instanceof AiEntity) {
                 nameColor = ((AiEntity) clickedEntity).getAlignment().getDefaultColor();
             } else if (clickedEntity instanceof ItemStackDrop) {
@@ -302,50 +250,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     // Picking up ItemStacks from the ground
 
-                    Queue<MoveNode> moveNodes = null;
-                    PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location location = itemStackDrop.getCurrentMapLocation();
-
-                    if (clientLocation.isWithinDistance(location, (short) 1)) {
-                        // The player is requesting to interact with the entity.
-                        if (!MoveUtil.isEntityMoving(playerClient)) {
-                            println(getClass(), "ItemStack clicked! ID: " + itemStackDrop.getServerEntityID());
-                            new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
-                        }
-                    } else {
-                        // New Entity click so lets cancelTracking entityTracker
-                        ClientMain.getInstance().getEntityTracker().cancelTracking();
-
-                        // Top right quad
-                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), location.getX(), location.getY(), clientLocation.getMapName(), true);
-                        if (testMoveNodes == null) return;
-                        moveNodes = new LinkedList<MoveNode>();
-                        for (int i = testMoveNodes.size() - 1; i > 0; i--) {
-                            moveNodes.add(testMoveNodes.remove());
-                        }
-
-                        println(getClass(), "Generated path to itemstack");
-                    }
-
-                    // Click to walk path finding
-                    if (moveNodes == null) {
-                        // New Entity click so lets cancelTracking entityTracker
-                        ClientMain.getInstance().getEntityTracker().cancelTracking();
-                        moveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), location.getX(), location.getY(), clientLocation.getMapName(), false);
-                    }
-
-                    if (moveNodes != null) {
-
-                        ClientMain.getInstance().getEntityTracker().startTracking(itemStackDrop);
-                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                                    @Override
-                                    public void postMoveAction() {
-                                        new ClickActionPacketOut(new ClickAction(ClickAction.LEFT, itemStackDrop)).sendPacket();
-                                    }
-                                }));
-                    }
+                    EntityInteract.pickUpItemStackDrop(itemStackDrop);
                     cleanUpDropDownMenu(true);
                 }
 
@@ -353,7 +258,6 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         // Talk, OpenBank, Attack, Trade, Shop, Follow, Exit, Walk Here
-
         private void addTalkButton() {
             if (!(clickedMovingEntity instanceof NPC)) return;
 
@@ -363,11 +267,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             talkButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
-
-                    attemptTraverseTalk(clientLocation, toLocation);
+                    EntityInteract.talkNPC((NPC) clickedMovingEntity);
+                    cleanUpDropDownMenu(true);
                 }
             });
         }
@@ -403,117 +304,10 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             openBankButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
-
-                    // Check to see if the player is next to the bank teller
-                    if (clientLocation.isWithinDistance(toLocation, ClientConstants.MAX_BANK_DISTANCE)) {
-                        new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
-                    } else {
-                        attemptBankTraversal(clientLocation, toLocation);
-                    }
+                    EntityInteract.openBank(clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
-        }
-
-        private void attemptBankTraversal(Location clientLocation, Location toLocation) {
-            // Traverse to the bank teller
-            Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-            if (testMoveNodes == null) {
-                if (!traverseToBankAccessPoint(clientLocation)) {
-                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable path to open bank.");
-                }
-
-                cleanUpDropDownMenu(true);
-                return;
-            }
-
-            Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-            ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-            ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                    new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                        @Override
-                        public void postMoveAction() {
-                            new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
-                        }
-                    }));
-        }
-
-        private boolean traverseToBankAccessPoint(Location clientLocation) {
-            // Check to see if there is a bank access point around where the entity is
-            Location clickedEntityLocation = clickedMovingEntity.getFutureMapLocation();
-            Location northAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) 1);
-            Location eastAccessPoint = new Location(clickedEntityLocation).add((short) 1, (short) 0);
-            Location southAccessPoint = new Location(clickedEntityLocation).add((short) 0, (short) -1);
-            Location westAccessPoint = new Location(clickedEntityLocation).add((short) -1, (short) 0);
-
-            Queue<MoveNode> testMoveNodes;
-            if (locationHasBankAccess(northAccessPoint)) {
-                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), northAccessPoint.getX(), (short) (northAccessPoint.getY() + 1), clientLocation.getMapName(), false);
-            } else if (locationHasBankAccess(eastAccessPoint)) {
-                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), (short) (eastAccessPoint.getX() + 1), eastAccessPoint.getY(), clientLocation.getMapName(), false);
-            } else if (locationHasBankAccess(southAccessPoint)) {
-                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), southAccessPoint.getX(), (short) (southAccessPoint.getY() - 1), clientLocation.getMapName(), false);
-            } else if (locationHasBankAccess(westAccessPoint)) {
-                testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), (short) (westAccessPoint.getX() - 1), westAccessPoint.getY(), clientLocation.getMapName(), false);
-            } else {
-                return false;
-            }
-
-            if (testMoveNodes == null) {
-                return false;
-            }
-
-            ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-            ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                    new InputData(ClientMovementProcessor.MovementInput.MOUSE, testMoveNodes, new AbstractPostProcessor() {
-                        @Override
-                        public void postMoveAction() {
-                            new BankManagePacketOut(BankActions.PLAYER_REQUEST_OPEN).sendPacket();
-                        }
-                    }));
-
-            return true;
-        }
-
-        private void attemptTraverseTalk(final Location clientLocation, Location toLocation) {
-
-            Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-            if (testMoveNodes == null) {
-                if (!traverseToBankAccessPoint(clientLocation)) {
-                    stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable path to open bank.");
-                }
-
-                cleanUpDropDownMenu(true);
-                return;
-            }
-
-            cleanUpDropDownMenu(true);
-
-            Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-            ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-            ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes,
-                    new AbstractPostProcessor() {
-                        @Override
-                        public void postMoveAction() {
-                            ClientMain.getInstance().getEntityTracker().cancelTracking();
-                            NPC npc = (NPC) clickedMovingEntity;
-                            new NPCDialoguePacketOut(npc).sendPacket();
-                        }
-                    }));
-
-        }
-
-        private boolean locationHasBankAccess(Location location) {
-            Tile bankAccessTile = MapUtil.getTileByLocation(location);
-            return bankAccessTile != null && bankAccessTile.isFlagSet(Tile.BANK_ACCESS);
         }
 
         private void addTargetButton() {
@@ -538,36 +332,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             tradeButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
-
-                    if (clientLocation.isWithinDistance(toLocation, (short) 1)) {
-                        // The player is requesting to interact with the entity.
-                        if (!MoveUtil.isEntityMoving(playerClient)) {
-                            sendTradeRequest((Player) clickedMovingEntity);
-                        }
-                    } else {
-                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-                        if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable walk path.");
-                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.TRADE, "No suitable walk path.");
-                            cleanUpDropDownMenu(true);
-                            return;
-                        }
-
-                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-                        ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                                    @Override
-                                    public void postMoveAction() {
-                                        sendTradeRequest((Player) clickedMovingEntity);
-                                    }
-                                }));
-                    }
+                    EntityInteract.trade(stageHandler, (Player) clickedMovingEntity);
+                    cleanUpDropDownMenu(true);
                 }
             });
         }
@@ -581,38 +347,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             shopButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    final EntityShopWindow pagedItemStackWindow = stageHandler.getPagedItemStackWindow();
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
-
-                    if (clientLocation.isWithinDistance(toLocation, ClientConstants.MAX_SHOP_DISTANCE)) {
-                        // The player is requesting to interact with the entity.
-                        if (!MoveUtil.isEntityMoving(playerClient)) {
-                            new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
-                            pagedItemStackWindow.openWindow(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
-                        }
-                    } else {
-                        Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-                        if (testMoveNodes == null) {
-                            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]You are too far away to use this shop.");
-                            return;
-                        }
-
-                        Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-                        ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                                new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, new AbstractPostProcessor() {
-                                    @Override
-                                    public void postMoveAction() {
-                                        ClientMain.getInstance().getEntityTracker().cancelTracking();
-                                        new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.START_SHOPPING, clickedMovingEntity.getServerEntityID())).sendPacket();
-                                        pagedItemStackWindow.openWindow(clickedMovingEntity, ((AiEntity) clickedMovingEntity).getShopID());
-                                    }
-                                }));
-                    }
+                    EntityInteract.openShop((AiEntity) clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -629,22 +364,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    Location clientLocation = playerClient.getFutureMapLocation();
-                    Location toLocation = clickedMovingEntity.getFutureMapLocation();
-
-                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), toLocation.getX(), toLocation.getY(), clientLocation.getMapName(), false);
-
-                    if (testMoveNodes == null) {
-                        stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "No suitable follow path.");
-                        cleanUpDropDownMenu(true);
-                        return;
-                    }
-
-                    Queue<MoveNode> moveNodes = pathFinding.removeLastNode(testMoveNodes);
-
-                    ClientMain.getInstance().getEntityTracker().startTracking(clickedMovingEntity);
-                    ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
-                            new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, null));
+                    ClientMain.getInstance().getEntityTracker().follow(clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
