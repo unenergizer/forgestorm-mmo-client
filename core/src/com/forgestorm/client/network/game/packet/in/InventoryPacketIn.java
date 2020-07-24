@@ -45,8 +45,6 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 toWindow = (byte) (windowsByte & 0x0F);
                 break;
             case DROP:
-                // TODO
-                break;
             case USE:
                 // TODO
                 break;

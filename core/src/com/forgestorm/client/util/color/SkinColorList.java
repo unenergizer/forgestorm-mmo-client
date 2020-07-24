@@ -6,7 +6,7 @@ import com.forgestorm.client.util.RandomUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static jdk.nashorn.internal.objects.Global.println;
+import static com.forgestorm.client.util.Log.println;
 
 @Getter
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public enum SkinColorList {
 
     public static void printAll() {
         for (SkinColorList list : SkinColorList.values()) {
-            println(SkinColorList.class,  Color.rgba8888(list.getColor()));
+            println(SkinColorList.class,  "" + Color.rgba8888(list.getColor()));
         }
     }
 

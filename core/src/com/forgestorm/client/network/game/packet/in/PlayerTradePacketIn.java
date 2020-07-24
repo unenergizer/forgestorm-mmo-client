@@ -122,8 +122,8 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 5: Final trade confirm
             case TRADE_OFFER_COMPLETE:
-                // TODO: Server will send items in different packet to client
-                // TODO: Close and gameQuitReset trade window
+                // Server will send items in different packet to client
+                // Close and gameQuitReset trade window
                 stageHandler.getTradeWindow().closeTradeWindow();
                 ClientMain.getInstance().getTradeManager().setTradeUUID(null); // Reset trade UUID
                 break;
