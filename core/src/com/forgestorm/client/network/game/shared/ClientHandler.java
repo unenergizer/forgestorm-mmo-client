@@ -11,18 +11,28 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
 @SuppressWarnings({"ConstantConditions", "unused"})
-@AllArgsConstructor
 @Getter
 public class ClientHandler {
     private Socket socket;
     private ForgeStormOutputStream forgeStormOutputStream;
     private DataInputStream inputStream;
+
+    @Setter
+    private long clientPing;
+    @Setter
+    private volatile long pingSendTime;
+
+    public ClientHandler(Socket socket, ForgeStormOutputStream forgeStormOutputStream, DataInputStream inputStream) {
+        this.socket = socket;
+        this.forgeStormOutputStream = forgeStormOutputStream;
+        this.inputStream = inputStream;
+    }
 
     @FunctionalInterface
     private interface Reader {

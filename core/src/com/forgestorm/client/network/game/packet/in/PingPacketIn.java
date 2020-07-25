@@ -10,25 +10,34 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.forgestorm.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.PING)
 public class PingPacketIn implements PacketListener<PingPacketIn.PingInPacket> {
 
+    private ClientHandler clientHandler;
+
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        return new PingInPacket(System.currentTimeMillis(), clientHandler.readLong());
+        this.clientHandler = clientHandler;
+        return new PingInPacket(System.currentTimeMillis());
     }
 
     @Override
     public void onEvent(PingInPacket packetData) {
-        //TODO: Come back and see if we need to send the server the clients process time in order to get the accurate ping on the server end.
-        // Also, this could be a bad idea as the client could not be in sync or the client hacker sends back bad times
-        ClientMain.getInstance().getConnectionManager().getClientGameConnection().setPing(packetData.serverCalcPing - (System.currentTimeMillis() - packetData.firstTime));
-        new PingPacketOut().sendPacket();
+        long currentTime = System.currentTimeMillis();
+        long processTime = currentTime - packetData.packetReceivedTime;
+        long networkTime = currentTime - clientHandler.getPingSendTime();
+        long ping = networkTime - processTime;
+        clientHandler.setClientPing(ping);
+
+//        println(getClass(), "Ping: " + ping);
+        ClientMain.getInstance().getStageHandler().getPing().setPing(ping);
+        new PingPacketOut(clientHandler).sendPacket();
     }
 
     @AllArgsConstructor
     class PingInPacket extends PacketData {
-        private final long firstTime;
-        private final long serverCalcPing;
+        private long packetReceivedTime;
     }
 }

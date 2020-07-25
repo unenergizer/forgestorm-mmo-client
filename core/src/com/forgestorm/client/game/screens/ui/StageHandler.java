@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.forgestorm.client.game.screens.ui.actors.game.Ping;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
@@ -119,6 +120,7 @@ public class StageHandler implements Disposable {
     private ChatDialogue chatDialogue = new ChatDialogue();
     private CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
     private PlayerProfileWindow playerProfileWindow = new PlayerProfileWindow();
+    private Ping ping = new Ping();
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
@@ -191,6 +193,7 @@ public class StageHandler implements Disposable {
         stage.addActor(npcTextDialog.build(this));
         stage.addActor(characterInspectionWindow.build(this));
         stage.addActor(playerProfileWindow.build(this));
+        stage.addActor(ping.build(this));
 
         // Multi purpose
         stage.addActor(mainSettingsWindow.build(this));
@@ -291,6 +294,7 @@ public class StageHandler implements Disposable {
                 statusBar.setVisible(true);
                 experienceBar.setVisible(true);
                 hotBar.setVisible(true);
+                ping.setVisible(true);
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows
                 break;
