@@ -17,6 +17,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditor
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
+import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.entities.NPC;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.io.type.GameAtlas;
@@ -48,6 +49,7 @@ public class NpcTab extends EditorTab {
     private short entityIDNum = -1;
     private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
     private VisValidatableTextField name = new VisValidatableTextField();
+    private VisSelectBox<FirstInteraction> firstInteraction = new VisSelectBox<FirstInteraction>();
     private VisValidatableTextField faction = new VisValidatableTextField();
     private VisValidatableTextField health = new VisValidatableTextField();
     private VisValidatableTextField damage = new VisValidatableTextField();
@@ -90,6 +92,7 @@ public class NpcTab extends EditorTab {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
         name.setText("");
+        firstInteraction.setSelected(FirstInteraction.ATTACK);
         faction.setText("THE EMPIRE");
         health.setText("");
         damage.setText("");
@@ -121,6 +124,7 @@ public class NpcTab extends EditorTab {
         entityID.setText(npc.getServerEntityID());
 
         name.setText(npc.getEntityName());
+        firstInteraction.setSelected(npc.getFirstInteraction());
         faction.setText(ClientMain.getInstance().getFactionManager().getFactionFromByte(npc.getFaction()));
         health.setText(Integer.toString(npc.getMaxHealth()));
         damage.setText(Integer.toString(npc.getDamage()));
@@ -170,6 +174,7 @@ public class NpcTab extends EditorTab {
         leftPane.add(entityIdTable).row();
 
         textField(leftPane, "Name:", name);
+        selectBox(leftPane, "FirstInteraction:", firstInteraction, FirstInteraction.values());
         textField(leftPane, "Faction:", faction);
         textField(leftPane, "Health:", health);
         textField(leftPane, "Damage:", damage);
@@ -438,6 +443,7 @@ public class NpcTab extends EditorTab {
 
         // Basic data
         ((NPCData) entityEditorData).setName(name.getText());
+        ((NPCData) entityEditorData).setFirstInteraction(firstInteraction.getSelected());
         ((NPCData) entityEditorData).setFaction(faction.getText());
         ((NPCData) entityEditorData).setHealth(Integer.valueOf(health.getText()));
         ((NPCData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));

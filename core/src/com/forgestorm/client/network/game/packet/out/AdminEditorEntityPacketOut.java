@@ -5,6 +5,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditor
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
+import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.network.game.shared.Opcodes;
 
 public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
@@ -39,6 +40,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
                 NPCData npcData = (NPCData) entityEditorData;
 
                 write.writeString(npcData.getName());
+                write.writeByte(FirstInteraction.getByte(npcData.getFirstInteraction()));
                 write.writeString(npcData.getFaction());
                 write.writeInt(npcData.getHealth());
                 write.writeInt(npcData.getDamage());
@@ -65,6 +67,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
                 MonsterData monsterData = (MonsterData) entityEditorData;
 
                 write.writeString(monsterData.getName());
+                write.writeByte(FirstInteraction.getByte(monsterData.getFirstInteraction()));
                 write.writeByte(monsterData.getEntityAlignment().getEntityAlignmentByte());
                 write.writeInt(monsterData.getHealth());
                 write.writeInt(monsterData.getDamage());

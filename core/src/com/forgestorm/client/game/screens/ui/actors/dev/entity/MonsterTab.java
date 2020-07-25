@@ -5,6 +5,18 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.input.MouseManager;
+import com.forgestorm.client.game.rpg.EntityAlignment;
+import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
+import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
+import com.forgestorm.client.game.world.entities.AiEntity;
+import com.forgestorm.client.game.world.entities.EntityManager;
+import com.forgestorm.client.game.world.entities.FirstInteraction;
+import com.forgestorm.client.game.world.maps.Location;
+import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
@@ -15,17 +27,6 @@ import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.input.MouseManager;
-import com.forgestorm.client.game.rpg.EntityAlignment;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
-import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
-import com.forgestorm.client.game.world.entities.AiEntity;
-import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
 
 import lombok.Getter;
 
@@ -39,6 +40,7 @@ public class MonsterTab extends EditorTab {
     private short entityIDNum = -1;
     private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
     private VisValidatableTextField name = new VisValidatableTextField();
+    private VisSelectBox<FirstInteraction> firstInteraction = new VisSelectBox<FirstInteraction>();
     private VisSelectBox<EntityAlignment> entityAlignment = new VisSelectBox<EntityAlignment>();
     private VisValidatableTextField health = new VisValidatableTextField();
     private VisValidatableTextField damage = new VisValidatableTextField();
@@ -81,6 +83,7 @@ public class MonsterTab extends EditorTab {
         entityIDNum = -1;
         entityID.setText(Short.toString(entityIDNum));
         name.setText("");
+        firstInteraction.setSelected(FirstInteraction.ATTACK);
         entityAlignment.setSelected(EntityAlignment.FRIENDLY);
         health.setText("");
         damage.setText("");
@@ -108,6 +111,7 @@ public class MonsterTab extends EditorTab {
         entityID.setText(aiEntity.getServerEntityID());
 
         name.setText(aiEntity.getEntityName());
+        firstInteraction.setSelected(aiEntity.getFirstInteraction());
         entityAlignment.setSelected(aiEntity.getAlignment());
         health.setText(Integer.toString(aiEntity.getMaxHealth()));
         damage.setText(Integer.toString(aiEntity.getDamage()));
@@ -159,6 +163,7 @@ public class MonsterTab extends EditorTab {
         leftPane.add(entityIdTable).row();
 
         textField(leftPane, "Name:", name);
+        selectBox(leftPane, "FirstInteraction:", firstInteraction, FirstInteraction.values());
         selectBox(leftPane, "Alignment:", entityAlignment, EntityAlignment.values());
         textField(leftPane, "Health:", health);
         textField(leftPane, "Damage:", damage);
@@ -380,6 +385,7 @@ public class MonsterTab extends EditorTab {
 
         // Basic data
         ((MonsterData) entityEditorData).setName(name.getText());
+        ((MonsterData) entityEditorData).setFirstInteraction(firstInteraction.getSelected());
         ((MonsterData) entityEditorData).setEntityAlignment(entityAlignment.getSelected());
         ((MonsterData) entityEditorData).setHealth(Integer.valueOf(health.getText()));
         ((MonsterData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));

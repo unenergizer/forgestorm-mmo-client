@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
@@ -9,8 +10,6 @@ import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-import com.forgestorm.client.game.rpg.EntityAlignment;
-import com.forgestorm.client.game.screens.ui.StageHandler;
 
 import java.text.DecimalFormat;
 
@@ -35,9 +34,8 @@ public abstract class EditorTab extends Tab {
 
     public abstract void build();
 
-
-    @SuppressWarnings("unchecked")
-    void selectBox(VisTable mainTable, String labelName, VisSelectBox visSelectBox, EntityAlignment[] items) {
+    void selectBox(VisTable mainTable, String labelName, VisSelectBox visSelectBox, Object[] items) {
+        //noinspection unchecked
         visSelectBox.setItems(items);
         VisTable table = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);

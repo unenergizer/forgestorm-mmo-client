@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.entity.data;
 
 import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.world.entities.EntityType;
+import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.maps.Location;
 
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 public class MonsterData extends EntityEditorData {
 
     private String name;
+    private FirstInteraction firstInteraction;
     private String faction;
     private EntityAlignment entityAlignment;
     private int health;
