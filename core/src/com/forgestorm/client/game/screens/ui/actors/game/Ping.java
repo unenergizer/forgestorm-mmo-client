@@ -16,8 +16,11 @@ public class Ping extends VisTable implements Buildable {
     public void setPing(long ping) {
         if (!isVisible()) return;
         String color = "[GREEN]";
-        if (ping > 100) color = "[RED]";
-        if (ping > 50) color = "[YELLOW]";
+        if (ping > 150) {
+            color = "[RED]";
+        } else if (ping > 75) {
+            color = "[YELLOW]";
+        }
 
         pingLabel.setText(color + ping + "ms");
     }

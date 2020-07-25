@@ -10,8 +10,6 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
-import static com.forgestorm.client.util.Log.println;
-
 @Opcode(getOpcode = Opcodes.PING)
 public class PingPacketIn implements PacketListener<PingPacketIn.PingInPacket> {
 
