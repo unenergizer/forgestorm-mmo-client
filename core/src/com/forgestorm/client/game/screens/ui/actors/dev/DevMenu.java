@@ -60,7 +60,7 @@ public class DevMenu extends VisTable implements Buildable {
         toolsMenu.addItem(new MenuItem("World Builder", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(stageHandler.getWorldBuilder());
+                ActorUtil.fadeInWindow(stageHandler.getWorldBuilderUI());
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));

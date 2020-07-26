@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.forgestorm.client.ClientConstants;
@@ -19,7 +18,6 @@ import com.forgestorm.client.game.input.Mouse;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilder;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.MovingEntity;
@@ -153,12 +151,6 @@ public class GameScreen implements Screen {
         Pixmap validTextureHighlight = PixmapUtil.createProceduralPixmap(16, 16, Color.GREEN);
         validTileLocationTexture = new Texture(validTextureHighlight);
         validTextureHighlight.dispose();
-
-        WorldBuilder worldBuilder = stageHandler.getWorldBuilder();
-        if (worldBuilder.getWorldBuilderTile() == null) {
-            TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-            worldBuilder.setWorldBuilderTile(textureAtlas.findRegion("decoration"));
-        }
     }
 
     @Override
@@ -269,11 +261,7 @@ public class GameScreen implements Screen {
         }
 
         // Draw World Builder
-        if (stageHandler.getWorldBuilder().isVisible() && stageHandler.getWorldBuilder().getWorldBuilderTile() != null) {
-            int x = mouseManager.getMouseTileX() * 16;
-            int y = mouseManager.getMouseTileY() * 16;
-            spriteBatch.draw(stageHandler.getWorldBuilder().getWorldBuilderTile(), x, y, 16, 16);
-        }
+        ClientMain.getInstance().getWorldBuilder().drawMouse(spriteBatch);
 
         PixelFXTest pixelFXTest = ClientMain.getInstance().getStageHandler().getPixelFXTest();
         if (pixelFXTest != null) pixelFXTest.render(delta, spriteBatch);

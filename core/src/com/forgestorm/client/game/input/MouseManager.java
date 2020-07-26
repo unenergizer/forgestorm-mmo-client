@@ -2,11 +2,6 @@ package com.forgestorm.client.game.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
@@ -17,7 +12,6 @@ import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilder;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.client.game.world.entities.EntityInteract;
@@ -126,7 +120,8 @@ public class MouseManager {
         this.leftClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.leftClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
-        worldBuildClick();
+        // Place tile in world
+        ClientMain.getInstance().getWorldBuilder().placeTile(mouseTileX, mouseTileY);
 
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
         EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
@@ -140,36 +135,6 @@ public class MouseManager {
         clickSkillNodes();
         clickItemStackDrops();
         clickToWalkToPath();
-    }
-
-
-    private void worldBuildClick() {
-        WorldBuilder worldBuilder = ActorUtil.getStageHandler().getWorldBuilder();
-        if (worldBuilder.isVisible()) {
-            TiledMap tiledMap = ClientMain.getInstance().getGameScreen().getMapRenderer().getTiledMap();
-            MapLayers layers = tiledMap.getLayers();
-            TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(worldBuilder.getActiveDrawLayer());
-            TiledMapTileLayer.Cell cell = layer.getCell(mouseTileX, mouseTileY);
-
-            if (cell == null) {
-                println(getClass(), "Cell was null, creating a new one!");
-                cell = new TiledMapTileLayer.Cell();
-            } else {
-                println(getClass(), "Cell found!");
-            }
-
-            println(getClass(), "TiledMapLayer: " + layer.getName() + ", Width: " + layer.getWidth() + ", Height: " + layer.getHeight());
-            println(getClass(), "Cell X: " + mouseTileX + ", Cell Y: " + mouseTileY);
-            TextureRegion textureRegion = worldBuilder.getWorldBuilderTile();
-
-            if (cell.getTile() == null) {
-                StaticTiledMapTile tiledMapTile = new StaticTiledMapTile(textureRegion);
-                cell.setTile(tiledMapTile);
-                layer.setCell(mouseTileX, mouseTileY, cell);
-            } else {
-                cell.getTile().setTextureRegion(textureRegion);
-            }
-        }
     }
 
     private void clickAIEntities() {

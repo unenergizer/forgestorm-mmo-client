@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,34 +7,25 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
-import com.forgestorm.client.io.type.GameAtlas;
-
-import lombok.Getter;
-import lombok.Setter;
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.client.game.world.maps.building.WorldBuilder;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class WorldBuilder extends HideableVisWindow implements Buildable {
+public class WorldBuilderUI extends HideableVisWindow implements Buildable {
 
     private StageHandler stageHandler;
 
-    @Setter
-    @Getter
-    private TextureRegion worldBuilderTile;
-
-    @Getter
-    private String activeDrawLayer = "background";
-
-    public WorldBuilder() {
+    public WorldBuilderUI() {
         super("World Builder");
     }
 
@@ -67,36 +56,36 @@ public class WorldBuilder extends HideableVisWindow implements Buildable {
         roofObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-                worldBuilderTile = textureAtlas.findRegion("roof");
-                activeDrawLayer = "overhead";
+                WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+                worldBuilder.setCurrentLayer(LayerDefinition.ROOF);
+                worldBuilder.setCurrentTextureId((short) 0);
             }
         });
 
         wallObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-                worldBuilderTile = textureAtlas.findRegion("wall");
-                activeDrawLayer = "walls";
+                WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+                worldBuilder.setCurrentLayer(LayerDefinition.WALL);
+                worldBuilder.setCurrentTextureId((short) 1);
             }
         });
 
         doorObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-                worldBuilderTile = textureAtlas.findRegion("door");
-                activeDrawLayer = "decoration";
+                WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+                worldBuilder.setCurrentLayer(LayerDefinition.WALL_DECORATION);
+                worldBuilder.setCurrentTextureId((short) 2);
             }
         });
 
         decorationObject.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-                worldBuilderTile = textureAtlas.findRegion("decoration");
-                activeDrawLayer = "decoration";
+                WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+                worldBuilder.setCurrentLayer(LayerDefinition.GROUND);
+                worldBuilder.setCurrentTextureId((short) 3);
             }
         });
 

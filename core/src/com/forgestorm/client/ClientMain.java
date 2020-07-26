@@ -24,6 +24,7 @@ import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.item.inventory.MoveInventoryEvents;
 import com.forgestorm.client.game.world.item.trade.TradeManager;
 import com.forgestorm.client.game.world.maps.MapManager;
+import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.NetworkSettingsLoader;
 import com.forgestorm.client.io.ScriptManager;
@@ -55,6 +56,7 @@ import com.forgestorm.client.network.game.packet.in.PingPacketIn;
 import com.forgestorm.client.network.game.packet.in.PlayerTradePacketIn;
 import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.forgestorm.client.network.game.packet.in.SkillExperiencePacketIn;
+import com.forgestorm.client.network.game.packet.in.WorldBuilderPacketIn;
 import com.forgestorm.client.network.game.shared.EventBus;
 
 import lombok.Getter;
@@ -95,6 +97,7 @@ public class ClientMain extends Game {
     private ScriptManager scriptManager;
     //    private ScriptProcessor scriptProcessor;
     private TradeManager tradeManager;
+    private WorldBuilder worldBuilder;
 
     private InputMultiplexer inputMultiplexer;
 
@@ -145,6 +148,7 @@ public class ClientMain extends Game {
         languageManager = new LanguageManager();
         scriptManager = new ScriptManager(ideRun);
 //        scriptProcessor = new ScriptProcessor();
+        worldBuilder = new WorldBuilder();
 
         // load screens
         stageHandler = new StageHandler();
@@ -214,6 +218,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new ProfileRequestPacketIn());
                         eventBus.registerListener(new ClientMoveResyncPacketIn());
                         eventBus.registerListener(new CharacterCreatorPacketIn());
+                        eventBus.registerListener(new WorldBuilderPacketIn());
                     }
                 });
     }

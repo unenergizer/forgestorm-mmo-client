@@ -29,7 +29,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.DevMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilder;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilderUI;
 import com.forgestorm.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
@@ -130,7 +130,7 @@ public class StageHandler implements Disposable {
     private DevMenu devMenu = new DevMenu();
     private EntityEditor entityEditor = new EntityEditor();
     private ItemStackEditor itemStackEditor = new ItemStackEditor();
-    private WorldBuilder worldBuilder = new WorldBuilder();
+    private WorldBuilderUI worldBuilderUI = new WorldBuilderUI();
     private PixelFXTest pixelFXTest = new PixelFXTest();
 
     // shared
@@ -204,7 +204,7 @@ public class StageHandler implements Disposable {
         stage.addActor(colorPickerController.build(this));
         stage.addActor(entityEditor.build(this));
         stage.addActor(itemStackEditor.build(this));
-        stage.addActor(worldBuilder.build(this));
+        stage.addActor(worldBuilderUI.build(this));
         stage.addActor(pixelFXTest.build(this));
     }
 

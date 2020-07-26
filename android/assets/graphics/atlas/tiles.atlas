@@ -4,28 +4,28 @@ size: 128,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-decoration
+3
   rotate: false
   xy: 2, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
-door
+2
   rotate: false
   xy: 56, 2
   size: 15, 16
   orig: 15, 16
   offset: 0, 0
   index: 0
-roof
+0
   rotate: false
   xy: 20, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
-wall
+1
   rotate: false
   xy: 38, 2
   size: 16, 16
