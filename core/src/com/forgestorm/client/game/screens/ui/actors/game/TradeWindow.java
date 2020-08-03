@@ -6,12 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.util.TableUtils;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
@@ -32,6 +26,12 @@ import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
 import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
+import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.util.TableUtils;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -178,8 +178,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             cancel.setText("Cancel Confirmation");
 
             playerTradeStatus.setText("[GREEN]You Confirmed!");
+            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 0);
         } else {
             targetTradeStatus.setText("[GREEN]Target Confirmed!");
+            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 16);
         }
     }
 
@@ -195,8 +197,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             cancel.setText("Cancel");
 
             playerTradeStatus.setText("[RED]You have not confirmed.");
+            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 0);
         } else {
             targetTradeStatus.setText("[RED]Target not confirmed.");
+            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 18);
         }
     }
 
@@ -250,6 +254,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         println(getClass(), "Slot index being sent = " + lockedItemStackSlot.getSlotIndex());
 
         new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getSlotIndex())).sendPacket();
+
+        // Play sound of the item clicked
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
     }
 
     public void addItemFromPacket(int itemStackUUID, int itemAmount) {
@@ -257,6 +264,9 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackUUID, itemAmount);
         TradeWindowSlot tradeWindowSlot = findEmptySlot(false);
         tradeWindowSlot.setTradeCell(itemStack, null);
+
+        // Play sound of item added
+        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
     }
 
     public void removeItemFromPacket(byte itemSlot) {
