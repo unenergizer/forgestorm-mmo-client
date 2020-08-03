@@ -27,7 +27,6 @@ import com.forgestorm.client.game.world.maps.MapManager;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.NetworkSettingsLoader;
-import com.forgestorm.client.io.ScriptManager;
 import com.forgestorm.client.network.ConnectionManager;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
@@ -94,8 +93,6 @@ public class ClientMain extends Game {
     private AbilityManager abilityManager;
     private EffectManager effectManager;
     private LanguageManager languageManager;
-    private ScriptManager scriptManager;
-    //    private ScriptProcessor scriptProcessor;
     private TradeManager tradeManager;
     private WorldBuilder worldBuilder;
 
@@ -146,8 +143,6 @@ public class ClientMain extends Game {
         abilityManager = new AbilityManager();
         effectManager = new EffectManager();
         languageManager = new LanguageManager();
-        scriptManager = new ScriptManager(ideRun);
-//        scriptProcessor = new ScriptProcessor();
         worldBuilder = new WorldBuilder();
 
         // load screens

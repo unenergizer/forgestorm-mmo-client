@@ -26,11 +26,7 @@ public enum FilePaths {
 
     // Sounds
     SOUND_FX("sound/SoundFX.yaml"),
-    GAME_MUSIC("sound/GameMusic.yaml"),
-
-    // SCRIPTS
-    SCRIPTS("scripts"),
-    SCRIPT_MAPPING("scripts/script_mapping.yaml");
+    GAME_MUSIC("sound/GameMusic.yaml");
 
     private String filePath;
 

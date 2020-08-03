@@ -13,11 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.forgestorm.client.game.screens.ui.actors.game.Ping;
-import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.kotcrab.vis.ui.FocusManager;
-import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.screens.UserInterfaceType;
@@ -32,7 +27,6 @@ import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilderUI;
 import com.forgestorm.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeEvent;
-import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.CreditsWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.DebugTable;
 import com.forgestorm.client.game.screens.ui.actors.game.EntityDropDownMenu;
@@ -42,10 +36,13 @@ import com.forgestorm.client.game.screens.ui.actors.game.FadeWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.HelpWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
+import com.forgestorm.client.game.screens.ui.actors.game.Ping;
 import com.forgestorm.client.game.screens.ui.actors.game.PlayerProfileWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.StatusBar;
 import com.forgestorm.client.game.screens.ui.actors.game.TargetStatusBar;
 import com.forgestorm.client.game.screens.ui.actors.game.TradeWindow;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.BankWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.CharacterInspectionWindow;
@@ -61,8 +58,10 @@ import com.forgestorm.client.game.screens.ui.actors.login.RssAnnouncements;
 import com.forgestorm.client.game.screens.ui.actors.login.VersionTable;
 import com.forgestorm.client.game.screens.ui.actors.settings.FPSTable;
 import com.forgestorm.client.game.screens.ui.actors.settings.MainSettingsWindow;
-import com.forgestorm.client.game.scripting.NPCTextDialog;
 import com.forgestorm.client.io.type.GameSkin;
+import com.kotcrab.vis.ui.FocusManager;
+import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.widget.PopupMenu;
 
 import lombok.Getter;
 
@@ -124,7 +123,6 @@ public class StageHandler implements Disposable {
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
-    private NPCTextDialog npcTextDialog = new NPCTextDialog();
 
     // developer
     private DevMenu devMenu = new DevMenu();
@@ -190,7 +188,6 @@ public class StageHandler implements Disposable {
         stage.addActor(statusBar.build(this));
         stage.addActor(targetStatusBar.build(this));
         stage.addActor(chatDialogue.build(this));
-        stage.addActor(npcTextDialog.build(this));
         stage.addActor(characterInspectionWindow.build(this));
         stage.addActor(playerProfileWindow.build(this));
         stage.addActor(ping.build(this));
