@@ -8,7 +8,6 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.rpg.EntityShopAction;
 import com.forgestorm.client.game.rpg.ShopOpcodes;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
@@ -75,7 +74,7 @@ class EntityShopSlot extends PagedWindowSlot {
                 public void changed(ChangeEvent event, Actor actor) {
                     ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
                     // Send packet here
-                    new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.BUY, slotID)).sendPacket();
+                    new EntityShopPacketOut(ShopOpcodes.BUY, slotID).sendPacket();
                 }
             });
 

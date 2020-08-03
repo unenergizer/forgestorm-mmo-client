@@ -55,9 +55,8 @@ class SkillBookSlot extends PagedWindowSlot {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
-                    // Send packet here
+                    // TODO: Send packet here
                     // TODO: Send spell_book slot update here
-//                    new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.BUY, slotID)).sendPacket();
                 }
             });
 

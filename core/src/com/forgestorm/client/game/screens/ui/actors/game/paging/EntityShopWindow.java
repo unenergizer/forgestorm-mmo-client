@@ -1,7 +1,6 @@
 package com.forgestorm.client.game.screens.ui.actors.game.paging;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.rpg.EntityShopAction;
 import com.forgestorm.client.game.rpg.EntityShopManager;
 import com.forgestorm.client.game.rpg.ShopOpcodes;
 import com.forgestorm.client.game.world.entities.MovingEntity;
@@ -33,7 +32,7 @@ public class EntityShopWindow extends PagedWindow {
 
     @Override
     void windowClosedAction() {
-        new EntityShopPacketOut(new EntityShopAction(ShopOpcodes.STOP_SHOPPING)).sendPacket();
+        new EntityShopPacketOut(ShopOpcodes.STOP_SHOPPING).sendPacket();
         shopOwnerEntity = null;
         shopID = -1;
     }

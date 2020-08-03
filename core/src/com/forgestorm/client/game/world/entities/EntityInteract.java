@@ -4,6 +4,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.ClickAction;
 import com.forgestorm.client.game.movement.AbstractPostProcessor;
+import com.forgestorm.client.game.rpg.ShopOpcodes;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.game.EntityDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
@@ -14,6 +15,7 @@ import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
 import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
 import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
+import com.forgestorm.client.network.game.packet.out.EntityShopPacketOut;
 import com.forgestorm.client.network.game.packet.out.NPCDialoguePacketOut;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
 
@@ -55,6 +57,7 @@ public class EntityInteract {
             @Override
             public void postMoveAction() {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                new EntityShopPacketOut(ShopOpcodes.START_SHOPPING, entity.getServerEntityID()).sendPacket();
                 final EntityShopWindow pagedItemStackWindow = ClientMain.getInstance().getStageHandler().getPagedItemStackWindow();
                 pagedItemStackWindow.openWindow(entity, entity.getShopID());
             }
