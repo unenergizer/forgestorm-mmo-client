@@ -1,32 +1,39 @@
 package com.forgestorm.client.game.screens.ui.actors.login;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.kotcrab.vis.ui.FocusManager;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.io.type.GameTexture;
+import com.kotcrab.vis.ui.FocusManager;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTextField;
 
 import lombok.Getter;
 
 @Getter
 public class LoginTable extends VisTable implements Buildable, Disposable {
 
+    private static final String SAVE_USERNAME = "saveUsername";
+    private static final String USERNAME = "username";
+
     private StageHandler stageHandler;
     private VisTextField usernameField = new VisTextField();
     private VisTextField passwordField = new VisTextField();
     private VisTextButton loginButton = new VisTextButton("");
+    private Preferences appPreferences = Gdx.app.getPreferences("RetroMMO-LoginInfo");
 
     @Override
     public Actor build(final StageHandler stageHandler) {
@@ -37,7 +44,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         HideableVisWindow loginWindow = new HideableVisWindow("");
         loginWindow.pad(3);
         loginWindow.setMovable(false);
-        VisTable loginTable = new VisTable(true);
+        final VisTable loginTable = new VisTable(true);
 
         // create login widgets
         ClientMain.getInstance().getFileManager().loadTexture(GameTexture.LOGO_BIG);
@@ -63,6 +70,17 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
 
         loginButton.setText("Login");
 
+        // Username/Password Preferences
+        boolean saveUsername = appPreferences.getBoolean(SAVE_USERNAME, false);
+
+        if (saveUsername && usernameField.isEmpty()) {
+            String username = appPreferences.getString(USERNAME, "");
+            usernameField.setText(username);
+        }
+
+        final VisCheckBox usernameCheckBox = new VisCheckBox("Save Username", saveUsername);
+
+
         // addUi widgets to table
         loginTable.add(accountLabel);
         loginTable.add(usernameField).uniform();
@@ -71,6 +89,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         loginTable.add(passwordField).uniform();
         loginTable.row();
         loginTable.add(loginButton).colspan(2).center().width(150);
+        loginTable.row();
+        loginTable.add(usernameCheckBox).colspan(2).align(Alignment.CENTER.getAlignment());
         loginWindow.add(loginTable).pad(10);
 
         mainTable.add(logoTable);
@@ -88,19 +108,41 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         loginButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                if (usernameCheckBox.isChecked()) {
+                    appPreferences.putString(USERNAME, usernameField.getText());
+                    appPreferences.flush();
+                }
                 attemptLogin();
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 11);
+            }
+        });
+
+        // Preferences Listener
+        usernameCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (usernameCheckBox.isChecked()) {
+                    appPreferences.putBoolean(SAVE_USERNAME, true);
+                    if (!usernameField.isEmpty())
+                        appPreferences.putString(USERNAME, usernameField.getText());
+                    appPreferences.flush();
+                } else {
+                    appPreferences.putBoolean(SAVE_USERNAME, false);
+                    appPreferences.putString(USERNAME, "");
+                    appPreferences.flush();
+                }
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
             }
         });
 
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), (Gdx.graphics.getHeight() / 2) - (getHeight() / 2));
+                setPosition((float) (Gdx.graphics.getWidth() / 2) - (getWidth() / 2), (float) (Gdx.graphics.getHeight() / 2) - (getHeight() / 2));
             }
         });
 
-        setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), (Gdx.graphics.getHeight() / 2) - (getHeight() / 2));
+        setPosition((float) (Gdx.graphics.getWidth() / 2) - (getWidth() / 2), (float) (Gdx.graphics.getHeight() / 2) - (getHeight() / 2));
         setVisible(false);
         return this;
     }
