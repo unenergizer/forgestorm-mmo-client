@@ -8,7 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Appearance {
-    private byte monsterBodyTexture = -1;
+    // Monster, ItemStackDrop, SkillNode, etc
+    private byte singleBodyTexture = -1;
+
+    // Humanoid appearance
     private byte hairTexture = -1;
     private byte helmTexture = -1;
     private byte chestTexture = -1;

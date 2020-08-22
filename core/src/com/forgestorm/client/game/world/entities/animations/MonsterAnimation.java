@@ -22,7 +22,7 @@ public class MonsterAnimation extends EntityAnimation {
 
     @Override
     protected void load(TextureAtlas textureAtlas) {
-        this.atlasId = appearance.getMonsterBodyTexture();
+        this.atlasId = appearance.getSingleBodyTexture();
         facingDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("monster_down_" + atlasId), Animation.PlayMode.LOOP);
     }
 

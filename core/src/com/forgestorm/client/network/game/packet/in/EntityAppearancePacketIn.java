@@ -77,11 +77,11 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
             case MONSTER:
             case ITEM_STACK:
             case SKILL_NODE:
-                byte monsterBodyTexture = clientHandler.readByte();
+                byte singleBodyTexture = clientHandler.readByte();
 
-                entityAppearancePacket.setMonsterBodyTexture(monsterBodyTexture);
+                entityAppearancePacket.setSingleBodyTexture(singleBodyTexture);
 
-                println(getClass(), "MonsterBodyTexture: " + monsterBodyTexture, false, PRINT_DEBUG);
+                println(getClass(), "SingleBodyTexture: " + singleBodyTexture, false, PRINT_DEBUG);
                 break;
         }
 
@@ -147,9 +147,9 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
             case MONSTER:
             case ITEM_STACK:
             case SKILL_NODE:
-                appearance.setMonsterBodyTexture(packetData.monsterBodyTexture);
+                appearance.setSingleBodyTexture(packetData.singleBodyTexture);
 
-                println(getClass(), "MonsterBodyTexture: " + packetData.getMonsterBodyTexture(), false, PRINT_DEBUG);
+                println(getClass(), "SingleBodyTexture: " + packetData.getSingleBodyTexture(), false, PRINT_DEBUG);
                 break;
         }
     }
@@ -160,7 +160,10 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
         private final short entityId;
         private final EntityType entityType;
 
-        private byte monsterBodyTexture;
+        // Monster, ItemStackDrop, SkillNode, etc
+        private byte singleBodyTexture;
+
+        // Humanoid
         private byte hairTexture;
         private byte helmTexture;
         private byte chestTexture;

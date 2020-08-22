@@ -25,8 +25,8 @@ public class MonsterAppearancePanel implements AppearancePanel {
     public void load(AiEntity aiEntity) {
         Appearance appearance = aiEntity.getAppearance();
 
-        bodyData.setData(appearance.getMonsterBodyTexture());
-        monsterBodyPart.setData(appearance.getMonsterBodyTexture());
+        bodyData.setData(appearance.getSingleBodyTexture());
+        monsterBodyPart.setData(appearance.getSingleBodyTexture());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MonsterAppearancePanel implements AppearancePanel {
     @Override
     public EntityEditorData getDataOut(EntityEditorData entityEditorData) {
 
-        ((MonsterData) entityEditorData).setMonsterBodyTexture((byte) bodyData.getData());
+        ((MonsterData) entityEditorData).setSingleBodyTexture((byte) bodyData.getData());
 
         return entityEditorData;
     }
@@ -59,6 +59,6 @@ public class MonsterAppearancePanel implements AppearancePanel {
 
     @Override
     public void printDebug() {
-        println(MonsterAppearancePanel.class, "MonsterBodyTexture: " + bodyData.getData());
+        println(MonsterAppearancePanel.class, "SingleBodyTexture: " + bodyData.getData());
     }
 }

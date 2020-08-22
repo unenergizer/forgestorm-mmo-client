@@ -27,7 +27,7 @@ public class Player extends MovingEntity {
         Appearance appearance = getAppearance();
 
         switch (appearanceType) {
-            case MONSTER_BODY_TEXTURE:
+            case SINGLE_BODY_TEXTURE:
                 break;
             case HAIR_TEXTURE:
                 humanAnimation.loadHair(characterTextureAtlas, (short) textureId);

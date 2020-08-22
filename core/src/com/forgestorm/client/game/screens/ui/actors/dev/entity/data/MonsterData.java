@@ -27,7 +27,7 @@ public class MonsterData extends EntityEditorData {
     private boolean bankKeeper;
 
     // Monster Appearance
-    private byte monsterBodyTexture;
+    private byte singleBodyTexture;
 
     public MonsterData(boolean spawn, boolean save, boolean delete, Location spawnLocation, short entityID) {
         super(EntityType.MONSTER, spawn, save, delete, spawnLocation, entityID);

@@ -80,7 +80,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
                 write.writeBoolean(monsterData.isBankKeeper());
 
                 // Appearance data
-                write.writeByte(monsterData.getMonsterBodyTexture());
+                write.writeByte(monsterData.getSingleBodyTexture());
                 break;
             case ITEM_STACK:
                 ItemStackDropData itemStackDropData = (ItemStackDropData) entityEditorData;

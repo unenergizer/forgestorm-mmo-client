@@ -286,14 +286,14 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     monster.setDefaultSpawnLocation(packetData.defaultSpawnLocation);
                 }
 
-                appearance.setMonsterBodyTexture(packetData.bodyTexture);
+                appearance.setSingleBodyTexture(packetData.bodyTexture);
 
                 MovingEntity monsterEntity = (MovingEntity) entity;
                 monsterEntity.setEntityAnimation(new MonsterAnimation(monsterEntity));
                 monsterEntity.loadTextures(GameAtlas.ENTITY_MONSTER);
                 break;
             case SKILL_NODE:
-                appearance.setMonsterBodyTexture(packetData.bodyTexture);
+                appearance.setSingleBodyTexture(packetData.bodyTexture);
                 break;
             case ITEM_STACK:
                 if (ClientMain.getInstance().isAdmin()) {
@@ -304,7 +304,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     itemStackDrop.setRespawnTimeMin(packetData.respawnTimeMin);
                     itemStackDrop.setRespawnTimeMax(packetData.respawnTimeMax);
                 }
-                appearance.setMonsterBodyTexture(packetData.bodyTexture);
+                appearance.setSingleBodyTexture(packetData.bodyTexture);
                 break;
         }
     }

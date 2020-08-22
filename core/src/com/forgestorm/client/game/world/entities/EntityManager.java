@@ -97,12 +97,12 @@ public class EntityManager implements Disposable {
     public void drawEntityBodies(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
         // Draw Items on ground
         for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
-            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack((int) itemStackDrop.getAppearance().getMonsterBodyTexture(), 1);
+            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack((int) itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
             spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
         }
         // Draw over items
         for (StationaryEntity stationaryEntity : stationaryEntityList.values()) {
-            spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getMonsterBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
+            spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getSingleBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
 
         PriorityQueue<MovingEntity> yAxisSortedEntities = new PriorityQueue<MovingEntity>();

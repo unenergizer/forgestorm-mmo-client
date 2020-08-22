@@ -1,7 +1,10 @@
 package com.forgestorm.client.game.world.entities;
 
 public enum AppearanceType {
-    MONSTER_BODY_TEXTURE,
+    // Monster, ItemStackDrop, SkillNode, etc
+    SINGLE_BODY_TEXTURE,
+
+    // Humanoid appearance
     HAIR_TEXTURE,
     HELM_TEXTURE,
     CHEST_TEXTURE,
