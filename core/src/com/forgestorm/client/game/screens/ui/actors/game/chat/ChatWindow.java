@@ -314,6 +314,19 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             println(getClass(), "IsVisible: " + chatChannel.isVisible() + ", ChannelType: " + chatChannelType + ", Message: " + message, false, PRINT_DEBUG);
             VisLabel label = new VisLabel(message, stageHandler.getMarkupStyle());
             label.setWrap(true);
+
+            // TODO: Clickable items in chat. The following code works
+//            VisLabel clickLabel = new VisLabel("clickMe!");
+//
+//            clickLabel.addListener(new InputListener() {
+//                @Override
+//                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                    println(getClass(), "I WAS CLICKED!");
+//                    return false;
+//                }
+//            });
+//            messageTable.add(clickLabel);
+
             messageTable.add(label).expandX().fillX().expandY().top().row();
 
             scrollPane.layout();
