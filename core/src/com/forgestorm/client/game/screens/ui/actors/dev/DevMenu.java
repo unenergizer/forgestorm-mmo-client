@@ -3,19 +3,20 @@ package com.forgestorm.client.game.screens.ui.actors.dev;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TilePropertiesEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilderUI;
-import com.kotcrab.vis.ui.widget.Menu;
-import com.kotcrab.vis.ui.widget.MenuBar;
-import com.kotcrab.vis.ui.widget.MenuItem;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TilePropertiesEditor;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilderUI;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.kotcrab.vis.ui.widget.Menu;
+import com.kotcrab.vis.ui.widget.MenuBar;
+import com.kotcrab.vis.ui.widget.MenuItem;
+import com.kotcrab.vis.ui.widget.PopupMenu;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 public class DevMenu extends VisTable implements Buildable {
 
@@ -59,14 +60,9 @@ public class DevMenu extends VisTable implements Buildable {
     private Menu createToolsMenu(final StageHandler stageHandler) {
         Menu toolsMenu = new Menu("Tools");
 
-        final WorldBuilderUI worldBuilder = stageHandler.getWorldBuilderUI();
-        toolsMenu.addItem(new MenuItem(worldBuilder.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(worldBuilder);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
+        MenuItem worldSubmenu = new MenuItem("World Editing");
+        worldSubmenu.setSubMenu(createWorldEditorMenus(stageHandler));
+        toolsMenu.addItem(worldSubmenu);
 
         final EntityEditor entityEditor = stageHandler.getEntityEditor();
         toolsMenu.addItem(new MenuItem(entityEditor.getTitleLabel().getText().toString(), new ChangeListener() {
@@ -88,7 +84,6 @@ public class DevMenu extends VisTable implements Buildable {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));
-        toolsMenu.addItem(new MenuItem("Warp Editor"));
         toolsMenu.addItem(new MenuItem("Professions Editor"));
         toolsMenu.addItem(new MenuItem("Factions Editor"));
 
@@ -101,8 +96,23 @@ public class DevMenu extends VisTable implements Buildable {
             }
         }));
 
+        return toolsMenu;
+    }
+
+    private PopupMenu createWorldEditorMenus(final StageHandler stageHandler) {
+        PopupMenu popupMenu = new PopupMenu();
+
+        final WorldBuilderUI worldBuilder = stageHandler.getWorldBuilderUI();
+        popupMenu.addItem(new MenuItem(worldBuilder.getTitleLabel().getText().toString(), new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ActorUtil.fadeInWindow(worldBuilder);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+            }
+        }));
+
         final TilePropertiesEditor tilePropertiesEditor = stageHandler.getTilePropertiesEditor();
-        toolsMenu.addItem(new MenuItem(tilePropertiesEditor.getTitleLabel().getText().toString(), new ChangeListener() {
+        popupMenu.addItem(new MenuItem(tilePropertiesEditor.getTitleLabel().getText().toString(), new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeInWindow(tilePropertiesEditor);
@@ -110,6 +120,8 @@ public class DevMenu extends VisTable implements Buildable {
             }
         }));
 
-        return toolsMenu;
+        popupMenu.addItem(new MenuItem("Warp Editor"));
+
+        return popupMenu;
     }
 }
