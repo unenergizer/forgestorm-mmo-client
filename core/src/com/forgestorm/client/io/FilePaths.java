@@ -23,6 +23,7 @@ public enum FilePaths {
 
     // Maps
     MAPS("maps"),
+    TILES("graphics/TileProperties.yaml"),
 
     // Sounds
     SOUND_FX("sound/SoundFX.yaml"),
