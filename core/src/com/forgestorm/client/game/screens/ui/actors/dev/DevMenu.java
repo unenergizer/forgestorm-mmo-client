@@ -9,8 +9,8 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TilePropertiesEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilderUI;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
@@ -102,14 +102,14 @@ public class DevMenu extends VisTable implements Buildable {
     private PopupMenu createWorldEditorMenus(final StageHandler stageHandler) {
         PopupMenu popupMenu = new PopupMenu();
 
-        final WorldBuilderUI worldBuilder = stageHandler.getWorldBuilderUI();
-        popupMenu.addItem(new MenuItem(worldBuilder.getTitleLabel().getText().toString(), new ChangeListener() {
+        final TileBuildMenu tileBuildMenu = stageHandler.getTileBuildMenu();
+        popupMenu.addItem(new MenuItem(tileBuildMenu.getTitleLabel().getText().toString(), new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(worldBuilder);
+                ActorUtil.fadeInWindow(tileBuildMenu);
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
-        }));
+        }).setShortcut("CTRL + B"));
 
         final TilePropertiesEditor tilePropertiesEditor = stageHandler.getTilePropertiesEditor();
         popupMenu.addItem(new MenuItem(tilePropertiesEditor.getTitleLabel().getText().toString(), new ChangeListener() {

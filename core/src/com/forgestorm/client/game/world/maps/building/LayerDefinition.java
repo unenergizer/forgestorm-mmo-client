@@ -8,11 +8,19 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LayerDefinition {
 
+//    // public enum TileLayers.java
+//    OVERHEAD,
+//    DECORATION,
+//    WALLS,
+//    GROUND,
+//    BACKGROUND
+
     ROOF("overhead"),
     WALL("walls"),
     WALL_DECORATION("walls"),
     GROUND("decoration"),
-    GROUND_DECORATION("decoration");
+    GROUND_DECORATION("decoration"),
+    BACKGROUND("background");
 
     private String layerName;
 

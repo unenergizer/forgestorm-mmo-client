@@ -1,4 +1,169 @@
 0:
-  filename: "bag-01"
-  tiletype: CONTAINER
-  tilelayer: OVERHEAD
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: bag-01
+  layerDefinition: GROUND
+1:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: bag-02
+2:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: bag-03
+3:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: bag-04
+4:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-big-01
+5:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-big-02
+6:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-big-03
+7:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-big-04
+8:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-big-05
+9:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-small-01
+10:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: barrel-small-02
+11:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-01
+12:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-02
+13:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-03
+14:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-04
+15:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-05
+16:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-06
+17:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-07
+18:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-08
+19:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-09
+20:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-10
+21:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-11
+22:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-12
+23:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-13
+24:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-14
+25:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-15
+26:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-16
+27:
+  buildCategory: DECORATION
+  customTileProperties:
+    decorationType: CONTAINER
+    isLootable: true
+  fileName: box-17

@@ -23,9 +23,9 @@ import com.forgestorm.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.forgestorm.client.game.screens.ui.actors.dev.DevMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WorldBuilderUI;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeEvent;
 import com.forgestorm.client.game.screens.ui.actors.game.CreditsWindow;
@@ -129,9 +129,9 @@ public class StageHandler implements Disposable {
     private DevMenu devMenu = new DevMenu();
     private EntityEditor entityEditor = new EntityEditor();
     private ItemStackEditor itemStackEditor = new ItemStackEditor();
-    private WorldBuilderUI worldBuilderUI = new WorldBuilderUI();
     private PixelFXTest pixelFXTest = new PixelFXTest();
     private TilePropertiesEditor tilePropertiesEditor = new TilePropertiesEditor();
+    private TileBuildMenu tileBuildMenu = new TileBuildMenu();
 
     // shared
     private MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
@@ -203,9 +203,9 @@ public class StageHandler implements Disposable {
         stage.addActor(colorPickerController.build(this));
         stage.addActor(entityEditor.build(this));
         stage.addActor(itemStackEditor.build(this));
-        stage.addActor(worldBuilderUI.build(this));
         stage.addActor(pixelFXTest.build(this));
         stage.addActor(tilePropertiesEditor.build(this));
+        stage.addActor(tileBuildMenu.build(this));
     }
 
     public void render(float delta) {

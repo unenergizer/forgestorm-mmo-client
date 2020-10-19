@@ -40,7 +40,7 @@ public class WangTile {
         map48.put(127, 33);
         map48.put(123, 31);
         map48.put(66, 14);
-        map48.put(16, 5);
+        map48.put(16, 5); // East
         map48.put(219, 39);
         map48.put(75, 17);
         map48.put(80, 18);
@@ -65,16 +65,19 @@ public class WangTile {
 
     public static void main(String[] args) {
 
-        int x = 1;
+        int x = 0;
         int y = 1;
 
         //   W
         // N + S  - TODO: Figure out why the hell the array is rotated this way...
         //   E
         TestTileType[][] gameMap = {
-                {new TestTileType(1), new TestTileType(1), new TestTileType(1)},
-                {new TestTileType(1), new TestTileType(1), new TestTileType(0)},
-                {new TestTileType(1), new TestTileType(1), new TestTileType(1)}
+                {new TestTileType(0), new TestTileType(1), new TestTileType(0)},
+                {new TestTileType(0), new TestTileType(1), new TestTileType(0)},
+                {new TestTileType(0), new TestTileType(0), new TestTileType(0)},
+                {new TestTileType(0), new TestTileType(0), new TestTileType(0)},
+                {new TestTileType(0), new TestTileType(0), new TestTileType(0)},
+                {new TestTileType(0), new TestTileType(0), new TestTileType(0)}
         };
 
         WangTile wangTile = new WangTile();
@@ -83,7 +86,7 @@ public class WangTile {
     }
 
     /**
-     * Returns the tile tileType after checking all 8 positions around the tile.
+     * Returns the tile decorationType after checking all 8 positions around the tile.
      * Includes corners.
      *
      * @param x       The tile we will test for in the X axis.
@@ -96,23 +99,14 @@ public class WangTile {
         int index;
 
         // Directional Check, including corners, returns int
-        northTile = detectSameTileType(x, y - 1, gameMap, "North");
-        southTile = detectSameTileType(x, y + 1, gameMap, "South");
-        westTile = detectSameTileType(x - 1, y, gameMap, "West");
-        eastTile = detectSameTileType(x + 1, y, gameMap, "East");
-        northWestTile = detectSameTileType(x - 1, y - 1, gameMap, "NorthWest") && westTile && northTile;
-        northEastTile = detectSameTileType(x + 1, y - 1, gameMap, "NorthEast") && northTile && eastTile;
-        southWestTile = detectSameTileType(x - 1, y + 1, gameMap, "SouthWest") && southTile && westTile;
-        southEastTile = detectSameTileType(x + 1, y + 1, gameMap, "SouthEast") && southTile && eastTile;
-
-        System.out.println("North PreCalc: " + northTile);
-        System.out.println("South PreCalc: " + southTile);
-        System.out.println("West PreCalc: " + westTile);
-        System.out.println("East PreCalc: " + eastTile);
-        System.out.println("NorthWest PreCalc: " + northWestTile);
-        System.out.println("NorthEast PreCalc: " + northEastTile);
-        System.out.println("SouthWest PreCalc: " + southWestTile);
-        System.out.println("SouthEast PreCalc: " + southEastTile);
+        northTile = detectSameTileType(x, y - 1, gameMap);
+        southTile = detectSameTileType(x, y + 1, gameMap);
+        westTile = detectSameTileType(x - 1, y, gameMap);
+        eastTile = detectSameTileType(x + 1, y, gameMap);
+        northWestTile = detectSameTileType(x - 1, y - 1, gameMap) && westTile && northTile;
+        northEastTile = detectSameTileType(x + 1, y - 1, gameMap) && northTile && eastTile;
+        southWestTile = detectSameTileType(x - 1, y + 1, gameMap) && southTile && westTile;
+        southEastTile = detectSameTileType(x + 1, y + 1, gameMap) && southTile && eastTile;
 
         // 8 bit bit masking calculation using directional check booleans values
         index = boolToInt(northWestTile) * 1
@@ -143,18 +137,19 @@ public class WangTile {
         boolean northTile, southTile, westTile, eastTile;
         int index;
 
-        // Directional Check, including corners, returns int
-        northTile = detectSameTileType(x, y - 1, gameMap, "North");
-        southTile = detectSameTileType(x, y + 1, gameMap, "South");
-        westTile = detectSameTileType(x - 1, y, gameMap, "West");
-        eastTile = detectSameTileType(x + 1, y, gameMap, "East");
+        // Directional Check
+        northTile = detectSameTileType(x, y - 1, gameMap);
+        southTile = detectSameTileType(x, y + 1, gameMap);
+        westTile = detectSameTileType(x - 1, y, gameMap);
+        eastTile = detectSameTileType(x + 1, y, gameMap);
 
         // 4 bit bit masking calculation using directional check booleans values
-        index = boolToInt(northTile) * 1 + boolToInt(westTile) * 2 + boolToInt(eastTile) * 4 + boolToInt(southTile) * 8;
+        index = boolToInt(northTile) * 1
+                + boolToInt(westTile) * 2
+                + boolToInt(eastTile) * 4
+                + boolToInt(southTile) * 8;
 
-        // Take the previously calculated value and find the relevant value in the data structure to remove redundancies
         System.out.println("Index Calculated: " + index);
-//        index = map48.get(index); // TODO: Generate 16x version Map
 
         return index;
     }
@@ -173,22 +168,14 @@ public class WangTile {
     /**
      * Detect if this tile position is using the same type of tile as the main one being tested
      *
-     * @param x         X axis to test.
-     * @param y         Y axis to test
-     * @param gameMap   Map of the game.
-     * @param direction Print the direction for debug purposes.
+     * @param x       X axis to test.
+     * @param y       Y axis to test
+     * @param gameMap Map of the game.
      * @return True if the tile type is the same or False if it is not.
      */
-    private boolean detectSameTileType(int x, int y, TestTileType[][] gameMap, String direction) {
+    private boolean detectSameTileType(int x, int y, TestTileType[][] gameMap) {
         // If same type tile exist return true otherwise return false;
-        if (x < 0 || x > 3) {
-            System.out.println("x out of bounds: " + x + ", " + y + ", " + direction);
-            return false;
-        }
-        if (y < 0 || y > 3) {
-            System.out.println("y out of bounds: " + x + ", " + y + ", " + direction);
-            return false;
-        }
+        if (x < 0 || x >= gameMap.length || y < 0 || y >= gameMap.length) return false; // out of bounds
         return gameMap[x][y].getTileType() == 1; // true
     }
 

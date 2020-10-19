@@ -16,7 +16,7 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
         LayerDefinition layerDefinition = LayerDefinition.getLayerDefinition(clientHandler.readByte());
-        short textureId = clientHandler.readShort();
+        int textureId = clientHandler.readInt();
         short tileX = clientHandler.readShort();
         short tileY = clientHandler.readShort();
         return new WorldBuilderPacket(layerDefinition, textureId, tileX, tileY);
@@ -34,7 +34,7 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
     @AllArgsConstructor
     class WorldBuilderPacket extends PacketData {
         private LayerDefinition layerDefinition;
-        private short textureId;
+        private int textureId;
         private short tileX;
         private short tileY;
     }
