@@ -37,7 +37,7 @@ public class WorldBuilder {
 
 
     public WorldBuilder() {
-        // Load CustomTileProperties.yaml
+        // Load AbstractTileProperty.yaml
         TilePropertiesLoader tilePropertiesLoader = new TilePropertiesLoader();
         tileImageMap = tilePropertiesLoader.loadTileProperties();
 
@@ -46,7 +46,7 @@ public class WorldBuilder {
         fileManager.loadAtlas(GameAtlas.TILES);
         textureAtlas = fileManager.getAtlas(GameAtlas.TILES);
         regions = textureAtlas.getRegions();
-
+        println(getClass(), "Number of " + GameAtlas.TILES + " textures: " + textureAtlas.getTextures().size);
     }
 
     public void placeTile(int tileX, int tileY) {
@@ -102,8 +102,9 @@ public class WorldBuilder {
                     tileImage.setLayerDefinition(newTileImage.getLayerDefinition());
                 }
 
-                if (newTileImage.getCustomTileProperties() != null) {
-                    tileImage.setCustomTileProperties(newTileImage.getCustomTileProperties());
+                if (newTileImage.getTileProperties() != null) {
+                    // TODO: FIX ME .get(0)!!!
+                    tileImage.setCustomTileProperty(newTileImage.getTileProperties().get(0));
                 }
 
                 return;

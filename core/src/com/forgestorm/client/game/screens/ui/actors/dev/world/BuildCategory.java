@@ -2,7 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
 public enum BuildCategory {
     DECORATION,
-    TERRAIN,
+    WALKABLE,
     WALL,
     ROOF,
     UNDEFINED;

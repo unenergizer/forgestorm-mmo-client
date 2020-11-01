@@ -47,6 +47,7 @@ public class AbilityManager implements GameQuitReset, Disposable {
         FileManager fileManager = ClientMain.getInstance().getFileManager();
         fileManager.loadAtlas(GameAtlas.PIXEL_FX);
         textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
+        println(getClass(), "Number of " + GameAtlas.PIXEL_FX + " textures: " + textureAtlas.getTextures().size);
     }
 
     public void toggleAbility(ItemStackSlot sourceSlot, ItemStack itemStack) {
