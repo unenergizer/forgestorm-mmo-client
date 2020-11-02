@@ -1,6 +1,9 @@
 package com.forgestorm.client.game.world.maps;
 
 
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+
 @SuppressWarnings("unused")
 public class MapUtil {
 
@@ -12,10 +15,13 @@ public class MapUtil {
      * @param y       The Y grid coordinate a entity is attempting to playerMove to.
      * @return True if the tile/coordinate is walkable. False otherwise.
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isTraversable(GameMap gameMap, short x, short y) {
         if (isOutOfBounds(gameMap, x, y)) return false;
-        return gameMap.getMapTiles()[x][y].isFlagSet(Tile.TRAVERSABLE);
+        for (TileImage[] layer : gameMap.getLayers().values()) {
+            TileImage tileImage = layer[x + y * gameMap.getMapWidth()];
+            if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) return false;
+        }
+        return true;
     }
 
     /**
@@ -31,7 +37,11 @@ public class MapUtil {
     }
 
     public static boolean isWarp(GameMap gameMap, short x, short y) {
-        return gameMap.getMapTiles()[x][y].isFlagSet(Tile.WARP);
+        for (TileImage[] layer : gameMap.getLayers().values()) {
+            TileImage tileImage = layer[x + y * gameMap.getMapWidth()];
+            if (tileImage.containsProperty(TilePropertyTypes.WARP)) return true;
+        }
+        return false;
     }
 
     /**
@@ -41,8 +51,8 @@ public class MapUtil {
      * @param location the location on the map.
      * @return The tile associated with the location.
      */
-    public static Tile getTileByLocation(Location location) {
+    public static TileImage getTileByLocation(Location location) {
         if (isOutOfBounds(location.getMapData(), location.getX(), location.getY())) return null;
-        return location.getMapData().getMapTiles()[location.getX()][location.getY()];
+        return location.getMapData().getLayers().get(0)[location.getX() + location.getY() * location.getMapData().getMapWidth()];
     }
 }

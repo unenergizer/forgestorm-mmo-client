@@ -54,13 +54,13 @@ public class InteractDamageProperty extends AbstractTileProperty {
     public AbstractTileProperty load(Map<String, Object> tileProperties, boolean printDebugMessages) {
 
         // Take damage from walking over tile
-        String interactType = (String) tileProperties.get("interactType");
+        String interactType = (String) tileProperties.get("cursorDrawType");
         if (interactType != null) setInteractType(InteractType.valueOf(interactType));
 
         Integer walkOverDamage = (Integer) tileProperties.get("interactDamage");
         if (walkOverDamage != null) setInteractDamage(walkOverDamage);
 
-        println(getClass(), "interactType: " + interactType, false, printDebugMessages);
+        println(getClass(), "cursorDrawType: " + interactType, false, printDebugMessages);
         println(getClass(), "interactDamage: " + walkOverDamage, false, printDebugMessages);
 
         return this;

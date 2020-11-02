@@ -306,11 +306,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairUp, stateTime, true, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairUpBorder, stateTime, true, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
@@ -336,11 +336,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairUp, 0, false, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairUpBorder, 0, false, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsUp, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestUp, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesUp, 0, false, armorColor, 0));
@@ -367,10 +367,10 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairDown, stateTime, true, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairDownBorder, stateTime, true, appearance.getBorderColor(), 0));
             }
-            if (showChest)
-                frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
             if (showPants)
                 frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
+            if (showChest)
+                frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
             if (showShoes)
                 frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
             if (showGloves)
@@ -394,11 +394,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairDown, 0, false, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairDownBorder, 0, false, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsDown, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestDown, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesDown, 0, false, armorColor, 0));
@@ -432,11 +432,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairLeft, stateTime, true, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
@@ -463,11 +463,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairLeft, 0, false, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairLeftBorder, 0, false, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsLeft, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestLeft, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesLeft, 0, false, armorColor, 0));
@@ -498,11 +498,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairRight, stateTime, true, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairRightBorder, stateTime, true, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
@@ -530,11 +530,11 @@ public class HumanAnimation extends EntityAnimation {
                 frameList.add(getColorTextureRegion(hairRight, 0, false, appearance.getHairColor(), 0));
                 frameList.add(getColorTextureRegion(hairRightBorder, 0, false, appearance.getBorderColor(), 0));
             }
-            if (showChest) {
-                frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
-            }
             if (showPants) {
                 frameList.add(getColorTextureRegion(pantsRight, 0, false, armorColor, 1));
+            }
+            if (showChest) {
+                frameList.add(getColorTextureRegion(chestRight, 0, false, armorColor, 3));
             }
             if (showShoes) {
                 frameList.add(getColorTextureRegion(shoesRight, 0, false, armorColor, 0));
@@ -601,10 +601,10 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(hairUp, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairUpBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
-        if (showChest)
-            frameList.add(getColorTextureRegion(chestUp, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
             frameList.add(getColorTextureRegion(pantsUp, stateTime, true, armorColor, 1));
+        if (showChest)
+            frameList.add(getColorTextureRegion(chestUp, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showShoes)
             frameList.add(getColorTextureRegion(shoesUp, stateTime, true, armorColor, 0));
         if (showGloves)
@@ -630,10 +630,10 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(hairDown, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairDownBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
-        if (showChest)
-            frameList.add(getColorTextureRegion(chestDown, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
             frameList.add(getColorTextureRegion(pantsDown, stateTime, true, armorColor, 1));
+        if (showChest)
+            frameList.add(getColorTextureRegion(chestDown, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showShoes)
             frameList.add(getColorTextureRegion(shoesDown, stateTime, true, armorColor, 0));
         if (showGloves)
@@ -664,10 +664,10 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(hairLeft, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairLeftBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
-        if (showChest)
-            frameList.add(getColorTextureRegion(chestLeft, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
             frameList.add(getColorTextureRegion(pantsLeft, stateTime, true, armorColor, 1));
+        if (showChest)
+            frameList.add(getColorTextureRegion(chestLeft, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showShoes)
             frameList.add(getColorTextureRegion(shoesLeft, stateTime, true, armorColor, 0));
         if (showGloves)
@@ -696,10 +696,10 @@ public class HumanAnimation extends EntityAnimation {
             frameList.add(getColorTextureRegion(hairRight, stateTime, true, appearance.getHairColor(), 0));
             frameList.add(getColorTextureRegion(hairRightBorder, stateTime, true, appearance.getBorderColor(), 0));
         }
-        if (showChest)
-            frameList.add(getColorTextureRegion(chestRight, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showPants)
             frameList.add(getColorTextureRegion(pantsRight, stateTime, true, armorColor, 1));
+        if (showChest)
+            frameList.add(getColorTextureRegion(chestRight, stateTime, true, armorColor, 3 + yAxisOffsetFix(stateTime)));
         if (showShoes)
             frameList.add(getColorTextureRegion(shoesRight, stateTime, true, armorColor, 0));
         if (showGloves)

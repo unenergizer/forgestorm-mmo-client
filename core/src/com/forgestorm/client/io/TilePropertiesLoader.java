@@ -6,7 +6,9 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.BlockMoveDirectionProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.ContainerProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CursorDrawOverTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.DoorProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.InteractDamageProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.JumpToDirectionProperty;
@@ -14,6 +16,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TileWalkOverSoundProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WarpProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WaterProperty;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
@@ -92,6 +95,14 @@ public class TilePropertiesLoader {
                         case WALK_OVER_SOUND:
                             abstractTileProperty = new TileWalkOverSoundProperty();
                             break;
+                        case COLLISION_BLOCK:
+                            abstractTileProperty = new CollisionBlockProperty();
+                            break;
+                        case WARP:
+                            abstractTileProperty = new WarpProperty();
+                            break;
+                        case CURSOR_DRAW_OVER_TILE:
+                            abstractTileProperty = new CursorDrawOverTileProperty();
                     }
 
                     // If we find the property, lets get it setup!

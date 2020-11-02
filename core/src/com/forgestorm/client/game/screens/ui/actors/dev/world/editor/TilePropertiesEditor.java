@@ -20,7 +20,6 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
-import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
@@ -55,8 +54,8 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     private final ImageBuilder imageBuilder = new ImageBuilder();
 
     private TileImage tileImage;
-    private VisTable rightTable;
-    private VisTable propertiesTable;
+    private VisTable rightTable = new VisTable(true);
+    private VisTable propertiesTable = new VisTable(true);
     private Map<TilePropertyTypes, AbstractTileProperty> copiedTileProperties;
 
     public TilePropertiesEditor() {
@@ -66,25 +65,15 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     @Override
     public Actor build(final StageHandler stageHandler) {
         stageHandler.getStage().addActor(tilePropertyDropDownMenu);
-        tilePropertyDropDownMenu.build(stageHandler);
 
         VisTable leftTable = new VisTable(true);
         buildTabbedPaneTable(leftTable, GameAtlas.TILES);
-
-        rightTable = new VisTable(true);
         buildOptionsTable(rightTable, null);
 
         add(leftTable).grow();
         add(rightTable).align(Alignment.TOP.getAlignment());
 
         stopWindowClickThrough();
-
-        addListener(new ForceCloseWindowListener() {
-            @Override
-            public void handleClose() {
-
-            }
-        });
 
         addListener(new WindowResizeListener() {
             @Override
@@ -141,11 +130,12 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         rightTable.clear();
 
         // Is this image in the map?
+        tileImage = null;
         boolean isProcessed = false;
-        for (TileImage ti : worldBuilder.getTileImageMap().values()) {
-            if (ti.getFileName().equals(atlasRegion.name)) {
+        for (TileImage tileImage : worldBuilder.getTileImageMap().values()) {
+            if (tileImage.getFileName().equals(atlasRegion.name)) {
                 isProcessed = true;
-                tileImage = ti;
+                this.tileImage = tileImage;
                 break;
             }
         }
@@ -198,15 +188,24 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         buildCategoryVisSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Map<Integer, TileImage> tileImageMap = worldBuilder.getTileImageMap();
+
+                // Check to see if the TileImage is in the HashMap, if not, add it.
+                if (!tileImageMap.containsKey(tileImage.getImageId())) {
+                    worldBuilder.getTileImageMap().put(tileImage.getImageId(), tileImage);
+                }
+
+                // Now set the selected category
                 tileImage.setBuildCategory(buildCategoryVisSelectBox.getSelected());
             }
         });
 
         // Add all individual selected options to the following table
-        rightTable.add(buildPropertiesTable()).row();
+        buildPropertiesTable();
+        rightTable.add(propertiesTable).row();
 
         // Add table to let dev add properties to this TileImage
-        VisTable addOptionsTable = new VisTable();
+        VisTable addOptionsTable = new VisTable(true);
         final VisSelectBox<TilePropertyTypes> tilePropertiesVisSelectBox = new VisSelectBox<TilePropertyTypes>();
         tilePropertiesVisSelectBox.setItems(TilePropertyTypes.values());
 
@@ -245,36 +244,32 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             public void changed(ChangeEvent event, Actor actor) {
                 println(getClass(), "HashMap: " + worldBuilder.getTileImageMap());
                 YamlUtil.saveYamlToFile(worldBuilder.getTileImageMap(), FILE_PATH);
-//                Json json = new Json();
-//                System.out.println(json.toJson(worldBuilder.getTileImageMap()));
             }
         });
     }
 
-    private VisTable buildPropertiesTable() {
-        if (propertiesTable == null) {
-            propertiesTable = new VisTable();
-        } else {
-            propertiesTable.clear();
+    private void buildPropertiesTable() {
+        propertiesTable.clear();
+
+        Map<TilePropertyTypes, AbstractTileProperty> tileProperties = tileImage.getTileProperties();
+
+        if (tileProperties != null && !tileProperties.isEmpty()) {
+            VisTable buttonTable = new VisTable();
+            VisScrollPane scrollPane = new VisScrollPane(buttonTable);
+            scrollPane.setOverscroll(false, false);
+            scrollPane.setFlickScroll(false);
+            scrollPane.setFadeScrollBars(false);
+            scrollPane.setScrollbarsOnTop(true);
+            scrollPane.setScrollingDisabled(true, false);
+            propertiesTable.add(scrollPane).growX().expandY().top();
+
+            // Add image buttons that represent the item. Filter by category.
+            for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
+                buttonTable.add(abstractTileProperty.buildEditorTable()).row();
+            }
+
+            scrollPane.layout();
         }
-
-        VisTable buttonTable = new VisTable();
-        VisScrollPane scrollPane = new VisScrollPane(buttonTable);
-        scrollPane.setOverscroll(false, false);
-        scrollPane.setFlickScroll(false);
-        scrollPane.setFadeScrollBars(false);
-        scrollPane.setScrollbarsOnTop(true);
-        scrollPane.setScrollingDisabled(true, false);
-        propertiesTable.add(scrollPane).growX().expandY().top();
-
-        // Add image buttons that represent the item. Filter by category.
-        for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
-            buttonTable.add(abstractTileProperty.buildEditorTable()).row();
-        }
-
-        scrollPane.layout();
-
-        return propertiesTable;
     }
 
     @Getter
@@ -323,25 +318,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                         if (button != Input.Buttons.RIGHT) return false;
 
-                        // Open drop down menu for copy / paste.
-                        Vector2 stageLocation = ActorUtil.getStageLocation(visImageButton);
-
-                        // Setting X location
-                        if (stageLocation.x > Gdx.graphics.getWidth() / 2f) {
-                            tilePropertyDropDownMenu.setX(stageLocation.x - tilePropertyDropDownMenu.getWidth());
-                        } else {
-                            tilePropertyDropDownMenu.setX(stageLocation.x + tilePropertyDropDownMenu.getWidth());
-                        }
-
-                        // Setting Y location
-                        if (stageLocation.y > Gdx.graphics.getHeight() / 2f) {
-                            tilePropertyDropDownMenu.setY(stageLocation.y - tilePropertyDropDownMenu.getHeight());
-                        } else {
-                            tilePropertyDropDownMenu.setY(stageLocation.y + tilePropertyDropDownMenu.getHeight());
-                        }
-
-                        tilePropertyDropDownMenu.setVisible(true);
-                        tilePropertyDropDownMenu.toFront();
+                        tilePropertyDropDownMenu.toggleDropDownTable(visImageButton);
                         return true;
                     }
                 });
@@ -370,7 +347,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         }
     }
 
-    public class TilePropertyDropDownMenu extends HideableVisWindow implements Buildable {
+    public class TilePropertyDropDownMenu extends HideableVisWindow {
 
         private HideableVisWindow hideableVisWindow;
 
@@ -379,11 +356,11 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             this.hideableVisWindow = this;
         }
 
-        @Override
-        public Actor build(StageHandler stageHandler) {
+        void toggleDropDownTable(VisImageButton visImageButton) {
+            hideableVisWindow.clear();
             VisTable mainTable = new VisTable();
-            LeftAlignTextButton copyButton = new LeftAlignTextButton("[YELLOW]Copy Tile Properties");
-            LeftAlignTextButton pasteButton = new LeftAlignTextButton("[YELLOW]Paste Tile Properties");
+            LeftAlignTextButton copyButton = new LeftAlignTextButton("[YELLOW]Copy " + tileImage.getFileName() + "'s Properties");
+            LeftAlignTextButton pasteButton = new LeftAlignTextButton("[YELLOW]Paste " + tileImage.getFileName() + "'s Properties");
             LeftAlignTextButton cancelButton = new LeftAlignTextButton("Cancel");
 
             mainTable.add(copyButton).expand().fill().row();
@@ -394,17 +371,23 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             copyButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    copiedTileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>(tileImage.getTileProperties());
                     hideableVisWindow.fadeOut();
+                    copiedTileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>(tileImage.getTileProperties());
                 }
             });
 
             pasteButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    tileImage.getTileProperties().putAll(copiedTileProperties);
-                    buildPropertiesTable();
                     hideableVisWindow.fadeOut();
+
+                    // Updated to make sure tile properties are added the "correct" way.
+                    for (AbstractTileProperty abstractTileProperty : copiedTileProperties.values()) {
+                        tileImage.setCustomTileProperty(abstractTileProperty);
+                    }
+
+                    // Rebuild the table view
+                    buildPropertiesTable();
                 }
             });
 
@@ -416,9 +399,27 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                 }
             });
 
+            // Open drop down menu for copy / paste.
+            Vector2 stageLocation = ActorUtil.getStageLocation(visImageButton);
+
+            // Setting X location
+            if (stageLocation.x > Gdx.graphics.getWidth() / 2f) {
+                setX(stageLocation.x - getWidth());
+            } else {
+                setX(stageLocation.x + getWidth());
+            }
+
+            // Setting Y location
+            if (stageLocation.y > Gdx.graphics.getHeight() / 2f) {
+                setY(stageLocation.y - getHeight());
+            } else {
+                setY(stageLocation.y + getHeight());
+            }
+
+
             pack();
-            setVisible(false);
-            return this;
+            setVisible(true);
+            toFront();
         }
     }
 }

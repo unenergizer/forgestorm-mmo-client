@@ -94,22 +94,27 @@ public class MapRenderer implements Disposable {
      *
      * @param mapName The tiled map based on name
      */
-    public void setTiledMap(String mapName) {
+    public void setJsonMap(String mapName) {
         EntityManager.getInstance().dispose(); // quick clear existing entities
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         if (playerClient != null) playerClient.setTargetEntity(null);
         gameMapNameFromServer = mapName;
-        String filePath = FilePaths.MAPS.getFilePath() + "/" + mapName + ".tmx";
+        String filePath = FilePaths.MAPS.getFilePath() + "/" + mapName + ".json";
         println(getClass(), "Map Path: " + filePath, false, PRINT_DEBUG);
         println(getClass(), "Map Name: " + mapName, false, PRINT_DEBUG);
-        ClientMain.getInstance().getFileManager().loadTiledMap(filePath);
-        tiledMap = ClientMain.getInstance().getFileManager().getTiledMap(filePath);
+//        ClientMain.getInstance().getFileManager().loadJsonMap(filePath);
+//        tiledMap = ClientMain.getInstance().getFileManager().getTiledMap(filePath);
+//         ClientMain.getInstance().getMapManager().getGameMap(filePath);
 
-        if (orthogonalTiledMapRenderer == null) {
-            orthogonalTiledMapRenderer = new AntiBleedOrthogonalTiledMapRenderer(tiledMap, spriteBatch);
-        } else {
-            orthogonalTiledMapRenderer.setMap(ClientMain.getInstance().getFileManager().getTiledMap(filePath));
-        }
+        ClientMain.getInstance().getGameScreen().setCurrentGameMap(
+                ClientMain.getInstance().getMapManager().getGameMap(mapName)
+        );
+
+//        if (orthogonalTiledMapRenderer == null) {
+//            orthogonalTiledMapRenderer = new AntiBleedOrthogonalTiledMapRenderer(tiledMap, spriteBatch);
+//        } else {
+//            orthogonalTiledMapRenderer.setMap(ClientMain.getInstance().getFileManager().getTiledMap(filePath));
+//        }
 
         // Map loaded, now fade it in!
         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);

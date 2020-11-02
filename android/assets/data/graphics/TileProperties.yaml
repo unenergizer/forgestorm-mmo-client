@@ -3,16 +3,18 @@
   fileName: bag-01
   layerDefinition: GROUND
   tileProperties:
-    DOOR:
-      magicLockingLevel: 123
     INTERACTIVE_CONTAINER:
-      isBreakable: true
+      isBreakable: false
+    WATER:
+      isWater: true
 1:
-  buildCategory: WALKABLE
+  buildCategory: DECORATION
   fileName: bag-02
   layerDefinition: GROUND
   tileProperties:
+    COLLISION_BLOCK:
     DOOR:
       magicLockingLevel: 321
-    INTERACTIVE_CONTAINER:
-      isBreakable: false
+2:
+  buildCategory: DECORATION
+  fileName: bush-large-01

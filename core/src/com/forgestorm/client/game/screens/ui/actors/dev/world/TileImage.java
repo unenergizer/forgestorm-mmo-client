@@ -37,7 +37,11 @@ public class TileImage {
         println(getClass(), "BuildCategory: " + buildCategory, false, PRINT_DEBUG);
     }
 
-    public AbstractTileProperty getPropertie(TilePropertyTypes tilePropertyTypes) {
+    public boolean containsProperty(TilePropertyTypes tilePropertyType) {
+        return tileProperties.containsKey(tilePropertyType);
+    }
+
+    public AbstractTileProperty getProperty(TilePropertyTypes tilePropertyTypes) {
         return this.tileProperties.get(tilePropertyTypes);
     }
 

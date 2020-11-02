@@ -23,6 +23,7 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MapRenderer;
 import com.forgestorm.client.game.world.maps.MapUtil;
@@ -36,6 +37,7 @@ import com.forgestorm.client.util.PixmapUtil;
 import java.util.Map;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -70,11 +72,13 @@ public class GameScreen implements Screen {
     private Texture invalidTileLocationTexture;
     private Texture validTileLocationTexture;
 
-    @Getter
     private Texture shadow;
     private int distance;
     private Color darkGray;
     private Color red;
+
+    @Setter
+    private GameMap currentGameMap;
 
     public GameScreen(StageHandler stageHandler) {
         println(getClass(), "Invoked constructor", false, PRINT_DEBUG);
@@ -98,7 +102,6 @@ public class GameScreen implements Screen {
         font = fileManager.getFont(gameFont);
         font.setUseIntegerPositions(false);
 
-        fileManager.loadAtlas(GameAtlas.CURSOR);
         fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
         fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
         fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
@@ -158,7 +161,7 @@ public class GameScreen implements Screen {
         GraphicsUtils.clearScreen(ClientMain.getInstance().getMapManager().getBackgroundColor());
 
         // Render
-        if (mapRenderer.isReadyToRender()) {
+        if (currentGameMap != null) {
             renderGame(delta);
         } else {
             renderAccountInformation();
@@ -176,12 +179,14 @@ public class GameScreen implements Screen {
     }
 
     private void renderGame(float delta) {
-        if (!mapRenderer.isReadyToRender()) return;
+//        if (!mapRenderer.isReadyToRender()) return;
+        if (currentGameMap == null) return;
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         tickGameLogic(delta);
 
-        camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
+        // TODO: fix clamping
+//        camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
         camera.update();
         spriteBatch.begin();
 
@@ -194,7 +199,10 @@ public class GameScreen implements Screen {
             spriteBatch.draw(parallaxBackground, -parallaxBackground.getWidth(), -parallaxBackground.getHeight(), srcX, srcY, Gdx.graphics.getWidth() + parallaxBackground.getWidth() * 2, Gdx.graphics.getHeight() + parallaxBackground.getHeight() * 2);
         }
 
-        mapRenderer.renderBottomMapLayers(camera);
+//        mapRenderer.renderBottomMapLayers(camera);
+
+        // Draw Temporary map....
+        currentGameMap.renderMap(spriteBatch);
 
         // Draw Screen Effects
         spriteBatch.end();
@@ -229,7 +237,7 @@ public class GameScreen implements Screen {
         // Draw damage animations
         ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
 
-        mapRenderer.renderOverheadMapLayers();
+//        mapRenderer.renderOverheadMapLayers();
 
         // Draw Names
         EntityManager.getInstance().drawEntityNames();

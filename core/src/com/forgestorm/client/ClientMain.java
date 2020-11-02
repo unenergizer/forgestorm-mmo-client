@@ -81,6 +81,7 @@ public class ClientMain extends Game {
     private StageHandler stageHandler;
     private FileManager fileManager;
     private FactionManager factionManager;
+    private WorldBuilder worldBuilder;
     private MapManager mapManager;
     private ClientMovementProcessor clientMovementProcessor;
     private ClientPlayerMovementManager clientPlayerMovementManager;
@@ -94,7 +95,6 @@ public class ClientMain extends Game {
     private EffectManager effectManager;
     private LanguageManager languageManager;
     private TradeManager tradeManager;
-    private WorldBuilder worldBuilder;
 
     private InputMultiplexer inputMultiplexer;
 
@@ -128,6 +128,7 @@ public class ClientMain extends Game {
         audioManager = new AudioManager();
         fileManager = new FileManager();
         factionManager = new FactionManager();
+        worldBuilder = new WorldBuilder();
         mapManager = new MapManager(ideRun);
         windowManager = new WindowManager();
         clientMovementProcessor = new ClientMovementProcessor();
@@ -143,7 +144,6 @@ public class ClientMain extends Game {
         abilityManager = new AbilityManager();
         effectManager = new EffectManager();
         languageManager = new LanguageManager();
-        worldBuilder = new WorldBuilder();
 
         // load screens
         stageHandler = new StageHandler();

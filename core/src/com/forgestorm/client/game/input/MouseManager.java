@@ -299,22 +299,22 @@ public class MouseManager {
     private TextureRegionDrawable cursorDrawable;
 
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch) {
-        GameMap gameMap = playerClient.getGameMap();
-        if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
-        CursorDrawType cursorDrawType = gameMap.getMapTiles()[mouseTileX][mouseTileY].getCursorDrawType();
-
-        if (cursorDrawType != lastCursorDrawType && cursorDrawType != CursorDrawType.NO_DRAWABLE) {
-            lastCursorDrawType = cursorDrawType;
-            cursorDrawable = new ImageBuilder(GameAtlas.CURSOR, cursorDrawType.getDrawableRegion(), cursorDrawType.getSize()).buildTextureRegionDrawable();
-        }
-
-        if (cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
-        fadeOut.draw(spriteBatch,
-                cursorDrawable,
-                mouseWorldX - cursorDrawType.getSize() / 2f,
-                mouseWorldY - cursorDrawType.getSize() / 2f,
-                cursorDrawType.getSize(),
-                cursorDrawType.getSize());
+//        GameMap gameMap = playerClient.getGameMap();
+//        if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
+//        CursorDrawType cursorDrawType = gameMap.getMapTiles()[mouseTileX][mouseTileY].getCursorDrawType();
+//
+//        if (cursorDrawType != lastCursorDrawType && cursorDrawType != CursorDrawType.NO_DRAWABLE) {
+//            lastCursorDrawType = cursorDrawType;
+//            cursorDrawable = new ImageBuilder(GameAtlas.CURSOR, cursorDrawType.getDrawableRegion(), cursorDrawType.getSize()).buildTextureRegionDrawable();
+//        }
+//
+//        if (cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
+//        fadeOut.draw(spriteBatch,
+//                cursorDrawable,
+//                mouseWorldX - cursorDrawType.getSize() / 2f,
+//                mouseWorldY - cursorDrawType.getSize() / 2f,
+//                cursorDrawType.getSize(),
+//                cursorDrawType.getSize());
     }
 
     public void drawMoveNodes(SpriteBatch spriteBatch) {

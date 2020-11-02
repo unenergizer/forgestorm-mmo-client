@@ -15,8 +15,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.forgestorm.client.game.audio.AudioData;
 import com.forgestorm.client.io.type.GameAtlas;
@@ -196,48 +194,6 @@ public class FileManager {
         }
 
         return texture;
-    }
-
-    /**
-     * Attempts to load a TMX map file.
-     *
-     * @param mapFilePath The tmx map file to load.
-     */
-    public void loadTiledMap(String mapFilePath) {
-        // check if already loaded
-        if (isFileLoaded(mapFilePath)) {
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(mapFilePath).exists()) {
-            TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
-            params.textureMinFilter = Texture.TextureFilter.Nearest;
-            params.textureMagFilter = Texture.TextureFilter.Nearest;
-            assetManager.setLoader(TiledMap.class, new TmxMapLoader(filePathResolver));
-            assetManager.load(mapFilePath, TiledMap.class);
-            assetManager.finishLoadingAsset(mapFilePath);
-        } else {
-            throw new RuntimeException("GameMap Doesn't exist: " + mapFilePath);
-        }
-    }
-
-    /**
-     * Attempts to get a loaded TMX map from the asset manager.
-     *
-     * @param mapFilePath The TMX map to retrieve.
-     * @return A TMX tiled map.
-     */
-    public TiledMap getTiledMap(String mapFilePath) {
-        TiledMap tiledMap = null;
-
-        if (assetManager.isLoaded(mapFilePath)) {
-            tiledMap = assetManager.get(mapFilePath, TiledMap.class);
-        } else {
-            println(getClass(), "TiledMap not loaded: " + mapFilePath, true, PRINT_DEBUG);
-        }
-
-        return tiledMap;
     }
 
     public void loadFont(GameFont gameFont) {

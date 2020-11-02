@@ -44,6 +44,7 @@ public class WorldBuilder {
         // Load Tiles atlas
         FileManager fileManager = ClientMain.getInstance().getFileManager();
         fileManager.loadAtlas(GameAtlas.TILES);
+        fileManager.loadAtlas(GameAtlas.CURSOR);
         textureAtlas = fileManager.getAtlas(GameAtlas.TILES);
         regions = textureAtlas.getRegions();
         println(getClass(), "Number of " + GameAtlas.TILES + " textures: " + textureAtlas.getTextures().size);

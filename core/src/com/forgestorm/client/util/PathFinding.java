@@ -1,10 +1,10 @@
 package com.forgestorm.client.util;
 
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MapUtil;
-import com.forgestorm.client.game.world.maps.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,11 +49,11 @@ public class PathFinding {
             for (short j = 0; j < GRID_LENGTH; j++) {
                 short worldX = (short) (bottomX + i);
                 short worldY = (short) (bottomY + j);
-                Tile worldTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), worldX, worldY));
+                TileImage worldTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), worldX, worldY));
 
                 if (worldTile == null) {
                     grid[i][j] = null;
-                } else if (!worldTile.isFlagSet(Tile.TRAVERSABLE)) {
+                } else if (!MapUtil.isTraversable(EntityManager.getInstance().getPlayerClient().getGameMap(), worldX, worldY)) {
                     if (ignoreFinalCollision) {
                         if (worldX == finalX && worldY == finalY) {
                             println(getClass(), "FINAL [X,Y] = " + "[" + worldX + ", " + worldY + "]", false, PRINT_DEBUG);
@@ -83,12 +83,15 @@ public class PathFinding {
     private boolean initialConditions(short startX, short startY, short finalX, short finalY, boolean ignoreFinalCollision) {
         if (startX == finalX && startY == finalY) return false;
 
-        Tile startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
-        Tile endTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), finalX, finalY));
+        TileImage startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
+        TileImage endTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), finalX, finalY));
 
-        if (startTile == null || !startTile.isFlagSet(Tile.TRAVERSABLE)) return false;
+        boolean startTileTraversable = MapUtil.isTraversable(EntityManager.getInstance().getPlayerClient().getGameMap(), startX, startY);
+        boolean endTileTraversable = MapUtil.isTraversable(EntityManager.getInstance().getPlayerClient().getGameMap(), finalX, finalY);
+
+        if (startTile == null || !startTileTraversable) return false;
         if (endTile == null) return false;
-        if (!ignoreFinalCollision && !endTile.isFlagSet(Tile.TRAVERSABLE)) return false;
+        if (!ignoreFinalCollision && !endTileTraversable) return false;
         return Math.abs(finalX - startX) <= ALGORITHM_RADIUS && Math.abs(finalY - startY) <= ALGORITHM_RADIUS;
     }
 

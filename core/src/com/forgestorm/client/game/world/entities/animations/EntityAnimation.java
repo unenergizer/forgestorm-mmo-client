@@ -61,13 +61,20 @@ public abstract class EntityAnimation {
             frameList = idleAnimation();
         }
 
+        final float CORRECTION = 0.005F;
+
+
         if (frameList == null) return;
         for (ColoredTextureRegion frame : frameList) {
+            TextureRegion textureRegion = frame.getTextureRegion();
             spriteBatch.setColor(frame.getRegionColor());
+
             if (frame.getWidth() != 0 && frame.getHeight() != 0) {
-                spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX() + frame.getXAxisOffset(), movingEntity.getDrawY() + frame.getYAxisOffset(), frame.getWidth(), frame.getHeight());
+                spriteBatch.draw(textureRegion, movingEntity.getDrawX() + frame.getXAxisOffset(), movingEntity.getDrawY() + frame.getYAxisOffset(),
+                        frame.getWidth()+CORRECTION, frame.getHeight()+CORRECTION);
             } else {
-                spriteBatch.draw(frame.getTextureRegion(), movingEntity.getDrawX(), movingEntity.getDrawY() + frame.getYAxisOffset());
+                spriteBatch.draw(textureRegion, movingEntity.getDrawX(), movingEntity.getDrawY() + frame.getYAxisOffset(),
+                        textureRegion.getRegionWidth()+CORRECTION, textureRegion.getRegionHeight()+CORRECTION);
             }
             spriteBatch.setColor(Color.WHITE);
         }
