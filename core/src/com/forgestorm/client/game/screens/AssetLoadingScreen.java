@@ -20,8 +20,9 @@ import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
 import com.kotcrab.vis.ui.VisUI;
 
-import static com.forgestorm.client.util.Log.println;
-
+/**
+ * Loading Screen originally from: https://github.com/Matsemann/libgdx-loading-screen
+ */
 public class AssetLoadingScreen implements Screen {
 
     private final FileManager fileManager;
@@ -29,7 +30,6 @@ public class AssetLoadingScreen implements Screen {
 
     private Stage stage;
 
-    private Image logo;
     private Image loadingFrame;
     private Image loadingBarHidden;
     private Image screenBg;
@@ -59,18 +59,11 @@ public class AssetLoadingScreen implements Screen {
         TextureAtlas atlas = assetManager.get("data/loading.pack", TextureAtlas.class);
 
         // Grab the regions from the atlas and create some images
-        logo = new Image(atlas.findRegion("libgdx-logo"));
         loadingFrame = new Image(atlas.findRegion("loading-frame"));
         loadingBarHidden = new Image(atlas.findRegion("loading-bar-hidden"));
         screenBg = new Image(atlas.findRegion("screen-bg"));
         loadingBg = new Image(atlas.findRegion("loading-frame-bg"));
-
-        // Add the loading bar animation
-        Animation<TextureRegion> anim = new Animation<TextureRegion>(
-                0.05f, atlas.findRegions("loading-bar-anim")
-        );
-        anim.setPlayMode(Animation.PlayMode.LOOP_REVERSED);
-        loadingBar = new LoadingBar(anim);
+        loadingBar = new Image(atlas.findRegion("loading-bar1"));
 
         // Add all the actors to the stage
         stage.addActor(screenBg);
@@ -78,7 +71,6 @@ public class AssetLoadingScreen implements Screen {
         stage.addActor(loadingBg);
         stage.addActor(loadingBarHidden);
         stage.addActor(loadingFrame);
-        stage.addActor(logo);
 
         // Front load this.. Does not show progress on loading bar yet...
         VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
@@ -125,10 +117,6 @@ public class AssetLoadingScreen implements Screen {
         loadingBar.setX(loadingFrame.getX() + 15);
         loadingBar.setY(loadingFrame.getY() + 5);
 
-        // Place the logo in the middle of the screen
-        logo.setX((stage.getWidth() - logo.getWidth()) / 2);
-        logo.setY(loadingFrame.getY() + loadingFrame.getHeight() + 15);
-
         // Place the image that will hide the bar on top of the bar, adjusted a few px
         loadingBarHidden.setX(loadingBar.getX() + 35);
         loadingBarHidden.setY(loadingBar.getY() - 3);
@@ -157,12 +145,8 @@ public class AssetLoadingScreen implements Screen {
         // Clear the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (assetManager.update()) { // Load some, will return true if done loading
-            if (Gdx.input.isTouched()) { // If the screen is touched after the game is done loading, go to the main menu screen
-                println(getClass(), "INITING GAME MANAGERS", true);
-                ClientMain.getInstance().initGameManagers();
-            }
-        }
+        // update() returns true when loading is finished.
+        if (assetManager.update()) ClientMain.getInstance().initGameManagers();
 
         // Interpolate the percentage to make it more smooth
         percent = Interpolation.linear.apply(percent, assetManager.getProgress(), 0.1f);
@@ -189,28 +173,4 @@ public class AssetLoadingScreen implements Screen {
     public void dispose() {
 
     }
-
-    public class LoadingBar extends Actor {
-
-        Animation<? extends TextureRegion> animation;
-        TextureRegion reg;
-        float stateTime;
-
-        LoadingBar(Animation<? extends TextureRegion> animation) {
-            this.animation = animation;
-            reg = animation.getKeyFrame(0);
-        }
-
-        @Override
-        public void act(float delta) {
-            stateTime += delta;
-            reg = animation.getKeyFrame(stateTime);
-        }
-
-        @Override
-        public void draw(Batch batch, float parentAlpha) {
-            batch.draw(reg, getX(), getY());
-        }
-    }
-
 }
