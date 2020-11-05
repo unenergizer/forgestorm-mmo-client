@@ -6,19 +6,18 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.util.color.EyeColorList;
 import com.forgestorm.client.util.color.HairColorList;
 import com.forgestorm.client.util.color.LibGDXColorList;
 import com.forgestorm.client.util.color.SkinColorList;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class CharacterPreviewer {
 
@@ -182,11 +181,7 @@ public class CharacterPreviewer {
     private VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
         VisTable innerTable = new VisTable();
 
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
-
-        fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
-
-        TextureAtlas textureAtlas = fileManager.getAtlas(GameAtlas.ENTITY_CHARACTER);
+        TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(region));
         textureRegionDrawable.setMinWidth(width);
         textureRegionDrawable.setMinHeight(height);

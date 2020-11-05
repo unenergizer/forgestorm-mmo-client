@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.io.NetworkSettingsLoader;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
 import com.forgestorm.client.network.game.LoginCredentials;
@@ -18,7 +19,7 @@ import static com.forgestorm.client.util.Log.println;
 
 public class ConnectionManager {
 
-    private final NetworkSettings networkSettings;
+    private final NetworkSettingsLoader.NetworkSettingsData networkSettingsData;
     private final LoginCredentials loginCredentials;
     private final Consumer<EventBus> registerListeners;
 
@@ -32,9 +33,9 @@ public class ConnectionManager {
     @Getter
     private OutputStreamManager outputStreamManager;
 
-    public ConnectionManager(final NetworkSettings networkSettings, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
+    public ConnectionManager(final NetworkSettingsLoader.NetworkSettingsData networkSettingsData, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
         println(getClass(), "Force LocalHost: " + ClientMain.getInstance().isForceLocalHost());
-        this.networkSettings = networkSettings;
+        this.networkSettingsData = networkSettingsData;
         this.loginCredentials = loginCredentials;
         this.registerListeners = registerListeners;
     }
@@ -116,7 +117,7 @@ public class ConnectionManager {
 
         @Override
         public void run() {
-            if (!clientLoginConnection.openConnection(networkSettings.getLoginIp(), networkSettings.getLoginPort())) {
+            if (!clientLoginConnection.openConnection(networkSettingsData.getLoginIp(), networkSettingsData.getLoginPort())) {
                 return;
             }
 
@@ -130,8 +131,8 @@ public class ConnectionManager {
 
             clientGameConnection.openConnection(
                     loginState.getUuid(),
-                    networkSettings.getGameIp(),
-                    networkSettings.getGamePort(),
+                    networkSettingsData.getGameIp(),
+                    networkSettingsData.getGamePort(),
                     registerListeners);
         }
     }

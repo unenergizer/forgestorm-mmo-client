@@ -22,8 +22,8 @@ public class MusicManager implements Disposable {
     private AudioData audioData;
     private boolean isMusicPaused = false;
 
-    MusicManager(Map<Short, AudioData> gameMusic) {
-        this.gameMusic = gameMusic;
+    MusicManager() {
+        this.gameMusic = ClientMain.getInstance().getFileManager().getMusicData().getMusicDataMap();
         audioPreferences.setPlayLoginScreenMusic(ClientMain.getInstance().isPlayIntroMusic());
     }
 

@@ -15,8 +15,6 @@ import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.io.AbilityLoader;
-import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.AbilityRequestPacketOut;
 
@@ -41,12 +39,10 @@ public class AbilityManager implements GameQuitReset, Disposable {
     private List<AbilityAnimation> abilityAnimationList = new ArrayList<AbilityAnimation>();
 
     public AbilityManager() {
-        combatAbilities = new AbilityLoader().loadAbilities();
+        combatAbilities = ClientMain.getInstance().getFileManager().getAbilityData().getCombatAbilitiesMap();
 
-        // Load Atlas
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
-        fileManager.loadAtlas(GameAtlas.PIXEL_FX);
-        textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
+        // Get Atlas
+        textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.PIXEL_FX);
         println(getClass(), "Number of " + GameAtlas.PIXEL_FX + " textures: " + textureAtlas.getTextures().size);
     }
 

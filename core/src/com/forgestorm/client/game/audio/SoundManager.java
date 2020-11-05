@@ -24,8 +24,8 @@ public class SoundManager implements Disposable {
     private AudioData audioData;
     private long id;
 
-    SoundManager(Map<Short, AudioData> soundFX) {
-        this.soundFX = soundFX;
+    SoundManager() {
+        this.soundFX = ClientMain.getInstance().getFileManager().getSoundData().getSoundDataMap();
     }
 
     public void playSoundFx(Class clazz, short audioId) {

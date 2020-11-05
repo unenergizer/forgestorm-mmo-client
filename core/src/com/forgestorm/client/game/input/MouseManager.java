@@ -1,6 +1,7 @@
 package com.forgestorm.client.game.input;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -322,6 +323,19 @@ public class MouseManager {
             Queue<MoveNode> remainingMoveNodes = ClientMain.getInstance().getClientPlayerMovementManager().getMovements();
             for (MoveNode moveNode : remainingMoveNodes) {
                 spriteBatch.draw(new ImageBuilder(GameAtlas.CURSOR, "path_find").buildTextureRegionDrawable().getRegion(), moveNode.getWorldX() * ClientConstants.TILE_SIZE, moveNode.getWorldY() * ClientConstants.TILE_SIZE);
+            }
+        }
+    }
+
+    public void drawMouseHoverIcon(SpriteBatch spriteBatch, PlayerClient playerClient, Texture validTileLocationTexture, Texture invalidTileLocationTexture) {
+        if (isHighlightHoverTile()) {
+            int x = getMouseTileX() * ClientConstants.TILE_SIZE;
+            int y = getMouseTileY() * ClientConstants.TILE_SIZE;
+            Location clientLocation = playerClient.getCurrentMapLocation();
+            if (MapUtil.isTraversable(clientLocation.getMapData(), getMouseTileX(), getMouseTileY())) {
+                spriteBatch.draw(validTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
+            } else {
+                spriteBatch.draw(invalidTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
             }
         }
     }

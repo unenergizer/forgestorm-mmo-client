@@ -8,36 +8,27 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.GameTextures;
 import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.input.Keyboard;
 import com.forgestorm.client.game.input.Mouse;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
-import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameMap;
-import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MapRenderer;
-import com.forgestorm.client.game.world.maps.MapUtil;
 import com.forgestorm.client.io.FileManager;
-import com.forgestorm.client.io.type.GameAtlas;
-import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GraphicsUtils;
 import com.forgestorm.client.util.PixmapUtil;
 
-import java.util.Map;
-
 import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -49,7 +40,6 @@ public class GameScreen implements Screen {
     private final StageHandler stageHandler;
     private final FileManager fileManager = ClientMain.getInstance().getFileManager();
 
-    private MapRenderer mapRenderer;
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
     private SpriteBatch spriteBatch;
@@ -57,11 +47,6 @@ public class GameScreen implements Screen {
     private boolean gameFocused = true;
 
     private Keyboard keyboard = new Keyboard();
-
-    // TODO: RELOCATE
-    private Texture parallaxBackground;
-    private int srcX = 0; //TODO RELOCATE PARALLAX BG
-    private int srcY = 0; //TODO RELOCATE PARALLAX BG
 
     private BitmapFont font;
 
@@ -72,24 +57,13 @@ public class GameScreen implements Screen {
     private Texture invalidTileLocationTexture;
     private Texture validTileLocationTexture;
 
-    private Texture shadow;
-    private int distance;
-    private Color darkGray;
-    private Color red;
-
-    @Setter
-    private GameMap currentGameMap;
-
     public GameScreen(StageHandler stageHandler) {
-        println(getClass(), "Invoked constructor", false, PRINT_DEBUG);
         this.stageHandler = stageHandler;
     }
 
     @Override
     public void show() {
-        println(getClass(), "Invoked: show()", false, PRINT_DEBUG);
         spriteBatch = new SpriteBatch();
-        mapRenderer = new MapRenderer(spriteBatch);
 
         // Setup camera
         camera = new AttachableCamera(ClientConstants.SCREEN_RESOLUTION, ClientConstants.ZOOM_DEFAULT);
@@ -97,31 +71,21 @@ public class GameScreen implements Screen {
         stageHandler.setViewport(screenViewport);
 
         // Load assets
-        GameFont gameFont = GameFont.PIXEL;
-        fileManager.loadFont(gameFont);
-        font = fileManager.getFont(gameFont);
-        font.setUseIntegerPositions(false);
+//        font = fileManager.getFont(GameFont.PIXEL);
+//        font.setUseIntegerPositions(false);
 
-        fileManager.loadTexture(GameTexture.LOGIN_BACKGROUND);
-        fileManager.loadAtlas(GameAtlas.ENTITY_CHARACTER);
-        fileManager.loadAtlas(GameAtlas.ENTITY_MONSTER);
-        fileManager.loadAtlas(GameAtlas.SKILL_NODES);
-        fileManager.loadAtlas(GameAtlas.TILES);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("graphics/font/other/consola.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 12;
+//        parameter.minFilter = Texture.TextureFilter.Linear;
+//        parameter.magFilter = Texture.TextureFilter.Linear;
+        parameter.kerning = false;
+        parameter.packer = null;
+        font = generator.generateFont(parameter); // font size 12 pixels
+        generator.dispose();
 
-        // Entity Shadows
-        fileManager.loadTexture(GameTexture.SHADOW);
-        shadow = fileManager.getTexture(GameTexture.SHADOW);
-
-        distance = -3;
-        darkGray = Color.DARK_GRAY;
-        darkGray.a = .7f;
-        red = Color.RED;
-        red.a = .7f;
-
-        // Parallax Background
-        fileManager.loadTexture(GameTexture.PARALLAX_BACKGROUND);
-        parallaxBackground = fileManager.getTexture(GameTexture.PARALLAX_BACKGROUND);
-        parallaxBackground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        // Setting global textures
+        GameTextures.entityShadow = fileManager.getTexture(GameTexture.SHADOW);
 
         // TODO: Change mouse cursor
 //        fileManager.loadPixmap(GamePixmap.CURSOR_1);
@@ -158,10 +122,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        GraphicsUtils.clearScreen(ClientMain.getInstance().getMapManager().getBackgroundColor());
-
-        // Render
-        if (currentGameMap != null) {
+        if (ClientMain.getInstance().getMapManager().getCurrentGameMap() != null) {
             renderGame(delta);
         } else {
             renderAccountInformation();
@@ -171,6 +132,7 @@ public class GameScreen implements Screen {
     }
 
     private void renderAccountInformation() {
+        GraphicsUtils.clearScreen(Color.BLACK);
         Texture texture = fileManager.getTexture(GameTexture.LOGIN_BACKGROUND);
 
         spriteBatch.begin();
@@ -179,65 +141,31 @@ public class GameScreen implements Screen {
     }
 
     private void renderGame(float delta) {
-//        if (!mapRenderer.isReadyToRender()) return;
-        if (currentGameMap == null) return;
+        if (ClientMain.getInstance().getMapManager().getCurrentGameMap() == null) return;
+        GraphicsUtils.clearScreen(ClientMain.getInstance().getMapManager().getCurrentGameMap().getBackgroundColor());
+
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         tickGameLogic(delta);
 
-        // TODO: fix clamping
-//        camera.clampCamera(screenViewport, mapRenderer.getTiledMap());
+        camera.clampCamera(screenViewport, getGameMap());
         camera.update();
+
         spriteBatch.begin();
 
-        //TODO RELOCATE PARALLAX BG
-        if (mapRenderer.getGameMapNameFromServer().equals("floating_island")) {
-            srcX += 2;
-            srcY -= 3;
-            if (srcX >= parallaxBackground.getWidth()) srcX = 0;
-            if (srcY <= -parallaxBackground.getHeight()) srcY = 0;
-            spriteBatch.draw(parallaxBackground, -parallaxBackground.getWidth(), -parallaxBackground.getHeight(), srcX, srcY, Gdx.graphics.getWidth() + parallaxBackground.getWidth() * 2, Gdx.graphics.getHeight() + parallaxBackground.getHeight() * 2);
-        }
+        getGameMap().drawParallax(spriteBatch);
 
-//        mapRenderer.renderBottomMapLayers(camera);
-
-        // Draw Temporary map....
-        currentGameMap.renderMap(spriteBatch);
-
-        // Draw Screen Effects
-        spriteBatch.end();
-        ClientMain.getInstance().getEffectManager().drawScreenEffect();
-        spriteBatch.begin();
+        getGameMap().renderBottomLayers(spriteBatch);
 
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        // Draw Shadow and Shadow color
-        spriteBatch.setColor(darkGray);
-        Map<Short, AiEntity> aiEntityMap = EntityManager.getInstance().getAiEntityList();
-        for (AiEntity aiEntity : aiEntityMap.values()) {
-            spriteBatch.draw(shadow, aiEntity.getDrawX(), aiEntity.getDrawY() + distance);
-        }
-        Map<Short, Player> playerEntityList = EntityManager.getInstance().getPlayerEntityList();
-        for (Player player : playerEntityList.values()) {
-            spriteBatch.draw(shadow, player.getDrawX(), player.getDrawY() + distance);
-        }
-        MovingEntity movingEntity = playerClient.getTargetEntity();
-        if (movingEntity != null) {
-            spriteBatch.setColor(red);
-            spriteBatch.draw(shadow, movingEntity.getDrawX(), movingEntity.getDrawY() + distance);
-        }
-        Player player = EntityManager.getInstance().getPlayerClient();
-        spriteBatch.setColor(darkGray);
-        spriteBatch.draw(shadow, player.getDrawX(), player.getDrawY() + distance);
-        spriteBatch.setColor(Color.WHITE); // RESET COLOR
-
-        // Animate
-        EntityManager.getInstance().drawEntityBodies(delta, spriteBatch, playerClient);
+        // Drawing all entities. Ground items, moving entities, ect...
+        EntityManager.getInstance().drawEntities(delta, spriteBatch, playerClient);
 
         // Draw damage animations
         ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
 
-//        mapRenderer.renderOverheadMapLayers();
+        // TODO: RENDER OVERHEAD LAYERS HERE
 
         // Draw Names
         EntityManager.getInstance().drawEntityNames();
@@ -257,16 +185,7 @@ public class GameScreen implements Screen {
         // Draw mouse
         MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
         mouseManager.drawMoveNodes(spriteBatch);
-        if (mouseManager.isHighlightHoverTile()) {
-            int x = mouseManager.getMouseTileX() * 16;
-            int y = mouseManager.getMouseTileY() * 16;
-            Location clientLocation = playerClient.getCurrentMapLocation();
-            if (MapUtil.isTraversable(clientLocation.getMapData(), mouseManager.getMouseTileX(), mouseManager.getMouseTileY())) {
-                spriteBatch.draw(validTileLocationTexture, x, y, 16, 16);
-            } else {
-                spriteBatch.draw(invalidTileLocationTexture, x, y, 16, 16);
-            }
-        }
+        mouseManager.drawMouseHoverIcon(spriteBatch, playerClient, validTileLocationTexture, invalidTileLocationTexture);
 
         // Draw World Builder
         ClientMain.getInstance().getWorldBuilder().drawMouse(spriteBatch);
@@ -278,6 +197,10 @@ public class GameScreen implements Screen {
         spriteBatch.end();
     }
 
+    private GameMap getGameMap() {
+        return ClientMain.getInstance().getMapManager().getCurrentGameMap();
+    }
+
     private void tickGameLogic(float delta) {
         ClientMain.getInstance().getClientMovementProcessor().processMovement(EntityManager.getInstance().getPlayerClient());
         ClientMain.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient(), delta);
@@ -285,19 +208,16 @@ public class GameScreen implements Screen {
         ClientMain.getInstance().getEntityTracker().followTick();
         ClientMain.getInstance().getEntityTracker().walkToTick();
         ClientMain.getInstance().getAbilityManager().updateCooldowns();
-        ClientMain.getInstance().getEffectManager().tickScreenEffect(delta);
     }
 
     @Override
     public void resize(int width, int height) {
-        println(getClass(), "Invoked: resize(w: " + width + ", h: " + height + ")", false, PRINT_DEBUG);
         camera.setToOrtho(false, width, height);
         stageHandler.resize(width, height);
     }
 
     @Override
     public void pause() {
-        println(getClass(), "Invoked: pause()", false, PRINT_DEBUG);
         gameFocused = false;
         ClientMain.getInstance().getAudioManager().getMusicManager().pauseMusic();
     }
@@ -325,21 +245,17 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
-        println(getClass(), "Invoked: hide()", false, PRINT_DEBUG);
     }
 
     @Override
     public void dispose() {
-        println(getClass(), "Invoked: dispose()", false, PRINT_DEBUG);
-        mapRenderer.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
         if (font != null) font.dispose();
-        if (parallaxBackground != null) parallaxBackground.dispose();
         if (hpBase != null) hpBase.dispose();
         if (hpArea != null) hpArea.dispose();
         if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
-        if (shadow != null) shadow.dispose();
+        GameTextures.dispose();
         stageHandler.dispose();
     }
 }

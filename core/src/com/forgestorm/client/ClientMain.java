@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.forgestorm.client.game.abilities.AbilityManager;
 import com.forgestorm.client.game.audio.AudioManager;
 import com.forgestorm.client.game.input.MouseManager;
-import com.forgestorm.client.game.language.LanguageManager;
 import com.forgestorm.client.game.movement.ClientMovementProcessor;
 import com.forgestorm.client.game.movement.ClientPlayerMovementManager;
 import com.forgestorm.client.game.movement.EntityMovementManager;
@@ -14,10 +13,10 @@ import com.forgestorm.client.game.movement.EntityTracker;
 import com.forgestorm.client.game.rpg.EntityShopManager;
 import com.forgestorm.client.game.rpg.FactionManager;
 import com.forgestorm.client.game.rpg.Skills;
+import com.forgestorm.client.game.screens.AssetLoadingScreen;
 import com.forgestorm.client.game.screens.GameScreen;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.WindowManager;
-import com.forgestorm.client.game.screens.effects.EffectManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.item.ItemStackManager;
@@ -26,7 +25,6 @@ import com.forgestorm.client.game.world.item.trade.TradeManager;
 import com.forgestorm.client.game.world.maps.MapManager;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
-import com.forgestorm.client.io.NetworkSettingsLoader;
 import com.forgestorm.client.network.ConnectionManager;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
@@ -75,11 +73,13 @@ public class ClientMain extends Game {
     @Setter
     private boolean isModerator = false;
 
+    private FileManager fileManager = new FileManager();
+    private AssetLoadingScreen assetLoadingScreen;
+
     private AudioManager audioManager;
     private EntityTracker entityTracker;
     private WindowManager windowManager;
     private StageHandler stageHandler;
-    private FileManager fileManager;
     private FactionManager factionManager;
     private WorldBuilder worldBuilder;
     private MapManager mapManager;
@@ -92,8 +92,6 @@ public class ClientMain extends Game {
     private EntityShopManager entityShopManager;
     private MoveInventoryEvents moveInventoryEvents;
     private AbilityManager abilityManager;
-    private EffectManager effectManager;
-    private LanguageManager languageManager;
     private TradeManager tradeManager;
 
     private InputMultiplexer inputMultiplexer;
@@ -120,16 +118,20 @@ public class ClientMain extends Game {
 
     @Override
     public void create() {
+        // front load all assets
+        setScreen(assetLoadingScreen = new AssetLoadingScreen(fileManager));
+    }
+
+    public void initGameManagers() {
         // load input
         inputMultiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         // load managers
         audioManager = new AudioManager();
-        fileManager = new FileManager();
         factionManager = new FactionManager();
         worldBuilder = new WorldBuilder();
-        mapManager = new MapManager(ideRun);
+        mapManager = new MapManager();
         windowManager = new WindowManager();
         clientMovementProcessor = new ClientMovementProcessor();
         clientPlayerMovementManager = new ClientPlayerMovementManager();
@@ -142,8 +144,6 @@ public class ClientMain extends Game {
         entityShopManager = new EntityShopManager();
         moveInventoryEvents = new MoveInventoryEvents();
         abilityManager = new AbilityManager();
-        effectManager = new EffectManager();
-        languageManager = new LanguageManager();
 
         // load screens
         stageHandler = new StageHandler();
@@ -156,6 +156,10 @@ public class ClientMain extends Game {
 
     @Override
     public void render() {
+        if (connectionManager == null) {
+            assetLoadingScreen.render(Gdx.graphics.getDeltaTime());
+            return;
+        }
         ClientGameConnection clientGameConnection = connectionManager.getClientGameConnection();
 
         if (clientGameConnection.isConnected()) {
@@ -182,9 +186,8 @@ public class ClientMain extends Game {
     }
 
     private void initializeNetwork() {
-        NetworkSettingsLoader networkSettingsLoader = new NetworkSettingsLoader();
         connectionManager = new ConnectionManager(
-                networkSettingsLoader.loadNetworkSettings(),
+                fileManager.getNetworkSettingsData(),
                 loginCredentials,
                 new Consumer<EventBus>() {
                     @Override
@@ -223,13 +226,8 @@ public class ClientMain extends Game {
         skills.gameQuitReset();
         clientMovementProcessor.resetInput();
         abilityManager.gameQuitReset();
-        effectManager.gameQuitReset();
         tradeManager.gameQuitReset();
-        stageHandler.getChatWindow().gameQuitReset();
-        stageHandler.getBagWindow().getItemSlotContainer().resetItemSlotContainer();
-        stageHandler.getBankWindow().getItemSlotContainer().resetItemSlotContainer();
-        stageHandler.getEquipmentWindow().getItemSlotContainer().resetItemSlotContainer();
-        stageHandler.getHotBar().getItemSlotContainer().resetItemSlotContainer();
+        stageHandler.resetUI();
         EntityManager.getInstance().dispose();
     }
 }

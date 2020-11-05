@@ -1,21 +1,14 @@
 package com.forgestorm.client.game.world.maps;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Disposable;
-import com.forgestorm.client.io.FilePaths;
-import com.forgestorm.client.io.JsonMapParser;
-import com.forgestorm.client.io.ResourceList;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import lombok.Getter;
 
-import static com.forgestorm.client.util.ApplicationUtil.userOnMobile;
+import static com.forgestorm.client.util.Log.println;
 
 /**
  * Map manager does not load maps for the GameScreen to use. It currently
@@ -23,38 +16,15 @@ import static com.forgestorm.client.util.ApplicationUtil.userOnMobile;
  */
 public class MapManager implements Disposable {
 
-    private static final String EXTENSION_TYPE = ".json";
+    private static final boolean PRINT_DEBUG = false;
 
-    private final Map<String, GameMap> gameMaps = new HashMap<String, GameMap>();
+    private final Map<String, GameMap> gameMaps;
+
     @Getter
-    private Color backgroundColor = Color.BLACK;
+    private GameMap currentGameMap;
 
-    public MapManager(boolean ideRun) {
-        if (userOnMobile() || ideRun) {
-            loadMobile();
-        } else {
-            loadDesktopJar();
-        }
-    }
-
-    private void loadDesktopJar() {
-        Collection<String> files = ResourceList.getDirectoryResources(FilePaths.MAPS.getFilePath(), EXTENSION_TYPE);
-
-        for (String fileName : files) {
-            String mapName = fileName.substring(FilePaths.MAPS.getFilePath().length() + 1);
-            FileHandle fileHandle = Gdx.files.internal(FilePaths.MAPS.getFilePath() + "/" + mapName);
-            gameMaps.put(mapName.replace(EXTENSION_TYPE, ""), JsonMapParser.load(fileHandle));
-        }
-    }
-
-    private void loadMobile() {
-        FileHandle fileHandle = Gdx.files.internal(FilePaths.MAPS.getFilePath());
-        for (FileHandle entry : fileHandle.list()) {
-            // make sure were only adding game map files
-            if (entry.path().endsWith(EXTENSION_TYPE)) {
-                gameMaps.put(entry.name().replace(EXTENSION_TYPE, ""), JsonMapParser.load(entry));
-            }
-        }
+    public MapManager() {
+        this.gameMaps = ClientMain.getInstance().getFileManager().getGameMapData().getGameMaps();
     }
 
     /**
@@ -66,24 +36,22 @@ public class MapManager implements Disposable {
      * @throws RuntimeException Requested map could not be found or was not loaded.
      */
     public GameMap getGameMap(String mapName) throws RuntimeException {
+        if (gameMaps.containsKey(mapName)) return gameMaps.get(mapName);
+        return null;
+    }
 
-        GameMap gameMap;
-        if (gameMaps.containsKey(mapName)) {
-            gameMap = gameMaps.get(mapName);
-        } else if (gameMaps.containsKey(mapName.replace(EXTENSION_TYPE, ""))) {
-            gameMap = gameMaps.get(mapName.replace(EXTENSION_TYPE, ""));
-        } else {
-            throw new RuntimeException("Tried to get the map " + mapName + ", but it doesn't exist or was not loaded.");
-        }
+    /**
+     * Sets the tiled map to be rendered.
+     *
+     * @param mapName The tiled map based on name
+     */
+    public void setGameMap(String mapName) {
 
-        // Set clear screen background color
-        if (gameMap.getBackgroundColor() != null) {
-            backgroundColor = gameMap.getBackgroundColor();
-        } else {
-            backgroundColor = Color.BLACK;
-        }
+        println(getClass(), "Map Name: " + mapName, false, PRINT_DEBUG);
+        currentGameMap = getGameMap(mapName);
 
-        return gameMap;
+        // Map loaded, now fade it in!
+        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
     }
 
     @Override

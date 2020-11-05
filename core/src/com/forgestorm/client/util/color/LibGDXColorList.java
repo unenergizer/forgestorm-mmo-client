@@ -52,7 +52,10 @@ public enum LibGDXColorList {
 
     PURPLE(new Color(0xa020f0ff)),
     VIOLET(new Color(0xee82eeff)),
-    MAROON(new Color(0xb03060ff));
+    MAROON(new Color(0xb03060ff)),
+
+    ENTITY_SHADOW_GRAY(new Color(0, 0,0, .6f)),
+    ENTITY_SHADOW_RED(new Color(1, 0,0, .6f));
 
     private Color color;
 

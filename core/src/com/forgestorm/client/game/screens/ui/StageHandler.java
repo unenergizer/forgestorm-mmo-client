@@ -1,6 +1,5 @@
 package com.forgestorm.client.game.screens.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -59,7 +58,6 @@ import com.forgestorm.client.game.screens.ui.actors.login.RssAnnouncements;
 import com.forgestorm.client.game.screens.ui.actors.login.VersionTable;
 import com.forgestorm.client.game.screens.ui.actors.settings.FPSTable;
 import com.forgestorm.client.game.screens.ui.actors.settings.MainSettingsWindow;
-import com.forgestorm.client.io.type.GameSkin;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
@@ -68,10 +66,6 @@ import lombok.Getter;
 
 @Getter
 public class StageHandler implements Disposable {
-
-    static {
-        VisUI.load(Gdx.files.internal(GameSkin.DEFAULT.getFilePath()));
-    }
 
     public final static float WINDOW_PAD_X = 5;
     public final static float WINDOW_PAD_Y = 10;
@@ -306,5 +300,13 @@ public class StageHandler implements Disposable {
         for (Actor actor : stage.getActors()) {
             if (actor.isVisible()) actor.setVisible(false);
         }
+    }
+
+    public void resetUI() {
+        chatWindow.gameQuitReset();
+        bagWindow.getItemSlotContainer().resetItemSlotContainer();
+        bankWindow.getItemSlotContainer().resetItemSlotContainer();
+        equipmentWindow.getItemSlotContainer().resetItemSlotContainer();
+        hotBar.getItemSlotContainer().resetItemSlotContainer();
     }
 }

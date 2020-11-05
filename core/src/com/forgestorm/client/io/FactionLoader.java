@@ -1,7 +1,12 @@
 package com.forgestorm.client.io;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -12,21 +17,31 @@ import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
 
-public class FactionLoader {
+public class FactionLoader extends AsynchronousAssetLoader<FactionLoader.FactionDataWrapper, FactionLoader.FactionParameter> {
+
+    static class FactionParameter extends AssetLoaderParameters<FactionDataWrapper> {
+    }
 
     private static final boolean PRINT_DEBUG = false;
+    private FactionDataWrapper factionDataWrapper = null;
 
-    public Map<Byte, FactionData> loadFactionInfo() {
+    FactionLoader(FileHandleResolver resolver) {
+        super(resolver);
+    }
 
-        FileHandle fileHandle = Gdx.files.internal(FilePaths.FACTIONS.getFilePath());
+    @Override
+    public void loadAsync(AssetManager manager, String fileName, FileHandle file, FactionParameter parameter) {
+        factionDataWrapper = null;
+        factionDataWrapper = new FactionDataWrapper();
         Yaml yaml = new Yaml();
 
-        Map<Byte, FactionData> factionDataMap = new HashMap<Byte, FactionData>();
-        Map<Integer, Map<String, Object>> root = yaml.load(fileHandle.read());
+        factionDataWrapper.setByteFactionDataMap(new HashMap<Byte, FactionData>());
+        Map<Integer, Map<String, Object>> root = yaml.load(file.read());
 
         List<LoadFactionData> loadFactionData = new ArrayList<LoadFactionData>();
 
@@ -50,25 +65,33 @@ public class FactionLoader {
                     }
                 }
             }
-            factionDataMap.put(loadedFactionData.factionId, new FactionData(loadedFactionData.factionName, enemyFactionIds));
+            factionDataWrapper.getByteFactionDataMap().put(loadedFactionData.factionId, new FactionData(loadedFactionData.factionName, enemyFactionIds));
         }
 
         // Print Map
         println(PRINT_DEBUG);
         println(getClass(), "=================== LOADING FACTIONS ===================", false, PRINT_DEBUG);
-        for (Map.Entry<Byte, FactionData> entry : factionDataMap.entrySet()) {
+        for (Map.Entry<Byte, FactionData> entry : factionDataWrapper.getByteFactionDataMap().entrySet()) {
             println(getClass(), "ID: " + entry.getKey(), false, PRINT_DEBUG);
             println(getClass(), "Name: " + entry.getValue().getFactionName(), false, PRINT_DEBUG);
 
             for (Byte enemies : entry.getValue().getEnemyFactions()) {
-                println(getClass(), "Enemy: [" + enemies + "] " + factionDataMap.get(enemies).getFactionName(), false, PRINT_DEBUG);
+                println(getClass(), "Enemy: [" + enemies + "] " + factionDataWrapper.getByteFactionDataMap().get(enemies).getFactionName(), false, PRINT_DEBUG);
             }
             println(PRINT_DEBUG);
         }
         println(getClass(), "=================== FINISHED LOADING FACTIONS ===================", false, PRINT_DEBUG);
         println(PRINT_DEBUG);
+    }
 
-        return factionDataMap;
+    @Override
+    public FactionDataWrapper loadSync(AssetManager manager, String fileName, FileHandle file, FactionParameter parameter) {
+        return factionDataWrapper;
+    }
+
+    @Override
+    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, FactionParameter parameter) {
+        return null;
     }
 
     @AllArgsConstructor
@@ -85,4 +108,10 @@ public class FactionLoader {
         private byte[] enemyFactions;
     }
 
+    @SuppressWarnings("WeakerAccess")
+    @Setter
+    @Getter
+    public class FactionDataWrapper {
+        private Map<Byte, FactionData> byteFactionDataMap = null;
+    }
 }

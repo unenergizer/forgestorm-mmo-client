@@ -41,7 +41,6 @@ public class PixelFXTest extends HideableVisWindow implements Buildable, Disposa
     public Actor build(StageHandler stageHandler) {
         // Load Atlas
         FileManager fileManager = ClientMain.getInstance().getFileManager();
-        fileManager.loadAtlas(GameAtlas.PIXEL_FX);
         textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
         Array<TextureAtlas.AtlasRegion> list = textureAtlas.getRegions();
 

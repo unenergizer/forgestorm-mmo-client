@@ -4,9 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
@@ -14,6 +11,9 @@ import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.util.color.LibGDXColorList;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -106,10 +106,9 @@ public class NPCAppearancePanel implements AppearancePanel {
         glovesColor.setColor(LibGDXColorList.PLAYER_DEFAULT.getColor());
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void buildAppearancePanel() {
-        VisSelectBox hairSelectBox = new VisSelectBox();
+        VisSelectBox<LibGDXColorList> hairSelectBox = new VisSelectBox<LibGDXColorList>();
         hairSelectBox.setItems(LibGDXColorList.values());
         hairColor = new ColorPickerColorHandler() {
             @Override
@@ -124,7 +123,7 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Hair: ", hairSelectBox, hairColor);
 
-        VisSelectBox eyeSelectBox = new VisSelectBox();
+        VisSelectBox<LibGDXColorList> eyeSelectBox = new VisSelectBox<LibGDXColorList>();
         eyeSelectBox.setItems(LibGDXColorList.values());
         eyeColor = new ColorPickerColorHandler() {
             @Override
@@ -139,7 +138,7 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Eyes: ", eyeSelectBox, eyeColor);
 
-        VisSelectBox skinSelectBox = new VisSelectBox();
+        VisSelectBox<LibGDXColorList> skinSelectBox = new VisSelectBox<LibGDXColorList>();
         skinSelectBox.setItems(LibGDXColorList.values());
         skinColor = new ColorPickerColorHandler() {
             @Override
@@ -154,7 +153,7 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Skin: ", skinSelectBox, skinColor);
 
-        VisSelectBox glovesSelectBox = new VisSelectBox();
+        VisSelectBox<LibGDXColorList> glovesSelectBox = new VisSelectBox<LibGDXColorList>();
         glovesSelectBox.setItems(LibGDXColorList.values());
         glovesColor = new ColorPickerColorHandler() {
             @Override

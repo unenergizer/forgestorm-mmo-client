@@ -6,6 +6,7 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.io.type.GameAtlas;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -94,7 +95,7 @@ public class EntityManager implements Disposable {
         return itemStackDropList.get(entityId);
     }
 
-    public void drawEntityBodies(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
+    public void drawEntities(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
         // Draw Items on ground
         for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
             ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack((int) itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
@@ -105,18 +106,27 @@ public class EntityManager implements Disposable {
             spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getSingleBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
 
+        // Drawing entities and players over ItemStackDrops
+        // Putting both entity types into a collection to be sorted on the Y axis
         PriorityQueue<MovingEntity> yAxisSortedEntities = new PriorityQueue<MovingEntity>();
-
-        // Draw moving entities over items and stationary entities
-        for (AiEntity movingEntity : aiEntityList.values()) {
-            yAxisSortedEntities.add(movingEntity);
-        }
-
-        // Draw player entities over items and stationary entities
-        for (Player player : playerEntityList.values()) {
-            yAxisSortedEntities.add(player);
-        }
+        yAxisSortedEntities.addAll(aiEntityList.values());
+        yAxisSortedEntities.addAll(playerEntityList.values());
         yAxisSortedEntities.add(playerClient);
+
+        // Draw shadows underneath aiEntities
+        for (AiEntity aiEntity : aiEntityList.values()) {
+            aiEntity.drawShadow(spriteBatch);
+        }
+
+        // Draw shadows underneath players
+        for (Player player : playerEntityList.values()) {
+            player.drawShadow(spriteBatch);
+        }
+
+        // Draw the player shadow
+        playerClient.drawShadow(spriteBatch);
+
+        // Now draw all the entities on the screen
         while (!yAxisSortedEntities.isEmpty()) {
             MovingEntity movingEntity = yAxisSortedEntities.poll();
             movingEntity.getEntityAnimation().animate(delta, spriteBatch);

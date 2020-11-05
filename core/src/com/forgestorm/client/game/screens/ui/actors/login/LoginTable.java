@@ -47,7 +47,6 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         final VisTable loginTable = new VisTable(true);
 
         // create login widgets
-        ClientMain.getInstance().getFileManager().loadTexture(GameTexture.LOGO_BIG);
         Texture logoTexture = ClientMain.getInstance().getFileManager().getTexture(GameTexture.LOGO_BIG);
         VisImage logoImage = new VisImage(logoTexture);
         logoTable.add(logoImage).minSize(logoTexture.getWidth(), logoTexture.getHeight()).maxSize(logoTexture.getWidth(), logoTexture.getHeight());

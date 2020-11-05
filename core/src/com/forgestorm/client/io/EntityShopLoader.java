@@ -1,7 +1,12 @@
 package com.forgestorm.client.io;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.game.world.item.inventory.ShopItemStackInfo;
 
 import org.yaml.snakeyaml.Yaml;
@@ -11,15 +16,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EntityShopLoader {
+import lombok.Getter;
+import lombok.Setter;
 
-    @SuppressWarnings("unchecked")
-    public static Map<Short, List<ShopItemStackInfo>> loadFromFile() {
-        FileHandle fileHandle = Gdx.files.internal(FilePaths.ENTITY_SHOP.getFilePath());
+public class EntityShopLoader extends AsynchronousAssetLoader<EntityShopLoader.EntityShopDataWrapper, EntityShopLoader.EntityShopParameter> {
+
+    static class EntityShopParameter extends AssetLoaderParameters<EntityShopDataWrapper> {
+    }
+
+    private EntityShopDataWrapper entityShopDataWrapper = null;
+
+    EntityShopLoader(FileHandleResolver resolver) {
+        super(resolver);
+    }
+
+    @Override
+    public void loadAsync(AssetManager manager, String fileName, FileHandle file, EntityShopParameter parameter) {
+        entityShopDataWrapper = null;
+        entityShopDataWrapper = new EntityShopDataWrapper();
         Yaml yaml = new Yaml();
-        Map<Integer, Map<Integer, Map<String, Object>>> root = yaml.load(fileHandle.read());
+        Map<Integer, Map<Integer, Map<String, Object>>> root = yaml.load(file.read());
 
-        Map<Short, List<ShopItemStackInfo>> map = new HashMap<Short, List<ShopItemStackInfo>>();
+        entityShopDataWrapper.setShopItemListMap(new HashMap<Short, List<ShopItemStackInfo>>());
 
         short count = 0;
         for (Map<Integer, Map<String, Object>> shopObject : root.values()) {
@@ -30,10 +48,25 @@ public class EntityShopLoader {
                         (Integer) shopItemObject.get("price"));
                 shopItemStackInfos.add(itemStackInfo);
             }
-            map.put(count++, shopItemStackInfos);
+            entityShopDataWrapper.getShopItemListMap().put(count++, shopItemStackInfos);
         }
+    }
 
-        return map;
+    @Override
+    public EntityShopDataWrapper loadSync(AssetManager manager, String fileName, FileHandle file, EntityShopParameter parameter) {
+        return entityShopDataWrapper;
+    }
+
+    @Override
+    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, EntityShopParameter parameter) {
+        return null;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    @Setter
+    @Getter
+    public class EntityShopDataWrapper {
+        private Map<Short, List<ShopItemStackInfo>> shopItemListMap = null;
     }
 }
 

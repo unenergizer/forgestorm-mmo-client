@@ -167,9 +167,6 @@ public class HumanAnimation extends EntityAnimation {
         loadGloves(textureAtlas);
         loadBorder(textureAtlas);
 
-//        ClientMain.getInstance().getFileManager().loadAtlas(GameAtlas.ITEMS);
-//        TextureAtlas itemAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS);
-
         // Left Hand Item
         if (appearance.getLeftHandTexture() != -1) {
             loadLeftHand(textureAtlas, appearance.getLeftHandTexture());

@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TilePropertyTypes {
     CURSOR_DRAW_OVER_TILE(new CursorDrawOverTileProperty()),
-    WARP(new WarpProperty()),
     COLLISION_BLOCK(new CollisionBlockProperty()),
     DOOR(new DoorProperty()),
     INTERACTIVE_CONTAINER(new ContainerProperty()),

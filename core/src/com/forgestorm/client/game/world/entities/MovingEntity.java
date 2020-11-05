@@ -1,15 +1,20 @@
 package com.forgestorm.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.GameTextures;
 import com.forgestorm.client.game.rpg.Attributes;
 import com.forgestorm.client.game.screens.GameScreen;
 import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GameTextUtil;
+import com.forgestorm.client.util.color.LibGDXColorList;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -126,5 +131,25 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
     @Override
     public int compareTo(MovingEntity o) {
         return (int) (o.getDrawY() - this.getDrawY());
+    }
+
+    /**
+     * Draws shadows underneath {@link MovingEntity}. If the entity is the {@link PlayerClient}
+     * target, then that shadow shall be red.
+     *
+     * @param spriteBatch Used to render the texture.
+     */
+    void drawShadow(SpriteBatch spriteBatch) {
+        MovingEntity playerTargetEntity = EntityManager.getInstance().getPlayerClient().getTargetEntity();
+        if (playerTargetEntity == this) {
+            spriteBatch.setColor(LibGDXColorList.ENTITY_SHADOW_RED.getColor());
+        } else {
+            spriteBatch.setColor(LibGDXColorList.ENTITY_SHADOW_GRAY.getColor());
+        }
+
+        spriteBatch.draw(GameTextures.entityShadow, getDrawX(), getDrawY() - 3);
+
+        // RESET COLOR - This SpriteBatch is used in other places and on other textures!
+        spriteBatch.setColor(Color.WHITE);
     }
 }

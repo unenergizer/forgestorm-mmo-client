@@ -159,7 +159,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
-        String mapName = ClientMain.getInstance().getGameScreen().getMapRenderer().getGameMapNameFromServer();
+        String mapName = ClientMain.getInstance().getMapManager().getCurrentGameMap().getMapName();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             entity = spawnClientPlayer(packetData, mapName);

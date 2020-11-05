@@ -1,7 +1,12 @@
 package com.forgestorm.client.io;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.game.rpg.Attributes;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.ItemStackType;
@@ -14,24 +19,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import static com.forgestorm.client.util.Log.println;
 
-public class ItemStackLoader {
+/**
+ * Load all items from file and store in memory for quick reference.
+ */
+public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.ItemStackData, ItemStackLoader.ItemStackParameter> {
+
+    static class ItemStackParameter extends AssetLoaderParameters<ItemStackData> {
+    }
 
     private static final boolean PRINT_DEBUG = false;
+    private ItemStackData itemStackData = null;
 
-    /**
-     * Load all items from file and store in memory for quick reference.
-     */
-    public List<ItemStack> loadItems() {
+    ItemStackLoader(FileHandleResolver resolver) {
+        super(resolver);
+    }
 
-        println(getClass(), "====== START LOADING ITEMS ======", false, PRINT_DEBUG);
-
-        FileHandle fileHandle = Gdx.files.internal(FilePaths.ITEM_STACK.getFilePath());
+    @Override
+    public void loadAsync(AssetManager manager, String fileName, FileHandle file, ItemStackParameter parameter) {
+        itemStackData = null;
+        itemStackData = new ItemStackData();
         Yaml yaml = new Yaml();
-        Map<Integer, Map<String, Object>> root = yaml.load(fileHandle.read());
+        Map<Integer, Map<String, Object>> root = yaml.load(file.read());
 
-        List<ItemStack> itemStacks = new ArrayList<ItemStack>();
+        itemStackData.setItemStackList(new ArrayList<ItemStack>());
 
         for (Map.Entry<Integer, Map<String, Object>> entry : root.entrySet()) {
             int itemId = entry.getKey();
@@ -117,10 +132,26 @@ public class ItemStackLoader {
             println(getClass(), "SkillId: " + skillID, false, PRINT_DEBUG && skillID != null);
             println(PRINT_DEBUG);
 
-            itemStacks.add(itemStack);
+            itemStackData.getItemStackList().add(itemStack);
         }
 
         println(getClass(), "====== END LOADING ITEMS ======", false, PRINT_DEBUG);
-        return itemStacks;
+    }
+
+    @Override
+    public ItemStackData loadSync(AssetManager manager, String fileName, FileHandle file, ItemStackParameter parameter) {
+        return itemStackData;
+    }
+
+    @Override
+    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, ItemStackParameter parameter) {
+        return null;
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    @Setter
+    @Getter
+    public class ItemStackData {
+        private List<ItemStack> itemStackList = null;
     }
 }

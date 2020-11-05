@@ -1,12 +1,17 @@
 package com.forgestorm.client.game.rpg;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.io.FactionLoader;
 
 import java.util.Map;
 
 public class FactionManager {
 
-    private final Map<Byte, FactionLoader.FactionData> factionDataMap = new FactionLoader().loadFactionInfo();
+    private final Map<Byte, FactionLoader.FactionData> factionDataMap;
+
+    public FactionManager() {
+        this.factionDataMap = ClientMain.getInstance().getFileManager().getFactionData().getByteFactionDataMap();
+    }
 
     public Byte getFactionByName(String factionName) {
         factionName = factionName.replace(" ", "_");

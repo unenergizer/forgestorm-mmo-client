@@ -1,8 +1,6 @@
 package com.forgestorm.client.game.screens;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -10,6 +8,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.forgestorm.client.game.world.entities.Entity;
+import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.util.BetterCameraZoom;
 
 import lombok.Getter;
@@ -35,14 +34,13 @@ public class AttachableCamera extends OrthographicCamera {
         this.following = following;
     }
 
-    void clampCamera(Viewport screenViewport, TiledMap tiledMap) {
+    void clampCamera(Viewport screenViewport, GameMap gameMap) {
         if (following == null) return;
 
-        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
         float cameraMinX = (screenViewport.getScreenWidth() / 2f) * zoom;
         float cameraMinY = (screenViewport.getScreenHeight() / 2f) * zoom;
-        float cameraMaxX = layer.getWidth() * layer.getTileWidth() - cameraMinX;
-        float cameraMaxY = layer.getHeight() * layer.getTileHeight() - cameraMinY;
+        float cameraMaxX = gameMap.getMapWidth() * ClientConstants.TILE_SIZE - cameraMinX;
+        float cameraMaxY = gameMap.getMapHeight() * ClientConstants.TILE_SIZE - cameraMinY;
 
         float px = (following.getDrawX() + (ClientConstants.TILE_SIZE / 2f));
         float py = (following.getDrawY() + (ClientConstants.TILE_SIZE / 2f));

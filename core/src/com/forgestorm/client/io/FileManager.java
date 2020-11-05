@@ -22,6 +22,9 @@ import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GamePixmap;
 import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
+import com.forgestorm.client.io.updater.RssFeedLoader;
+
+import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -30,6 +33,7 @@ public class FileManager {
 
     private static final boolean PRINT_DEBUG = false;
 
+    @Getter
     private AssetManager assetManager = new AssetManager();
     private InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
 
@@ -311,5 +315,315 @@ public class FileManager {
         }
 
         return skin;
+    }
+
+    public void loadItemStackData() {
+        String filePath = FilePaths.ITEM_STACK.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "ItemStackData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(ItemStackLoader.ItemStackData.class, new ItemStackLoader(filePathResolver));
+            assetManager.load(filePath, ItemStackLoader.ItemStackData.class);
+        } else {
+            println(getClass(), "ItemStackData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public ItemStackLoader.ItemStackData getItemStackData() {
+        String filePath = FilePaths.ITEM_STACK.getFilePath();
+        ItemStackLoader.ItemStackData data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, ItemStackLoader.ItemStackData.class);
+        } else {
+            println(getClass(), "ItemStackData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadFactionData() {
+        String filePath = FilePaths.FACTIONS.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "FactionData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(FactionLoader.FactionDataWrapper.class, new FactionLoader(filePathResolver));
+            assetManager.load(filePath, FactionLoader.FactionDataWrapper.class);
+        } else {
+            println(getClass(), "FactionData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public FactionLoader.FactionDataWrapper getFactionData() {
+        String filePath = FilePaths.FACTIONS.getFilePath();
+        FactionLoader.FactionDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, FactionLoader.FactionDataWrapper.class);
+        } else {
+            println(getClass(), "FactionData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadAbilityData() {
+        String filePath = FilePaths.COMBAT_ABILITIES.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "AbilityData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(AbilityLoader.AbilityDataWrapper.class, new AbilityLoader(filePathResolver));
+            assetManager.load(filePath, AbilityLoader.AbilityDataWrapper.class);
+        } else {
+            println(getClass(), "AbilityData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public AbilityLoader.AbilityDataWrapper getAbilityData() {
+        String filePath = FilePaths.COMBAT_ABILITIES.getFilePath();
+        AbilityLoader.AbilityDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, AbilityLoader.AbilityDataWrapper.class);
+        } else {
+            println(getClass(), "AbilityData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadMusicData() {
+        String filePath = FilePaths.GAME_MUSIC.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "MusicData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(MusicDataLoader.MusicDataWrapper.class, new MusicDataLoader(filePathResolver));
+            assetManager.load(filePath, MusicDataLoader.MusicDataWrapper.class);
+        } else {
+            println(getClass(), "MusicData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public MusicDataLoader.MusicDataWrapper getMusicData() {
+        String filePath = FilePaths.GAME_MUSIC.getFilePath();
+        MusicDataLoader.MusicDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, MusicDataLoader.MusicDataWrapper.class);
+        } else {
+            println(getClass(), "MusicData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadSoundData() {
+        String filePath = FilePaths.SOUND_FX.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "SoundData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(SoundDataLoader.SoundDataWrapper.class, new SoundDataLoader(filePathResolver));
+            assetManager.load(filePath, SoundDataLoader.SoundDataWrapper.class);
+        } else {
+            println(getClass(), "SoundData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public SoundDataLoader.SoundDataWrapper getSoundData() {
+        String filePath = FilePaths.SOUND_FX.getFilePath();
+        SoundDataLoader.SoundDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, SoundDataLoader.SoundDataWrapper.class);
+        } else {
+            println(getClass(), "SoundData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadEntityShopData() {
+        String filePath = FilePaths.ENTITY_SHOP.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "EntityShopData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(EntityShopLoader.EntityShopDataWrapper.class, new EntityShopLoader(filePathResolver));
+            assetManager.load(filePath, EntityShopLoader.EntityShopDataWrapper.class);
+        } else {
+            println(getClass(), "EntityShopData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public EntityShopLoader.EntityShopDataWrapper getEntityShopData() {
+        String filePath = FilePaths.ENTITY_SHOP.getFilePath();
+        EntityShopLoader.EntityShopDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, EntityShopLoader.EntityShopDataWrapper.class);
+        } else {
+            println(getClass(), "EntityShopData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadTilePropertiesData() {
+        String filePath = FilePaths.TILE_PROPERTIES.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "TilePropertiesData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(filePathResolver));
+            assetManager.load(filePath, TilePropertiesLoader.TilePropertiesDataWrapper.class);
+        } else {
+            println(getClass(), "TilePropertiesData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public TilePropertiesLoader.TilePropertiesDataWrapper getTilePropertiesData() {
+        String filePath = FilePaths.TILE_PROPERTIES.getFilePath();
+        TilePropertiesLoader.TilePropertiesDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, TilePropertiesLoader.TilePropertiesDataWrapper.class);
+        } else {
+            println(getClass(), "TilePropertiesData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadNetworkSettingsData() {
+        String filePath = FilePaths.NETWORK_SETTINGS.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "NetworkSettingsData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(filePathResolver));
+            assetManager.load(filePath, NetworkSettingsLoader.NetworkSettingsData.class);
+        } else {
+            println(getClass(), "NetworkSettingsData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public NetworkSettingsLoader.NetworkSettingsData getNetworkSettingsData() {
+        String filePath = FilePaths.NETWORK_SETTINGS.getFilePath();
+        NetworkSettingsLoader.NetworkSettingsData data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, NetworkSettingsLoader.NetworkSettingsData.class);
+        } else {
+            println(getClass(), "NetworkSettingsData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadGameMapData() {
+        String filePath = FilePaths.MAPS.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "GameMapData already loaded: " + filePath, true, PRINT_DEBUG);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(GameMapLoader.GameMapDataWrapper.class, new GameMapLoader(filePathResolver));
+            assetManager.load(filePath, GameMapLoader.GameMapDataWrapper.class);
+        } else {
+            println(getClass(), "GameMapData doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+    }
+
+    public GameMapLoader.GameMapDataWrapper getGameMapData() {
+        String filePath = FilePaths.MAPS.getFilePath();
+        GameMapLoader.GameMapDataWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, GameMapLoader.GameMapDataWrapper.class);
+        } else {
+            println(getClass(), "GameMapData not loaded: " + filePath, true, PRINT_DEBUG);
+        }
+
+        return data;
+    }
+
+    public void loadRssFeedData() {
+        String filePath = FilePaths.RSS_FEED.getFilePath();
+
+        // check if already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "RssFeedData already loaded: " + filePath, true, true);
+            return;
+        }
+
+        // load asset
+        if (filePathResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(RssFeedLoader.RssFeedWrapper.class, new RssFeedLoader(filePathResolver));
+            assetManager.load(filePath, RssFeedLoader.RssFeedWrapper.class);
+        } else {
+            println(getClass(), "RssFeedData doesn't exist: " + filePath, true, true);
+        }
+    }
+
+    public RssFeedLoader.RssFeedWrapper getRssFeedData() {
+        String filePath = FilePaths.RSS_FEED.getFilePath();
+        RssFeedLoader.RssFeedWrapper data = null;
+
+        if (assetManager.isLoaded(filePath)) {
+            data = assetManager.get(filePath, RssFeedLoader.RssFeedWrapper.class);
+        } else {
+            println(getClass(), "RssFeedData not loaded: " + filePath, true, true);
+        }
+
+        return data;
     }
 }

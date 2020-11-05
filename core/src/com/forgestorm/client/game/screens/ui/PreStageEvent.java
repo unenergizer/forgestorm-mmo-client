@@ -2,19 +2,12 @@ package com.forgestorm.client.game.screens.ui;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.KeyBinds;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.WindowManager;
-import com.forgestorm.client.game.screens.effects.AlphaFlashEffect;
-import com.forgestorm.client.game.screens.effects.BlackFlashEffect;
-import com.forgestorm.client.game.screens.effects.CircleDrawEffect;
-import com.forgestorm.client.game.screens.effects.EffectManager;
-import com.forgestorm.client.game.screens.effects.LineDrawEffect;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.constant.WindowModes;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
@@ -70,41 +63,6 @@ class PreStageEvent implements InputProcessor {
         // Fade out the chat window
         ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
         if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
-
-        /*
-         * Toggle TEMP EFFECTS
-         */
-        EffectManager effectManager = ClientMain.getInstance().getEffectManager();
-
-        if (keycode == Input.Keys.NUMPAD_1) {
-            if (!stageHandler.getChatWindow().isChatToggled()) {
-                effectManager.addScreenEffect(new BlackFlashEffect());
-                return true;
-            }
-        }
-
-        if (keycode == Input.Keys.NUMPAD_2) {
-            if (!stageHandler.getChatWindow().isChatToggled()) {
-                effectManager.addScreenEffect(new AlphaFlashEffect());
-                return true;
-            }
-        }
-
-        if (keycode == Input.Keys.NUMPAD_3) {
-            if (!stageHandler.getChatWindow().isChatToggled()) {
-                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                effectManager.addScreenEffect(new LineDrawEffect(Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-                return true;
-            }
-        }
-
-        if (keycode == Input.Keys.NUMPAD_4) {
-            if (!stageHandler.getChatWindow().isChatToggled()) {
-                PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-                effectManager.addScreenEffect(new CircleDrawEffect(ShapeRenderer.ShapeType.Line, Color.RED, playerClient.getDrawX(), playerClient.getDrawY(), 20, 200, 2));
-                return true;
-            }
-        }
 
         /*
          * Tool bar keys

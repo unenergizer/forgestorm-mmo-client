@@ -1,6 +1,7 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.Opcode;
 import com.forgestorm.client.network.game.shared.Opcodes;
@@ -28,7 +29,9 @@ public class InitializeGameMapPacketIn implements PacketListener<InitializeGameM
         println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
 
         println(InitializeGameMapPacketIn.class, "2. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
-        ClientMain.getInstance().getGameScreen().getMapRenderer().setJsonMap(packetData.gameMap);
+
+        EntityManager.getInstance().dispose(); // quick clear existing entities
+        ClientMain.getInstance().getMapManager().setGameMap(packetData.gameMap);
         ClientMain.getInstance().getClientMovementProcessor().resetInput();
         ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(null);
     }

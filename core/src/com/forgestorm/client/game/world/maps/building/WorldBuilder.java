@@ -2,17 +2,10 @@ package com.forgestorm.client.game.world.maps.building;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
-import com.forgestorm.client.io.FileManager;
-import com.forgestorm.client.io.TilePropertiesLoader;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 
@@ -38,14 +31,10 @@ public class WorldBuilder {
 
     public WorldBuilder() {
         // Load AbstractTileProperty.yaml
-        TilePropertiesLoader tilePropertiesLoader = new TilePropertiesLoader();
-        tileImageMap = tilePropertiesLoader.loadTileProperties();
+        tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
 
         // Load Tiles atlas
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
-        fileManager.loadAtlas(GameAtlas.TILES);
-        fileManager.loadAtlas(GameAtlas.CURSOR);
-        textureAtlas = fileManager.getAtlas(GameAtlas.TILES);
+        textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
         regions = textureAtlas.getRegions();
         println(getClass(), "Number of " + GameAtlas.TILES + " textures: " + textureAtlas.getTextures().size);
     }
@@ -58,29 +47,29 @@ public class WorldBuilder {
     }
 
     public void placeTile(LayerDefinition layerDefinition, int textureId, int tileX, int tileY) {
-        TiledMap tiledMap = ClientMain.getInstance().getGameScreen().getMapRenderer().getTiledMap();
-        MapLayers layers = tiledMap.getLayers();
-        TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(layerDefinition.getLayerName());
-        TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
-
-        if (cell == null) {
-            println(getClass(), "Cell was null, creating a new one!");
-            cell = new TiledMapTileLayer.Cell();
-        } else {
-            println(getClass(), "Cell found!");
-        }
-
-        println(getClass(), "TiledMapLayer: " + layer.getName() + ", Width: " + layer.getWidth() + ", Height: " + layer.getHeight());
-        println(getClass(), "Cell X: " + tileX + ", Cell Y: " + tileY);
-        TextureRegion textureRegion = textureAtlas.findRegion(tileImageMap.get(textureId).getFileName());
-
-        if (cell.getTile() == null) {
-            StaticTiledMapTile tiledMapTile = new StaticTiledMapTile(textureRegion);
-            cell.setTile(tiledMapTile);
-            layer.setCell(tileX, tileY, cell);
-        } else {
-            cell.getTile().setTextureRegion(textureRegion);
-        }
+//        TiledMap tiledMap = ClientMain.getInstance().getGameScreen().getMapRenderer().getTiledMap();
+//        MapLayers layers = tiledMap.getLayers();
+//        TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(layerDefinition.getLayerName());
+//        TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
+//
+//        if (cell == null) {
+//            println(getClass(), "Cell was null, creating a new one!");
+//            cell = new TiledMapTileLayer.Cell();
+//        } else {
+//            println(getClass(), "Cell found!");
+//        }
+//
+//        println(getClass(), "TiledMapLayer: " + layer.getName() + ", Width: " + layer.getWidth() + ", Height: " + layer.getHeight());
+//        println(getClass(), "Cell X: " + tileX + ", Cell Y: " + tileY);
+//        TextureRegion textureRegion = textureAtlas.findRegion(tileImageMap.get(textureId).getFileName());
+//
+//        if (cell.getTile() == null) {
+//            StaticTiledMapTile tiledMapTile = new StaticTiledMapTile(textureRegion);
+//            cell.setTile(tiledMapTile);
+//            layer.setCell(tileX, tileY, cell);
+//        } else {
+//            cell.getTile().setTextureRegion(textureRegion);
+//        }
     }
 
     public void drawMouse(SpriteBatch spriteBatch) {

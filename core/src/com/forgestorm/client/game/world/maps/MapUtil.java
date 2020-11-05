@@ -37,11 +37,7 @@ public class MapUtil {
     }
 
     public static boolean isWarp(GameMap gameMap, short x, short y) {
-        for (TileImage[] layer : gameMap.getLayers().values()) {
-            TileImage tileImage = layer[x + y * gameMap.getMapWidth()];
-            if (tileImage.containsProperty(TilePropertyTypes.WARP)) return true;
-        }
-        return false;
+        return gameMap.getWarp(x, y) != null;
     }
 
     /**

@@ -1,8 +1,10 @@
 package com.forgestorm.client.game.world.item;
 
-import com.forgestorm.client.io.ItemStackLoader;
+import com.forgestorm.client.ClientMain;
 
 import java.util.List;
+
+import static com.forgestorm.client.util.Log.println;
 
 public class ItemStackManager {
 
@@ -14,15 +16,9 @@ public class ItemStackManager {
     private ItemStack[] itemStacks;
 
     public ItemStackManager() {
-        init();
-    }
-
-    /**
-     * Load all items from file and store in memory for quick reference.
-     */
-    private void init() {
-        ItemStackLoader itemStackLoader = new ItemStackLoader();
-        List<ItemStack> loadedItemStacks = itemStackLoader.loadItems();
+        // Load all items from file and store in memory for quick reference.
+        List<ItemStack> loadedItemStacks = ClientMain.getInstance().getFileManager().getItemStackData().getItemStackList();
+        println(getClass(), "ItemsLoaded: " + loadedItemStacks.size());
         itemStacks = new ItemStack[loadedItemStacks.size()];
         loadedItemStacks.toArray(itemStacks);
     }

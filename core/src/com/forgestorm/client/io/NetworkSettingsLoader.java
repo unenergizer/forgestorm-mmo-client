@@ -1,26 +1,41 @@
 package com.forgestorm.client.io;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.network.NetworkSettings;
 
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import static com.forgestorm.client.util.Log.println;
 
-public class NetworkSettingsLoader {
+public class NetworkSettingsLoader extends AsynchronousAssetLoader<NetworkSettingsLoader.NetworkSettingsData, NetworkSettingsLoader.NetworkSettingsParameter> {
+
+    static class NetworkSettingsParameter extends AssetLoaderParameters<NetworkSettingsData> {
+    }
 
     private static final boolean PRINT_DEBUG = false;
+    private NetworkSettingsData networkSettingsData = null;
 
-    public NetworkSettings loadNetworkSettings() {
+    NetworkSettingsLoader(FileHandleResolver resolver) {
+        super(resolver);
+    }
+
+    @Override
+    public void loadAsync(AssetManager manager, String fileName, FileHandle file, NetworkSettingsParameter parameter) {
+        networkSettingsData = null;
         Yaml yaml = new Yaml();
 
-        FileHandle fileHandle = Gdx.files.internal(FilePaths.NETWORK_SETTINGS.getFilePath());
-
-        Map<String, Map<String, Object>> root = yaml.load(fileHandle.read());
+        Map<String, Map<String, Object>> root = yaml.load(file.read());
 
         int loginPort = (Integer) root.get("login").get("port");
         String loginIp = (String) root.get("login").get("ip");
@@ -38,7 +53,25 @@ public class NetworkSettingsLoader {
         println(getClass(), "GameSettings: " + gameIp + ":" + gamePort, false, PRINT_DEBUG);
 
 
-        return new NetworkSettings(loginIp, loginPort, gameIp, gamePort);
+        networkSettingsData = new NetworkSettingsData(loginIp, loginPort, gameIp, gamePort);
     }
 
+    @Override
+    public NetworkSettingsData loadSync(AssetManager manager, String fileName, FileHandle file, NetworkSettingsParameter parameter) {
+        return networkSettingsData;
+    }
+
+    @Override
+    public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, NetworkSettingsParameter parameter) {
+        return null;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public class NetworkSettingsData {
+        private String loginIp;
+        private int loginPort;
+        private String gameIp;
+        private int gamePort;
+    }
 }

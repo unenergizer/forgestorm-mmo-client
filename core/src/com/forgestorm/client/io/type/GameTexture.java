@@ -1,6 +1,5 @@
 package com.forgestorm.client.io.type;
 
-@SuppressWarnings("SpellCheckingInspection")
 public enum GameTexture {
     GRID("misc/grid.png"),
     LOGO_BIG("misc/logo_big.png"),

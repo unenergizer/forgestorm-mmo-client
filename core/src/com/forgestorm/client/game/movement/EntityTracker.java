@@ -161,7 +161,7 @@ public class EntityTracker implements GameQuitReset {
     /**
      * Cancels tracking the entityToTrack
      */
-    public void cancelFollow() {
+    void cancelFollow() {
         println(getClass(), "==== CANCEL FOLLOW ====", false, PRINT_DEBUG);
         entityToTrack = null;
         previousLocation = null;
