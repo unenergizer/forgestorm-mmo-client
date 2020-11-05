@@ -33,6 +33,7 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
     static class GameMapParameter extends AssetLoaderParameters<GameMapDataWrapper> {
     }
 
+    private static final boolean PRINT_DEBUG = false;
     private static final String EXTENSION_TYPE = ".json";
     private GameMapDataWrapper gameMapDataWrapper = null;
 
@@ -42,9 +43,9 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
 
     @Override
     public GameMapDataWrapper load(AssetManager assetManager, String fileName, FileHandle file, GameMapParameter parameter) {
-        println(getClass(), "Is Directory: " + file.isDirectory());
-        println(getClass(), "Directory List: " + file.list().toString());
-        println(getClass(), "Directory List: " + file.name());
+        println(getClass(), "Is Directory: " + file.isDirectory(), false, PRINT_DEBUG);
+        println(getClass(), "Directory List Size: " + file.list().length, false, PRINT_DEBUG);
+        println(getClass(), "Directory Name: " + file.name(), false, PRINT_DEBUG);
 
         gameMapDataWrapper = null;
         gameMapDataWrapper = new GameMapDataWrapper();
@@ -118,6 +119,7 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
         return gameMap;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static TileImage[] readLayer(String layerName, JsonValue root, int mapWidth, int mapHeight) {
         String layer = root.get(layerName).asString();
         String[] imageIds = layer.split(",");

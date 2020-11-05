@@ -121,13 +121,11 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
                     //noinspection ConstantConditions
                     if (abstractTileProperty != null) {
                         abstractTileProperty.setTileImage(tileImage);
-                        tileImage.setCustomTileProperty(abstractTileProperty.load(abstractPropertyFieldsMap, true));
+                        tileImage.setCustomTileProperty(abstractTileProperty.load(abstractPropertyFieldsMap, PRINT_DEBUG));
                     } else {
                         println(getClass(), "WARNING: Tile property " + tilePropertyType.name() + " was NOT setup! Create a entry for it!", true);
                     }
                 }
-            } else {
-                println(getClass(), "No properties detected for TileImage ID: " + tileImage.getImageId(), true);
             }
 
             // Get layer definition

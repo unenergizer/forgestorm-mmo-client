@@ -17,8 +17,6 @@ import com.rometools.rome.feed.synd.SyndEntry;
 
 import java.util.List;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class RssAnnouncements extends VisTable implements Buildable {
 
     private static final int MAX_FEED_ENTRIES = 6;
@@ -42,15 +40,10 @@ public class RssAnnouncements extends VisTable implements Buildable {
     private void createClickableEntryBox() {
         RssFeedLoader.RssFeedWrapper rssFeedWrapper = ClientMain.getInstance().getFileManager().getRssFeedData();
 
-        println(getClass(), "#1");
-
         if (rssFeedWrapper == null) return;
-        println(getClass(), "#2");
         if (rssFeedWrapper.getFeedData() == null) return;
-        println(getClass(), "#3");
         if (rssFeedWrapper.getFeedData().isEmpty()) return;
 
-        println(getClass(), "#4");
         List<SyndEntry> rssFeed = rssFeedWrapper.getFeedData();
 
         for (int i = 0; i < MAX_FEED_ENTRIES; i++) {

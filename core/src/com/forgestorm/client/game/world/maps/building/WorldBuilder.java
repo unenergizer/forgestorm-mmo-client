@@ -14,8 +14,6 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.forgestorm.client.util.Log.println;
-
 @Getter
 public class WorldBuilder {
 
@@ -36,7 +34,6 @@ public class WorldBuilder {
         // Load Tiles atlas
         textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
         regions = textureAtlas.getRegions();
-        println(getClass(), "Number of " + GameAtlas.TILES + " textures: " + textureAtlas.getTextures().size);
     }
 
     public void placeTile(int tileX, int tileY) {

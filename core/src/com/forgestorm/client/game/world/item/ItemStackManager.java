@@ -4,8 +4,6 @@ import com.forgestorm.client.ClientMain;
 
 import java.util.List;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class ItemStackManager {
 
     /**
@@ -18,7 +16,6 @@ public class ItemStackManager {
     public ItemStackManager() {
         // Load all items from file and store in memory for quick reference.
         List<ItemStack> loadedItemStacks = ClientMain.getInstance().getFileManager().getItemStackData().getItemStackList();
-        println(getClass(), "ItemsLoaded: " + loadedItemStacks.size());
         itemStacks = new ItemStack[loadedItemStacks.size()];
         loadedItemStacks.toArray(itemStacks);
     }
