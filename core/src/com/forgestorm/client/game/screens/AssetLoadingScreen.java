@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -48,7 +45,8 @@ public class AssetLoadingScreen implements Screen {
     @Override
     public void show() {
         // Tell the manager to load assets for the loading screen
-        assetManager.load("data/loading.pack", TextureAtlas.class);
+        fileManager.loadAtlas(GameAtlas.LOADING_SCREEN);
+
         // Wait until they are finished loading
         assetManager.finishLoading();
 
@@ -56,7 +54,7 @@ public class AssetLoadingScreen implements Screen {
         stage = new Stage();
 
         // Get our TextureAtlas from the manager
-        TextureAtlas atlas = assetManager.get("data/loading.pack", TextureAtlas.class);
+        TextureAtlas atlas = fileManager.getAtlas(GameAtlas.LOADING_SCREEN);
 
         // Grab the regions from the atlas and create some images
         loadingFrame = new Image(atlas.findRegion("loading-frame"));
@@ -132,12 +130,10 @@ public class AssetLoadingScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -165,12 +161,11 @@ public class AssetLoadingScreen implements Screen {
     @Override
     public void hide() {
         // Dispose the loading assets as we no longer need them
-        assetManager.unload("data/loading.pack");
+        assetManager.unload(GameAtlas.LOADING_SCREEN.getFilePath());
         stage.dispose();
     }
 
     @Override
     public void dispose() {
-
     }
 }
