@@ -1,20 +1,73 @@
 0:
-  buildCategory: DECORATION
-  fileName: bag-01
-  layerDefinition: GROUND
-  tileProperties:
-    INTERACTIVE_CONTAINER:
-      isBreakable: false
-    WATER:
-      isWater: true
+  buildCategory: WALKABLE
+  fileName: '4'
 1:
   buildCategory: DECORATION
   fileName: bag-02
-  layerDefinition: GROUND
-  tileProperties:
-    COLLISION_BLOCK:
-    DOOR:
-      magicLockingLevel: 321
 2:
   buildCategory: DECORATION
-  fileName: bush-large-01
+  fileName: bag-03
+3:
+  buildCategory: DECORATION
+  fileName: bag-04
+4:
+  buildCategory: DECORATION
+  fileName: barrel-big-01
+5:
+  buildCategory: DECORATION
+  fileName: barrel-big-02
+6:
+  buildCategory: DECORATION
+  fileName: barrel-big-03
+7:
+  buildCategory: WALL
+  fileName: brick-wall-gray
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
+8:
+  buildCategory: WALL
+  fileName: brick-wall-green
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
+9:
+  buildCategory: WALL
+  fileName: brick-wall-red
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
+10:
+  buildCategory: WALL
+  fileName: brick-wall-tan
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
+11:
+  buildCategory: WALKABLE
+  fileName: '0'
+12:
+  buildCategory: WALKABLE
+  fileName: '1'
+13:
+  buildCategory: WALKABLE
+  fileName: '2'
+14:
+  buildCategory: WALKABLE
+  fileName: '3'
+15:
+  buildCategory: DECORATION
+  fileName: bag-01
+  layerDefinition: GROUND
+16:
+  buildCategory: WALKABLE
+  fileName: '5'
+17:
+  buildCategory: WALKABLE
+  fileName: '6'
+18:
+  buildCategory: WALKABLE
+  fileName: '7'
+19:
+  buildCategory: WALKABLE
+  fileName: '8'

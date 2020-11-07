@@ -17,7 +17,7 @@ import static com.forgestorm.client.util.Log.println;
 @Setter
 public class TileImage {
 
-    private static final transient boolean PRINT_DEBUG = false;
+    private static final transient boolean PRINT_DEBUG = true;
 
     private final transient int imageId;
     private final String fileName;
@@ -34,10 +34,10 @@ public class TileImage {
         println(getClass(), "---- NEW TILE IMAGE CREATED ----", false, PRINT_DEBUG);
         println(getClass(), "ImageID: " + imageId, false, PRINT_DEBUG);
         println(getClass(), "FileName: " + fileName, false, PRINT_DEBUG);
-        println(getClass(), "BuildCategory: " + buildCategory, false, PRINT_DEBUG);
     }
 
     public boolean containsProperty(TilePropertyTypes tilePropertyType) {
+        if (tileProperties == null || tileProperties.isEmpty()) return false;
         return tileProperties.containsKey(tilePropertyType);
     }
 
@@ -46,9 +46,27 @@ public class TileImage {
     }
 
     public void setCustomTileProperty(AbstractTileProperty customTileProperty) {
-        if (tileProperties == null) tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
+        if (customTileProperty == null) {
+            println(getClass(), "AbstractTileProperty was null! ", true);
+        }
+
+        if (tileProperties == null) {
+            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
+            println(getClass(), "Tile property map was null, setting new HashMap now!");
+        }
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType()))
             throw new RuntimeException("TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
         tileProperties.put(customTileProperty.getTilePropertyType(), customTileProperty);
+
+        if (PRINT_DEBUG) {
+            println(getClass(), "---- TILE IMAGE SET PROPERTY ----", false);
+            println(getClass(), "ImageID: " + imageId, false);
+            println(getClass(), "FileName: " + fileName, false);
+            println(getClass(), "BuildCategory: " + buildCategory, false);
+
+            for (AbstractTileProperty abstractTileProperty : tileProperties.values()) {
+                println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString());
+            }
+        }
     }
 }

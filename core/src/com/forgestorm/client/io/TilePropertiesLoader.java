@@ -10,18 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.BlockMoveDirectionProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.ContainerProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CursorDrawOverTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.DoorProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.InteractDamageProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.JumpToDirectionProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.LadderProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypeHelper;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TileWalkOverSoundProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WaterProperty;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 import org.yaml.snakeyaml.Yaml;
@@ -80,42 +70,7 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
                 for (Map.Entry<String, Object> entrySet : mapOfTileProperties.entrySet()) {
                     TilePropertyTypes tilePropertyType = TilePropertyTypes.valueOf(entrySet.getKey());
                     Map<String, Object> abstractPropertyFieldsMap = (Map<String, Object>) entrySet.getValue();
-                    AbstractTileProperty abstractTileProperty = null;
-
-                    switch (tilePropertyType) {
-                        case DOOR:
-                            abstractTileProperty = new DoorProperty();
-                            break;
-                        case INTERACTIVE_CONTAINER:
-                            abstractTileProperty = new ContainerProperty();
-                            break;
-                        case WANG_TILE:
-                            abstractTileProperty = new WangTileProperty();
-                            break;
-                        case BLOCK_MOVE_DIRECTION:
-                            abstractTileProperty = new BlockMoveDirectionProperty();
-                            break;
-                        case JUMP_TO_DIRECTION:
-                            abstractTileProperty = new JumpToDirectionProperty();
-                            break;
-                        case LADDER:
-                            abstractTileProperty = new LadderProperty();
-                            break;
-                        case WATER:
-                            abstractTileProperty = new WaterProperty();
-                            break;
-                        case INTERACT_DAMAGE:
-                            abstractTileProperty = new InteractDamageProperty();
-                            break;
-                        case WALK_OVER_SOUND:
-                            abstractTileProperty = new TileWalkOverSoundProperty();
-                            break;
-                        case COLLISION_BLOCK:
-                            abstractTileProperty = new CollisionBlockProperty();
-                            break;
-                        case CURSOR_DRAW_OVER_TILE:
-                            abstractTileProperty = new CursorDrawOverTileProperty();
-                    }
+                    AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(tilePropertyType);
 
                     // If we find the property, lets get it setup!
                     //noinspection ConstantConditions

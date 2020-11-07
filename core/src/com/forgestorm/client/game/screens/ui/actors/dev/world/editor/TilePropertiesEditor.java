@@ -19,6 +19,7 @@ import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypeHelper;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
@@ -214,19 +215,22 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         addTileProperty.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Map<TilePropertyTypes, AbstractTileProperty> tileProperties = tileImage.getTileProperties();
+
                 // Take selection and rebuild the options table
                 TilePropertyTypes selectedProperty = tilePropertiesVisSelectBox.getSelected();
 
                 // Check to make sure the TileImage does not already contain this property.
-                if (tileImage.getTileProperties().containsKey(selectedProperty)) {
+                if (tileProperties != null && tileProperties.containsKey(selectedProperty)) {
                     ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TilePropertiesEditor.class, (short) 10);
                     return;
                 }
 
                 // Now add the property and rebuild the options table
-                AbstractTileProperty abstractTileProperty = selectedProperty.getAbstractTileProperty();
+                AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(selectedProperty);
+
                 abstractTileProperty.setTileImage(tileImage);
-                tileImage.getTileProperties().put(selectedProperty, abstractTileProperty);
+                tileImage.setCustomTileProperty(abstractTileProperty);
                 buildPropertiesTable();
             }
         });
