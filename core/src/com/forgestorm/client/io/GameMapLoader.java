@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
@@ -29,7 +29,7 @@ import lombok.Setter;
 import static com.forgestorm.client.util.ApplicationUtil.userOnMobile;
 import static com.forgestorm.client.util.Log.println;
 
-public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapDataWrapper, GameMapLoader.GameMapParameter> {
+public class GameMapLoader extends AsynchronousAssetLoader<GameMapLoader.GameMapDataWrapper, GameMapLoader.GameMapParameter> {
 
     static class GameMapParameter extends AssetLoaderParameters<GameMapDataWrapper> {
     }
@@ -43,7 +43,7 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
     }
 
     @Override
-    public GameMapDataWrapper load(AssetManager assetManager, String fileName, FileHandle file, GameMapParameter parameter) {
+    public void loadAsync(AssetManager manager, String fileName, FileHandle file, GameMapParameter parameter) {
         println(getClass(), "Is Directory: " + file.isDirectory(), false, PRINT_DEBUG);
         println(getClass(), "Directory List Size: " + file.list().length, false, PRINT_DEBUG);
         println(getClass(), "Directory Name: " + file.name(), false, PRINT_DEBUG);
@@ -56,6 +56,10 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
         } else {
             loadDesktopJar(file);
         }
+    }
+
+    @Override
+    public GameMapDataWrapper loadSync(AssetManager manager, String fileName, FileHandle file, GameMapParameter parameter) {
         return gameMapDataWrapper;
     }
 
