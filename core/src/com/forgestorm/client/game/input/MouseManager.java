@@ -299,10 +299,12 @@ public class MouseManager {
     private CursorDrawType lastCursorDrawType = CursorDrawType.NO_DRAWABLE;
     private TextureRegionDrawable cursorDrawable;
 
+    // TODO: FIX THIS....
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch) {
 //        GameMap gameMap = playerClient.getGameMap();
 //        if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
-//        CursorDrawType cursorDrawType = gameMap.getMapTiles()[mouseTileX][mouseTileY].getCursorDrawType();
+////        CursorDrawType cursorDrawType = gameMap.get[mouseTileX][mouseTileY].getCursorDrawType();
+//        // [location.getX() + location.getY() * location.getMapData().getMapWidth()]
 //
 //        if (cursorDrawType != lastCursorDrawType && cursorDrawType != CursorDrawType.NO_DRAWABLE) {
 //            lastCursorDrawType = cursorDrawType;

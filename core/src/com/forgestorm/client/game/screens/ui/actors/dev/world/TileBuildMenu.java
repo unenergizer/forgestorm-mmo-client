@@ -10,6 +10,7 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -56,7 +57,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         // Add Build Categories
         for (BuildCategory buildCategory : BuildCategory.values()) {
-            tabbedPane.add(new TileBuildTab(buildCategory));
+            tabbedPane.add(new TileBuildTab(buildCategory, buildCategory.layerDefinition));
         }
         tabbedPane.switchTab(0);
 
@@ -86,12 +87,14 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
     private class TileBuildTab extends Tab {
 
         private final BuildCategory buildCategory;
+        private final LayerDefinition layerDefinition;
         private final String title;
         private final Table contentTable;
 
-        TileBuildTab(BuildCategory buildCategory) {
+        TileBuildTab(BuildCategory buildCategory, LayerDefinition layerDefinition) {
             super(false, false);
             this.buildCategory = buildCategory;
+            this.layerDefinition = layerDefinition;
             this.title = " " + buildCategory.toString() + " ";
             contentTable = new VisTable(true);
             build();
@@ -125,6 +128,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 visImageButton.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
+                        worldBuilder.setCurrentLayer(layerDefinition);
                         worldBuilder.setCurrentTextureId(tileImage.getImageId());
                     }
                 });

@@ -1,11 +1,18 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public enum BuildCategory {
-    DECORATION,
-    WALKABLE,
-    WALL,
-    ROOF,
-    UNDEFINED;
+    DECORATION(LayerDefinition.WALL_DECORATION),
+    WALKABLE(LayerDefinition.GROUND_DECORATION),
+    WALL(LayerDefinition.WALL),
+    ROOF(LayerDefinition.ROOF),
+    UNDEFINED(LayerDefinition.GROUND_DECORATION);
+
+    public LayerDefinition layerDefinition;
 
     @Override
     public String toString() {

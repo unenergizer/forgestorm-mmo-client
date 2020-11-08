@@ -3,6 +3,7 @@ package com.forgestorm.client.game.world.maps;
 
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 @SuppressWarnings("unused")
 public class MapUtil {
@@ -19,6 +20,7 @@ public class MapUtil {
         if (isOutOfBounds(gameMap, x, y)) return false;
         for (TileImage[] layer : gameMap.getLayers().values()) {
             TileImage tileImage = layer[x + y * gameMap.getMapWidth()];
+            if (tileImage == null) return true;
             if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) return false;
         }
         return true;
@@ -49,6 +51,6 @@ public class MapUtil {
      */
     public static TileImage getTileByLocation(Location location) {
         if (isOutOfBounds(location.getMapData(), location.getX(), location.getY())) return null;
-        return location.getMapData().getLayers().get(0)[location.getX() + location.getY() * location.getMapData().getMapWidth()];
+        return location.getMapData().getLayers().get(LayerDefinition.GROUND)[location.getX() + location.getY() * location.getMapData().getMapWidth()];
     }
 }

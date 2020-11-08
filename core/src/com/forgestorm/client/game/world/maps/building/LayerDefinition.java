@@ -16,10 +16,10 @@ public enum LayerDefinition {
 //    BACKGROUND
 
     ROOF("overhead"),
-    WALL("walls"),
-    WALL_DECORATION("walls"),
-    GROUND("decoration"),
-    GROUND_DECORATION("decoration"),
+    WALL_DECORATION("wall_decoration"),
+    WALL("wall"),
+    GROUND_DECORATION("ground_decoration"),
+    GROUND("ground"),
     BACKGROUND("background");
 
     private String layerName;

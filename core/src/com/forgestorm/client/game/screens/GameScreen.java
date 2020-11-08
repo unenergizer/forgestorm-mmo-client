@@ -159,13 +159,16 @@ public class GameScreen implements Screen {
 
         spriteBatch.setProjectionMatrix(camera.combined);
 
+        getGameMap().renderDecorationLayer(spriteBatch);
+
         // Drawing all entities. Ground items, moving entities, ect...
         EntityManager.getInstance().drawEntities(delta, spriteBatch, playerClient);
 
         // Draw damage animations
         ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
 
-        // TODO: RENDER OVERHEAD LAYERS HERE
+        // Render overhead layer here
+        getGameMap().renderOverheadLayer(spriteBatch);
 
         // Draw Names
         EntityManager.getInstance().drawEntityNames();

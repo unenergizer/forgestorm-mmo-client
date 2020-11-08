@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
+import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 
@@ -22,7 +23,7 @@ public class WorldBuilder {
     private Array<TextureAtlas.AtlasRegion> regions;
 
     @Setter
-    private LayerDefinition currentLayer = LayerDefinition.ROOF;
+    private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
     @Setter
     private int currentTextureId = 0;
 
@@ -36,6 +37,17 @@ public class WorldBuilder {
         regions = textureAtlas.getRegions();
     }
 
+    public TileImage getTileImage(String regionName) {
+        TileImage tileImage = null;
+        for (TileImage entry : tileImageMap.values()) {
+            if (entry.getFileName().equals(regionName)) {
+                tileImage = entry;
+                break;
+            }
+        }
+        return tileImage;
+    }
+
     public void placeTile(int tileX, int tileY) {
         // Only allow tile place if the World Builder is open
         if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
@@ -44,29 +56,8 @@ public class WorldBuilder {
     }
 
     public void placeTile(LayerDefinition layerDefinition, int textureId, int tileX, int tileY) {
-//        TiledMap tiledMap = ClientMain.getInstance().getGameScreen().getMapRenderer().getTiledMap();
-//        MapLayers layers = tiledMap.getLayers();
-//        TiledMapTileLayer layer = (TiledMapTileLayer) layers.get(layerDefinition.getLayerName());
-//        TiledMapTileLayer.Cell cell = layer.getCell(tileX, tileY);
-//
-//        if (cell == null) {
-//            println(getClass(), "Cell was null, creating a new one!");
-//            cell = new TiledMapTileLayer.Cell();
-//        } else {
-//            println(getClass(), "Cell found!");
-//        }
-//
-//        println(getClass(), "TiledMapLayer: " + layer.getName() + ", Width: " + layer.getWidth() + ", Height: " + layer.getHeight());
-//        println(getClass(), "Cell X: " + tileX + ", Cell Y: " + tileY);
-//        TextureRegion textureRegion = textureAtlas.findRegion(tileImageMap.get(textureId).getFileName());
-//
-//        if (cell.getTile() == null) {
-//            StaticTiledMapTile tiledMapTile = new StaticTiledMapTile(textureRegion);
-//            cell.setTile(tiledMapTile);
-//            layer.setCell(tileX, tileY, cell);
-//        } else {
-//            cell.getTile().setTextureRegion(textureRegion);
-//        }
+        GameMap gameMap = ClientMain.getInstance().getMapManager().getCurrentGameMap();
+        gameMap.setTileImage(layerDefinition, tileImageMap.get(textureId), tileX, tileY);
     }
 
     public void drawMouse(SpriteBatch spriteBatch) {

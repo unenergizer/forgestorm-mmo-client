@@ -17,6 +17,7 @@ import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.game.world.maps.Warp;
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -94,11 +95,12 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
         int mapWidth = root.get("mapWidth").asInt();
         int mapHeight = root.get("mapHeight").asInt();
 
-        Map<Integer, TileImage[]> layers = new HashMap<Integer, TileImage[]>();
+        Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
 
-        TileImage[] layer = readLayer("layer1", root, mapWidth, mapHeight);
-
-        layers.put(0, layer);
+        for (LayerDefinition layerDefinition : LayerDefinition.values()) {
+            TileImage[] layer = readLayer(layerDefinition.getLayerName(), root, mapWidth, mapHeight);
+            layers.put(layerDefinition, layer);
+        }
 
         GameMap gameMap = new GameMap();
         gameMap.setMapName(mapName);
@@ -121,17 +123,23 @@ public class GameMapLoader extends SynchronousAssetLoader<GameMapLoader.GameMapD
 
     @SuppressWarnings("SameParameterValue")
     private static TileImage[] readLayer(String layerName, JsonValue root, int mapWidth, int mapHeight) {
-        String layer = root.get(layerName).asString();
-        String[] imageIds = layer.split(",");
-        Map<Integer, TileImage> tileImages = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
-        TileImage[] tiles = new TileImage[mapWidth * mapHeight];
-        for (int y = 0; y < mapHeight; y++) {
-            for (int x = 0; x < mapWidth; x++) {
-                TileImage tileImage = tileImages.get(Integer.parseInt(imageIds[x + y * mapWidth]));
-                tiles[x + y * mapWidth] = tileImage;
+        final int mapSize = mapWidth * mapHeight;
+
+        if (root.has(layerName)) {
+            String layer = root.get(layerName).asString();
+            String[] imageIds = layer.split(",");
+            Map<Integer, TileImage> tileImages = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
+            TileImage[] tiles = new TileImage[mapSize];
+            for (int y = 0; y < mapHeight; y++) {
+                for (int x = 0; x < mapWidth; x++) {
+                    TileImage tileImage = tileImages.get(Integer.parseInt(imageIds[x + y * mapWidth]));
+                    tiles[x + y * mapWidth] = tileImage;
+                }
             }
+            return tiles;
+        } else {
+            return new TileImage[mapSize];
         }
-        return tiles;
     }
 
     @SuppressWarnings("WeakerAccess")
