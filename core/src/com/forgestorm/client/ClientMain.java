@@ -22,7 +22,7 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.item.inventory.MoveInventoryEvents;
 import com.forgestorm.client.game.world.item.trade.TradeManager;
-import com.forgestorm.client.game.world.maps.MapManager;
+import com.forgestorm.client.game.world.maps.WorldManager;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.network.ConnectionManager;
@@ -45,7 +45,7 @@ import com.forgestorm.client.network.game.packet.in.EntitySpawnPacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityUpdatePacketIn;
 import com.forgestorm.client.network.game.packet.in.InitClientPrivilegePacketIn;
 import com.forgestorm.client.network.game.packet.in.InitScreenPacketIn;
-import com.forgestorm.client.network.game.packet.in.InitializeGameMapPacketIn;
+import com.forgestorm.client.network.game.packet.in.InitializeGameWorldPacketIn;
 import com.forgestorm.client.network.game.packet.in.InspectPlayerPacketIn;
 import com.forgestorm.client.network.game.packet.in.InventoryPacketIn;
 import com.forgestorm.client.network.game.packet.in.MovingEntityTeleportPacketIn;
@@ -82,7 +82,7 @@ public class ClientMain extends Game {
     private StageHandler stageHandler;
     private FactionManager factionManager;
     private WorldBuilder worldBuilder;
-    private MapManager mapManager;
+    private WorldManager worldManager;
     private ClientMovementProcessor clientMovementProcessor;
     private ClientPlayerMovementManager clientPlayerMovementManager;
     private EntityMovementManager entityMovementManager;
@@ -131,7 +131,7 @@ public class ClientMain extends Game {
         audioManager = new AudioManager();
         factionManager = new FactionManager();
         worldBuilder = new WorldBuilder();
-        mapManager = new MapManager();
+        worldManager = new WorldManager();
         windowManager = new WindowManager();
         clientMovementProcessor = new ClientMovementProcessor();
         clientPlayerMovementManager = new ClientPlayerMovementManager();
@@ -176,7 +176,7 @@ public class ClientMain extends Game {
     @Override
     public void dispose() {
         fileManager.dispose();
-        mapManager.dispose();
+        worldManager.dispose();
         stageHandler.dispose();
         gameScreen.dispose();
         connectionManager.disconnect();
@@ -197,7 +197,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new EntityMovePacketIn());
                         eventBus.registerListener(new EntitySpawnPacketIn());
                         eventBus.registerListener(new EntityDespawnPacketIn());
-                        eventBus.registerListener(new InitializeGameMapPacketIn());
+                        eventBus.registerListener(new InitializeGameWorldPacketIn());
                         eventBus.registerListener(new ChatMessagePacketIn());
                         eventBus.registerListener(new EntityAppearancePacketIn());
                         eventBus.registerListener(new InventoryPacketIn());

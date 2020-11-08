@@ -29,9 +29,9 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
         write.writeBoolean(entityEditorData.isDelete());
 
         // World data
-        write.writeString(entityEditorData.getSpawnLocation().getMapName());
-        write.writeShort(entityEditorData.getSpawnLocation().getX());
-        write.writeShort(entityEditorData.getSpawnLocation().getY());
+        write.writeString(entityEditorData.getSpawnLocation().getWorldName());
+        write.writeInt(entityEditorData.getSpawnLocation().getX());
+        write.writeInt(entityEditorData.getSpawnLocation().getY());
 
         write.writeShort(entityEditorData.getEntityID());
 

@@ -6,10 +6,9 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MapUtil;
 import com.forgestorm.client.game.world.maps.MoveDirection;
+import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.network.game.packet.out.PlayerMovePacketOut;
 import com.forgestorm.client.util.FadeOut;
 import com.forgestorm.client.util.MoveNode;
@@ -53,7 +52,7 @@ public class ClientPlayerMovementManager {
     private boolean checkSingleNode(PlayerClient playerClient) {
         if (movements.size() == 1) {
             MoveNode node = movements.peek();
-            if (!isMovable(playerClient.getGameMap(), node.getWorldX(), node.getWorldY())) {
+            if (!WorldUtil.isTraversable(node.getWorldX(), node.getWorldY())) {
                 movements.clear();
                 playerClient.setPredictedMoveDirection(MoveDirection.NONE);
                 return false;
@@ -72,7 +71,7 @@ public class ClientPlayerMovementManager {
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         Location currentLocation = playerClient.getCurrentMapLocation();
-        Location futureLocation = new Location(playerClient.getMapName(), nextNode.getWorldX(), nextNode.getWorldY());
+        Location futureLocation = new Location(playerClient.getWorldName(), nextNode.getWorldX(), nextNode.getWorldY());
         playerClient.setFutureMapLocation(futureLocation);
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentLocation, futureLocation);
 
@@ -88,7 +87,7 @@ public class ClientPlayerMovementManager {
         playerClient.setFacingDirection(moveDirection);
         playerClient.setWalkTime(0f);
 
-        if (MapUtil.isWarp(playerClient.getGameMap(), futureLocation.getX(), futureLocation.getY())) {
+        if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY())) {
             println(getClass(), "We hit a tile that is a warp.", false, PRINT_DEBUG);
 
             movements.clear();
@@ -163,7 +162,7 @@ public class ClientPlayerMovementManager {
                         playerClient.getPredictedMoveDirection());
 
                 MoveNode possibleMove = singleMoveNode.peek();
-                if (possibleMove != null && !isMovable(playerClient.getGameMap(), possibleMove.getWorldX(), possibleMove.getWorldY())) {
+                if (possibleMove != null && !WorldUtil.isTraversable(possibleMove.getWorldX(), possibleMove.getWorldY())) {
                     finishMove(playerClient);
                 } else {
                     playerMove(playerClient, singleMoveNode);
@@ -176,11 +175,6 @@ public class ClientPlayerMovementManager {
             processNextNode(playerClient);
         }
 
-    }
-
-    private boolean isMovable(GameMap gameMap, short x, short y) {
-        if (!MapUtil.isTraversable(gameMap, x, y)) return false;
-        return !MapUtil.isOutOfBounds(gameMap, x, y);
     }
 
     private void finishMove(PlayerClient playerClient) {

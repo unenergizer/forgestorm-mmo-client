@@ -1,10 +1,7 @@
 package com.forgestorm.client.util;
 
 import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
-import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MapUtil;
+import com.forgestorm.client.game.world.maps.WorldUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,21 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class PathFinding {
-
-    private static final boolean PRINT_DEBUG = false;
 
     private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
     private final List<MoveNode> openSet = new ArrayList<MoveNode>();
 
-    private final short ALGORITHM_RADIUS = ClientConstants.CLICK_RADIUS; // Original value: 15
-    private final short GRID_LENGTH = (ALGORITHM_RADIUS * 2) + 1;
+    private final int ALGORITHM_RADIUS = ClientConstants.CLICK_RADIUS; // Original value: 15
+    private final int GRID_LENGTH = (ALGORITHM_RADIUS * 2) + 1;
 
     private final MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];
 
-    private MoveNode currentClosestNode;
     private List<MoveNode> currentShortestPath;
 
     private int calculateHeuristic(int ax, int ay, int bx, int by) {
@@ -40,23 +32,23 @@ public class PathFinding {
         return current;
     }
 
-    private void initializeGrid(short startX, short startY, short finalX, short finalY, String mapName, boolean ignoreFinalCollision) {
+    private void initializeGrid(int startX, int startY, int finalX, int finalY, String worldName, boolean ignoreFinalCollision) {
 
-        short bottomX = (short) (startX - ALGORITHM_RADIUS);
-        short bottomY = (short) (startY - ALGORITHM_RADIUS);
+        int bottomX = (startX - ALGORITHM_RADIUS);
+        int bottomY = (startY - ALGORITHM_RADIUS);
 
-        for (short i = 0; i < GRID_LENGTH; i++) {
-            for (short j = 0; j < GRID_LENGTH; j++) {
-                short worldX = (short) (bottomX + i);
-                short worldY = (short) (bottomY + j);
-                TileImage worldTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), worldX, worldY));
+        for (int i = 0; i < GRID_LENGTH; i++) {
+            for (int j = 0; j < GRID_LENGTH; j++) {
+                int worldX = (bottomX + i);
+                int worldY = (bottomY + j);
 
-                if (worldTile == null) {
-                    grid[i][j] = null;
-                } else if (!MapUtil.isTraversable(EntityManager.getInstance().getPlayerClient().getGameMap(), worldX, worldY)) {
+                boolean isTraversable = WorldUtil.isTraversable(worldX, worldY);
+
+                if (isTraversable) {
+                    grid[i][j] = new MoveNode(worldX, worldY, i, j);
+                } else {
                     if (ignoreFinalCollision) {
                         if (worldX == finalX && worldY == finalY) {
-                            println(getClass(), "FINAL [X,Y] = " + "[" + worldX + ", " + worldY + "]", false, PRINT_DEBUG);
                             grid[i][j] = new MoveNode(worldX, worldY, i, j);
                         } else {
                             grid[i][j] = null;
@@ -64,33 +56,27 @@ public class PathFinding {
                     } else {
                         grid[i][j] = null;
                     }
-                } else {
-                    grid[i][j] = new MoveNode(worldX, worldY, i, j);
                 }
             }
         }
 
-        for (short i = 0; i < GRID_LENGTH; i++) {
-            for (short j = 0; j < GRID_LENGTH; j++) {
+        for (int i = 0; i < GRID_LENGTH; i++) {
+            for (int j = 0; j < GRID_LENGTH; j++) {
                 if (grid[i][j] != null) {
-                    grid[i][j].setMapName(mapName);
+                    grid[i][j].setWorldName(worldName);
                     grid[i][j].addNeighbors(GRID_LENGTH, grid);
                 }
             }
         }
     }
 
-    private boolean initialConditions(short startX, short startY, short finalX, short finalY, boolean ignoreFinalCollision) {
+    private boolean initialConditions(int startX, int startY, int finalX, int finalY, boolean ignoreFinalCollision) {
         if (startX == finalX && startY == finalY) return false;
 
-        TileImage startTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), startX, startY));
-        TileImage endTile = MapUtil.getTileByLocation(new Location(EntityManager.getInstance().getPlayerClient().getMapName(), finalX, finalY));
+        boolean startTileTraversable = WorldUtil.isTraversable(startX, startY);
+        boolean endTileTraversable = WorldUtil.isTraversable(finalX, finalY);
 
-        boolean startTileTraversable = MapUtil.isTraversable(EntityManager.getInstance().getPlayerClient().getGameMap(), startX, startY);
-        boolean endTileTraversable = MapUtil.isTraversable(EntityManager.getInstance().getPlayerClient().getGameMap(), finalX, finalY);
-
-        if (startTile == null || !startTileTraversable) return false;
-        if (endTile == null) return false;
+        if (!startTileTraversable) return false;
         if (!ignoreFinalCollision && !endTileTraversable) return false;
         return Math.abs(finalX - startX) <= ALGORITHM_RADIUS && Math.abs(finalY - startY) <= ALGORITHM_RADIUS;
     }
@@ -116,13 +102,13 @@ public class PathFinding {
         }
     }
 
-    public PathSolution findPath(short startX, short startY, short finalX, short finalY, String mapName, boolean ignoreFinalCollision) {
+    public PathSolution findPath(int startX, int startY, int finalX, int finalY, String worldName, boolean ignoreFinalCollision) {
         if (!initialConditions(startX, startY, finalX, finalY, ignoreFinalCollision))
             return new PathSolution(false, new LinkedList<MoveNode>());
 
-        currentClosestNode = null;
+        MoveNode currentClosestNode = null;
 
-        initializeGrid(startX, startY, finalX, finalY, mapName, ignoreFinalCollision);
+        initializeGrid(startX, startY, finalX, finalY, worldName, ignoreFinalCollision);
 
         // Start node
         openSet.add(grid[ALGORITHM_RADIUS][ALGORITHM_RADIUS]);

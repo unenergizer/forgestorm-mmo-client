@@ -17,7 +17,7 @@ import static com.forgestorm.client.util.Log.println;
 @Setter
 public class TileImage {
 
-    private static final transient boolean PRINT_DEBUG = true;
+    private static final transient boolean PRINT_DEBUG = false;
 
     private final transient int imageId;
     private final String fileName;
@@ -52,11 +52,13 @@ public class TileImage {
 
         if (tileProperties == null) {
             tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
-            println(getClass(), "Tile property map was null, setting new HashMap now!");
         }
-        if (tileProperties.containsKey(customTileProperty.getTilePropertyType()))
-            throw new RuntimeException("TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
-        tileProperties.put(customTileProperty.getTilePropertyType(), customTileProperty);
+
+        if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {
+            println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
+        } else {
+            tileProperties.put(customTileProperty.getTilePropertyType(), customTileProperty);
+        }
 
         if (PRINT_DEBUG) {
             println(getClass(), "---- TILE IMAGE SET PROPERTY ----", false);

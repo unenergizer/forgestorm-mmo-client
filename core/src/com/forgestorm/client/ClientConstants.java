@@ -25,4 +25,7 @@ public class ClientConstants {
     public static final int NETWORK_SECONDS_TO_TIMEOUT = 10;
 
     public static final int MAX_PREVIOUS_SCROLL_MESSAGES = 10;
+
+    public static final int CHUNK_SIZE = 16;
+    public static final int CHUNK_RADIUS = 1;
 }

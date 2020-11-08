@@ -73,10 +73,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
                     entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
                     entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
-                    String mapName = clientHandler.readString();
+                    String worldName = clientHandler.readString();
                     short x = clientHandler.readShort();
                     short y = clientHandler.readShort();
-                    entitySpawnPacket.setDefaultSpawnLocation(new Location(mapName, x, y));
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y));
                 }
 
                 entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
@@ -100,10 +100,10 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
                     entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
                     entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
-                    String mapName = clientHandler.readString();
+                    String worldName = clientHandler.readString();
                     short x = clientHandler.readShort();
                     short y = clientHandler.readShort();
-                    entitySpawnPacket.setDefaultSpawnLocation(new Location(mapName, x, y));
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y));
                 }
 
                 entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
@@ -159,18 +159,18 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
-        String mapName = ClientMain.getInstance().getMapManager().getCurrentGameMap().getMapName();
+        String worldName = ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldName();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-            entity = spawnClientPlayer(packetData, mapName);
+            entity = spawnClientPlayer(packetData, worldName);
         } else if (packetData.entityType == EntityType.PLAYER) {
-            entity = spawnPlayer(packetData, mapName);
+            entity = spawnPlayer(packetData, worldName);
         } else if (packetData.entityType == EntityType.NPC) {
-            entity = spawnNPC(packetData, mapName);
+            entity = spawnNPC(packetData, worldName);
         } else if (packetData.entityType == EntityType.ITEM_STACK) {
             entity = spawnItemStackDrop(packetData);
         } else if (packetData.entityType == EntityType.MONSTER) {
-            entity = spawnMonster(packetData, mapName);
+            entity = spawnMonster(packetData, worldName);
         } else if (packetData.entityType == EntityType.SKILL_NODE) {
             entity = spawnSkillNode(packetData);
         }
@@ -179,8 +179,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setEntityType(packetData.entityType);
         entity.setServerEntityID(packetData.entityId);
         entity.setEntityName(packetData.entityName);
-        entity.setMapName(mapName);
-        entity.setCurrentMapLocation(new Location(entity.getMapName(), packetData.tileX, packetData.tileY));
+        entity.setWorldName(worldName);
+        entity.setCurrentMapLocation(new Location(entity.getWorldName(), packetData.tileX, packetData.tileY));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
 
@@ -188,7 +188,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         println(getClass(), "entityType: " + packetData.entityType, false, PRINT_DEBUG);
         println(getClass(), "entityId: " + packetData.entityId, false, PRINT_DEBUG);
         println(getClass(), "entityName: " + packetData.entityName, false, PRINT_DEBUG);
-        println(getClass(), "MapName: NULL?", false, PRINT_DEBUG);
+        println(getClass(), "worldName: NULL?", false, PRINT_DEBUG);
         println(getClass(), "tileX: " + packetData.tileX, false, PRINT_DEBUG);
         println(getClass(), "tileY: " + packetData.tileY, false, PRINT_DEBUG);
         println(getClass(), "directional Byte: " + packetData.moveDirection, false, PRINT_DEBUG);
@@ -221,6 +221,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
                 if (packetData.entityType == EntityType.CLIENT_PLAYER) {
                     ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
+                    // TODO: Possible to relocate this for better performance...
+                    ClientMain.getInstance().getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
                 }
 
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
@@ -234,6 +236,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "GlovesColor: " + appearance.getGlovesColor(), false, PRINT_DEBUG);
                 println(getClass(), "LeftHand: " + appearance.getLeftHandTexture(), false, PRINT_DEBUG);
                 println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
+
                 break;
             case NPC:
                 if (ClientMain.getInstance().isAdmin()) {
@@ -309,7 +312,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         }
     }
 
-    private Entity spawnClientPlayer(EntitySpawnPacket packetData, String mapName) {
+    private Entity spawnClientPlayer(EntitySpawnPacket packetData, String worldName) {
         PlayerClient playerClient = new PlayerClient();
         AttachableCamera camera = ClientMain.getInstance().getGameScreen().getCamera();
 
@@ -319,7 +322,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         ClientMain.getInstance().getGameScreen().getKeyboard().getKeyboardMovement().setInvalidated(false);
         ClientMain.getInstance().getMouseManager().setInvalidate(false);
 
-        setMovingEntityVars(playerClient, packetData, mapName);
+        setMovingEntityVars(playerClient, packetData, worldName);
 
         EntityManager.getInstance().setPlayerClient(playerClient);
 
@@ -328,30 +331,30 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         return playerClient;
     }
 
-    private Entity spawnPlayer(EntitySpawnPacket packetData, String mapName) {
+    private Entity spawnPlayer(EntitySpawnPacket packetData, String worldName) {
         Player player = new Player();
-        setMovingEntityVars(player, packetData, mapName);
+        setMovingEntityVars(player, packetData, worldName);
         EntityManager.getInstance().addPlayerEntity(packetData.entityId, player);
         return player;
     }
 
-    private Entity spawnMonster(EntitySpawnPacket packetData, String mapName) {
+    private Entity spawnMonster(EntitySpawnPacket packetData, String worldName) {
         AiEntity entity = new Monster();
         entity.setFirstInteraction(packetData.firstInteraction);
         entity.setShopID(packetData.shopID);
         entity.setAlignment(packetData.entityAlignment);
-        setMovingEntityVars(entity, packetData, mapName);
+        setMovingEntityVars(entity, packetData, worldName);
         EntityManager.getInstance().addAiEntity(packetData.entityId, entity);
         return entity;
     }
 
-    private Entity spawnNPC(EntitySpawnPacket packetData, String mapName) {
+    private Entity spawnNPC(EntitySpawnPacket packetData, String worldName) {
         NPC npc = new NPC();
         npc.setFirstInteraction(packetData.firstInteraction);
         npc.setShopID(packetData.shopID);
         npc.setAlignment(packetData.entityAlignment);
         npc.setFaction(packetData.entityFaction);
-        setMovingEntityVars(npc, packetData, mapName);
+        setMovingEntityVars(npc, packetData, worldName);
         EntityManager.getInstance().addAiEntity(packetData.entityId, npc);
         return npc;
     }
@@ -368,8 +371,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         return itemStackDrop;
     }
 
-    private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData, String mapName) {
-        entity.setFutureMapLocation(new Location(mapName, packetData.tileX, packetData.tileY));
+    private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData, String worldName) {
+        entity.setFutureMapLocation(new Location(worldName, packetData.tileX, packetData.tileY));
         MoveDirection facingDirection = packetData.moveDirection;
 
         if (facingDirection == MoveDirection.NONE) {

@@ -27,7 +27,7 @@ public class ClientMoveResyncPacketIn implements PacketListener<ClientMoveResync
     public void onEvent(ClientMoveResyncPacket packetData) {
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Location resyncLocation = new Location(playerClient.getMapName(), packetData.futureX, packetData.futureY);
+        Location resyncLocation = new Location(playerClient.getWorldName(), packetData.futureX, packetData.futureY);
 
         playerClient.setCurrentMapLocation(new Location(resyncLocation));
         playerClient.setFutureMapLocation(new Location(resyncLocation));

@@ -7,38 +7,39 @@ import lombok.Setter;
 @Setter
 public class MoveNode {
 
-    private String mapName;
+    private String worldName;
 
     private int heuristic;
     private int costG;
     private int costF;
-    private final short i;
-    private final short j;
+    private final int i;
+    private final int j;
 
-    private short worldX, worldY;
+    private int worldX, worldY;
 
     private MoveNode parentNode;
 
     private MoveNode[] neighbors;
 
-    public MoveNode(short worldX, short worldY, short i, short j) {
+    public MoveNode(int worldX, int worldY, int i, int j) {
         this.worldX = worldX;
         this.worldY = worldY;
         this.i = i;
         this.j = j;
     }
 
-    void addNeighbors(short GRID_LENGTH, MoveNode[][] grid) {
+    @SuppressWarnings("SameParameterValue")
+    void addNeighbors(int gridLength, MoveNode[][] grid) {
         int top = j + 1;
         int bottom = j - 1;
         int right = i + 1;
         int left = i - 1;
 
         neighbors = new MoveNode[]{
-                top < GRID_LENGTH && top >= 0 ? grid[i][top] : null,
-                bottom < GRID_LENGTH && bottom >= 0 ? grid[i][bottom] : null,
-                right < GRID_LENGTH && right >= 0 ? grid[right][j] : null,
-                left < GRID_LENGTH && left >= 0 ? grid[left][j] : null
+                top < gridLength && top >= 0 ? grid[i][top] : null,
+                bottom < gridLength && bottom >= 0 ? grid[i][bottom] : null,
+                right < gridLength && right >= 0 ? grid[right][j] : null,
+                left < gridLength && left >= 0 ? grid[left][j] : null
         };
     }
 

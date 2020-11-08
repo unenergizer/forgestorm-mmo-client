@@ -115,9 +115,9 @@ public class DirectoryDownloader {
             String fileName = element.attributes().get("href");
             if (!fileName.contains("." + fileType)) continue;
 
-            String[] mapNameParts = fileName.split("\\.");
+            String[] worldNameParts = fileName.split("\\.");
 
-            if (!existingFiles.contains(mapNameParts[0])) {
+            if (!existingFiles.contains(worldNameParts[0])) {
 
                 try {
                     saveUrl(directoryPath + File.separator + fileName, "https://forgestorm.com/game_files/" + directoryName + "/" + fileName);
@@ -125,12 +125,12 @@ public class DirectoryDownloader {
                     e.printStackTrace();
                 }
 
-            } else if (!existingFilesAndVersions.contains(mapNameParts[0] + "." + mapNameParts[2])) {
+            } else if (!existingFilesAndVersions.contains(worldNameParts[0] + "." + worldNameParts[2])) {
                 // Out of date version number. Delete old version and download new version
 
-                String outOfDateVersion = fileNameToVersion.get(mapNameParts[0]);
+                String outOfDateVersion = fileNameToVersion.get(worldNameParts[0]);
 
-                File deleteFile = new File(directoryPath + File.separator + mapNameParts[0] + "." + fileType + "." + outOfDateVersion);
+                File deleteFile = new File(directoryPath + File.separator + worldNameParts[0] + "." + fileType + "." + outOfDateVersion);
                 if (!deleteFile.delete()) {
                     // todo: handle however you want
                 }

@@ -55,7 +55,7 @@ public class MonsterTab extends EditorTab {
     @Getter
     private boolean selectSpawnActivated = false;
     private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
-    private VisValidatableTextField mapName = new VisValidatableTextField();
+    private VisValidatableTextField worldName = new VisValidatableTextField();
     private VisValidatableTextField mapX = new VisValidatableTextField();
     private VisValidatableTextField mapY = new VisValidatableTextField();
     private VisTextButton deleteButton = new VisTextButton("Delete");
@@ -95,7 +95,7 @@ public class MonsterTab extends EditorTab {
         shopId.setText("-1");
         isBankKeeper.setChecked(false);
         selectSpawnActivated = false;
-        mapName.setText("");
+        worldName.setText("");
         mapX.setText("");
         mapY.setText("");
 
@@ -122,9 +122,9 @@ public class MonsterTab extends EditorTab {
         probWalk.setValue(aiEntity.getProbWalkStart());
         shopId.setText(Integer.toString(aiEntity.getShopID()));
         isBankKeeper.setChecked(aiEntity.isBankKeeper());
-        mapName.setText(aiEntity.getDefaultSpawnLocation().getMapName());
-        mapX.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getX()));
-        mapY.setText(Short.toString(aiEntity.getDefaultSpawnLocation().getY()));
+        worldName.setText(aiEntity.getDefaultSpawnLocation().getWorldName());
+        mapX.setText(Integer.toString(aiEntity.getDefaultSpawnLocation().getX()));
+        mapY.setText(Integer.toString(aiEntity.getDefaultSpawnLocation().getY()));
 
         // Load Appearance
         appearanceTable.clear();
@@ -185,19 +185,19 @@ public class MonsterTab extends EditorTab {
         validator.valueLesserThan(walkSpeed, "Walk Speed must be less than 59.", 59, true);
         validator.valueGreaterThan(walkSpeed, "Walk Speed must be greater than 0.", 0, true);
         validator.integerNumber(shopId, "Shop ID must be a valid number.");
-        validator.notEmpty(mapName, "Map name must not be empty.");
+        validator.notEmpty(worldName, "Map name must not be empty.");
         validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
         validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
         validator.valueGreaterThan(mapY, "Map Y must be greater than -1.", 0, true);
         validator.valueLesserThan(mapY, "Map Y must be less than 97.", 54, true);
 
         // Spawn location Selection
-        mapName.setDisabled(true);
+        worldName.setDisabled(true);
         selectSpawn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectSpawnActivated = true;
-                mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
+                worldName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getWorldName());
                 selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
                 ClientMain.getInstance().getMouseManager().setHighlightHoverTile(true);
@@ -234,8 +234,8 @@ public class MonsterTab extends EditorTab {
                 if (button != Input.Buttons.LEFT) return false;
                 selectSpawn.setText("Select Spawn Location");
                 selectSpawn.setDisabled(false);
-                mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
-                mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
+                mapX.setText(Integer.toString(mouseManager.getLeftClickTileX()));
+                mapY.setText(Integer.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
                 ClientMain.getInstance().getMouseManager().setHighlightHoverTile(false);
                 return true;
@@ -244,16 +244,16 @@ public class MonsterTab extends EditorTab {
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 if (!selectSpawnActivated) return false;
-                mapX.setText(Short.toString(mouseManager.getMouseTileX()));
-                mapY.setText(Short.toString(mouseManager.getMouseTileY()));
+                mapX.setText(Integer.toString(mouseManager.getMouseTileX()));
+                mapY.setText(Integer.toString(mouseManager.getMouseTileY()));
                 return true;
             }
 
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 if (!selectSpawnActivated) return false;
-                mapX.setText(Short.toString(mouseManager.getMouseTileX()));
-                mapY.setText(Short.toString(mouseManager.getMouseTileY()));
+                mapX.setText(Integer.toString(mouseManager.getMouseTileX()));
+                mapY.setText(Integer.toString(mouseManager.getMouseTileY()));
                 return false;
             }
 
@@ -264,10 +264,10 @@ public class MonsterTab extends EditorTab {
         });
 
         leftPane.add(selectSpawn).row();
-        VisTable mapNameTable = new VisTable();
-        mapNameTable.add(new VisLabel("Spawn Map:")).grow().pad(1);
-        mapNameTable.add(mapName).pad(1);
-        leftPane.add(mapNameTable).expandX().fillX().pad(1).row();
+        VisTable worldNameTable = new VisTable();
+        worldNameTable.add(new VisLabel("Spawn Map:")).grow().pad(1);
+        worldNameTable.add(worldName).pad(1);
+        leftPane.add(worldNameTable).expandX().fillX().pad(1).row();
 
         VisTable mapXTable = new VisTable();
         mapXTable.add(new VisLabel("Spawn X:")).grow().pad(1);
@@ -302,7 +302,7 @@ public class MonsterTab extends EditorTab {
                 println(MonsterTab.class, "Probability Walk: " + probWalk.getValue());
                 println(MonsterTab.class, "ShopID: " + shopId.getText());
                 println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
-                println(MonsterTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
+                println(MonsterTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
                 println(MonsterTab.class, "--- Appearance ---");
 
                 appearancePanel.printDebug();
@@ -377,9 +377,9 @@ public class MonsterTab extends EditorTab {
 
     private EntityEditorData generateDataOut(boolean save, boolean delete) {
         Location location = new Location(
-                mapName.getText(),
-                Short.valueOf(mapX.getText()),
-                Short.valueOf(mapY.getText()));
+                worldName.getText(),
+                Integer.valueOf(mapX.getText()),
+                Integer.valueOf(mapY.getText()));
 
         EntityEditorData entityEditorData = new MonsterData(true, save, delete, location, entityIDNum);
 

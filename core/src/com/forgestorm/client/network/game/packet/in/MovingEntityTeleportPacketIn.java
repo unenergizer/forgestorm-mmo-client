@@ -22,12 +22,12 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
         final byte entityType = clientHandler.readByte();
-        final String mapName = clientHandler.readString();
+        final String worldName = clientHandler.readString();
         final short x = clientHandler.readShort();
         final short y = clientHandler.readShort();
         final byte facingDirection = clientHandler.readByte();
 
-        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(mapName, x, y), MoveDirection.getDirection(facingDirection));
+        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(worldName, x, y), MoveDirection.getDirection(facingDirection));
     }
 
     @Override

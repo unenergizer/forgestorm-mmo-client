@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 public enum BuildCategory {
     DECORATION(LayerDefinition.WALL_DECORATION),
     WALKABLE(LayerDefinition.GROUND_DECORATION),
-    WALL(LayerDefinition.WALL),
+    WALL(LayerDefinition.COLLIDABLES),
     ROOF(LayerDefinition.ROOF),
     UNDEFINED(LayerDefinition.GROUND_DECORATION);
 

@@ -98,7 +98,7 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadEntityShopData();
         fileManager.loadAbilityData();
         fileManager.loadNetworkSettingsData();
-        fileManager.loadGameMapData();
+        fileManager.loadGameWorldData();
         fileManager.loadRssFeedData();
     }
 

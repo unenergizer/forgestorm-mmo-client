@@ -7,7 +7,6 @@ import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.Opcode;
@@ -69,9 +68,9 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         }
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
-            movingEntity.addLocationToFutureQueue(new Location(movingEntity.getMapName(), packetData.futureX, packetData.futureY));
+            movingEntity.addLocationToFutureQueue(new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY));
         } else {
-            ClientMain.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getMapName(), packetData.futureX, packetData.futureY));
+            ClientMain.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY));
         }
     }
 

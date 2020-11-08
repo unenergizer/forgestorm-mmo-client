@@ -49,7 +49,7 @@ public class ItemStackDropTab extends EditorTab {
     @Getter
     private boolean selectSpawnActivated = false;
     private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
-    private VisValidatableTextField mapName = new VisValidatableTextField();
+    private VisValidatableTextField worldName = new VisValidatableTextField();
     private VisValidatableTextField mapX = new VisValidatableTextField();
     private VisValidatableTextField mapY = new VisValidatableTextField();
     private VisTextButton deleteButton = new VisTextButton("Delete");
@@ -75,9 +75,9 @@ public class ItemStackDropTab extends EditorTab {
         stackSize.setText(Integer.toString(itemStackDrop.getStackSize()));
         respawnTimeMin.setText(Integer.toString(itemStackDrop.getRespawnTimeMin()));
         respawnTimeMax.setText(Integer.toString(itemStackDrop.getRespawnTimeMax()));
-        mapName.setText(itemStackDrop.getCurrentMapLocation().getMapName());
-        mapX.setText(Short.toString(itemStackDrop.getCurrentMapLocation().getX()));
-        mapY.setText(Short.toString(itemStackDrop.getCurrentMapLocation().getY()));
+        worldName.setText(itemStackDrop.getCurrentMapLocation().getWorldName());
+        mapX.setText(Integer.toString(itemStackDrop.getCurrentMapLocation().getX()));
+        mapY.setText(Integer.toString(itemStackDrop.getCurrentMapLocation().getY()));
 
         // Load Appearance
         updateEditorDisplay();
@@ -88,14 +88,14 @@ public class ItemStackDropTab extends EditorTab {
     @Override
     public void resetValues() {
         entityIDNum = -1;
-        entityID.setText(Short.toString(entityIDNum));
+        entityID.setText(Integer.toString(entityIDNum));
         itemStackIDNum = 0;
         itemStackId.setText("0");
         stackSize.setText("1");
         respawnTimeMin.setText("");
         respawnTimeMax.setText("");
         selectSpawnActivated = false;
-        mapName.setText("");
+        worldName.setText("");
         mapX.setText("");
         mapY.setText("");
 
@@ -136,19 +136,19 @@ public class ItemStackDropTab extends EditorTab {
         validator.valueGreaterThan(stackSize, "Stack size must be greater than 0.", 1, true);
         validator.valueGreaterThan(respawnTimeMin, "Respawn times must be greater than -1.", 0, true);
         validator.valueGreaterThan(respawnTimeMax, "Respawn times must be greater than -1.", 0, true);
-        validator.notEmpty(mapName, "Map name must not be empty.");
+        validator.notEmpty(worldName, "Map name must not be empty.");
         validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
         validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
         validator.valueGreaterThan(mapY, "Map Y must be greater than -1.", 0, true);
         validator.valueLesserThan(mapY, "Map Y must be less than 97.", 54, true);
 
         // Spawn location Selection
-        mapName.setDisabled(true);
+        worldName.setDisabled(true);
         selectSpawn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectSpawnActivated = true;
-                mapName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getMapName());
+                worldName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getWorldName());
                 selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
                 ClientMain.getInstance().getMouseManager().setHighlightHoverTile(true);
@@ -185,8 +185,8 @@ public class ItemStackDropTab extends EditorTab {
                 if (button != Input.Buttons.LEFT) return false;
                 selectSpawn.setText("Select Spawn Location");
                 selectSpawn.setDisabled(false);
-                mapX.setText(Short.toString(mouseManager.getLeftClickTileX()));
-                mapY.setText(Short.toString(mouseManager.getLeftClickTileY()));
+                mapX.setText(Integer.toString(mouseManager.getLeftClickTileX()));
+                mapY.setText(Integer.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
                 ClientMain.getInstance().getMouseManager().setHighlightHoverTile(false);
                 return true;
@@ -195,16 +195,16 @@ public class ItemStackDropTab extends EditorTab {
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 if (!selectSpawnActivated) return false;
-                mapX.setText(Short.toString(mouseManager.getMouseTileX()));
-                mapY.setText(Short.toString(mouseManager.getMouseTileY()));
+                mapX.setText(Integer.toString(mouseManager.getMouseTileX()));
+                mapY.setText(Integer.toString(mouseManager.getMouseTileY()));
                 return true;
             }
 
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 if (!selectSpawnActivated) return false;
-                mapX.setText(Short.toString(mouseManager.getMouseTileX()));
-                mapY.setText(Short.toString(mouseManager.getMouseTileY()));
+                mapX.setText(Integer.toString(mouseManager.getMouseTileX()));
+                mapY.setText(Integer.toString(mouseManager.getMouseTileY()));
                 return false;
             }
 
@@ -215,10 +215,10 @@ public class ItemStackDropTab extends EditorTab {
         });
 
         leftPane.add(selectSpawn).row();
-        VisTable mapNameTable = new VisTable();
-        mapNameTable.add(new VisLabel("Spawn Map:")).grow().pad(1);
-        mapNameTable.add(mapName).pad(1);
-        leftPane.add(mapNameTable).expandX().fillX().pad(1).row();
+        VisTable worldNameTable = new VisTable();
+        worldNameTable.add(new VisLabel("Spawn Map:")).grow().pad(1);
+        worldNameTable.add(worldName).pad(1);
+        leftPane.add(worldNameTable).expandX().fillX().pad(1).row();
 
         VisTable mapXTable = new VisTable();
         mapXTable.add(new VisLabel("Spawn X:")).grow().pad(1);
@@ -245,7 +245,7 @@ public class ItemStackDropTab extends EditorTab {
                 println(MonsterTab.class, "StackSize: " + stackSize.getText());
                 println(MonsterTab.class, "Min RespawnTime (minutes): " + respawnTimeMin.getText());
                 println(MonsterTab.class, "Max RespawnTime (minutes): " + respawnTimeMax.getText());
-                println(MonsterTab.class, "SpawnLocation: " + mapName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
+                println(MonsterTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
                 println(MonsterTab.class, "--- Appearance ---");
             }
         });
@@ -384,9 +384,9 @@ public class ItemStackDropTab extends EditorTab {
 
     private ItemStackDropData generateDataOut(boolean save, boolean delete) {
         Location location = new Location(
-                mapName.getText(),
-                Short.valueOf(mapX.getText()),
-                Short.valueOf(mapY.getText()));
+                worldName.getText(),
+                Integer.valueOf(mapX.getText()),
+                Integer.valueOf(mapY.getText()));
 
         ItemStackDropData entityEditorData = new ItemStackDropData(true, save, delete, location, entityIDNum);
 

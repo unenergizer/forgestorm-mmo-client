@@ -15,12 +15,12 @@ public enum LayerDefinition {
 //    GROUND,
 //    BACKGROUND
 
-    ROOF("overhead"),
-    WALL_DECORATION("wall_decoration"),
-    WALL("wall"),
-    GROUND_DECORATION("ground_decoration"),
-    GROUND("ground"),
-    BACKGROUND("background");
+    ROOF("overhead"), // NO COLLISION
+    WALL_DECORATION("wall_decoration"), // NO COLLISION
+    COLLIDABLES("wall"), // map.get(WALL_LAYER).get(X + y * WIDTH);
+    GROUND_DECORATION("ground_decoration"), // NO COLLISION (carpet, tall grass)
+    GROUND("ground"), // NO COLLISION
+    BACKGROUND("background"); // NO COLLISION
 
     private String layerName;
 

@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
-import com.forgestorm.client.game.world.maps.GameMap;
+import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 
@@ -56,8 +56,8 @@ public class WorldBuilder {
     }
 
     public void placeTile(LayerDefinition layerDefinition, int textureId, int tileX, int tileY) {
-        GameMap gameMap = ClientMain.getInstance().getMapManager().getCurrentGameMap();
-        gameMap.setTileImage(layerDefinition, tileImageMap.get(textureId), tileX, tileY);
+        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        gameWorld.setTileImage(layerDefinition, tileImageMap.get(textureId), tileX, tileY);
     }
 
     public void drawMouse(SpriteBatch spriteBatch) {

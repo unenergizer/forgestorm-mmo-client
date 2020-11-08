@@ -27,7 +27,7 @@ public class EntityTracker implements GameQuitReset {
     private AbstractPostProcessor abstractPostProcessor;
 
     @Setter
-    private short distanceCheck = -1;
+    private int distanceCheck = -1;
 
     private enum TrackType {
         WALK_TO,
@@ -51,7 +51,7 @@ public class EntityTracker implements GameQuitReset {
         setup(entity);
     }
 
-    public void walkTo(short tileX, short tileY, boolean ignoreFileTile) {
+    public void walkTo(int tileX, int tileY, boolean ignoreFileTile) {
         cancelFollow();
         walkToTileLocation(tileX, tileY, ignoreFileTile);
     }
@@ -60,28 +60,28 @@ public class EntityTracker implements GameQuitReset {
         this.abstractPostProcessor = abstractPostProcessor;
     }
 
-    private boolean walkToTileLocation(short tileX, short tileY, boolean ignoreFinalTile) {
+    private boolean walkToTileLocation(int tileX, int tileY, boolean ignoreFinalTile) {
 
         println(getClass(), "walkToTileLocation()", false, PRINT_DEBUG);
 
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         Location clientLocation = playerClient.getFutureMapLocation();
 
-        PathSolution pathSolution = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), tileX, tileY, clientLocation.getMapName(), ignoreFinalTile);
+        PathSolution pathSolution = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), tileX, tileY, clientLocation.getWorldName(), ignoreFinalTile);
 
         if (pathSolution.getPath() == null || pathSolution.getPath().isEmpty()) {
             println(getClass(), "PATH WAS NULL CHECKING DISTANCE>0", false, PRINT_DEBUG);
             if (distanceCheck > 0) {
                 println(getClass(), "CHECKING DISTANCE", false, PRINT_DEBUG);
 
-                if (clientLocation.isWithinDistance(new Location(clientLocation.getMapName(), tileX, tileY), distanceCheck)) {
+                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY), distanceCheck)) {
                     if (abstractPostProcessor != null)
                         abstractPostProcessor.postMoveAction();
                     if (trackType != TrackType.FOLLOW)
                         cancelFollow();
                 }
             } else {
-                if (clientLocation.isWithinDistance(new Location(clientLocation.getMapName(), tileX, tileY), (short) 1)) {
+                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY), 1)) {
                     if (abstractPostProcessor != null)
                         abstractPostProcessor.postMoveAction();
                     if (trackType != TrackType.FOLLOW)

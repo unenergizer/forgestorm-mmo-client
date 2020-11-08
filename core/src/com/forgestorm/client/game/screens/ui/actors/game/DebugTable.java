@@ -78,7 +78,7 @@ public class DebugTable extends VisTable implements Buildable {
 
         if (playerClient != null) {
             uuid.setText("UUID: " + playerClient.getServerEntityID());
-            playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getMapName());
+            playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getWorldName());
             playerPixel.setText("Player X: " + playerClient.getDrawX() + ", Y: " + playerClient.getDrawY());
 
             armor.setText("Armor: " + playerClient.getAttributes().getArmor());

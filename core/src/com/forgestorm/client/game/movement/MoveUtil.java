@@ -1,7 +1,7 @@
 package com.forgestorm.client.game.movement;
 
 import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.maps.GameMap;
+import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 
@@ -12,7 +12,7 @@ public class MoveUtil {
                 futureLocation.getX(), futureLocation.getY());
     }
 
-    private static MoveDirection getMoveDirection(short currentX, short currentY, short futureX, short futureY) {
+    private static MoveDirection getMoveDirection(int currentX, int currentY, int futureX, int futureY) {
         if (currentX > futureX) return MoveDirection.WEST;
         else if (currentX < futureX) return MoveDirection.EAST;
         else if (currentY > futureY) return MoveDirection.SOUTH;
@@ -20,18 +20,18 @@ public class MoveUtil {
         return MoveDirection.NONE;
     }
 
-    static Location getLocation(GameMap gameMap, MoveDirection direction) {
+    static Location getLocation(GameWorld gameWorld, MoveDirection direction) {
         if (direction == MoveDirection.SOUTH)
-            return new Location(gameMap.getMapName(), (short) 0, (short) -1);
+            return new Location(gameWorld.getWorldName(), 0, -1);
         if (direction == MoveDirection.NORTH)
-            return new Location(gameMap.getMapName(), (short) 0, (short) 1);
+            return new Location(gameWorld.getWorldName(), 0, 1);
         if (direction == MoveDirection.WEST)
-            return new Location(gameMap.getMapName(), (short) -1, (short) 0);
+            return new Location(gameWorld.getWorldName(), -1, 0);
         if (direction == MoveDirection.EAST)
-            return new Location(gameMap.getMapName(), (short) 1, (short) 0);
+            return new Location(gameWorld.getWorldName(), 1, 0);
         if (direction == MoveDirection.NONE)
-            return new Location(gameMap.getMapName(), (short) 0, (short) 0);
-        throw new RuntimeException("Tried to get a location, but direction could not be determined. MapName: " + gameMap.getMapName() + ", MoveDirection: " + direction);
+            return new Location(gameWorld.getWorldName(), 0, 0);
+        throw new RuntimeException("Tried to get a location, but direction could not be determined. worldName: " + gameWorld.getWorldName() + ", MoveDirection: " + direction);
     }
 
     public static boolean isEntityMoving(MovingEntity entity) {

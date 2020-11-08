@@ -22,7 +22,7 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.maps.GameMap;
+import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GraphicsUtils;
@@ -122,7 +122,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (ClientMain.getInstance().getMapManager().getCurrentGameMap() != null) {
+        if (ClientMain.getInstance().getWorldManager().getCurrentGameWorld() != null) {
             renderGame(delta);
         } else {
             renderAccountInformation();
@@ -141,8 +141,8 @@ public class GameScreen implements Screen {
     }
 
     private void renderGame(float delta) {
-        if (ClientMain.getInstance().getMapManager().getCurrentGameMap() == null) return;
-        GraphicsUtils.clearScreen(ClientMain.getInstance().getMapManager().getCurrentGameMap().getBackgroundColor());
+        if (ClientMain.getInstance().getWorldManager().getCurrentGameWorld() == null) return;
+        GraphicsUtils.clearScreen(ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getBackgroundColor());
 
         if (EntityManager.getInstance().getPlayerClient() == null) return;
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
@@ -188,7 +188,7 @@ public class GameScreen implements Screen {
         // Draw mouse
         MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
         mouseManager.drawMoveNodes(spriteBatch);
-        mouseManager.drawMouseHoverIcon(spriteBatch, playerClient, validTileLocationTexture, invalidTileLocationTexture);
+        mouseManager.drawMouseHoverIcon(spriteBatch, validTileLocationTexture, invalidTileLocationTexture);
 
         // Draw World Builder
         ClientMain.getInstance().getWorldBuilder().drawMouse(spriteBatch);
@@ -200,8 +200,8 @@ public class GameScreen implements Screen {
         spriteBatch.end();
     }
 
-    private GameMap getGameMap() {
-        return ClientMain.getInstance().getMapManager().getCurrentGameMap();
+    private GameWorld getGameMap() {
+        return ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
     }
 
     private void tickGameLogic(float delta) {

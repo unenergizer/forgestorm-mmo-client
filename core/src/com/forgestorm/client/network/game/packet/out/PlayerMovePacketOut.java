@@ -8,22 +8,22 @@ import static com.forgestorm.client.util.Preconditions.checkArgument;
 
 public class PlayerMovePacketOut extends AbstractClientPacketOut {
 
-    private final String mapName;
-    private final short x;
-    private final short y;
+    private final String worldName;
+    private final int x;
+    private final int y;
 
     public PlayerMovePacketOut(Location attemptLocation) {
         super(Opcodes.MOVE_REQUEST);
-        mapName = attemptLocation.getMapName();
+        worldName = attemptLocation.getWorldName();
         x = attemptLocation.getX();
         y = attemptLocation.getY();
     }
 
     @Override
     protected void createPacket(ForgeStormOutputStream write) {
-        checkArgument(!EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().equals(new Location(mapName, x, y)),
+        checkArgument(!EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().equals(new Location(worldName, x, y)),
                 "Locations can not be equal!");
-        write.writeShort(x);
-        write.writeShort(y);
+        write.writeInt(x);
+        write.writeInt(y);
     }
 }

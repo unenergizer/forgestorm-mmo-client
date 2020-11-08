@@ -11,18 +11,18 @@ import lombok.Setter;
 @SuppressWarnings("unused")
 public class Location {
 
-    private String mapName;
-    private short x;
-    private short y;
+    private String worldName;
+    private int x;
+    private int y;
 
-    public Location(String mapName, short x, short y) {
-        this.mapName = mapName;
+    public Location(String worldName, int x, int y) {
+        this.worldName = worldName;
         this.x = x;
         this.y = y;
     }
 
     public Location(Location location) {
-        this.mapName = location.mapName;
+        this.worldName = location.worldName;
         this.x = location.x;
         this.y = location.y;
     }
@@ -32,13 +32,13 @@ public class Location {
      *
      * @return The map data that relates to this location object.
      */
-    public GameMap getMapData() {
-        return ClientMain.getInstance().getMapManager().getGameMap(mapName);
+    public GameWorld getGameWorld() {
+        return ClientMain.getInstance().getWorldManager().getGameWorld(worldName);
     }
 
-    public Location add(short x, short y) {
-        this.x = (short) (this.x + x);
-        this.y = (short) (this.y + y);
+    public Location add(int x, int y) {
+        this.x = this.x + x;
+        this.y = this.y + y;
         return this;
     }
 
@@ -69,33 +69,33 @@ public class Location {
     }
 
     public Location set(Location location) {
-        this.mapName = location.mapName;
+        this.worldName = location.worldName;
         this.x = location.x;
         this.y = location.y;
         return this;
     }
 
-    public Location set(String mapName, short tileX, short tileY) {
-        this.mapName = mapName;
+    public Location set(String worldName, int tileX, int tileY) {
+        this.worldName = worldName;
         this.x = tileX;
         this.y = tileY;
         return this;
     }
 
-    public boolean isWithinDistance(Entity entity, short distance) {
+    public boolean isWithinDistance(Entity entity, int distance) {
         return isWithinDistance(entity.getCurrentMapLocation(), distance);
     }
 
-    public boolean isWithinDistance(Location otherLocation, short distance) {
+    public boolean isWithinDistance(Location otherLocation, int distance) {
         return getDistanceAway(otherLocation) <= distance;
     }
 
-    public short getDistanceAway(Location otherLocation) {
+    public int getDistanceAway(Location otherLocation) {
         int diffX = otherLocation.getX() - x;
         int diffY = otherLocation.getY() - y;
 
         double realDifference = Math.sqrt((double) (diffX * diffX + diffY * diffY));
-        return (short) Math.floor(realDifference);
+        return (int) Math.floor(realDifference);
     }
 
     @SuppressWarnings("RedundantIfStatement")
@@ -104,7 +104,7 @@ public class Location {
         if (!(obj instanceof Location)) return false;
         Location otherLocation = (Location) obj;
 
-        if (!otherLocation.getMapName().equals(mapName)) return false;
+        if (!otherLocation.getWorldName().equals(worldName)) return false;
         if (otherLocation.getX() != x) return false;
         if (otherLocation.getY() != y) return false;
         return true;
@@ -112,6 +112,6 @@ public class Location {
 
     @Override
     public String toString() {
-        return "[" + mapName + "] -> [" + x + ", " + y + "]";
+        return "[" + worldName + "] -> [" + x + ", " + y + "]";
     }
 }

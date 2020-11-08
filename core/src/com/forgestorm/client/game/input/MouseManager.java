@@ -24,9 +24,8 @@ import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.entities.StationaryEntity;
 import com.forgestorm.client.game.world.maps.CursorDrawType;
-import com.forgestorm.client.game.world.maps.GameMap;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MapUtil;
+import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
 import com.forgestorm.client.util.FadeOut;
@@ -196,7 +195,7 @@ public class MouseManager {
 //                    ClientMain.getInstance().getEntityTracker().cancelFollow();
 //
 //                    // Top right quad
-//                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getMapName(), true);
+//                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getWorldName(), true);
 //                    if (testMoveNodes == null) break;
 //                    moveNodes = new LinkedList<MoveNode>();
 //                    for (int i = testMoveNodes.size() - 1; i > 0; i--) {
@@ -301,10 +300,10 @@ public class MouseManager {
 
     // TODO: FIX THIS....
     public void drawMovingMouse(PlayerClient playerClient, SpriteBatch spriteBatch) {
-//        GameMap gameMap = playerClient.getGameMap();
-//        if (MapUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
+//        GameWorld gameMap = playerClient.getGameWorld();
+//        if (WorldUtil.isOutOfBounds(gameMap, mouseTileX, mouseTileY)) return;
 ////        CursorDrawType cursorDrawType = gameMap.get[mouseTileX][mouseTileY].getCursorDrawType();
-//        // [location.getX() + location.getY() * location.getMapData().getMapWidth()]
+//        // [location.getX() + location.getY() * location.getGameWorld().getWorldWidthInChunks()]
 //
 //        if (cursorDrawType != lastCursorDrawType && cursorDrawType != CursorDrawType.NO_DRAWABLE) {
 //            lastCursorDrawType = cursorDrawType;
@@ -329,12 +328,11 @@ public class MouseManager {
         }
     }
 
-    public void drawMouseHoverIcon(SpriteBatch spriteBatch, PlayerClient playerClient, Texture validTileLocationTexture, Texture invalidTileLocationTexture) {
+    public void drawMouseHoverIcon(SpriteBatch spriteBatch, Texture validTileLocationTexture, Texture invalidTileLocationTexture) {
         if (isHighlightHoverTile()) {
             int x = getMouseTileX() * ClientConstants.TILE_SIZE;
             int y = getMouseTileY() * ClientConstants.TILE_SIZE;
-            Location clientLocation = playerClient.getCurrentMapLocation();
-            if (MapUtil.isTraversable(clientLocation.getMapData(), getMouseTileX(), getMouseTileY())) {
+            if (WorldUtil.isTraversable(getMouseTileX(), getMouseTileY())) {
                 spriteBatch.draw(validTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
             } else {
                 spriteBatch.draw(invalidTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);

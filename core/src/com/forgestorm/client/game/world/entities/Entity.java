@@ -2,7 +2,7 @@ package com.forgestorm.client.game.world.entities;
 
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.world.maps.GameMap;
+import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
 
 import lombok.Getter;
@@ -30,9 +30,9 @@ public class Entity {
     private Location currentMapLocation;
 
     /**
-     * The map this entity was last seen on.
+     * The world this entity was last seen on.
      */
-    private String mapName;
+    private String worldName;
 
     /**
      * The actual sprite position on the screen.
@@ -48,7 +48,7 @@ public class Entity {
         ActorUtil.getStageHandler().getChatDialogue().drawText(text);
     }
 
-    public GameMap getGameMap() {
-        return ClientMain.getInstance().getMapManager().getGameMap(mapName);
+    public GameWorld getGameMap() {
+        return ClientMain.getInstance().getWorldManager().getGameWorld(worldName);
     }
 }
