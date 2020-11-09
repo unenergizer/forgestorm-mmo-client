@@ -48,8 +48,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         final EntitySpawnPacket entitySpawnPacket = new EntitySpawnPacket(entityId, entityType);
 
         entitySpawnPacket.setEntityName(clientHandler.readString());
-        entitySpawnPacket.setTileX(clientHandler.readShort());
-        entitySpawnPacket.setTileY(clientHandler.readShort());
+        entitySpawnPacket.setTileX(clientHandler.readInt());
+        entitySpawnPacket.setTileY(clientHandler.readInt());
 
         switch (entityType) {
             case SKILL_NODE:
@@ -74,8 +74,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
                     entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
                     String worldName = clientHandler.readString();
-                    short x = clientHandler.readShort();
-                    short y = clientHandler.readShort();
+                    int x = clientHandler.readInt();
+                    int y = clientHandler.readInt();
                     entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y));
                 }
 
@@ -101,8 +101,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     entitySpawnPacket.setProbWalkStill(clientHandler.readFloat());
                     entitySpawnPacket.setProbWalkStart(clientHandler.readFloat());
                     String worldName = clientHandler.readString();
-                    short x = clientHandler.readShort();
-                    short y = clientHandler.readShort();
+                    int x = clientHandler.readInt();
+                    int y = clientHandler.readInt();
                     entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y));
                 }
 
@@ -409,8 +409,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         // Base data
         private String entityName;
-        private short tileX;
-        private short tileY;
+        private int tileX;
+        private int tileY;
         private MoveDirection moveDirection;
         private float moveSpeed;
         private int maxHealth;

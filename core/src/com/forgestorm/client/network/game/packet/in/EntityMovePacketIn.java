@@ -26,8 +26,8 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
     public PacketData decodePacket(ClientHandler clientHandler) {
         final short entityId = clientHandler.readShort();
         final byte entityType = clientHandler.readByte();
-        final short futureX = clientHandler.readShort();
-        final short futureY = clientHandler.readShort();
+        final int futureX = clientHandler.readInt();
+        final int futureY = clientHandler.readInt();
 
         return new EntityMovePacket(entityId, EntityType.getEntityType(entityType), futureX, futureY);
     }
@@ -78,7 +78,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
     class EntityMovePacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
-        private final short futureX;
-        private final short futureY;
+        private final int futureX;
+        private final int futureY;
     }
 }

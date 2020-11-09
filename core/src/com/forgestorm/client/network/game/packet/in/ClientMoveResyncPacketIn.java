@@ -18,8 +18,8 @@ public class ClientMoveResyncPacketIn implements PacketListener<ClientMoveResync
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        final short futureX = clientHandler.readShort();
-        final short futureY = clientHandler.readShort();
+        final int futureX = clientHandler.readInt();
+        final int futureY = clientHandler.readInt();
         return new ClientMoveResyncPacket(futureX, futureY);
     }
 
@@ -40,7 +40,7 @@ public class ClientMoveResyncPacketIn implements PacketListener<ClientMoveResync
 
     @AllArgsConstructor
     class ClientMoveResyncPacket extends PacketData {
-        private final short futureX;
-        private final short futureY;
+        private final int futureX;
+        private final int futureY;
     }
 }

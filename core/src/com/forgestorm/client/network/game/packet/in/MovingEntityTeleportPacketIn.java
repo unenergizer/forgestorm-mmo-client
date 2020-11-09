@@ -23,8 +23,8 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
         final short entityId = clientHandler.readShort();
         final byte entityType = clientHandler.readByte();
         final String worldName = clientHandler.readString();
-        final short x = clientHandler.readShort();
-        final short y = clientHandler.readShort();
+        final int x = clientHandler.readInt();
+        final int y = clientHandler.readInt();
         final byte facingDirection = clientHandler.readByte();
 
         return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(worldName, x, y), MoveDirection.getDirection(facingDirection));
