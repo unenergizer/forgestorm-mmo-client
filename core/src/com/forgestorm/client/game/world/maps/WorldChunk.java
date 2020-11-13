@@ -88,8 +88,8 @@ public class WorldChunk {
                 batch.draw(textureRegion,
                         rx,
                         ry,
-                        ClientConstants.TILE_SIZE + TILE_SIZE_FIX,
-                        ClientConstants.TILE_SIZE + TILE_SIZE_FIX);
+                        textureRegion.getRegionWidth() + TILE_SIZE_FIX,
+                        textureRegion.getRegionHeight() + TILE_SIZE_FIX);
             }
         }
     }

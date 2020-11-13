@@ -71,3 +71,1278 @@
 19:
   buildCategory: WALKABLE
   fileName: '8'
+20:
+  buildCategory: DECORATION
+  fileName: barrel-big-04
+21:
+  buildCategory: DECORATION
+  fileName: barrel-big-05
+22:
+  buildCategory: DECORATION
+  fileName: barrel-small-01
+23:
+  buildCategory: DECORATION
+  fileName: barrel-small-02
+24:
+  buildCategory: DECORATION
+  fileName: bed-frame-01
+25:
+  buildCategory: DECORATION
+  fileName: bed-frame-02
+26:
+  buildCategory: DECORATION
+  fileName: bed-frame-05
+27:
+  buildCategory: DECORATION
+  fileName: booth-blue-left
+28:
+  buildCategory: DECORATION
+  fileName: booth-blue-right
+29:
+  buildCategory: DECORATION
+  fileName: booth-green-left
+30:
+  buildCategory: DECORATION
+  fileName: booth-green-right
+31:
+  buildCategory: DECORATION
+  fileName: booth-yellow-left
+32:
+  buildCategory: DECORATION
+  fileName: booth-yellow-right
+33:
+  buildCategory: DECORATION
+  fileName: box-01
+34:
+  buildCategory: DECORATION
+  fileName: box-02
+35:
+  buildCategory: DECORATION
+  fileName: box-03
+36:
+  buildCategory: DECORATION
+  fileName: box-06
+37:
+  buildCategory: DECORATION
+  fileName: box-07
+38:
+  buildCategory: DECORATION
+  fileName: box-08
+39:
+  buildCategory: DECORATION
+  fileName: box-09
+40:
+  buildCategory: DECORATION
+  fileName: box-10
+41:
+  buildCategory: DECORATION
+  fileName: box-13
+42:
+  buildCategory: DECORATION
+  fileName: box-14
+43:
+  buildCategory: DECORATION
+  fileName: box-15
+44:
+  buildCategory: DECORATION
+  fileName: box-16
+45:
+  buildCategory: DECORATION
+  fileName: box-17
+46:
+  buildCategory: DECORATION
+  fileName: bush-large-01
+47:
+  buildCategory: DECORATION
+  fileName: bush-large-02
+48:
+  buildCategory: DECORATION
+  fileName: bush-small-01
+49:
+  buildCategory: DECORATION
+  fileName: bush-small-04
+50:
+  buildCategory: DECORATION
+  fileName: bush-small-05
+51:
+  buildCategory: DECORATION
+  fileName: bush-small-06
+52:
+  buildCategory: DECORATION
+  fileName: bush-small-07
+53:
+  buildCategory: DECORATION
+  fileName: cactus-01
+54:
+  buildCategory: DECORATION
+  fileName: cactus-04
+55:
+  buildCategory: DECORATION
+  fileName: cactus-05
+56:
+  buildCategory: DECORATION
+  fileName: cauldron-01
+57:
+  buildCategory: DECORATION
+  fileName: cauldron-01-776
+58:
+  buildCategory: DECORATION
+  fileName: cauldron-02
+59:
+  buildCategory: DECORATION
+  fileName: chair-blue-right
+60:
+  buildCategory: DECORATION
+  fileName: chair-blue-up
+61:
+  buildCategory: DECORATION
+  fileName: chair-brown-down
+62:
+  buildCategory: DECORATION
+  fileName: chair-brown-left
+63:
+  buildCategory: DECORATION
+  fileName: chair-brown-right
+64:
+  buildCategory: DECORATION
+  fileName: chair-red-left
+65:
+  buildCategory: DECORATION
+  fileName: chair-red-right
+66:
+  buildCategory: DECORATION
+  fileName: chair-red-up
+67:
+  buildCategory: ROOF
+  fileName: chimney-01
+68:
+  buildCategory: ROOF
+  fileName: chimney-02
+69:
+  buildCategory: DECORATION
+  fileName: column-mossy-stone-broken-01
+70:
+  buildCategory: DECORATION
+  fileName: column-mossy-stone-broken-02
+71:
+  buildCategory: DECORATION
+  fileName: column-mossy-stone-complete
+72:
+  buildCategory: DECORATION
+  fileName: column-stone-broken-01
+73:
+  buildCategory: DECORATION
+  fileName: column-stone-broken-02
+74:
+  buildCategory: DECORATION
+  fileName: cup-02
+75:
+  buildCategory: DECORATION
+  fileName: cup-03
+76:
+  buildCategory: WALL
+  fileName: door-01-closed
+77:
+  buildCategory: WALL
+  fileName: door-03-closed
+78:
+  buildCategory: WALL
+  fileName: door-02-closed
+79:
+  buildCategory: WALL
+  fileName: door-06-closed
+80:
+  buildCategory: WALL
+  fileName: door-07-closed
+81:
+  buildCategory: WALL
+  fileName: door-08-closed
+82:
+  buildCategory: DECORATION
+  fileName: fancy-chair-left
+83:
+  buildCategory: DECORATION
+  fileName: fancy-chair-right
+84:
+  buildCategory: DECORATION
+  fileName: fancy-stool
+85:
+  buildCategory: DECORATION
+  fileName: fancy-table
+86:
+  buildCategory: DECORATION
+  fileName: flag-03
+87:
+  buildCategory: DECORATION
+  fileName: flag-04
+88:
+  buildCategory: DECORATION
+  fileName: grass-01
+89:
+  buildCategory: DECORATION
+  fileName: grass-02
+90:
+  buildCategory: DECORATION
+  fileName: grass-03
+91:
+  buildCategory: DECORATION
+  fileName: grass-06
+92:
+  buildCategory: DECORATION
+  fileName: grass-07
+93:
+  buildCategory: DECORATION
+  fileName: grass-08
+94:
+  buildCategory: DECORATION
+  fileName: grass-09
+95:
+  buildCategory: DECORATION
+  fileName: grave-stone-large-01
+96:
+  buildCategory: DECORATION
+  fileName: grave-stone-small-02
+97:
+  buildCategory: DECORATION
+  fileName: grave-stone-small-03
+98:
+  buildCategory: DECORATION
+  fileName: grave-stone-small-04
+99:
+  buildCategory: DECORATION
+  fileName: grave-stone-small-base-01
+100:
+  buildCategory: DECORATION
+  fileName: grave-stone-small-base-02
+101:
+  buildCategory: DECORATION
+  fileName: grave-wooden-03
+102:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-armor
+103:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-holy
+104:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-inn
+105:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-potion
+106:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-weapons
+107:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-armor
+108:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-holy
+109:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-inn
+110:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-potion
+111:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-weapons
+112:
+  buildCategory: DECORATION
+  fileName: hanging-sign-wood-armor
+113:
+  buildCategory: DECORATION
+  fileName: hanging-sign-wood-general-shop
+114:
+  buildCategory: DECORATION
+  fileName: hanging-sign-wood-inn
+115:
+  buildCategory: DECORATION
+  fileName: hanging-sign-wood-potion
+116:
+  buildCategory: DECORATION
+  fileName: kitchen-item-02
+117:
+  buildCategory: DECORATION
+  fileName: kitchen-item-03
+118:
+  buildCategory: DECORATION
+  fileName: kitchen-item-04
+119:
+  buildCategory: DECORATION
+  fileName: kitchen-item-05
+120:
+  buildCategory: DECORATION
+  fileName: kitchen-item-06
+121:
+  buildCategory: DECORATION
+  fileName: kitchen-item-09
+122:
+  buildCategory: DECORATION
+  fileName: kitchen-item-10
+123:
+  buildCategory: DECORATION
+  fileName: kitchen-item-11
+124:
+  buildCategory: DECORATION
+  fileName: lillypad-01
+125:
+  buildCategory: DECORATION
+  fileName: lillypad-02
+126:
+  buildCategory: DECORATION
+  fileName: log-01
+127:
+  buildCategory: DECORATION
+  fileName: log-02
+128:
+  buildCategory: DECORATION
+  fileName: log-03
+129:
+  buildCategory: DECORATION
+  fileName: minecart-horizontal
+130:
+  buildCategory: DECORATION
+  fileName: minecart-vertical
+131:
+  buildCategory: WALL
+  fileName: mushroom-house-base-red
+132:
+  buildCategory: WALL
+  fileName: mushroom-house-mini-floor-blue-01
+133:
+  buildCategory: WALL
+  fileName: mushroom-house-mini-floor-blue-02
+134:
+  buildCategory: WALL
+  fileName: mushroom-house-mini-floor-green-01
+135:
+  buildCategory: WALL
+  fileName: mushroom-house-mini-floor-green-02
+136:
+  buildCategory: DECORATION
+  fileName: mushroom-large-01
+137:
+  buildCategory: DECORATION
+  fileName: mushroom-large-02
+138:
+  buildCategory: DECORATION
+  fileName: mushroom-large-03
+139:
+  buildCategory: DECORATION
+  fileName: mushroom-large-04
+140:
+  buildCategory: DECORATION
+  fileName: mushroom-large-05
+141:
+  buildCategory: DECORATION
+  fileName: mushroom-large-08
+142:
+  buildCategory: WALKABLE
+  fileName: mushroom-porch
+143:
+  buildCategory: DECORATION
+  fileName: mushroom-small-01
+144:
+  buildCategory: DECORATION
+  fileName: mushroom-small-02
+145:
+  buildCategory: DECORATION
+  fileName: mushroom-small-03
+146:
+  buildCategory: DECORATION
+  fileName: mushroom-small-06
+147:
+  buildCategory: DECORATION
+  fileName: mushroom-small-07
+148:
+  buildCategory: DECORATION
+  fileName: painting-left-01
+149:
+  buildCategory: DECORATION
+  fileName: painting-left-02
+150:
+  buildCategory: DECORATION
+  fileName: painting-right-01
+151:
+  buildCategory: DECORATION
+  fileName: plant-small-01
+152:
+  buildCategory: DECORATION
+  fileName: plant-small-02
+153:
+  buildCategory: DECORATION
+  fileName: plant-small-03
+154:
+  buildCategory: DECORATION
+  fileName: plant-small-04
+155:
+  buildCategory: DECORATION
+  fileName: plant-small-05
+156:
+  buildCategory: DECORATION
+  fileName: pot-01
+157:
+  buildCategory: DECORATION
+  fileName: pot-02
+158:
+  buildCategory: DECORATION
+  fileName: pot-03
+159:
+  buildCategory: DECORATION
+  fileName: pot-04
+160:
+  buildCategory: DECORATION
+  fileName: pot-05
+161:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-01
+162:
+  buildCategory: DECORATION
+  fileName: pot-bush-01
+163:
+  buildCategory: DECORATION
+  fileName: pot-bush-02
+164:
+  buildCategory: DECORATION
+  fileName: pot-bush-03
+165:
+  buildCategory: DECORATION
+  fileName: pot-bush-04
+166:
+  buildCategory: DECORATION
+  fileName: pot-bush-05
+167:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-02
+168:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-03
+169:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-04
+170:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-05
+171:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-01
+172:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-02
+173:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-03
+174:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-04
+175:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-05
+176:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-01
+177:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-02
+178:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-03
+179:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-04
+180:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-05
+181:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-01
+182:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-02
+183:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-03
+184:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-04
+185:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-05
+186:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-01
+187:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-02
+188:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-03
+189:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-04
+190:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-05
+191:
+  buildCategory: DECORATION
+  fileName: prision-bed-01
+192:
+  buildCategory: DECORATION
+  fileName: prision-bed-02
+193:
+  buildCategory: DECORATION
+  fileName: rock-large-brown-01
+194:
+  buildCategory: DECORATION
+  fileName: rock-large-brown-02
+195:
+  buildCategory: DECORATION
+  fileName: rock-large-brown-03
+196:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-01
+197:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-02
+198:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-03
+199:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-04
+200:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-05
+201:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-08
+202:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-09
+203:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-10
+204:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-11
+205:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-01
+206:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-04
+207:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-05
+208:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-06
+209:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-07
+210:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-08
+211:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-11
+212:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-12
+213:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-gray-01
+214:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-gray-02
+215:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-gray-04
+216:
+  buildCategory: DECORATION
+  fileName: rock-small-gray-02
+217:
+  buildCategory: DECORATION
+  fileName: rock-small-gray-03
+218:
+  buildCategory: DECORATION
+  fileName: rock-small-gray-04
+219:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-01
+220:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-02
+221:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-05
+222:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-06
+223:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-07
+224:
+  buildCategory: DECORATION
+  fileName: rock-sword-brown-01
+225:
+  buildCategory: DECORATION
+  fileName: rock-sword-brown-02
+226:
+  buildCategory: DECORATION
+  fileName: sign-post-01
+227:
+  buildCategory: DECORATION
+  fileName: sign-post-02
+228:
+  buildCategory: DECORATION
+  fileName: sign-post-03
+229:
+  buildCategory: DECORATION
+  fileName: small-stool
+230:
+  buildCategory: DECORATION
+  fileName: small-table-01
+231:
+  buildCategory: DECORATION
+  fileName: stick-pile-01
+232:
+  buildCategory: DECORATION
+  fileName: stick-pile-02
+233:
+  buildCategory: WALL
+  fileName: stone-wall-arch
+234:
+  buildCategory: ROOF
+  fileName: stone-wall-arch-mossy
+235:
+  buildCategory: WALL
+  fileName: stone-wall-bottom-left
+236:
+  buildCategory: WALL
+  fileName: stone-wall-middle-horizontal-crack
+237:
+  buildCategory: WALL
+  fileName: stone-wall-middle-horizontal-end-left
+238:
+  buildCategory: WALL
+  fileName: stone-wall-middle-horizontal-end-right
+239:
+  buildCategory: WALL
+  fileName: stone-wall-middle-vertical-01
+240:
+  buildCategory: WALL
+  fileName: stone-wall-middle-vertical-02
+241:
+  buildCategory: WALL
+  fileName: stone-wall-top-left
+242:
+  buildCategory: WALL
+  fileName: stone-wall-top-right
+243:
+  buildCategory: DECORATION
+  fileName: stool-round-blue
+244:
+  buildCategory: DECORATION
+  fileName: stool-round-wooden
+245:
+  buildCategory: DECORATION
+  fileName: stool-square-wooden
+246:
+  buildCategory: DECORATION
+  fileName: stump-03
+247:
+  buildCategory: DECORATION
+  fileName: stump-04
+248:
+  buildCategory: DECORATION
+  fileName: stump-05
+249:
+  buildCategory: DECORATION
+  fileName: stump-06
+250:
+  buildCategory: DECORATION
+  fileName: stump-house
+251:
+  buildCategory: WALKABLE
+  fileName: temple-clean
+252:
+  buildCategory: WALKABLE
+  fileName: temple-mossy
+253:
+  buildCategory: DECORATION
+  fileName: tent
+254:
+  buildCategory: ROOF
+  fileName: tent-door
+255:
+  buildCategory: DECORATION
+  fileName: tree-large-01
+256:
+  buildCategory: DECORATION
+  fileName: tree-medium-03
+257:
+  buildCategory: DECORATION
+  fileName: tree-medium-04
+258:
+  buildCategory: DECORATION
+  fileName: tree-medium-05
+259:
+  buildCategory: DECORATION
+  fileName: tree-medium-06
+260:
+  buildCategory: DECORATION
+  fileName: tree-medium-07
+261:
+  buildCategory: WALL
+  fileName: stone-wall-middle-horizontal
+262:
+  buildCategory: DECORATION
+  fileName: tree-medium-01
+263:
+  buildCategory: DECORATION
+  fileName: tree-medium-02
+264:
+  buildCategory: DECORATION
+  fileName: tree-medium-08
+265:
+  buildCategory: DECORATION
+  fileName: tree-small-01
+266:
+  buildCategory: DECORATION
+  fileName: tree-small-02
+267:
+  buildCategory: DECORATION
+  fileName: tree-small-03
+268:
+  buildCategory: DECORATION
+  fileName: tree-small-04
+269:
+  buildCategory: DECORATION
+  fileName: tree-small-05
+270:
+  buildCategory: DECORATION
+  fileName: tree-small-06
+271:
+  buildCategory: DECORATION
+  fileName: tree-small-07
+272:
+  buildCategory: DECORATION
+  fileName: tree-small-08
+273:
+  buildCategory: DECORATION
+  fileName: wall-cabinet-01
+274:
+  buildCategory: DECORATION
+  fileName: wall-cabinet-02
+275:
+  buildCategory: DECORATION
+  fileName: wall-chain-01
+276:
+  buildCategory: DECORATION
+  fileName: wall-chain-02
+277:
+  buildCategory: DECORATION
+  fileName: wall-shelf-01
+278:
+  buildCategory: DECORATION
+  fileName: wall-shelf-02
+279:
+  buildCategory: DECORATION
+  fileName: wall-shelf-03
+280:
+  buildCategory: DECORATION
+  fileName: wall-shelf-04
+281:
+  buildCategory: DECORATION
+  fileName: wall-sign-01
+282:
+  buildCategory: DECORATION
+  fileName: wall-sign-02
+283:
+  buildCategory: DECORATION
+  fileName: wall-sign-blank
+284:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-armor
+285:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-holy
+286:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-inn
+287:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-potion
+288:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-pub
+289:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-shop
+290:
+  buildCategory: DECORATION
+  fileName: wall-sign-gold-weapons
+291:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-armor
+292:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-holy
+293:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-inn
+294:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-potion
+295:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-pub
+296:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-shop
+297:
+  buildCategory: DECORATION
+  fileName: wall-sign-silver-weapons
+298:
+  buildCategory: DECORATION
+  fileName: weapon-rack-01
+299:
+  buildCategory: DECORATION
+  fileName: weapon-rack-02
+300:
+  buildCategory: DECORATION
+  fileName: weapon-rack-03
+301:
+  buildCategory: DECORATION
+  fileName: well-broken
+302:
+  buildCategory: DECORATION
+  fileName: well-broken-rope
+303:
+  buildCategory: DECORATION
+  fileName: well-covered-empty
+304:
+  buildCategory: DECORATION
+  fileName: well-covered-filled
+305:
+  buildCategory: ROOF
+  fileName: well-covered-roof
+306:
+  buildCategory: DECORATION
+  fileName: well-filled
+307:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-01
+308:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-02
+309:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-03
+310:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-04
+311:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-05
+312:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-06
+313:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-07
+314:
+  buildCategory: DECORATION
+  fileName: bed-frame-04
+315:
+  buildCategory: DECORATION
+  fileName: booth-red-right
+316:
+  buildCategory: DECORATION
+  fileName: box-05
+317:
+  buildCategory: DECORATION
+  fileName: box-12
+318:
+  buildCategory: DECORATION
+  fileName: bush-small-03
+319:
+  buildCategory: DECORATION
+  fileName: cactus-03
+320:
+  buildCategory: DECORATION
+  fileName: chair-blue-left
+321:
+  buildCategory: DECORATION
+  fileName: chair-red-down
+322:
+  buildCategory: DECORATION
+  fileName: coconut
+323:
+  buildCategory: DECORATION
+  fileName: cup-01
+324:
+  buildCategory: WALL
+  fileName: door-04-closed
+325:
+  buildCategory: DECORATION
+  fileName: flag-02
+326:
+  buildCategory: DECORATION
+  fileName: grass-05
+327:
+  buildCategory: DECORATION
+  fileName: grave-stone-small-01
+328:
+  buildCategory: DECORATION
+  fileName: grave-wooden-02
+329:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-shop
+330:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-shop
+331:
+  buildCategory: DECORATION
+  fileName: kitchen-item-01
+332:
+  buildCategory: DECORATION
+  fileName: kitchen-item-08
+333:
+  buildCategory: DECORATION
+  fileName: lillypad-04
+334:
+  buildCategory: WALL
+  fileName: mushroom-house-base-green
+335:
+  buildCategory: WALL
+  fileName: mushroom-house-mini-floor-red-02
+336:
+  buildCategory: DECORATION
+  fileName: mushroom-large-07
+337:
+  buildCategory: DECORATION
+  fileName: mushroom-small-05
+338:
+  buildCategory: DECORATION
+  fileName: piano
+339:
+  buildCategory: DECORATION
+  fileName: plant-small-07
+340:
+  buildCategory: DECORATION
+  fileName: pot-07
+341:
+  buildCategory: DECORATION
+  fileName: pot-bush-07
+342:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-07
+343:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-07
+344:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-07
+345:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-07
+346:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-07
+347:
+  buildCategory: DECORATION
+  fileName: rock-large-mossy-02
+348:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-07
+349:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-03
+350:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-10
+351:
+  buildCategory: DECORATION
+  fileName: rock-small-gray-01
+352:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-04
+353:
+  buildCategory: DECORATION
+  fileName: rock-sword-mossy-02
+354:
+  buildCategory: DECORATION
+  fileName: small-table-03
+355:
+  buildCategory: WALL
+  fileName: stone-wall-middle-vertical-end-top
+356:
+  buildCategory: DECORATION
+  fileName: stump-02
+357:
+  buildCategory: DECORATION
+  fileName: stump-house-door-frame
+358:
+  buildCategory: DECORATION
+  fileName: stump-house-door
+359:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-08
+360:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-09
+361:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-10
+362:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-11
+363:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-12
+364:
+  buildCategory: DECORATION
+  fileName: wild-flower-blue-13
+365:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-01
+366:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-08
+367:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-07
+368:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-06
+369:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-05
+370:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-04
+371:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-03
+372:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-02
+373:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-09
+374:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-10
+375:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-11
+376:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-12
+377:
+  buildCategory: DECORATION
+  fileName: wild-flower-brown-13
+378:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-01
+379:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-02
+380:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-03
+381:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-04
+382:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-05
+383:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-06
+384:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-07
+385:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-08
+386:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-09
+387:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-10
+388:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-11
+389:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-12
+390:
+  buildCategory: DECORATION
+  fileName: wild-flower-gray-13
+391:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-01
+392:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-02
+393:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-03
+394:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-04
+395:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-05
+396:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-06
+397:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-07
+398:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-08
+399:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-09
+400:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-10
+401:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-11
+402:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-12
+403:
+  buildCategory: DECORATION
+  fileName: wild-flower-orange-13
+404:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-01
+405:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-02
+406:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-03
+407:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-04
+408:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-05
+409:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-06
+410:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-07
+411:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-08
+412:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-09
+413:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-10
+414:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-11
+415:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-12
+416:
+  buildCategory: DECORATION
+  fileName: wild-flower-pink-13
+417:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-01
+418:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-02
+419:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-03
+420:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-04
+421:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-05
+422:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-06
+423:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-07
+424:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-08
+425:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-09
+426:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-10
+427:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-11
+428:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-12
+429:
+  buildCategory: DECORATION
+  fileName: wild-flower-white-13
+430:
+  buildCategory: DECORATION
+  fileName: window-01
+431:
+  buildCategory: DECORATION
+  fileName: window-02
+432:
+  buildCategory: DECORATION
+  fileName: window-03
+433:
+  buildCategory: DECORATION
+  fileName: window-04
+434:
+  buildCategory: DECORATION
+  fileName: window-05
+435:
+  buildCategory: DECORATION
+  fileName: window-06
+436:
+  buildCategory: DECORATION
+  fileName: window-07
+437:
+  buildCategory: DECORATION
+  fileName: window-08
+438:
+  buildCategory: DECORATION
+  fileName: window-09
+439:
+  buildCategory: DECORATION
+  fileName: window-10
+440:
+  buildCategory: DECORATION
+  fileName: window-11
+441:
+  buildCategory: DECORATION
+  fileName: window-12
+442:
+  buildCategory: DECORATION
+  fileName: window-13
+443:
+  buildCategory: DECORATION
+  fileName: window-14
+444:
+  buildCategory: DECORATION
+  fileName: wooden-vanity
