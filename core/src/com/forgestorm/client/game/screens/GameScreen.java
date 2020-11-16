@@ -24,6 +24,7 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.io.FileManager;
+import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GraphicsUtils;
 import com.forgestorm.client.util.PixmapUtil;
@@ -70,18 +71,13 @@ public class GameScreen implements Screen {
         screenViewport = new ScreenViewport();
         stageHandler.setViewport(screenViewport);
 
-        // Load assets
-//        font = fileManager.getFont(GameFont.PIXEL);
-//        font.setUseIntegerPositions(false);
-
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("graphics/font/other/consola.ttf"));
+        // Load Fonts
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(GameFont.BITCELL.getFilePath()));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 12;
-//        parameter.minFilter = Texture.TextureFilter.Linear;
-//        parameter.magFilter = Texture.TextureFilter.Linear;
         parameter.kerning = false;
         parameter.packer = null;
-        font = generator.generateFont(parameter); // font size 12 pixels
+        font = generator.generateFont(parameter);
+        font.setUseIntegerPositions(false);
         generator.dispose();
 
         // Setting global textures

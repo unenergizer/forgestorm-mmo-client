@@ -2,10 +2,11 @@ package com.forgestorm.client.io.type;
 
 @SuppressWarnings({"SameParameterValue", "SpellCheckingInspection"})
 public enum GameFont {
-    TEST_FONT("testfont.fnt"),
+    BITCELL("bitcell_memesbruh03.ttf"),
     PIXEL("pixel.fnt"),
-    VISITOR("visitor.fnt"),
-    PIXEL_UNICODE("pixel_unicode.fnt");
+    PIXEL_UNICODE("pixel_unicode.fnt"),
+    TEST_FONT("testfont.fnt"),
+    VISITOR("visitor.fnt");
 
     private final String filePath;
 
