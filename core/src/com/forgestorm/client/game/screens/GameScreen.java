@@ -76,6 +76,8 @@ public class GameScreen implements Screen {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.kerning = false;
         parameter.packer = null;
+        parameter.borderColor = Color.BLACK;
+        parameter.borderWidth = 1.5f;
         font = generator.generateFont(parameter);
         font.setUseIntegerPositions(false);
         generator.dispose();
