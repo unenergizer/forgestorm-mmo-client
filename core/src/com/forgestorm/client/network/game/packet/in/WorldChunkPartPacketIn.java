@@ -14,69 +14,66 @@ import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
 
+import static com.forgestorm.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.WORLD_CHUNK)
-public class WorldChunkPacketIn implements PacketListener<WorldChunkPacketIn.WorldChunkPacket> {
+public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPacketIn.WorldChunkPartPacket> {
+
+    private static final boolean PRINT_DEBUG = true;
 
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final WorldManager worldManager = ClientMain.getInstance().getWorldManager();
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
-        Map<LayerDefinition, TileImage[]> layerDefinitionMap = new HashMap<LayerDefinition, TileImage[]>();
 
         // Read chunk location
         short chunkX = clientHandler.readShort();
         short chunkY = clientHandler.readShort();
 
-        // Get number of layers the chunk has
-        byte numberOfLayers = clientHandler.readByte();
+        // Get layer information
+        LayerDefinition layerDefinition = LayerDefinition.getLayerDefinition(clientHandler.readByte());
+        byte sectionSent = clientHandler.readByte();
 
-        // Read chunk contents
-        for (byte i = 0; i < numberOfLayers; i++) {
+        // Read layer part
+        TileImage[] layerParts = new TileImage[ClientConstants.MAX_TILE_GET];
 
-            // Write layerDefinition
-            LayerDefinition layerDefinition = LayerDefinition.getLayerDefinition(clientHandler.readByte());
-            TileImage[] tileImageArray = new TileImage[ClientConstants.CHUNK_SIZE];
-
-            // Read all tile images.
-            for (int j = 0; j < tileImageArray.length; j++) {
-                int tileImageID = clientHandler.readInt();
-                if (tileImageID == 0) {
-                    tileImageArray[j] = null;
-                } else {
-                    tileImageArray[j] = worldBuilder.getTileImage(tileImageID);
-                }
+        for (int i = 0; i < ClientConstants.MAX_TILE_GET; i++) {
+            int tileImageID = clientHandler.readInt();
+            if (tileImageID == 0) {
+                layerParts[i] = null;
+            } else {
+                layerParts[i] = worldBuilder.getTileImage(tileImageID);
             }
-
-            layerDefinitionMap.put(layerDefinition, tileImageArray);
         }
 
-        return new WorldChunkPacket(chunkX, chunkY, layerDefinitionMap);
+        println(getClass(), "Receiving chunk section! Layer: " + layerDefinition + ", Section: " + sectionSent, true, PRINT_DEBUG);
+
+        return new WorldChunkPartPacket(chunkX, chunkY, layerDefinition, sectionSent, layerParts);
     }
 
     @Override
-    public void onEvent(WorldChunkPacket packetData) {
+    public void onEvent(WorldChunkPartPacket packetData) {
         GameWorld gameWorld = worldManager.getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.findChunk(packetData.chunkX, packetData.chunkY);
 
         if (worldChunk == null) {
             // Generate new chunk and add it to the game world
             WorldChunk newChunk = new WorldChunk(packetData.chunkX, packetData.chunkY);
-            newChunk.setLayers(packetData.layerDefinitionMap);
+            newChunk.setTileImages(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
             gameWorld.setChunk(newChunk);
         } else {
-            worldChunk.setLayers(packetData.layerDefinitionMap);
+            worldChunk.setTileImages(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
         }
     }
 
     @AllArgsConstructor
-    class WorldChunkPacket extends PacketData {
+    class WorldChunkPartPacket extends PacketData {
         private final short chunkX, chunkY;
-        private final Map<LayerDefinition, TileImage[]> layerDefinitionMap;
+        private final LayerDefinition layerDefinition;
+        private final byte sectionSent;
+        private final TileImage[] layerParts;
     }
 }

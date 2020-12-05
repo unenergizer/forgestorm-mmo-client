@@ -25,7 +25,7 @@ public class WorldBuilder {
     @Setter
     private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
     @Setter
-    private int currentTextureId = 0;
+    private int currentTextureId = 1;
 
 
     public WorldBuilder() {

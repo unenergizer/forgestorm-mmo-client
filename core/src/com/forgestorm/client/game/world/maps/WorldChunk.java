@@ -32,6 +32,16 @@ public class WorldChunk {
         this.chunkY = chunkY;
     }
 
+    public void setTileImages(LayerDefinition layerDefinition, byte section, TileImage[] tileImages) {
+        if (!layers.containsKey(layerDefinition)) {
+            layers.put(layerDefinition, new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
+        }
+
+        for (int i = 0; i < tileImages.length; i++) {
+            layers.get(layerDefinition)[(ClientConstants.MAX_TILE_GET * section) + i] = tileImages[i];
+        }
+    }
+
     void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int localX, int localY) {
         layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tileImage;
     }

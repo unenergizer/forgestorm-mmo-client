@@ -28,4 +28,5 @@ public class ClientConstants {
 
     public static final int CHUNK_SIZE = 16;
     public static final int CHUNK_RADIUS = 1;
+    public static final  int MAX_TILE_GET = 4 * 4;
 }
