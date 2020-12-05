@@ -13,9 +13,7 @@ import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.io.ChunkLoader;
 import com.forgestorm.client.io.FileManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -30,7 +28,7 @@ public class GameWorld {
     private final int worldHeightInChunks;
     private final Color backgroundColor;
 
-    private final List<WorldChunk> worldChunkList = new ArrayList<WorldChunk>();
+    private final Map<Integer, WorldChunk> worldChunkMap = new HashMap<Integer, WorldChunk>();
     private final Map<Integer, Warp> tileWarps = new HashMap<Integer, Warp>();
 
 
@@ -50,51 +48,58 @@ public class GameWorld {
         int clientX = client.getFutureMapLocation().getX();
         int clientY = client.getFutureMapLocation().getY();
 
-        int clientChunkX = (int) Math.floor(clientX / ClientConstants.CHUNK_SIZE);
-        int clientChunkY = (int) Math.floor(clientY / ClientConstants.CHUNK_SIZE);
+        int clientChunkX = (int) Math.floor(clientX / (float) ClientConstants.CHUNK_SIZE);
+        int clientChunkY = (int) Math.floor(clientY / (float) ClientConstants.CHUNK_SIZE);
 
         for (int chunkY = clientChunkY - ClientConstants.CHUNK_RADIUS; chunkY < clientChunkY + ClientConstants.CHUNK_RADIUS + 1; chunkY++) {
             for (int chunkX = clientChunkX - ClientConstants.CHUNK_RADIUS; chunkX < clientChunkX + ClientConstants.CHUNK_RADIUS + 1; chunkX++) {
                 fileManager.loadMapChunkData(worldName, (short) chunkX, (short) chunkY, true);
                 ChunkLoader.MapChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, (short) chunkX, (short) chunkY);
-                if (mapChunkData != null)
-                    worldChunkList.add(mapChunkData.getWorldChunk());
+                if (mapChunkData != null) setChunk(mapChunkData.getWorldChunk());
             }
         }
     }
 
-    public void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int worldX, int worldY) {
-        WorldChunk worldChunk = findChunk(worldX, worldY);
+    public void setChunk(WorldChunk worldChunk) {
+        worldChunkMap.put((worldChunk.getChunkX() << 16) | (worldChunk.getChunkY() & 0xFFFF), worldChunk);
+    }
+
+    public void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int entityX, int entityY) {
+        WorldChunk worldChunk = findChunk(entityX, entityY);
         if (worldChunk == null) return;
 
-        int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
-        int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
+        int localX = entityX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
+        int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
         worldChunk.setTileImage(layerDefinition, tileImage, localX, localY);
     }
 
-    Warp getWarp(int worldX, int worldY) {
-        WorldChunk worldChunk = findChunk(worldX, worldY);
+    Warp getWarp(int entityX, int entityY) {
+        WorldChunk worldChunk = findChunk(entityX, entityY);
         if (worldChunk == null) return null;
 
-        int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
-        int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
+        int localX = entityX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
+        int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
         return worldChunk.getWarp((short) localX, (short) localY);
     }
 
-    WorldChunk findChunk(int worldX, int worldY) {
+    WorldChunk findChunk(int entityX, int entityY) {
 
         // Convert world coordinates to chunk location
-        int chunkX = (int) Math.floor(worldX / (float) ClientConstants.CHUNK_SIZE);
-        int chunkY = (int) Math.floor(worldY / (float) ClientConstants.CHUNK_SIZE);
+        int chunkX = (int) Math.floor(entityX / (float) ClientConstants.CHUNK_SIZE);
+        int chunkY = (int) Math.floor(entityY / (float) ClientConstants.CHUNK_SIZE);
 
-        for (WorldChunk worldChunk : worldChunkList) {
+        for (WorldChunk worldChunk : worldChunkMap.values()) {
             if (worldChunk.getChunkX() == chunkX && worldChunk.getChunkY() == chunkY) {
                 return worldChunk;
             }
         }
         return null;
+    }
+
+    public WorldChunk findChunk(short chunkX, short chunkY) {
+        return worldChunkMap.get((chunkX << 16) | (chunkY & 0xFFFF));
     }
 
     public void drawParallax(SpriteBatch spriteBatch) {
@@ -112,31 +117,31 @@ public class GameWorld {
     public void renderBottomLayers(Batch batch) {
         // TODO: Check against camera before trying to render
         // Render layer from most bottom, going up.
-        for (WorldChunk chunk : worldChunkList) {
+        for (WorldChunk chunk : worldChunkMap.values()) {
             chunk.renderBottomLayers(batch);
         }
     }
 
     public void renderDecorationLayer(Batch batch) {
-        for (WorldChunk chunk : worldChunkList) {
+        for (WorldChunk chunk : worldChunkMap.values()) {
             chunk.renderDecorationLayer(batch);
         }
     }
 
     public void renderOverheadLayer(Batch batch) {
-        for (WorldChunk chunk : worldChunkList) {
+        for (WorldChunk chunk : worldChunkMap.values()) {
             chunk.renderOverheadLayer(batch);
         }
     }
 
     void clearData() {
         // Remove world chunks from asset manager
-        for (WorldChunk worldChunk : worldChunkList) {
+        for (WorldChunk worldChunk : worldChunkMap.values()) {
             ClientMain.getInstance().getFileManager().unloadMapChunkData(worldName, worldChunk.getChunkX(), worldChunk.getChunkY());
         }
 
         // Clear arrays and maps
-        worldChunkList.clear();
+        worldChunkMap.clear();
         tileWarps.clear();
     }
 }

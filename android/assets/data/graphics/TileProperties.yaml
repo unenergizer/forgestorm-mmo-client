@@ -1,6 +1,4 @@
-0:
-  buildCategory: WALKABLE
-  fileName: '4'
+## Index 0 should not be used. It is a null tile.
 1:
   buildCategory: DECORATION
   fileName: bag-02
@@ -1346,3 +1344,6 @@
 444:
   buildCategory: DECORATION
   fileName: wooden-vanity
+445:
+  buildCategory: WALKABLE
+  fileName: '4'

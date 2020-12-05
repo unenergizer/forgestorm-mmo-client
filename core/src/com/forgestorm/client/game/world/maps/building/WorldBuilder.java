@@ -37,6 +37,10 @@ public class WorldBuilder {
         regions = textureAtlas.getRegions();
     }
 
+    public TileImage getTileImage(int tileImageID) {
+        return tileImageMap.get(tileImageID);
+    }
+
     public TileImage getTileImage(String regionName) {
         TileImage tileImage = null;
         for (TileImage entry : tileImageMap.values()) {

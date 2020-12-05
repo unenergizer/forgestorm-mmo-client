@@ -54,6 +54,7 @@ import com.forgestorm.client.network.game.packet.in.PlayerTradePacketIn;
 import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.forgestorm.client.network.game.packet.in.SkillExperiencePacketIn;
 import com.forgestorm.client.network.game.packet.in.WorldBuilderPacketIn;
+import com.forgestorm.client.network.game.packet.in.WorldChunkPacketIn;
 import com.forgestorm.client.network.game.shared.EventBus;
 
 import lombok.Getter;
@@ -217,6 +218,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new ClientMoveResyncPacketIn());
                         eventBus.registerListener(new CharacterCreatorPacketIn());
                         eventBus.registerListener(new WorldBuilderPacketIn());
+                        eventBus.registerListener(new WorldChunkPacketIn());
                     }
                 });
     }

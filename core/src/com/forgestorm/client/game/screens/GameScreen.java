@@ -78,6 +78,9 @@ public class GameScreen implements Screen {
         parameter.packer = null;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 1.5f;
+        parameter.gamma = 1;
+        parameter.mono = true;
+        parameter.size = 15;
         font = generator.generateFont(parameter);
         font.setUseIntegerPositions(false);
         generator.dispose();
