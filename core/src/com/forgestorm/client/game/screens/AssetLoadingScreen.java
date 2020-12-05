@@ -99,7 +99,7 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadAbilityData();
         fileManager.loadNetworkSettingsData();
         fileManager.loadGameWorldData();
-        fileManager.loadRssFeedData();
+//        fileManager.loadRssFeedData();
     }
 
     @Override
