@@ -37,16 +37,20 @@ public class AttachableCamera extends OrthographicCamera {
     void clampCamera(Viewport screenViewport, GameWorld gameWorld) {
         if (following == null) return;
 
-        float cameraMinX = (screenViewport.getScreenWidth() / 2f) * zoom;
-        float cameraMinY = (screenViewport.getScreenHeight() / 2f) * zoom;
-        float cameraMaxX = gameWorld.getWorldWidthInChunks() * ClientConstants.TILE_SIZE - cameraMinX;
-        float cameraMaxY = gameWorld.getWorldHeightInChunks() * ClientConstants.TILE_SIZE - cameraMinY;
+//        float cameraMinX = (screenViewport.getScreenWidth() / 2f) * zoom;
+//        float cameraMinY = (screenViewport.getScreenHeight() / 2f) * zoom;
+//        float cameraMaxX = gameWorld.getWorldWidthInChunks() * ClientConstants.TILE_SIZE - cameraMinX;
+//        float cameraMaxY = gameWorld.getWorldHeightInChunks() * ClientConstants.TILE_SIZE - cameraMinY;
+//
+//        float px = (following.getDrawX() + (ClientConstants.TILE_SIZE / 2f));
+//        float py = (following.getDrawY() + (ClientConstants.TILE_SIZE / 2f));
+//
+//        position.x = MathUtils.clamp(px, cameraMinX, cameraMaxX);
+//        position.y = MathUtils.clamp(py, cameraMinY, cameraMaxY);
 
-        float px = (following.getDrawX() + (ClientConstants.TILE_SIZE / 2f));
-        float py = (following.getDrawY() + (ClientConstants.TILE_SIZE / 2f));
-
-        position.x = MathUtils.clamp(px, cameraMinX, cameraMaxX);
-        position.y = MathUtils.clamp(py, cameraMinY, cameraMaxY);
+        // TODO: Fix clamping. It's snapping around...
+        position.x = following.getDrawX();
+        position.y = following.getDrawY();
     }
 
     public void scrollZoomLevel(int amount) {
