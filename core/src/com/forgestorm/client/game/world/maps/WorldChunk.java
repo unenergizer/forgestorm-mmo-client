@@ -14,16 +14,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class WorldChunk {
 
     @Getter
     private final short chunkX, chunkY;
 
-    @Setter
     @Getter
-    private Map<LayerDefinition, TileImage[]> layers;
+    private Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
 
     private final Map<Integer, Warp> tileWarps = new HashMap<Integer, Warp>();
 
@@ -33,19 +31,29 @@ public class WorldChunk {
     }
 
     public void setTileImages(LayerDefinition layerDefinition, byte section, TileImage[] tileImages) {
-        if (!layers.containsKey(layerDefinition)) {
-            layers.put(layerDefinition, new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
-        }
+        initTileLayer(layerDefinition);
 
         for (int i = 0; i < tileImages.length; i++) {
             layers.get(layerDefinition)[(ClientConstants.MAX_TILE_GET * section) + i] = tileImages[i];
         }
     }
 
+    public void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int index) {
+        initTileLayer(layerDefinition);
+        layers.get(layerDefinition)[index] = tileImage;
+    }
+
+    private void initTileLayer(LayerDefinition layerDefinition) {
+        if (layers.containsKey(layerDefinition)) return;
+        layers.put(layerDefinition, new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
+    }
+
     void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int localX, int localY) {
+        initTileLayer(layerDefinition);
         layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tileImage;
     }
 
+    @SuppressWarnings("SameParameterValue")
     TileImage getTileImage(LayerDefinition layerDefinition, int localX, int localY) {
         return layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
     }

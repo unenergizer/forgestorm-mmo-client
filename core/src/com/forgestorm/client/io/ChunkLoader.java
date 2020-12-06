@@ -18,7 +18,6 @@ import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -70,15 +69,17 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         short chunkX = Short.parseShort(parts[0]);
         short chunkY = Short.parseShort(parts[1]);
 
-        Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
+        //Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
+        WorldChunk chunk = new WorldChunk(chunkX, chunkY);
 
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
             TileImage[] layer = readLayer(layerDefinition.getLayerName(), root);
-            layers.put(layerDefinition, layer);
-        }
 
-        WorldChunk chunk = new WorldChunk(chunkX, chunkY);
-        chunk.setLayers(layers);
+            // Individually add each TileImage to the chunk (NPE FIX)
+            for (int i = 0; i < layer.length; i++) {
+                chunk.setTileImage(layerDefinition, layer[i], i);
+            }
+        }
 
         JsonValue warpsArray = root.get("warps");
         for (JsonValue jsonWarp = warpsArray.child; jsonWarp != null; jsonWarp = jsonWarp.next) {
