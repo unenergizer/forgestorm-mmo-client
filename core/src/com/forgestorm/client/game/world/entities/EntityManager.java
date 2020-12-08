@@ -95,6 +95,21 @@ public class EntityManager implements Disposable {
         return itemStackDropList.get(entityId);
     }
 
+    public void drawEntityShadows(SpriteBatch spriteBatch) {
+        // Draw shadows underneath aiEntities
+        for (AiEntity aiEntity : aiEntityList.values()) {
+            aiEntity.drawShadow(spriteBatch);
+        }
+
+        // Draw shadows underneath players
+        for (Player player : playerEntityList.values()) {
+            player.drawShadow(spriteBatch);
+        }
+
+        // Draw the player shadow
+        playerClient.drawShadow(spriteBatch);
+    }
+
     public void drawEntities(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
         // Draw Items on ground
         for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
@@ -112,19 +127,6 @@ public class EntityManager implements Disposable {
         yAxisSortedEntities.addAll(aiEntityList.values());
         yAxisSortedEntities.addAll(playerEntityList.values());
         yAxisSortedEntities.add(playerClient);
-
-        // Draw shadows underneath aiEntities
-        for (AiEntity aiEntity : aiEntityList.values()) {
-            aiEntity.drawShadow(spriteBatch);
-        }
-
-        // Draw shadows underneath players
-        for (Player player : playerEntityList.values()) {
-            player.drawShadow(spriteBatch);
-        }
-
-        // Draw the player shadow
-        playerClient.drawShadow(spriteBatch);
 
         // Now draw all the entities on the screen
         while (!yAxisSortedEntities.isEmpty()) {

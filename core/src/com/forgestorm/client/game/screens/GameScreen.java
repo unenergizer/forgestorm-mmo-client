@@ -160,6 +160,8 @@ public class GameScreen implements Screen {
 
         spriteBatch.setProjectionMatrix(camera.combined);
 
+        EntityManager.getInstance().drawEntityShadows(spriteBatch);
+
         getGameMap().renderDecorationLayer(spriteBatch);
 
         // Drawing all entities. Ground items, moving entities, ect...
