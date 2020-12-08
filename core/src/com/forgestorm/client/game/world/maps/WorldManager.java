@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.world.maps;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -32,7 +33,16 @@ public class WorldManager implements Disposable {
      * @throws RuntimeException Requested world could not be found or was not loaded.
      */
     public GameWorld getGameWorld(String worldName) throws RuntimeException {
-        if (gameWorlds.containsKey(worldName)) return gameWorlds.get(worldName);
+        if (gameWorlds.containsKey(worldName)) {
+            return gameWorlds.get(worldName);
+        } else {
+            // TODO: Save GameWorld to disk?
+            new GameWorld(
+                    worldName,
+                    5,
+                    5,
+                    Color.BLUE);
+        }
         return null;
     }
 

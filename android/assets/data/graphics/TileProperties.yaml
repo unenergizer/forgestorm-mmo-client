@@ -1,4 +1,3 @@
-## Index 0 should not be used. It is a null tile.
 1:
   buildCategory: DECORATION
   fileName: bag-02
@@ -915,21 +914,36 @@
 301:
   buildCategory: DECORATION
   fileName: well-broken
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 302:
   buildCategory: DECORATION
   fileName: well-broken-rope
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 303:
   buildCategory: DECORATION
   fileName: well-covered-empty
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 304:
   buildCategory: DECORATION
   fileName: well-covered-filled
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 305:
   buildCategory: ROOF
   fileName: well-covered-roof
 306:
   buildCategory: DECORATION
   fileName: well-filled
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 307:
   buildCategory: DECORATION
   fileName: wild-flower-blue-01
