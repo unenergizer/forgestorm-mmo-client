@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameAtlas;
@@ -56,6 +57,15 @@ public class WorldChunk {
     @SuppressWarnings("SameParameterValue")
     TileImage getTileImage(LayerDefinition layerDefinition, int localX, int localY) {
         return layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
+    }
+
+    public boolean isTraversable(int localX, int localY) {
+        for (TileImage[] tileImages : layers.values()) {
+            TileImage tileImage = tileImages[localX + localY * ClientConstants.CHUNK_SIZE];
+            if (tileImage == null) continue;
+            if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) return false;
+        }
+        return true;
     }
 
     public void addTileWarp(short localX, short localY, Warp warp) {
