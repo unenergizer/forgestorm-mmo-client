@@ -120,6 +120,9 @@ public class MouseManager {
         this.leftClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
         this.leftClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
+        // Clear scroll focus so map zooming can resume.
+        ClientMain.getInstance().getStageHandler().getStage().setScrollFocus(null);
+
         // Place tile in world
         ClientMain.getInstance().getWorldBuilder().placeTile(mouseTileX, mouseTileY);
 

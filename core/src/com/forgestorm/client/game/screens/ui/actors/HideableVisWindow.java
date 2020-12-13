@@ -88,6 +88,8 @@ public class HideableVisWindow extends VisWindow {
                 fadeOut(FADE_TIME);
                 if (closeButtonCallBack != null) closeButtonCallBack.closeButtonClicked();
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 15);
+                Stage stage = ClientMain.getInstance().getStageHandler().getStage();
+                stage.setScrollFocus(null); // Clear scroll focus so map zooming can resume.
             }
         });
         closeButton.addListener(new ClickListener() {

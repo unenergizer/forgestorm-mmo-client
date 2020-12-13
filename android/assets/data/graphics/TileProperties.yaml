@@ -716,27 +716,48 @@
 235:
   buildCategory: WALL
   fileName: stone-wall-bottom-left
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 236:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-crack
 237:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-end-left
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 238:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-end-right
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 239:
   buildCategory: WALL
   fileName: stone-wall-middle-vertical-01
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 240:
   buildCategory: WALL
   fileName: stone-wall-middle-vertical-02
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 241:
   buildCategory: WALL
   fileName: stone-wall-top-left
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 242:
   buildCategory: WALL
   fileName: stone-wall-top-right
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 243:
   buildCategory: DECORATION
   fileName: stool-round-blue
@@ -794,6 +815,9 @@
 261:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 262:
   buildCategory: DECORATION
   fileName: tree-medium-01
@@ -1091,6 +1115,9 @@
 355:
   buildCategory: WALL
   fileName: stone-wall-middle-vertical-end-top
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
 356:
   buildCategory: DECORATION
   fileName: stump-02
@@ -1361,3 +1388,9 @@
 445:
   buildCategory: WALKABLE
   fileName: '4'
+446:
+  buildCategory: WALL
+  fileName: stone-wall-bottom-right
+  tileProperties:
+    COLLISION_BLOCK: {
+    }
