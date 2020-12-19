@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
 
-@Opcode(getOpcode = Opcodes.WORLD_CHUNK)
+@Opcode(getOpcode = Opcodes.WORLD_CHUNK_LAYER)
 public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPacketIn.WorldChunkPartPacket> {
 
     private static final boolean PRINT_DEBUG = false;
@@ -57,7 +57,7 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
     @Override
     public void onEvent(WorldChunkPartPacket packetData) {
         GameWorld gameWorld = worldManager.getCurrentGameWorld();
-        WorldChunk worldChunk = gameWorld.findChunk(packetData.chunkX, packetData.chunkY);
+        WorldChunk worldChunk = gameWorld.getChunk(packetData.chunkX, packetData.chunkY);
 
         if (worldChunk == null) {
             // Generate new chunk and add it to the game world

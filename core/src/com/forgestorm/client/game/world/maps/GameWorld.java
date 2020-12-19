@@ -84,7 +84,7 @@ public class GameWorld {
         return worldChunk.getWarp((short) localX, (short) localY);
     }
 
-    WorldChunk findChunk(int entityX, int entityY) {
+    public WorldChunk findChunk(int entityX, int entityY) {
 
         // Convert world coordinates to chunk location
         int chunkX = (int) Math.floor(entityX / (float) ClientConstants.CHUNK_SIZE);
@@ -98,7 +98,7 @@ public class GameWorld {
         return null;
     }
 
-    public WorldChunk findChunk(short chunkX, short chunkY) {
+    public WorldChunk getChunk(short chunkX, short chunkY) {
         return worldChunkMap.get((chunkX << 16) | (chunkY & 0xFFFF));
     }
 
