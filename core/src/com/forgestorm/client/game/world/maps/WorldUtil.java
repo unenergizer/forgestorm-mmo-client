@@ -16,7 +16,9 @@ public class WorldUtil {
     public static boolean isTraversable(int entityX, int entityY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.findChunk(entityX, entityY);
-        if (worldChunk == null) return false;
+        // TODO: Setting true so player can walk into new chunk. Not all worlds can generate chunks.
+        //  So distinguish those here.
+        if (worldChunk == null) return true;
 
         int localX = entityX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
         int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;

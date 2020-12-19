@@ -661,6 +661,12 @@ public class FileManager {
 
     public void unloadMapChunkData(String worldName, short chunkX, short chunkY) {
         String filePath = FilePaths.MAPS.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
+
+        if (!isFileLoaded(filePath)) {
+            println(getClass(), "MapChunkData does not exist for this chunk. ChunkX: " + chunkX + ", ChunkY: " + chunkY, true, PRINT_DEBUG);
+            return;
+        }
+
         assetManager.unload(filePath);
         if (assetManager.isLoaded(filePath)) {
             println(getClass(), "MapChunkData was not unloaded: " + filePath, true, PRINT_DEBUG);

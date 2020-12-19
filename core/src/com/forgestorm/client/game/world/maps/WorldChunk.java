@@ -96,6 +96,7 @@ public class WorldChunk {
     }
 
     private void renderLayer(TileImage[] layerTiles, Batch batch) {
+        if (layerTiles == null) return;
 
         // Make the width and height of a given tile just a tad bit larger
         // than it normally would be to prevent most tearing issues.

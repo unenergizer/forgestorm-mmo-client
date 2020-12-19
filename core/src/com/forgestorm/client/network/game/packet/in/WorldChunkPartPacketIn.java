@@ -21,7 +21,7 @@ import static com.forgestorm.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.WORLD_CHUNK)
 public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPacketIn.WorldChunkPartPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final WorldManager worldManager = ClientMain.getInstance().getWorldManager();
