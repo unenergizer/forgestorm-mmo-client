@@ -1,13 +1,17 @@
 package com.forgestorm.client.io;
 
+import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.PixmapLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
+import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -24,6 +28,9 @@ import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.io.updater.RssFeedLoader;
 
+import java.io.File;
+import java.io.IOException;
+
 import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
@@ -35,7 +42,8 @@ public class FileManager {
 
     @Getter
     private AssetManager assetManager = new AssetManager();
-    private InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
+    private FileHandleResolver internalResolver = new InternalFileHandleResolver();
+    private FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();
 
     /**
      * Wrapper method to dispose of all assets. Free's system resources.
@@ -82,20 +90,7 @@ public class FileManager {
      */
     public void loadMusic(AudioData audioData) {
         String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "Music already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(Music.class, new MusicLoader(filePathResolver));
-            assetManager.load(filePath, Music.class);
-            assetManager.finishLoadingAsset(filePath);
-        } else {
-            println(getClass(), "Music doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(filePath, true, false, Music.class, new MusicLoader(internalResolver));
     }
 
     /**
@@ -106,15 +101,7 @@ public class FileManager {
      */
     public Music getMusic(AudioData audioData) {
         String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
-        Music music = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            music = assetManager.get(filePath, Music.class);
-        } else {
-            println(getClass(), "Music not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return music;
+        return abstractGet(filePath, false, Music.class);
     }
 
     /**
@@ -124,21 +111,7 @@ public class FileManager {
      */
     public void loadSound(AudioData audioData) {
         String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "Sound already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(Sound.class, new SoundLoader(filePathResolver));
-            assetManager.load(filePath, Sound.class);
-            assetManager.finishLoadingAsset(filePath);
-        } else {
-            println(getClass(), "Sound doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
-
+        abstractedLoad(filePath, true, false, Sound.class, new SoundLoader(internalResolver));
     }
 
     /**
@@ -149,15 +122,7 @@ public class FileManager {
      */
     public Sound getSound(AudioData audioData) {
         String filePath = audioData.getAudioType().getFilePath() + audioData.getFileName();
-        Sound sound = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            sound = assetManager.get(filePath, Sound.class);
-        } else {
-            println(getClass(), "Sound not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return sound;
+        return abstractGet(filePath, false, Sound.class);
     }
 
     /**
@@ -166,20 +131,7 @@ public class FileManager {
      * @param gameTexture The texture file to load.
      */
     public void loadTexture(GameTexture gameTexture) {
-        // check if already loaded
-        if (isFileLoaded(gameTexture.getFilePath())) {
-            println(getClass(), "Texture already loaded: " + gameTexture.getFilePath(), true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(gameTexture.getFilePath()).exists()) {
-            assetManager.setLoader(Texture.class, new TextureLoader(filePathResolver));
-            assetManager.load(gameTexture.getFilePath(), Texture.class);
-            assetManager.finishLoadingAsset(gameTexture.getFilePath());
-        } else {
-            println(getClass(), "Texture doesn't exist: " + gameTexture.getFilePath(), true, PRINT_DEBUG);
-        }
+        abstractedLoad(gameTexture.getFilePath(), true, false, Texture.class, new TextureLoader(internalResolver));
     }
 
     /**
@@ -189,474 +141,129 @@ public class FileManager {
      * @return A texture.
      */
     public Texture getTexture(GameTexture gameTexture) {
-        Texture texture = null;
-
-        if (assetManager.isLoaded(gameTexture.getFilePath())) {
-            texture = assetManager.get(gameTexture.getFilePath(), Texture.class);
-        } else {
-            println(getClass(), "Texture not loaded: " + gameTexture.getFilePath(), true, PRINT_DEBUG);
-        }
-
-        return texture;
+        return abstractGet(gameTexture.getFilePath(), false, Texture.class);
     }
 
     public void loadFont(GameFont gameFont) {
-        // check if already loaded
-        if (isFileLoaded(gameFont.getFilePath())) {
-            println(getClass(), "Sound already loaded: " + gameFont.getFilePath(), true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(gameFont.getFilePath()).exists()) {
-            assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(filePathResolver));
-            assetManager.load(gameFont.getFilePath(), BitmapFont.class);
-            assetManager.finishLoadingAsset(gameFont.getFilePath());
-        } else {
-            println(getClass(), "Font doesn't exist: " + gameFont.getFilePath(), true, PRINT_DEBUG);
-        }
-
+        abstractedLoad(gameFont.getFilePath(), true, false, BitmapFont.class, new BitmapFontLoader(internalResolver));
     }
 
     public BitmapFont getFont(GameFont gameFont) {
-        BitmapFont bitmapFont = null;
-
-        if (assetManager.isLoaded(gameFont.getFilePath())) {
-            bitmapFont = assetManager.get(gameFont.getFilePath(), BitmapFont.class);
-        } else {
-            println(getClass(), "Font not loaded: " + gameFont.getFilePath(), true, PRINT_DEBUG);
-        }
-
-        return bitmapFont;
+        return abstractGet(gameFont.getFilePath(), false, BitmapFont.class);
     }
 
     public void loadAtlas(GameAtlas gameAtlas) {
-        // check if already loaded
-        if (isFileLoaded(gameAtlas.getFilePath())) {
-            println(getClass(), "Atlas already loaded: " + gameAtlas.getFilePath(), true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(gameAtlas.getFilePath()).exists()) {
-            assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(filePathResolver));
-            assetManager.load(gameAtlas.getFilePath(), TextureAtlas.class);
-            assetManager.finishLoadingAsset(gameAtlas.getFilePath());
-        } else {
-            println(getClass(), "Atlas doesn't exist: " + gameAtlas.getFilePath(), true, PRINT_DEBUG);
-        }
+        abstractedLoad(gameAtlas.getFilePath(), true, false, TextureAtlas.class, new TextureAtlasLoader(internalResolver));
     }
 
     public TextureAtlas getAtlas(GameAtlas gameAtlas) {
-        TextureAtlas textureAtlas = null;
-
-        if (assetManager.isLoaded(gameAtlas.getFilePath())) {
-            textureAtlas = assetManager.get(gameAtlas.getFilePath(), TextureAtlas.class);
-        } else {
-            println(getClass(), "Atlas not loaded: " + gameAtlas.getFilePath(), true, PRINT_DEBUG);
-        }
-
-        return textureAtlas;
+        return abstractGet(gameAtlas.getFilePath(), false, TextureAtlas.class);
     }
 
     public void loadPixmap(GamePixmap gamePixmap) {
-        // check if already loaded
-        if (isFileLoaded(gamePixmap.getFilePath())) {
-            println(getClass(), "Pixmap already loaded: " + gamePixmap.getFilePath(), true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(gamePixmap.getFilePath()).exists()) {
-            assetManager.setLoader(Pixmap.class, new PixmapLoader(filePathResolver));
-            assetManager.load(gamePixmap.getFilePath(), Pixmap.class);
-            assetManager.finishLoadingAsset(gamePixmap.getFilePath());
-        } else {
-            println(getClass(), "Pixmap doesn't exist: " + gamePixmap.getFilePath(), true, PRINT_DEBUG);
-        }
+        abstractedLoad(gamePixmap.getFilePath(), true, false, Pixmap.class, new PixmapLoader(internalResolver));
     }
 
     public Pixmap getPixmap(GamePixmap gamePixmap) {
-        Pixmap pixmap = null;
-
-        if (assetManager.isLoaded(gamePixmap.getFilePath())) {
-            pixmap = assetManager.get(gamePixmap.getFilePath(), Pixmap.class);
-        } else {
-            println(getClass(), "Pixmap not loaded: " + gamePixmap.getFilePath(), true, PRINT_DEBUG);
-        }
-
-        return pixmap;
+        return abstractGet(gamePixmap.getFilePath(), false, Pixmap.class);
     }
 
     public void loadSkin(GameSkin gameSkin) {
-        // check if already loaded
-        if (isFileLoaded(gameSkin.getFilePath())) {
-            println(getClass(), "GameSkin already loaded: " + gameSkin.getFilePath(), true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(gameSkin.getFilePath()).exists()) {
-            assetManager.setLoader(Skin.class, new SkinLoader(filePathResolver));
-            assetManager.load(gameSkin.getFilePath(), Skin.class);
-            assetManager.finishLoadingAsset(gameSkin.getFilePath());
-        } else {
-            println(getClass(), "GameSkin doesn't exist: " + gameSkin.getFilePath(), true, PRINT_DEBUG);
-        }
+        abstractedLoad(gameSkin.getFilePath(), true, false, Skin.class, new SkinLoader(internalResolver));
     }
 
     public Skin getSkin(GameSkin gameSkin) {
-        Skin skin = null;
-
-        if (assetManager.isLoaded(gameSkin.getFilePath())) {
-            skin = assetManager.get(gameSkin.getFilePath(), Skin.class);
-        } else {
-            println(getClass(), "Skin not loaded: " + gameSkin.getFilePath(), true, PRINT_DEBUG);
-        }
-
-        return skin;
+        return abstractGet(gameSkin.getFilePath(), false, Skin.class);
     }
 
     public void loadItemStackData() {
-        String filePath = FilePaths.ITEM_STACK.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "ItemStackData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(ItemStackLoader.ItemStackData.class, new ItemStackLoader(filePathResolver));
-            assetManager.load(filePath, ItemStackLoader.ItemStackData.class);
-        } else {
-            println(getClass(), "ItemStackData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.ITEM_STACK.getFilePath(), false, false, ItemStackLoader.ItemStackData.class, new ItemStackLoader(internalResolver));
     }
 
     public ItemStackLoader.ItemStackData getItemStackData() {
-        String filePath = FilePaths.ITEM_STACK.getFilePath();
-        ItemStackLoader.ItemStackData data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, ItemStackLoader.ItemStackData.class);
-        } else {
-            println(getClass(), "ItemStackData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.ITEM_STACK.getFilePath(), false, ItemStackLoader.ItemStackData.class);
     }
 
     public void loadFactionData() {
-        String filePath = FilePaths.FACTIONS.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "FactionData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(FactionLoader.FactionDataWrapper.class, new FactionLoader(filePathResolver));
-            assetManager.load(filePath, FactionLoader.FactionDataWrapper.class);
-        } else {
-            println(getClass(), "FactionData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.FACTIONS.getFilePath(), false, false, FactionLoader.FactionDataWrapper.class, new FactionLoader(internalResolver));
     }
 
     public FactionLoader.FactionDataWrapper getFactionData() {
-        String filePath = FilePaths.FACTIONS.getFilePath();
-        FactionLoader.FactionDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, FactionLoader.FactionDataWrapper.class);
-        } else {
-            println(getClass(), "FactionData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.FACTIONS.getFilePath(), false, FactionLoader.FactionDataWrapper.class);
     }
 
     public void loadAbilityData() {
-        String filePath = FilePaths.COMBAT_ABILITIES.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "AbilityData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(AbilityLoader.AbilityDataWrapper.class, new AbilityLoader(filePathResolver));
-            assetManager.load(filePath, AbilityLoader.AbilityDataWrapper.class);
-        } else {
-            println(getClass(), "AbilityData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.COMBAT_ABILITIES.getFilePath(), false, false, AbilityLoader.AbilityDataWrapper.class, new AbilityLoader(internalResolver));
     }
 
     public AbilityLoader.AbilityDataWrapper getAbilityData() {
-        String filePath = FilePaths.COMBAT_ABILITIES.getFilePath();
-        AbilityLoader.AbilityDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, AbilityLoader.AbilityDataWrapper.class);
-        } else {
-            println(getClass(), "AbilityData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.COMBAT_ABILITIES.getFilePath(), false, AbilityLoader.AbilityDataWrapper.class);
     }
 
     public void loadMusicData() {
-        String filePath = FilePaths.GAME_MUSIC.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "MusicData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(MusicDataLoader.MusicDataWrapper.class, new MusicDataLoader(filePathResolver));
-            assetManager.load(filePath, MusicDataLoader.MusicDataWrapper.class);
-        } else {
-            println(getClass(), "MusicData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.GAME_MUSIC.getFilePath(), false, false, MusicDataLoader.MusicDataWrapper.class, new MusicDataLoader(internalResolver));
     }
 
     public MusicDataLoader.MusicDataWrapper getMusicData() {
-        String filePath = FilePaths.GAME_MUSIC.getFilePath();
-        MusicDataLoader.MusicDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, MusicDataLoader.MusicDataWrapper.class);
-        } else {
-            println(getClass(), "MusicData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.GAME_MUSIC.getFilePath(), false, MusicDataLoader.MusicDataWrapper.class);
     }
 
     public void loadSoundData() {
-        String filePath = FilePaths.SOUND_FX.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "SoundData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(SoundDataLoader.SoundDataWrapper.class, new SoundDataLoader(filePathResolver));
-            assetManager.load(filePath, SoundDataLoader.SoundDataWrapper.class);
-        } else {
-            println(getClass(), "SoundData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.SOUND_FX.getFilePath(), false, false, SoundDataLoader.SoundDataWrapper.class, new SoundDataLoader(internalResolver));
     }
 
     public SoundDataLoader.SoundDataWrapper getSoundData() {
-        String filePath = FilePaths.SOUND_FX.getFilePath();
-        SoundDataLoader.SoundDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, SoundDataLoader.SoundDataWrapper.class);
-        } else {
-            println(getClass(), "SoundData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.SOUND_FX.getFilePath(), false, SoundDataLoader.SoundDataWrapper.class);
     }
 
     public void loadEntityShopData() {
-        String filePath = FilePaths.ENTITY_SHOP.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "EntityShopData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(EntityShopLoader.EntityShopDataWrapper.class, new EntityShopLoader(filePathResolver));
-            assetManager.load(filePath, EntityShopLoader.EntityShopDataWrapper.class);
-        } else {
-            println(getClass(), "EntityShopData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.ENTITY_SHOP.getFilePath(), false, false, EntityShopLoader.EntityShopDataWrapper.class, new EntityShopLoader(internalResolver));
     }
 
     public EntityShopLoader.EntityShopDataWrapper getEntityShopData() {
-        String filePath = FilePaths.ENTITY_SHOP.getFilePath();
-        EntityShopLoader.EntityShopDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, EntityShopLoader.EntityShopDataWrapper.class);
-        } else {
-            println(getClass(), "EntityShopData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.ENTITY_SHOP.getFilePath(), false, EntityShopLoader.EntityShopDataWrapper.class);
     }
 
     public void loadTilePropertiesData() {
-        String filePath = FilePaths.TILE_PROPERTIES.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "TilePropertiesData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(filePathResolver));
-            assetManager.load(filePath, TilePropertiesLoader.TilePropertiesDataWrapper.class);
-        } else {
-            println(getClass(), "TilePropertiesData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.TILE_PROPERTIES.getFilePath(), false, false, TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(internalResolver));
     }
 
     public TilePropertiesLoader.TilePropertiesDataWrapper getTilePropertiesData() {
-        String filePath = FilePaths.TILE_PROPERTIES.getFilePath();
-        TilePropertiesLoader.TilePropertiesDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, TilePropertiesLoader.TilePropertiesDataWrapper.class);
-        } else {
-            println(getClass(), "TilePropertiesData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.TILE_PROPERTIES.getFilePath(), false, TilePropertiesLoader.TilePropertiesDataWrapper.class);
     }
 
     public void loadNetworkSettingsData() {
-        String filePath = FilePaths.NETWORK_SETTINGS.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "NetworkSettingsData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(filePathResolver));
-            assetManager.load(filePath, NetworkSettingsLoader.NetworkSettingsData.class);
-        } else {
-            println(getClass(), "NetworkSettingsData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.NETWORK_SETTINGS.getFilePath(), false, false, NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(internalResolver));
     }
 
     public NetworkSettingsLoader.NetworkSettingsData getNetworkSettingsData() {
-        String filePath = FilePaths.NETWORK_SETTINGS.getFilePath();
-        NetworkSettingsLoader.NetworkSettingsData data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, NetworkSettingsLoader.NetworkSettingsData.class);
-        } else {
-            println(getClass(), "NetworkSettingsData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.NETWORK_SETTINGS.getFilePath(), false, NetworkSettingsLoader.NetworkSettingsData.class);
     }
 
     public void loadRssFeedData() {
-        String filePath = FilePaths.RSS_FEED.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "RssFeedData already loaded: " + filePath, true, true);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(RssFeedLoader.RssFeedWrapper.class, new RssFeedLoader(filePathResolver));
-            assetManager.load(filePath, RssFeedLoader.RssFeedWrapper.class);
-        } else {
-            println(getClass(), "RssFeedData doesn't exist: " + filePath, true, true);
-        }
+        abstractedLoad(FilePaths.RSS_FEED.getFilePath(), false, false, RssFeedLoader.RssFeedWrapper.class, new RssFeedLoader(internalResolver));
     }
 
     public RssFeedLoader.RssFeedWrapper getRssFeedData() {
-        String filePath = FilePaths.RSS_FEED.getFilePath();
-        RssFeedLoader.RssFeedWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, RssFeedLoader.RssFeedWrapper.class);
-        } else {
-            println(getClass(), "RssFeedData not loaded: " + filePath, true, true);
-        }
-
-        return data;
+        return abstractGet(FilePaths.RSS_FEED.getFilePath(), false, RssFeedLoader.RssFeedWrapper.class);
     }
 
     public void loadGameWorldData() {
-        String filePath = FilePaths.MAPS.getFilePath();
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "GameMapData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(filePathResolver));
-            assetManager.load(filePath, GameWorldLoader.GameWorldDataWrapper.class);
-        } else {
-            println(getClass(), "GameMapData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(FilePaths.MAPS.getFilePath(), false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
     }
 
     public GameWorldLoader.GameWorldDataWrapper getGameWorldData() {
-        String filePath = FilePaths.MAPS.getFilePath();
-        GameWorldLoader.GameWorldDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, GameWorldLoader.GameWorldDataWrapper.class);
-        } else {
-            println(getClass(), "GameMapData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(FilePaths.MAPS.getFilePath(), false, GameWorldLoader.GameWorldDataWrapper.class);
     }
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
         String filePath = FilePaths.MAPS.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
-
-        // check if already loaded
-        if (isFileLoaded(filePath)) {
-            println(getClass(), "MapChunkData already loaded: " + filePath, true, PRINT_DEBUG);
-            return;
-        }
-
-        // load asset
-        if (filePathResolver.resolve(filePath).exists()) {
-            assetManager.setLoader(ChunkLoader.MapChunkDataWrapper.class, new ChunkLoader(filePathResolver));
-            assetManager.load(filePath, ChunkLoader.MapChunkDataWrapper.class);
-            if (forceFinishLoading) assetManager.finishLoading();
-        } else {
-            println(getClass(), "MapChunkData doesn't exist: " + filePath, true, PRINT_DEBUG);
-        }
+        abstractedLoad(filePath, forceFinishLoading, false, ChunkLoader.MapChunkDataWrapper.class, new ChunkLoader(internalResolver));
     }
 
     public ChunkLoader.MapChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {
         String filePath = FilePaths.MAPS.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
-        ChunkLoader.MapChunkDataWrapper data = null;
-
-        if (assetManager.isLoaded(filePath)) {
-            data = assetManager.get(filePath, ChunkLoader.MapChunkDataWrapper.class);
-        } else {
-            println(getClass(), "MapChunkData not loaded: " + filePath, true, PRINT_DEBUG);
-        }
-
-        return data;
+        return abstractGet(filePath, false, ChunkLoader.MapChunkDataWrapper.class);
     }
 
     public void unloadMapChunkData(String worldName, short chunkX, short chunkY) {
@@ -673,5 +280,70 @@ public class FileManager {
         } else {
             println(getClass(), "MapChunkData was unloaded successfully! FilePath: " + filePath, true, PRINT_DEBUG);
         }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private <T, P extends AssetLoaderParameters<T>> String abstractedLoad(File file, boolean forceFinishLoading, boolean useAbsolutePath, Class<T> type, AssetLoader<T, P> loader) {
+        String path;
+        if (useAbsolutePath) {
+            path = getCanonicalPath(file);
+        } else {
+            path = file.getPath().replace("\\", "/");
+        }
+
+        return abstractedLoad(path, forceFinishLoading, useAbsolutePath, type, loader);
+    }
+
+    private <T, P extends AssetLoaderParameters<T>> String abstractedLoad(String filePath, boolean forceFinishLoading, boolean useAbsolutePath, Class<T> type, AssetLoader<T, P> loader) {
+        FileHandleResolver fileHandleResolver;
+
+        if (useAbsolutePath) {
+            fileHandleResolver = absoluteResolver;
+        } else {
+            fileHandleResolver = internalResolver;
+        }
+
+        // Check if the file is already loaded
+        if (isFileLoaded(filePath)) {
+            println(getClass(), "File already loaded: " + filePath, true, PRINT_DEBUG);
+            return null;
+        }
+
+        // Load the asset
+        if (fileHandleResolver.resolve(filePath).exists()) {
+            assetManager.setLoader(type, loader);
+            assetManager.load(filePath, type);
+            if (forceFinishLoading) assetManager.finishLoading();
+        } else {
+            println(getClass(), "File doesn't exist: " + filePath, true, PRINT_DEBUG);
+        }
+        return filePath;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private <T> T abstractGet(String path, boolean useAbsolutePath, Class<T> type) {
+        String pathFixed = path;
+
+        if (useAbsolutePath) {
+            // Fixes problems with loading files from an "absolute path"...
+            pathFixed = path.replace("\\", "/");
+        }
+
+        if (assetManager.isLoaded(pathFixed)) {
+            return assetManager.get(pathFixed, type);
+        } else {
+            println(getClass(), "File not loaded: " + pathFixed, true, PRINT_DEBUG);
+            return null;
+        }
+    }
+
+    private String getCanonicalPath(File file) {
+        String path = null;
+        try {
+            path = file.getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
     }
 }
