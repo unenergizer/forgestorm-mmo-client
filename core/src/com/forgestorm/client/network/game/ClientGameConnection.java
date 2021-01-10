@@ -27,8 +27,6 @@ public class ClientGameConnection {
     private final ConnectionManager connectionManager;
     private final EventBus eventBus = new EventBus();
 
-    @Setter
-    private long ping = 0;
     private UUID uuid;
     private ClientHandler clientHandler;
     private volatile boolean connected;

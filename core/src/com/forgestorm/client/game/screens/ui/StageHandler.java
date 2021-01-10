@@ -263,6 +263,7 @@ public class StageHandler implements Disposable {
                 FocusManager.switchFocus(stage, loginTable.getUsernameField());
                 stage.setKeyboardFocus(loginTable.getUsernameField());
                 loginTable.resetButton();
+                debugTable.findPosition();
                 break;
             case CHARACTER_SELECT:
                 // Play audio
@@ -276,6 +277,7 @@ public class StageHandler implements Disposable {
 
                 connectionStatusWindow.setVisible(false);
                 characterSelectMenu.setVisible(true);
+                debugTable.findPosition();
                 break;
             case GAME:
                 musicManager.stopMusic(true);
@@ -289,6 +291,7 @@ public class StageHandler implements Disposable {
                 experienceBar.setVisible(true);
                 hotBar.setVisible(true);
                 ping.setVisible(true);
+                debugTable.findPosition();
 
                 FocusManager.resetFocus(stage); // Clear focus after building windows
                 break;
@@ -298,6 +301,7 @@ public class StageHandler implements Disposable {
     private void hideAllUI() {
         // Set all current actors to non visible
         for (Actor actor : stage.getActors()) {
+            if (actor instanceof DebugTable) continue;
             if (actor.isVisible()) actor.setVisible(false);
         }
     }

@@ -2,8 +2,6 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.UserInterfaceType;
@@ -12,35 +10,36 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.WorldChunk;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 public class DebugTable extends VisTable implements Buildable {
 
-    private final VisLabel delta = new VisLabel();
+    private final ClientMain clientMain = ClientMain.getInstance();
     private final VisLabel fps = new VisLabel();
-    private final VisLabel ms = new VisLabel();
-    private final VisLabel uuid = new VisLabel();
+    private final VisLabel connection = new VisLabel();
+    private final VisLabel playerWorld = new VisLabel();
+    private final VisLabel playerChunk = new VisLabel();
     private final VisLabel playerTile = new VisLabel();
-    private final VisLabel playerPixel = new VisLabel();
-    private final VisLabel zoom = new VisLabel();
     private final VisLabel cursorTile = new VisLabel();
-    private final VisLabel leftCursorTileClick = new VisLabel();
-    private final VisLabel rightCursorTileClick = new VisLabel();
     private final VisLabel health = new VisLabel();
     private final VisLabel armor = new VisLabel();
     private final VisLabel damage = new VisLabel();
 
+    private StageHandler stageHandler;
+
     @Override
     public Actor build(final StageHandler stageHandler) {
-        add(delta).left().row();
+        this.stageHandler = stageHandler;
+
         add(fps).left().row();
-        add(zoom).left().row();
-        add(ms).left().row();
-        add(uuid).left().row();
-        add(playerPixel).left().row();
+        add(connection).left().row();
+        add(playerWorld).left().row();
         add(playerTile).left().row();
+        add(playerChunk).left().row();
         add(cursorTile).left().row();
-        add(leftCursorTileClick).left().row();
-        add(rightCursorTileClick).left().row();
         add(health).left().row();
         add(armor).left().row();
         add(damage).left().row();
@@ -48,47 +47,74 @@ public class DebugTable extends VisTable implements Buildable {
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition(10, Gdx.graphics.getHeight() - getHeight() - 10);
+                findPosition();
             }
         });
 
         pack();
-        setPosition(10, Gdx.graphics.getHeight() - getHeight() - 10);
+        findPosition();
         setVisible(false);
         return this;
+    }
+
+    public void findPosition() {
+        UserInterfaceType userInterfaceType = clientMain.getUserInterfaceType();
+
+        if (userInterfaceType == null) return;
+
+        switch (userInterfaceType) {
+            case LOGIN:
+                setPosition(StageHandler.WINDOW_PAD_X, Gdx.graphics.getHeight() - getHeight() - StageHandler.WINDOW_PAD_Y);
+                break;
+            case CHARACTER_SELECT:
+                float xAdd = stageHandler.getCharacterSelectMenu().getWidth();
+                setPosition(StageHandler.WINDOW_PAD_X + xAdd, Gdx.graphics.getHeight() - getHeight() - StageHandler.WINDOW_PAD_Y);
+                break;
+            case GAME:
+                StatusBar statusBar = stageHandler.getStatusBar();
+                setPosition(StageHandler.WINDOW_PAD_X, statusBar.getY() - getHeight() - StageHandler.WINDOW_PAD_Y);
+                break;
+        }
+
+        // Reset text for good measure
+        for (Actor actor : this.getChildren()) {
+            if (actor instanceof VisLabel) ((VisLabel) actor).setText("");
+        }
     }
 
     public void refresh(float delta) {
         if (!isVisible()) return;
 
         final PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+        final MouseManager mouseManager = clientMain.getMouseManager();
 
-        this.delta.setText("DeltaTime: " + Math.round(delta * 100000.0) / 100000.0);
-        fps.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-        if (ClientMain.getInstance().getGameScreen().getCamera() != null) {
-            zoom.setText("Zoom: " + ClientMain.getInstance().getGameScreen().getCamera().zoom);
-        }
-
-        if (ClientMain.getInstance().getConnectionManager().getClientGameConnection().isConnected()) {
-            ms.setText("MS: " + ClientMain.getInstance().getConnectionManager().getClientGameConnection().getPing());
+        if (clientMain.getUserInterfaceType() != null && clientMain.getUserInterfaceType() == UserInterfaceType.GAME) {
+            fps.setText("FPS: " + Gdx.graphics.getFramesPerSecond() + ", Zoom: " + clientMain.getGameScreen().getCamera().zoom + ", Delta: " + Math.round(delta * 100000.0) / 100000.0);
         } else {
-            ms.setText("MS: Not connected to server.");
+            fps.setText("FPS: " + Gdx.graphics.getFramesPerSecond() + ", Delta: " + Math.round(delta * 100000.0) / 100000.0);
         }
 
         if (playerClient != null) {
-            uuid.setText("UUID: " + playerClient.getServerEntityID());
-            playerTile.setText("Player X: " + Math.round(playerClient.getCurrentMapLocation().getX()) + ", Y: " + Math.round(playerClient.getCurrentMapLocation().getY()) + ", map: " + playerClient.getCurrentMapLocation().getWorldName());
-            playerPixel.setText("Player X: " + playerClient.getDrawX() + ", Y: " + playerClient.getDrawY());
+            connection.setText("UUID: " + playerClient.getServerEntityID() + ", MS: " + clientMain.getConnectionManager().getClientGameConnection().getClientHandler().getClientPing());
+
+            int x = playerClient.getCurrentMapLocation().getX();
+            int y = playerClient.getCurrentMapLocation().getY();
+
+            playerWorld.setText("World: " + playerClient.getCurrentMapLocation().getWorldName() + ", FacingDirection: " + playerClient.getFacingDirection());
+            playerTile.setText("Tile XY: " + x + " / " + y + ", Pixel XY: " + playerClient.getDrawX() + " / " + playerClient.getDrawY());
+
+            GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
+            WorldChunk worldChunk = gameWorld.findChunk(x, y);
+            playerChunk.setText("Chunk XY: " + worldChunk.getChunkX() + " / " + worldChunk.getChunkY());
 
             armor.setText("Armor: " + playerClient.getAttributes().getArmor());
             damage.setText("Damage: " + playerClient.getAttributes().getDamage());
         }
 
-        if (mouseManager != null && ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
-            cursorTile.setText("Cursor-Tile X: " + mouseManager.getMouseTileX() + ", Y: " + mouseManager.getMouseTileY());
-            leftCursorTileClick.setText("Left-Click X: " + mouseManager.getLeftClickTileX() + ", Y: " + mouseManager.getLeftClickTileY());
-            rightCursorTileClick.setText("Right-Click X: " + mouseManager.getRightClickTileX() + ", Y: " + mouseManager.getRightClickTileY());
+        if (mouseManager != null && clientMain.getUserInterfaceType() == UserInterfaceType.GAME) {
+            cursorTile.setText("Mouse XY: " + mouseManager.getMouseTileX() + " / " + mouseManager.getMouseTileY()
+                    + ", LeftPress XY: " + mouseManager.getLeftClickTileX() + " / " + mouseManager.getLeftClickTileY()
+                    + ", RightPress XY: " + mouseManager.getRightClickTileX() + " / " + mouseManager.getRightClickTileY());
         }
 
         pack();

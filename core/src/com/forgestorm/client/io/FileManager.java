@@ -41,9 +41,9 @@ public class FileManager {
     private static final boolean PRINT_DEBUG = false;
 
     @Getter
-    private AssetManager assetManager = new AssetManager();
-    private FileHandleResolver internalResolver = new InternalFileHandleResolver();
-    private FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();
+    private final AssetManager assetManager = new AssetManager();
+    private final FileHandleResolver internalResolver = new InternalFileHandleResolver();
+    private final FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();
 
     /**
      * Wrapper method to dispose of all assets. Free's system resources.
