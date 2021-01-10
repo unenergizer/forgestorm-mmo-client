@@ -105,7 +105,12 @@ public class DebugTable extends VisTable implements Buildable {
 
             GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
             WorldChunk worldChunk = gameWorld.findChunk(x, y);
-            playerChunk.setText("Chunk XY: " + worldChunk.getChunkX() + " / " + worldChunk.getChunkY() + ", WarpCount: " + worldChunk.getNumberOfWarps());
+            if (worldChunk != null) {
+                playerChunk.setText("Chunk XY: " + worldChunk.getChunkX() + " / " + worldChunk.getChunkY()
+                        + ", WarpCount: " + worldChunk.getNumberOfWarps());
+            } else {
+                playerChunk.setText("[RED]Chunk is null");
+            }
 
             armor.setText("Armor: " + playerClient.getAttributes().getArmor());
             damage.setText("Damage: " + playerClient.getAttributes().getDamage());
