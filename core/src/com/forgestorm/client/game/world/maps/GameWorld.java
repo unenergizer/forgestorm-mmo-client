@@ -81,7 +81,7 @@ public class GameWorld {
         int localX = entityX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
         int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        return worldChunk.getWarp((short) localX, (short) localY);
+        return worldChunk.getTileWarp((short) localX, (short) localY);
     }
 
     public WorldChunk findChunk(int entityX, int entityY) {

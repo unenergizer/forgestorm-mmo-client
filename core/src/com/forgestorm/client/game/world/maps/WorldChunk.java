@@ -68,15 +68,27 @@ public class WorldChunk {
         return true;
     }
 
-    public void addTileWarp(short localX, short localY, Warp warp) {
-        tileWarps.put((localX << 16) | (localY & 0xFFFF), warp);
+    public void clearTileWarps() {
+        tileWarps.clear();
     }
 
-    Warp getWarp(short localX, short localY) {
+    public void addTileWarp(short localX, short localY, Warp warp) {
+        addTileWarp((localX << 16) | (localY & 0xFFFF), warp);
+    }
+
+    public void addTileWarp(int chunkLocation, Warp warp) {
+        tileWarps.put(chunkLocation, warp);
+    }
+
+    Warp getTileWarp(short localX, short localY) {
         if (tileWarps.containsKey((localX << 16) | (localY & 0xFFFF))) {
             return tileWarps.get((localX << 16) | (localY & 0xFFFF));
         }
         return null;
+    }
+
+    public int getNumberOfWarps() {
+        return tileWarps.size();
     }
 
     void renderBottomLayers(Batch batch) {
