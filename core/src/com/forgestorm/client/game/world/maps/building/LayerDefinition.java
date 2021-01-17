@@ -3,7 +3,6 @@ package com.forgestorm.client.game.world.maps.building;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@SuppressWarnings("unused")
 @Getter
 @AllArgsConstructor
 public enum LayerDefinition {
@@ -22,7 +21,7 @@ public enum LayerDefinition {
     GROUND("ground"), // NO COLLISION
     BACKGROUND("background"); // NO COLLISION
 
-    private String layerName;
+    private final String layerName;
 
     public static LayerDefinition getLayerDefinition(byte entityTypeByte) {
         for (LayerDefinition entityType : LayerDefinition.values()) {

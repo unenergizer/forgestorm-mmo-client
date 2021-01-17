@@ -18,11 +18,10 @@ import lombok.Setter;
 @Getter
 public class WorldBuilder {
 
-    private Map<Integer, TileImage> tileImageMap;
-    private TextureAtlas textureAtlas;
-    private Array<TextureAtlas.AtlasRegion> regions;
+    private final Map<Integer, TileImage> tileImageMap;
+    private final TextureAtlas textureAtlas;
+    private final Array<TextureAtlas.AtlasRegion> regions;
 
-    @Setter
     private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
     @Setter
     private int currentTextureId = 1;
@@ -35,6 +34,11 @@ public class WorldBuilder {
         // Load Tiles atlas
         textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
         regions = textureAtlas.getRegions();
+    }
+
+    public void setCurrentLayer(LayerDefinition layerDefinition) {
+        this.currentLayer = layerDefinition;
+        ClientMain.getInstance().getStageHandler().getLayerSelectMenu().setSelectedLayerButton(layerDefinition);
     }
 
     public TileImage getTileImage(int tileImageID) {
