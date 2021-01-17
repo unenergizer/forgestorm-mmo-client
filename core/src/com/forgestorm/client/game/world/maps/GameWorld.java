@@ -29,8 +29,6 @@ public class GameWorld {
     private final Color backgroundColor;
 
     private final Map<Integer, WorldChunk> worldChunkMap = new HashMap<Integer, WorldChunk>();
-    private final Map<Integer, Warp> tileWarps = new HashMap<Integer, Warp>();
-
 
     private Texture parallaxBackground;
     private int parallaxX, parallaxY;
@@ -81,7 +79,7 @@ public class GameWorld {
         int localX = entityX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
         int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        return worldChunk.getTileWarp((short) localX, (short) localY);
+        return worldChunk.getWarp((short) localX, (short) localY);
     }
 
     public WorldChunk findChunk(int entityX, int entityY) {
@@ -142,6 +140,5 @@ public class GameWorld {
 
         // Clear arrays and maps
         worldChunkMap.clear();
-        tileWarps.clear();
     }
 }

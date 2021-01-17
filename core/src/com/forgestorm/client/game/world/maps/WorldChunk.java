@@ -22,9 +22,10 @@ public class WorldChunk {
     private final short chunkX, chunkY;
 
     @Getter
-    private Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
+    private final Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
 
-    private final Map<Integer, Warp> tileWarps = new HashMap<Integer, Warp>();
+    @Getter
+    private final Map<WarpLocation, Warp> tileWarps = new HashMap<WarpLocation, Warp>();
 
     public WorldChunk(short chunkX, short chunkY) {
         this.chunkX = chunkX;
@@ -54,11 +55,6 @@ public class WorldChunk {
         layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tileImage;
     }
 
-    @SuppressWarnings("SameParameterValue")
-    TileImage getTileImage(LayerDefinition layerDefinition, int localX, int localY) {
-        return layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
-    }
-
     public boolean isTraversable(int localX, int localY) {
         for (TileImage[] tileImages : layers.values()) {
             TileImage tileImage = tileImages[localX + localY * ClientConstants.CHUNK_SIZE];
@@ -73,16 +69,17 @@ public class WorldChunk {
     }
 
     public void addTileWarp(short localX, short localY, Warp warp) {
-        addTileWarp((localX << 16) | (localY & 0xFFFF), warp);
+        addTileWarp(new WarpLocation(localX, localY), warp);
     }
 
-    public void addTileWarp(int chunkLocation, Warp warp) {
-        tileWarps.put(chunkLocation, warp);
+    public void addTileWarp(WarpLocation warpLocation, Warp warp) {
+        tileWarps.put(warpLocation, warp);
     }
 
-    Warp getTileWarp(short localX, short localY) {
-        if (tileWarps.containsKey((localX << 16) | (localY & 0xFFFF))) {
-            return tileWarps.get((localX << 16) | (localY & 0xFFFF));
+    Warp getWarp(short localX, short localY) {
+        for (Map.Entry<WarpLocation, Warp> entry : tileWarps.entrySet()) {
+            WarpLocation warpLocation = entry.getKey();
+            if (warpLocation.getFromX() == localX && warpLocation.getFromY() == localY) return entry.getValue();
         }
         return null;
     }

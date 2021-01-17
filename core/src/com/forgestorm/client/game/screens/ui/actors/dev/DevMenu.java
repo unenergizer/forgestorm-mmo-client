@@ -10,6 +10,7 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.WarpEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.kotcrab.vis.ui.widget.Menu;
@@ -20,7 +21,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 public class DevMenu extends VisTable implements Buildable {
 
-    private MenuBar menuBar = new MenuBar();
+    private final MenuBar menuBar = new MenuBar();
 
     @Override
     public Actor build(final StageHandler stageHandler) {
@@ -36,12 +37,12 @@ public class DevMenu extends VisTable implements Buildable {
         addListener(new WindowResizeListener() {
             @Override
             public void resize() {
-                setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());
+                setPosition((Gdx.graphics.getWidth() / 2f) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());
             }
         });
 
         pack();
-        setPosition((Gdx.graphics.getWidth() / 2) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());
+        setPosition((Gdx.graphics.getWidth() / 2f) - (getWidth() / 2), Gdx.graphics.getHeight() - getHeight());
         setVisible(false);
         return this;
     }
@@ -120,7 +121,14 @@ public class DevMenu extends VisTable implements Buildable {
             }
         }));
 
-        popupMenu.addItem(new MenuItem("Warp Editor"));
+        final WarpEditor warpEditor = stageHandler.getWarpEditor();
+        popupMenu.addItem(new MenuItem(warpEditor.getTitleLabel().getText().toString(), new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ActorUtil.fadeInWindow(warpEditor);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+            }
+        }));
 
         return popupMenu;
     }

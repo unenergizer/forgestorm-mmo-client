@@ -23,11 +23,16 @@ import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.Warp;
+import com.forgestorm.client.game.world.maps.WarpLocation;
+import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GraphicsUtils;
 import com.forgestorm.client.util.PixmapUtil;
+
+import java.util.Map;
 
 import lombok.Getter;
 
@@ -47,7 +52,7 @@ public class GameScreen implements Screen {
 
     private boolean gameFocused = true;
 
-    private Keyboard keyboard = new Keyboard();
+    private final Keyboard keyboard = new Keyboard();
 
     private BitmapFont font;
 
@@ -57,6 +62,7 @@ public class GameScreen implements Screen {
 
     private Texture invalidTileLocationTexture;
     private Texture validTileLocationTexture;
+    private Texture warpTileLocationTexture;
 
     public GameScreen(StageHandler stageHandler) {
         this.stageHandler = stageHandler;
@@ -119,6 +125,10 @@ public class GameScreen implements Screen {
         Pixmap validTextureHighlight = PixmapUtil.createProceduralPixmap(16, 16, Color.GREEN);
         validTileLocationTexture = new Texture(validTextureHighlight);
         validTextureHighlight.dispose();
+
+        Pixmap warpTextureHighlight = PixmapUtil.createProceduralPixmap(16, 16, Color.PURPLE);
+        warpTileLocationTexture = new Texture(warpTextureHighlight);
+        warpTextureHighlight.dispose();
     }
 
     @Override
@@ -172,6 +182,20 @@ public class GameScreen implements Screen {
 
         // Render overhead layer here
         getGameMap().renderOverheadLayer(spriteBatch);
+
+        // Render warp texture
+        if (stageHandler.getWarpEditor() != null && stageHandler.getWarpEditor().isVisible()) {
+            for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkMap().values()) {
+                for (Map.Entry<WarpLocation, Warp> entry : worldChunk.getTileWarps().entrySet()) {
+                    float fromX = entry.getKey().getFromX() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
+                    float fromY = entry.getKey().getFromY() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
+                    float toX = entry.getValue().getWarpDestination().getX() * ClientConstants.TILE_SIZE;
+                    float toY = entry.getValue().getWarpDestination().getY() * ClientConstants.TILE_SIZE;
+                    spriteBatch.draw(warpTileLocationTexture, fromX, fromY);
+                    spriteBatch.draw(warpTileLocationTexture, toX, toY);
+                }
+            }
+        }
 
         // Draw Names
         EntityManager.getInstance().drawEntityNames();
@@ -261,6 +285,7 @@ public class GameScreen implements Screen {
         if (hpArea != null) hpArea.dispose();
         if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
+        if (warpTileLocationTexture != null) warpTileLocationTexture.dispose();
         GameTextures.dispose();
         stageHandler.dispose();
     }

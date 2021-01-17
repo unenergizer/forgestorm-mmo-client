@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Warp {
-    private final Location warpDestination;
-    private final MoveDirection directionToFace;
+public class WarpLocation {
+    private final short fromX, fromY;
 }

@@ -24,6 +24,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.WarpEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeEvent;
@@ -71,65 +72,66 @@ public class StageHandler implements Disposable {
     public final static float WINDOW_PAD_Y = 10;
 
     private Stage stage = new Stage();
-    private PreStageEvent preStageEvent = new PreStageEvent(this);
-    private PostStageEvent postStageEvent = new PostStageEvent(this);
-    private DragAndDrop dragAndDrop = new DragAndDrop();
-    private BitmapFont bitmapFont = VisUI.getSkin().getFont("default-font");
-    private Label.LabelStyle markupStyle = new Label.LabelStyle(bitmapFont, null);
+    private final PreStageEvent preStageEvent = new PreStageEvent(this);
+    private final PostStageEvent postStageEvent = new PostStageEvent(this);
+    private final DragAndDrop dragAndDrop = new DragAndDrop();
+    private final BitmapFont bitmapFont = VisUI.getSkin().getFont("default-font");
+    private final Label.LabelStyle markupStyle = new Label.LabelStyle(bitmapFont, null);
 
     // login
-    private ButtonTable buttonTable = new ButtonTable();
-    private VersionTable versionTable = new VersionTable();
-    private CopyrightTable copyrightTable = new CopyrightTable();
-    private LoginTable loginTable = new LoginTable();
-    private ConnectionStatusWindow connectionStatusWindow = new ConnectionStatusWindow();
-    private RssAnnouncements rssAnnouncements = new RssAnnouncements();
+    private final ButtonTable buttonTable = new ButtonTable();
+    private final VersionTable versionTable = new VersionTable();
+    private final CopyrightTable copyrightTable = new CopyrightTable();
+    private final LoginTable loginTable = new LoginTable();
+    private final ConnectionStatusWindow connectionStatusWindow = new ConnectionStatusWindow();
+    private final RssAnnouncements rssAnnouncements = new RssAnnouncements();
 
     // character select
-    private CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
-    private CharacterCreation characterCreation = new CharacterCreation();
-    private DeleteCharacter deleteCharacter = new DeleteCharacter();
+    private final CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
+    private final CharacterCreation characterCreation = new CharacterCreation();
+    private final DeleteCharacter deleteCharacter = new DeleteCharacter();
 
     // game
-    private FadeWindow fadeWindow = new FadeWindow();
-    private HelpWindow helpWindow = new HelpWindow();
-    private CreditsWindow creditsWindow = new CreditsWindow();
-    private EscapeWindow escapeWindow = new EscapeWindow();
-    private BagWindow bagWindow = new BagWindow();
-    private BankWindow bankWindow = new BankWindow();
-    private EquipmentWindow equipmentWindow = new EquipmentWindow();
-    private HotBar hotBar = new HotBar();
-    private ExperienceBar experienceBar = new ExperienceBar();
-    private ChatWindow chatWindow = new ChatWindow();
-    private DebugTable debugTable = new DebugTable();
-    private FPSTable fpsTable = new FPSTable();
-    private EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
-    private ItemDropDownMenu itemDropDownMenu = new ItemDropDownMenu();
-    private TradeWindow tradeWindow = new TradeWindow();
-    private IncomingTradeRequestWindow incomingTradeRequestWindow = new IncomingTradeRequestWindow();
-    private EntityShopWindow pagedItemStackWindow = new EntityShopWindow();
-    private SkillBookWindow spellBookWindow = new SkillBookWindow();
-    private StatusBar statusBar = new StatusBar();
-    private TargetStatusBar targetStatusBar = new TargetStatusBar();
-    private ChatDialogue chatDialogue = new ChatDialogue();
-    private CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
-    private PlayerProfileWindow playerProfileWindow = new PlayerProfileWindow();
-    private Ping ping = new Ping();
+    private final FadeWindow fadeWindow = new FadeWindow();
+    private final HelpWindow helpWindow = new HelpWindow();
+    private final CreditsWindow creditsWindow = new CreditsWindow();
+    private final EscapeWindow escapeWindow = new EscapeWindow();
+    private final BagWindow bagWindow = new BagWindow();
+    private final BankWindow bankWindow = new BankWindow();
+    private final EquipmentWindow equipmentWindow = new EquipmentWindow();
+    private final HotBar hotBar = new HotBar();
+    private final ExperienceBar experienceBar = new ExperienceBar();
+    private final ChatWindow chatWindow = new ChatWindow();
+    private final DebugTable debugTable = new DebugTable();
+    private final FPSTable fpsTable = new FPSTable();
+    private final EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
+    private final ItemDropDownMenu itemDropDownMenu = new ItemDropDownMenu();
+    private final TradeWindow tradeWindow = new TradeWindow();
+    private final IncomingTradeRequestWindow incomingTradeRequestWindow = new IncomingTradeRequestWindow();
+    private final EntityShopWindow pagedItemStackWindow = new EntityShopWindow();
+    private final SkillBookWindow spellBookWindow = new SkillBookWindow();
+    private final StatusBar statusBar = new StatusBar();
+    private final TargetStatusBar targetStatusBar = new TargetStatusBar();
+    private final ChatDialogue chatDialogue = new ChatDialogue();
+    private final CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
+    private final PlayerProfileWindow playerProfileWindow = new PlayerProfileWindow();
+    private final Ping ping = new Ping();
 
     private Pixmap bgPixmap;
     private TextureRegionDrawable itemStackCellBackground;
 
     // developer
-    private DevMenu devMenu = new DevMenu();
-    private EntityEditor entityEditor = new EntityEditor();
-    private ItemStackEditor itemStackEditor = new ItemStackEditor();
-    private PixelFXTest pixelFXTest = new PixelFXTest();
-    private TilePropertiesEditor tilePropertiesEditor = new TilePropertiesEditor();
-    private TileBuildMenu tileBuildMenu = new TileBuildMenu();
+    private final DevMenu devMenu = new DevMenu();
+    private final EntityEditor entityEditor = new EntityEditor();
+    private final ItemStackEditor itemStackEditor = new ItemStackEditor();
+    private final PixelFXTest pixelFXTest = new PixelFXTest();
+    private final TilePropertiesEditor tilePropertiesEditor = new TilePropertiesEditor();
+    private final TileBuildMenu tileBuildMenu = new TileBuildMenu();
+    private final WarpEditor warpEditor = new WarpEditor();
 
     // shared
-    private MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
-    private ColorPickerController colorPickerController = new ColorPickerController();
+    private final MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
+    private final ColorPickerController colorPickerController = new ColorPickerController();
 
     public StageHandler() {
         dragAndDrop.setDragTime(0);
@@ -200,11 +202,12 @@ public class StageHandler implements Disposable {
         stage.addActor(pixelFXTest.build(this));
         stage.addActor(tilePropertiesEditor.build(this));
         stage.addActor(tileBuildMenu.build(this));
+        stage.addActor(warpEditor.build(this));
     }
 
     public void render(float delta) {
-        if (debugTable != null && debugTable.isVisible()) debugTable.refresh(delta);
-        if (fpsTable != null && fpsTable.isVisible()) fpsTable.refresh();
+        if (debugTable.isVisible()) debugTable.refresh(delta);
+        if (fpsTable.isVisible()) fpsTable.refresh();
         stage.act(Math.min(delta, 1 / 30f));
         stage.draw();
     }
@@ -215,6 +218,7 @@ public class StageHandler implements Disposable {
         stage.getViewport().update(width, height, true);
         PopupMenu.removeEveryMenu(stage);
         WindowResizeEvent resizeEvent = new WindowResizeEvent();
+        //noinspection LibGDXUnsafeIterator
         for (Actor actor : stage.getActors()) actor.fire(resizeEvent);
     }
 

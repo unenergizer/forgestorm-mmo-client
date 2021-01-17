@@ -53,6 +53,7 @@ import com.forgestorm.client.network.game.packet.in.PingPacketIn;
 import com.forgestorm.client.network.game.packet.in.PlayerTradePacketIn;
 import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.forgestorm.client.network.game.packet.in.SkillExperiencePacketIn;
+import com.forgestorm.client.network.game.packet.in.TileWarpPacketIn;
 import com.forgestorm.client.network.game.packet.in.WorldBuilderPacketIn;
 import com.forgestorm.client.network.game.packet.in.WorldChunkPartPacketIn;
 import com.forgestorm.client.network.game.shared.EventBus;
@@ -74,7 +75,7 @@ public class ClientMain extends Game {
     @Setter
     private boolean isModerator = false;
 
-    private FileManager fileManager = new FileManager();
+    private final FileManager fileManager = new FileManager();
     private AssetLoadingScreen assetLoadingScreen;
 
     private AudioManager audioManager;
@@ -219,6 +220,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new CharacterCreatorPacketIn());
                         eventBus.registerListener(new WorldBuilderPacketIn());
                         eventBus.registerListener(new WorldChunkPartPacketIn());
+                        eventBus.registerListener(new TileWarpPacketIn());
                     }
                 });
     }

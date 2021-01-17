@@ -5,6 +5,7 @@ import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.game.world.maps.Warp;
+import com.forgestorm.client.game.world.maps.WarpLocation;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.Opcode;
@@ -21,33 +22,34 @@ public class TileWarpPacketIn implements PacketListener<TileWarpPacketIn.ChunkWa
     public PacketData decodePacket(ClientHandler clientHandler) {
         boolean clearWarps = clientHandler.readBoolean();
 
-        short chunkLocation = clientHandler.readShort();
+        short fromX = clientHandler.readShort();
+        short fromY = clientHandler.readShort();
 
         String worldName = clientHandler.readString();
         int toX = clientHandler.readInt();
         int toY = clientHandler.readInt();
-        MoveDirection facingDirection = MoveDirection.getDirection(clientHandler.readByte());
-        Warp warp = new Warp(new Location(worldName, toX, toY), facingDirection);
+        byte facingDirection = clientHandler.readByte();
+        Warp warp = new Warp(new Location(worldName, toX, toY), MoveDirection.getDirection(facingDirection));
 
-        return new ChunkWarpDataPacket(clearWarps, chunkLocation, warp);
+        return new ChunkWarpDataPacket(clearWarps, new WarpLocation(fromX, fromY), warp);
     }
 
     @Override
     public void onEvent(ChunkWarpDataPacket packetData) {
-        Location warpLocation = packetData.warp.getLocation();
+        Location warpLocation = packetData.warp.getWarpDestination();
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.findChunk(warpLocation.getX(), warpLocation.getY());
 
         if (packetData.clearWarps) worldChunk.clearTileWarps();
 
         // Need to set the location of the warp....
-        worldChunk.addTileWarp(packetData.chunkLocation, packetData.warp);
+        worldChunk.addTileWarp(packetData.warpDestination, packetData.warp);
     }
 
     @AllArgsConstructor
     static class ChunkWarpDataPacket extends PacketData {
         private final boolean clearWarps;
-        private final int chunkLocation;
+        private final WarpLocation warpDestination;
         private final Warp warp;
     }
 }
