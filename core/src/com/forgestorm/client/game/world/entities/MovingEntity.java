@@ -1,7 +1,6 @@
 package com.forgestorm.client.game.world.entities;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
@@ -12,7 +11,6 @@ import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.io.type.GameAtlas;
-import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GameTextUtil;
 import com.forgestorm.client.util.color.LibGDXColorList;
 
@@ -97,7 +95,11 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
         float x = getDrawX() + 8;
         float y = getDrawY() + 8 + distanceMoved;
 
-        GameTextUtil.drawMessage(Integer.toString(damageTaken), Color.RED, .5f, x, y);
+        if (damageTaken <= 0) {
+            GameTextUtil.drawMessage("miss", Color.RED, .5f, x, y);
+        } else {
+            GameTextUtil.drawMessage(Integer.toString(damageTaken), Color.RED, .5f, x, y);
+        }
 
         distanceMoved = distanceMoved + 0.11f;
         if (distanceMoved >= 9) {
