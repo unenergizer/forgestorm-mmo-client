@@ -34,7 +34,18 @@ public class WorldUtil {
      * @return True if a warp exists, and false otherwise.
      */
     public static boolean isWarp(int entityX, int entityY) {
+        return getWarp(entityX, entityY) != null;
+    }
+
+    /**
+     * Gets a {@link Warp} if it exists at this location.
+     *
+     * @param entityX The X location in world coordinates.
+     * @param entityY The Y location in world coordinates.
+     * @return Returns a Warp if one exists.
+     */
+    public static Warp getWarp(int entityX, int entityY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        return gameWorld.getWarp(entityX, entityY) != null;
+        return gameWorld.getWarp(entityX, entityY);
     }
 }

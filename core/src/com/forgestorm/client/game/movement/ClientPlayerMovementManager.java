@@ -8,6 +8,7 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
+import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.network.game.packet.out.PlayerMovePacketOut;
 import com.forgestorm.client.util.FadeOut;
@@ -30,7 +31,7 @@ public class ClientPlayerMovementManager {
     private AbstractPostProcessor abstractPostProcessor;
 
     @Getter
-    private Queue<MoveNode> movesSentToServer = new LinkedList<MoveNode>();
+    private final Queue<MoveNode> movesSentToServer = new LinkedList<MoveNode>();
 
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
         playerClient.closeBankWindow();
@@ -88,14 +89,22 @@ public class ClientPlayerMovementManager {
         playerClient.setWalkTime(0f);
 
         if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY())) {
-            println(getClass(), "We hit a tile that is a warp.", false, PRINT_DEBUG);
+            println(getClass(), "We hit a tile that is a warp.", false, true);
+
+            Warp warp = WorldUtil.getWarp(futureLocation.getX(), futureLocation.getY());
+            println(getClass(), warp.getWarpDestination().toString());
+            println(getClass(), warp.getDirectionToFace().getDirectionName());
 
             movements.clear();
-            playerClient.setWarping(true);
+//            playerClient.setWarping(true);
             ClientMain.getInstance().getClientMovementProcessor().invalidateAllInput();
 
             // Since we are warping, fade out the screen!
-            ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+            if (playerClient.getCurrentMapLocation().getWorldName().equals(warp.getWarpDestination().getWorldName())) {
+                println(getClass(), "WARP LOCATION WORLD NAME AND CURRENT WORLD NAME MATCH", true);
+            } else {
+                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+            }
 
             // Close windows
             ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getItemDropDownMenu());
@@ -107,7 +116,7 @@ public class ClientPlayerMovementManager {
         new PlayerMovePacketOut(futureLocation).sendPacket();
     }
 
-    public void processMoveNodes(PlayerClient playerClient, float delta) {
+    public void processMoveNodes(PlayerClient playerClient) {
 
         if (!MoveUtil.isEntityMoving(playerClient)) return;
 
