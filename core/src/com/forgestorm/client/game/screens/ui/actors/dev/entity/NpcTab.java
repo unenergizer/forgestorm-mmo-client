@@ -47,37 +47,40 @@ public class NpcTab extends EditorTab {
     private VisTable content;
 
     private short entityIDNum = -1;
-    private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
-    private VisValidatableTextField name = new VisValidatableTextField();
-    private VisSelectBox<FirstInteraction> firstInteraction = new VisSelectBox<FirstInteraction>();
-    private VisValidatableTextField faction = new VisValidatableTextField();
-    private VisValidatableTextField health = new VisValidatableTextField();
-    private VisValidatableTextField damage = new VisValidatableTextField();
-    private VisValidatableTextField expDrop = new VisValidatableTextField();
-    private VisValidatableTextField dropTable = new VisValidatableTextField();
-    private VisValidatableTextField walkSpeed = new VisValidatableTextField();
-    private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
-    private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
-    private VisValidatableTextField shopId = new VisValidatableTextField("-1");
-    private VisCheckBox isBankKeeper = new VisCheckBox("", false);
+    private final VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
+    private final VisValidatableTextField name = new VisValidatableTextField();
+    private final VisSelectBox<FirstInteraction> firstInteraction = new VisSelectBox<FirstInteraction>();
+    private final VisValidatableTextField faction = new VisValidatableTextField();
+    private final VisValidatableTextField health = new VisValidatableTextField();
+    private final VisValidatableTextField damage = new VisValidatableTextField();
+    private final VisValidatableTextField expDrop = new VisValidatableTextField();
+    private final VisValidatableTextField dropTable = new VisValidatableTextField();
+    private final VisValidatableTextField walkSpeed = new VisValidatableTextField();
+    private final VisSlider probStill = new VisSlider(0, .99f, .01f, false);
+    private final VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
+    private final VisValidatableTextField shopId = new VisValidatableTextField("-1");
+    private final VisCheckBox isBankKeeper = new VisCheckBox("", false);
 
     @Getter
     private boolean selectSpawnActivated = false;
-    private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
-    private VisValidatableTextField worldName = new VisValidatableTextField();
-    private VisValidatableTextField mapX = new VisValidatableTextField();
-    private VisValidatableTextField mapY = new VisValidatableTextField();
-    private VisTextButton deleteButton = new VisTextButton("Delete");
+    private final VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
+    private final VisValidatableTextField worldName = new VisValidatableTextField();
+    private final VisValidatableTextField mapX = new VisValidatableTextField();
+    private final VisValidatableTextField mapY = new VisValidatableTextField();
+    private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
     private AppearancePanel appearancePanel;
     @Getter
-    private VisTable appearanceTable = new VisTable();
+    private final VisTable appearanceTable = new VisTable();
     @Getter
-    private VisTable previewTable = new VisTable();
+    private final VisTable previewTable = new VisTable();
+
+    private final StageHandler stageHandler;
 
     NpcTab(StageHandler getStageHandler, EntityEditor entityEditor) {
         super(getStageHandler, entityEditor);
+        this.stageHandler = getStageHandler;
         title = " NPC ";
 
         // SETUP DEFAULT CASE
@@ -173,6 +176,24 @@ public class NpcTab extends EditorTab {
 
         leftPane.add(entityIdTable).row();
 
+        firstInteraction.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                switch (firstInteraction.getSelected()) {
+                    case SHOP:
+                        if (Integer.parseInt(shopId.getText()) != -1) return;
+                        Dialogs.showOKDialog(stageHandler.getStage(), "Error!", "You must set a valid \"ShopID\"!");
+                        firstInteraction.setSelected(FirstInteraction.ATTACK);
+                        break;
+                    case BANK:
+                        if (isBankKeeper.isChecked()) return;
+                        Dialogs.showOKDialog(stageHandler.getStage(), "Error!", "You must check \"Set as Banker Keeper\"!");
+                        firstInteraction.setSelected(FirstInteraction.ATTACK);
+                        break;
+                }
+            }
+        });
+
         textField(leftPane, "Name:", name);
         selectBox(leftPane, "FirstInteraction:", firstInteraction, FirstInteraction.values());
         textField(leftPane, "Faction:", faction);
@@ -218,7 +239,7 @@ public class NpcTab extends EditorTab {
 
         ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+            private final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
