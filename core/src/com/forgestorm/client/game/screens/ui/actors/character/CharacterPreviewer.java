@@ -6,8 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.Appearance;
+import com.forgestorm.client.game.world.item.ItemStackManager;
+import com.forgestorm.client.game.world.item.WearableItemStack;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.util.color.EyeColorList;
@@ -203,12 +206,18 @@ public class CharacterPreviewer {
     }
 
     Appearance generateBasicAppearance() {
+
+        ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
+        WearableItemStack chest = (WearableItemStack) itemStackManager.makeItemStack(ClientConstants.STARTER_GEAR_CHEST_ID, 1);
+        WearableItemStack pants = (WearableItemStack) itemStackManager.makeItemStack(ClientConstants.STARTER_GEAR_PANTS_ID, 1);
+        WearableItemStack shoes = (WearableItemStack) itemStackManager.makeItemStack(ClientConstants.STARTER_GEAR_SHOES_ID, 1);
+
         Appearance appearance = new Appearance();
         appearance.setHairTexture((byte) 0);
         appearance.setHelmTexture((byte) -1);
-        appearance.setChestTexture((byte) 42);
-        appearance.setPantsTexture((byte) 23);
-        appearance.setShoesTexture((byte) 44);
+        appearance.setChestTexture((byte) chest.getTextureId());
+        appearance.setPantsTexture((byte) pants.getTextureId());
+        appearance.setShoesTexture((byte) shoes.getTextureId());
         appearance.setHairColor(HairColorList.CORAL.getColor());
         appearance.setEyeColor(EyeColorList.ROYAL.getColor());
         appearance.setSkinColor(SkinColorList.SKIN_TONE_0.getColor());
