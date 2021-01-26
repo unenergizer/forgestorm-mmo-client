@@ -10,6 +10,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.maps.MoveDirection;
+import com.forgestorm.client.util.RandomUtil;
 import com.forgestorm.client.util.color.LibGDXColorList;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -20,19 +21,25 @@ import static com.forgestorm.client.util.Log.println;
 @SuppressWarnings("PointlessArithmeticExpression")
 public class NPCAppearancePanel implements AppearancePanel {
 
+    private static final int MAX_HAIR_TEXTURES = 14;
+    private static final int MAX_HELM_TEXTURES = 40;
+    private static final int MAX_CHEST_TEXTURES = 59;
+    private static final int MAX_PANTS_TEXTURES = 59;
+    private static final int MAX_SHOES_TEXTURES = 59;
+
     private final NpcTab npcTab;
 
     private int moveDirection = 0;
-    private NPCBodyPart hairBodyPart;
-    private NPCBodyPart helmBodyPart;
-    private NPCBodyPart chestBodyPart;
-    private NPCBodyPart pantsBodyPart;
-    private NPCBodyPart shoesBodyPart;
-    private ImageData hairData = new ImageData();
-    private ImageData helmData = new ImageData();
-    private ImageData chestData = new ImageData();
-    private ImageData pantsData = new ImageData();
-    private ImageData shoesData = new ImageData();
+    private final NPCBodyPart hairBodyPart;
+    private final NPCBodyPart helmBodyPart;
+    private final NPCBodyPart chestBodyPart;
+    private final NPCBodyPart pantsBodyPart;
+    private final NPCBodyPart shoesBodyPart;
+    private final ImageData hairData = new ImageData();
+    private final ImageData helmData = new ImageData();
+    private final ImageData chestData = new ImageData();
+    private final ImageData pantsData = new ImageData();
+    private final ImageData shoesData = new ImageData();
     private ColorPickerColorHandler hairColor;
     private ColorPickerColorHandler eyeColor;
     private ColorPickerColorHandler skinColor;
@@ -42,11 +49,11 @@ public class NPCAppearancePanel implements AppearancePanel {
         this.npcTab = npcTab;
         int textureSelectScale = 3;
 
-        hairBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "hair", 14, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
-        helmBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "helm", 40, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
-        chestBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "chest", 59, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
-        pantsBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "pants", 59, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
-        shoesBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "shoes", 59, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
+        hairBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "hair", MAX_HAIR_TEXTURES, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
+        helmBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "helm", MAX_HELM_TEXTURES, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
+        chestBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "chest", MAX_CHEST_TEXTURES, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
+        pantsBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "pants", MAX_PANTS_TEXTURES, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
+        shoesBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "shoes", MAX_SHOES_TEXTURES, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
 
         hairBodyPart.build();
         helmBodyPart.build();
@@ -108,7 +115,7 @@ public class NPCAppearancePanel implements AppearancePanel {
 
     @Override
     public void buildAppearancePanel() {
-        VisSelectBox<LibGDXColorList> hairSelectBox = new VisSelectBox<LibGDXColorList>();
+        final VisSelectBox<LibGDXColorList> hairSelectBox = new VisSelectBox<LibGDXColorList>();
         hairSelectBox.setItems(LibGDXColorList.values());
         hairColor = new ColorPickerColorHandler() {
             @Override
@@ -123,7 +130,7 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Hair: ", hairSelectBox, hairColor);
 
-        VisSelectBox<LibGDXColorList> eyeSelectBox = new VisSelectBox<LibGDXColorList>();
+        final VisSelectBox<LibGDXColorList> eyeSelectBox = new VisSelectBox<LibGDXColorList>();
         eyeSelectBox.setItems(LibGDXColorList.values());
         eyeColor = new ColorPickerColorHandler() {
             @Override
@@ -138,7 +145,7 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Eyes: ", eyeSelectBox, eyeColor);
 
-        VisSelectBox<LibGDXColorList> skinSelectBox = new VisSelectBox<LibGDXColorList>();
+        final VisSelectBox<LibGDXColorList> skinSelectBox = new VisSelectBox<LibGDXColorList>();
         skinSelectBox.setItems(LibGDXColorList.values());
         skinColor = new ColorPickerColorHandler() {
             @Override
@@ -153,7 +160,7 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Skin: ", skinSelectBox, skinColor);
 
-        VisSelectBox<LibGDXColorList> glovesSelectBox = new VisSelectBox<LibGDXColorList>();
+        final VisSelectBox<LibGDXColorList> glovesSelectBox = new VisSelectBox<LibGDXColorList>();
         glovesSelectBox.setItems(LibGDXColorList.values());
         glovesColor = new ColorPickerColorHandler() {
             @Override
@@ -168,6 +175,32 @@ public class NPCAppearancePanel implements AppearancePanel {
         };
         npcTab.colorPicker(npcTab.getAppearanceTable(), "Gloves: ", glovesSelectBox, glovesColor);
 
+        // Randomize
+        VisTextButton randomizeButton = new VisTextButton("Randomize");
+        npcTab.getAppearanceTable().add(randomizeButton).row();
+
+        randomizeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Clothes
+                hairBodyPart.setData(RandomUtil.getNewRandom(0, MAX_HAIR_TEXTURES));
+                helmBodyPart.setData(RandomUtil.getNewRandom(0, MAX_HELM_TEXTURES));
+                chestBodyPart.setData(RandomUtil.getNewRandom(0, MAX_CHEST_TEXTURES));
+                pantsBodyPart.setData(RandomUtil.getNewRandom(0, MAX_PANTS_TEXTURES));
+                shoesBodyPart.setData(RandomUtil.getNewRandom(0, MAX_SHOES_TEXTURES));
+
+                // Skin and Hair
+                hairSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                eyeSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                skinSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                glovesSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+
+                // Rebuild the preview
+                characterPreview();
+            }
+        });
+
+        // Rotate
         VisTable rotatePreviewTable = new VisTable();
         VisTextButton rotateLeft = new VisTextButton("< Rotate Left");
         VisTextButton rotateRight = new VisTextButton("Rotate Right >");
@@ -293,7 +326,6 @@ public class NPCAppearancePanel implements AppearancePanel {
     }
 
     private String getDirection() {
-        //noinspection ConstantConditions
         return MoveDirection.getDirection((byte) moveDirection).getDirectionName();
     }
 

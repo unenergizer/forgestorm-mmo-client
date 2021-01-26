@@ -42,11 +42,13 @@ public class NPCBodyPart {
     void setData(int currentTexture, boolean enabled) {
         this.currentTexture = currentTexture;
         visCheckBox.setChecked(enabled);
+        imageData.setData(currentTexture);
         update();
     }
 
     void setData(int currentTexture) {
         this.currentTexture = currentTexture;
+        imageData.setData(currentTexture);
         update();
     }
 
