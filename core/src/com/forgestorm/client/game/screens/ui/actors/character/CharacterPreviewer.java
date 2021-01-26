@@ -29,12 +29,12 @@ public class CharacterPreviewer {
     /**
      * The main table that is added to the scene.
      */
-    private VisTable mainTable = new VisTable();
+    private final VisTable mainTable = new VisTable();
 
     /**
      * This table will contain the generated preview image. Add this table to your scene.
      */
-    private VisTable previewTable = new VisTable();
+    private final VisTable previewTable = new VisTable();
 
     /**
      * The direction the character is facing.
