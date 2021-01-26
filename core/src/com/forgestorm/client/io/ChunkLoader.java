@@ -55,6 +55,7 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         return mapChunkDataWrapper;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, MapChunkParameter parameter) {
         return null;
@@ -82,12 +83,14 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         }
 
         JsonValue warpsArray = root.get("warps");
-        for (JsonValue jsonWarp = warpsArray.child; jsonWarp != null; jsonWarp = jsonWarp.next) {
-            Warp warp = new Warp(
-                    new Location(jsonWarp.get("toMap").asString(), jsonWarp.get("toX").asShort(), jsonWarp.get("toY").asShort()),
-                    MoveDirection.valueOf(jsonWarp.get("facingDirection").asString())
-            );
-            chunk.addTileWarp(jsonWarp.get("x").asShort(), jsonWarp.get("y").asShort(), warp);
+        if (warpsArray != null) {
+            for (JsonValue jsonWarp = warpsArray.child; jsonWarp != null; jsonWarp = jsonWarp.next) {
+                Warp warp = new Warp(
+                        new Location(jsonWarp.get("toMap").asString(), jsonWarp.get("toX").asShort(), jsonWarp.get("toY").asShort()),
+                        MoveDirection.valueOf(jsonWarp.get("facingDirection").asString())
+                );
+                chunk.addTileWarp(jsonWarp.get("x").asShort(), jsonWarp.get("y").asShort(), warp);
+            }
         }
 
         return chunk;
@@ -115,7 +118,7 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
 
     @Setter
     @Getter
-    public class MapChunkDataWrapper {
+    public static class MapChunkDataWrapper {
         private WorldChunk worldChunk;
     }
 }
