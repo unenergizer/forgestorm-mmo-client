@@ -325,6 +325,7 @@ public class NpcTab extends EditorTab {
                 println(NpcTab.class, "--- Settings ---");
                 println(NpcTab.class, "EntityID: " + entityID.getText());
                 println(NpcTab.class, "Name: " + name.getText());
+                println(NpcTab.class, "FirstInteraction: " + firstInteraction.getSelected());
                 println(NpcTab.class, "Faction: " + faction.getText());
                 println(NpcTab.class, "Health: " + health.getText());
                 println(NpcTab.class, "Damage: " + damage.getText());
