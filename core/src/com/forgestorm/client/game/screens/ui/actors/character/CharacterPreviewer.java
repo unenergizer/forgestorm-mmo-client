@@ -206,9 +206,9 @@ public class CharacterPreviewer {
         Appearance appearance = new Appearance();
         appearance.setHairTexture((byte) 0);
         appearance.setHelmTexture((byte) -1);
-        appearance.setChestTexture((byte) 1);
-        appearance.setPantsTexture((byte) 1);
-        appearance.setShoesTexture((byte) 1);
+        appearance.setChestTexture((byte) 42);
+        appearance.setPantsTexture((byte) 23);
+        appearance.setShoesTexture((byte) 44);
         appearance.setHairColor(HairColorList.CORAL.getColor());
         appearance.setEyeColor(EyeColorList.ROYAL.getColor());
         appearance.setSkinColor(SkinColorList.SKIN_TONE_0.getColor());
