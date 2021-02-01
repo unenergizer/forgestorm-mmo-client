@@ -26,7 +26,6 @@ import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GamePixmap;
 import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
-import com.forgestorm.client.io.updater.RssFeedLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -249,25 +248,25 @@ public class FileManager {
     }
 
     public void loadGameWorldData() {
-        abstractedLoad(FilePaths.MAPS.getFilePath(), false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
+        abstractedLoad(FilePaths.MAP_LIST.getFilePath(), false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
     }
 
     public GameWorldLoader.GameWorldDataWrapper getGameWorldData() {
-        return abstractGet(FilePaths.MAPS.getFilePath(), false, GameWorldLoader.GameWorldDataWrapper.class);
+        return abstractGet(FilePaths.MAP_LIST.getFilePath(), false, GameWorldLoader.GameWorldDataWrapper.class);
     }
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
-        String filePath = FilePaths.MAPS.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
+        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
         abstractedLoad(filePath, forceFinishLoading, false, ChunkLoader.MapChunkDataWrapper.class, new ChunkLoader(internalResolver));
     }
 
     public ChunkLoader.MapChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {
-        String filePath = FilePaths.MAPS.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
+        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
         return abstractGet(filePath, false, ChunkLoader.MapChunkDataWrapper.class);
     }
 
     public void unloadMapChunkData(String worldName, short chunkX, short chunkY) {
-        String filePath = FilePaths.MAPS.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
+        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
 
         if (!isFileLoaded(filePath)) {
             println(getClass(), "MapChunkData does not exist for this chunk. ChunkX: " + chunkX + ", ChunkY: " + chunkY, true, PRINT_DEBUG);

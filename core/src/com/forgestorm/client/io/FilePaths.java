@@ -22,7 +22,8 @@ public enum FilePaths {
     LANG_ENG("language/english.yaml"),
 
     // Maps
-    MAPS("maps"),
+    MAP_LIST("maps/game_worlds.json"),
+    MAP_DIRECTORY("maps/"),
     TILE_PROPERTIES("graphics/TileProperties.yaml"),
 
     // Sounds
@@ -32,7 +33,7 @@ public enum FilePaths {
     // Misc..
     RSS_FEED("RssFeed.txt");
 
-    private String filePath;
+    private final String filePath;
 
     public String getFilePath() {
         return "data/" + filePath;
