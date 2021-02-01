@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
-import com.forgestorm.client.io.updater.RssFeedLoader;
+import com.forgestorm.client.io.RssFeedLoader;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;

@@ -1,4 +1,4 @@
-package com.forgestorm.client.io.updater;
+package com.forgestorm.client.io;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
