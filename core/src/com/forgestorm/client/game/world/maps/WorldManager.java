@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.io.FileManager;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
@@ -15,13 +17,17 @@ public class WorldManager implements Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final Map<String, GameWorld> gameWorlds;
+    private final Map<String, GameWorld> gameWorlds = new HashMap<String, GameWorld>();
 
     @Getter
     private GameWorld currentGameWorld;
 
     public WorldManager() {
-        this.gameWorlds = ClientMain.getInstance().getFileManager().getGameWorldData().getGameWorlds();
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        for (String worldName : fileManager.getGameWorldListData().getGameWorlds()) {
+            println(getClass(), "Putting: " + worldName);
+            gameWorlds.put(worldName.replace(".json", ""), fileManager.getGameWorldData(worldName).getGameWorld());
+        }
     }
 
     /**

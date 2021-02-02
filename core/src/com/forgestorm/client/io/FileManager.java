@@ -247,12 +247,22 @@ public class FileManager {
         return abstractGet(FilePaths.RSS_FEED.getFilePath(), false, RssFeedLoader.RssFeedWrapper.class);
     }
 
-    public void loadGameWorldData() {
-        abstractedLoad(FilePaths.MAP_LIST.getFilePath(), false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
+    public void loadGameWorldListData() {
+        abstractedLoad(FilePaths.MAP_LIST.getFilePath(), true, false, GameWorldListLoader.GameWorldListDataWrapper.class, new GameWorldListLoader(internalResolver));
     }
 
-    public GameWorldLoader.GameWorldDataWrapper getGameWorldData() {
-        return abstractGet(FilePaths.MAP_LIST.getFilePath(), false, GameWorldLoader.GameWorldDataWrapper.class);
+    public GameWorldListLoader.GameWorldListDataWrapper getGameWorldListData() {
+        return abstractGet(FilePaths.MAP_LIST.getFilePath(), false, GameWorldListLoader.GameWorldListDataWrapper.class);
+    }
+
+    public void loadGameWorldData(String worldName) {
+        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName;
+        abstractedLoad(filePath, true, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
+    }
+
+    public GameWorldLoader.GameWorldDataWrapper getGameWorldData(String worldName) {
+        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName;
+        return abstractGet(filePath, false, GameWorldLoader.GameWorldDataWrapper.class);
     }
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
