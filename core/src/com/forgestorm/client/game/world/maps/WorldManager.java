@@ -25,7 +25,7 @@ public class WorldManager implements Disposable {
     public WorldManager() {
         FileManager fileManager = ClientMain.getInstance().getFileManager();
         for (String worldName : fileManager.getGameWorldListData().getGameWorlds()) {
-            println(getClass(), "Putting: " + worldName);
+            println(getClass(), "Adding: " + worldName, false, PRINT_DEBUG);
             gameWorlds.put(worldName.replace(".json", ""), fileManager.getGameWorldData(worldName).getGameWorld());
         }
     }

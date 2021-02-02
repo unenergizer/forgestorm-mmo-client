@@ -16,8 +16,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class GameWorldListLoader extends AsynchronousAssetLoader<GameWorldListLoader.GameWorldListDataWrapper, GameWorldListLoader.GameWorldParameter> {
 
     static class GameWorldParameter extends AssetLoaderParameters<GameWorldListDataWrapper> {
@@ -31,7 +29,6 @@ public class GameWorldListLoader extends AsynchronousAssetLoader<GameWorldListLo
 
     @Override
     public void loadAsync(AssetManager manager, String fileName, FileHandle file, GameWorldParameter parameter) {
-        println(getClass(), "Path: " + file);
         gameWorldListDataWrapper = null;
         gameWorldListDataWrapper = new GameWorldListDataWrapper();
 

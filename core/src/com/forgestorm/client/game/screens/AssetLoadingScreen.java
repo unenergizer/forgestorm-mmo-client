@@ -17,8 +17,6 @@ import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
 import com.kotcrab.vis.ui.VisUI;
 
-import static com.forgestorm.client.util.Log.println;
-
 /**
  * Loading Screen originally from: https://github.com/Matsemann/libgdx-loading-screen
  */
@@ -104,7 +102,6 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadRssFeedData();
 
         for (String worldName : fileManager.getGameWorldListData().getGameWorlds()) {
-            println(getClass(), "Loading World: " + worldName);
             fileManager.loadGameWorldData(worldName);
         }
     }

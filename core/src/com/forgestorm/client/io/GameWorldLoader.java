@@ -15,8 +15,6 @@ import com.forgestorm.client.game.world.maps.GameWorld;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.GameWorldDataWrapper, GameWorldLoader.GameWorldParameter> {
 
     static class GameWorldParameter extends AssetLoaderParameters<GameWorldDataWrapper> {
@@ -30,7 +28,6 @@ public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.Gam
 
     @Override
     public void loadAsync(AssetManager manager, String fileName, FileHandle file, GameWorldParameter parameter) {
-        println(getClass(), "Path: " + file);
         gameWorldDataWrapper = null;
         gameWorldDataWrapper = new GameWorldDataWrapper();
 
@@ -49,7 +46,6 @@ public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.Gam
                 widthInChunks,
                 heightInChunks,
                 new Color(red / 255f, green / 255f, blue / 255f, alpha));
-
 
         gameWorldDataWrapper.setGameWorld(gameWorld);
     }
