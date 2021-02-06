@@ -291,7 +291,7 @@ public class StageHandler implements Disposable {
 
 //                ClientMain.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
-                if (ClientMain.getInstance().isAdmin()) devMenu.setVisible(true);
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) devMenu.setVisible(true);
                 chatWindow.setVisible(true);
                 chatWindow.showChannel(ChatChannelType.GENERAL);
                 statusBar.setVisible(true);

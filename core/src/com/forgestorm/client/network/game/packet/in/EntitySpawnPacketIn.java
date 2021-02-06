@@ -34,7 +34,6 @@ import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
-@SuppressWarnings("ConstantConditions")
 @Opcode(getOpcode = Opcodes.ENTITY_SPAWN)
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
@@ -56,7 +55,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case ITEM_STACK:
-                if (ClientMain.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
                     entitySpawnPacket.setSpawnedFromDropTable(clientHandler.readBoolean());
                     entitySpawnPacket.setItemStackId(clientHandler.readInt());
                     entitySpawnPacket.setStackSize(clientHandler.readInt());
@@ -66,8 +65,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case MONSTER:
-                if (ClientMain.getInstance().isAdmin()) {
-                    println(getClass(), "Reading in extra MONSTER data.", false, ClientMain.getInstance().isAdmin() && PRINT_DEBUG);
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
+                    println(getClass(), "Reading in extra MONSTER data.", false, ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG);
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -93,8 +92,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case NPC:
-                if (ClientMain.getInstance().isAdmin()) {
-                    println(getClass(), "Reading in extra NPC data.", false, ClientMain.getInstance().isAdmin() && PRINT_DEBUG);
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
+                    println(getClass(), "Reading in extra NPC data.", false, ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG);
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -175,7 +174,6 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
             entity = spawnSkillNode(packetData);
         }
 
-        //noinspection ConstantConditions
         entity.setEntityType(packetData.entityType);
         entity.setServerEntityID(packetData.entityId);
         entity.setEntityName(packetData.entityName);
@@ -239,7 +237,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
                 break;
             case NPC:
-                if (ClientMain.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
                     NPC npc = (NPC) entity;
                     npc.setDamage(packetData.damage);
                     npc.setExpDrop(packetData.expDrop);
@@ -279,7 +277,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
                 break;
             case MONSTER:
-                if (ClientMain.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
                     Monster monster = (Monster) entity;
                     monster.setDamage(packetData.damage);
                     monster.setExpDrop(packetData.expDrop);
@@ -299,7 +297,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 appearance.setSingleBodyTexture(packetData.bodyTexture);
                 break;
             case ITEM_STACK:
-                if (ClientMain.getInstance().isAdmin()) {
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) entity;
                     itemStackDrop.setSpawnedFromDropTable(packetData.spawnedFromDropTable);
                     itemStackDrop.setItemStackId(packetData.itemStackId);
@@ -352,6 +350,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         NPC npc = new NPC();
         npc.setFirstInteraction(packetData.firstInteraction);
         npc.setShopID(packetData.shopID);
+        npc.setBankKeeper(packetData.isBankKeeper);
         npc.setAlignment(packetData.entityAlignment);
         npc.setFaction(packetData.entityFaction);
         setMovingEntityVars(npc, packetData, worldName);
@@ -388,7 +387,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     @Setter
-    class EntitySpawnPacket extends PacketData {
+    static class EntitySpawnPacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
 

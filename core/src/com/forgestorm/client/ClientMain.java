@@ -71,6 +71,8 @@ public class ClientMain extends Game {
     private GameScreen gameScreen;
 
     @Setter
+    private boolean isContentDeveloper = false;
+    @Setter
     private boolean isAdmin = false;
     @Setter
     private boolean isModerator = false;

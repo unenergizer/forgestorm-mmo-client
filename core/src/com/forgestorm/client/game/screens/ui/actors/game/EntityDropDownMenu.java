@@ -36,7 +36,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final EntityDropDownMenu dropDownMenu;
     private StageHandler stageHandler;
-    private VisTable dropDownTable = new VisTable();
+    private final VisTable dropDownTable = new VisTable();
 
     private final List<Entity> entityArray = new ArrayList<Entity>();
 
@@ -146,9 +146,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addEditEntityButton() {
-            if (clickedEntity.getEntityType() == EntityType.PLAYER ||
-                    clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER) return;
-            if (!ClientMain.getInstance().isAdmin()) return;
+            if (clickedEntity.getEntityType() == EntityType.PLAYER || clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER) return;
+            if (!ClientMain.getInstance().isAdmin() && !ClientMain.getInstance().isContentDeveloper()) return;
             if (clickedEntity.getEntityType() == EntityType.ITEM_STACK) {
                 // If this ItemStackDrop spawned from an Entity Kill, then don't allow editor button
                 if (((ItemStackDrop) clickedEntity).isSpawnedFromDropTable()) return;
@@ -186,8 +185,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     class MenuEntry extends VisTable {
 
         private MovingEntity clickedMovingEntity;
-        private PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        private String entityName;
+        private final PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        private final String entityName;
 
         MenuEntry(Entity clickedEntity) {
 

@@ -28,7 +28,7 @@ public class ItemStackToolTip extends HideableVisWindow {
     private VisLabel equipInfo;
     private VisLabel debugInfo;
     private InputListener inputListener;
-    private boolean showEquipHowTo;
+    private final boolean showEquipHowTo;
 
     public ItemStackToolTip(StageHandler stageHandler, ItemStackSlot itemStackSlot, ItemStack itemStack, Actor itemStackActor, boolean showEquipHowTo) {
         super("");
@@ -112,7 +112,7 @@ public class ItemStackToolTip extends HideableVisWindow {
             }
         }
 
-        if (ClientMain.getInstance().isAdmin())
+        if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper())
             debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId() + "");
     }
 
@@ -122,27 +122,25 @@ public class ItemStackToolTip extends HideableVisWindow {
     private void addToolTipListener(final Actor itemStackActor) {
         itemStackActor.addListener(inputListener = new InputListener() {
 
-            private Vector2 stageLocation = new Vector2();
-
             /** Called any time the mouse cursor or a finger touch is moved over an actor. On the desktop, this event occurs even when no
              * mouse buttons are pressed (pointer will be -1).
              * @param fromActor May be null.
              * @see InputEvent */
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 if (itemStackToolTip.isVisible()) return;
-                stageLocation = ActorUtil.getStageLocation(itemStackActor);
+                Vector2 stageLocation = ActorUtil.getStageLocation(itemStackActor);
                 itemStackToolTip.toFront();
                 ActorUtil.fadeInWindow(itemStackToolTip);
 
                 // Setting X location
-                if (stageLocation.x > Gdx.graphics.getWidth() / 2) {
+                if (stageLocation.x > Gdx.graphics.getWidth() / 2f) {
                     itemStackToolTip.setX(stageLocation.x - itemStackToolTip.getWidth());
                 } else {
                     itemStackToolTip.setX(stageLocation.x + itemStackActor.getWidth());
                 }
 
                 // Setting Y location
-                if (stageLocation.y > Gdx.graphics.getHeight() / 2) {
+                if (stageLocation.y > Gdx.graphics.getHeight() / 2f) {
                     itemStackToolTip.setY(stageLocation.y - itemStackToolTip.getHeight());
                 } else {
                     itemStackToolTip.setY(stageLocation.y + itemStackActor.getHeight());
