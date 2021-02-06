@@ -6,7 +6,6 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.io.type.GameAtlas;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -25,22 +24,21 @@ public class EntityManager implements Disposable {
     @Setter
     private PlayerClient playerClient;
 
-    @SuppressWarnings("LibGDXStaticResource")
     @Getter
     private static final EntityManager instance = new EntityManager();
 
     //  EntityId -> Entity
     @Getter
-    private Map<Short, Player> playerEntityList = new HashMap<Short, Player>();
+    private final Map<Short, Player> playerEntityList = new HashMap<Short, Player>();
 
     @Getter
-    private Map<Short, AiEntity> aiEntityList = new HashMap<Short, AiEntity>();
+    private final Map<Short, AiEntity> aiEntityList = new HashMap<Short, AiEntity>();
 
     @Getter
-    private Map<Short, StationaryEntity> stationaryEntityList = new HashMap<Short, StationaryEntity>();
+    private final Map<Short, StationaryEntity> stationaryEntityList = new HashMap<Short, StationaryEntity>();
 
     @Getter
-    private Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
+    private final Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
 
     public void addPlayerEntity(short entityId, Player player) {
         playerEntityList.put(entityId, player);
@@ -91,10 +89,6 @@ public class EntityManager implements Disposable {
         println(getClass(), "ItemStack removed from map");
     }
 
-    public ItemStackDrop getItemStackDrop(short entityId) {
-        return itemStackDropList.get(entityId);
-    }
-
     public void drawEntityShadows(SpriteBatch spriteBatch) {
         // Draw shadows underneath aiEntities
         for (AiEntity aiEntity : aiEntityList.values()) {
@@ -113,7 +107,7 @@ public class EntityManager implements Disposable {
     public void drawEntities(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
         // Draw Items on ground
         for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
-            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack((int) itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
+            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
             spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
         }
         // Draw over items
