@@ -30,14 +30,14 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
 
     private final ImageDownloader imageDownloader = new ImageDownloader();
 
-    private Map<String, Texture> profilePicturesCache = new HashMap<String, Texture>();
+    private final Map<String, Texture> profilePicturesCache = new HashMap<String, Texture>();
 
-    private VisImage profilePicture = new VisImage();
-    private VisLabel accountName = new VisLabel();
-    private VisLabel messageCount = new VisLabel();
-    private VisLabel trophyPoints = new VisLabel();
-    private VisLabel reactionScore = new VisLabel();
-    private VisTextButton profileURLButton = new VisTextButton("NULL : TEXT BUTTON NOT SET");
+    private final VisImage profilePicture = new VisImage();
+    private final VisLabel accountName = new VisLabel();
+    private final VisLabel messageCount = new VisLabel();
+    private final VisLabel trophyPoints = new VisLabel();
+    private final VisLabel reactionScore = new VisLabel();
+    private final VisTextButton profileURLButton = new VisTextButton("NULL : TEXT BUTTON NOT SET");
     private String profileURL = "";
 
     private String currentPlayer;
@@ -85,7 +85,7 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
 
             if (xenforoProfilePacket.getGravatarHash().isEmpty()) {
                 // No gravatar, try to get avatar from ForgeStorm website
-                int folderID = (int) Math.floor(xenforoProfilePacket.getXenforoUserID() / 1000);
+                int folderID = (int) Math.floor(xenforoProfilePacket.getXenforoUserID() / 1000f);
                 pictureURL = "https://forgestorm.com/data/avatars/s/" + folderID + "/" + xenforoProfilePacket.getXenforoUserID() + ".jpg";
             } else {
                 // Try to get gravatar url
