@@ -66,7 +66,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case MONSTER:
                 if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
-                    println(getClass(), "Reading in extra MONSTER data.", false, ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG);
+                    println(getClass(), "Reading in extra MONSTER data.", false, (ClientMain.getInstance().isAdmin() && PRINT_DEBUG) || (ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG));
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -93,7 +93,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 break;
             case NPC:
                 if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
-                    println(getClass(), "Reading in extra NPC data.", false, ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG);
+                    println(getClass(), "Reading in extra NPC data.", false, (ClientMain.getInstance().isAdmin() && PRINT_DEBUG) || (ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG));
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
