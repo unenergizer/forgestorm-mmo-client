@@ -23,7 +23,6 @@ import com.forgestorm.client.game.screens.ui.actors.dev.DevMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.LayerSelectMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.WarpEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
@@ -53,6 +52,7 @@ import com.forgestorm.client.game.screens.ui.actors.game.draggable.HotBar;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.EntityShopWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.SkillBookWindow;
 import com.forgestorm.client.game.screens.ui.actors.login.ButtonTable;
+import com.forgestorm.client.game.screens.ui.actors.login.ClientUpdateWindow;
 import com.forgestorm.client.game.screens.ui.actors.login.ConnectionStatusWindow;
 import com.forgestorm.client.game.screens.ui.actors.login.CopyrightTable;
 import com.forgestorm.client.game.screens.ui.actors.login.LoginTable;
@@ -86,6 +86,7 @@ public class StageHandler implements Disposable {
     private final LoginTable loginTable = new LoginTable();
     private final ConnectionStatusWindow connectionStatusWindow = new ConnectionStatusWindow();
     private final RssAnnouncements rssAnnouncements = new RssAnnouncements();
+    private final ClientUpdateWindow clientUpdateWindow = new ClientUpdateWindow();
 
     // character select
     private final CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
@@ -129,7 +130,6 @@ public class StageHandler implements Disposable {
     private final TilePropertiesEditor tilePropertiesEditor = new TilePropertiesEditor();
     private final TileBuildMenu tileBuildMenu = new TileBuildMenu();
     private final WarpEditor warpEditor = new WarpEditor();
-    private final LayerSelectMenu layerSelectMenu = new LayerSelectMenu();
 
     // shared
     private final MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
@@ -155,6 +155,7 @@ public class StageHandler implements Disposable {
         stage.addActor(loginTable.build(this));
         stage.addActor(connectionStatusWindow.build(this));
         stage.addActor(rssAnnouncements.build(this));
+        stage.addActor(clientUpdateWindow.build(this));
 
         // Character select
         stage.addActor(characterSelectMenu.build(this));
@@ -205,7 +206,6 @@ public class StageHandler implements Disposable {
         stage.addActor(tilePropertiesEditor.build(this));
         stage.addActor(tileBuildMenu.build(this));
         stage.addActor(warpEditor.build(this));
-        stage.addActor(layerSelectMenu.build(this));
     }
 
     public void render(float delta) {
@@ -252,25 +252,32 @@ public class StageHandler implements Disposable {
 
         switch (userInterfaceType) {
             case LOGIN:
-                // Play audio
-                if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying() && ClientMain.getInstance().getGameScreen().isGameFocused()) {
-                        musicManager.playMusic(getClass(), (short) 0);
+                if (ClientMain.getInstance().isNeedsUpdate()) {
+                    //GAME CLIENT IS OUT OF DATE!
+                    clientUpdateWindow.showRevisionWindow(ClientMain.getInstance().getRemoteRevisionNumber());
+                } else {
+                    // GAME CLIENT IS UP TO DATE!
+                    // Play audio
+                    if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
+                        if (!musicManager.isMusicPlaying() && ClientMain.getInstance().getGameScreen().isGameFocused()) {
+                            musicManager.playMusic(getClass(), (short) 0);
+                        }
                     }
+
+                    ClientMain.getInstance().gameWorldQuit();
+
+                    buttonTable.setVisible(true);
+                    versionTable.setVersionLabel(ClientMain.getInstance().getRemoteRevisionNumber());
+                    versionTable.setVisible(true);
+                    copyrightTable.setVisible(true);
+                    loginTable.setVisible(true);
+                    rssAnnouncements.setVisible(true);
+
+                    FocusManager.switchFocus(stage, loginTable.getUsernameField());
+                    stage.setKeyboardFocus(loginTable.getUsernameField());
+                    loginTable.resetButton();
+                    debugTable.findPosition();
                 }
-
-                ClientMain.getInstance().gameWorldQuit();
-
-                buttonTable.setVisible(true);
-                versionTable.setVisible(true);
-                copyrightTable.setVisible(true);
-                loginTable.setVisible(true);
-                rssAnnouncements.setVisible(true);
-
-                FocusManager.switchFocus(stage, loginTable.getUsernameField());
-                stage.setKeyboardFocus(loginTable.getUsernameField());
-                loginTable.resetButton();
-                debugTable.findPosition();
                 break;
             case CHARACTER_SELECT:
                 // Play audio
@@ -291,7 +298,8 @@ public class StageHandler implements Disposable {
 
 //                ClientMain.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) devMenu.setVisible(true);
+                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper())
+                    devMenu.setVisible(true);
                 chatWindow.setVisible(true);
                 chatWindow.showChannel(ChatChannelType.GENERAL);
                 statusBar.setVisible(true);

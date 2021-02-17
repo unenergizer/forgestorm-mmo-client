@@ -71,6 +71,11 @@ public class ClientMain extends Game {
     private GameScreen gameScreen;
 
     @Setter
+    private boolean needsUpdate = false;
+    @Setter
+    private int remoteRevisionNumber = -1;
+
+    @Setter
     private boolean isContentDeveloper = false;
     @Setter
     private boolean isAdmin = false;

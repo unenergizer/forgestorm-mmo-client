@@ -10,9 +10,15 @@ import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 
 public class VersionTable extends VisTable implements Buildable {
 
+    private final VisLabel versionLabel = new VisLabel("ERROR THIS SHOULD NOT BE BLANK");
+
+    public void setVersionLabel(int clientVersionNumber) {
+        versionLabel.setText("Client Revision #" + clientVersionNumber);
+    }
+
     @Override
     public Actor build(final StageHandler stageHandler) {
-        add(new VisLabel("Client Version " + ClientConstants.GAME_VERSION));
+        add(versionLabel);
 
         addListener(new WindowResizeListener() {
             @Override

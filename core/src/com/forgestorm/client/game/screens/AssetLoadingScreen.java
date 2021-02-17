@@ -17,6 +17,13 @@ import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
 import com.kotcrab.vis.ui.VisUI;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+import static com.forgestorm.client.util.Log.println;
+
 /**
  * Loading Screen originally from: https://github.com/Matsemann/libgdx-loading-screen
  */
@@ -100,9 +107,34 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadNetworkSettingsData();
         fileManager.loadGameWorldListData();
         fileManager.loadRssFeedData();
+        fileManager.loadRevisionDocumentData();
 
         for (String worldName : fileManager.getGameWorldListData().getGameWorlds()) {
             fileManager.loadGameWorldData(worldName);
+        }
+
+        // Check remote revision
+        int remoteRevisionNumber = -1;
+        try {
+            URL url = new URL("https://forgestorm.com/client_files/Revision.txt");
+            Scanner scanner = new Scanner(url.openStream());
+            remoteRevisionNumber = scanner.nextInt();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Check local revision
+        Integer localRevisionNumber = fileManager.getRevisionDocumentData().getRevisionNumber();
+        ClientMain.getInstance().setRemoteRevisionNumber(remoteRevisionNumber);
+
+        if (localRevisionNumber == null || remoteRevisionNumber != localRevisionNumber) {
+            println(getClass(), "REVISION NUMBERS DO NOT MATCH, UPDATER SHOULD BE STARTED!");
+            ClientMain.getInstance().setNeedsUpdate(true);
+        } else {
+            println(getClass(), "REVISION NUMBERS MATCH, CLIENT DOES NOT NEED AN UPDATE!");
+            ClientMain.getInstance().setNeedsUpdate(false);
         }
     }
 

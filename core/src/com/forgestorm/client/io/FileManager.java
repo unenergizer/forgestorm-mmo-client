@@ -28,21 +28,75 @@ import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
-@SuppressWarnings("unused")
 public class FileManager {
 
     private static final boolean PRINT_DEBUG = false;
 
     @Getter
+    private final String clientFilesDirectory;
+    @Getter
+    private final String worldDirectory;
+
+    @Getter
     private final AssetManager assetManager = new AssetManager();
     private final FileHandleResolver internalResolver = new InternalFileHandleResolver();
     private final FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();
+
+    public FileManager() {
+        // Get the path of the jar file.
+        String jarPath = FileManager.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        println(getClass(), jarPath);
+        String decodedPath = "";
+        try {
+            decodedPath = URLDecoder.decode(jarPath, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // Create the client files directory
+        File clientFilesDirectory = new File(decodedPath + "clientFiles").getParentFile();
+        if (!clientFilesDirectory.exists()) {
+            if (clientFilesDirectory.mkdir()) {
+                println(getClass(), "Created the ClientFilesOnly directory!", true);
+            } else {
+                throw new RuntimeException("Couldn't create the ClientFilesOnly directory!");
+            }
+        }
+        this.clientFilesDirectory = clientFilesDirectory.getAbsolutePath();
+
+        // Create the World Directory if it doesn't exist.
+        File worldDirectory = new File(clientFilesDirectory + "/worldDirectory");
+        if (!worldDirectory.exists()) {
+            if (worldDirectory.mkdir()) {
+                println(getClass(), "The World directory didn't exist so one was created.", true);
+            } else {
+                throw new RuntimeException("Couldn't create the World directory!");
+            }
+        }
+
+        this.worldDirectory = worldDirectory.getAbsolutePath();
+
+        // Create Revision document and set the build to 0;
+//        if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
+        println(getClass(), "ClientFilesDirectory: " + clientFilesDirectory);
+        try {
+            FileWriter myWriter = new FileWriter(clientFilesDirectory + "/Revision.txt");
+            myWriter.write("0");
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Wrapper method to dispose of all assets. Free's system resources.
@@ -80,6 +134,16 @@ public class FileManager {
         } else {
             println(getClass(), "Asset " + filePath + " not loaded. Nothing to unload.", true, PRINT_DEBUG);
         }
+    }
+
+    public void loadRevisionDocumentData() {
+        String filePath = clientFilesDirectory + "/Revision.txt";
+        abstractedLoad(filePath, true, true, RevisionDocumentLoader.RevisionDocumentWrapper.class, new RevisionDocumentLoader(absoluteResolver));
+    }
+
+    public RevisionDocumentLoader.RevisionDocumentWrapper getRevisionDocumentData() {
+        String filePath = clientFilesDirectory + "/Revision.txt";
+        return abstractGet(filePath, true, RevisionDocumentLoader.RevisionDocumentWrapper.class);
     }
 
     /**
