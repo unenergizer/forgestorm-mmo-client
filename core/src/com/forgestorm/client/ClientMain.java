@@ -71,6 +71,8 @@ public class ClientMain extends Game {
     private GameScreen gameScreen;
 
     @Setter
+    private boolean ignoreRevisionNumber;
+    @Setter
     private boolean needsUpdate = false;
     @Setter
     private int remoteRevisionNumber = -1;

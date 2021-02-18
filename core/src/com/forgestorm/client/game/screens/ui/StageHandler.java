@@ -252,7 +252,7 @@ public class StageHandler implements Disposable {
 
         switch (userInterfaceType) {
             case LOGIN:
-                if (ClientMain.getInstance().isNeedsUpdate()) {
+                if (ClientMain.getInstance().isNeedsUpdate() && !ClientMain.getInstance().isIgnoreRevisionNumber()) {
                     //GAME CLIENT IS OUT OF DATE!
                     clientUpdateWindow.showRevisionWindow(ClientMain.getInstance().getRemoteRevisionNumber());
                 } else {
