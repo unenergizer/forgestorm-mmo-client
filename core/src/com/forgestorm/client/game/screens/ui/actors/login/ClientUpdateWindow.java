@@ -3,6 +3,7 @@ package com.forgestorm.client.game.screens.ui.actors.login;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
@@ -65,6 +66,7 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
                 }
 
                 // Close game client
+                ClientMain.getInstance().dispose();
                 Gdx.app.exit();
             }
         });
@@ -72,6 +74,7 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
         closeGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().dispose();
                 Gdx.app.exit();
             }
         });
@@ -83,6 +86,7 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
         addCloseButton(new CloseButtonCallBack() {
             @Override
             public void closeButtonClicked() {
+                ClientMain.getInstance().dispose();
                 Gdx.app.exit();
             }
         });
