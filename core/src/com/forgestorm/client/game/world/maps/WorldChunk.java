@@ -7,7 +7,9 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameAtlas;
 
@@ -17,6 +19,8 @@ import java.util.Map;
 import lombok.Getter;
 
 public class WorldChunk {
+
+    private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
 
     @Getter
     private final short chunkX, chunkY;
@@ -52,7 +56,18 @@ public class WorldChunk {
 
     void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int localX, int localY) {
         initTileLayer(layerDefinition);
+        TileImage currentTileImage = layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
+
+        // Set the new TileImage
         layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tileImage;
+
+        // Check tile image
+        if (currentTileImage == null || currentTileImage.getImageId() == 0) {
+            if (tileImage == null || tileImage.getImageId() == 0) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(WorldChunk.class, (short) 10);
+                ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]Tried to erase tile, but nothing happened. Check your layer!");
+            }
+        }
     }
 
     public boolean isTraversable(int localX, int localY) {
@@ -79,7 +94,8 @@ public class WorldChunk {
     Warp getWarp(short localX, short localY) {
         for (Map.Entry<WarpLocation, Warp> entry : tileWarps.entrySet()) {
             WarpLocation warpLocation = entry.getKey();
-            if (warpLocation.getFromX() == localX && warpLocation.getFromY() == localY) return entry.getValue();
+            if (warpLocation.getFromX() == localX && warpLocation.getFromY() == localY)
+                return entry.getValue();
         }
         return null;
     }
@@ -90,21 +106,23 @@ public class WorldChunk {
 
     void renderBottomLayers(Batch batch) {
         // Render layer from most bottom, going up.
-        renderLayer(layers.get(LayerDefinition.BACKGROUND), batch);
-        renderLayer(layers.get(LayerDefinition.GROUND), batch);
-        renderLayer(layers.get(LayerDefinition.GROUND_DECORATION), batch);
+        renderLayer(LayerDefinition.BACKGROUND, batch);
+        renderLayer(LayerDefinition.GROUND, batch);
+        renderLayer(LayerDefinition.GROUND_DECORATION, batch);
     }
 
     void renderDecorationLayer(Batch batch) {
-        renderLayer(layers.get(LayerDefinition.COLLIDABLES), batch);
-        renderLayer(layers.get(LayerDefinition.WALL_DECORATION), batch);
+        renderLayer(LayerDefinition.COLLIDABLES, batch);
+        renderLayer(LayerDefinition.WALL_DECORATION, batch);
     }
 
     void renderOverheadLayer(Batch batch) {
-        renderLayer(layers.get(LayerDefinition.ROOF), batch);
+        renderLayer(LayerDefinition.ROOF, batch);
     }
 
-    private void renderLayer(TileImage[] layerTiles, Batch batch) {
+    private void renderLayer(LayerDefinition layerDefinition, Batch batch) {
+        if (!worldBuilder.canDrawLayer(layerDefinition)) return;
+        TileImage[] layerTiles = layers.get(layerDefinition);
         if (layerTiles == null) return;
 
         // Make the width and height of a given tile just a tad bit larger

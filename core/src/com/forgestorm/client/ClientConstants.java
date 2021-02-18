@@ -3,7 +3,7 @@ package com.forgestorm.client;
 import com.forgestorm.client.game.screens.ui.actors.constant.ScreenResolutions;
 
 public class ClientConstants {
-    public static final ScreenResolutions SCREEN_RESOLUTION = ScreenResolutions.DESKTOP_1024_768;
+    public static final ScreenResolutions SCREEN_RESOLUTION = ScreenResolutions.DESKTOP_1280_800;
     public static final float ZOOM_DEFAULT = 0.25f;
     public static final float ZOOM_CHANGE = 0.025f;
     public static final float ZOOM_LIMIT_OUT = 0.5f;

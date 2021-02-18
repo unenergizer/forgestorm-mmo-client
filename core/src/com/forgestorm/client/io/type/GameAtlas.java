@@ -13,7 +13,8 @@ public enum GameAtlas {
     ENTITY_MONSTER("monster.atlas"),
     SKILL_NODES("skillnodes.atlas"),
     PIXEL_FX("pixelfx.atlas"),
-    TILES("tiles.atlas");
+    TILES("tiles.atlas"),
+    TOOLS("tools.atlas");
 
     private final String filePath;
 

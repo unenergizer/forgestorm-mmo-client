@@ -93,6 +93,7 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadAtlas(GameAtlas.PIXEL_FX);
         fileManager.loadAtlas(GameAtlas.CURSOR);
         fileManager.loadAtlas(GameAtlas.ITEMS);
+        fileManager.loadAtlas(GameAtlas.TOOLS);
 
         fileManager.loadFont(GameFont.PIXEL);
 

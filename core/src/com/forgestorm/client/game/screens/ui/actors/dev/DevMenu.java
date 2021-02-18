@@ -108,7 +108,6 @@ public class DevMenu extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeInWindow(tileBuildMenu);
-                ActorUtil.fadeInWindow(stageHandler.getLayerSelectMenu());
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }).setShortcut("CTRL + B"));
