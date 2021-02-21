@@ -53,10 +53,10 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     private final TilePropertyDropDownMenu tilePropertyDropDownMenu = new TilePropertyDropDownMenu();
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final ImageBuilder imageBuilder = new ImageBuilder();
+    private final VisTable rightTable = new VisTable(true);
+    private final VisTable propertiesTable = new VisTable(true);
 
     private TileImage tileImage;
-    private VisTable rightTable = new VisTable(true);
-    private VisTable propertiesTable = new VisTable(true);
     private Map<TilePropertyTypes, AbstractTileProperty> copiedTileProperties;
 
     public TilePropertiesEditor() {
@@ -67,8 +67,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     public Actor build(final StageHandler stageHandler) {
         stageHandler.getStage().addActor(tilePropertyDropDownMenu);
 
-        VisTable leftTable = new VisTable(true);
-        buildTabbedPaneTable(leftTable, GameAtlas.TILES);
+        VisTable leftTable = buildTabbedPaneTable(GameAtlas.TILES);
         buildOptionsTable(rightTable, null);
 
         add(leftTable).grow();
@@ -84,7 +83,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         });
 
         pack();
-        setSize(leftTable.getWidth() + rightTable.getWidth() + 20, 400);
+        setSize(leftTable.getWidth() + rightTable.getWidth() + 100, 400);
         centerWindow();
         setVisible(true);
         addCloseButton(new CloseButtonCallBack() {
@@ -98,26 +97,26 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     }
 
     @SuppressWarnings("SameParameterValue")
-    private void buildTabbedPaneTable(VisTable leftTable, GameAtlas gameAtlas) {
-        final VisTable tabbedPaneTable = new VisTable();
-        tabbedPaneTable.pad(3);
-
+    private VisTable buildTabbedPaneTable(GameAtlas gameAtlas) {
+        final VisTable tabbedTableContainer = new VisTable();
+        final VisTable tabbedTable = new VisTable();
         TabbedPane tabbedPane = new TabbedPane();
         tabbedPane.addListener(new TabbedPaneAdapter() {
             @Override
             public void switchedTab(Tab tab) {
-                tabbedPaneTable.clearChildren();
-                tabbedPaneTable.add(tab.getContentTable()).expand().fill();
+                tabbedTable.clearChildren();
+                tabbedTable.add(tab.getContentTable()).expand().fill();
             }
         });
 
-        leftTable.add(tabbedPane.getTable()).expandX().expandY().fillX().expandY().row();
-        leftTable.add(tabbedPaneTable).expandY().fillX();
+        tabbedTableContainer.add(tabbedPane.getTable()).expandX().fillX();
+        tabbedTableContainer.row();
+        tabbedTableContainer.add(tabbedTable).expand().fill();
 
         // Add Build Categories
         tabbedPane.add(new TileBuildTab(gameAtlas));
         tabbedPane.switchTab(0);
-        pack();
+        return tabbedTableContainer;
     }
 
     private void buildOptionsTable(VisTable rightTable, TextureAtlas.AtlasRegion atlasRegion) {
@@ -288,7 +287,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             super(false, false);
             this.gameAtlas = gameAtlas;
             this.textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
-            this.title = " " + textureAtlas.getTextures().toString().substring(15) + " ";
+            this.title = " " + gameAtlas.name() + " ";
             contentTable = new VisTable(true);
             build();
         }
@@ -301,18 +300,18 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             scrollPane.setFlickScroll(false);
             scrollPane.setFadeScrollBars(false);
             scrollPane.setScrollbarsOnTop(true);
-            scrollPane.setScrollingDisabled(true, false);
-            contentTable.add(scrollPane).growX().expandY().top();
+            scrollPane.setScrollingDisabled(false, false);
+            contentTable.add(scrollPane).prefHeight(1).grow();
 
             // Add image buttons that represent the item. Filter by category.
             int tilesAdded = 0;
             VisTable moduloTable = null;
             //noinspection LibGDXUnsafeIterator
             for (final TextureAtlas.AtlasRegion atlasRegion : textureAtlas.getRegions()) {
-                if (tilesAdded % 7 == 0) {
+                if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
-                    moduloTable = new VisTable(true);
-                    buttonTable.add(moduloTable).row();
+                    moduloTable = new VisTable();
+                    buttonTable.add(moduloTable).align(Alignment.LEFT.getAlignment()).row();
                 }
                 tilesAdded++;
                 final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(gameAtlas, atlasRegion.name).setSize(32).buildTextureRegionDrawable());

@@ -2461,622 +2461,622 @@ flag-04
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-iron-small-01
+gate-iron-01
   rotate: false
   xy: 180, 20
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-iron-small-02
+gate-iron-02
   rotate: false
   xy: 180, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-iron-small-03
+gate-iron-03
   rotate: false
   xy: 198, 634
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-iron-small-04
+gate-iron-04
   rotate: false
   xy: 198, 616
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-steel-01
+gate-iron-05
   rotate: false
   xy: 198, 598
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-steel-02
+gate-iron-06
   rotate: false
   xy: 198, 580
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-steel-03
+gate-iron-07
   rotate: false
   xy: 198, 562
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-steel-04
+gate-iron-08
   rotate: false
   xy: 198, 544
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-steel-05
+gate-iron-09
   rotate: false
   xy: 198, 526
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-steel-06
+gate-iron-10
   rotate: false
   xy: 198, 508
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-01
+gate-iron-11
   rotate: false
   xy: 198, 490
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-02
+gate-iron-12
   rotate: false
   xy: 198, 472
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-08
-  rotate: false
-  xy: 198, 472
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-gate-wooden-pole-03
+gate-iron-13
   rotate: false
   xy: 198, 454
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-04
+gate-iron-14
   rotate: false
   xy: 198, 436
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-05
+gate-iron-15
   rotate: false
   xy: 198, 418
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-06
+gate-iron-16
   rotate: false
   xy: 198, 400
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-07
+gate-iron-17
   rotate: false
   xy: 198, 382
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-09
+gate-iron-18
   rotate: false
   xy: 198, 364
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-10
+gate-iron-19
   rotate: false
   xy: 198, 346
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-11
+gate-iron-20
   rotate: false
   xy: 198, 328
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-12
+gate-iron-21
+  rotate: false
+  xy: 242, 732
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+gate-iron-22
+  rotate: false
+  xy: 242, 698
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+gate-iron-small-01
   rotate: false
   xy: 198, 310
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-13
+gate-iron-small-02
   rotate: false
   xy: 198, 292
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-14
+gate-iron-small-03
   rotate: false
   xy: 198, 274
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-pole-15
+gate-iron-small-04
   rotate: false
   xy: 198, 256
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-01
+gate-steel-01
   rotate: false
   xy: 198, 238
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-02
+gate-steel-02
   rotate: false
   xy: 198, 220
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-08
-  rotate: false
-  xy: 198, 220
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-gate-wooden-tall-03
+gate-steel-03
   rotate: false
   xy: 198, 202
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-04
+gate-steel-04
   rotate: false
   xy: 198, 184
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-05
+gate-steel-05
   rotate: false
   xy: 198, 166
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-06
+gate-steel-06
   rotate: false
   xy: 198, 148
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-07
+gate-wooden-01
   rotate: false
   xy: 198, 130
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-09
+gate-wooden-02
   rotate: false
   xy: 198, 112
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-10
+gate-wooden-03
   rotate: false
   xy: 198, 94
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-11
+gate-wooden-04
   rotate: false
   xy: 198, 76
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-12
+gate-wooden-05
   rotate: false
   xy: 198, 58
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-13
+gate-wooden-06
   rotate: false
   xy: 198, 40
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-14
+gate-wooden-07
   rotate: false
   xy: 198, 22
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-15
+gate-wooden-08
   rotate: false
   xy: 198, 4
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-16
+gate-wooden-09
   rotate: false
   xy: 216, 626
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-17
+gate-wooden-10
   rotate: false
   xy: 216, 608
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-18
+gate-wooden-11
   rotate: false
   xy: 234, 626
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate-wooden-tall-19
+gate-wooden-12
   rotate: false
   xy: 216, 590
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-gate_iron
-  rotate: false
-  xy: 242, 732
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 21
-gate_iron
-  rotate: false
-  xy: 242, 698
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 22
-gate_iron
+gate-wooden-13
   rotate: false
   xy: 234, 608
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-gate_iron
+  index: -1
+gate-wooden-14
   rotate: false
   xy: 216, 572
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-gate_iron
+  index: -1
+gate-wooden-15
   rotate: false
   xy: 234, 590
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-gate_iron
+  index: -1
+gate-wooden-16
   rotate: false
   xy: 216, 554
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-gate_iron
+  index: -1
+gate-wooden-17
   rotate: false
   xy: 234, 572
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-gate_iron
+  index: -1
+gate-wooden-18
   rotate: false
   xy: 216, 536
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-gate_iron
+  index: -1
+gate-wooden-19
   rotate: false
   xy: 234, 554
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-gate_iron
+  index: -1
+gate-wooden-20
   rotate: false
   xy: 216, 518
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-gate_iron
-  rotate: false
-  xy: 234, 536
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 9
-gate_iron
-  rotate: false
-  xy: 216, 500
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 10
-gate_iron
-  rotate: false
-  xy: 234, 518
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 11
-gate_iron
-  rotate: false
-  xy: 216, 482
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 12
-gate_iron
-  rotate: false
-  xy: 234, 500
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 13
-gate_iron
-  rotate: false
-  xy: 216, 464
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 14
-gate_iron
-  rotate: false
-  xy: 234, 482
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 15
-gate_iron
-  rotate: false
-  xy: 216, 446
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 16
-gate_iron
-  rotate: false
-  xy: 234, 464
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 17
-gate_iron
-  rotate: false
-  xy: 216, 428
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 18
-gate_iron
-  rotate: false
-  xy: 234, 446
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 19
-gate_iron
-  rotate: false
-  xy: 216, 410
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 20
-gate_wooden
+  index: -1
+gate-wooden-21
   rotate: false
   xy: 258, 819
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
-  index: 21
-gate_wooden
+  index: -1
+gate-wooden-22
   rotate: false
   xy: 258, 785
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
-  index: 22
-gate_wooden
+  index: -1
+gate-wooden-pole-01
+  rotate: false
+  xy: 234, 536
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-02
+  rotate: false
+  xy: 216, 500
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-08
+  rotate: false
+  xy: 216, 500
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-03
+  rotate: false
+  xy: 234, 518
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-04
+  rotate: false
+  xy: 216, 482
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-05
+  rotate: false
+  xy: 234, 500
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-06
+  rotate: false
+  xy: 216, 464
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-07
+  rotate: false
+  xy: 234, 482
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-09
+  rotate: false
+  xy: 216, 446
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-10
+  rotate: false
+  xy: 234, 464
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-11
+  rotate: false
+  xy: 216, 428
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-12
+  rotate: false
+  xy: 234, 446
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-13
+  rotate: false
+  xy: 216, 410
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-pole-14
   rotate: false
   xy: 234, 428
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-gate_wooden
+  index: -1
+gate-wooden-pole-15
   rotate: false
   xy: 216, 392
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-gate_wooden
+  index: -1
+gate-wooden-tall-01
   rotate: false
   xy: 234, 410
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-gate_wooden
+  index: -1
+gate-wooden-tall-02
   rotate: false
   xy: 216, 374
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-gate_wooden
+  index: -1
+gate-wooden-tall-08
+  rotate: false
+  xy: 216, 374
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gate-wooden-tall-03
   rotate: false
   xy: 234, 392
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-gate_wooden
+  index: -1
+gate-wooden-tall-04
   rotate: false
   xy: 216, 356
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-gate_wooden
+  index: -1
+gate-wooden-tall-05
   rotate: false
   xy: 234, 374
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-gate_wooden
+  index: -1
+gate-wooden-tall-06
   rotate: false
   xy: 216, 338
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-gate_wooden
+  index: -1
+gate-wooden-tall-07
   rotate: false
   xy: 234, 356
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 9
-gate_wooden
+  index: -1
+gate-wooden-tall-09
   rotate: false
   xy: 216, 320
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 10
-gate_wooden
+  index: -1
+gate-wooden-tall-10
   rotate: false
   xy: 234, 338
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 11
-gate_wooden
+  index: -1
+gate-wooden-tall-11
   rotate: false
   xy: 216, 302
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 12
-gate_wooden
+  index: -1
+gate-wooden-tall-12
   rotate: false
   xy: 234, 320
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 13
-gate_wooden
+  index: -1
+gate-wooden-tall-13
   rotate: false
   xy: 216, 284
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 14
-gate_wooden
+  index: -1
+gate-wooden-tall-14
   rotate: false
   xy: 234, 302
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 15
-gate_wooden
+  index: -1
+gate-wooden-tall-15
   rotate: false
   xy: 216, 266
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 16
-gate_wooden
+  index: -1
+gate-wooden-tall-16
   rotate: false
   xy: 234, 284
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 17
-gate_wooden
+  index: -1
+gate-wooden-tall-17
   rotate: false
   xy: 216, 248
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 18
-gate_wooden
+  index: -1
+gate-wooden-tall-18
   rotate: false
   xy: 234, 266
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 19
-gate_wooden
+  index: -1
+gate-wooden-tall-19
   rotate: false
   xy: 216, 230
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 20
+  index: -1
 grass-01
   rotate: false
   xy: 234, 248
@@ -3455,69 +3455,69 @@ ladder-04
   orig: 16, 16
   offset: 0, 0
   index: -1
-lamp_post_skinny
+lamp-post-skinny-01
   rotate: false
   xy: 252, 140
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-lamp_post_skinny
+  index: -1
+lamp-post-skinny-02
   rotate: false
   xy: 252, 122
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-lamp_post_skinny
+  index: -1
+lamp-post-skinny-03
   rotate: false
   xy: 252, 104
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-lamp_post_skinny
+  index: -1
+lamp-post-skinny-04
   rotate: false
   xy: 252, 86
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-lamp_post_wide
+  index: -1
+lamp-post-wide-01
   rotate: false
   xy: 224, 680
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
-  index: 1
-lamp_post_wide
+  index: -1
+lamp-post-wide-02
   rotate: false
   xy: 224, 662
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
-  index: 2
-lamp_post_wide
+  index: -1
+lamp-post-wide-03
   rotate: false
   xy: 350, 920
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
-  index: 3
-lamp_post_wide
+  index: -1
+lamp-post-wide-04
   rotate: false
   xy: 384, 920
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
-  index: 4
-lamp_post_wide
+  index: -1
+lamp-post-wide-05
   rotate: false
   xy: 418, 920
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
-  index: 5
+  index: -1
 lillypad-01
   rotate: false
   xy: 252, 68
@@ -4841,1266 +4841,1266 @@ rock-sword-mossy-02
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof_blue
+roof-blue-01
   rotate: false
   xy: 294, 672
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-roof_blue
+  index: -1
+roof-blue-02
   rotate: false
   xy: 296, 654
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-roof_blue
+  index: -1
+roof-blue-03
   rotate: false
   xy: 314, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-roof_blue
+  index: -1
+roof-blue-04
   rotate: false
   xy: 314, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-roof_blue
+  index: -1
+roof-blue-05
   rotate: false
   xy: 332, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-roof_blue
+  index: -1
+roof-blue-06
   rotate: false
   xy: 314, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-roof_blue
+  index: -1
+roof-blue-07
   rotate: false
   xy: 332, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-roof_blue
+  index: -1
+roof-blue-08
   rotate: false
   xy: 350, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-roof_blue
+  index: -1
+roof-blue-35
   rotate: false
   xy: 350, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 35
-roof_blue
+  index: -1
+roof-blue-09
   rotate: false
   xy: 332, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 9
-roof_blue
+  index: -1
+roof-blue-10
   rotate: false
   xy: 350, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 10
-roof_blue
+  index: -1
+roof-blue-11
   rotate: false
   xy: 368, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 11
-roof_blue
+  index: -1
+roof-blue-12
   rotate: false
   xy: 350, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 12
-roof_blue
+  index: -1
+roof-blue-13
   rotate: false
   xy: 368, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 13
-roof_blue
+  index: -1
+roof-blue-14
   rotate: false
   xy: 386, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 14
-roof_blue
+  index: -1
+roof-blue-20
   rotate: false
   xy: 386, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 20
-roof_blue
+  index: -1
+roof-blue-15
   rotate: false
   xy: 368, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 15
-roof_blue
+  index: -1
+roof-blue-16
   rotate: false
   xy: 386, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 16
-roof_blue
+  index: -1
+roof-blue-17
   rotate: false
   xy: 404, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 17
-roof_blue
+  index: -1
+roof-blue-18
   rotate: false
   xy: 386, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 18
-roof_blue
+  index: -1
+roof-blue-19
   rotate: false
   xy: 404, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 19
-roof_blue
+  index: -1
+roof-blue-21
   rotate: false
   xy: 422, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 21
-roof_blue
+  index: -1
+roof-blue-22
   rotate: false
   xy: 404, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 22
-roof_blue
+  index: -1
+roof-blue-23
   rotate: false
   xy: 422, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 23
-roof_blue
+  index: -1
+roof-blue-24
   rotate: false
   xy: 440, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 24
-roof_blue
+  index: -1
+roof-blue-25
   rotate: false
   xy: 422, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 25
-roof_blue
+  index: -1
+roof-blue-26
   rotate: false
   xy: 440, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 26
-roof_blue
+  index: -1
+roof-blue-27
   rotate: false
   xy: 458, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 27
-roof_blue
+  index: -1
+roof-blue-28
   rotate: false
   xy: 440, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 28
-roof_blue
+  index: -1
+roof-blue-29
   rotate: false
   xy: 458, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 29
-roof_gray
+  index: -1
+roof-gray-29
   rotate: false
   xy: 458, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 29
-roof_green
+  index: -1
+roof-green-29
   rotate: false
   xy: 458, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 29
-roof_purple
+  index: -1
+roof-purple-29
   rotate: false
   xy: 458, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 29
-roof_red
+  index: -1
+roof-red-29
   rotate: false
   xy: 458, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 29
-roof_blue
+  index: -1
+roof-blue-30
   rotate: false
   xy: 476, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 30
-roof_blue
+  index: -1
+roof-blue-31
   rotate: false
   xy: 494, 758
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 31
-roof_blue
+  index: -1
+roof-blue-32
   rotate: false
   xy: 458, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 32
-roof_blue
+  index: -1
+roof-blue-33
   rotate: false
   xy: 476, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 33
-roof_blue
+  index: -1
+roof-blue-34
   rotate: false
   xy: 494, 740
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 34
-roof_blue
+  index: -1
+roof-blue-36
   rotate: false
   xy: 476, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 36
-roof_gray
+  index: -1
+roof-gray-01
   rotate: false
   xy: 494, 722
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-roof_gray
+  index: -1
+roof-gray-02
   rotate: false
   xy: 314, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-roof_gray
+  index: -1
+roof-gray-03
   rotate: false
   xy: 332, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-roof_gray
+  index: -1
+roof-gray-04
   rotate: false
   xy: 350, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-roof_gray
+  index: -1
+roof-gray-05
   rotate: false
   xy: 368, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-roof_gray
+  index: -1
+roof-gray-06
   rotate: false
   xy: 386, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-roof_gray
+  index: -1
+roof-gray-07
   rotate: false
   xy: 404, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-roof_gray
+  index: -1
+roof-gray-08
   rotate: false
   xy: 422, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-roof_gray
+  index: -1
+roof-gray-35
   rotate: false
   xy: 422, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 35
-roof_gray
+  index: -1
+roof-gray-09
   rotate: false
   xy: 440, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 9
-roof_gray
+  index: -1
+roof-gray-10
   rotate: false
   xy: 458, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 10
-roof_gray
+  index: -1
+roof-gray-11
   rotate: false
   xy: 476, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 11
-roof_gray
+  index: -1
+roof-gray-12
   rotate: false
   xy: 494, 704
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 12
-roof_gray
+  index: -1
+roof-gray-13
   rotate: false
   xy: 312, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 13
-roof_gray
+  index: -1
+roof-gray-14
   rotate: false
   xy: 330, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 14
-roof_gray
+  index: -1
+roof-gray-20
   rotate: false
   xy: 330, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 20
-roof_gray
+  index: -1
+roof-gray-15
   rotate: false
   xy: 348, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 15
-roof_gray
+  index: -1
+roof-gray-16
   rotate: false
   xy: 366, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 16
-roof_gray
+  index: -1
+roof-gray-17
   rotate: false
   xy: 384, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 17
-roof_gray
+  index: -1
+roof-gray-18
   rotate: false
   xy: 402, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 18
-roof_gray
+  index: -1
+roof-gray-19
   rotate: false
   xy: 420, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 19
-roof_gray
+  index: -1
+roof-gray-21
   rotate: false
   xy: 438, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 21
-roof_gray
+  index: -1
+roof-gray-22
   rotate: false
   xy: 456, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 22
-roof_gray
+  index: -1
+roof-gray-23
   rotate: false
   xy: 474, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 23
-roof_gray
+  index: -1
+roof-gray-24
   rotate: false
   xy: 492, 686
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 24
-roof_gray
+  index: -1
+roof-gray-25
   rotate: false
   xy: 314, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 25
-roof_gray
+  index: -1
+roof-gray-26
   rotate: false
   xy: 332, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 26
-roof_gray
+  index: -1
+roof-gray-27
   rotate: false
   xy: 350, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 27
-roof_gray
+  index: -1
+roof-gray-28
   rotate: false
   xy: 368, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 28
-roof_gray
+  index: -1
+roof-gray-30
   rotate: false
   xy: 386, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 30
-roof_gray
+  index: -1
+roof-gray-31
   rotate: false
   xy: 404, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 31
-roof_gray
+  index: -1
+roof-gray-32
   rotate: false
   xy: 422, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 32
-roof_gray
+  index: -1
+roof-gray-33
   rotate: false
   xy: 440, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 33
-roof_gray
+  index: -1
+roof-gray-34
   rotate: false
   xy: 458, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 34
-roof_gray
+  index: -1
+roof-gray-36
   rotate: false
   xy: 476, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 36
-roof_green
+  index: -1
+roof-green-01
   rotate: false
   xy: 494, 668
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-roof_green
+  index: -1
+roof-green-02
   rotate: false
   xy: 314, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-roof_green
+  index: -1
+roof-green-03
   rotate: false
   xy: 332, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-roof_green
+  index: -1
+roof-green-04
   rotate: false
   xy: 350, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-roof_green
+  index: -1
+roof-green-05
   rotate: false
   xy: 368, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-roof_green
+  index: -1
+roof-green-06
   rotate: false
   xy: 386, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-roof_green
+  index: -1
+roof-green-07
   rotate: false
   xy: 404, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-roof_green
+  index: -1
+roof-green-08
   rotate: false
   xy: 422, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-roof_green
+  index: -1
+roof-green-35
   rotate: false
   xy: 422, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 35
-roof_green
+  index: -1
+roof-green-09
   rotate: false
   xy: 440, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 9
-roof_green
+  index: -1
+roof-green-10
   rotate: false
   xy: 458, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 10
-roof_green
+  index: -1
+roof-green-11
   rotate: false
   xy: 476, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 11
-roof_green
+  index: -1
+roof-green-12
   rotate: false
   xy: 494, 650
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 12
-roof_green
+  index: -1
+roof-green-13
   rotate: false
   xy: 305, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 13
-roof_green
+  index: -1
+roof-green-14
   rotate: false
   xy: 323, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 14
-roof_green
+  index: -1
+roof-green-20
   rotate: false
   xy: 323, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 20
-roof_green
+  index: -1
+roof-green-15
   rotate: false
   xy: 341, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 15
-roof_green
+  index: -1
+roof-green-16
   rotate: false
   xy: 359, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 16
-roof_green
+  index: -1
+roof-green-17
   rotate: false
   xy: 377, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 17
-roof_green
+  index: -1
+roof-green-18
   rotate: false
   xy: 395, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 18
-roof_green
+  index: -1
+roof-green-19
   rotate: false
   xy: 413, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 19
-roof_green
+  index: -1
+roof-green-21
   rotate: false
   xy: 431, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 21
-roof_green
+  index: -1
+roof-green-22
   rotate: false
   xy: 449, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 22
-roof_green
+  index: -1
+roof-green-23
   rotate: false
   xy: 467, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 23
-roof_green
+  index: -1
+roof-green-24
   rotate: false
   xy: 485, 632
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 24
-roof_green
+  index: -1
+roof-green-25
   rotate: false
   xy: 306, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 25
-roof_green
+  index: -1
+roof-green-26
   rotate: false
   xy: 306, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 26
-roof_green
+  index: -1
+roof-green-27
   rotate: false
   xy: 324, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 27
-roof_green
+  index: -1
+roof-green-28
   rotate: false
   xy: 306, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 28
-roof_green
+  index: -1
+roof-green-30
   rotate: false
   xy: 324, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 30
-roof_green
+  index: -1
+roof-green-31
   rotate: false
   xy: 342, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 31
-roof_green
+  index: -1
+roof-green-32
   rotate: false
   xy: 306, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 32
-roof_green
+  index: -1
+roof-green-33
   rotate: false
   xy: 324, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 33
-roof_green
+  index: -1
+roof-green-34
   rotate: false
   xy: 342, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 34
-roof_green
+  index: -1
+roof-green-36
   rotate: false
   xy: 360, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 36
-roof_purple
+  index: -1
+roof-purple-01
   rotate: false
   xy: 306, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-roof_purple
+  index: -1
+roof-purple-02
   rotate: false
   xy: 324, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-roof_purple
+  index: -1
+roof-purple-03
   rotate: false
   xy: 342, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-roof_purple
+  index: -1
+roof-purple-04
   rotate: false
   xy: 360, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-roof_purple
+  index: -1
+roof-purple-05
   rotate: false
   xy: 378, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-roof_purple
+  index: -1
+roof-purple-06
   rotate: false
   xy: 306, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-roof_purple
+  index: -1
+roof-purple-07
   rotate: false
   xy: 324, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-roof_purple
+  index: -1
+roof-purple-08
   rotate: false
   xy: 342, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-roof_purple
+  index: -1
+roof-purple-35
   rotate: false
   xy: 342, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 35
-roof_purple
+  index: -1
+roof-purple-09
   rotate: false
   xy: 360, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 9
-roof_purple
+  index: -1
+roof-purple-10
   rotate: false
   xy: 378, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 10
-roof_purple
+  index: -1
+roof-purple-11
   rotate: false
   xy: 396, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 11
-roof_purple
+  index: -1
+roof-purple-12
   rotate: false
   xy: 306, 506
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 12
-roof_purple
+  index: -1
+roof-purple-13
   rotate: false
   xy: 324, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 13
-roof_purple
+  index: -1
+roof-purple-14
   rotate: false
   xy: 342, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 14
-roof_purple
+  index: -1
+roof-purple-20
   rotate: false
   xy: 342, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 20
-roof_purple
+  index: -1
+roof-purple-15
   rotate: false
   xy: 360, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 15
-roof_purple
+  index: -1
+roof-purple-16
   rotate: false
   xy: 378, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 16
-roof_purple
+  index: -1
+roof-purple-17
   rotate: false
   xy: 396, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 17
-roof_purple
+  index: -1
+roof-purple-18
   rotate: false
   xy: 414, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 18
-roof_purple
+  index: -1
+roof-purple-19
   rotate: false
   xy: 306, 488
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 19
-roof_purple
+  index: -1
+roof-purple-21
   rotate: false
   xy: 324, 506
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 21
-roof_purple
+  index: -1
+roof-purple-22
   rotate: false
   xy: 342, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 22
-roof_purple
+  index: -1
+roof-purple-23
   rotate: false
   xy: 360, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 23
-roof_purple
+  index: -1
+roof-purple-24
   rotate: false
   xy: 378, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 24
-roof_purple
+  index: -1
+roof-purple-25
   rotate: false
   xy: 396, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 25
-roof_purple
+  index: -1
+roof-purple-26
   rotate: false
   xy: 414, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 26
-roof_purple
+  index: -1
+roof-purple-27
   rotate: false
   xy: 432, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 27
-roof_purple
+  index: -1
+roof-purple-28
   rotate: false
   xy: 306, 470
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 28
-roof_purple
+  index: -1
+roof-purple-30
   rotate: false
   xy: 324, 488
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 30
-roof_purple
+  index: -1
+roof-purple-31
   rotate: false
   xy: 342, 506
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 31
-roof_purple
+  index: -1
+roof-purple-32
   rotate: false
   xy: 360, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 32
-roof_purple
+  index: -1
+roof-purple-33
   rotate: false
   xy: 378, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 33
-roof_purple
+  index: -1
+roof-purple-34
   rotate: false
   xy: 396, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 34
-roof_purple
+  index: -1
+roof-purple-36
   rotate: false
   xy: 414, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 36
-roof_red
+  index: -1
+roof-red-01
   rotate: false
   xy: 432, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-roof_red
+  index: -1
+roof-red-02
   rotate: false
   xy: 450, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-roof_red
+  index: -1
+roof-red-03
   rotate: false
   xy: 306, 452
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-roof_red
+  index: -1
+roof-red-04
   rotate: false
   xy: 324, 470
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 4
-roof_red
+  index: -1
+roof-red-05
   rotate: false
   xy: 342, 488
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 5
-roof_red
+  index: -1
+roof-red-06
   rotate: false
   xy: 360, 506
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 6
-roof_red
+  index: -1
+roof-red-07
   rotate: false
   xy: 378, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 7
-roof_red
+  index: -1
+roof-red-08
   rotate: false
   xy: 396, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 8
-roof_red
+  index: -1
+roof-red-35
   rotate: false
   xy: 396, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 35
-roof_red
+  index: -1
+roof-red-09
   rotate: false
   xy: 414, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 9
-roof_red
+  index: -1
+roof-red-10
   rotate: false
   xy: 432, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 10
-roof_red
+  index: -1
+roof-red-11
   rotate: false
   xy: 450, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 11
-roof_red
+  index: -1
+roof-red-12
   rotate: false
   xy: 468, 614
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 12
-roof_red
+  index: -1
+roof-red-13
   rotate: false
   xy: 306, 434
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 13
-roof_red
+  index: -1
+roof-red-14
   rotate: false
   xy: 324, 452
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 14
-roof_red
+  index: -1
+roof-red-20
   rotate: false
   xy: 324, 452
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 20
-roof_red
+  index: -1
+roof-red-15
   rotate: false
   xy: 342, 470
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 15
-roof_red
+  index: -1
+roof-red-16
   rotate: false
   xy: 360, 488
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 16
-roof_red
+  index: -1
+roof-red-17
   rotate: false
   xy: 378, 506
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 17
-roof_red
+  index: -1
+roof-red-18
   rotate: false
   xy: 396, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 18
-roof_red
+  index: -1
+roof-red-19
   rotate: false
   xy: 414, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 19
-roof_red
+  index: -1
+roof-red-21
   rotate: false
   xy: 432, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 21
-roof_red
+  index: -1
+roof-red-22
   rotate: false
   xy: 450, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 22
-roof_red
+  index: -1
+roof-red-23
   rotate: false
   xy: 468, 596
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 23
-roof_red
+  index: -1
+roof-red-24
   rotate: false
   xy: 306, 416
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 24
-roof_red
+  index: -1
+roof-red-25
   rotate: false
   xy: 324, 434
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 25
-roof_red
+  index: -1
+roof-red-26
   rotate: false
   xy: 342, 452
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 26
-roof_red
+  index: -1
+roof-red-27
   rotate: false
   xy: 360, 470
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 27
-roof_red
+  index: -1
+roof-red-28
   rotate: false
   xy: 378, 488
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 28
-roof_red
+  index: -1
+roof-red-30
   rotate: false
   xy: 396, 506
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 30
-roof_red
+  index: -1
+roof-red-31
   rotate: false
   xy: 414, 524
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 31
-roof_red
+  index: -1
+roof-red-32
   rotate: false
   xy: 432, 542
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 32
-roof_red
+  index: -1
+roof-red-33
   rotate: false
   xy: 450, 560
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 33
-roof_red
+  index: -1
+roof-red-34
   rotate: false
   xy: 468, 578
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 34
-roof_red
+  index: -1
+roof-red-36
   rotate: false
   xy: 306, 398
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 36
+  index: -1
 sign-post-01
   rotate: false
   xy: 324, 416
