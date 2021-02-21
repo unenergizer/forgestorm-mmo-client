@@ -48,7 +48,7 @@ import static com.forgestorm.client.util.Log.println;
 @Getter
 public class TilePropertiesEditor extends HideableVisWindow implements Buildable {
 
-    private static final String FILE_PATH = "C:/JavaThings/tileImageMap.yaml";
+    private static final String FILE_PATH = "C:/tileImageMap.yaml";
 
     private final TilePropertyDropDownMenu tilePropertyDropDownMenu = new TilePropertyDropDownMenu();
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
