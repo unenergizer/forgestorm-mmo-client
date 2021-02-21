@@ -17,6 +17,7 @@ import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
@@ -103,7 +104,9 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final VisTable layerSelectTable = new VisTable();
         layerContainer.add(new VisLabel("[YELLOW]Layer Select:")).align(Alignment.LEFT.getAlignment()).row();
         layerContainer.add(layerSelectTable);
-        for (final LayerDefinition layerDefinition : LayerDefinition.values()) {
+        LayerDefinition[] values = LayerDefinition.values();
+        for (int i = 0; i < values.length; i++) {
+            final LayerDefinition layerDefinition = values[i];
             // Layer Visibility button
             final VisImageButton layerVisibilityButton = new VisImageButton(drawableActive, "Toggle Layer Visibility");
             layerSelectTable.add(layerVisibilityButton).padRight(3);
@@ -121,7 +124,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
             // Layer select button
             LeftAlignTextButton layerSelectButton = new LeftAlignTextButton(layerDefinition.getLayerName());
-            layerSelectTable.add(layerSelectButton).growX().row();
+            layerSelectTable.add(layerSelectButton).growX().padRight(3);
             layerSelectButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -130,7 +133,19 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                     setSelectedLayerButton(layerDefinition);
                 }
             });
+
             layerButtonMap.put(layerDefinition, layerSelectButton);
+
+            // Layer Info button
+            final Drawable layerInfo = new ImageBuilder().setGameAtlas(GameAtlas.ITEMS).setRegionName("quest_10" + i).buildTextureRegionDrawable();
+            final VisImageButton layerInfoButton = new VisImageButton(layerInfo, "More info about this layer.");
+            layerSelectTable.add(layerInfoButton).row();
+            layerInfoButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    Dialogs.showOKDialog(stageHandler.getStage(), "[YELLOW]Layer Information", "[GREEN]" + layerDefinition.getDescription());
+                }
+            });
         }
 
         // Now get the active layer, and disable that button (to indicate it's being used).
