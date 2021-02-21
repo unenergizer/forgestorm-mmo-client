@@ -10,10 +10,12 @@ import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
+import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -47,6 +49,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         final Drawable drawl = new ImageBuilder().setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_pencil").setSize(32).buildTextureRegionDrawable();
         final Drawable eraser = new ImageBuilder().setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_eraser").setSize(32).buildTextureRegionDrawable();
+        final Drawable wangBrush = new ImageBuilder().setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_wang").setSize(32).buildTextureRegionDrawable();
         final Drawable drawableActive = new ImageBuilder().setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_158").buildTextureRegionDrawable();
         final Drawable drawableInactive = new ImageBuilder().setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_159").buildTextureRegionDrawable();
 
@@ -54,6 +57,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final VisTable toolsTable = new VisTable(true);
         final VisImageButton drawlButton = new VisImageButton(drawl, "Drawl Tool");
         final VisImageButton eraserButton = new VisImageButton(eraser, "Eraser Tool");
+        final VisImageButton wangBrushButton = new VisImageButton(wangBrush, "Wang Brush");
 
         drawlButton.addListener(new ChangeListener() {
             @Override
@@ -61,6 +65,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 drawlButton.setDisabled(true);
                 eraserButton.setDisabled(false);
                 worldBuilder.setUseEraser(false);
+                wangBrushButton.setDisabled(false);
             }
         });
 
@@ -70,33 +75,38 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 drawlButton.setDisabled(false);
                 eraserButton.setDisabled(true);
                 worldBuilder.setUseEraser(true);
+                wangBrushButton.setDisabled(false);
             }
         });
 
-        toolsTable.add(new VisLabel("Tools:")).colspan(2).row();
-        toolsTable.add(drawlButton);
-        toolsTable.add(eraserButton);
+        wangBrushButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                drawlButton.setDisabled(false);
+                eraserButton.setDisabled(false);
+                worldBuilder.setUseEraser(false);
+                wangBrushButton.setDisabled(true);
+            }
+        });
+
+        VisTable buttonTable = new VisTable();
+        buttonTable.add(drawlButton);
+        buttonTable.add(eraserButton);
+        buttonTable.add(wangBrushButton);
+
+        toolsTable.add(new VisLabel("[YELLOW]Tools:")).align(Alignment.LEFT.getAlignment()).row();
+        toolsTable.add(buttonTable).align(Alignment.LEFT.getAlignment()).row();
+        toolsTable.addSeparator();
 
         // LAYER SELECT
+        final VisTable layerContainer = new VisTable();
         final VisTable layerSelectTable = new VisTable();
-        layerSelectTable.add(new VisLabel("Layer Select:")).colspan(2).row();
+        layerContainer.add(new VisLabel("[YELLOW]Layer Select:")).align(Alignment.LEFT.getAlignment()).row();
+        layerContainer.add(layerSelectTable);
         for (final LayerDefinition layerDefinition : LayerDefinition.values()) {
-            // Layer select button
-            VisTextButton layerSelectButton = new VisTextButton(layerDefinition.getLayerName());
-            layerSelectTable.add(layerSelectButton);
-            layerSelectButton.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    worldBuilder.setCurrentLayer(layerDefinition);
-                    resetButtons();
-                    setSelectedLayerButton(layerDefinition);
-                }
-            });
-            layerButtonMap.put(layerDefinition, layerSelectButton);
-
             // Layer Visibility button
             final VisImageButton layerVisibilityButton = new VisImageButton(drawableActive, "Toggle Layer Visibility");
-            layerSelectTable.add(layerVisibilityButton).row();
+            layerSelectTable.add(layerVisibilityButton).padRight(3);
             layerVisibilityButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -108,6 +118,19 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                     }
                 }
             });
+
+            // Layer select button
+            LeftAlignTextButton layerSelectButton = new LeftAlignTextButton(layerDefinition.getLayerName());
+            layerSelectTable.add(layerSelectButton).growX().row();
+            layerSelectButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    worldBuilder.setCurrentLayer(layerDefinition);
+                    resetButtons();
+                    setSelectedLayerButton(layerDefinition);
+                }
+            });
+            layerButtonMap.put(layerDefinition, layerSelectButton);
         }
 
         // Now get the active layer, and disable that button (to indicate it's being used).
@@ -116,12 +139,18 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         // FLOOR SELECT
         final VisTable floorSelectTable = new VisTable();
-        floorSelectTable.add(new VisLabel("Floor Select:"));
+        floorSelectTable.add(new VisLabel("[YELLOW]Floor Select:")).row();
+        floorSelectTable.add(new VisLabel("Coming soon...")).row();
+
+        // LAYER AND FLOOR WRAPPER TABLE ADD....
+        final VisTable layerFloorWrapperTable = new VisTable(true);
+        layerFloorWrapperTable.add(layerContainer);
+        layerFloorWrapperTable.addSeparator(true).expandY();
+        layerFloorWrapperTable.add(floorSelectTable).growX();
 
         // TABBED TILE SELECT TABLE
+        final VisTable tabbedTableContainer = new VisTable();
         final VisTable tabbedTable = new VisTable();
-        tabbedTable.pad(3);
-
         TabbedPane tabbedPane = new TabbedPane();
         tabbedPane.addListener(new TabbedPaneAdapter() {
             @Override
@@ -131,19 +160,20 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             }
         });
 
-        tabbedTable.add(tabbedPane.getTable()).expandX().fillX().row();
+        tabbedTableContainer.add(tabbedPane.getTable()).expandX().fillX();
+        tabbedTableContainer.row();
+        tabbedTableContainer.add(tabbedTable).expand().fill();
 
-        // Add Build Categories
+        // Add Tabs (Build Categories)
         for (BuildCategory buildCategory : BuildCategory.values()) {
             tabbedPane.add(new TileBuildTab(buildCategory, buildCategory.layerDefinition));
         }
         tabbedPane.switchTab(0);
 
         // Add Tables...
-        add(toolsTable).colspan(2).row();
-        add(layerSelectTable);
-        add(floorSelectTable).row();
-        add(tabbedTable).expand().fill().colspan(2);
+        add(toolsTable).growX().row();
+        add(layerFloorWrapperTable).growX().row();
+        add(tabbedTableContainer).grow();
 
         addListener(new WindowResizeListener() {
             @Override
@@ -201,7 +231,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             scrollPane.setFadeScrollBars(false);
             scrollPane.setScrollbarsOnTop(true);
             scrollPane.setScrollingDisabled(true, false);
-            contentTable.add(scrollPane).growX().expandY().top();
+            contentTable.add(scrollPane).prefHeight(1).grow();
 
             // Add image buttons that represent the item. Filter by category.
             int tilesAdded = 0;

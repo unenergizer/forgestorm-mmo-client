@@ -18,3 +18,10 @@ tool_pencil
   orig: 16, 16
   offset: 0, 0
   index: -1
+tool_wang
+  rotate: false
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
