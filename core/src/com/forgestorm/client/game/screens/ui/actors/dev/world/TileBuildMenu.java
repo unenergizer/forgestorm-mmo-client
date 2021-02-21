@@ -238,10 +238,10 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
                 if (tileImage.getBuildCategory() != buildCategory) continue;
-                if (tilesAdded % 7 == 0) {
+                if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
-                    moduloTable = new VisTable(true);
-                    buttonTable.add(moduloTable).row();
+                    moduloTable = new VisTable();
+                    buttonTable.add(moduloTable).align(Alignment.LEFT.getAlignment()).row();
                 }
                 tilesAdded++;
                 VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildTextureRegionDrawable());
