@@ -14,7 +14,7 @@ import static com.forgestorm.client.util.Log.println;
 
 public class CollisionBlockProperty extends AbstractTileProperty {
 
-    private final CollisionWindow collisionWindow = new CollisionWindow();
+    private final transient CollisionWindow collisionWindow = new CollisionWindow();
 
     public CollisionBlockProperty() {
         super(TilePropertyTypes.COLLISION_BLOCK);

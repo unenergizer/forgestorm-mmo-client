@@ -8,7 +8,11 @@ import org.yaml.snakeyaml.representer.Representer;
 
 import java.util.Set;
 
+import static com.forgestorm.client.util.Log.println;
+
 public class MapRepresenter extends Representer {
+
+    private static final boolean PRINT_DEBUG = false;
 
     /**
      * Prevent saving null values to file.
@@ -19,6 +23,10 @@ public class MapRepresenter extends Representer {
         if (propertyValue == null) {
             return null;
         } else {
+            println(getClass(), "javaBean: " + javaBean, false, PRINT_DEBUG);
+            println(getClass(), "Property: " + property, false, PRINT_DEBUG);
+            println(getClass(), "propertyValue: " + propertyValue, false, PRINT_DEBUG);
+            println(getClass(), "Tag: " + customTag + "\n", false, PRINT_DEBUG);
             return super.representJavaBeanProperty(javaBean, property, propertyValue, customTag);
         }
     }
