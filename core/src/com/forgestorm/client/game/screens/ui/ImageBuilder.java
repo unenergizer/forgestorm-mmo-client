@@ -2,10 +2,11 @@ package com.forgestorm.client.game.screens.ui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.kotcrab.vis.ui.widget.VisImage;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.io.type.GameAtlas;
+import com.kotcrab.vis.ui.widget.VisImage;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class ImageBuilder {
@@ -17,6 +18,10 @@ public class ImageBuilder {
     private float x = 0;
     private float y = 0;
     private Color color = Color.WHITE;
+
+    private TextureRegion[][] textureRegions;
+    private int row, column;
+    private boolean useSplitTextureRegions = false;
 
     public ImageBuilder() {
     }
@@ -85,14 +90,33 @@ public class ImageBuilder {
         return this;
     }
 
+    public ImageBuilder setTextureRegions(TextureRegion[][] textureRegions, int row, int column) {
+        this.textureRegions = textureRegions;
+        this.row = row;
+        this.column = column;
+        this.useSplitTextureRegions = true;
+        return this;
+    }
+
     public TextureRegionDrawable buildTextureRegionDrawable() {
         if (gameAtlas == null) throw new RuntimeException("GameAtlas must be defined.");
-        if (regionName == null || regionName.isEmpty())
-            throw new RuntimeException("Region Name must be defined.");
 
         ClientMain.getInstance().getFileManager().loadAtlas(gameAtlas);
         TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
-        TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(regionName));
+        TextureRegionDrawable textureRegionDrawable = null;
+
+        if (!useSplitTextureRegions) {
+            if (regionName == null || regionName.isEmpty()) {
+                throw new RuntimeException("Region Name must be defined.");
+            }
+            textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(regionName));
+        } else {
+            if (textureRegions == null || textureRegions.length == 0) {
+                throw new RuntimeException("TextureRegions[][] must be defined.");
+            }
+            textureRegionDrawable = new TextureRegionDrawable(textureRegions[row][column]);
+        }
+
         textureRegionDrawable.tint(color);
         if (width > 0) textureRegionDrawable.setMinWidth(width);
         if (height > 0) textureRegionDrawable.setMinHeight(height);

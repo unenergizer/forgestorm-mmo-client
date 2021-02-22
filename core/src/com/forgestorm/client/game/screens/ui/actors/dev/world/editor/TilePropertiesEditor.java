@@ -201,6 +201,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         });
 
         // Add all individual selected options to the following table
+        rightTable.addSeparator().growY().row();
         buildPropertiesTable();
         rightTable.add(propertiesTable).row();
 

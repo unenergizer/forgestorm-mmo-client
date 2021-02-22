@@ -34,6 +34,7 @@ public class CollisionBlockProperty extends AbstractTileProperty {
         visTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                collisionWindow.loadTileImage(ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(getTileImage().getFileName()));
                 collisionWindow.setVisible(true);
             }
         });

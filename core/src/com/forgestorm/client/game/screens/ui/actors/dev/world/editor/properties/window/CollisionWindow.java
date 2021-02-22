@@ -1,12 +1,15 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.window;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
+import com.forgestorm.client.io.type.GameAtlas;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
@@ -50,19 +53,32 @@ public class CollisionWindow extends HideableVisWindow {
         return this;
     }
 
-    public void loadTileImage(TileImage tileImage, TextureAtlas.AtlasRegion atlasRegion) {
+    public void loadTileImage(TextureAtlas.AtlasRegion atlasRegion) {
         editorTable.clearChildren();
-        int tilesWide = atlasRegion.getRegionWidth() / 16;
-        int tilesTall = atlasRegion.getRegionHeight() / 16;
+        int tilesWide = atlasRegion.getRegionWidth() / ClientConstants.TILE_SIZE;
+        int tilesTall = atlasRegion.getRegionHeight() / ClientConstants.TILE_SIZE;
 
-        for (int i = 0; i < tilesWide; i++) {
-            for (int j = 0; j < tilesTall; j++) {
-                VisTextButton visTextButton = new VisTextButton(i + "," + j);
-                visTextButton.setSize(16, 16);
-                editorTable.add(visTextButton);
+
+        TextureRegion[][] textureRegions = atlasRegion.split(ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
+
+        for (int row = 0; row < tilesTall; row++) {
+            for (int column = 0; column < tilesWide; column++) {
+                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
+                visImageButton.setSize(ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
+                editorTable.add(visImageButton);
+
+                visImageButton.addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor) {
+                         visImageButton.getImage().setColor(Color.RED);
+                         visImageButton.setColor(Color.RED);
+                    }
+                });
             }
+            editorTable.row();
         }
 
         setVisible(true);
+        pack();
     }
 }
