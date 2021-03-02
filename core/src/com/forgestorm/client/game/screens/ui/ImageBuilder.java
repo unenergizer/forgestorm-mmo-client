@@ -103,7 +103,7 @@ public class ImageBuilder {
 
         ClientMain.getInstance().getFileManager().loadAtlas(gameAtlas);
         TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
-        TextureRegionDrawable textureRegionDrawable = null;
+        TextureRegionDrawable textureRegionDrawable;
 
         if (!useSplitTextureRegions) {
             if (regionName == null || regionName.isEmpty()) {

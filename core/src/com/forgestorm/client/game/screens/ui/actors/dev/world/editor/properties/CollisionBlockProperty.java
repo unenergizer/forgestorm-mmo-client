@@ -8,13 +8,21 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
+import java.util.List;
 import java.util.Map;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
 public class CollisionBlockProperty extends AbstractTileProperty {
 
     private final transient CollisionWindow collisionWindow = new CollisionWindow();
+
+    @Getter
+    @Setter
+    private List<Boolean> collisionList;
 
     public CollisionBlockProperty() {
         super(TilePropertyTypes.COLLISION_BLOCK);
@@ -25,16 +33,16 @@ public class CollisionBlockProperty extends AbstractTileProperty {
         VisTable mainTable = new VisTable(true);
 
         VisLabel visLabel1 = new VisLabel("[RED]Contains Collision:");
-        VisLabel visLabel2 = new VisLabel("[RED]Movement to this tile will be blocked.");
         VisTextButton visTextButton = new VisTextButton("Edit Collisions");
-        mainTable.add(visLabel1).row();
-        mainTable.add(visLabel2).row();
+        mainTable.add(visLabel1);
         mainTable.add(visTextButton);
+
+        final CollisionBlockProperty collisionBlockProperty = this;
 
         visTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                collisionWindow.loadTileImage(ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(getTileImage().getFileName()));
+                collisionWindow.loadTileImage(collisionBlockProperty, collisionList, ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(getTileImage().getFileName()));
                 collisionWindow.setVisible(true);
             }
         });
@@ -48,6 +56,14 @@ public class CollisionBlockProperty extends AbstractTileProperty {
     @Override
     public AbstractTileProperty load(Map<String, Object> tileProperties, boolean printDebugMessages) {
         println(getClass(), "Tile not traversable.", false, printDebugMessages);
+
+        @SuppressWarnings("unchecked")
+        List<Boolean> collisionList = (List<Boolean>) tileProperties.get("collisionList");
+        if (collisionList != null) {
+            println(getClass(), "Value: " + collisionList);
+            setCollisionList(collisionList);
+        }
+
         return this;
     }
 }
