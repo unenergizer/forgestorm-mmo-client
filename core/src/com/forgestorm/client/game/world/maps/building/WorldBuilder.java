@@ -110,23 +110,14 @@ public class WorldBuilder {
     public void addNewTile(TileImage newTileImage) {
         // Search for existing entry...
         for (TileImage tileImage : tileImageMap.values()) {
-            if (tileImage.getFileName().equals(newTileImage.getFileName())) {
-                tileImage.setBuildCategory(newTileImage.getBuildCategory());
-
-                if (newTileImage.getLayerDefinition() != null) {
-                    tileImage.setLayerDefinition(newTileImage.getLayerDefinition());
-                }
-
-                if (newTileImage.getTileProperties() != null) {
-                    // TODO: FIX ME .get(0)!!!
-                    tileImage.setCustomTileProperty(newTileImage.getTileProperties().get(0));
-                }
-
-                return;
-            }
+            if (tileImage.getFileName().equals(newTileImage.getFileName())) return;
         }
 
         // if no entry found, create a new one
         tileImageMap.put(newTileImage.getImageId(), newTileImage);
+    }
+
+    public int getTileImageMapSize() {
+        return tileImageMap.size();
     }
 }

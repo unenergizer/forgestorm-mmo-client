@@ -142,10 +142,11 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
         if (tileImage == null) {
             tileImage = new TileImage(
-                    worldBuilder.getTileImageMap().size(),
+                    worldBuilder.getTileImageMapSize() + 1,
                     atlasRegion.name,
                     BuildCategory.UNDEFINED
             );
+            worldBuilder.addNewTile(tileImage);
         }
 
         // Show Region details
@@ -188,13 +189,6 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         buildCategoryVisSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Map<Integer, TileImage> tileImageMap = worldBuilder.getTileImageMap();
-
-                // Check to see if the TileImage is in the HashMap, if not, add it.
-                if (!tileImageMap.containsKey(tileImage.getImageId())) {
-                    worldBuilder.getTileImageMap().put(tileImage.getImageId(), tileImage);
-                }
-
                 // Now set the selected category
                 tileImage.setBuildCategory(buildCategoryVisSelectBox.getSelected());
             }
