@@ -60,7 +60,7 @@ public class CollisionBlockProperty extends AbstractTileProperty {
         @SuppressWarnings("unchecked")
         List<Boolean> collisionList = (List<Boolean>) tileProperties.get("collisionList");
         if (collisionList != null) {
-            println(getClass(), "Value: " + collisionList);
+            println(getClass(), "Collision Value(s): " + collisionList, false, printDebugMessages);
             setCollisionList(collisionList);
         }
 

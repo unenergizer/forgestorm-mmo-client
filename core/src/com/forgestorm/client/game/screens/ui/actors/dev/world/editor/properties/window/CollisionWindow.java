@@ -10,10 +10,10 @@ import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
+import com.forgestorm.client.game.screens.ui.actors.NewVisImageButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
 import com.forgestorm.client.io.type.GameAtlas;
-import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
@@ -23,6 +23,8 @@ import java.util.List;
 import static com.forgestorm.client.util.Log.println;
 
 public class CollisionWindow extends HideableVisWindow {
+
+    private static final boolean PRINT_DEBUG = false;
 
     private final VisTextButton confirmButton = new VisTextButton("Confirm");
     private final VisTextButton cancelButton = new VisTextButton("Cancel");
@@ -71,16 +73,11 @@ public class CollisionWindow extends HideableVisWindow {
         int tilesWide = atlasRegion.getRegionWidth() / ClientConstants.TILE_SIZE;
         int tilesTall = atlasRegion.getRegionHeight() / ClientConstants.TILE_SIZE;
 
-        println(getClass(), "TilesWide: " + tilesWide);
-        println(getClass(), "TilesTall: " + tilesTall);
-
         // Init or load existing list
         if (loadedList == null || loadedList.isEmpty()) {
-            println(getClass(), "Creating new list");
             this.collisionList = new ArrayList<Boolean>();
             for (int i = 0; i < tilesWide * tilesTall; i++) this.collisionList.add(i, false);
         } else {
-            println(getClass(), "Loading from list");
             this.collisionList = loadedList;
         }
 
@@ -92,10 +89,11 @@ public class CollisionWindow extends HideableVisWindow {
                 final int finalRow = row, finalColumn = column;
                 final int index = finalRow + finalColumn * tilesTall;
 
-                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
+                final NewVisImageButton visImageButton = new NewVisImageButton(new ImageBuilder(GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
                 visImageButton.setSize(ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
                 if (collisionList.get(index)) {
-                    visImageButton.setColor(Color.RED);
+                    visImageButton.setColor(Color.YELLOW);
+                    visImageButton.getImage().setColor(Color.RED);
                 }
                 editorTable.add(visImageButton);
 
@@ -104,12 +102,14 @@ public class CollisionWindow extends HideableVisWindow {
                     public void changed(ChangeEvent event, Actor actor) {
                         if (!collisionList.get(index)) {
                             collisionList.set(index, true);
-                            visImageButton.setColor(Color.RED);
+                            visImageButton.setColor(Color.YELLOW);
+                            visImageButton.getImage().setColor(Color.RED);
                         } else {
                             collisionList.set(index, false);
                             visImageButton.setColor(Color.WHITE);
+                            visImageButton.getImage().setColor(Color.WHITE);
                         }
-                        println(CollisionWindow.class, "Row: " + finalRow + ", Col: " + finalColumn + ", Index: " + index + ", Collision: " + collisionList.get(index));
+                        println(CollisionWindow.class, "Row: " + finalRow + ", Col: " + finalColumn + ", Index: " + index + ", Collision: " + collisionList.get(index), false, PRINT_DEBUG);
                     }
                 });
             }

@@ -16,6 +16,7 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
+import com.forgestorm.client.game.screens.ui.actors.character.CharacterCreation;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
@@ -23,6 +24,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.util.yaml.YamlUtil;
@@ -42,8 +44,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
-
-import static com.forgestorm.client.util.Log.println;
 
 @Getter
 public class TilePropertiesEditor extends HideableVisWindow implements Buildable {
@@ -246,7 +246,8 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         saveFile.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                println(getClass(), "HashMap: " + worldBuilder.getTileImageMap());
+                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[PINK]Tile Properties has been saved to " + FILE_PATH);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 19);
                 YamlUtil.saveYamlToFile(worldBuilder.getTileImageMap(), FILE_PATH);
             }
         });
@@ -293,6 +294,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             build();
         }
 
+        @SuppressWarnings("GDXJavaUnsafeIterator")
         public void build() {
             // Create a scroll pane.
             VisTable buttonTable = new VisTable();
@@ -307,7 +309,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             // Add image buttons that represent the item. Filter by category.
             int tilesAdded = 0;
             VisTable moduloTable = null;
-            //noinspection LibGDXUnsafeIterator
+
             for (final TextureAtlas.AtlasRegion atlasRegion : textureAtlas.getRegions()) {
                 if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
@@ -353,7 +355,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
     public class TilePropertyDropDownMenu extends HideableVisWindow {
 
-        private HideableVisWindow hideableVisWindow;
+        private final HideableVisWindow hideableVisWindow;
 
         TilePropertyDropDownMenu() {
             super("Choose Option");
