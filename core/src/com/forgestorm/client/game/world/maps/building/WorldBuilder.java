@@ -110,26 +110,29 @@ public class WorldBuilder {
         if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
         if (useEraser) {
 
-            placeTile(currentLayer, ClientConstants.BLANK_TILE_ID, worldX, worldY);
+            placeTile(currentLayer, ClientConstants.BLANK_TILE_ID, worldX, worldY, true);
         } else {
             // NOT USING ERASER
             if (useWangTile) {
                 // BUILDING USING WANG BRUSH, AUTO SELECT THE TILE!
                 int autoTileID = wangTile16Bit.autoTile(currentLayer, worldX, worldY);
                 TileImage tileImage = getTileImage(wangRegionNamePrefix + autoTileID);
-                placeTile(currentLayer, tileImage.getImageId(), worldX, worldY);
+                placeTile(currentLayer, tileImage.getImageId(), worldX, worldY, true);
                 wangTile16Bit.updateAroundTile(currentLayer, worldX, worldY);
             } else {
                 // BUILDING USING DRAW BRUSH, USE USER SELECTED TILE!
-                placeTile(currentLayer, currentTextureId, worldX, worldY);
+                placeTile(currentLayer, currentTextureId, worldX, worldY, true);
             }
         }
     }
 
-    public void placeTile(LayerDefinition layerDefinition, int textureId, int worldX, int worldY) {
+    public void placeTile(LayerDefinition layerDefinition, int textureId, int worldX, int worldY, boolean sendPacket) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
         gameWorld.setTileImage(layerDefinition, tileImageMap.get(textureId), worldX, worldY);
-        new WorldBuilderPacketOut(currentLayer, textureId, (short) worldX, (short) worldY).sendPacket();
+
+        if (sendPacket) {
+            new WorldBuilderPacketOut(currentLayer, textureId, worldX, worldY).sendPacket();
+        }
     }
 
     public void drawMouse(SpriteBatch spriteBatch) {

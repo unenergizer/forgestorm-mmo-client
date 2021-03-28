@@ -53,7 +53,8 @@ public abstract class AbstractWangTile {
         if (tileImage.getImageId() == autoTileImage.getImageId()) return;
 
         // Set new tile image
-        worldBuilder.placeTile(currentLayer, autoTileImage.getImageId(), worldX, worldY);
+        worldBuilder.placeTile(currentLayer, autoTileImage.getImageId(), worldX, worldY, true
+        );
     }
 
     /**
