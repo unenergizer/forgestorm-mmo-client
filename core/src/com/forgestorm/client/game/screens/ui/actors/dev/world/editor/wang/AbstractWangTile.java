@@ -43,14 +43,23 @@ public abstract class AbstractWangTile {
      */
     protected void updateTile(LayerDefinition currentLayer, int autoTileID, int worldX, int worldY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        TileImage tileImage = gameWorld.getTileImage(currentLayer, worldX, worldY);
+        TileImage currentTileImage = gameWorld.getTileImage(currentLayer, worldX, worldY);
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
         TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangRegionNamePrefix() + autoTileID);
 
-        if (tileImage == null) return;
-        if (tileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return;
-        if (tileImage.getImageId() == autoTileImage.getImageId()) return;
+        if (currentTileImage == null) return;
+        if (currentTileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return;
+        if (currentTileImage.getImageId() == autoTileImage.getImageId()) return;
+
+        // Check for different wang tiles
+        WangTile wangTileFound = worldBuilder.findWangTile(currentTileImage);
+
+        if (wangTileFound != null) {
+            // If the current wang tile ID is not the same as the one that was found,
+            // we do not drawl a tile here. This prevents strange artifacts from occurring.
+            if (wangTileFound.getWangId() != worldBuilder.getCurrentWangId()) return;
+        }
 
         // Set new tile image
         worldBuilder.placeTile(currentLayer, autoTileImage.getImageId(), worldX, worldY, true
