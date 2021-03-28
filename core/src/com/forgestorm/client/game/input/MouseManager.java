@@ -11,8 +11,10 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.movement.ClientMovementProcessor;
 import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
+import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.client.game.world.entities.EntityInteract;
@@ -26,6 +28,7 @@ import com.forgestorm.client.game.world.entities.StationaryEntity;
 import com.forgestorm.client.game.world.maps.CursorDrawType;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.WorldUtil;
+import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
 import com.forgestorm.client.util.FadeOut;
@@ -237,8 +240,17 @@ public class MouseManager {
 
     private void clickToWalkToPath() {
         if (foundClick) return;
+
+        StageHandler stageHandler = ClientMain.getInstance().getStageHandler();
+        TileBuildMenu tileBuildMenu = stageHandler.getTileBuildMenu();
+
+        // See if we need to stop click to walk
+        if (tileBuildMenu != null && tileBuildMenu.isVisible()) {
+            WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+            if (!worldBuilder.isAllowClickToMove()) return;
+        }
+
         // Click to walk path finding
-        println(getClass(), "WALKING TO PATH NOT ENTITY (EAUBGETRHNB T)", false, PRINT_DEBUG);
         ClientMain.getInstance().getEntityTracker().walkTo(leftClickTileX, leftClickTileY, false);
     }
 

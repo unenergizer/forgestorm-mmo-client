@@ -1,8 +1,8 @@
 
 tools.png
-size: 64,32
+size: 128, 32
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Nearest, Nearest
 repeat: none
 tool_eraser
   rotate: false
@@ -18,9 +18,23 @@ tool_pencil
   orig: 16, 16
   offset: 0, 0
   index: -1
-tool_wang
+tool_run_allow
   rotate: false
   xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tool_run_stop
+  rotate: false
+  xy: 56, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tool_wang
+  rotate: false
+  xy: 74, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

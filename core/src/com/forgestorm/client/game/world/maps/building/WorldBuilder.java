@@ -44,6 +44,10 @@ public class WorldBuilder {
     @Getter
     private String wangRegionNamePrefix;
 
+    @Getter
+    @Setter
+    private boolean allowClickToMove = true;
+
     public WorldBuilder() {
         // Load AbstractTileProperty.yaml
         tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();

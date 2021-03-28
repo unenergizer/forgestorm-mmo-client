@@ -60,6 +60,8 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final Drawable drawl = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_pencil").setSize(32).buildTextureRegionDrawable();
         final Drawable eraser = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_eraser").setSize(32).buildTextureRegionDrawable();
         final Drawable wangBrush = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_wang").setSize(32).buildTextureRegionDrawable();
+        final Drawable runAllow = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_run_allow").setSize(32).buildTextureRegionDrawable();
+        final Drawable runStop = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_run_stop").setSize(32).buildTextureRegionDrawable();
         final Drawable drawableActive = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_158").setSize(16).buildTextureRegionDrawable();
         final Drawable drawableInactive = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_159").setSize(16).buildTextureRegionDrawable();
 
@@ -68,14 +70,17 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final VisImageButton drawlButton = new VisImageButton(drawl, "Drawl Tool");
         final VisImageButton eraserButton = new VisImageButton(eraser, "Eraser Tool");
         final VisImageButton wangBrushButton = new VisImageButton(wangBrush, "Wang Brush");
+        final VisImageButton allowRunningButton = new VisImageButton(runAllow, "Allow/Prevent Click to Move");
 
         drawlButton.setGenerateDisabledImage(true);
         eraserButton.setGenerateDisabledImage(true);
         wangBrushButton.setGenerateDisabledImage(true);
+        allowRunningButton.setGenerateDisabledImage(true);
 
         editorButtonList.add(drawlButton);
         editorButtonList.add(eraserButton);
         editorButtonList.add(wangBrushButton);
+        editorButtonList.add(allowRunningButton);
 
         // Initialize build menu with drawl tool enabled first
         drawlButton.setDisabled(true);
@@ -113,10 +118,24 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             }
         });
 
+        allowRunningButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (worldBuilder.isAllowClickToMove()) {
+                    allowRunningButton.getStyle().imageUp = runStop;
+                    worldBuilder.setAllowClickToMove(false);
+                } else {
+                    allowRunningButton.getStyle().imageUp = runAllow;
+                    worldBuilder.setAllowClickToMove(true);
+                }
+            }
+        });
+
         VisTable buttonTable = new VisTable();
         buttonTable.add(drawlButton);
         buttonTable.add(eraserButton);
         buttonTable.add(wangBrushButton);
+        buttonTable.add(allowRunningButton);
 
         toolsTable.add(new VisLabel("[YELLOW]Tools:")).align(Alignment.LEFT.getAlignment()).row();
         toolsTable.add(buttonTable).align(Alignment.LEFT.getAlignment()).row();
