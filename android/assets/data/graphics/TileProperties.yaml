@@ -52,18 +52,6 @@
 10:
   buildCategory: WALL
   fileName: brick-wall-tan
-11:
-  buildCategory: WALKABLE
-  fileName: '0'
-12:
-  buildCategory: WALKABLE
-  fileName: '1'
-13:
-  buildCategory: WALKABLE
-  fileName: '2'
-14:
-  buildCategory: WALKABLE
-  fileName: '3'
 15:
   buildCategory: DECORATION
   fileName: bag-01
@@ -72,18 +60,6 @@
     COLLISION_BLOCK:
       collisionList:
         - true
-16:
-  buildCategory: WALKABLE
-  fileName: '5'
-17:
-  buildCategory: WALKABLE
-  fileName: '6'
-18:
-  buildCategory: WALKABLE
-  fileName: '7'
-19:
-  buildCategory: WALKABLE
-  fileName: '8'
 20:
   buildCategory: DECORATION
   fileName: barrel-big-04
@@ -1554,9 +1530,6 @@
 444:
   buildCategory: DECORATION
   fileName: wooden-vanity
-445:
-  buildCategory: WALKABLE
-  fileName: '4'
 446:
   buildCategory: WALL
   fileName: stone-wall-bottom-right
