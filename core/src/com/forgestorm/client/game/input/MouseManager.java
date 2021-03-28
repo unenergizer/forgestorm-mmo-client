@@ -48,11 +48,11 @@ public class MouseManager {
 
     private final Vector3 clickLocation = new Vector3();
     @Getter
-    private short leftClickTileX, leftClickTileY;
+    private int leftClickTileX, leftClickTileY;
     @Getter
-    private short rightClickTileX, rightClickTileY;
+    private int rightClickTileX, rightClickTileY;
     @Getter
-    private short mouseTileX, mouseTileY;
+    private int mouseTileX, mouseTileY;
     private float mouseWorldX, mouseWorldY;
 
     @Setter
@@ -61,7 +61,7 @@ public class MouseManager {
     private Timer.Task waitForMouseFadeTask;
 
     @Getter
-    private FadeOut fadeOut = new FadeOut();
+    private final FadeOut fadeOut = new FadeOut();
 
     @Getter
     @Setter
@@ -90,6 +90,17 @@ public class MouseManager {
                 }
             }
         }, 2);
+    }
+
+    void mouseDragged(int buttonDown, final int screenX, final int screenY) {
+        final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
+        this.mouseTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
+        this.mouseTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+
+        // Place tile in world
+        if (buttonDown == Input.Buttons.LEFT) {
+            ClientMain.getInstance().getWorldBuilder().placeTile(mouseTileX, mouseTileY);
+        }
     }
 
     void mouseClick(final int screenX, final int screenY, final int button) {
@@ -298,7 +309,7 @@ public class MouseManager {
         println(getClass(), "Back Pressed: " + screenX + "/" + screenY, false, PRINT_DEBUG);
     }
 
-    private CursorDrawType lastCursorDrawType = CursorDrawType.NO_DRAWABLE;
+    private final CursorDrawType lastCursorDrawType = CursorDrawType.NO_DRAWABLE;
     private TextureRegionDrawable cursorDrawable;
 
     // TODO: FIX THIS....

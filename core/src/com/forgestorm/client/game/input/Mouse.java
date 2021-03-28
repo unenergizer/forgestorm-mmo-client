@@ -8,6 +8,8 @@ import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 
 public class Mouse implements InputProcessor {
 
+    private int buttonDown;
+
     @Override
     public boolean keyDown(int keycode) {
         return false;
@@ -27,6 +29,7 @@ public class Mouse implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
         if (!ClientMain.getInstance().getGameScreen().isGameFocused()) return false;
+        buttonDown = button;
 
         ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
         if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
@@ -42,6 +45,7 @@ public class Mouse implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        ClientMain.getInstance().getMouseManager().mouseDragged(buttonDown, screenX, screenY);
         return false;
     }
 
