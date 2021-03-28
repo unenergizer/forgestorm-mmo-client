@@ -3165,3 +3165,291 @@
   tileProperties:
     WANG_TILE: {
     }
+747:
+  buildCategory: DECORATION
+  fileName: bench-wide-back-single
+748:
+  buildCategory: DECORATION
+  fileName: booth-red-left
+749:
+  buildCategory: DECORATION
+  fileName: box-04
+750:
+  buildCategory: DECORATION
+  fileName: box-11
+751:
+  buildCategory: DECORATION
+  fileName: bed-frame-03
+752:
+  buildCategory: DECORATION
+  fileName: column-01
+753:
+  buildCategory: DECORATION
+  fileName: column-02
+754:
+  buildCategory: DECORATION
+  fileName: column-03
+755:
+  buildCategory: DECORATION
+  fileName: column-04
+756:
+  buildCategory: DECORATION
+  fileName: column-05
+757:
+  buildCategory: DECORATION
+  fileName: column-06
+758:
+  buildCategory: DECORATION
+  fileName: column-stone-complete
+759:
+  buildCategory: DECORATION
+  fileName: chair-blue-down
+760:
+  buildCategory: DECORATION
+  fileName: chair-brown-up
+761:
+  buildCategory: DECORATION
+  fileName: clock
+762:
+  buildCategory: DECORATION
+  fileName: cactus-02
+763:
+  buildCategory: DECORATION
+  fileName: egypt-statue-dog-01
+764:
+  buildCategory: DECORATION
+  fileName: egypt-statue-dog-02
+765:
+  buildCategory: DECORATION
+  fileName: egypt-statue-dog-03
+766:
+  buildCategory: DECORATION
+  fileName: egypt-statue-dog-04
+767:
+  buildCategory: DECORATION
+  fileName: flag-01
+768:
+  buildCategory: DECORATION
+  fileName: grave-stone-large-02
+769:
+  buildCategory: DECORATION
+  fileName: grave-wooden-01
+770:
+  buildCategory: DECORATION
+  fileName: lamp-post-skinny-01
+771:
+  buildCategory: DECORATION
+  fileName: mailbox-06
+772:
+  buildCategory: DECORATION
+  fileName: mushroom-large-06
+773:
+  buildCategory: DECORATION
+  fileName: pot-bush-06
+774:
+  buildCategory: DECORATION
+  fileName: pot-flower-blue-06
+775:
+  buildCategory: DECORATION
+  fileName: pot-flower-orange-06
+776:
+  buildCategory: DECORATION
+  fileName: pot-flower-pink-06
+777:
+  buildCategory: DECORATION
+  fileName: pot-flower-white-06
+778:
+  buildCategory: DECORATION
+  fileName: pot-flower-yellow-06
+779:
+  buildCategory: DECORATION
+  fileName: rock-large-mossy-01
+780:
+  buildCategory: DECORATION
+  fileName: rock-small-brown-06
+781:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-02
+782:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-brown-09
+783:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-gray-05
+784:
+  buildCategory: DECORATION
+  fileName: rock-small-dark-gray-06
+785:
+  buildCategory: DECORATION
+  fileName: rock-small-mossy-03
+786:
+  buildCategory: DECORATION
+  fileName: rock-sword-mossy-01
+787:
+  buildCategory: DECORATION
+  fileName: small-table-02
+788:
+  buildCategory: DECORATION
+  fileName: stump-01
+789:
+  buildCategory: WALKABLE
+  fileName: stone-wall-middle-vertical-end-bottom
+790:
+  buildCategory: DECORATION
+  fileName: well-egypt-filled
+791:
+  buildCategory: DECORATION
+  fileName: well-egypt-empty
+792:
+  buildCategory: DECORATION
+  fileName: well-egypt-broken
+793:
+  buildCategory: DECORATION
+  fileName: bench-wide-single
+794:
+  buildCategory: DECORATION
+  fileName: bush-small-02
+795:
+  buildCategory: DECORATION
+  fileName: cabnient-item-01
+796:
+  buildCategory: DECORATION
+  fileName: cabnient-item-02
+797:
+  buildCategory: DECORATION
+  fileName: cabnient-item-03
+798:
+  buildCategory: DECORATION
+  fileName: cabnient-item-04
+799:
+  buildCategory: DECORATION
+  fileName: cabnient-item-05
+800:
+  buildCategory: DECORATION
+  fileName: cabnient-item-06
+801:
+  buildCategory: DECORATION
+  fileName: cabnient-item-07
+802:
+  buildCategory: DECORATION
+  fileName: cabnient-item-08
+803:
+  buildCategory: WALKABLE
+  fileName: dungeon-stairs-up
+804:
+  buildCategory: WALKABLE
+  fileName: dungeon-floor-trap-door
+805:
+  buildCategory: WALKABLE
+  fileName: dungeon-floor-vent
+806:
+  buildCategory: DECORATION
+  fileName: dungeon-wall-vent-02
+807:
+  buildCategory: DECORATION
+  fileName: dungeon-wall-vent-01
+808:
+  buildCategory: WALKABLE
+  fileName: dungeon-stairs-down
+809:
+  buildCategory: DECORATION
+  fileName: hanging-sign-gold-pub
+810:
+  buildCategory: DECORATION
+  fileName: hanging-sign-silver-pub
+811:
+  buildCategory: DECORATION
+  fileName: hanging-sign-wood-weapons
+812:
+  buildCategory: DECORATION
+  fileName: kitchen-item-07
+813:
+  buildCategory: DECORATION
+  fileName: painting-right-02
+814:
+  buildCategory: DECORATION
+  fileName: mushroom-small-08
+815:
+  buildCategory: DECORATION
+  fileName: mushroom-small-04
+816:
+  buildCategory: DECORATION
+  fileName: pot-06
+817:
+  buildCategory: DECORATION
+  fileName: plant-small-06
+818:
+  buildCategory: DECORATION
+  fileName: table-item-01
+819:
+  buildCategory: DECORATION
+  fileName: table-item-02
+820:
+  buildCategory: DECORATION
+  fileName: table-item-03
+821:
+  buildCategory: DECORATION
+  fileName: table-item-04
+822:
+  buildCategory: DECORATION
+  fileName: table-item-05
+823:
+  buildCategory: DECORATION
+  fileName: table-item-06
+824:
+  buildCategory: DECORATION
+  fileName: table-item-07
+825:
+  buildCategory: DECORATION
+  fileName: table-item-08
+826:
+  buildCategory: DECORATION
+  fileName: table-item-09
+827:
+  buildCategory: DECORATION
+  fileName: table-item-10
+828:
+  buildCategory: DECORATION
+  fileName: table-item-11
+829:
+  buildCategory: DECORATION
+  fileName: table-item-12
+830:
+  buildCategory: DECORATION
+  fileName: table-item-13
+831:
+  buildCategory: DECORATION
+  fileName: table-item-14
+832:
+  buildCategory: DECORATION
+  fileName: table-item-15
+833:
+  buildCategory: DECORATION
+  fileName: table-item-16
+834:
+  buildCategory: DECORATION
+  fileName: table-item-17
+835:
+  buildCategory: DECORATION
+  fileName: table-item-book-01
+836:
+  buildCategory: DECORATION
+  fileName: table-item-book-02
+837:
+  buildCategory: DECORATION
+  fileName: table-item-book-03
+838:
+  buildCategory: DECORATION
+  fileName: table-item-book-04
+839:
+  buildCategory: DECORATION
+  fileName: table-with-item-01
+840:
+  buildCategory: DECORATION
+  fileName: table-with-item-02
+841:
+  buildCategory: DECORATION
+  fileName: table-with-item-03
+842:
+  buildCategory: DECORATION
+  fileName: table-with-item-04

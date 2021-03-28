@@ -29,6 +29,7 @@ import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.util.yaml.YamlUtil;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -288,6 +289,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         private final TextureAtlas textureAtlas;
         private final String title;
         private final Table contentTable;
+        private VisScrollPane scrollPane;
 
         TileBuildTab(GameAtlas gameAtlas) {
             super(false, false);
@@ -298,23 +300,75 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             build();
         }
 
-        @SuppressWarnings("GDXJavaUnsafeIterator")
         public void build() {
+            final VisTable buttonTable = new VisTable();
+
+            final VisCheckBox hideProcessedItems = new VisCheckBox("Hide Processed Items");
+            hideProcessedItems.setChecked(false);
+            contentTable.add(hideProcessedItems);
+
+            final VisSelectBox<BuildCategory> showCategory = new VisSelectBox<BuildCategory>();
+            showCategory.setItems(BuildCategory.values());
+            showCategory.setSelected(BuildCategory.DECORATION);
+            contentTable.add(showCategory).row();
+
+            hideProcessedItems.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    buildImageList(buttonTable, hideProcessedItems.isChecked(), showCategory.getSelected());
+
+                    showCategory.setDisabled(hideProcessedItems.isChecked());
+                }
+            });
+            showCategory.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    buildImageList(buttonTable, hideProcessedItems.isChecked(), showCategory.getSelected());
+                }
+            });
+
             // Create a scroll pane.
-            VisTable buttonTable = new VisTable();
-            VisScrollPane scrollPane = new VisScrollPane(buttonTable);
+            scrollPane = new VisScrollPane(buttonTable);
             scrollPane.setOverscroll(false, false);
             scrollPane.setFlickScroll(false);
             scrollPane.setFadeScrollBars(false);
             scrollPane.setScrollbarsOnTop(true);
             scrollPane.setScrollingDisabled(false, false);
-            contentTable.add(scrollPane).prefHeight(1).grow();
+            contentTable.add(scrollPane).prefHeight(1).grow().colspan(2);
+
+            buildImageList(buttonTable, hideProcessedItems.isChecked(), showCategory.getSelected());
+            // TODO: Possibly add tool-tips to each one that describes it's properties?
+        }
+
+        private void buildImageList(VisTable buttonTable, boolean hideProcessedImages, BuildCategory buildCategory) {
+            buttonTable.clear();
 
             // Add image buttons that represent the item. Filter by category.
             int tilesAdded = 0;
             VisTable moduloTable = null;
 
             for (final TextureAtlas.AtlasRegion atlasRegion : textureAtlas.getRegions()) {
+
+                // Check to see if this has already been processed
+                boolean isProcessed = false;
+                TileImage tileImageFound = null;
+                for (TileImage tileImage : worldBuilder.getTileImageMap().values()) {
+                    if (tileImage.getFileName().equals(atlasRegion.name)) {
+                        isProcessed = true;
+                        tileImageFound = tileImage;
+                        break;
+                    }
+                }
+
+                // Show category specific tiles
+                if (!hideProcessedImages) {
+                    if (tileImageFound == null) continue;
+                    if (tileImageFound.getBuildCategory() != buildCategory) continue;
+                }
+
+                // Skip processed items, if they are found.
+                if (isProcessed && hideProcessedImages) continue;
+
                 if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
                     moduloTable = new VisTable();
@@ -342,8 +396,6 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             }
 
             scrollPane.layout();
-
-            // TODO: Possibly add tool-tips to each one that describes it's properties?
         }
 
         @Override

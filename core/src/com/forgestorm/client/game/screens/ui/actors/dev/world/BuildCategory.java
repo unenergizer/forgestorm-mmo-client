@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum BuildCategory {
-    DECORATION(LayerDefinition.WALL_DECORATION),
+    DECORATION(LayerDefinition.GROUND_DECORATION),
     WALKABLE(LayerDefinition.GROUND_DECORATION),
     WALL(LayerDefinition.COLLIDABLES),
     ROOF(LayerDefinition.ROOF),
