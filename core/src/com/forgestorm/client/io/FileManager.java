@@ -295,6 +295,14 @@ public class FileManager {
         return abstractGet(FilePaths.TILE_PROPERTIES.getFilePath(), false, TilePropertiesLoader.TilePropertiesDataWrapper.class);
     }
 
+    public void loadWangPropertiesData() {
+        abstractedLoad(FilePaths.WANG_PROPERTIES.getFilePath(), false, false, WangPropertiesLoader.WangPropertiesDataWrapper.class, new WangPropertiesLoader(internalResolver));
+    }
+
+    public WangPropertiesLoader.WangPropertiesDataWrapper getWangPropertiesData() {
+        return abstractGet(FilePaths.WANG_PROPERTIES.getFilePath(), false, WangPropertiesLoader.WangPropertiesDataWrapper.class);
+    }
+
     public void loadNetworkSettingsData() {
         abstractedLoad(FilePaths.NETWORK_SETTINGS.getFilePath(), false, false, NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(internalResolver));
     }

@@ -1,0 +1,15 @@
+1:
+  fileName: grass-dirt
+  type: TYPE_16
+2:
+  fileName: dirt-pathway
+  type: TYPE_16
+3:
+  fileName: dirt-darkdirt
+  type: TYPE_16
+4:
+  fileName: grass-sand
+  type: TYPE_16
+5:
+  fileName: rough-dirt
+  type: TYPE_16

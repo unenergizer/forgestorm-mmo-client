@@ -28,6 +28,7 @@ public class ClientConstants {
     public static final int CHUNK_SIZE = 16;
     public static final int CHUNK_RADIUS = 1;
     public static final int MAX_TILE_GET = 4 * 4;
+    public static final int BLANK_TILE_ID = 0;
 
     public static final int STARTER_GEAR_CHEST_ID = 2;
     public static final int STARTER_GEAR_PANTS_ID = 23;

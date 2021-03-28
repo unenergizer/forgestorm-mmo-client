@@ -149,6 +149,16 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             worldBuilder.addNewTile(tileImage);
         }
 
+        // Lets do some automated tasks for this TileImage
+        if (tileImage.getFileName().contains("BW16")) {
+            if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                tileImage.setBuildCategory(BuildCategory.WANG);
+                AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
+                abstractTileProperty.setTileImage(tileImage);
+                tileImage.setCustomTileProperty(abstractTileProperty);
+            }
+        }
+
         // Show Region details
         VisTable detailsTable = new VisTable(true);
         detailsTable.add(new VisLabel("[YELLOW]Name: [WHITE]" + atlasRegion.name)).align(Alignment.LEFT.getAlignment()).colspan(2).row();

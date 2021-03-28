@@ -10,6 +10,7 @@ public enum BuildCategory {
     WALKABLE(LayerDefinition.GROUND_DECORATION),
     WALL(LayerDefinition.COLLIDABLES),
     ROOF(LayerDefinition.ROOF),
+    WANG(LayerDefinition.GROUND),
     UNDEFINED(LayerDefinition.GROUND_DECORATION);
 
     public LayerDefinition layerDefinition;

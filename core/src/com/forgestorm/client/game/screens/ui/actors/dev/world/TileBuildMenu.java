@@ -1,6 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -11,6 +12,8 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
@@ -27,7 +30,9 @@ import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -37,6 +42,9 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final Map<LayerDefinition, VisTextButton> layerButtonMap = new HashMap<LayerDefinition, VisTextButton>();
+    private final List<VisImageButton> editorButtonList = new ArrayList<VisImageButton>();
+
+    private TabbedPane tabbedPane;
 
     public TileBuildMenu() {
         super("World Build Menu");
@@ -48,11 +56,12 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         addCloseButton();
         setResizable(true);
 
-        final Drawable drawl = new ImageBuilder().setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_pencil").setSize(32).buildTextureRegionDrawable();
-        final Drawable eraser = new ImageBuilder().setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_eraser").setSize(32).buildTextureRegionDrawable();
-        final Drawable wangBrush = new ImageBuilder().setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_wang").setSize(32).buildTextureRegionDrawable();
-        final Drawable drawableActive = new ImageBuilder().setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_158").buildTextureRegionDrawable();
-        final Drawable drawableInactive = new ImageBuilder().setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_159").buildTextureRegionDrawable();
+        final ImageBuilder imageBuilder = new ImageBuilder();
+        final Drawable drawl = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_pencil").setSize(32).buildTextureRegionDrawable();
+        final Drawable eraser = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_eraser").setSize(32).buildTextureRegionDrawable();
+        final Drawable wangBrush = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_wang").setSize(32).buildTextureRegionDrawable();
+        final Drawable drawableActive = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_158").setSize(16).buildTextureRegionDrawable();
+        final Drawable drawableInactive = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_159").setSize(16).buildTextureRegionDrawable();
 
         // BUILD TOOLS
         final VisTable toolsTable = new VisTable(true);
@@ -60,33 +69,47 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final VisImageButton eraserButton = new VisImageButton(eraser, "Eraser Tool");
         final VisImageButton wangBrushButton = new VisImageButton(wangBrush, "Wang Brush");
 
+        drawlButton.setGenerateDisabledImage(true);
+        eraserButton.setGenerateDisabledImage(true);
+        wangBrushButton.setGenerateDisabledImage(true);
+
+        editorButtonList.add(drawlButton);
+        editorButtonList.add(eraserButton);
+        editorButtonList.add(wangBrushButton);
+
+        // Initialize build menu with drawl tool enabled first
+        drawlButton.setDisabled(true);
+        drawlButton.setColor(Color.RED);
+
         drawlButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                activateOtherButton();
                 drawlButton.setDisabled(true);
-                eraserButton.setDisabled(false);
-                worldBuilder.setUseEraser(false);
-                wangBrushButton.setDisabled(false);
+                drawlButton.setColor(Color.RED);
+                tabbedPane.switchTab(0);
             }
         });
 
         eraserButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                drawlButton.setDisabled(false);
-                eraserButton.setDisabled(true);
+                activateOtherButton();
                 worldBuilder.setUseEraser(true);
-                wangBrushButton.setDisabled(false);
+                eraserButton.setDisabled(true);
+                eraserButton.setColor(Color.RED);
             }
         });
 
         wangBrushButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                drawlButton.setDisabled(false);
-                eraserButton.setDisabled(false);
-                worldBuilder.setUseEraser(false);
+                activateOtherButton();
+                worldBuilder.setUseWangTile(true);
+                worldBuilder.setCurrentLayer(LayerDefinition.GROUND);
                 wangBrushButton.setDisabled(true);
+                wangBrushButton.setColor(Color.RED);
+                tabbedPane.switchTab(BuildCategory.WANG.ordinal());
             }
         });
 
@@ -137,7 +160,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             layerButtonMap.put(layerDefinition, layerSelectButton);
 
             // Layer Info button
-            final Drawable layerInfo = new ImageBuilder().setGameAtlas(GameAtlas.ITEMS).setRegionName("quest_10" + i).buildTextureRegionDrawable();
+            final Drawable layerInfo = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("quest_10" + i).setSize(16).buildTextureRegionDrawable();
             final VisImageButton layerInfoButton = new VisImageButton(layerInfo, "More info about this layer.");
             layerSelectTable.add(layerInfoButton).row();
             layerInfoButton.addListener(new ChangeListener() {
@@ -166,7 +189,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         // TABBED TILE SELECT TABLE
         final VisTable tabbedTableContainer = new VisTable();
         final VisTable tabbedTable = new VisTable();
-        TabbedPane tabbedPane = new TabbedPane();
+        tabbedPane = new TabbedPane();
         tabbedPane.addListener(new TabbedPaneAdapter() {
             @Override
             public void switchedTab(Tab tab) {
@@ -203,6 +226,18 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         setVisible(true);
         stopWindowClickThrough();
         return this;
+    }
+
+    private void activateOtherButton() {
+        for (VisImageButton visImageButton : editorButtonList) {
+            visImageButton.setDisabled(false);
+            visImageButton.setColor(Color.WHITE);
+        }
+
+        // Auto default this to false.
+        // Inside the listener, change to true when activated
+        worldBuilder.setUseEraser(false);
+        worldBuilder.setUseWangTile(false);
     }
 
     private void findPosition() {
@@ -252,6 +287,10 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             int tilesAdded = 0;
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
+                // Only show one TileImage on the wang tab
+                if (tileImage.getFileName().startsWith("BW16") && buildCategory == BuildCategory.WANG) {
+                    if (!tileImage.getFileName().endsWith("-0")) continue;
+                }
                 if (tileImage.getBuildCategory() != buildCategory) continue;
                 if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
@@ -267,6 +306,19 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                     public void changed(ChangeEvent event, Actor actor) {
                         worldBuilder.setCurrentLayer(layerDefinition);
                         worldBuilder.setCurrentTextureId(tileImage.getImageId());
+
+                        // See if this TileImage is a WangTile
+                        if (tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                            Map<Integer, WangTile> wangs = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
+                            for (Map.Entry<Integer, WangTile> entry : wangs.entrySet()) {
+                                int id = entry.getKey();
+                                WangTile wangTile = entry.getValue();
+
+                                if (tileImage.getFileName().contains(wangTile.getFileName())) {
+                                    worldBuilder.setCurrentWangId(id);
+                                }
+                            }
+                        }
                     }
                 });
             }

@@ -1,11 +1,15 @@
 package com.forgestorm.client.game.world.maps.building;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
@@ -19,10 +23,12 @@ import lombok.Setter;
 @Getter
 public class WorldBuilder {
 
+    private final WangTile16Bit wangTile16Bit = new WangTile16Bit();
     private final Map<Integer, TileImage> tileImageMap;
     private final TextureAtlas textureAtlas;
     private final Array<TextureAtlas.AtlasRegion> regions;
     private final Map<LayerDefinition, Boolean> layerVisibilityMap;
+    private final Map<Integer, WangTile> wangImageMap;
 
     private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
     @Setter
@@ -31,9 +37,19 @@ public class WorldBuilder {
     @Setter
     private boolean useEraser = false;
 
+    @Setter
+    private boolean useWangTile = false;
+
+    private int currentWangId = 1;
+    @Getter
+    private String wangRegionNamePrefix;
+
     public WorldBuilder() {
         // Load AbstractTileProperty.yaml
         tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
+
+        // Load WangProperties.yaml
+        wangImageMap = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
 
         // Load Tiles atlas
         textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
@@ -44,6 +60,19 @@ public class WorldBuilder {
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
             layerVisibilityMap.put(layerDefinition, true);
         }
+    }
+
+    public void setCurrentWangId(int selectedWangTile) {
+        currentWangId = selectedWangTile;
+        WangTile wangTile = wangImageMap.get(currentWangId);
+        wangRegionNamePrefix = wangTile.getWangType().getPrefix() + "-" + wangTile.getFileName() + "-";
+    }
+
+    public WangTile findWangTile(TileImage tileImage) {
+        for (WangTile wangTile : wangImageMap.values()) {
+            if (tileImage.getFileName().contains(wangTile.getFileName())) return wangTile;
+        }
+        return null;
     }
 
     public boolean toggleLayerVisibility(LayerDefinition layerDefinition) {
@@ -76,21 +105,31 @@ public class WorldBuilder {
         return tileImage;
     }
 
-    public void placeTile(int tileX, int tileY) {
+    public void placeTile(int worldX, int worldY) {
         // Only allow tile place if the World Builder is open
         if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
         if (useEraser) {
-            placeTile(currentLayer, 0, tileX, tileY);
-            new WorldBuilderPacketOut(currentLayer, 0, (short) tileX, (short) tileY).sendPacket();
+
+            placeTile(currentLayer, ClientConstants.BLANK_TILE_ID, worldX, worldY);
         } else {
-            placeTile(currentLayer, currentTextureId, tileX, tileY);
-            new WorldBuilderPacketOut(currentLayer, currentTextureId, (short) tileX, (short) tileY).sendPacket();
+            // NOT USING ERASER
+            if (useWangTile) {
+                // BUILDING USING WANG BRUSH, AUTO SELECT THE TILE!
+                int autoTileID = wangTile16Bit.autoTile(currentLayer, worldX, worldY);
+                TileImage tileImage = getTileImage(wangRegionNamePrefix + autoTileID);
+                placeTile(currentLayer, tileImage.getImageId(), worldX, worldY);
+                wangTile16Bit.updateAroundTile(currentLayer, worldX, worldY);
+            } else {
+                // BUILDING USING DRAW BRUSH, USE USER SELECTED TILE!
+                placeTile(currentLayer, currentTextureId, worldX, worldY);
+            }
         }
     }
 
-    public void placeTile(LayerDefinition layerDefinition, int textureId, int tileX, int tileY) {
+    public void placeTile(LayerDefinition layerDefinition, int textureId, int worldX, int worldY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        gameWorld.setTileImage(layerDefinition, tileImageMap.get(textureId), tileX, tileY);
+        gameWorld.setTileImage(layerDefinition, tileImageMap.get(textureId), worldX, worldY);
+        new WorldBuilderPacketOut(currentLayer, textureId, (short) worldX, (short) worldY).sendPacket();
     }
 
     public void drawMouse(SpriteBatch spriteBatch) {
@@ -99,12 +138,19 @@ public class WorldBuilder {
         int x = mouseManager.getMouseTileX() * 16;
         int y = mouseManager.getMouseTileY() * 16;
 
+        // Set alpha to .5
+        Color color = spriteBatch.getColor();
+        spriteBatch.setColor(color.r, color.g, color.b, .5f);
+
         if (useEraser) {
             spriteBatch.draw(ClientMain.getInstance().getGameScreen().getInvalidTileLocationTexture(), x, y);
         } else {
             TextureAtlas.AtlasRegion region = textureAtlas.findRegion(tileImageMap.get(currentTextureId).getFileName());
             spriteBatch.draw(region, x, y, region.getRegionWidth(), region.getRegionHeight());
         }
+
+        // Reset alpha
+        spriteBatch.setColor(color.r, color.g, color.b, 1f);
     }
 
     public void addNewTile(TileImage newTileImage) {

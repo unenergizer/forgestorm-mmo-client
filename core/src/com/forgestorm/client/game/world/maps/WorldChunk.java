@@ -36,6 +36,11 @@ public class WorldChunk {
         this.chunkY = chunkY;
     }
 
+    private void initTileLayer(LayerDefinition layerDefinition) {
+        if (layers.containsKey(layerDefinition)) return;
+        layers.put(layerDefinition, new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
+    }
+
     public void setTileImages(LayerDefinition layerDefinition, byte section, TileImage[] tileImages) {
         initTileLayer(layerDefinition);
 
@@ -49,17 +54,12 @@ public class WorldChunk {
         layers.get(layerDefinition)[index] = tileImage;
     }
 
-    private void initTileLayer(LayerDefinition layerDefinition) {
-        if (layers.containsKey(layerDefinition)) return;
-        layers.put(layerDefinition, new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
-    }
-
-    void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int localX, int localY) {
+    void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int chunkX, int chunkY) {
         initTileLayer(layerDefinition);
-        TileImage currentTileImage = layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
+        TileImage currentTileImage = layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE];
 
         // Set the new TileImage
-        layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tileImage;
+        layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE] = tileImage;
 
         // Check tile image
         if (currentTileImage == null || currentTileImage.getImageId() == 0) {
@@ -68,6 +68,10 @@ public class WorldChunk {
                 ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]Tried to erase tile, but nothing happened. Check your layer!");
             }
         }
+    }
+
+    TileImage getTileImage(LayerDefinition layerDefinition, int chunkX, int chunkY) {
+        return layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE];
     }
 
     public boolean isTraversable(int localX, int localY) {

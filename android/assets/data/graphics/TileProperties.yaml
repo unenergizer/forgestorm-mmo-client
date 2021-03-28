@@ -4,42 +4,42 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 2:
   buildCategory: DECORATION
   fileName: bag-03
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 3:
   buildCategory: DECORATION
   fileName: bag-04
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 4:
   buildCategory: DECORATION
   fileName: barrel-big-01
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 5:
   buildCategory: DECORATION
   fileName: barrel-big-02
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 6:
   buildCategory: DECORATION
   fileName: barrel-big-03
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 7:
   buildCategory: WALL
   fileName: brick-wall-gray
@@ -71,7 +71,7 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 16:
   buildCategory: WALKABLE
   fileName: '5'
@@ -90,32 +90,32 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
+        - false
+        - true
 21:
   buildCategory: DECORATION
   fileName: barrel-big-05
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - true
+        - false
+        - true
+        - false
+        - true
 22:
   buildCategory: DECORATION
   fileName: barrel-small-01
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 23:
   buildCategory: DECORATION
   fileName: barrel-small-02
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 24:
   buildCategory: DECORATION
   fileName: bed-frame-01
@@ -128,10 +128,10 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - true
+        - false
+        - true
+        - false
+        - true
 27:
   buildCategory: DECORATION
   fileName: booth-blue-left
@@ -156,147 +156,147 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 34:
   buildCategory: DECORATION
   fileName: box-02
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 35:
   buildCategory: DECORATION
   fileName: box-03
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 36:
   buildCategory: DECORATION
   fileName: box-06
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
+        - false
+        - true
 37:
   buildCategory: DECORATION
   fileName: box-07
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 38:
   buildCategory: DECORATION
   fileName: box-08
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 39:
   buildCategory: DECORATION
   fileName: box-09
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 40:
   buildCategory: DECORATION
   fileName: box-10
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 41:
   buildCategory: DECORATION
   fileName: box-13
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 42:
   buildCategory: DECORATION
   fileName: box-14
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 43:
   buildCategory: DECORATION
   fileName: box-15
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 44:
   buildCategory: DECORATION
   fileName: box-16
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 45:
   buildCategory: DECORATION
   fileName: box-17
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 46:
   buildCategory: DECORATION
   fileName: bush-large-01
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - true
+        - false
+        - true
+        - false
+        - true
 47:
   buildCategory: DECORATION
   fileName: bush-large-02
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - true
+        - false
+        - true
+        - false
+        - true
 48:
   buildCategory: DECORATION
   fileName: bush-small-01
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 49:
   buildCategory: DECORATION
   fileName: bush-small-04
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 50:
   buildCategory: DECORATION
   fileName: bush-small-05
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 51:
   buildCategory: DECORATION
   fileName: bush-small-06
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 52:
   buildCategory: DECORATION
   fileName: bush-small-07
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 53:
   buildCategory: DECORATION
   fileName: cactus-01
@@ -357,8 +357,8 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
+        - false
+        - true
 72:
   buildCategory: DECORATION
   fileName: column-stone-broken-01
@@ -572,6 +572,24 @@
 142:
   buildCategory: WALKABLE
   fileName: mushroom-porch
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
+        - true
+        - true
+        - true
+        - true
+        - true
 143:
   buildCategory: DECORATION
   fileName: mushroom-small-01
@@ -848,12 +866,12 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - false
-      - false
-      - true
+        - false
+        - true
+        - false
+        - false
+        - false
+        - true
 234:
   buildCategory: ROOF
   fileName: stone-wall-arch-mossy
@@ -923,26 +941,26 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - false
-      - false
-      - false
-      - false
-      - false
-      - false
-      - false
-      - true
-      - true
-      - false
-      - false
-      - false
-      - true
-      - true
-      - false
-      - false
-      - false
-      - false
-      - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - false
+        - true
+        - true
+        - false
+        - false
+        - false
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
+        - false
 256:
   buildCategory: DECORATION
   fileName: tree-medium-03
@@ -967,20 +985,20 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - true
+        - false
+        - true
+        - false
+        - true
 263:
   buildCategory: DECORATION
   fileName: tree-medium-02
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - false
-      - true
-      - false
-      - true
+        - false
+        - true
+        - false
+        - true
 264:
   buildCategory: DECORATION
   fileName: tree-medium-08
@@ -1143,21 +1161,21 @@
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 317:
   buildCategory: DECORATION
   fileName: box-12
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 318:
   buildCategory: DECORATION
   fileName: bush-small-03
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
-      - true
+        - true
 319:
   buildCategory: DECORATION
   fileName: cactus-03
@@ -1204,10 +1222,10 @@
   buildCategory: DECORATION
   fileName: lillypad-04
 334:
-  buildCategory: WALL
+  buildCategory: DECORATION
   fileName: mushroom-house-base-green
 335:
-  buildCategory: WALL
+  buildCategory: DECORATION
   fileName: mushroom-house-mini-floor-red-02
 336:
   buildCategory: DECORATION
@@ -1542,3 +1560,1608 @@
 446:
   buildCategory: WALL
   fileName: stone-wall-bottom-right
+447:
+  buildCategory: DECORATION
+  fileName: wooden-support-03
+448:
+  buildCategory: DECORATION
+  fileName: wooden-support-02
+449:
+  buildCategory: DECORATION
+  fileName: wooden-support-01
+450:
+  buildCategory: ROOF
+  fileName: roof-blue-01
+451:
+  buildCategory: ROOF
+  fileName: roof-blue-02
+452:
+  buildCategory: ROOF
+  fileName: roof-blue-03
+453:
+  buildCategory: ROOF
+  fileName: roof-blue-04
+454:
+  buildCategory: ROOF
+  fileName: roof-blue-05
+455:
+  buildCategory: ROOF
+  fileName: roof-blue-06
+456:
+  buildCategory: ROOF
+  fileName: roof-blue-07
+457:
+  buildCategory: ROOF
+  fileName: roof-blue-08
+458:
+  buildCategory: ROOF
+  fileName: roof-blue-35
+459:
+  buildCategory: ROOF
+  fileName: roof-blue-09
+460:
+  buildCategory: ROOF
+  fileName: roof-blue-10
+461:
+  buildCategory: ROOF
+  fileName: roof-blue-11
+462:
+  buildCategory: ROOF
+  fileName: roof-blue-12
+463:
+  buildCategory: ROOF
+  fileName: roof-blue-13
+464:
+  buildCategory: ROOF
+  fileName: roof-blue-14
+465:
+  buildCategory: ROOF
+  fileName: roof-blue-20
+466:
+  buildCategory: ROOF
+  fileName: roof-blue-15
+467:
+  buildCategory: ROOF
+  fileName: roof-blue-16
+468:
+  buildCategory: ROOF
+  fileName: roof-blue-17
+469:
+  buildCategory: ROOF
+  fileName: roof-blue-18
+470:
+  buildCategory: ROOF
+  fileName: roof-blue-19
+471:
+  buildCategory: ROOF
+  fileName: roof-blue-21
+472:
+  buildCategory: ROOF
+  fileName: roof-blue-22
+473:
+  buildCategory: ROOF
+  fileName: roof-blue-23
+474:
+  buildCategory: ROOF
+  fileName: roof-blue-24
+475:
+  buildCategory: ROOF
+  fileName: roof-blue-25
+476:
+  buildCategory: ROOF
+  fileName: roof-blue-26
+477:
+  buildCategory: ROOF
+  fileName: roof-blue-27
+478:
+  buildCategory: ROOF
+  fileName: roof-blue-28
+479:
+  buildCategory: ROOF
+  fileName: roof-blue-30
+480:
+  buildCategory: ROOF
+  fileName: roof-blue-31
+481:
+  buildCategory: ROOF
+  fileName: roof-blue-32
+482:
+  buildCategory: ROOF
+  fileName: roof-blue-33
+483:
+  buildCategory: ROOF
+  fileName: roof-blue-34
+484:
+  buildCategory: ROOF
+  fileName: roof-blue-36
+485:
+  buildCategory: DECORATION
+  fileName: mushroom-door-01
+486:
+  buildCategory: DECORATION
+  fileName: mushroom-door-02
+487:
+  buildCategory: DECORATION
+  fileName: mushroom-door-03
+488:
+  buildCategory: DECORATION
+  fileName: mushroom-door-04
+489:
+  buildCategory: DECORATION
+  fileName: mushroom-door-05
+490:
+  buildCategory: DECORATION
+  fileName: mushroom-door-06
+491:
+  buildCategory: DECORATION
+  fileName: mushroom-door-07
+492:
+  buildCategory: DECORATION
+  fileName: mushroom-house-base-blue
+493:
+  buildCategory: DECORATION
+  fileName: mushroom-house-blue-addon-01
+494:
+  buildCategory: DECORATION
+  fileName: mushroom-house-blue-addon-02
+495:
+  buildCategory: DECORATION
+  fileName: mushroom-house-blue-addon-03
+496:
+  buildCategory: DECORATION
+  fileName: mushroom-house-blue-addon-04
+497:
+  buildCategory: DECORATION
+  fileName: mushroom-house-blue-addon-05
+498:
+  buildCategory: DECORATION
+  fileName: mushroom-house-red-addon-05
+499:
+  buildCategory: DECORATION
+  fileName: mushroom-house-blue-addon-06
+500:
+  buildCategory: DECORATION
+  fileName: mushroom-house-red-addon-06
+501:
+  buildCategory: DECORATION
+  fileName: mushroom-house-green-addon-01
+502:
+  buildCategory: DECORATION
+  fileName: mushroom-house-green-addon-02
+503:
+  buildCategory: DECORATION
+  fileName: mushroom-house-green-addon-03
+504:
+  buildCategory: DECORATION
+  fileName: mushroom-house-green-addon-04
+505:
+  buildCategory: DECORATION
+  fileName: mushroom-house-green-addon-05
+506:
+  buildCategory: DECORATION
+  fileName: mushroom-house-green-addon-06
+507:
+  buildCategory: DECORATION
+  fileName: mushroom-house-mini-floor-red-01
+508:
+  buildCategory: DECORATION
+  fileName: mushroom-house-red-addon-01
+509:
+  buildCategory: DECORATION
+  fileName: mushroom-house-red-addon-02
+510:
+  buildCategory: DECORATION
+  fileName: mushroom-house-red-addon-03
+511:
+  buildCategory: DECORATION
+  fileName: mushroom-house-red-addon-04
+512:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-218
+  tileProperties:
+    WANG_TILE: {
+    }
+513:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-16
+  tileProperties:
+    WANG_TILE: {
+    }
+514:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-10
+  tileProperties:
+    WANG_TILE: {
+    }
+515:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-255
+  tileProperties:
+    WANG_TILE: {
+    }
+516:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-0
+  tileProperties:
+    WANG_TILE: {
+    }
+517:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-107
+  tileProperties:
+    WANG_TILE: {
+    }
+518:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-22
+  tileProperties:
+    WANG_TILE: {
+    }
+519:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-104
+  tileProperties:
+    WANG_TILE: {
+    }
+520:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-106
+  tileProperties:
+    WANG_TILE: {
+    }
+521:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-11
+  tileProperties:
+    WANG_TILE: {
+    }
+522:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-2
+  tileProperties:
+    WANG_TILE: {
+    }
+523:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-18
+  tileProperties:
+    WANG_TILE: {
+    }
+524:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-127
+  tileProperties:
+    WANG_TILE: {
+    }
+525:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-126
+  tileProperties:
+    WANG_TILE: {
+    }
+526:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-123
+  tileProperties:
+    WANG_TILE: {
+    }
+527:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-122
+  tileProperties:
+    WANG_TILE: {
+    }
+528:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-120
+  tileProperties:
+    WANG_TILE: {
+    }
+529:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-208
+  tileProperties:
+    WANG_TILE: {
+    }
+530:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-210
+  tileProperties:
+    WANG_TILE: {
+    }
+531:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-214
+  tileProperties:
+    WANG_TILE: {
+    }
+532:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-216
+  tileProperties:
+    WANG_TILE: {
+    }
+533:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-219
+  tileProperties:
+    WANG_TILE: {
+    }
+534:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-222
+  tileProperties:
+    WANG_TILE: {
+    }
+535:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-27
+  tileProperties:
+    WANG_TILE: {
+    }
+536:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-26
+  tileProperties:
+    WANG_TILE: {
+    }
+537:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-254
+  tileProperties:
+    WANG_TILE: {
+    }
+538:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-251
+  tileProperties:
+    WANG_TILE: {
+    }
+539:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-250
+  tileProperties:
+    WANG_TILE: {
+    }
+540:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-248
+  tileProperties:
+    WANG_TILE: {
+    }
+541:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-24
+  tileProperties:
+    WANG_TILE: {
+    }
+542:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-223
+  tileProperties:
+    WANG_TILE: {
+    }
+543:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-30
+  tileProperties:
+    WANG_TILE: {
+    }
+544:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-31
+  tileProperties:
+    WANG_TILE: {
+    }
+545:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-64
+  tileProperties:
+    WANG_TILE: {
+    }
+546:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-66
+  tileProperties:
+    WANG_TILE: {
+    }
+547:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-72
+  tileProperties:
+    WANG_TILE: {
+    }
+548:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-74
+  tileProperties:
+    WANG_TILE: {
+    }
+549:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-75
+  tileProperties:
+    WANG_TILE: {
+    }
+550:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-8
+  tileProperties:
+    WANG_TILE: {
+    }
+551:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-95
+  tileProperties:
+    WANG_TILE: {
+    }
+552:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-94
+  tileProperties:
+    WANG_TILE: {
+    }
+553:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-91
+  tileProperties:
+    WANG_TILE: {
+    }
+554:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-90
+  tileProperties:
+    WANG_TILE: {
+    }
+555:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-88
+  tileProperties:
+    WANG_TILE: {
+    }
+556:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-86
+  tileProperties:
+    WANG_TILE: {
+    }
+557:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-82
+  tileProperties:
+    WANG_TILE: {
+    }
+558:
+  buildCategory: WANG
+  fileName: BW16-grass-dirt-80
+  tileProperties:
+    WANG_TILE: {
+    }
+559:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-218
+  tileProperties:
+    WANG_TILE: {
+    }
+560:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-127
+  tileProperties:
+    WANG_TILE: {
+    }
+561:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-0
+  tileProperties:
+    WANG_TILE: {
+    }
+562:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-10
+  tileProperties:
+    WANG_TILE: {
+    }
+563:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-104
+  tileProperties:
+    WANG_TILE: {
+    }
+564:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-106
+  tileProperties:
+    WANG_TILE: {
+    }
+565:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-107
+  tileProperties:
+    WANG_TILE: {
+    }
+566:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-11
+  tileProperties:
+    WANG_TILE: {
+    }
+567:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-120
+  tileProperties:
+    WANG_TILE: {
+    }
+568:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-122
+  tileProperties:
+    WANG_TILE: {
+    }
+569:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-123
+  tileProperties:
+    WANG_TILE: {
+    }
+570:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-126
+  tileProperties:
+    WANG_TILE: {
+    }
+571:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-16
+  tileProperties:
+    WANG_TILE: {
+    }
+572:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-18
+  tileProperties:
+    WANG_TILE: {
+    }
+573:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-22
+  tileProperties:
+    WANG_TILE: {
+    }
+574:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-219
+  tileProperties:
+    WANG_TILE: {
+    }
+575:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-216
+  tileProperties:
+    WANG_TILE: {
+    }
+576:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-214
+  tileProperties:
+    WANG_TILE: {
+    }
+577:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-210
+  tileProperties:
+    WANG_TILE: {
+    }
+578:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-208
+  tileProperties:
+    WANG_TILE: {
+    }
+579:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-2
+  tileProperties:
+    WANG_TILE: {
+    }
+580:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-222
+  tileProperties:
+    WANG_TILE: {
+    }
+581:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-223
+  tileProperties:
+    WANG_TILE: {
+    }
+582:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-24
+  tileProperties:
+    WANG_TILE: {
+    }
+583:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-248
+  tileProperties:
+    WANG_TILE: {
+    }
+584:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-250
+  tileProperties:
+    WANG_TILE: {
+    }
+585:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-251
+  tileProperties:
+    WANG_TILE: {
+    }
+586:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-254
+  tileProperties:
+    WANG_TILE: {
+    }
+587:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-255
+  tileProperties:
+    WANG_TILE: {
+    }
+588:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-74
+  tileProperties:
+    WANG_TILE: {
+    }
+589:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-72
+  tileProperties:
+    WANG_TILE: {
+    }
+590:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-66
+  tileProperties:
+    WANG_TILE: {
+    }
+591:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-64
+  tileProperties:
+    WANG_TILE: {
+    }
+592:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-31
+  tileProperties:
+    WANG_TILE: {
+    }
+593:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-30
+  tileProperties:
+    WANG_TILE: {
+    }
+594:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-27
+  tileProperties:
+    WANG_TILE: {
+    }
+595:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-26
+  tileProperties:
+    WANG_TILE: {
+    }
+596:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-75
+  tileProperties:
+    WANG_TILE: {
+    }
+597:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-8
+  tileProperties:
+    WANG_TILE: {
+    }
+598:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-80
+  tileProperties:
+    WANG_TILE: {
+    }
+599:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-82
+  tileProperties:
+    WANG_TILE: {
+    }
+600:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-86
+  tileProperties:
+    WANG_TILE: {
+    }
+601:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-88
+  tileProperties:
+    WANG_TILE: {
+    }
+602:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-90
+  tileProperties:
+    WANG_TILE: {
+    }
+603:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-91
+  tileProperties:
+    WANG_TILE: {
+    }
+604:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-11
+  tileProperties:
+    WANG_TILE: {
+    }
+605:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-107
+  tileProperties:
+    WANG_TILE: {
+    }
+606:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-106
+  tileProperties:
+    WANG_TILE: {
+    }
+607:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-104
+  tileProperties:
+    WANG_TILE: {
+    }
+608:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-10
+  tileProperties:
+    WANG_TILE: {
+    }
+609:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-0
+  tileProperties:
+    WANG_TILE: {
+    }
+610:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-95
+  tileProperties:
+    WANG_TILE: {
+    }
+611:
+  buildCategory: WANG
+  fileName: BW16-dirt-darkdirt-94
+  tileProperties:
+    WANG_TILE: {
+    }
+612:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-120
+  tileProperties:
+    WANG_TILE: {
+    }
+613:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-122
+  tileProperties:
+    WANG_TILE: {
+    }
+614:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-123
+  tileProperties:
+    WANG_TILE: {
+    }
+615:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-126
+  tileProperties:
+    WANG_TILE: {
+    }
+616:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-127
+  tileProperties:
+    WANG_TILE: {
+    }
+617:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-16
+  tileProperties:
+    WANG_TILE: {
+    }
+618:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-18
+  tileProperties:
+    WANG_TILE: {
+    }
+619:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-2
+  tileProperties:
+    WANG_TILE: {
+    }
+620:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-222
+  tileProperties:
+    WANG_TILE: {
+    }
+621:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-22
+  tileProperties:
+    WANG_TILE: {
+    }
+622:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-219
+  tileProperties:
+    WANG_TILE: {
+    }
+623:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-218
+  tileProperties:
+    WANG_TILE: {
+    }
+624:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-216
+  tileProperties:
+    WANG_TILE: {
+    }
+625:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-214
+  tileProperties:
+    WANG_TILE: {
+    }
+626:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-210
+  tileProperties:
+    WANG_TILE: {
+    }
+627:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-208
+  tileProperties:
+    WANG_TILE: {
+    }
+628:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-223
+  tileProperties:
+    WANG_TILE: {
+    }
+629:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-24
+  tileProperties:
+    WANG_TILE: {
+    }
+630:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-248
+  tileProperties:
+    WANG_TILE: {
+    }
+631:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-250
+  tileProperties:
+    WANG_TILE: {
+    }
+632:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-251
+  tileProperties:
+    WANG_TILE: {
+    }
+633:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-254
+  tileProperties:
+    WANG_TILE: {
+    }
+634:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-255
+  tileProperties:
+    WANG_TILE: {
+    }
+635:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-26
+  tileProperties:
+    WANG_TILE: {
+    }
+636:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-75
+  tileProperties:
+    WANG_TILE: {
+    }
+637:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-74
+  tileProperties:
+    WANG_TILE: {
+    }
+638:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-72
+  tileProperties:
+    WANG_TILE: {
+    }
+639:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-66
+  tileProperties:
+    WANG_TILE: {
+    }
+640:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-64
+  tileProperties:
+    WANG_TILE: {
+    }
+641:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-31
+  tileProperties:
+    WANG_TILE: {
+    }
+642:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-30
+  tileProperties:
+    WANG_TILE: {
+    }
+643:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-27
+  tileProperties:
+    WANG_TILE: {
+    }
+644:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-8
+  tileProperties:
+    WANG_TILE: {
+    }
+645:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-80
+  tileProperties:
+    WANG_TILE: {
+    }
+646:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-82
+  tileProperties:
+    WANG_TILE: {
+    }
+647:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-86
+  tileProperties:
+    WANG_TILE: {
+    }
+648:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-88
+  tileProperties:
+    WANG_TILE: {
+    }
+649:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-90
+  tileProperties:
+    WANG_TILE: {
+    }
+650:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-91
+  tileProperties:
+    WANG_TILE: {
+    }
+651:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-94
+  tileProperties:
+    WANG_TILE: {
+    }
+652:
+  buildCategory: WANG
+  fileName: BW16-dirt-pathway-95
+  tileProperties:
+    WANG_TILE: {
+    }
+653:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-0
+  tileProperties:
+    WANG_TILE: {
+    }
+654:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-10
+  tileProperties:
+    WANG_TILE: {
+    }
+655:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-126
+  tileProperties:
+    WANG_TILE: {
+    }
+656:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-123
+  tileProperties:
+    WANG_TILE: {
+    }
+657:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-122
+  tileProperties:
+    WANG_TILE: {
+    }
+658:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-120
+  tileProperties:
+    WANG_TILE: {
+    }
+659:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-11
+  tileProperties:
+    WANG_TILE: {
+    }
+660:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-107
+  tileProperties:
+    WANG_TILE: {
+    }
+661:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-106
+  tileProperties:
+    WANG_TILE: {
+    }
+662:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-104
+  tileProperties:
+    WANG_TILE: {
+    }
+663:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-127
+  tileProperties:
+    WANG_TILE: {
+    }
+664:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-16
+  tileProperties:
+    WANG_TILE: {
+    }
+665:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-18
+  tileProperties:
+    WANG_TILE: {
+    }
+666:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-2
+  tileProperties:
+    WANG_TILE: {
+    }
+667:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-208
+  tileProperties:
+    WANG_TILE: {
+    }
+668:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-210
+  tileProperties:
+    WANG_TILE: {
+    }
+669:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-214
+  tileProperties:
+    WANG_TILE: {
+    }
+670:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-216
+  tileProperties:
+    WANG_TILE: {
+    }
+671:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-250
+  tileProperties:
+    WANG_TILE: {
+    }
+672:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-248
+  tileProperties:
+    WANG_TILE: {
+    }
+673:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-24
+  tileProperties:
+    WANG_TILE: {
+    }
+674:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-223
+  tileProperties:
+    WANG_TILE: {
+    }
+675:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-222
+  tileProperties:
+    WANG_TILE: {
+    }
+676:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-22
+  tileProperties:
+    WANG_TILE: {
+    }
+677:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-219
+  tileProperties:
+    WANG_TILE: {
+    }
+678:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-218
+  tileProperties:
+    WANG_TILE: {
+    }
+679:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-251
+  tileProperties:
+    WANG_TILE: {
+    }
+680:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-254
+  tileProperties:
+    WANG_TILE: {
+    }
+681:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-255
+  tileProperties:
+    WANG_TILE: {
+    }
+682:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-26
+  tileProperties:
+    WANG_TILE: {
+    }
+683:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-27
+  tileProperties:
+    WANG_TILE: {
+    }
+684:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-30
+  tileProperties:
+    WANG_TILE: {
+    }
+685:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-31
+  tileProperties:
+    WANG_TILE: {
+    }
+686:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-64
+  tileProperties:
+    WANG_TILE: {
+    }
+687:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-86
+  tileProperties:
+    WANG_TILE: {
+    }
+688:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-82
+  tileProperties:
+    WANG_TILE: {
+    }
+689:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-80
+  tileProperties:
+    WANG_TILE: {
+    }
+690:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-8
+  tileProperties:
+    WANG_TILE: {
+    }
+691:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-75
+  tileProperties:
+    WANG_TILE: {
+    }
+692:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-74
+  tileProperties:
+    WANG_TILE: {
+    }
+693:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-72
+  tileProperties:
+    WANG_TILE: {
+    }
+694:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-66
+  tileProperties:
+    WANG_TILE: {
+    }
+695:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-88
+  tileProperties:
+    WANG_TILE: {
+    }
+696:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-90
+  tileProperties:
+    WANG_TILE: {
+    }
+697:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-91
+  tileProperties:
+    WANG_TILE: {
+    }
+698:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-94
+  tileProperties:
+    WANG_TILE: {
+    }
+699:
+  buildCategory: WANG
+  fileName: BW16-grass-sand-95
+  tileProperties:
+    WANG_TILE: {
+    }
+700:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-0
+  tileProperties:
+    WANG_TILE: {
+    }
+701:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-10
+  tileProperties:
+    WANG_TILE: {
+    }
+702:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-104
+  tileProperties:
+    WANG_TILE: {
+    }
+703:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-127
+  tileProperties:
+    WANG_TILE: {
+    }
+704:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-126
+  tileProperties:
+    WANG_TILE: {
+    }
+705:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-123
+  tileProperties:
+    WANG_TILE: {
+    }
+706:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-122
+  tileProperties:
+    WANG_TILE: {
+    }
+707:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-120
+  tileProperties:
+    WANG_TILE: {
+    }
+708:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-11
+  tileProperties:
+    WANG_TILE: {
+    }
+709:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-107
+  tileProperties:
+    WANG_TILE: {
+    }
+710:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-106
+  tileProperties:
+    WANG_TILE: {
+    }
+711:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-16
+  tileProperties:
+    WANG_TILE: {
+    }
+712:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-18
+  tileProperties:
+    WANG_TILE: {
+    }
+713:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-2
+  tileProperties:
+    WANG_TILE: {
+    }
+714:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-208
+  tileProperties:
+    WANG_TILE: {
+    }
+715:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-210
+  tileProperties:
+    WANG_TILE: {
+    }
+716:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-214
+  tileProperties:
+    WANG_TILE: {
+    }
+717:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-216
+  tileProperties:
+    WANG_TILE: {
+    }
+718:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-218
+  tileProperties:
+    WANG_TILE: {
+    }
+719:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-251
+  tileProperties:
+    WANG_TILE: {
+    }
+720:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-250
+  tileProperties:
+    WANG_TILE: {
+    }
+721:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-248
+  tileProperties:
+    WANG_TILE: {
+    }
+722:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-24
+  tileProperties:
+    WANG_TILE: {
+    }
+723:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-223
+  tileProperties:
+    WANG_TILE: {
+    }
+724:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-222
+  tileProperties:
+    WANG_TILE: {
+    }
+725:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-22
+  tileProperties:
+    WANG_TILE: {
+    }
+726:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-219
+  tileProperties:
+    WANG_TILE: {
+    }
+727:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-254
+  tileProperties:
+    WANG_TILE: {
+    }
+728:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-255
+  tileProperties:
+    WANG_TILE: {
+    }
+729:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-26
+  tileProperties:
+    WANG_TILE: {
+    }
+730:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-27
+  tileProperties:
+    WANG_TILE: {
+    }
+731:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-30
+  tileProperties:
+    WANG_TILE: {
+    }
+732:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-31
+  tileProperties:
+    WANG_TILE: {
+    }
+733:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-64
+  tileProperties:
+    WANG_TILE: {
+    }
+734:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-66
+  tileProperties:
+    WANG_TILE: {
+    }
+735:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-88
+  tileProperties:
+    WANG_TILE: {
+    }
+736:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-86
+  tileProperties:
+    WANG_TILE: {
+    }
+737:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-82
+  tileProperties:
+    WANG_TILE: {
+    }
+738:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-80
+  tileProperties:
+    WANG_TILE: {
+    }
+739:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-8
+  tileProperties:
+    WANG_TILE: {
+    }
+740:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-75
+  tileProperties:
+    WANG_TILE: {
+    }
+741:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-74
+  tileProperties:
+    WANG_TILE: {
+    }
+742:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-72
+  tileProperties:
+    WANG_TILE: {
+    }
+743:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-90
+  tileProperties:
+    WANG_TILE: {
+    }
+744:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-91
+  tileProperties:
+    WANG_TILE: {
+    }
+745:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-94
+  tileProperties:
+    WANG_TILE: {
+    }
+746:
+  buildCategory: WANG
+  fileName: BW16-rough-dirt-95
+  tileProperties:
+    WANG_TILE: {
+    }
