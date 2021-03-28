@@ -7,7 +7,6 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
-import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
@@ -56,18 +55,9 @@ public class WorldChunk {
 
     void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int chunkX, int chunkY) {
         initTileLayer(layerDefinition);
-        TileImage currentTileImage = layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE];
 
         // Set the new TileImage
         layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE] = tileImage;
-
-        // Check tile image
-        if (currentTileImage == null || currentTileImage.getImageId() == 0) {
-            if (tileImage == null || tileImage.getImageId() == 0) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(WorldChunk.class, (short) 10);
-                ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]Tried to erase tile, but nothing happened. Check your layer!");
-            }
-        }
     }
 
     TileImage getTileImage(LayerDefinition layerDefinition, int chunkX, int chunkY) {
