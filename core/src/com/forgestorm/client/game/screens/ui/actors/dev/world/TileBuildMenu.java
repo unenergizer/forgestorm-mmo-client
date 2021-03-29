@@ -44,6 +44,10 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
     private final Map<LayerDefinition, VisTextButton> layerButtonMap = new HashMap<LayerDefinition, VisTextButton>();
     private final List<VisImageButton> editorButtonList = new ArrayList<VisImageButton>();
 
+    private VisImageButton drawlButton;
+    private VisImageButton eraserButton;
+    private VisImageButton wangBrushButton;
+
     private TabbedPane tabbedPane;
 
     public TileBuildMenu() {
@@ -67,9 +71,9 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         // BUILD TOOLS
         final VisTable toolsTable = new VisTable(true);
-        final VisImageButton drawlButton = new VisImageButton(drawl, "Drawl Tool");
-        final VisImageButton eraserButton = new VisImageButton(eraser, "Eraser Tool");
-        final VisImageButton wangBrushButton = new VisImageButton(wangBrush, "Wang Brush");
+        drawlButton = new VisImageButton(drawl, "Drawl Tool");
+        eraserButton = new VisImageButton(eraser, "Eraser Tool");
+        wangBrushButton = new VisImageButton(wangBrush, "Wang Brush");
         final VisImageButton allowRunningButton = new VisImageButton(runAllow, "Allow/Prevent Click to Move");
 
         drawlButton.setGenerateDisabledImage(true);
@@ -89,32 +93,21 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         drawlButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                activateOtherButton();
-                drawlButton.setDisabled(true);
-                drawlButton.setColor(Color.RED);
-                tabbedPane.switchTab(0);
+                activateTool(Tools.DRAWL);
             }
         });
 
         eraserButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                activateOtherButton();
-                worldBuilder.setUseEraser(true);
-                eraserButton.setDisabled(true);
-                eraserButton.setColor(Color.RED);
+                activateTool(Tools.ERASE);
             }
         });
 
         wangBrushButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                activateOtherButton();
-                worldBuilder.setUseWangTile(true);
-                worldBuilder.setCurrentLayer(LayerDefinition.GROUND);
-                wangBrushButton.setDisabled(true);
-                wangBrushButton.setColor(Color.RED);
-                tabbedPane.switchTab(BuildCategory.WANG.ordinal());
+                activateTool(Tools.WANG);
             }
         });
 
@@ -259,6 +252,30 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         worldBuilder.setUseWangTile(false);
     }
 
+    private void activateTool(Tools tool) {
+        activateOtherButton();
+
+        switch (tool) {
+            case DRAWL:
+                drawlButton.setDisabled(true);
+                drawlButton.setColor(Color.RED);
+                tabbedPane.switchTab(0);
+                break;
+            case ERASE:
+                worldBuilder.setUseEraser(true);
+                eraserButton.setDisabled(true);
+                eraserButton.setColor(Color.RED);
+                break;
+            case WANG:
+                worldBuilder.setUseWangTile(true);
+                worldBuilder.setCurrentLayer(LayerDefinition.GROUND);
+                wangBrushButton.setDisabled(true);
+                wangBrushButton.setColor(Color.RED);
+                tabbedPane.switchTab(BuildCategory.WANG.ordinal());
+                break;
+        }
+    }
+
     private void findPosition() {
         setPosition(Gdx.graphics.getWidth() - getWidth(), Gdx.graphics.getHeight() - getHeight());
     }
@@ -328,6 +345,8 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
                         // See if this TileImage is a WangTile
                         if (tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                            activateTool(Tools.WANG);
+
                             Map<Integer, WangTile> wangs = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
                             for (Map.Entry<Integer, WangTile> entry : wangs.entrySet()) {
                                 int id = entry.getKey();
@@ -337,6 +356,8 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                                     worldBuilder.setCurrentWangId(id);
                                 }
                             }
+                        } else {
+                            activateTool(Tools.DRAWL);
                         }
                     }
                 });
@@ -356,5 +377,11 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         public Table getContentTable() {
             return contentTable;
         }
+    }
+
+    enum Tools {
+        DRAWL,
+        ERASE,
+        WANG
     }
 }
