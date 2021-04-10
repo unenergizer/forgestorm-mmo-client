@@ -219,10 +219,8 @@ public class NpcTab extends EditorTab {
         validator.valueGreaterThan(walkSpeed, "Walk Speed must be greater than 0.", 0, true);
         validator.integerNumber(shopId, "Shop ID must be a valid number.");
         validator.notEmpty(worldName, "Map name must not be empty.");
-        validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
-        validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
-        validator.valueGreaterThan(mapY, "Map Y must be greater than -1.", 0, true);
-        validator.valueLesserThan(mapY, "Map Y must be less than 97.", 54, true);
+        validator.integerNumber(mapX, "Map X must be a valid number.");
+        validator.integerNumber(mapY, "Map Y must be a valid number.");
 
         // Spawn location Selection
         worldName.setDisabled(true);
@@ -411,7 +409,7 @@ public class NpcTab extends EditorTab {
         getEntityEditor().pack();
     }
 
-    void colorPicker(VisTable mainTable, String labelName, final VisSelectBox visSelectBox, final ColorPickerColorHandler colorPickerColorHandler) {
+    void colorPicker(VisTable mainTable, String labelName, final VisSelectBox<LibGDXColorList> visSelectBox, final ColorPickerColorHandler colorPickerColorHandler) {
         VisTable visTable = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
         VisTextButton visTextButton = new VisTextButton("Pick Color");
@@ -423,7 +421,7 @@ public class NpcTab extends EditorTab {
         visSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                @SuppressWarnings("ConstantConditions") Color color = LibGDXColorList.getType((byte) visSelectBox.getSelectedIndex()).getColor();
+                Color color = LibGDXColorList.getType((byte) visSelectBox.getSelectedIndex()).getColor();
                 colorPickerColorHandler.doColorChange(color);
                 colorPickerColorHandler.setFinishedColor(color);
             }
@@ -458,8 +456,8 @@ public class NpcTab extends EditorTab {
     private EntityEditorData generateDataOut(boolean save, boolean delete) {
         Location location = new Location(
                 worldName.getText(),
-                Integer.valueOf(mapX.getText()),
-                Integer.valueOf(mapY.getText()));
+                Integer.parseInt(mapX.getText()),
+                Integer.parseInt(mapY.getText()));
 
         EntityEditorData entityEditorData = new NPCData(true, save, delete, location, entityIDNum);
 
@@ -467,14 +465,14 @@ public class NpcTab extends EditorTab {
         ((NPCData) entityEditorData).setName(name.getText());
         ((NPCData) entityEditorData).setFirstInteraction(firstInteraction.getSelected());
         ((NPCData) entityEditorData).setFaction(faction.getText());
-        ((NPCData) entityEditorData).setHealth(Integer.valueOf(health.getText()));
-        ((NPCData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));
-        ((NPCData) entityEditorData).setExpDrop(Integer.valueOf(expDrop.getText()));
-        ((NPCData) entityEditorData).setDropTable(Integer.valueOf(dropTable.getText()));
-        ((NPCData) entityEditorData).setWalkSpeed(Float.valueOf(walkSpeed.getText()));
+        ((NPCData) entityEditorData).setHealth(Integer.parseInt(health.getText()));
+        ((NPCData) entityEditorData).setDamage(Integer.parseInt(damage.getText()));
+        ((NPCData) entityEditorData).setExpDrop(Integer.parseInt(expDrop.getText()));
+        ((NPCData) entityEditorData).setDropTable(Integer.parseInt(dropTable.getText()));
+        ((NPCData) entityEditorData).setWalkSpeed(Float.parseFloat(walkSpeed.getText()));
         ((NPCData) entityEditorData).setProbStop(probStill.getValue());
         ((NPCData) entityEditorData).setProbWalk(probWalk.getValue());
-        ((NPCData) entityEditorData).setShopId(Short.valueOf(shopId.getText()));
+        ((NPCData) entityEditorData).setShopId(Short.parseShort(shopId.getText()));
         ((NPCData) entityEditorData).setBankKeeper(isBankKeeper.isChecked());
 
         // Appearance

@@ -5,14 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.util.dialog.Dialogs;
-import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
-import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
@@ -26,6 +18,14 @@ import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
+import com.kotcrab.vis.ui.util.form.FormValidator;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 
 import lombok.Getter;
 
@@ -39,26 +39,26 @@ public class ItemStackDropTab extends EditorTab {
     private VisTable content;
 
     private short entityIDNum = -1;
-    private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
+    private final VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
     private int itemStackIDNum = 0;
-    private VisValidatableTextField itemStackId = new VisValidatableTextField();
-    private VisValidatableTextField stackSize = new VisValidatableTextField();
-    private VisValidatableTextField respawnTimeMin = new VisValidatableTextField();
-    private VisValidatableTextField respawnTimeMax = new VisValidatableTextField();
+    private final VisValidatableTextField itemStackId = new VisValidatableTextField();
+    private final VisValidatableTextField stackSize = new VisValidatableTextField();
+    private final VisValidatableTextField respawnTimeMin = new VisValidatableTextField();
+    private final VisValidatableTextField respawnTimeMax = new VisValidatableTextField();
 
     @Getter
     private boolean selectSpawnActivated = false;
-    private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
-    private VisValidatableTextField worldName = new VisValidatableTextField();
-    private VisValidatableTextField mapX = new VisValidatableTextField();
-    private VisValidatableTextField mapY = new VisValidatableTextField();
-    private VisTextButton deleteButton = new VisTextButton("Delete");
+    private final VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
+    private final VisValidatableTextField worldName = new VisValidatableTextField();
+    private final VisValidatableTextField mapX = new VisValidatableTextField();
+    private final VisValidatableTextField mapY = new VisValidatableTextField();
+    private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
-    private VisTable itemStackDisplayTable = new VisTable();
-    private VisLabel itemStackName = new VisLabel();
-    private VisLabel scrollProgress = new VisLabel();
-    private VisImage itemStackPreview = new VisImage();
+    private final VisTable itemStackDisplayTable = new VisTable();
+    private final VisLabel itemStackName = new VisLabel();
+    private final VisLabel scrollProgress = new VisLabel();
+    private final VisImage itemStackPreview = new VisImage();
 
     ItemStackDropTab(StageHandler stageHandler, EntityEditor entityEditor) {
         super(stageHandler, entityEditor);
@@ -137,10 +137,8 @@ public class ItemStackDropTab extends EditorTab {
         validator.valueGreaterThan(respawnTimeMin, "Respawn times must be greater than -1.", 0, true);
         validator.valueGreaterThan(respawnTimeMax, "Respawn times must be greater than -1.", 0, true);
         validator.notEmpty(worldName, "Map name must not be empty.");
-        validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
-        validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
-        validator.valueGreaterThan(mapY, "Map Y must be greater than -1.", 0, true);
-        validator.valueLesserThan(mapY, "Map Y must be less than 97.", 54, true);
+        validator.integerNumber(mapX, "Map X must be a valid number.");
+        validator.integerNumber(mapY, "Map Y must be a valid number.");
 
         // Spawn location Selection
         worldName.setDisabled(true);
@@ -157,7 +155,7 @@ public class ItemStackDropTab extends EditorTab {
 
         ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+            private final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
@@ -385,8 +383,8 @@ public class ItemStackDropTab extends EditorTab {
     private ItemStackDropData generateDataOut(boolean save, boolean delete) {
         Location location = new Location(
                 worldName.getText(),
-                Integer.valueOf(mapX.getText()),
-                Integer.valueOf(mapY.getText()));
+                Integer.parseInt(mapX.getText()),
+                Integer.parseInt(mapY.getText()));
 
         ItemStackDropData entityEditorData = new ItemStackDropData(true, save, delete, location, entityIDNum);
 

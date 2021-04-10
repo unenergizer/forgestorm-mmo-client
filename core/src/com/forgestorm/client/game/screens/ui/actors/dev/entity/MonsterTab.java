@@ -38,34 +38,34 @@ public class MonsterTab extends EditorTab {
     private VisTable content;
 
     private short entityIDNum = -1;
-    private VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
-    private VisValidatableTextField name = new VisValidatableTextField();
-    private VisSelectBox<FirstInteraction> firstInteraction = new VisSelectBox<FirstInteraction>();
-    private VisSelectBox<EntityAlignment> entityAlignment = new VisSelectBox<EntityAlignment>();
-    private VisValidatableTextField health = new VisValidatableTextField();
-    private VisValidatableTextField damage = new VisValidatableTextField();
-    private VisValidatableTextField expDrop = new VisValidatableTextField();
-    private VisValidatableTextField dropTable = new VisValidatableTextField();
-    private VisValidatableTextField walkSpeed = new VisValidatableTextField();
-    private VisSlider probStill = new VisSlider(0, .99f, .01f, false);
-    private VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
-    private VisValidatableTextField shopId = new VisValidatableTextField("-1");
-    private VisCheckBox isBankKeeper = new VisCheckBox("", false);
+    private final VisLabel entityID = new VisLabel(Short.toString(entityIDNum));
+    private final VisValidatableTextField name = new VisValidatableTextField();
+    private final VisSelectBox<FirstInteraction> firstInteraction = new VisSelectBox<FirstInteraction>();
+    private final VisSelectBox<EntityAlignment> entityAlignment = new VisSelectBox<EntityAlignment>();
+    private final VisValidatableTextField health = new VisValidatableTextField();
+    private final VisValidatableTextField damage = new VisValidatableTextField();
+    private final VisValidatableTextField expDrop = new VisValidatableTextField();
+    private final VisValidatableTextField dropTable = new VisValidatableTextField();
+    private final VisValidatableTextField walkSpeed = new VisValidatableTextField();
+    private final VisSlider probStill = new VisSlider(0, .99f, .01f, false);
+    private final VisSlider probWalk = new VisSlider(0, .99f, .01f, false);
+    private final VisValidatableTextField shopId = new VisValidatableTextField("-1");
+    private final VisCheckBox isBankKeeper = new VisCheckBox("", false);
 
     @Getter
     private boolean selectSpawnActivated = false;
-    private VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
-    private VisValidatableTextField worldName = new VisValidatableTextField();
-    private VisValidatableTextField mapX = new VisValidatableTextField();
-    private VisValidatableTextField mapY = new VisValidatableTextField();
-    private VisTextButton deleteButton = new VisTextButton("Delete");
+    private final VisTextButton selectSpawn = new VisTextButton("Select Spawn Location");
+    private final VisValidatableTextField worldName = new VisValidatableTextField();
+    private final VisValidatableTextField mapX = new VisValidatableTextField();
+    private final VisValidatableTextField mapY = new VisValidatableTextField();
+    private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
     private AppearancePanel appearancePanel;
     @Getter
-    private VisTable appearanceTable = new VisTable();
+    private final VisTable appearanceTable = new VisTable();
     @Getter
-    private VisTable previewTable = new VisTable();
+    private final VisTable previewTable = new VisTable();
 
     MonsterTab(StageHandler stageHandler, EntityEditor entityEditor) {
         super(stageHandler, entityEditor);
@@ -186,10 +186,8 @@ public class MonsterTab extends EditorTab {
         validator.valueGreaterThan(walkSpeed, "Walk Speed must be greater than 0.", 0, true);
         validator.integerNumber(shopId, "Shop ID must be a valid number.");
         validator.notEmpty(worldName, "Map name must not be empty.");
-        validator.valueGreaterThan(mapX, "Map X must be greater than -1.", 0, true);
-        validator.valueLesserThan(mapX, "Map X must be less than 97.", 96, true);
-        validator.valueGreaterThan(mapY, "Map Y must be greater than -1.", 0, true);
-        validator.valueLesserThan(mapY, "Map Y must be less than 97.", 54, true);
+        validator.integerNumber(mapX, "Map X must be a valid number.");
+        validator.integerNumber(mapY, "Map Y must be a valid number.");
 
         // Spawn location Selection
         worldName.setDisabled(true);
@@ -206,7 +204,7 @@ public class MonsterTab extends EditorTab {
 
         ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+            private final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
@@ -378,8 +376,8 @@ public class MonsterTab extends EditorTab {
     private EntityEditorData generateDataOut(boolean save, boolean delete) {
         Location location = new Location(
                 worldName.getText(),
-                Integer.valueOf(mapX.getText()),
-                Integer.valueOf(mapY.getText()));
+                Integer.parseInt(mapX.getText()),
+                Integer.parseInt(mapY.getText()));
 
         EntityEditorData entityEditorData = new MonsterData(true, save, delete, location, entityIDNum);
 
@@ -387,14 +385,14 @@ public class MonsterTab extends EditorTab {
         ((MonsterData) entityEditorData).setName(name.getText());
         ((MonsterData) entityEditorData).setFirstInteraction(firstInteraction.getSelected());
         ((MonsterData) entityEditorData).setEntityAlignment(entityAlignment.getSelected());
-        ((MonsterData) entityEditorData).setHealth(Integer.valueOf(health.getText()));
-        ((MonsterData) entityEditorData).setDamage(Integer.valueOf(damage.getText()));
-        ((MonsterData) entityEditorData).setExpDrop(Integer.valueOf(expDrop.getText()));
-        ((MonsterData) entityEditorData).setDropTable(Integer.valueOf(dropTable.getText()));
-        ((MonsterData) entityEditorData).setWalkSpeed(Float.valueOf(walkSpeed.getText()));
+        ((MonsterData) entityEditorData).setHealth(Integer.parseInt(health.getText()));
+        ((MonsterData) entityEditorData).setDamage(Integer.parseInt(damage.getText()));
+        ((MonsterData) entityEditorData).setExpDrop(Integer.parseInt(expDrop.getText()));
+        ((MonsterData) entityEditorData).setDropTable(Integer.parseInt(dropTable.getText()));
+        ((MonsterData) entityEditorData).setWalkSpeed(Float.parseFloat(walkSpeed.getText()));
         ((MonsterData) entityEditorData).setProbStop(probStill.getValue());
         ((MonsterData) entityEditorData).setProbWalk(probWalk.getValue());
-        ((MonsterData) entityEditorData).setShopId(Short.valueOf(shopId.getText()));
+        ((MonsterData) entityEditorData).setShopId(Short.parseShort(shopId.getText()));
         ((MonsterData) entityEditorData).setBankKeeper(isBankKeeper.isChecked());
 
         // Appearance
