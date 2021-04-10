@@ -93,21 +93,21 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         drawlButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                activateTool(Tools.DRAWL);
+                activateTool(Tools.DRAWL, false);
             }
         });
 
         eraserButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                activateTool(Tools.ERASE);
+                activateTool(Tools.ERASE, false);
             }
         });
 
         wangBrushButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                activateTool(Tools.WANG);
+                activateTool(Tools.WANG, true);
             }
         });
 
@@ -252,14 +252,14 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         worldBuilder.setUseWangTile(false);
     }
 
-    private void activateTool(Tools tool) {
+    private void activateTool(Tools tool, boolean changeTab) {
         activateOtherButton();
 
         switch (tool) {
             case DRAWL:
                 drawlButton.setDisabled(true);
                 drawlButton.setColor(Color.RED);
-                tabbedPane.switchTab(0);
+                if (changeTab) tabbedPane.switchTab(0);
                 break;
             case ERASE:
                 worldBuilder.setUseEraser(true);
@@ -271,7 +271,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 worldBuilder.setCurrentLayer(LayerDefinition.GROUND);
                 wangBrushButton.setDisabled(true);
                 wangBrushButton.setColor(Color.RED);
-                tabbedPane.switchTab(BuildCategory.WANG.ordinal());
+                if (changeTab) tabbedPane.switchTab(BuildCategory.WANG.ordinal());
                 break;
         }
     }
@@ -345,7 +345,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
                         // See if this TileImage is a WangTile
                         if (tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
-                            activateTool(Tools.WANG);
+                            activateTool(Tools.WANG, true);
 
                             Map<Integer, WangTile> wangs = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
                             for (Map.Entry<Integer, WangTile> entry : wangs.entrySet()) {
@@ -357,7 +357,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                                 }
                             }
                         } else {
-                            activateTool(Tools.DRAWL);
+                            activateTool(Tools.DRAWL, false);
                         }
                     }
                 });
