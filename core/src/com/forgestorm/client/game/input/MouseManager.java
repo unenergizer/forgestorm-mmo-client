@@ -54,8 +54,8 @@ public class MouseManager {
     private int leftClickTileX, leftClickTileY;
     @Getter
     private int rightClickTileX, rightClickTileY;
-    @Getter
-    private int mouseTileX, mouseTileY;
+
+    private float mouseTileX, mouseTileY;
     private float mouseWorldX, mouseWorldY;
 
     @Setter
@@ -74,8 +74,8 @@ public class MouseManager {
 
     void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.mouseTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.mouseTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.mouseTileX = tiledMapCoordinates.x / ClientConstants.TILE_SIZE;
+        this.mouseTileY = tiledMapCoordinates.y / ClientConstants.TILE_SIZE;
         this.mouseWorldX = tiledMapCoordinates.x;
         this.mouseWorldY = tiledMapCoordinates.y;
 
@@ -97,12 +97,12 @@ public class MouseManager {
 
     void mouseDragged(int buttonDown, final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.mouseTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.mouseTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.mouseTileX = tiledMapCoordinates.x / ClientConstants.TILE_SIZE;
+        this.mouseTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         // Place tile in world
         if (buttonDown == Input.Buttons.LEFT) {
-            ClientMain.getInstance().getWorldBuilder().placeTile(mouseTileX, mouseTileY);
+            ClientMain.getInstance().getWorldBuilder().placeTile(getMouseTileX(), getMouseTileY());
         }
     }
 
@@ -138,7 +138,7 @@ public class MouseManager {
         ClientMain.getInstance().getStageHandler().getStage().setScrollFocus(null);
 
         // Place tile in world
-        ClientMain.getInstance().getWorldBuilder().placeTile(mouseTileX, mouseTileY);
+        ClientMain.getInstance().getWorldBuilder().placeTile(getMouseTileX(), getMouseTileY());
 
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
         EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
@@ -356,9 +356,9 @@ public class MouseManager {
 
     public void drawMouseHoverIcon(SpriteBatch spriteBatch, Texture validTileLocationTexture, Texture invalidTileLocationTexture) {
         if (isHighlightHoverTile()) {
-            int x = getMouseTileX() * ClientConstants.TILE_SIZE;
-            int y = getMouseTileY() * ClientConstants.TILE_SIZE;
-            if (WorldUtil.isTraversable(getMouseTileX(), getMouseTileY())) {
+            float x = getMouseTileX() * ClientConstants.TILE_SIZE;
+            float y = getMouseTileY() * ClientConstants.TILE_SIZE;
+            if (WorldUtil.isTraversable(Math.round(getMouseTileX()), Math.round(getMouseTileY()))) {
                 spriteBatch.draw(validTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
             } else {
                 spriteBatch.draw(invalidTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
@@ -368,5 +368,17 @@ public class MouseManager {
 
     public void invalidateMouse() {
         invalidate = true;
+    }
+
+    public int getMouseTileX() {
+        // If the mouse goes into the negatives, fix the value.
+        if (mouseTileX < 0) return (int) mouseTileX - 1;
+        return (int) mouseTileX;
+    }
+
+    public int getMouseTileY() {
+        // If the mouse goes into the negatives, fix the value.
+        if (mouseTileY < 0) return (int) mouseTileY - 1;
+        return (int) mouseTileY;
     }
 }
