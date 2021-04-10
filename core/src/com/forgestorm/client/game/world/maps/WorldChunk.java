@@ -123,7 +123,8 @@ public class WorldChunk {
         // than it normally would be to prevent most tearing issues.
         final float TILE_SIZE_FIX = 0.005F;
 
-        for (int y = 0; y < ClientConstants.CHUNK_SIZE; y++) {
+        // Draw Y down to sort tiles correctly on screen.
+        for (int y = ClientConstants.CHUNK_SIZE - 1; y >= 0; y--) {
             for (int x = 0; x < ClientConstants.CHUNK_SIZE; x++) {
 
                 TileImage tileImage = layerTiles[x + y * ClientConstants.CHUNK_SIZE];
