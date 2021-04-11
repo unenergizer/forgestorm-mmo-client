@@ -50,11 +50,9 @@ public class MouseManager {
     public static final int NUM_TICKS_TO_FADE_MOUSE = 60;
 
     private final Vector3 clickLocation = new Vector3();
-    @Getter
-    private int leftClickTileX, leftClickTileY;
-    @Getter
-    private int rightClickTileX, rightClickTileY;
 
+    private float leftClickTileX, leftClickTileY;
+    private float rightClickTileX, rightClickTileY;
     private float mouseTileX, mouseTileY;
     private float mouseWorldX, mouseWorldY;
 
@@ -131,8 +129,8 @@ public class MouseManager {
     private void left(final int screenX, final int screenY) {
         foundClick = false;
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.leftClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.leftClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.leftClickTileX = tiledMapCoordinates.x / ClientConstants.TILE_SIZE;
+        this.leftClickTileY = tiledMapCoordinates.y / ClientConstants.TILE_SIZE;
 
         // Clear scroll focus so map zooming can resume.
         ClientMain.getInstance().getStageHandler().getStage().setScrollFocus(null);
@@ -251,7 +249,7 @@ public class MouseManager {
         }
 
         // Click to walk path finding
-        ClientMain.getInstance().getEntityTracker().walkTo(leftClickTileX, leftClickTileY, false);
+        ClientMain.getInstance().getEntityTracker().walkTo(getLeftClickTileX(), getLeftClickTileY(), false);
     }
 
     private void middle(final int screenX, final int screenY) {
@@ -380,5 +378,29 @@ public class MouseManager {
         // If the mouse goes into the negatives, fix the value.
         if (mouseTileY < 0) return (int) mouseTileY - 1;
         return (int) mouseTileY;
+    }
+
+    public int getLeftClickTileX() {
+        // If the mouse goes into the negatives, fix the value.
+        if (leftClickTileX < 0) return (int) leftClickTileX - 1;
+        return (int) leftClickTileX;
+    }
+
+    public int getLeftClickTileY() {
+        // If the mouse goes into the negatives, fix the value.
+        if (leftClickTileY < 0) return (int) leftClickTileY - 1;
+        return (int) leftClickTileY;
+    }
+
+    public int getRightClickTileX() {
+        // If the mouse goes into the negatives, fix the value.
+        if (rightClickTileX < 0) return (int) rightClickTileX - 1;
+        return (int) rightClickTileX;
+    }
+
+    public int getRightClickTileY() {
+        // If the mouse goes into the negatives, fix the value.
+        if (rightClickTileY < 0) return (int) rightClickTileY - 1;
+        return (int) rightClickTileY;
     }
 }
