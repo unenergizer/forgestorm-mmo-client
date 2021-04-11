@@ -146,6 +146,7 @@ public class GameScreen implements Screen {
         GraphicsUtils.clearScreen(Color.BLACK);
         Texture texture = fileManager.getTexture(GameTexture.LOGIN_BACKGROUND);
 
+        if (texture == null) return;
         spriteBatch.begin();
         spriteBatch.draw(texture, 0, 0, texture.getWidth(), texture.getHeight());
         spriteBatch.end();

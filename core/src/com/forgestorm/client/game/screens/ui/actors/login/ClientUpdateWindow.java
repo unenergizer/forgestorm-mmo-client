@@ -54,8 +54,8 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
                     if ((new File("client-updater.jar")).exists()) {
                         Runtime.getRuntime().exec("java -jar client-updater.jar");
                     } else {
-                        File s = new File("RetroMMO");
-                        if (s.exists()) {
+                        File retroMMO = new File("RetroMMO");
+                        if (retroMMO.exists()) {
                             Runtime.getRuntime().exec("java -jar ./client-updater");
                         } else {
                             Runtime.getRuntime().exec("java -jar ../MacOS/client-updater");
@@ -66,7 +66,6 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
                 }
 
                 // Close game client
-                ClientMain.getInstance().dispose();
                 Gdx.app.exit();
             }
         });

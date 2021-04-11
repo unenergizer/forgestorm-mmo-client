@@ -186,14 +186,13 @@ public class ClientMain extends Game {
 
     @Override
     public void dispose() {
-        fileManager.dispose();
-        worldManager.dispose();
-        stageHandler.dispose();
-        gameScreen.dispose();
         connectionManager.disconnect();
         EntityManager.getInstance().dispose();
-        stageHandler.dispose();
         abilityManager.dispose();
+        stageHandler.dispose();
+        gameScreen.dispose();
+        worldManager.dispose();
+        fileManager.dispose();
     }
 
     private void initializeNetwork() {

@@ -209,6 +209,7 @@ public class StageHandler implements Disposable {
     }
 
     public void render(float delta) {
+        if (stage == null) return;
         if (debugTable.isVisible()) debugTable.refresh(delta);
         if (fpsTable.isVisible()) fpsTable.refresh();
         stage.act(Math.min(delta, 1 / 30f));
