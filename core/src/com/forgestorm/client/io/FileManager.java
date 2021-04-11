@@ -88,13 +88,18 @@ public class FileManager {
         // Create Revision document and set the build to 0;
 //        if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
         println(getClass(), "ClientFilesDirectory: " + clientFilesDirectory);
-        try {
-            FileWriter myWriter = new FileWriter(clientFilesDirectory + "/Revision.txt");
-            myWriter.write("0");
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            e.printStackTrace();
+        String path = clientFilesDirectory + "/Revision.txt";
+        File revision = new File(path);
+        if (!revision.exists()) {
+            println(getClass(), "Creating Revision.txt document since it does not exist.");
+            try {
+                FileWriter myWriter = new FileWriter(path);
+                myWriter.write("0");
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
