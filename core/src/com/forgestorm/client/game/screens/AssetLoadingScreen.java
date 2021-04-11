@@ -121,6 +121,7 @@ public class AssetLoadingScreen implements Screen {
             URL url = new URL("https://forgestorm.com/client_files/Revision.txt");
             Scanner scanner = new Scanner(url.openStream());
             remoteRevisionNumber = scanner.nextInt();
+            scanner.close();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
