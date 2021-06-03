@@ -15,7 +15,7 @@ import static com.forgestorm.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INIT_WORLD)
 public class InitializeGameWorldPacketIn implements PacketListener<InitializeGameWorldPacketIn.InitGameMapPacket> {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -28,8 +28,6 @@ public class InitializeGameWorldPacketIn implements PacketListener<InitializeGam
         println(getClass(), "================== [ NEW WORLD INIT ] ===================", false, PRINT_DEBUG);
         println(getClass(), "1. Switching to map: " + packetData.gameMap, false, PRINT_DEBUG);
 
-        println(InitializeGameWorldPacketIn.class, "2. Switching to world: " + packetData.gameMap, false, PRINT_DEBUG);
-
         EntityManager.getInstance().dispose(); // quick clear existing entities
         ClientMain.getInstance().getWorldManager().setGameWorld(packetData.gameMap);
         ClientMain.getInstance().getClientMovementProcessor().resetInput();
@@ -38,6 +36,6 @@ public class InitializeGameWorldPacketIn implements PacketListener<InitializeGam
 
     @AllArgsConstructor
     class InitGameMapPacket extends PacketData {
-        private String gameMap;
+        private final String gameMap;
     }
 }

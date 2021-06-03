@@ -2,7 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
+import com.forgestorm.client.game.world.maps.TileImage;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;

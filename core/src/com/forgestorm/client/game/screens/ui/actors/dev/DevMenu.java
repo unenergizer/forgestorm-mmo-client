@@ -9,6 +9,7 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.WarpEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
@@ -117,6 +118,15 @@ public class DevMenu extends VisTable implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeInWindow(tilePropertiesEditor);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+            }
+        }));
+
+        final TileAnimationEditor tileAnimationEditor = stageHandler.getTileAnimationEditor();
+        popupMenu.addItem(new MenuItem(tileAnimationEditor.getTitleLabel().getText().toString(), new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ActorUtil.fadeInWindow(tileAnimationEditor);
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }));

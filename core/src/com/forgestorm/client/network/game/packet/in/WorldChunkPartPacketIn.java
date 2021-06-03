@@ -2,8 +2,8 @@ package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldManager;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;

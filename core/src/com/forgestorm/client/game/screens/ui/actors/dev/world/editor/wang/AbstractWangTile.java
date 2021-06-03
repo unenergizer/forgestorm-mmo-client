@@ -2,9 +2,9 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 

@@ -1,6 +1,7 @@
-package com.forgestorm.client.game.screens.ui.actors.dev.world;
+package com.forgestorm.client.game.world.maps;
 
 
+import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;

@@ -15,6 +15,7 @@ import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;

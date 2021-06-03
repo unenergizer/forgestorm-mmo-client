@@ -20,6 +20,7 @@ import com.forgestorm.client.game.input.Mouse;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameWorld;
@@ -223,6 +224,9 @@ public class GameScreen implements Screen {
 
         PixelFXTest pixelFXTest = ClientMain.getInstance().getStageHandler().getPixelFXTest();
         if (pixelFXTest != null) pixelFXTest.render(delta, spriteBatch);
+
+        TileAnimationEditor tileAnimationEditor = ClientMain.getInstance().getStageHandler().getTileAnimationEditor();
+        if (tileAnimationEditor != null) tileAnimationEditor.render();
 
         ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
         spriteBatch.end();

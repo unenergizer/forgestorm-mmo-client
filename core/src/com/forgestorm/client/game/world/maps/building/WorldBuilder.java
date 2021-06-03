@@ -7,10 +7,11 @@ import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.TileAnimation;
+import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Getter
 public class WorldBuilder {
 
+    private final Map<Integer, TileAnimation> tileAnimationMap;
     private final WangTile16Bit wangTile16Bit = new WangTile16Bit();
     private final Map<Integer, TileImage> tileImageMap;
     private final TextureAtlas textureAtlas;
@@ -41,14 +43,16 @@ public class WorldBuilder {
     private boolean useWangTile = false;
 
     private int currentWangId = 1;
-    @Getter
     private String wangRegionNamePrefix;
 
-    @Getter
     @Setter
     private boolean allowClickToMove = true;
 
     public WorldBuilder() {
+
+        // Load TileAnimations.yaml
+        tileAnimationMap = ClientMain.getInstance().getFileManager().getTileAnimationData().getTileAnimationMap();
+
         // Load AbstractTileProperty.yaml
         tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
 

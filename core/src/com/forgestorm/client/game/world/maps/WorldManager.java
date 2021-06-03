@@ -42,7 +42,7 @@ public class WorldManager implements Disposable {
         if (gameWorlds.containsKey(worldName)) {
             return gameWorlds.get(worldName);
         } else {
-            // TODO: Save GameWorld to disk?
+
             new GameWorld(
                     worldName,
                     5,

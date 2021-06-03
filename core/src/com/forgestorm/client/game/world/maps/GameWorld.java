@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileImage;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.io.ChunkLoader;
