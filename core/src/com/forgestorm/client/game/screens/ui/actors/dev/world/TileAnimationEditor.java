@@ -114,7 +114,22 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Map<Integer, TileAnimation> tileAnimationMap = worldBuilder.getTileAnimationMap();
-                int animationID = tileAnimationMap.size() + 1;
+
+                // Get highest animationID number in the animation list
+                int highestNumber = 0;
+                for (int i = 1; i < tileAnimationMap.size(); i++) {
+                    if (i < highestNumber) continue;
+                    highestNumber = i;
+                }
+
+                // Loop through the list. Find an unused ID or get one at the end
+                int animationID = 0;
+                for (int i = 1; i < highestNumber + 10; i++) {
+                    if (tileAnimationMap.containsKey(i)) continue;
+                    animationID = i;
+                    break;
+                }
+
                 tileAnimationMap.put(animationID, new TileAnimation(animationID));
                 workingTileAnimation = tileAnimationMap.get(animationID);
 
