@@ -26,6 +26,7 @@ import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GamePixmap;
 import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
+import com.forgestorm.client.util.file.FindDesktopDirectoryUtil;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -42,6 +43,8 @@ public class FileManager {
     private static final boolean PRINT_DEBUG = false;
 
     @Getter
+    private final String clientHomeDirectory;
+    @Getter
     private final String clientFilesDirectory;
     @Getter
     private final String worldDirectory;
@@ -52,6 +55,19 @@ public class FileManager {
     private final FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();
 
     public FileManager() {
+        // Set the client home directory
+//        File homeDirectory = new File(System.getProperty("user.home") + File.separator + "ForgeStorm");
+        File homeDirectory = FindDesktopDirectoryUtil.getDirectory();
+
+        if (!homeDirectory.exists()) {
+            if (homeDirectory.mkdir()) {
+                println(getClass(), "Created a ForgeStorm folder in the users home directory!", true);
+            } else {
+                throw new RuntimeException("Couldn't create the ForgeStorm in the home directory!");
+            }
+        }
+        clientHomeDirectory = homeDirectory.getAbsolutePath();
+
         // Get the path of the jar file.
         String jarPath = FileManager.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         println(getClass(), jarPath);
