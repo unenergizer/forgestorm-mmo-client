@@ -1,6 +1,7 @@
 package com.forgestorm.client.game.world.maps;
 
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
@@ -16,7 +17,7 @@ import static com.forgestorm.client.util.Log.println;
 
 @Getter
 @Setter
-public class TileImage {
+public class TileImage extends Tile {
 
     private static final transient boolean PRINT_DEBUG = false;
 
@@ -71,5 +72,13 @@ public class TileImage {
                 println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString());
             }
         }
+    }
+
+    public int getWidth() {
+        return ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(fileName).originalWidth;
+    }
+
+    public int getHeight() {
+        return ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(fileName).originalHeight;
     }
 }

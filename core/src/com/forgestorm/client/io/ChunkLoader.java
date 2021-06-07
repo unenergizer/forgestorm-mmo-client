@@ -13,6 +13,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
+import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldChunk;
@@ -74,11 +75,11 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         WorldChunk chunk = new WorldChunk(chunkX, chunkY);
 
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
-            TileImage[] layer = readLayer(layerDefinition.getLayerName(), root);
+            Tile[] layer = readLayer(layerDefinition.getLayerName(), root);
 
-            // Individually add each TileImage to the chunk (NPE FIX)
+            // Individually add each Tile to the chunk (NPE FIX)
             for (int i = 0; i < layer.length; i++) {
-                chunk.setTileImage(layerDefinition, layer[i], i);
+                chunk.setTile(layerDefinition, layer[i], i);
             }
         }
 
@@ -97,23 +98,27 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static TileImage[] readLayer(String layerName, JsonValue root) {
+    private static Tile[] readLayer(String layerName, JsonValue root) {
+        Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
 
         if (root.has(layerName)) {
             String layer = root.get(layerName).asString();
             String[] imageIds = layer.split(",");
             Map<Integer, TileImage> tileImages = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
-            TileImage[] tiles = new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
             for (int y = 0; y < ClientConstants.CHUNK_SIZE; y++) {
                 for (int x = 0; x < ClientConstants.CHUNK_SIZE; x++) {
-                    TileImage tileImage = tileImages.get(Integer.parseInt(imageIds[x + y * ClientConstants.CHUNK_SIZE]));
-                    tiles[x + y * ClientConstants.CHUNK_SIZE] = tileImage;
+                    int tileId = Integer.parseInt(imageIds[x + y * ClientConstants.CHUNK_SIZE]);
+                    TileImage tileImage = tileImages.get(tileId);
+                    if (tileImage == null) {
+                        tiles[x + y * ClientConstants.CHUNK_SIZE] = new Tile();
+                    } else {
+                        tiles[x + y * ClientConstants.CHUNK_SIZE] = tileImage;
+                    }
                 }
             }
-            return tiles;
-        } else {
-            return new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
         }
+
+        return tiles;
     }
 
     @Setter

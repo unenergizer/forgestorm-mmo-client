@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
@@ -24,7 +23,7 @@ public class WorldChunk {
     private final short chunkX, chunkY;
 
     @Getter
-    private final Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
+    private final Map<LayerDefinition, Tile[]> layers = new HashMap<LayerDefinition, Tile[]>();
 
     @Getter
     private final Map<WarpLocation, Warp> tileWarps = new HashMap<WarpLocation, Warp>();
@@ -36,38 +35,38 @@ public class WorldChunk {
 
     private void initTileLayer(LayerDefinition layerDefinition) {
         if (layers.containsKey(layerDefinition)) return;
-        layers.put(layerDefinition, new TileImage[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
+        layers.put(layerDefinition, new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
     }
 
-    public void setTileImages(LayerDefinition layerDefinition, byte section, TileImage[] tileImages) {
+    public void setTile(LayerDefinition layerDefinition, byte section, Tile[] tiles) {
         initTileLayer(layerDefinition);
 
-        for (int i = 0; i < tileImages.length; i++) {
-            layers.get(layerDefinition)[(ClientConstants.MAX_TILE_GET * section) + i] = tileImages[i];
+        for (int i = 0; i < tiles.length; i++) {
+            layers.get(layerDefinition)[(ClientConstants.MAX_TILE_GET * section) + i] = tiles[i];
         }
     }
 
-    public void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int index) {
+    public void setTile(LayerDefinition layerDefinition, Tile tile, int index) {
         initTileLayer(layerDefinition);
-        layers.get(layerDefinition)[index] = tileImage;
+        layers.get(layerDefinition)[index] = tile;
     }
 
-    void setTileImage(LayerDefinition layerDefinition, TileImage tileImage, int chunkX, int chunkY) {
+    void setTile(LayerDefinition layerDefinition, Tile tile, int chunkX, int chunkY) {
         initTileLayer(layerDefinition);
 
         // Set the new TileImage
-        layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE] = tileImage;
+        layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE] = tile;
     }
 
-    TileImage getTileImage(LayerDefinition layerDefinition, int chunkX, int chunkY) {
+    Tile getTile(LayerDefinition layerDefinition, int chunkX, int chunkY) {
         return layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE];
     }
 
     public boolean isTraversable(int localX, int localY) {
-        for (TileImage[] tileImages : layers.values()) {
-            TileImage tileImage = tileImages[localX + localY * ClientConstants.CHUNK_SIZE];
-            if (tileImage == null) continue;
-            if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) return false;
+        for (Tile[] tileImages : layers.values()) {
+            Tile tile = tileImages[localX + localY * ClientConstants.CHUNK_SIZE];
+            if (tile == null) continue;
+            if (tile.hasCollision()) return false;
         }
         return true;
     }
@@ -115,7 +114,7 @@ public class WorldChunk {
 
     private void renderLayer(LayerDefinition layerDefinition, Batch batch) {
         if (!worldBuilder.canDrawLayer(layerDefinition)) return;
-        TileImage[] layerTiles = layers.get(layerDefinition);
+        Tile[] layerTiles = layers.get(layerDefinition);
         if (layerTiles == null) return;
 
         // Make the width and height of a given tile just a tad bit larger
@@ -126,8 +125,10 @@ public class WorldChunk {
         for (int y = ClientConstants.CHUNK_SIZE - 1; y >= 0; y--) {
             for (int x = 0; x < ClientConstants.CHUNK_SIZE; x++) {
 
-                TileImage tileImage = layerTiles[x + y * ClientConstants.CHUNK_SIZE];
-                if (tileImage == null) continue;
+                Tile tile = layerTiles[x + y * ClientConstants.CHUNK_SIZE];
+                if (tile == null) continue;
+                if (!(tile instanceof TileImage)) continue;
+                TileImage tileImage = (TileImage) tile;
                 FileManager fileManager = ClientMain.getInstance().getFileManager();
                 TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
                 TextureRegion textureRegion = atlas.findRegion(tileImage.getFileName());

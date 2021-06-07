@@ -3,7 +3,7 @@ package com.forgestorm.client.network.game.packet.in;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.GameWorld;
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldManager;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
@@ -38,12 +38,12 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
         byte sectionSent = clientHandler.readByte();
 
         // Read layer part
-        TileImage[] layerParts = new TileImage[ClientConstants.MAX_TILE_GET];
+        Tile[] layerParts = new Tile[ClientConstants.MAX_TILE_GET];
 
         for (int i = 0; i < ClientConstants.MAX_TILE_GET; i++) {
             int tileImageID = clientHandler.readInt();
             if (tileImageID == 0) {
-                layerParts[i] = null;
+                layerParts[i] = new Tile();
             } else {
                 layerParts[i] = worldBuilder.getTileImage(tileImageID);
             }
@@ -62,10 +62,10 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
         if (worldChunk == null) {
             // Generate new chunk and add it to the game world
             WorldChunk newChunk = new WorldChunk(packetData.chunkX, packetData.chunkY);
-            newChunk.setTileImages(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
+            newChunk.setTile(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
             gameWorld.setChunk(newChunk);
         } else {
-            worldChunk.setTileImages(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
+            worldChunk.setTile(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
         }
     }
 
@@ -74,6 +74,6 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
         private final short chunkX, chunkY;
         private final LayerDefinition layerDefinition;
         private final byte sectionSent;
-        private final TileImage[] layerParts;
+        private final Tile[] layerParts;
     }
 }

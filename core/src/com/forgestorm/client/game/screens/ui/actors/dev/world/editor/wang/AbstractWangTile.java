@@ -4,6 +4,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
@@ -43,7 +44,10 @@ public abstract class AbstractWangTile {
      */
     protected void updateTile(LayerDefinition currentLayer, int autoTileID, int worldX, int worldY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        TileImage currentTileImage = gameWorld.getTileImage(currentLayer, worldX, worldY);
+        Tile currentTile = gameWorld.getTile(currentLayer, worldX, worldY);
+
+        if (!(currentTile instanceof TileImage)) return;
+        TileImage currentTileImage = (TileImage) currentTile;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
         TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangRegionNamePrefix() + autoTileID);
@@ -86,20 +90,21 @@ public abstract class AbstractWangTile {
      */
     protected boolean detectSameTileType(LayerDefinition currentLayer, int worldX, int worldY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        TileImage tileImage = gameWorld.getTileImage(currentLayer, worldX, worldY);
+        Tile tile = gameWorld.getTile(currentLayer, worldX, worldY);
 
+        if (tile == null) return false;
+        if (!(tile instanceof TileImage)) return false;
         // TODO: Check out of bounds
-        if (tileImage == null) return false;
+
+        TileImage tileImage = (TileImage) tile;
         if (tileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return false;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
         WangTile wangTile = worldBuilder.findWangTile(tileImage);
 
         if (wangTile != null) {
-            if (wangTile.getWangId() != worldBuilder.getCurrentWangId()) {
-                System.out.println("Different type detected");
-                return false; // Test for different wang tile types
-            }
+            // Test for different wang tile types
+            if (wangTile.getWangId() != worldBuilder.getCurrentWangId()) return false;
         }
 
         return tileImage.containsProperty(TilePropertyTypes.WANG_TILE);
