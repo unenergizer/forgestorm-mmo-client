@@ -276,21 +276,56 @@
 53:
   buildCategory: DECORATION
   fileName: cactus-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 54:
   buildCategory: DECORATION
   fileName: cactus-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 55:
   buildCategory: DECORATION
   fileName: cactus-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 56:
   buildCategory: DECORATION
   fileName: cauldron-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 57:
   buildCategory: DECORATION
   fileName: cauldron-01-776
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 58:
   buildCategory: DECORATION
   fileName: cauldron-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 59:
   buildCategory: DECORATION
   fileName: chair-blue-right
@@ -318,15 +353,34 @@
 67:
   buildCategory: ROOF
   fileName: chimney-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 68:
   buildCategory: ROOF
   fileName: chimney-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 69:
   buildCategory: DECORATION
   fileName: column-mossy-stone-broken-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 70:
   buildCategory: DECORATION
   fileName: column-mossy-stone-broken-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 71:
   buildCategory: DECORATION
   fileName: column-mossy-stone-complete
@@ -338,9 +392,18 @@
 72:
   buildCategory: DECORATION
   fileName: column-stone-broken-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 73:
   buildCategory: DECORATION
   fileName: column-stone-broken-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 74:
   buildCategory: DECORATION
   fileName: cup-02
@@ -377,6 +440,13 @@
 85:
   buildCategory: DECORATION
   fileName: fancy-table
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 86:
   buildCategory: DECORATION
   fileName: flag-03
@@ -407,15 +477,34 @@
 95:
   buildCategory: DECORATION
   fileName: grave-stone-large-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 96:
   buildCategory: DECORATION
   fileName: grave-stone-small-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 97:
   buildCategory: DECORATION
   fileName: grave-stone-small-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 98:
   buildCategory: DECORATION
   fileName: grave-stone-small-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 99:
   buildCategory: DECORATION
   fileName: grave-stone-small-base-01
@@ -425,6 +514,10 @@
 101:
   buildCategory: DECORATION
   fileName: grave-wooden-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 102:
   buildCategory: DECORATION
   fileName: hanging-sign-gold-armor
@@ -500,33 +593,141 @@
 126:
   buildCategory: DECORATION
   fileName: log-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 127:
   buildCategory: DECORATION
   fileName: log-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 128:
   buildCategory: DECORATION
   fileName: log-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 129:
   buildCategory: DECORATION
   fileName: minecart-horizontal
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 130:
   buildCategory: DECORATION
   fileName: minecart-vertical
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList: [
+      ]
 131:
   buildCategory: WALL
   fileName: mushroom-house-base-red
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
 132:
   buildCategory: WALL
   fileName: mushroom-house-mini-floor-blue-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - true
+        - true
 133:
   buildCategory: WALL
   fileName: mushroom-house-mini-floor-blue-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - true
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
 134:
   buildCategory: WALL
   fileName: mushroom-house-mini-floor-green-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - true
+        - true
 135:
   buildCategory: WALL
   fileName: mushroom-house-mini-floor-green-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - true
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
 136:
   buildCategory: DECORATION
   fileName: mushroom-large-01
@@ -554,14 +755,14 @@
         - true
         - true
         - true
+        - true
         - false
         - true
         - true
         - false
         - false
-        - false
-        - false
         - true
+        - false
         - true
         - true
         - true
@@ -608,231 +809,550 @@
 156:
   buildCategory: DECORATION
   fileName: pot-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 157:
   buildCategory: DECORATION
   fileName: pot-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 158:
   buildCategory: DECORATION
   fileName: pot-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 159:
   buildCategory: DECORATION
   fileName: pot-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 160:
   buildCategory: DECORATION
   fileName: pot-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 161:
   buildCategory: DECORATION
   fileName: pot-flower-blue-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 162:
   buildCategory: DECORATION
   fileName: pot-bush-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 163:
   buildCategory: DECORATION
   fileName: pot-bush-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 164:
   buildCategory: DECORATION
   fileName: pot-bush-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 165:
   buildCategory: DECORATION
   fileName: pot-bush-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 166:
   buildCategory: DECORATION
   fileName: pot-bush-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 167:
   buildCategory: DECORATION
   fileName: pot-flower-blue-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 168:
   buildCategory: DECORATION
   fileName: pot-flower-blue-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 169:
   buildCategory: DECORATION
   fileName: pot-flower-blue-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 170:
   buildCategory: DECORATION
   fileName: pot-flower-blue-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 171:
   buildCategory: DECORATION
   fileName: pot-flower-orange-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 172:
   buildCategory: DECORATION
   fileName: pot-flower-orange-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 173:
   buildCategory: DECORATION
   fileName: pot-flower-orange-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 174:
   buildCategory: DECORATION
   fileName: pot-flower-orange-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 175:
   buildCategory: DECORATION
   fileName: pot-flower-orange-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 176:
   buildCategory: DECORATION
   fileName: pot-flower-pink-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 177:
   buildCategory: DECORATION
   fileName: pot-flower-pink-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 178:
   buildCategory: DECORATION
   fileName: pot-flower-pink-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 179:
   buildCategory: DECORATION
   fileName: pot-flower-pink-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 180:
   buildCategory: DECORATION
   fileName: pot-flower-pink-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 181:
   buildCategory: DECORATION
   fileName: pot-flower-white-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 182:
   buildCategory: DECORATION
   fileName: pot-flower-white-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 183:
   buildCategory: DECORATION
   fileName: pot-flower-white-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 184:
   buildCategory: DECORATION
   fileName: pot-flower-white-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 185:
   buildCategory: DECORATION
   fileName: pot-flower-white-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 186:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 187:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 188:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 189:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 190:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 191:
   buildCategory: DECORATION
   fileName: prision-bed-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 192:
   buildCategory: DECORATION
   fileName: prision-bed-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 193:
   buildCategory: DECORATION
   fileName: rock-large-brown-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 194:
   buildCategory: DECORATION
   fileName: rock-large-brown-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 195:
   buildCategory: DECORATION
   fileName: rock-large-brown-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 196:
   buildCategory: DECORATION
   fileName: rock-small-brown-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 197:
   buildCategory: DECORATION
   fileName: rock-small-brown-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 198:
   buildCategory: DECORATION
   fileName: rock-small-brown-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 199:
   buildCategory: DECORATION
   fileName: rock-small-brown-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 200:
   buildCategory: DECORATION
   fileName: rock-small-brown-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 201:
   buildCategory: DECORATION
   fileName: rock-small-brown-08
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 202:
   buildCategory: DECORATION
   fileName: rock-small-brown-09
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 203:
   buildCategory: DECORATION
   fileName: rock-small-brown-10
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 204:
   buildCategory: DECORATION
   fileName: rock-small-brown-11
 205:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 206:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 207:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 208:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 209:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 210:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-08
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 211:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-11
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 212:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-12
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
 213:
   buildCategory: DECORATION
   fileName: rock-small-dark-gray-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 214:
   buildCategory: DECORATION
   fileName: rock-small-dark-gray-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 215:
   buildCategory: DECORATION
   fileName: rock-small-dark-gray-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 216:
   buildCategory: DECORATION
   fileName: rock-small-gray-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 217:
   buildCategory: DECORATION
   fileName: rock-small-gray-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 218:
   buildCategory: DECORATION
   fileName: rock-small-gray-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 219:
   buildCategory: DECORATION
   fileName: rock-small-mossy-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 220:
   buildCategory: DECORATION
   fileName: rock-small-mossy-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 221:
   buildCategory: DECORATION
   fileName: rock-small-mossy-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 222:
   buildCategory: DECORATION
   fileName: rock-small-mossy-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 223:
   buildCategory: DECORATION
   fileName: rock-small-mossy-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 224:
   buildCategory: DECORATION
   fileName: rock-sword-brown-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 225:
   buildCategory: DECORATION
   fileName: rock-sword-brown-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 226:
   buildCategory: DECORATION
   fileName: sign-post-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 227:
   buildCategory: DECORATION
   fileName: sign-post-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 228:
   buildCategory: DECORATION
   fileName: sign-post-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 229:
   buildCategory: DECORATION
   fileName: small-stool
 230:
   buildCategory: DECORATION
   fileName: small-table-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 231:
   buildCategory: DECORATION
   fileName: stick-pile-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 232:
   buildCategory: DECORATION
   fileName: stick-pile-02
@@ -854,27 +1374,55 @@
 235:
   buildCategory: WALL
   fileName: stone-wall-bottom-left
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 236:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-crack
 237:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-end-left
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 238:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-end-right
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 239:
   buildCategory: WALL
   fileName: stone-wall-middle-vertical-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 240:
   buildCategory: WALL
   fileName: stone-wall-middle-vertical-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 241:
   buildCategory: WALL
   fileName: stone-wall-top-left
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 242:
   buildCategory: WALL
   fileName: stone-wall-top-right
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 243:
   buildCategory: DECORATION
   fileName: stool-round-blue
@@ -887,6 +1435,11 @@
 246:
   buildCategory: DECORATION
   fileName: stump-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 247:
   buildCategory: DECORATION
   fileName: stump-04
@@ -899,15 +1452,69 @@
 250:
   buildCategory: DECORATION
   fileName: stump-house
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - false
+        - true
+        - true
 251:
   buildCategory: WALKABLE
   fileName: temple-clean
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
+        - false
+        - false
+        - true
+        - true
+        - true
 252:
   buildCategory: WALKABLE
   fileName: temple-mossy
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
+        - false
+        - false
+        - true
+        - true
+        - true
 253:
   buildCategory: DECORATION
   fileName: tent
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - false
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - false
+        - true
+        - true
+        - false
+        - false
+        - false
 254:
   buildCategory: ROOF
   fileName: tent-door
@@ -940,21 +1547,60 @@
 256:
   buildCategory: DECORATION
   fileName: tree-medium-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 257:
   buildCategory: DECORATION
   fileName: tree-medium-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 258:
   buildCategory: DECORATION
   fileName: tree-medium-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 259:
   buildCategory: DECORATION
   fileName: tree-medium-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 260:
   buildCategory: DECORATION
   fileName: tree-medium-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 261:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 262:
   buildCategory: DECORATION
   fileName: tree-medium-01
@@ -978,30 +1624,77 @@
 264:
   buildCategory: DECORATION
   fileName: tree-medium-08
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 265:
   buildCategory: DECORATION
   fileName: tree-small-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 266:
   buildCategory: DECORATION
   fileName: tree-small-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 267:
   buildCategory: DECORATION
   fileName: tree-small-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 268:
   buildCategory: DECORATION
   fileName: tree-small-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 269:
   buildCategory: DECORATION
   fileName: tree-small-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 270:
   buildCategory: DECORATION
   fileName: tree-small-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 271:
   buildCategory: DECORATION
   fileName: tree-small-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 272:
   buildCategory: DECORATION
   fileName: tree-small-08
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 273:
   buildCategory: DECORATION
   fileName: wall-cabinet-01
@@ -1080,30 +1773,65 @@
 298:
   buildCategory: DECORATION
   fileName: weapon-rack-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 299:
   buildCategory: DECORATION
   fileName: weapon-rack-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 300:
   buildCategory: DECORATION
   fileName: weapon-rack-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 301:
   buildCategory: DECORATION
   fileName: well-broken
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 302:
   buildCategory: DECORATION
   fileName: well-broken-rope
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 303:
   buildCategory: DECORATION
   fileName: well-covered-empty
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 304:
   buildCategory: DECORATION
   fileName: well-covered-filled
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 305:
   buildCategory: ROOF
   fileName: well-covered-roof
 306:
   buildCategory: DECORATION
   fileName: well-filled
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 307:
   buildCategory: DECORATION
   fileName: wild-flower-blue-01
@@ -1155,6 +1883,11 @@
 319:
   buildCategory: DECORATION
   fileName: cactus-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 320:
   buildCategory: DECORATION
   fileName: chair-blue-left
@@ -1179,9 +1912,17 @@
 327:
   buildCategory: DECORATION
   fileName: grave-stone-small-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 328:
   buildCategory: DECORATION
   fileName: grave-wooden-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 329:
   buildCategory: DECORATION
   fileName: hanging-sign-gold-shop
@@ -1200,9 +1941,44 @@
 334:
   buildCategory: DECORATION
   fileName: mushroom-house-base-green
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
 335:
   buildCategory: DECORATION
   fileName: mushroom-house-mini-floor-red-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - true
+        - false
+        - true
+        - true
+        - false
+        - true
+        - true
 336:
   buildCategory: DECORATION
   fileName: mushroom-large-07
@@ -1212,60 +1988,137 @@
 338:
   buildCategory: DECORATION
   fileName: piano
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 339:
   buildCategory: DECORATION
   fileName: plant-small-07
 340:
   buildCategory: DECORATION
   fileName: pot-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 341:
   buildCategory: DECORATION
   fileName: pot-bush-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 342:
   buildCategory: DECORATION
   fileName: pot-flower-blue-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 343:
   buildCategory: DECORATION
   fileName: pot-flower-orange-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 344:
   buildCategory: DECORATION
   fileName: pot-flower-pink-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 345:
   buildCategory: DECORATION
   fileName: pot-flower-white-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 346:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 347:
   buildCategory: DECORATION
   fileName: rock-large-mossy-02
 348:
   buildCategory: DECORATION
   fileName: rock-small-brown-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 349:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 350:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-10
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 351:
   buildCategory: DECORATION
   fileName: rock-small-gray-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 352:
   buildCategory: DECORATION
   fileName: rock-small-mossy-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 353:
   buildCategory: DECORATION
   fileName: rock-sword-mossy-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 354:
   buildCategory: DECORATION
   fileName: small-table-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 355:
   buildCategory: WALL
   fileName: stone-wall-middle-vertical-end-top
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 356:
   buildCategory: DECORATION
   fileName: stump-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 357:
   buildCategory: DECORATION
   fileName: stump-house-door-frame
@@ -1530,9 +2383,18 @@
 444:
   buildCategory: DECORATION
   fileName: wooden-vanity
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 446:
   buildCategory: WALL
   fileName: stone-wall-bottom-right
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 447:
   buildCategory: DECORATION
   fileName: wooden-support-03
@@ -1671,6 +2533,29 @@
 492:
   buildCategory: DECORATION
   fileName: mushroom-house-base-blue
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - false
+        - false
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - false
+        - false
 493:
   buildCategory: DECORATION
   fileName: mushroom-house-blue-addon-01
@@ -1686,6 +2571,10 @@
 497:
   buildCategory: DECORATION
   fileName: mushroom-house-blue-addon-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 498:
   buildCategory: DECORATION
   fileName: mushroom-house-red-addon-05
@@ -1716,6 +2605,25 @@
 507:
   buildCategory: DECORATION
   fileName: mushroom-house-mini-floor-red-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - true
+        - true
+        - true
+        - false
+        - false
+        - true
+        - true
 508:
   buildCategory: DECORATION
   fileName: mushroom-house-red-addon-01
@@ -3156,24 +4064,56 @@
 752:
   buildCategory: DECORATION
   fileName: column-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 753:
   buildCategory: DECORATION
   fileName: column-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 754:
   buildCategory: DECORATION
   fileName: column-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 755:
   buildCategory: DECORATION
   fileName: column-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 756:
   buildCategory: DECORATION
   fileName: column-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 757:
   buildCategory: DECORATION
   fileName: column-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 758:
   buildCategory: DECORATION
   fileName: column-stone-complete
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 759:
   buildCategory: DECORATION
   fileName: chair-blue-down
@@ -3183,99 +4123,239 @@
 761:
   buildCategory: DECORATION
   fileName: clock
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 762:
   buildCategory: DECORATION
   fileName: cactus-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 763:
   buildCategory: DECORATION
   fileName: egypt-statue-dog-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 764:
   buildCategory: DECORATION
   fileName: egypt-statue-dog-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 765:
   buildCategory: DECORATION
   fileName: egypt-statue-dog-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 766:
   buildCategory: DECORATION
   fileName: egypt-statue-dog-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
 767:
   buildCategory: DECORATION
   fileName: flag-01
 768:
   buildCategory: DECORATION
   fileName: grave-stone-large-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - false
+        - false
+        - true
+        - false
+        - true
 769:
   buildCategory: DECORATION
   fileName: grave-wooden-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 770:
   buildCategory: DECORATION
   fileName: lamp-post-skinny-01
 771:
   buildCategory: DECORATION
   fileName: mailbox-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 772:
   buildCategory: DECORATION
   fileName: mushroom-large-06
 773:
   buildCategory: DECORATION
   fileName: pot-bush-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 774:
   buildCategory: DECORATION
   fileName: pot-flower-blue-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 775:
   buildCategory: DECORATION
   fileName: pot-flower-orange-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 776:
   buildCategory: DECORATION
   fileName: pot-flower-pink-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 777:
   buildCategory: DECORATION
   fileName: pot-flower-white-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 778:
   buildCategory: DECORATION
   fileName: pot-flower-yellow-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 779:
   buildCategory: DECORATION
   fileName: rock-large-mossy-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 780:
   buildCategory: DECORATION
   fileName: rock-small-brown-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 781:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 782:
   buildCategory: DECORATION
   fileName: rock-small-dark-brown-09
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 783:
   buildCategory: DECORATION
   fileName: rock-small-dark-gray-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 784:
   buildCategory: DECORATION
   fileName: rock-small-dark-gray-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 785:
   buildCategory: DECORATION
   fileName: rock-small-mossy-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 786:
   buildCategory: DECORATION
   fileName: rock-sword-mossy-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
 787:
   buildCategory: DECORATION
   fileName: small-table-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 788:
   buildCategory: DECORATION
   fileName: stump-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+        - true
+        - true
 789:
-  buildCategory: WALKABLE
+  buildCategory: WALL
   fileName: stone-wall-middle-vertical-end-bottom
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 790:
   buildCategory: DECORATION
   fileName: well-egypt-filled
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 791:
   buildCategory: DECORATION
   fileName: well-egypt-empty
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 792:
   buildCategory: DECORATION
   fileName: well-egypt-broken
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 793:
   buildCategory: DECORATION
   fileName: bench-wide-single
@@ -3348,6 +4428,10 @@
 816:
   buildCategory: DECORATION
   fileName: pot-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 817:
   buildCategory: DECORATION
   fileName: plant-small-06
@@ -3417,12 +4501,28 @@
 839:
   buildCategory: DECORATION
   fileName: table-with-item-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 840:
   buildCategory: DECORATION
   fileName: table-with-item-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 841:
   buildCategory: DECORATION
   fileName: table-with-item-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 842:
   buildCategory: DECORATION
   fileName: table-with-item-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
