@@ -41,6 +41,7 @@ import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ import lombok.Getter;
 @Getter
 public class TilePropertiesEditor extends HideableVisWindow implements Buildable {
 
-    private static final String FILE_PATH = "C:/TileProperties.yaml";
+    private static final String FILE_PATH = ClientMain.getInstance().getFileManager().getClientHomeDirectory() + File.separator + "TileProperties.yaml";
 
     private final TilePropertyDropDownMenu tilePropertyDropDownMenu = new TilePropertyDropDownMenu();
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
