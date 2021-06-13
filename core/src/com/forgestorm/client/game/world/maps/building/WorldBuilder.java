@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
@@ -147,6 +148,7 @@ public class WorldBuilder {
 
         if (useEraser) {
             tile.removeTileImage();
+            textureId = ClientConstants.BLANK_TILE_ID; // Set texture to erase
         } else {
             tile.setTileImage(new TileImage(tileImageMap.get(textureId)));
         }
