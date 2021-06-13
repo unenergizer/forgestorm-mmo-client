@@ -50,14 +50,26 @@ public class WorldBuilder {
 
     public WorldBuilder() {
 
-        // Load TileAnimations.yaml
-        tileAnimationMap = ClientMain.getInstance().getFileManager().getTileAnimationData().getTileAnimationMap();
-
         // Load AbstractTileProperty.yaml
         tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
 
         // Load WangProperties.yaml
         wangImageMap = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
+
+        // Load TileAnimations.yaml
+        tileAnimationMap = ClientMain.getInstance().getFileManager().getTileAnimationData().getTileAnimationMap();
+
+        // Process Tile Animations
+        for (TileAnimation tileAnimation : tileAnimationMap.values()) {
+
+            // Loop through TileImageMap and set animation ID's
+            for (TileImage tileImage : tileImageMap.values()) {
+                if (tileImage.getImageId() == tileAnimation.getAnimationFrames().get(0).getTileId()) {
+                    // We found a match. Copy contents of original animation into a new instance
+                    tileImage.setTileAnimation(new TileAnimation(tileAnimation));
+                }
+            }
+        }
 
         // Load Tiles atlas
         textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);

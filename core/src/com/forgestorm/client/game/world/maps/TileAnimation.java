@@ -21,6 +21,17 @@ public class TileAnimation {
         this.animationId = animationId;
     }
 
+    public TileAnimation(TileAnimation tileAnimation) {
+        this.animationId = tileAnimation.animationId;
+
+        // Copy contents of the Animation frames over to this new animation
+        for (Map.Entry<Integer, AnimationFrame> entry : tileAnimation.getAnimationFrames().entrySet()) {
+            int id = entry.getKey();
+            AnimationFrame animationFrame = entry.getValue();
+            addAnimationFrame(id, animationFrame.getTileId(), animationFrame.getDuration());
+        }
+    }
+
     /**
      * A simple method to swap frames around. Or in other words a method to
      * rearrange frames.

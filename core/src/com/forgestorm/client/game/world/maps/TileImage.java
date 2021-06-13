@@ -22,8 +22,11 @@ public class TileImage {
     private static final transient boolean PRINT_DEBUG = false;
 
     private final Map<TilePropertyTypes, AbstractTileProperty> tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
+
     private final transient int imageId;
     private final String fileName;
+
+    private transient TileAnimation tileAnimation;
 
     private BuildCategory buildCategory;
     private LayerDefinition layerDefinition;
@@ -64,6 +67,17 @@ public class TileImage {
                 println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString());
             }
         }
+    }
+
+    public TileImage getAnimationFrame() {
+        if (tileAnimation == null) return this;
+
+        int activeFrame = tileAnimation.getActiveFrame();
+
+        // Return if their is no active frame
+        if (activeFrame == -1) return this;
+
+        return ClientMain.getInstance().getWorldBuilder().getTileImage(tileAnimation.getAnimationFrame(activeFrame).getTileId());
     }
 
     public int getWidth() {

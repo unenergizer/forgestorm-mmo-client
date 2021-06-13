@@ -151,7 +151,7 @@ public class WorldChunk {
 
                 FileManager fileManager = ClientMain.getInstance().getFileManager();
                 TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
-                TextureRegion textureRegion = atlas.findRegion(tileImage.getFileName());
+                TextureRegion textureRegion = atlas.findRegion(tileImage.getAnimationFrame().getFileName());
 
                 float rx = (x + chunkX * ClientConstants.CHUNK_SIZE) * ClientConstants.TILE_SIZE;
                 float ry = (y + chunkY * ClientConstants.CHUNK_SIZE) * ClientConstants.TILE_SIZE;
