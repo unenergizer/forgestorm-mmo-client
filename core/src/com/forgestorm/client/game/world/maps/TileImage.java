@@ -17,16 +17,16 @@ import static com.forgestorm.client.util.Log.println;
 
 @Getter
 @Setter
-public class TileImage extends Tile {
+public class TileImage {
 
     private static final transient boolean PRINT_DEBUG = false;
 
+    private final Map<TilePropertyTypes, AbstractTileProperty> tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
     private final transient int imageId;
     private final String fileName;
 
     private BuildCategory buildCategory;
     private LayerDefinition layerDefinition;
-    private Map<TilePropertyTypes, AbstractTileProperty> tileProperties;
 
     public TileImage(int imageId, String fileName, BuildCategory buildCategory) {
         this.imageId = imageId;
@@ -39,7 +39,7 @@ public class TileImage extends Tile {
     }
 
     public boolean containsProperty(TilePropertyTypes tilePropertyType) {
-        if (tileProperties == null || tileProperties.isEmpty()) return false;
+        if (tileProperties.isEmpty()) return false;
         return tileProperties.containsKey(tilePropertyType);
     }
 
@@ -48,14 +48,6 @@ public class TileImage extends Tile {
     }
 
     public void setCustomTileProperty(AbstractTileProperty customTileProperty) {
-        if (customTileProperty == null) {
-            println(getClass(), "AbstractTileProperty was null! ", true);
-        }
-
-        if (tileProperties == null) {
-            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
-        }
-
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {
             println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
         } else {

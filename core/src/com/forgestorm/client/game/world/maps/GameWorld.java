@@ -65,20 +65,20 @@ public class GameWorld {
         WorldChunk worldChunk = findChunk(worldX, worldY);
         if (worldChunk == null) return;
 
-        int chunkX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
-        int chunkY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
+        int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
+        int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        worldChunk.setTile(layerDefinition, tile, chunkX, chunkY);
+        worldChunk.setTile(layerDefinition, tile, localX, localY);
     }
 
     public Tile getTile(LayerDefinition layerDefinition, int worldX, int worldY) {
         WorldChunk worldChunk = findChunk(worldX, worldY);
         if (worldChunk == null) return null;
 
-        int chunkX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
-        int chunkY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
+        int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
+        int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        return worldChunk.getTile(layerDefinition, chunkX, chunkY);
+        return worldChunk.getTile(layerDefinition, localX, localY);
     }
 
     Warp getWarp(int entityX, int entityY) {

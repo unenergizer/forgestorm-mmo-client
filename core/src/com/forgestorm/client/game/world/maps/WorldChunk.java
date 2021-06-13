@@ -31,40 +31,58 @@ public class WorldChunk {
     public WorldChunk(short chunkX, short chunkY) {
         this.chunkX = chunkX;
         this.chunkY = chunkY;
+
+        initTileLayers();
     }
 
-    private void initTileLayer(LayerDefinition layerDefinition) {
-        if (layers.containsKey(layerDefinition)) return;
-        layers.put(layerDefinition, new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE]);
+    private void initTileLayers() {
+
+        for (LayerDefinition layerDefinition : LayerDefinition.values()) {
+
+            Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
+
+            // Initialize all tiles
+            for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
+                for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
+
+                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
+                            localX + chunkX * ClientConstants.CHUNK_SIZE,
+                            localY + chunkY * ClientConstants.CHUNK_SIZE);
+                }
+            }
+
+            layers.put(layerDefinition, tiles);
+        }
     }
 
-    public void setTile(LayerDefinition layerDefinition, byte section, Tile[] tiles) {
-        initTileLayer(layerDefinition);
+    public void setNetworkTiles(LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
+        for (int localX = 0; localX < tileImageIDs.length; localX++) {
 
-        for (int i = 0; i < tiles.length; i++) {
-            layers.get(layerDefinition)[(ClientConstants.MAX_TILE_GET * section) + i] = tiles[i];
+            //noinspection UnnecessaryLocalVariable
+            int localY = section; // Defined for readability...
+            Tile tile = getTile(layerDefinition, localX, localY);
+
+            // Set TileImage if applicable.
+            TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
+            if (tileImage != null) tile.setTileImage(tileImage);
         }
     }
 
     public void setTile(LayerDefinition layerDefinition, Tile tile, int index) {
-        initTileLayer(layerDefinition);
         layers.get(layerDefinition)[index] = tile;
     }
 
-    void setTile(LayerDefinition layerDefinition, Tile tile, int chunkX, int chunkY) {
-        initTileLayer(layerDefinition);
-
-        // Set the new TileImage
-        layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE] = tile;
+    void setTile(LayerDefinition layerDefinition, Tile tile, int localX, int localY) {
+        layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tile;
     }
 
-    Tile getTile(LayerDefinition layerDefinition, int chunkX, int chunkY) {
-        return layers.get(layerDefinition)[chunkX + chunkY * ClientConstants.CHUNK_SIZE];
+    Tile getTile(LayerDefinition layerDefinition, int localX, int localY) {
+        return layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
     }
 
     public boolean isTraversable(int localX, int localY) {
-        for (Tile[] tileImages : layers.values()) {
-            Tile tile = tileImages[localX + localY * ClientConstants.CHUNK_SIZE];
+        for (Tile[] tiles : layers.values()) {
+            Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
             if (tile == null) continue;
             if (tile.hasCollision()) return false;
         }
@@ -127,8 +145,10 @@ public class WorldChunk {
 
                 Tile tile = layerTiles[x + y * ClientConstants.CHUNK_SIZE];
                 if (tile == null) continue;
-                if (!(tile instanceof TileImage)) continue;
-                TileImage tileImage = (TileImage) tile;
+
+                TileImage tileImage = tile.getTileImage();
+                if (tileImage == null) continue;
+
                 FileManager fileManager = ClientMain.getInstance().getFileManager();
                 TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
                 TextureRegion textureRegion = atlas.findRegion(tileImage.getFileName());

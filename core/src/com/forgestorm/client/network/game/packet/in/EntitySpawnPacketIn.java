@@ -220,7 +220,9 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 if (packetData.entityType == EntityType.CLIENT_PLAYER) {
                     ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
                     // TODO: Possible to relocate this for better performance...
-                    ClientMain.getInstance().getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
+
+                    // TODO: CURRENTLY DISABLED LOADING FROM DISK UNTIL SOME ISSUES ARE FIXED
+//                    ClientMain.getInstance().getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
                 }
 
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);

@@ -3,11 +3,9 @@ package com.forgestorm.client.network.game.packet.in;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.GameWorld;
-import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldManager;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
-import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.Opcode;
 import com.forgestorm.client.network.game.shared.Opcodes;
@@ -23,7 +21,6 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final WorldManager worldManager = ClientMain.getInstance().getWorldManager();
 
     @Override
@@ -38,15 +35,11 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
         byte sectionSent = clientHandler.readByte();
 
         // Read layer part
-        Tile[] layerParts = new Tile[ClientConstants.MAX_TILE_GET];
+        int[] layerParts = new int[ClientConstants.MAX_TILE_GET];
 
+        // Read TileImage ID's
         for (int i = 0; i < ClientConstants.MAX_TILE_GET; i++) {
-            int tileImageID = clientHandler.readInt();
-            if (tileImageID == 0) {
-                layerParts[i] = new Tile();
-            } else {
-                layerParts[i] = worldBuilder.getTileImage(tileImageID);
-            }
+            layerParts[i] = clientHandler.readInt();
         }
 
         println(getClass(), "Receiving chunk section! Layer: " + layerDefinition + ", Section: " + sectionSent, true, PRINT_DEBUG);
@@ -61,12 +54,11 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
 
         if (worldChunk == null) {
             // Generate new chunk and add it to the game world
-            WorldChunk newChunk = new WorldChunk(packetData.chunkX, packetData.chunkY);
-            newChunk.setTile(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
-            gameWorld.setChunk(newChunk);
-        } else {
-            worldChunk.setTile(packetData.layerDefinition, packetData.sectionSent, packetData.layerParts);
+            worldChunk = new WorldChunk(packetData.chunkX, packetData.chunkY);
+            gameWorld.setChunk(worldChunk);
         }
+
+        worldChunk.setNetworkTiles(packetData.layerDefinition, packetData.sectionSent, packetData.layerPart);
     }
 
     @AllArgsConstructor
@@ -74,6 +66,6 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
         private final short chunkX, chunkY;
         private final LayerDefinition layerDefinition;
         private final byte sectionSent;
-        private final Tile[] layerParts;
+        private final int[] layerPart;
     }
 }

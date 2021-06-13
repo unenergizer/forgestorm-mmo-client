@@ -71,11 +71,10 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         short chunkX = Short.parseShort(parts[0]);
         short chunkY = Short.parseShort(parts[1]);
 
-        //Map<LayerDefinition, TileImage[]> layers = new HashMap<LayerDefinition, TileImage[]>();
         WorldChunk chunk = new WorldChunk(chunkX, chunkY);
 
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
-            Tile[] layer = readLayer(layerDefinition.getLayerName(), root);
+            Tile[] layer = readLayer(layerDefinition, root, chunkX, chunkY);
 
             // Individually add each Tile to the chunk (NPE FIX)
             for (int i = 0; i < layer.length; i++) {
@@ -97,22 +96,28 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         return chunk;
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private static Tile[] readLayer(String layerName, JsonValue root) {
+    private static Tile[] readLayer(LayerDefinition layerDefinition, JsonValue root, short chunkX, short chunkY) {
         Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
 
-        if (root.has(layerName)) {
-            String layer = root.get(layerName).asString();
+        if (root.has(layerDefinition.getLayerName())) {
+            String layer = root.get(layerDefinition.getLayerName()).asString();
             String[] imageIds = layer.split(",");
             Map<Integer, TileImage> tileImages = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
-            for (int y = 0; y < ClientConstants.CHUNK_SIZE; y++) {
-                for (int x = 0; x < ClientConstants.CHUNK_SIZE; x++) {
-                    int tileId = Integer.parseInt(imageIds[x + y * ClientConstants.CHUNK_SIZE]);
+            for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
+                for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
+
+                    // Set the Tile.
+                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
+                            localX + chunkX * ClientConstants.CHUNK_SIZE,
+                            localY + chunkY * ClientConstants.CHUNK_SIZE);
+
+                    // Get the TileImage
+                    int tileId = Integer.parseInt(imageIds[localX + localY * ClientConstants.CHUNK_SIZE]);
                     TileImage tileImage = tileImages.get(tileId);
-                    if (tileImage == null) {
-                        tiles[x + y * ClientConstants.CHUNK_SIZE] = new Tile();
-                    } else {
-                        tiles[x + y * ClientConstants.CHUNK_SIZE] = tileImage;
+
+                    // Set the TileImage to the Tile
+                    if (tileImage != null) {
+                        tiles[localX + localY * ClientConstants.CHUNK_SIZE].setTileImage(tileImage);
                     }
                 }
             }

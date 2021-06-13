@@ -44,15 +44,16 @@ public abstract class AbstractWangTile {
      */
     protected void updateTile(LayerDefinition currentLayer, int autoTileID, int worldX, int worldY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        Tile currentTile = gameWorld.getTile(currentLayer, worldX, worldY);
 
-        if (!(currentTile instanceof TileImage)) return;
-        TileImage currentTileImage = (TileImage) currentTile;
+        Tile tile = gameWorld.getTile(currentLayer, worldX, worldY);
+        if (tile == null) return;
+
+        TileImage currentTileImage = tile.getTileImage();
+        if (currentTileImage == null) return;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
         TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangRegionNamePrefix() + autoTileID);
 
-        if (currentTileImage == null) return;
         if (currentTileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return;
         if (currentTileImage.getImageId() == autoTileImage.getImageId()) return;
 
@@ -90,13 +91,14 @@ public abstract class AbstractWangTile {
      */
     protected boolean detectSameTileType(LayerDefinition currentLayer, int worldX, int worldY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+
         Tile tile = gameWorld.getTile(currentLayer, worldX, worldY);
-
         if (tile == null) return false;
-        if (!(tile instanceof TileImage)) return false;
-        // TODO: Check out of bounds
 
-        TileImage tileImage = (TileImage) tile;
+        TileImage tileImage = tile.getTileImage();
+        if (tileImage == null) return false;
+
+        // TODO: Check out of bounds
         if (tileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return false;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();

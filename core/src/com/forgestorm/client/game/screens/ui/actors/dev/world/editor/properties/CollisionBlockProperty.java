@@ -100,6 +100,7 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
                             .getGameWorld(ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldName())
                             .getTile(layerDefinition, tileX, tileY);
 
+                    if (tileParent == null) continue;
                     if (useEraser) {
                         tileParent.removeCollision(tileImage);
                     } else {

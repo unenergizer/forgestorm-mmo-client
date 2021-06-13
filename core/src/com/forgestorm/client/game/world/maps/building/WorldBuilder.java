@@ -4,11 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
-import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
 import com.forgestorm.client.game.world.maps.GameWorld;
@@ -134,52 +131,16 @@ public class WorldBuilder {
 
     public void placeTile(LayerDefinition layerDefinition, int textureId, int worldX, int worldY, boolean sendPacket) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        Tile currentTileImage = tileImageMap.get(textureId);
+        Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY);
 
-        // Remove any current properties applied to the world
-        removeTileProperties(currentTileImage, layerDefinition, worldX, worldY);
-
-        Tile replacementTile;
         if (useEraser) {
-            replacementTile = new Tile(currentTileImage.getCollisionParents());
-            textureId = ClientConstants.BLANK_TILE_ID;
+            tile.removeTileImage();
         } else {
-            replacementTile = currentTileImage;
+            tile.setTileImage(tileImageMap.get(textureId));
         }
-
-        gameWorld.setTile(layerDefinition, replacementTile, worldX, worldY);
 
         if (sendPacket) {
             new WorldBuilderPacketOut(currentLayer, textureId, worldX, worldY).sendPacket();
-        }
-
-        // Finally apply the property to the world
-        applyTileProperties(replacementTile, layerDefinition, worldX, worldY);
-    }
-
-    private void removeTileProperties(Tile tile, LayerDefinition layerDefinition, int worldX, int worldY) {
-        // Lets do some property checks
-        if (tile == null) return;
-        if (!(tile instanceof TileImage)) return;
-        TileImage tileImage = (TileImage) tile;
-
-        // DO COLLISION REMOVAL
-        if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) {
-            CollisionBlockProperty collisionBlockProperty = (CollisionBlockProperty) tileImage.getProperty(TilePropertyTypes.COLLISION_BLOCK);
-            collisionBlockProperty.removePropertyToWorld(tileImage, layerDefinition, worldX, worldY);
-        }
-    }
-
-    private void applyTileProperties(Tile tile, LayerDefinition layerDefinition, int worldX, int worldY) {
-        // Lets do some property checks
-        if (tile == null) return;
-        if (!(tile instanceof TileImage)) return;
-        TileImage tileImage = (TileImage) tile;
-
-        // DO COLLISION APPLICATION
-        if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) {
-            CollisionBlockProperty collisionBlockProperty = (CollisionBlockProperty) tileImage.getProperty(TilePropertyTypes.COLLISION_BLOCK);
-            collisionBlockProperty.applyPropertyToWorld(tileImage, layerDefinition, worldX, worldY);
         }
     }
 
