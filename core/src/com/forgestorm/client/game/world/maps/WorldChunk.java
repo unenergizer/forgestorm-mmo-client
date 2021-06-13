@@ -64,7 +64,7 @@ public class WorldChunk {
 
             // Set TileImage if applicable.
             TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
-            if (tileImage != null) tile.setTileImage(tileImage);
+            if (tileImage != null) tile.setTileImage(new TileImage(tileImage));
         }
     }
 

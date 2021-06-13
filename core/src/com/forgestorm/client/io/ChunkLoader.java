@@ -117,7 +117,7 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
 
                     // Set the TileImage to the Tile
                     if (tileImage != null) {
-                        tiles[localX + localY * ClientConstants.CHUNK_SIZE].setTileImage(tileImage);
+                        tiles[localX + localY * ClientConstants.CHUNK_SIZE].setTileImage(new TileImage(tileImage));
                     }
                 }
             }

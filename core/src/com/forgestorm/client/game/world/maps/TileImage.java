@@ -41,6 +41,24 @@ public class TileImage {
         println(getClass(), "FileName: " + fileName, false, PRINT_DEBUG);
     }
 
+    public TileImage(TileImage tileImage) {
+        this.imageId = tileImage.getImageId();
+        this.fileName = tileImage.getFileName();
+        this.buildCategory = tileImage.getBuildCategory();
+        this.layerDefinition = tileImage.getLayerDefinition();
+
+        if (tileImage.getTileAnimation() != null) {
+            this.tileAnimation = new TileAnimation(tileImage.tileAnimation);
+        }
+
+        // Copy tile properties
+        for (Map.Entry<TilePropertyTypes, AbstractTileProperty> entry : tileImage.getTileProperties().entrySet()) {
+            TilePropertyTypes tilePropertyTypes = entry.getKey();
+            AbstractTileProperty abstractTileProperty = entry.getValue();
+            tileProperties.put(tilePropertyTypes, abstractTileProperty);
+        }
+    }
+
     public boolean containsProperty(TilePropertyTypes tilePropertyType) {
         if (tileProperties.isEmpty()) return false;
         return tileProperties.containsKey(tilePropertyType);

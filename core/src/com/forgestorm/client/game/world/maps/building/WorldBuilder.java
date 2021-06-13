@@ -148,7 +148,7 @@ public class WorldBuilder {
         if (useEraser) {
             tile.removeTileImage();
         } else {
-            tile.setTileImage(tileImageMap.get(textureId));
+            tile.setTileImage(new TileImage(tileImageMap.get(textureId)));
         }
 
         if (sendPacket) {
