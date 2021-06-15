@@ -21,13 +21,13 @@ public class TileImage {
 
     private static final transient boolean PRINT_DEBUG = false;
 
-    private final Map<TilePropertyTypes, AbstractTileProperty> tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
 
     private final transient int imageId;
     private final String fileName;
 
     private transient TileAnimation tileAnimation;
 
+    private Map<TilePropertyTypes, AbstractTileProperty> tileProperties;
     private BuildCategory buildCategory;
     private LayerDefinition layerDefinition;
 
@@ -60,7 +60,7 @@ public class TileImage {
     }
 
     public boolean containsProperty(TilePropertyTypes tilePropertyType) {
-        if (tileProperties.isEmpty()) return false;
+        if (tileProperties == null || tileProperties.isEmpty()) return false;
         return tileProperties.containsKey(tilePropertyType);
     }
 
@@ -69,6 +69,14 @@ public class TileImage {
     }
 
     public void setCustomTileProperty(AbstractTileProperty customTileProperty) {
+
+        // Only create an instance of the HashMap here!
+        // Doing so will keep the YAML saving code from producing empty brackets
+        // in the TileProperties.yaml document.
+        if (tileProperties == null) {
+            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
+        }
+
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {
             println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
         } else {
