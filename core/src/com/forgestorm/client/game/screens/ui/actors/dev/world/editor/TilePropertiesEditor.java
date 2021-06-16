@@ -143,8 +143,20 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         }
 
         if (tileImage == null) {
+
+            // Find empty ID
+            int maxSize = worldBuilder.getTileImageMapSize();
+            int id = 1;
+            for (int i = 1; i < maxSize + 10000; i++) {
+                if (!worldBuilder.getTileImageMap().containsKey(i)) {
+                    id = i;
+                    break;
+                }
+            }
+
+            // Initialize new TileImage
             tileImage = new TileImage(
-                    worldBuilder.getTileImageMapSize() + 1,
+                    id,
                     atlasRegion.name,
                     BuildCategory.UNDEFINED
             );
