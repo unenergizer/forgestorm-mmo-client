@@ -12,11 +12,22 @@
 2:
   animationFrames:
     0:
-      duration: 10
-      tileId: 45
+      duration: 60
+      tileId: 76
     1:
       duration: 20
-      tileId: 46
+      tileId: 834
     2:
-      duration: 30
-      tileId: 47
+      duration: 60
+      tileId: 11
+3:
+  animationFrames:
+    0:
+      duration: 60
+      tileId: 76
+    1:
+      duration: 20
+      tileId: 834
+    2:
+      duration: 60
+      tileId: 11

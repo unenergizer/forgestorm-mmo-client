@@ -52,6 +52,18 @@
 10:
   buildCategory: WALL
   fileName: brick-wall-tan
+11:
+  buildCategory: WALL
+  fileName: door-01-open-dark
+12:
+  buildCategory: WALL
+  fileName: door-03-open-dark
+13:
+  buildCategory: WALL
+  fileName: door-01-open-light
+14:
+  buildCategory: WALL
+  fileName: door-03-open-light
 15:
   buildCategory: DECORATION
   fileName: bag-01
@@ -60,6 +72,18 @@
     COLLISION_BLOCK:
       collisionList:
         - true
+16:
+  buildCategory: WALL
+  fileName: door-01-transition-light
+17:
+  buildCategory: WALL
+  fileName: door-02-frame
+18:
+  buildCategory: WALL
+  fileName: door-02-open-dark
+19:
+  buildCategory: WALL
+  fileName: door-02-open-light
 20:
   buildCategory: DECORATION
   fileName: barrel-big-04
@@ -2388,6 +2412,9 @@
       collisionList:
         - false
         - true
+445:
+  buildCategory: WALL
+  fileName: door-02-transition-dark
 446:
   buildCategory: WALL
   fileName: stone-wall-bottom-right
@@ -4484,8 +4511,8 @@
   buildCategory: DECORATION
   fileName: table-item-16
 834:
-  buildCategory: DECORATION
-  fileName: table-item-17
+  buildCategory: WALL
+  fileName: door-01-transition-dark
 835:
   buildCategory: DECORATION
   fileName: table-item-book-01
@@ -4526,3 +4553,257 @@
     COLLISION_BLOCK:
       collisionList:
         - true
+843:
+  buildCategory: WALL
+  fileName: door-02-transition-light
+844:
+  buildCategory: WALL
+  fileName: door-03-transition-dark
+845:
+  buildCategory: WALL
+  fileName: door-03-transition-light
+846:
+  buildCategory: WALL
+  fileName: door-04-frame
+847:
+  buildCategory: WALL
+  fileName: door-04-open-dark
+848:
+  buildCategory: WALL
+  fileName: door-04-open-light
+849:
+  buildCategory: WALL
+  fileName: door-04-transition-dark
+850:
+  buildCategory: WALL
+  fileName: door-04-transition-light
+851:
+  buildCategory: WALL
+  fileName: door-05-closed
+852:
+  buildCategory: WALL
+  fileName: door-05-frame
+853:
+  buildCategory: WALL
+  fileName: door-05-open-dark
+854:
+  buildCategory: WALL
+  fileName: door-05-open-light
+855:
+  buildCategory: WALL
+  fileName: door-05-transition-dark
+856:
+  buildCategory: WALL
+  fileName: door-05-transition-light
+857:
+  buildCategory: WALL
+  fileName: door-06-frame
+858:
+  buildCategory: WALL
+  fileName: door-06-open-dark
+859:
+  buildCategory: WALL
+  fileName: door-06-open-light
+860:
+  buildCategory: WALL
+  fileName: door-06-transition-dark
+861:
+  buildCategory: WALL
+  fileName: door-06-transition-light
+862:
+  buildCategory: WALL
+  fileName: door-07-frame
+863:
+  buildCategory: WALL
+  fileName: door-07-open-dark
+864:
+  buildCategory: WALL
+  fileName: door-07-open-light
+865:
+  buildCategory: WALL
+  fileName: door-07-transition-dark
+866:
+  buildCategory: WALL
+  fileName: door-07-transition-light
+867:
+  buildCategory: WALL
+  fileName: door-08-frame
+868:
+  buildCategory: WALL
+  fileName: door-08-open-dark
+869:
+  buildCategory: WALL
+  fileName: door-08-open-light
+870:
+  buildCategory: WALL
+  fileName: door-08-transition-dark
+871:
+  buildCategory: WALL
+  fileName: door-08-transition-light
+872:
+  buildCategory: WALL
+  fileName: door-01-frame
+873:
+  buildCategory: WALL
+  fileName: door-03-frame
+874:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+875:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+876:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+877:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+878:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+879:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+880:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-07
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+881:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-08
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+882:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-09
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+883:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-10
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+884:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-11
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+885:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-12
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+886:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-13
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+887:
+  buildCategory: DECORATION
+  fileName: cabnient-bottom-14
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+        - true
+888:
+  buildCategory: DECORATION
+  fileName: cabnient-small-bottom-01
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+889:
+  buildCategory: DECORATION
+  fileName: cabnient-small-bottom-02
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+890:
+  buildCategory: DECORATION
+  fileName: cabnient-small-bottom-03
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+891:
+  buildCategory: DECORATION
+  fileName: cabnient-small-bottom-04
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+892:
+  buildCategory: DECORATION
+  fileName: cabnient-small-bottom-05
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+893:
+  buildCategory: DECORATION
+  fileName: cabnient-small-bottom-06
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+894:
+  buildCategory: DECORATION
+  fileName: cabnient-small-top
+895:
+  buildCategory: DECORATION
+  fileName: cabnient-top
+
