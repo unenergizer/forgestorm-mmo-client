@@ -52,6 +52,8 @@ public class TileImage {
         }
 
         // Copy tile properties
+        if (tileImage.getTileProperties() == null) return;
+        initAbstractTilePropertyMap();
         for (Map.Entry<TilePropertyTypes, AbstractTileProperty> entry : tileImage.getTileProperties().entrySet()) {
             TilePropertyTypes tilePropertyTypes = entry.getKey();
             AbstractTileProperty abstractTileProperty = entry.getValue();
@@ -69,13 +71,7 @@ public class TileImage {
     }
 
     public void setCustomTileProperty(AbstractTileProperty customTileProperty) {
-
-        // Only create an instance of the HashMap here!
-        // Doing so will keep the YAML saving code from producing empty brackets
-        // in the TileProperties.yaml document.
-        if (tileProperties == null) {
-            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
-        }
+        initAbstractTilePropertyMap();
 
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {
             println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
@@ -92,6 +88,15 @@ public class TileImage {
             for (AbstractTileProperty abstractTileProperty : tileProperties.values()) {
                 println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString());
             }
+        }
+    }
+
+    private void initAbstractTilePropertyMap() {
+        // Only create an instance of the HashMap here!
+        // Doing so will keep the YAML saving code from producing empty brackets
+        // in the TileProperties.yaml document.
+        if (tileProperties == null) {
+            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
         }
     }
 
