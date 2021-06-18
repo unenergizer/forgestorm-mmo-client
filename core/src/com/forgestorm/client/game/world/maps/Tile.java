@@ -32,8 +32,8 @@ public class Tile {
     }
 
     public void removeTileImage() {
-        tileImage = null;
         removeTileProperties();
+        tileImage = null;
     }
 
     private void applyTileProperties() {
