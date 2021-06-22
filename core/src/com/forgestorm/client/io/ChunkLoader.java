@@ -18,8 +18,7 @@ import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
-
-import java.util.Map;
+import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,9 +40,11 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
 
     @Override
     public void loadAsync(AssetManager manager, String fileName, FileHandle file, MapChunkParameter parameter) {
+        println(getClass(), "File Location: " + file.path(), false, PRINT_DEBUG);
         println(getClass(), "Is Directory: " + file.isDirectory(), false, PRINT_DEBUG);
         println(getClass(), "Directory List Size: " + file.list().length, false, PRINT_DEBUG);
         println(getClass(), "Directory Name: " + file.name(), false, PRINT_DEBUG);
+        println(PRINT_DEBUG);
 
         mapChunkDataWrapper = null;
         mapChunkDataWrapper = new MapChunkDataWrapper();
@@ -73,15 +74,12 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
 
         WorldChunk chunk = new WorldChunk(chunkX, chunkY);
 
+        // Process Tile Layers
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
-            Tile[] layer = readLayer(layerDefinition, root, chunkX, chunkY);
-
-            // Individually add each Tile to the chunk (NPE FIX)
-            for (int i = 0; i < layer.length; i++) {
-                chunk.setTile(layerDefinition, layer[i], i);
-            }
+            readLayer(layerDefinition, root, chunk);
         }
 
+        // Process Tile Warps
         JsonValue warpsArray = root.get("warps");
         if (warpsArray != null) {
             for (JsonValue jsonWarp = warpsArray.child; jsonWarp != null; jsonWarp = jsonWarp.next) {
@@ -96,34 +94,29 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         return chunk;
     }
 
-    private static Tile[] readLayer(LayerDefinition layerDefinition, JsonValue root, short chunkX, short chunkY) {
-        Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
+    private static void readLayer(LayerDefinition layerDefinition, JsonValue root, WorldChunk chunk) {
 
         if (root.has(layerDefinition.getLayerName())) {
+            WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
             String layer = root.get(layerDefinition.getLayerName()).asString();
             String[] imageIds = layer.split(",");
-            Map<Integer, TileImage> tileImages = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
             for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
                 for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
 
-                    // Set the Tile.
-                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
-                            localX + chunkX * ClientConstants.CHUNK_SIZE,
-                            localY + chunkY * ClientConstants.CHUNK_SIZE);
-
+                    println(ChunkLoader.class, "Processing Tile: " + layerDefinition + " - " + localX + "/" + localY, false, PRINT_DEBUG);
                     // Get the TileImage
                     int tileId = Integer.parseInt(imageIds[localX + localY * ClientConstants.CHUNK_SIZE]);
-                    TileImage tileImage = tileImages.get(tileId);
+                    TileImage tileImage = worldBuilder.getTileImage(tileId);
 
                     // Set the TileImage to the Tile
                     if (tileImage != null) {
-                        tiles[localX + localY * ClientConstants.CHUNK_SIZE].setTileImage(new TileImage(tileImage));
+                        println(ChunkLoader.class, " -- Setting TileImage", false, PRINT_DEBUG);
+                        Tile tile = chunk.getTile(layerDefinition, localX, localY);
+                        tile.setTileImage(new TileImage(tileImage));
                     }
                 }
             }
         }
-
-        return tiles;
     }
 
     @Setter

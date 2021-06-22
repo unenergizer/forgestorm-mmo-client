@@ -10,6 +10,7 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.entities.Appearance;
+import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.forgestorm.client.network.game.packet.out.CharacterSelectPacketOut;
@@ -29,9 +30,9 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
 
     private GameCharacter[] gameCharacterList;
     private GameCharacter selectedCharacter;
-    private Appearance appearance;
+    private final Appearance appearance;
 
-    private VisTable characterButtonTable = new VisTable();
+    private final VisTable characterButtonTable = new VisTable();
     private VisTextButton activeButton;
     private VisTextButton playButton;
     private VisTextButton deleteButton;
@@ -93,6 +94,12 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 new CharacterSelectPacketOut(selectedCharacter.getCharacterId()).sendPacket();
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 12);
+
+                // Load map?
+                EntityManager.getInstance().dispose(); // quick clear existing entities
+                ClientMain.getInstance().getWorldManager().setGameWorld(selectedCharacter.getWorldName());
+                ClientMain.getInstance().getClientMovementProcessor().resetInput();
+                ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(null);
             }
         });
 

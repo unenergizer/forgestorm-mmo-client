@@ -55,36 +55,60 @@ public class WorldChunk {
         }
     }
 
-    public void setNetworkTiles(LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
-        for (int localX = 0; localX < tileImageIDs.length; localX++) {
+    public void setChunkFromDisk(WorldChunk chunkFromDisk) {
+        // Copy layers
+        for (Map.Entry<LayerDefinition, Tile[]> entry : chunkFromDisk.getLayers().entrySet()) {
+            LayerDefinition layerDefinition = entry.getKey();
+            Tile[] tiles = entry.getValue();
 
-            //noinspection UnnecessaryLocalVariable
-            int localY = section; // Defined for readability...
-            Tile tile = getTile(layerDefinition, localX, localY);
+            for (Tile tileFromDisk : tiles) {
+                if (tileFromDisk.getTileImage() == null) continue;
+                int localTileX = tileFromDisk.getWorldX() - ClientConstants.CHUNK_SIZE * chunkX;
+                int localTileY = tileFromDisk.getWorldY() - ClientConstants.CHUNK_SIZE * chunkY;
+                Tile localTile = getTile(layerDefinition, localTileX, localTileY);
+                localTile.setTileImage(tileFromDisk.getTileImage());
+            }
+        }
 
-            // Set TileImage if applicable.
-            TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
-            if (tileImage != null) tile.setTileImage(new TileImage(tileImage));
+        // Copy Warps
+        for (Map.Entry<WarpLocation, Warp> entry : chunkFromDisk.getTileWarps().entrySet()) {
+            WarpLocation warpLocation = entry.getKey();
+            Warp warp = entry.getValue();
+
+            addTileWarp(warpLocation, warp);
         }
     }
 
-    public void setTile(LayerDefinition layerDefinition, Tile tile, int index) {
-        layers.get(layerDefinition)[index] = tile;
+    public void setNetworkTiles(LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
+        for (int localX = 0; localX < tileImageIDs.length; localX++) {
+
+            TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
+
+            // Set TileImage if applicable.
+            if (tileImage != null) {
+                //noinspection UnnecessaryLocalVariable
+                int localY = section; // Defined for readability...
+                Tile tile = getTile(layerDefinition, localX, localY);
+                tile.setTileImage(new TileImage(tileImage));
+            }
+        }
     }
 
-    void setTile(LayerDefinition layerDefinition, Tile tile, int localX, int localY) {
-        layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE] = tile;
-    }
-
-    Tile getTile(LayerDefinition layerDefinition, int localX, int localY) {
+    public Tile getTile(LayerDefinition layerDefinition, int localX, int localY) {
         return layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
     }
 
     public boolean isTraversable(int localX, int localY) {
-        for (Tile[] tiles : layers.values()) {
+        for (Map.Entry<LayerDefinition, Tile[]> entry : layers.entrySet()) {
+            LayerDefinition layerDefinition = entry.getKey();
+            Tile[] tiles = entry.getValue();
             Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
             if (tile == null) continue;
-            if (tile.hasCollision()) return false;
+            System.out.println("isTraversable Layer: " + layerDefinition);
+            if (tile.hasCollision()) {
+                System.out.println("WorldChunk: FALSE");
+                return false;
+            }
         }
         return true;
     }

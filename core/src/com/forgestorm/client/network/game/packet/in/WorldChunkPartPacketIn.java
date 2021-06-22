@@ -51,13 +51,6 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
     public void onEvent(WorldChunkPartPacket packetData) {
         GameWorld gameWorld = worldManager.getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.getChunk(packetData.chunkX, packetData.chunkY);
-
-        if (worldChunk == null) {
-            // Generate new chunk and add it to the game world
-            worldChunk = new WorldChunk(packetData.chunkX, packetData.chunkY);
-            gameWorld.setChunk(worldChunk);
-        }
-
         worldChunk.setNetworkTiles(packetData.layerDefinition, packetData.sectionSent, packetData.layerPart);
     }
 

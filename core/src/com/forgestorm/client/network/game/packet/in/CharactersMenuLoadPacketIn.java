@@ -31,6 +31,9 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
             String name = clientHandler.readString();
             byte characterId = clientHandler.readByte();
 
+            // Location data
+            String worldName = clientHandler.readString();
+
             // Appearance
             byte hairTexture = clientHandler.readByte();
             byte helmTexture = clientHandler.readByte();
@@ -57,10 +60,11 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
             appearance.setLeftHandTexture(leftHandTexture);
             appearance.setRightHandTexture(rightHandTexture);
 
-            characters[i] = new GameCharacter(name, characterId, appearance);
+            characters[i] = new GameCharacter(name, characterId, worldName, appearance);
 
             println(getClass(), "Name: " + name, false, PRINT_DEBUG);
             println(getClass(), "CharacterID: " + characterId, false, PRINT_DEBUG);
+            println(getClass(), "WorldName: " + worldName, false, PRINT_DEBUG);
             println(getClass(), "HairTexture: " + hairTexture, false, PRINT_DEBUG);
             println(getClass(), "HelmTexture: " + helmTexture, false, PRINT_DEBUG);
             println(getClass(), "ChestTexture: " + chestTexture, false, PRINT_DEBUG);
@@ -85,6 +89,6 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
 
     @AllArgsConstructor
     class CharacterData extends PacketData {
-        private GameCharacter[] characters;
+        private final GameCharacter[] characters;
     }
 }

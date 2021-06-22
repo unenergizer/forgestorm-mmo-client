@@ -37,7 +37,7 @@ public enum FilePaths {
 
     private final String filePath;
 
-    public String getFilePath() {
+    public String getInternalFilePath() {
         return "data/" + filePath;
     }
 }

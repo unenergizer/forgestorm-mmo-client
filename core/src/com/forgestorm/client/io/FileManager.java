@@ -31,8 +31,6 @@ import com.forgestorm.client.util.file.FindDesktopDirectoryUtil;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 import lombok.Getter;
 
@@ -43,9 +41,8 @@ public class FileManager {
     private static final boolean PRINT_DEBUG = false;
 
     @Getter
-    private final String clientHomeDirectory;
-    @Getter
     private final String clientFilesDirectory;
+
     @Getter
     private final String worldDirectory;
 
@@ -66,28 +63,7 @@ public class FileManager {
                 throw new RuntimeException("Couldn't create the ForgeStorm in the home directory!");
             }
         }
-        clientHomeDirectory = homeDirectory.getAbsolutePath();
-
-        // Get the path of the jar file.
-        String jarPath = FileManager.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        println(getClass(), jarPath);
-        String decodedPath = "";
-        try {
-            decodedPath = URLDecoder.decode(jarPath, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        // Create the client files directory
-        File clientFilesDirectory = new File(decodedPath + "clientFiles").getParentFile();
-        if (!clientFilesDirectory.exists()) {
-            if (clientFilesDirectory.mkdir()) {
-                println(getClass(), "Created the ClientFilesOnly directory!", true);
-            } else {
-                throw new RuntimeException("Couldn't create the ClientFilesOnly directory!");
-            }
-        }
-        this.clientFilesDirectory = clientFilesDirectory.getAbsolutePath();
+        clientFilesDirectory = homeDirectory.getAbsolutePath();
 
         // Create the World Directory if it doesn't exist.
         File worldDirectory = new File(clientFilesDirectory + "/worldDirectory");
@@ -261,123 +237,123 @@ public class FileManager {
     }
 
     public void loadItemStackData() {
-        abstractedLoad(FilePaths.ITEM_STACK.getFilePath(), false, false, ItemStackLoader.ItemStackData.class, new ItemStackLoader(internalResolver));
+        abstractedLoad(FilePaths.ITEM_STACK.getInternalFilePath(), false, false, ItemStackLoader.ItemStackData.class, new ItemStackLoader(internalResolver));
     }
 
     public ItemStackLoader.ItemStackData getItemStackData() {
-        return abstractGet(FilePaths.ITEM_STACK.getFilePath(), false, ItemStackLoader.ItemStackData.class);
+        return abstractGet(FilePaths.ITEM_STACK.getInternalFilePath(), false, ItemStackLoader.ItemStackData.class);
     }
 
     public void loadFactionData() {
-        abstractedLoad(FilePaths.FACTIONS.getFilePath(), false, false, FactionLoader.FactionDataWrapper.class, new FactionLoader(internalResolver));
+        abstractedLoad(FilePaths.FACTIONS.getInternalFilePath(), false, false, FactionLoader.FactionDataWrapper.class, new FactionLoader(internalResolver));
     }
 
     public FactionLoader.FactionDataWrapper getFactionData() {
-        return abstractGet(FilePaths.FACTIONS.getFilePath(), false, FactionLoader.FactionDataWrapper.class);
+        return abstractGet(FilePaths.FACTIONS.getInternalFilePath(), false, FactionLoader.FactionDataWrapper.class);
     }
 
     public void loadAbilityData() {
-        abstractedLoad(FilePaths.COMBAT_ABILITIES.getFilePath(), false, false, AbilityLoader.AbilityDataWrapper.class, new AbilityLoader(internalResolver));
+        abstractedLoad(FilePaths.COMBAT_ABILITIES.getInternalFilePath(), false, false, AbilityLoader.AbilityDataWrapper.class, new AbilityLoader(internalResolver));
     }
 
     public AbilityLoader.AbilityDataWrapper getAbilityData() {
-        return abstractGet(FilePaths.COMBAT_ABILITIES.getFilePath(), false, AbilityLoader.AbilityDataWrapper.class);
+        return abstractGet(FilePaths.COMBAT_ABILITIES.getInternalFilePath(), false, AbilityLoader.AbilityDataWrapper.class);
     }
 
     public void loadMusicData() {
-        abstractedLoad(FilePaths.GAME_MUSIC.getFilePath(), false, false, MusicDataLoader.MusicDataWrapper.class, new MusicDataLoader(internalResolver));
+        abstractedLoad(FilePaths.GAME_MUSIC.getInternalFilePath(), false, false, MusicDataLoader.MusicDataWrapper.class, new MusicDataLoader(internalResolver));
     }
 
     public MusicDataLoader.MusicDataWrapper getMusicData() {
-        return abstractGet(FilePaths.GAME_MUSIC.getFilePath(), false, MusicDataLoader.MusicDataWrapper.class);
+        return abstractGet(FilePaths.GAME_MUSIC.getInternalFilePath(), false, MusicDataLoader.MusicDataWrapper.class);
     }
 
     public void loadSoundData() {
-        abstractedLoad(FilePaths.SOUND_FX.getFilePath(), false, false, SoundDataLoader.SoundDataWrapper.class, new SoundDataLoader(internalResolver));
+        abstractedLoad(FilePaths.SOUND_FX.getInternalFilePath(), false, false, SoundDataLoader.SoundDataWrapper.class, new SoundDataLoader(internalResolver));
     }
 
     public SoundDataLoader.SoundDataWrapper getSoundData() {
-        return abstractGet(FilePaths.SOUND_FX.getFilePath(), false, SoundDataLoader.SoundDataWrapper.class);
+        return abstractGet(FilePaths.SOUND_FX.getInternalFilePath(), false, SoundDataLoader.SoundDataWrapper.class);
     }
 
     public void loadEntityShopData() {
-        abstractedLoad(FilePaths.ENTITY_SHOP.getFilePath(), false, false, EntityShopLoader.EntityShopDataWrapper.class, new EntityShopLoader(internalResolver));
+        abstractedLoad(FilePaths.ENTITY_SHOP.getInternalFilePath(), false, false, EntityShopLoader.EntityShopDataWrapper.class, new EntityShopLoader(internalResolver));
     }
 
     public EntityShopLoader.EntityShopDataWrapper getEntityShopData() {
-        return abstractGet(FilePaths.ENTITY_SHOP.getFilePath(), false, EntityShopLoader.EntityShopDataWrapper.class);
+        return abstractGet(FilePaths.ENTITY_SHOP.getInternalFilePath(), false, EntityShopLoader.EntityShopDataWrapper.class);
     }
 
     public void loadTilePropertiesData() {
-        abstractedLoad(FilePaths.TILE_PROPERTIES.getFilePath(), false, false, TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(internalResolver));
+        abstractedLoad(FilePaths.TILE_PROPERTIES.getInternalFilePath(), false, false, TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(internalResolver));
     }
 
     public TilePropertiesLoader.TilePropertiesDataWrapper getTilePropertiesData() {
-        return abstractGet(FilePaths.TILE_PROPERTIES.getFilePath(), false, TilePropertiesLoader.TilePropertiesDataWrapper.class);
+        return abstractGet(FilePaths.TILE_PROPERTIES.getInternalFilePath(), false, TilePropertiesLoader.TilePropertiesDataWrapper.class);
     }
 
     public void loadWangPropertiesData() {
-        abstractedLoad(FilePaths.WANG_PROPERTIES.getFilePath(), false, false, WangPropertiesLoader.WangPropertiesDataWrapper.class, new WangPropertiesLoader(internalResolver));
+        abstractedLoad(FilePaths.WANG_PROPERTIES.getInternalFilePath(), false, false, WangPropertiesLoader.WangPropertiesDataWrapper.class, new WangPropertiesLoader(internalResolver));
     }
 
     public WangPropertiesLoader.WangPropertiesDataWrapper getWangPropertiesData() {
-        return abstractGet(FilePaths.WANG_PROPERTIES.getFilePath(), false, WangPropertiesLoader.WangPropertiesDataWrapper.class);
+        return abstractGet(FilePaths.WANG_PROPERTIES.getInternalFilePath(), false, WangPropertiesLoader.WangPropertiesDataWrapper.class);
     }
 
     public void loadTileAnimationData() {
-        abstractedLoad(FilePaths.TILE_ANIMATIONS.getFilePath(), false, false, TileAnimationsLoader.TileAnimationsDataWrapper.class, new TileAnimationsLoader(internalResolver));
+        abstractedLoad(FilePaths.TILE_ANIMATIONS.getInternalFilePath(), false, false, TileAnimationsLoader.TileAnimationsDataWrapper.class, new TileAnimationsLoader(internalResolver));
     }
 
     public TileAnimationsLoader.TileAnimationsDataWrapper getTileAnimationData() {
-        return abstractGet(FilePaths.TILE_ANIMATIONS.getFilePath(), false, TileAnimationsLoader.TileAnimationsDataWrapper.class);
+        return abstractGet(FilePaths.TILE_ANIMATIONS.getInternalFilePath(), false, TileAnimationsLoader.TileAnimationsDataWrapper.class);
     }
 
     public void loadNetworkSettingsData() {
-        abstractedLoad(FilePaths.NETWORK_SETTINGS.getFilePath(), false, false, NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(internalResolver));
+        abstractedLoad(FilePaths.NETWORK_SETTINGS.getInternalFilePath(), false, false, NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(internalResolver));
     }
 
     public NetworkSettingsLoader.NetworkSettingsData getNetworkSettingsData() {
-        return abstractGet(FilePaths.NETWORK_SETTINGS.getFilePath(), false, NetworkSettingsLoader.NetworkSettingsData.class);
+        return abstractGet(FilePaths.NETWORK_SETTINGS.getInternalFilePath(), false, NetworkSettingsLoader.NetworkSettingsData.class);
     }
 
     public void loadRssFeedData() {
-        abstractedLoad(FilePaths.RSS_FEED.getFilePath(), false, false, RssFeedLoader.RssFeedWrapper.class, new RssFeedLoader(internalResolver));
+        abstractedLoad(FilePaths.RSS_FEED.getInternalFilePath(), false, false, RssFeedLoader.RssFeedWrapper.class, new RssFeedLoader(internalResolver));
     }
 
     public RssFeedLoader.RssFeedWrapper getRssFeedData() {
-        return abstractGet(FilePaths.RSS_FEED.getFilePath(), false, RssFeedLoader.RssFeedWrapper.class);
+        return abstractGet(FilePaths.RSS_FEED.getInternalFilePath(), false, RssFeedLoader.RssFeedWrapper.class);
     }
 
     public void loadGameWorldListData() {
-        abstractedLoad(FilePaths.MAP_LIST.getFilePath(), true, false, GameWorldListLoader.GameWorldListDataWrapper.class, new GameWorldListLoader(internalResolver));
+        abstractedLoad(FilePaths.MAP_LIST.getInternalFilePath(), true, false, GameWorldListLoader.GameWorldListDataWrapper.class, new GameWorldListLoader(internalResolver));
     }
 
     public GameWorldListLoader.GameWorldListDataWrapper getGameWorldListData() {
-        return abstractGet(FilePaths.MAP_LIST.getFilePath(), false, GameWorldListLoader.GameWorldListDataWrapper.class);
+        return abstractGet(FilePaths.MAP_LIST.getInternalFilePath(), false, GameWorldListLoader.GameWorldListDataWrapper.class);
     }
 
     public void loadGameWorldData(String worldName) {
-        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName;
+        String filePath = FilePaths.MAP_DIRECTORY.getInternalFilePath() + "/" + worldName;
         abstractedLoad(filePath, true, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
     }
 
     public GameWorldLoader.GameWorldDataWrapper getGameWorldData(String worldName) {
-        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName;
+        String filePath = FilePaths.MAP_DIRECTORY.getInternalFilePath() + "/" + worldName;
         return abstractGet(filePath, false, GameWorldLoader.GameWorldDataWrapper.class);
     }
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
-        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
-        abstractedLoad(filePath, forceFinishLoading, false, ChunkLoader.MapChunkDataWrapper.class, new ChunkLoader(internalResolver));
+        String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
+        abstractedLoad(filePath, forceFinishLoading, true, ChunkLoader.MapChunkDataWrapper.class, new ChunkLoader(absoluteResolver));
     }
 
     public ChunkLoader.MapChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {
-        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
-        return abstractGet(filePath, false, ChunkLoader.MapChunkDataWrapper.class);
+        String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
+        return abstractGet(filePath, true, ChunkLoader.MapChunkDataWrapper.class);
     }
 
     public void unloadMapChunkData(String worldName, short chunkX, short chunkY) {
-        String filePath = FilePaths.MAP_DIRECTORY.getFilePath() + "/" + worldName + "/" + chunkX + "." + chunkY + ".json";
+        String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
 
         if (!isFileLoaded(filePath)) {
             println(getClass(), "MapChunkData does not exist for this chunk. ChunkX: " + chunkX + ", ChunkY: " + chunkY, true, PRINT_DEBUG);

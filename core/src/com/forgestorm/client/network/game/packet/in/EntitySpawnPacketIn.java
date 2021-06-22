@@ -221,8 +221,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
                     // TODO: Possible to relocate this for better performance...
 
-                    // TODO: CURRENTLY DISABLED LOADING FROM DISK UNTIL SOME ISSUES ARE FIXED
-//                    ClientMain.getInstance().getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
+                    // Load the map for the player
+                    ClientMain.getInstance().getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
                 }
 
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);

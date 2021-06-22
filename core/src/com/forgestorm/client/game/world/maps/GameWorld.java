@@ -52,23 +52,9 @@ public class GameWorld {
             for (int chunkX = clientChunkX - ClientConstants.CHUNK_RADIUS; chunkX < clientChunkX + ClientConstants.CHUNK_RADIUS + 1; chunkX++) {
                 fileManager.loadMapChunkData(worldName, (short) chunkX, (short) chunkY, true);
                 ChunkLoader.MapChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, (short) chunkX, (short) chunkY);
-                if (mapChunkData != null) setChunk(mapChunkData.getWorldChunk());
+                if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunk());
             }
         }
-    }
-
-    public void setChunk(WorldChunk worldChunk) {
-        worldChunkMap.put((worldChunk.getChunkX() << 16) | (worldChunk.getChunkY() & 0xFFFF), worldChunk);
-    }
-
-    public void setTile(LayerDefinition layerDefinition, Tile tile, int worldX, int worldY) {
-        WorldChunk worldChunk = findChunk(worldX, worldY);
-        if (worldChunk == null) return;
-
-        int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
-        int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
-
-        worldChunk.setTile(layerDefinition, tile, localX, localY);
     }
 
     public Tile getTile(LayerDefinition layerDefinition, int worldX, int worldY) {
@@ -105,8 +91,25 @@ public class GameWorld {
         return null;
     }
 
+    public void addChunkFromDisk(WorldChunk chunkFromDisk) {
+        WorldChunk worldChunk = getChunk(chunkFromDisk.getChunkX(), chunkFromDisk.getChunkY());
+        worldChunk.setChunkFromDisk(chunkFromDisk);
+    }
+
     public WorldChunk getChunk(short chunkX, short chunkY) {
-        return worldChunkMap.get((chunkX << 16) | (chunkY & 0xFFFF));
+        WorldChunk worldChunk = worldChunkMap.get((chunkX << 16) | (chunkY & 0xFFFF));
+
+        // Create the chunk if it doesn't exist
+        if (worldChunk == null) {
+            worldChunk = new WorldChunk(chunkX, chunkY);
+            setChunk(worldChunk);
+        }
+
+        return worldChunk;
+    }
+
+    private void setChunk(WorldChunk worldChunk) {
+        worldChunkMap.put((worldChunk.getChunkX() << 16) | (worldChunk.getChunkY() & 0xFFFF), worldChunk);
     }
 
     public void drawParallax(SpriteBatch spriteBatch) {

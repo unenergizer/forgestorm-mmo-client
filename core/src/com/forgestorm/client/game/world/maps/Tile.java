@@ -13,6 +13,8 @@ public class Tile {
 
     private final transient List<TileImage> collisionParents = new ArrayList<TileImage>(0);
     private final LayerDefinition layerDefinition;
+
+    @Getter
     private final int worldX, worldY;
 
     @Getter

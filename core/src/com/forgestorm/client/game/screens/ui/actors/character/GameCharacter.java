@@ -10,5 +10,6 @@ import lombok.Getter;
 public class GameCharacter {
     private final String name;
     private final byte characterId;
+    private final String worldName;
     private final Appearance appearance;
 }

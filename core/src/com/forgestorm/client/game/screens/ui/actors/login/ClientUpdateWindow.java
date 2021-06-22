@@ -49,16 +49,20 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
         updateNow.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                // TODO: COME BACK AND CLEAN THIS SHIT UP
+
+                String clientFiles = ClientMain.getInstance().getFileManager().getClientFilesDirectory() + File.separator;
                 // Start client updater
                 try {
-                    if ((new File("client-updater.jar")).exists()) {
-                        Runtime.getRuntime().exec("java -jar client-updater.jar");
+                    if ((new File(clientFiles + "client-updater.jar")).exists()) {
+                        // Windows
+                        Runtime.getRuntime().exec("java -jar " + clientFiles + "client-updater.jar");
                     } else {
-                        File retroMMO = new File("RetroMMO");
+                        File retroMMO = new File(clientFiles + "RetroMMO");
                         if (retroMMO.exists()) {
-                            Runtime.getRuntime().exec("java -jar ./client-updater");
+                            Runtime.getRuntime().exec("java -jar " + clientFiles + "client-updater");
                         } else {
-                            Runtime.getRuntime().exec("java -jar ../MacOS/client-updater");
+                            Runtime.getRuntime().exec("java -jar " + "../MacOS/client-updater");
                         }
                     }
                 } catch (IOException e) {

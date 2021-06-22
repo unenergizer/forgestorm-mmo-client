@@ -50,7 +50,7 @@ import lombok.Getter;
 @Getter
 public class TilePropertiesEditor extends HideableVisWindow implements Buildable {
 
-    private static final String FILE_PATH = ClientMain.getInstance().getFileManager().getClientHomeDirectory() + File.separator + "TileProperties.yaml";
+    private static final String FILE_PATH = ClientMain.getInstance().getFileManager().getClientFilesDirectory() + File.separator + "TileProperties.yaml";
 
     private final TilePropertyDropDownMenu tilePropertyDropDownMenu = new TilePropertyDropDownMenu();
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
@@ -360,6 +360,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             int tilesAdded = 0;
             VisTable moduloTable = null;
 
+            //noinspection GDXJavaUnsafeIterator
             for (final TextureAtlas.AtlasRegion atlasRegion : textureAtlas.getRegions()) {
 
                 // Check to see if this has already been processed
