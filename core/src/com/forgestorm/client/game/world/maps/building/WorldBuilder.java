@@ -9,6 +9,8 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile4Bit;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileAnimation;
@@ -26,7 +28,8 @@ import lombok.Setter;
 public class WorldBuilder {
 
     private final Map<Integer, TileAnimation> tileAnimationMap;
-    private final WangTile16Bit wangTile16Bit = new WangTile16Bit();
+    private final WangTile4Bit wangTile16 = new WangTile4Bit();
+    private final WangTile16Bit wangTile48 = new WangTile16Bit();
     private final Map<Integer, TileImage> tileImageMap;
     private final TextureAtlas textureAtlas;
     private final Array<TextureAtlas.AtlasRegion> regions;
@@ -45,6 +48,7 @@ public class WorldBuilder {
 
     private int currentWangId = 1;
     private String wangRegionNamePrefix;
+    private WangType wangType;
 
     @Setter
     private boolean allowClickToMove = true;
@@ -86,7 +90,12 @@ public class WorldBuilder {
     public void setCurrentWangId(int selectedWangTile) {
         currentWangId = selectedWangTile;
         WangTile wangTile = wangImageMap.get(currentWangId);
-        wangRegionNamePrefix = wangTile.getWangType().getPrefix() + "-" + wangTile.getFileName() + "-";
+        wangType = wangTile.getWangType();
+        wangRegionNamePrefix = wangType.getPrefix() + "-" + wangTile.getFileName() + "-";
+
+        System.out.println("WangType: " + wangType);
+        System.out.println("SelectedWangTile: " + selectedWangTile);
+        System.out.println("WangRegionNamePrefix: " + wangRegionNamePrefix);
     }
 
     public WangTile findWangTile(TileImage tileImage) {
@@ -132,10 +141,34 @@ public class WorldBuilder {
 
         if (useWangTile) {
             // BUILDING USING WANG BRUSH, AUTO SELECT THE TILE!
-            int autoTileID = wangTile16Bit.autoTile(currentLayer, worldX, worldY);
+            Integer autoTileID = null;
+            switch (wangType) {
+                case TYPE_16:
+                    autoTileID = wangTile16.autoTile(currentLayer, worldX, worldY);
+                    break;
+                case TYPE_48:
+                    autoTileID = wangTile48.autoTile(currentLayer, worldX, worldY);
+                    break;
+            }
+
             TileImage tileImage = getTileImage(wangRegionNamePrefix + autoTileID);
+
+            System.out.println("CurrentLayer: " + currentLayer);
+            System.out.println("TileImageName: " + wangRegionNamePrefix + autoTileID);
+            System.out.println("TileImage: " + tileImage.getImageId());
+            System.out.println("worldX: " + worldX);
+            System.out.println("worldY: " + worldY);
+
             placeTile(currentLayer, tileImage.getImageId(), worldX, worldY, true);
-            wangTile16Bit.updateAroundTile(currentLayer, worldX, worldY);
+
+            switch (wangType) {
+                case TYPE_16:
+                    wangTile16.updateAroundTile(currentLayer, worldX, worldY);
+                    break;
+                case TYPE_48:
+                    wangTile48.updateAroundTile(currentLayer, worldX, worldY);
+                    break;
+            }
         } else {
             // BUILDING USING DRAW BRUSH, USE USER SELECTED TILE!
             placeTile(currentLayer, currentTextureId, worldX, worldY, true);

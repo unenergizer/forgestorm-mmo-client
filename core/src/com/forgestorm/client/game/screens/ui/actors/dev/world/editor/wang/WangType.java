@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum WangType {
-    TYPE_16("BW16"),
+    TYPE_16("BW4"),
     TYPE_48("BW16");
 
     @Getter

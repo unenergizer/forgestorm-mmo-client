@@ -4806,4 +4806,147 @@
 895:
   buildCategory: DECORATION
   fileName: cabnient-top
-
+896:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-0
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+897:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-1
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+898:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-10
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+899:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-11
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+900:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-12
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+901:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-13
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+902:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-14
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+903:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-15
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+904:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-2
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+905:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-3
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+906:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-4
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+907:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-5
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+908:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-6
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+909:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-7
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+910:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-8
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+911:
+  buildCategory: WANG
+  fileName: BW4-brick-wall-9
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true

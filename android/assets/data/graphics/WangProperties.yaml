@@ -1,15 +1,18 @@
 1:
   fileName: grass-dirt
-  type: TYPE_16
+  type: TYPE_48
 2:
   fileName: dirt-pathway
-  type: TYPE_16
+  type: TYPE_48
 3:
   fileName: dirt-darkdirt
-  type: TYPE_16
+  type: TYPE_48
 4:
   fileName: grass-sand
-  type: TYPE_16
+  type: TYPE_48
 5:
   fileName: rough-dirt
+  type: TYPE_48
+6:
+  fileName: brick-wall
   type: TYPE_16
