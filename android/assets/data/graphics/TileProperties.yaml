@@ -4950,3 +4950,147 @@
     COLLISION_BLOCK:
       collisionList:
         - true
+912:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-0
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+913:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-1
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+914:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-10
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+915:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-11
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+916:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-12
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+917:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-13
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+918:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-14
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+919:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-2
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+920:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-3
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+921:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-4
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+922:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-5
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+923:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-6
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+924:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-7
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+925:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-8
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+926:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-9
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+927:
+  buildCategory: WALL
+  fileName: BW4-wooden-fence-15
+  tileProperties:
+    WANG_TILE: {
+    }
+    COLLISION_BLOCK:
+      collisionList:
+        - true
