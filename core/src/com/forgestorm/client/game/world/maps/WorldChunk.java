@@ -99,18 +99,16 @@ public class WorldChunk {
     }
 
     public boolean isTraversable(int localX, int localY) {
-        for (Map.Entry<LayerDefinition, Tile[]> entry : layers.entrySet()) {
-            LayerDefinition layerDefinition = entry.getKey();
-            Tile[] tiles = entry.getValue();
-            Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
-            if (tile == null) continue;
-            System.out.println("isTraversable Layer: " + layerDefinition);
-            if (tile.hasCollision()) {
-                System.out.println("WorldChunk: FALSE");
-                return false;
-            }
-        }
-        return true;
+        // We only have collision on two layers. (Removed looping through all tiles)
+        if (!isTraversable(LayerDefinition.COLLIDABLES, localX, localY)) return false;
+        return isTraversable(LayerDefinition.GROUND_DECORATION, localX, localY);
+    }
+
+    private boolean isTraversable(LayerDefinition layerDefinition, int localX, int localY) {
+        Tile[] tiles = layers.get(layerDefinition);
+        Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
+        if (tile == null) return true;
+        return !tile.hasCollision();
     }
 
     public void clearTileWarps() {
