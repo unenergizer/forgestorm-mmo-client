@@ -324,9 +324,9 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             int tilesAdded = 0;
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
-                // Only show one TileImage on the wang tab
-                if ((tileImage.getFileName().startsWith("BW4") && buildCategory == BuildCategory.WANG)
-                        || (tileImage.getFileName().startsWith("BW16") && buildCategory == BuildCategory.WANG)) {
+                // If the TileImage is a wang tile, only show one image of it
+                if (tileImage.getFileName().startsWith("BW4")
+                        || tileImage.getFileName().startsWith("BW16")) {
                     if (!tileImage.getFileName().endsWith("-0")) continue;
                 }
                 if (tileImage.getBuildCategory() != buildCategory) continue;
