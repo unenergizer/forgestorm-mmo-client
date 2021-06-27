@@ -9,7 +9,7 @@ public class BetterCameraZoom {
     private static final int ZOOM_IN = -1;
 
     @Getter
-    private static final ZoomValues DEFAULT_ZOOM = ZoomValues.ZOOM_3;
+    private static final ZoomValues DEFAULT_ZOOM = ZoomValues.ZOOM_2;
 
     public static float findNextZoomValue(float cameraZoomLevel, int button) {
         ZoomValues currentZoomLevel = DEFAULT_ZOOM; // prevents NPE warning
