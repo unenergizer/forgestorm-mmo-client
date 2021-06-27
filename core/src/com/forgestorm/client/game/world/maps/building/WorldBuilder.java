@@ -19,10 +19,13 @@ import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.forgestorm.client.util.Log.println;
 
 @Getter
 public class WorldBuilder {
@@ -55,8 +58,24 @@ public class WorldBuilder {
 
     public WorldBuilder() {
 
+        // Load Tiles atlas
+        textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+        regions = textureAtlas.getRegions();
+
         // Load AbstractTileProperty.yaml
         tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
+
+        // Validate and remove any TileImages that are missing from the Tiles.Atlas file.
+        // This will happen if graphics are removed or renamed in the Tiles.Atlas file.
+        Iterator<Map.Entry<Integer, TileImage>> iterator = tileImageMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, TileImage> entry = iterator.next();
+            TileImage tileImage = entry.getValue();
+            if (textureAtlas.findRegion(tileImage.getFileName()) == null) {
+                println(getClass(), "TileImage Removed: " + tileImage.getFileName(), true);
+                iterator.remove();
+            }
+        }
 
         // Load WangProperties.yaml
         wangImageMap = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
@@ -75,10 +94,6 @@ public class WorldBuilder {
                 }
             }
         }
-
-        // Load Tiles atlas
-        textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-        regions = textureAtlas.getRegions();
 
         // Setup layer visibility
         layerVisibilityMap = new HashMap<LayerDefinition, Boolean>();
