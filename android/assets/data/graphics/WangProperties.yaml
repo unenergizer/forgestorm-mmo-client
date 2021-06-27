@@ -19,3 +19,9 @@
 7:
   fileName: wooden-fence
   type: TYPE_16
+8:
+  fileName: iron-fence
+  type: TYPE_16
+9:
+  fileName: post-wooden-fence
+  type: TYPE_16

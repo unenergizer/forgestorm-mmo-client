@@ -1397,56 +1397,70 @@
   fileName: stone-wall-arch-mossy
 235:
   buildCategory: WALL
-  fileName: stone-wall-bottom-left
+  fileName: BW4-iron-fence-0
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 236:
   buildCategory: WALL
   fileName: stone-wall-middle-horizontal-crack
 237:
   buildCategory: WALL
-  fileName: stone-wall-middle-horizontal-end-left
+  fileName: BW4-iron-fence-1
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 238:
   buildCategory: WALL
-  fileName: stone-wall-middle-horizontal-end-right
+  fileName: BW4-iron-fence-10
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 239:
   buildCategory: WALL
-  fileName: stone-wall-middle-vertical-01
+  fileName: BW4-iron-fence-11
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 240:
   buildCategory: WALL
-  fileName: stone-wall-middle-vertical-02
+  fileName: BW4-iron-fence-12
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 241:
   buildCategory: WALL
-  fileName: stone-wall-top-left
+  fileName: BW4-iron-fence-13
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 242:
   buildCategory: WALL
-  fileName: stone-wall-top-right
+  fileName: BW4-iron-fence-14
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 243:
   buildCategory: DECORATION
   fileName: stool-round-blue
@@ -1620,11 +1634,13 @@
         - true
 261:
   buildCategory: WALL
-  fileName: stone-wall-middle-horizontal
+  fileName: BW4-iron-fence-15
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 262:
   buildCategory: DECORATION
   fileName: tree-medium-01
@@ -2128,11 +2144,13 @@
         - true
 355:
   buildCategory: WALL
-  fileName: stone-wall-middle-vertical-end-top
+  fileName: BW4-iron-fence-2
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 356:
   buildCategory: DECORATION
   fileName: stump-02
@@ -2417,11 +2435,13 @@
   fileName: door-02-transition-dark
 446:
   buildCategory: WALL
-  fileName: stone-wall-bottom-right
+  fileName: BW4-iron-fence-3
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 447:
   buildCategory: DECORATION
   fileName: wooden-support-03
@@ -4357,11 +4377,13 @@
         - true
 789:
   buildCategory: WALL
-  fileName: stone-wall-middle-vertical-end-bottom
+  fileName: BW4-iron-fence-4
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 790:
   buildCategory: DECORATION
   fileName: well-egypt-filled
@@ -4810,287 +4832,476 @@
   buildCategory: WANG
   fileName: BW4-brick-wall-0
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 897:
   buildCategory: WANG
   fileName: BW4-brick-wall-1
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 898:
   buildCategory: WANG
   fileName: BW4-brick-wall-10
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 899:
   buildCategory: WANG
   fileName: BW4-brick-wall-11
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 900:
   buildCategory: WANG
   fileName: BW4-brick-wall-12
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 901:
   buildCategory: WANG
   fileName: BW4-brick-wall-13
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 902:
   buildCategory: WANG
   fileName: BW4-brick-wall-14
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 903:
   buildCategory: WANG
   fileName: BW4-brick-wall-15
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 904:
   buildCategory: WANG
   fileName: BW4-brick-wall-2
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 905:
   buildCategory: WANG
   fileName: BW4-brick-wall-3
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 906:
   buildCategory: WANG
   fileName: BW4-brick-wall-4
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 907:
   buildCategory: WANG
   fileName: BW4-brick-wall-5
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 908:
   buildCategory: WANG
   fileName: BW4-brick-wall-6
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 909:
   buildCategory: WANG
   fileName: BW4-brick-wall-7
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 910:
   buildCategory: WANG
   fileName: BW4-brick-wall-8
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 911:
   buildCategory: WANG
   fileName: BW4-brick-wall-9
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 912:
   buildCategory: WALL
   fileName: BW4-wooden-fence-0
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 913:
   buildCategory: WALL
   fileName: BW4-wooden-fence-1
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 914:
   buildCategory: WALL
   fileName: BW4-wooden-fence-10
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 915:
   buildCategory: WALL
   fileName: BW4-wooden-fence-11
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 916:
   buildCategory: WALL
   fileName: BW4-wooden-fence-12
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 917:
   buildCategory: WALL
   fileName: BW4-wooden-fence-13
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 918:
   buildCategory: WALL
   fileName: BW4-wooden-fence-14
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 919:
   buildCategory: WALL
   fileName: BW4-wooden-fence-2
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 920:
   buildCategory: WALL
   fileName: BW4-wooden-fence-3
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 921:
   buildCategory: WALL
   fileName: BW4-wooden-fence-4
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 922:
   buildCategory: WALL
   fileName: BW4-wooden-fence-5
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 923:
   buildCategory: WALL
   fileName: BW4-wooden-fence-6
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 924:
   buildCategory: WALL
   fileName: BW4-wooden-fence-7
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 925:
   buildCategory: WALL
   fileName: BW4-wooden-fence-8
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 926:
   buildCategory: WALL
   fileName: BW4-wooden-fence-9
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 927:
   buildCategory: WALL
   fileName: BW4-wooden-fence-15
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
+928:
+  buildCategory: WALL
+  fileName: BW4-iron-fence-5
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+929:
+  buildCategory: WALL
+  fileName: BW4-iron-fence-6
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+930:
+  buildCategory: WALL
+  fileName: BW4-iron-fence-7
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+931:
+  buildCategory: WALL
+  fileName: BW4-iron-fence-8
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+932:
+  buildCategory: WALL
+  fileName: BW4-iron-fence-9
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+933:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-0
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+934:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-1
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+935:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-10
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+936:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-11
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+937:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-15
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+938:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-12
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+939:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-13
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+940:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-14
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+941:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-9
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+942:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-8
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+943:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-7
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+944:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-6
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+945:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-5
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+946:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-4
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+947:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-3
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+948:
+  buildCategory: WALL
+  fileName: BW4-post-wooden-fence-2
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
