@@ -1,7 +1,6 @@
 package com.forgestorm.client.game.screens;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.forgestorm.client.ClientConstants;
@@ -49,8 +48,8 @@ public class AttachableCamera extends OrthographicCamera {
 //        position.y = MathUtils.clamp(py, cameraMinY, cameraMaxY);
 
         // TODO: Fix clamping. It's snapping around...
-        position.x = following.getDrawX();
-        position.y = following.getDrawY();
+        position.x = (following.getDrawX() + (ClientConstants.TILE_SIZE / 2f));
+        position.y = (following.getDrawY() + (ClientConstants.TILE_SIZE / 2f));
     }
 
     public void scrollZoomLevel(int amount) {

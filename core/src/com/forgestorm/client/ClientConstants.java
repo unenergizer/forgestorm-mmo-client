@@ -26,7 +26,7 @@ public class ClientConstants {
     public static final int MAX_PREVIOUS_SCROLL_MESSAGES = 10;
 
     public static final int CHUNK_SIZE = 16;
-    public static final int CHUNK_RADIUS = 1;
+    public static final int CHUNK_RADIUS = 2;
     public static final int MAX_TILE_GET = 4 * 4;
     public static final int BLANK_TILE_ID = 0;
 
