@@ -4831,7 +4831,7 @@
   layerDefinition: GROUND_DECORATION
   fileName: cabnient-top
 896:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-0
   tileProperties:
     WANG_TILE: {
@@ -4840,7 +4840,7 @@
       collisionList:
         - true
 897:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-1
   tileProperties:
     WANG_TILE: {
@@ -4849,7 +4849,7 @@
       collisionList:
         - true
 898:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-10
   tileProperties:
     WANG_TILE: {
@@ -4858,7 +4858,7 @@
       collisionList:
         - true
 899:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-11
   tileProperties:
     WANG_TILE: {
@@ -4867,7 +4867,7 @@
       collisionList:
         - true
 900:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-12
   tileProperties:
     WANG_TILE: {
@@ -4876,7 +4876,7 @@
       collisionList:
         - true
 901:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-13
   tileProperties:
     WANG_TILE: {
@@ -4885,7 +4885,7 @@
       collisionList:
         - true
 902:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-14
   tileProperties:
     WANG_TILE: {
@@ -4894,7 +4894,7 @@
       collisionList:
         - true
 903:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-15
   tileProperties:
     WANG_TILE: {
@@ -4903,7 +4903,7 @@
       collisionList:
         - true
 904:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-2
   tileProperties:
     WANG_TILE: {
@@ -4912,7 +4912,7 @@
       collisionList:
         - true
 905:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-3
   tileProperties:
     WANG_TILE: {
@@ -4921,7 +4921,7 @@
       collisionList:
         - true
 906:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-4
   tileProperties:
     WANG_TILE: {
@@ -4930,7 +4930,7 @@
       collisionList:
         - true
 907:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-5
   tileProperties:
     WANG_TILE: {
@@ -4939,7 +4939,7 @@
       collisionList:
         - true
 908:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-6
   tileProperties:
     WANG_TILE: {
@@ -4948,7 +4948,7 @@
       collisionList:
         - true
 909:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-7
   tileProperties:
     WANG_TILE: {
@@ -4957,7 +4957,7 @@
       collisionList:
         - true
 910:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-8
   tileProperties:
     WANG_TILE: {
@@ -4966,7 +4966,7 @@
       collisionList:
         - true
 911:
-  layerDefinition: GROUND
+  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-9
   tileProperties:
     WANG_TILE: {

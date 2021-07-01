@@ -323,8 +323,10 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
                 // If the TileImage is a wang tile, only show one image of it
+                boolean isWangTile = false;
                 if (tileImage.getFileName().startsWith("BW4")
                         || tileImage.getFileName().startsWith("BW16")) {
+                    isWangTile = true;
                     if (!tileImage.getFileName().endsWith("-0")) continue;
                 }
                 if (tileImage.getLayerDefinition() != layerDefinition) continue;
@@ -335,6 +337,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 }
                 tilesAdded++;
                 VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildTextureRegionDrawable());
+                if (isWangTile) visImageButton.setColor(Color.PINK);
                 moduloTable.add(visImageButton);
 
                 visImageButton.addListener(new ChangeListener() {
