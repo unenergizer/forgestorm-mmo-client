@@ -115,7 +115,7 @@ public class WorldChunk {
         tileWarps.clear();
     }
 
-    public void addTileWarp(short localX, short localY, Warp warp) {
+    public void addTileWarp(int localX, int localY, Warp warp) {
         addTileWarp(new WarpLocation(localX, localY), warp);
     }
 
@@ -123,7 +123,7 @@ public class WorldChunk {
         tileWarps.put(warpLocation, warp);
     }
 
-    Warp getWarp(short localX, short localY) {
+    Warp getWarp(int localX, int localY) {
         for (Map.Entry<WarpLocation, Warp> entry : tileWarps.entrySet()) {
             WarpLocation warpLocation = entry.getKey();
             if (warpLocation.getFromX() == localX && warpLocation.getFromY() == localY)
