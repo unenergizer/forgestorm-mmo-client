@@ -17,6 +17,8 @@ public class TileAnimation {
 
     private transient int activeFrame = 0;
 
+    private transient AnimationControls animationControl = AnimationControls.STOP;
+
     public TileAnimation(int animationId) {
         this.animationId = animationId;
     }
@@ -63,6 +65,11 @@ public class TileAnimation {
         return true;
     }
 
+    public void playAnimation() {
+        activeFrame = 0;
+        animationControl = AnimationControls.PLAY_NORMAL;
+    }
+
     /**
      * This processes the rendering order and timing of an animation frame.
      *
@@ -73,19 +80,30 @@ public class TileAnimation {
 
         // If no frames exist, return -1.
         if (animationFrame == null) return -1;
+        if (animationControl == AnimationControls.STOP) return activeFrame;
 
         int durationLeft = animationFrame.getDurationLeft() - 1;
 
         if (durationLeft <= 0) {
             animationFrame.setDurationLeft(animationFrame.getDuration()); // Reset duration
 
-            activeFrame++;
+            int tempFrame = activeFrame + 1;
             int totalFrames = animationFrames.size();
 
-            if (activeFrame >= totalFrames) activeFrame = 0; // Go back to first frame
+            if (tempFrame == totalFrames) {
+                if (animationControl != AnimationControls.CONTINUOUS) {
+                    animationControl = AnimationControls.STOP;
+                } else if (animationControl == AnimationControls.CONTINUOUS) {
+                    activeFrame = 0; // Go back to first frame
+                }
+            } else {
+                activeFrame++;
+            }
         } else {
             animationFrame.setDurationLeft(durationLeft);
         }
+
+        System.out.println("ActiveFrame: " + activeFrame);
 
         return activeFrame;
     }
@@ -135,6 +153,13 @@ public class TileAnimation {
 
     public AnimationFrame getAnimationFrame(int frameId) {
         return animationFrames.get(frameId);
+    }
+
+    public enum AnimationControls {
+        PLAY_NORMAL,
+        PLAY_BACKWARDS,
+        CONTINUOUS,
+        STOP
     }
 
     @Getter

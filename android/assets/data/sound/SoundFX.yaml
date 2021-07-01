@@ -58,4 +58,7 @@
 19:
   fileName: "UI/CGM3_Cute_Chirpy_Button_02_1.wav"
   description: "Generate Random Character name"
+20:
+  fileName: "door/door_creak_short_05.wav"
+  description: "Wooden door open"
  

@@ -3,6 +3,8 @@ package com.forgestorm.client.game.world.maps;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 public class WorldUtil {
 
@@ -24,6 +26,21 @@ public class WorldUtil {
         int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
         return worldChunk.isTraversable(localX, localY);
+    }
+
+    /**
+     * Test to see if the tile/coordinate is a door.
+     *
+     * @param entityX The X grid coordinate a entity is attempting to playerMove to.
+     * @param entityY The Y grid coordinate a entity is attempting to playerMove to.
+     * @return True if the tile/coordinate is a door. False otherwise.
+     */
+    public static boolean isDoor(int entityX, int entityY) {
+        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        Tile tile = gameWorld.getTile(LayerDefinition.COLLIDABLES, entityX, entityY);
+
+        if (tile.getTileImage() == null) return false;
+        return tile.getTileImage().containsProperty(TilePropertyTypes.DOOR);
     }
 
     /**
