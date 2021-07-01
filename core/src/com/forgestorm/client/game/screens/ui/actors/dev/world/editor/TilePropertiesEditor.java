@@ -17,14 +17,15 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.character.CharacterCreation;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypeHelper;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.util.yaml.YamlUtil;
@@ -115,7 +116,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         tabbedTableContainer.row();
         tabbedTableContainer.add(tabbedTable).expand().fill();
 
-        // Add Build Categories
+        // Add Layer Definitions
         tabbedPane.add(new TileBuildTab(gameAtlas));
         tabbedPane.switchTab(0);
         return tabbedTableContainer;
@@ -158,15 +159,16 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             tileImage = new TileImage(
                     id,
                     atlasRegion.name,
-                    BuildCategory.UNDEFINED
+                    LayerDefinition.COLLIDABLES
             );
             worldBuilder.addNewTile(tileImage);
         }
 
         // Lets do some automated tasks for this TileImage
-        if (tileImage.getFileName().contains("BW16")) {
+        if (tileImage.getFileName().contains(WangType.TYPE_16.getPrefix())
+                || tileImage.getFileName().contains(WangType.TYPE_48.getPrefix())) {
             if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
-                tileImage.setBuildCategory(BuildCategory.WANG);
+                tileImage.setLayerDefinition(LayerDefinition.GROUND);
                 AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
                 abstractTileProperty.setTileImage(tileImage);
                 tileImage.setCustomTileProperty(abstractTileProperty);
@@ -197,24 +199,24 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         rightTable.add(image).row();
 
         // Add All Tile Property options.
-        BuildCategory buildCategory = tileImage.getBuildCategory();
+        LayerDefinition layerDefinition = tileImage.getLayerDefinition();
 
-        VisTable buildCategoryTable = new VisTable(true);
-        VisLabel buildCategoryLabel = new VisLabel("Build Category:");
-        final VisSelectBox<BuildCategory> buildCategoryVisSelectBox = new VisSelectBox<BuildCategory>();
-        buildCategoryVisSelectBox.setItems(BuildCategory.values());
-        buildCategoryVisSelectBox.setSelected(BuildCategory.UNDEFINED);
-        if (buildCategory != null) buildCategoryVisSelectBox.setSelected(buildCategory);
+        VisTable layerDefinitionTable = new VisTable(true);
+        VisLabel layerDefinitionLabel = new VisLabel("Layer Definition:");
+        final VisSelectBox<LayerDefinition> layerDefinitionVisSelectBox = new VisSelectBox<LayerDefinition>();
+        layerDefinitionVisSelectBox.setItems(LayerDefinition.values());
+        layerDefinitionVisSelectBox.setSelected(LayerDefinition.COLLIDABLES);
+        if (layerDefinition != null) layerDefinitionVisSelectBox.setSelected(layerDefinition);
 
-        buildCategoryTable.add(buildCategoryLabel);
-        buildCategoryTable.add(buildCategoryVisSelectBox);
-        rightTable.add(buildCategoryTable).row();
+        layerDefinitionTable.add(layerDefinitionLabel);
+        layerDefinitionTable.add(layerDefinitionVisSelectBox);
+        rightTable.add(layerDefinitionTable).row();
 
-        buildCategoryVisSelectBox.addListener(new ChangeListener() {
+        layerDefinitionVisSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // Now set the selected category
-                tileImage.setBuildCategory(buildCategoryVisSelectBox.getSelected());
+                // Now set the selected layer
+                tileImage.setLayerDefinition(layerDefinitionVisSelectBox.getSelected());
             }
         });
 
@@ -286,7 +288,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             scrollPane.setScrollingDisabled(true, false);
             propertiesTable.add(scrollPane).growX().expandY().top();
 
-            // Add image buttons that represent the item. Filter by category.
+            // Add image buttons that represent the item. Filter by layer definition.
             for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
                 buttonTable.add(abstractTileProperty.buildEditorTable()).row();
             }
@@ -320,23 +322,23 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             hideProcessedItems.setChecked(false);
             contentTable.add(hideProcessedItems);
 
-            final VisSelectBox<BuildCategory> showCategory = new VisSelectBox<BuildCategory>();
-            showCategory.setItems(BuildCategory.values());
-            showCategory.setSelected(BuildCategory.DECORATION);
-            contentTable.add(showCategory).row();
+            final VisSelectBox<LayerDefinition> showLayer = new VisSelectBox<LayerDefinition>();
+            showLayer.setItems(LayerDefinition.values());
+            showLayer.setSelected(LayerDefinition.COLLIDABLES);
+            contentTable.add(showLayer).row();
 
             hideProcessedItems.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    buildImageList(buttonTable, hideProcessedItems.isChecked(), showCategory.getSelected());
+                    buildImageList(buttonTable, hideProcessedItems.isChecked(), showLayer.getSelected());
 
-                    showCategory.setDisabled(hideProcessedItems.isChecked());
+                    showLayer.setDisabled(hideProcessedItems.isChecked());
                 }
             });
-            showCategory.addListener(new ChangeListener() {
+            showLayer.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    buildImageList(buttonTable, hideProcessedItems.isChecked(), showCategory.getSelected());
+                    buildImageList(buttonTable, hideProcessedItems.isChecked(), showLayer.getSelected());
                 }
             });
 
@@ -349,14 +351,14 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             scrollPane.setScrollingDisabled(false, false);
             contentTable.add(scrollPane).prefHeight(1).grow().colspan(2);
 
-            buildImageList(buttonTable, hideProcessedItems.isChecked(), showCategory.getSelected());
+            buildImageList(buttonTable, hideProcessedItems.isChecked(), showLayer.getSelected());
             // TODO: Possibly add tool-tips to each one that describes it's properties?
         }
 
-        private void buildImageList(VisTable buttonTable, boolean hideProcessedImages, BuildCategory buildCategory) {
+        private void buildImageList(VisTable buttonTable, boolean hideProcessedImages, LayerDefinition layerDefinition) {
             buttonTable.clear();
 
-            // Add image buttons that represent the item. Filter by category.
+            // Add image buttons that represent the item. Filter by layer definition.
             int tilesAdded = 0;
             VisTable moduloTable = null;
 
@@ -377,7 +379,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                 // Show category specific tiles
                 if (!hideProcessedImages) {
                     if (tileImageFound == null) continue;
-                    if (tileImageFound.getBuildCategory() != buildCategory) continue;
+                    if (tileImageFound.getLayerDefinition() != layerDefinition) continue;
                 }
 
                 // Skip processed items, if they are found.

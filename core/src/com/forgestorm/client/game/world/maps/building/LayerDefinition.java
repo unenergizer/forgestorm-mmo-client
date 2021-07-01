@@ -1,5 +1,8 @@
 package com.forgestorm.client.game.world.maps.building;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -35,5 +38,26 @@ public enum LayerDefinition {
 
     public byte getLayerDefinitionByte() {
         return (byte) this.ordinal();
+    }
+
+    @Override
+    public String toString() {
+
+        // Clean the name
+        List<String> wordList = new ArrayList<String>(2);
+        for (String word : name().split("_")) {
+            String name = word.toLowerCase();
+            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            wordList.add(name);
+        }
+
+        // Build the name String
+        StringBuilder name = new StringBuilder();
+        for (int i = 0; i < wordList.size(); i++) {
+            name.append(wordList.get(i));
+            if (i != wordList.size() - 1) name.append(" ");
+        }
+
+        return name.toString();
     }
 }

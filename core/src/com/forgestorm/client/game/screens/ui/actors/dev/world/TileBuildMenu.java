@@ -215,9 +215,9 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         tabbedTableContainer.row();
         tabbedTableContainer.add(tabbedTable).expand().fill();
 
-        // Add Tabs (Build Categories)
-        for (BuildCategory buildCategory : BuildCategory.values()) {
-            tabbedPane.add(new TileBuildTab(buildCategory, buildCategory.layerDefinition));
+        // Add Tabs (Layer Definitions)
+        for (LayerDefinition layerDefinition : LayerDefinition.values()) {
+            tabbedPane.add(new TileBuildTab(layerDefinition));
         }
         tabbedPane.switchTab(0);
 
@@ -260,7 +260,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             case DRAWL:
                 drawlButton.setDisabled(true);
                 drawlButton.setColor(Color.RED);
-                if (changeTab) tabbedPane.switchTab(0);
+//                if (changeTab) tabbedPane.switchTab(0);
                 break;
             case ERASE:
                 worldBuilder.setUseEraser(true);
@@ -272,7 +272,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 worldBuilder.setCurrentLayer(LayerDefinition.GROUND);
                 wangBrushButton.setDisabled(true);
                 wangBrushButton.setColor(Color.RED);
-                if (changeTab) tabbedPane.switchTab(BuildCategory.WANG.ordinal());
+//                if (changeTab) tabbedPane.switchTab(LayerDefinition.GROUND.ordinal());
                 break;
         }
     }
@@ -295,16 +295,14 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
     @Getter
     private class TileBuildTab extends Tab {
 
-        private final BuildCategory buildCategory;
         private final LayerDefinition layerDefinition;
         private final String title;
         private final Table contentTable;
 
-        TileBuildTab(BuildCategory buildCategory, LayerDefinition layerDefinition) {
+        TileBuildTab(LayerDefinition layerDefinition) {
             super(false, false);
-            this.buildCategory = buildCategory;
             this.layerDefinition = layerDefinition;
-            this.title = " " + buildCategory.toString() + " ";
+            this.title = " " + layerDefinition.toString() + " ";
             contentTable = new VisTable(true);
             build();
         }
@@ -320,7 +318,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             scrollPane.setScrollingDisabled(true, false);
             contentTable.add(scrollPane).prefHeight(1).grow();
 
-            // Add image buttons that represent the item. Filter by category.
+            // Add image buttons that represent the item. Filter by layer definition.
             int tilesAdded = 0;
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
@@ -329,7 +327,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                         || tileImage.getFileName().startsWith("BW16")) {
                     if (!tileImage.getFileName().endsWith("-0")) continue;
                 }
-                if (tileImage.getBuildCategory() != buildCategory) continue;
+                if (tileImage.getLayerDefinition() != layerDefinition) continue;
                 if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
                     moduloTable = new VisTable();

@@ -7,7 +7,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypeHelper;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
@@ -56,11 +55,11 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
             String name = (String) itemNode.get("fileName");
             println(getClass(), "FileName: " + name, false, PRINT_DEBUG);
 
-            BuildCategory buildCategory = BuildCategory.valueOf((String) itemNode.get("buildCategory"));
-            println(getClass(), "BuildCategory: " + buildCategory, false, PRINT_DEBUG);
+            LayerDefinition layerDefinition = LayerDefinition.valueOf((String) itemNode.get("layerDefinition"));
+            println(getClass(), "LayerDefinition: " + layerDefinition, false, PRINT_DEBUG);
 
             // Create the TileImage
-            TileImage tileImage = new TileImage(imageId, name, buildCategory);
+            TileImage tileImage = new TileImage(imageId, name, layerDefinition);
 
             // Load properties based on tile type
             Map<String, Object> mapOfTileProperties = (Map<String, Object>) itemNode.get("tileProperties");
@@ -84,12 +83,12 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
             }
 
             // Get layer definition
-            String tileLayerValue = (String) itemNode.get("layerDefinition");
-            if (tileLayerValue != null && !tileLayerValue.isEmpty()) {
-                LayerDefinition tileLayers = LayerDefinition.valueOf(tileLayerValue);
-                tileImage.setLayerDefinition(tileLayers);
-                println(getClass(), "TileLayer: " + tileLayers, false, PRINT_DEBUG);
-            }
+//            String tileLayerValue = (String) itemNode.get("layerDefinition");
+//            if (tileLayerValue != null && !tileLayerValue.isEmpty()) {
+//                LayerDefinition tileLayers = LayerDefinition.valueOf(tileLayerValue);
+//                tileImage.setLayerDefinition(tileLayers);
+//                println(getClass(), "TileLayer: " + tileLayers, false, PRINT_DEBUG);
+//            }
 
             println(PRINT_DEBUG);
 
@@ -104,6 +103,7 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
         return tilePropertiesDataWrapper;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, TilePropertiesParameter parameter) {
         return null;
@@ -112,7 +112,7 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
     @SuppressWarnings("WeakerAccess")
     @Setter
     @Getter
-    public class TilePropertiesDataWrapper {
+    public static class TilePropertiesDataWrapper {
         private Map<Integer, TileImage> worldImageMap = null;
     }
 }

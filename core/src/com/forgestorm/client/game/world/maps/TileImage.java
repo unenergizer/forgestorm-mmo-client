@@ -2,7 +2,6 @@ package com.forgestorm.client.game.world.maps;
 
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.BuildCategory;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
@@ -28,13 +27,12 @@ public class TileImage {
     private transient TileAnimation tileAnimation;
 
     private Map<TilePropertyTypes, AbstractTileProperty> tileProperties;
-    private BuildCategory buildCategory;
     private LayerDefinition layerDefinition;
 
-    public TileImage(int imageId, String fileName, BuildCategory buildCategory) {
+    public TileImage(int imageId, String fileName, LayerDefinition layerDefinition) {
         this.imageId = imageId;
         this.fileName = fileName;
-        this.buildCategory = buildCategory;
+        this.layerDefinition = layerDefinition;
 
         println(getClass(), "---- NEW TILE IMAGE CREATED ----", false, PRINT_DEBUG);
         println(getClass(), "ImageID: " + imageId, false, PRINT_DEBUG);
@@ -44,7 +42,6 @@ public class TileImage {
     public TileImage(TileImage tileImage) {
         this.imageId = tileImage.getImageId();
         this.fileName = tileImage.getFileName();
-        this.buildCategory = tileImage.getBuildCategory();
         this.layerDefinition = tileImage.getLayerDefinition();
 
         if (tileImage.getTileAnimation() != null) {
@@ -83,7 +80,7 @@ public class TileImage {
             println(getClass(), "---- TILE IMAGE SET PROPERTY ----", false);
             println(getClass(), "ImageID: " + imageId, false);
             println(getClass(), "FileName: " + fileName, false);
-            println(getClass(), "BuildCategory: " + buildCategory, false);
+            println(getClass(), "LayerDefinition: " + layerDefinition, false);
 
             for (AbstractTileProperty abstractTileProperty : tileProperties.values()) {
                 println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString());
