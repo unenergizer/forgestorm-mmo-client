@@ -1,99 +1,99 @@
 1:
-  layerDefinition: GROUND_DECORATION
   fileName: bag-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 2:
-  layerDefinition: GROUND_DECORATION
   fileName: bag-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 3:
-  layerDefinition: GROUND_DECORATION
   fileName: bag-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 4:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-big-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 5:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-big-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 6:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-big-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 7:
-  layerDefinition: COLLIDABLES
   fileName: brick-wall-gray
+  layerDefinition: COLLIDABLES
 8:
-  layerDefinition: COLLIDABLES
   fileName: brick-wall-green
+  layerDefinition: COLLIDABLES
 9:
-  layerDefinition: COLLIDABLES
   fileName: brick-wall-red
+  layerDefinition: COLLIDABLES
 10:
-  layerDefinition: COLLIDABLES
   fileName: brick-wall-tan
+  layerDefinition: COLLIDABLES
 11:
-  layerDefinition: COLLIDABLES
   fileName: door-01-open-dark
+  layerDefinition: COLLIDABLES
 12:
-  layerDefinition: COLLIDABLES
   fileName: door-03-open-dark
+  layerDefinition: COLLIDABLES
 13:
-  layerDefinition: COLLIDABLES
   fileName: door-01-open-light
-14:
   layerDefinition: COLLIDABLES
+14:
   fileName: door-03-open-light
+  layerDefinition: COLLIDABLES
 15:
-  layerDefinition: GROUND_DECORATION
   fileName: bag-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 16:
-  layerDefinition: COLLIDABLES
   fileName: door-01-transition-light
+  layerDefinition: COLLIDABLES
 17:
-  layerDefinition: COLLIDABLES
   fileName: door-02-frame
+  layerDefinition: COLLIDABLES
 18:
-  layerDefinition: COLLIDABLES
   fileName: door-02-open-dark
-19:
   layerDefinition: COLLIDABLES
+19:
   fileName: door-02-open-light
+  layerDefinition: COLLIDABLES
 20:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-big-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 21:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-big-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -102,28 +102,28 @@
         - false
         - true
 22:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-small-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 23:
-  layerDefinition: GROUND_DECORATION
   fileName: barrel-small-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 24:
-  layerDefinition: GROUND_DECORATION
   fileName: bed-frame-01
+  layerDefinition: GROUND_DECORATION
 25:
-  layerDefinition: GROUND_DECORATION
   fileName: bed-frame-02
-26:
   layerDefinition: GROUND_DECORATION
+26:
   fileName: bed-frame-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -132,118 +132,118 @@
         - false
         - true
 27:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-blue-left
+  layerDefinition: GROUND_DECORATION
 28:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-blue-right
+  layerDefinition: GROUND_DECORATION
 29:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-green-left
+  layerDefinition: GROUND_DECORATION
 30:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-green-right
+  layerDefinition: GROUND_DECORATION
 31:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-yellow-left
+  layerDefinition: GROUND_DECORATION
 32:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-yellow-right
-33:
   layerDefinition: GROUND_DECORATION
+33:
   fileName: box-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 34:
-  layerDefinition: GROUND_DECORATION
   fileName: box-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 35:
-  layerDefinition: GROUND_DECORATION
   fileName: box-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 36:
-  layerDefinition: GROUND_DECORATION
   fileName: box-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 37:
-  layerDefinition: GROUND_DECORATION
   fileName: box-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 38:
-  layerDefinition: GROUND_DECORATION
   fileName: box-08
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 39:
-  layerDefinition: GROUND_DECORATION
   fileName: box-09
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 40:
-  layerDefinition: GROUND_DECORATION
   fileName: box-10
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 41:
-  layerDefinition: GROUND_DECORATION
   fileName: box-13
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 42:
-  layerDefinition: GROUND_DECORATION
   fileName: box-14
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 43:
-  layerDefinition: GROUND_DECORATION
   fileName: box-15
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 44:
-  layerDefinition: GROUND_DECORATION
   fileName: box-16
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 45:
-  layerDefinition: GROUND_DECORATION
   fileName: box-17
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 46:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-large-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -252,8 +252,8 @@
         - false
         - true
 47:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-large-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -262,66 +262,66 @@
         - false
         - true
 48:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 49:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 50:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 51:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 52:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 53:
-  layerDefinition: GROUND_DECORATION
   fileName: cactus-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 54:
-  layerDefinition: GROUND_DECORATION
   fileName: cactus-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 55:
-  layerDefinition: GROUND_DECORATION
   fileName: cactus-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 56:
-  layerDefinition: GROUND_DECORATION
   fileName: cauldron-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -330,8 +330,8 @@
         - false
         - true
 57:
-  layerDefinition: GROUND_DECORATION
   fileName: cauldron-01-776
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -340,8 +340,8 @@
         - false
         - true
 58:
-  layerDefinition: GROUND_DECORATION
   fileName: cauldron-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -350,122 +350,122 @@
         - false
         - true
 59:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-blue-right
+  layerDefinition: GROUND_DECORATION
 60:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-blue-up
+  layerDefinition: GROUND_DECORATION
 61:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-brown-down
+  layerDefinition: GROUND_DECORATION
 62:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-brown-left
+  layerDefinition: GROUND_DECORATION
 63:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-brown-right
+  layerDefinition: GROUND_DECORATION
 64:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-red-left
+  layerDefinition: GROUND_DECORATION
 65:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-red-right
-66:
   layerDefinition: GROUND_DECORATION
+66:
   fileName: chair-red-up
+  layerDefinition: GROUND_DECORATION
 67:
-  layerDefinition: ROOF
   fileName: chimney-01
+  layerDefinition: ROOF
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 68:
-  layerDefinition: ROOF
   fileName: chimney-02
+  layerDefinition: ROOF
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 69:
-  layerDefinition: GROUND_DECORATION
   fileName: column-mossy-stone-broken-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 70:
-  layerDefinition: GROUND_DECORATION
   fileName: column-mossy-stone-broken-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 71:
-  layerDefinition: GROUND_DECORATION
   fileName: column-mossy-stone-complete
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 72:
-  layerDefinition: GROUND_DECORATION
   fileName: column-stone-broken-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 73:
-  layerDefinition: GROUND_DECORATION
   fileName: column-stone-broken-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 74:
-  layerDefinition: GROUND_DECORATION
   fileName: cup-02
-75:
   layerDefinition: GROUND_DECORATION
+75:
   fileName: cup-03
+  layerDefinition: GROUND_DECORATION
 76:
-  layerDefinition: COLLIDABLES
   fileName: door-01-closed
+  layerDefinition: COLLIDABLES
   tileProperties:
     DOOR: {
     }
 77:
-  layerDefinition: COLLIDABLES
   fileName: door-03-closed
+  layerDefinition: COLLIDABLES
 78:
-  layerDefinition: COLLIDABLES
   fileName: door-02-closed
+  layerDefinition: COLLIDABLES
 79:
-  layerDefinition: COLLIDABLES
   fileName: door-06-closed
+  layerDefinition: COLLIDABLES
 80:
-  layerDefinition: COLLIDABLES
   fileName: door-07-closed
-81:
   layerDefinition: COLLIDABLES
+81:
   fileName: door-08-closed
+  layerDefinition: COLLIDABLES
 82:
-  layerDefinition: GROUND_DECORATION
   fileName: fancy-chair-left
+  layerDefinition: GROUND_DECORATION
 83:
-  layerDefinition: GROUND_DECORATION
   fileName: fancy-chair-right
+  layerDefinition: GROUND_DECORATION
 84:
-  layerDefinition: GROUND_DECORATION
   fileName: fancy-stool
-85:
   layerDefinition: GROUND_DECORATION
+85:
   fileName: fancy-table
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -474,35 +474,35 @@
         - true
         - true
 86:
-  layerDefinition: GROUND_DECORATION
   fileName: flag-03
+  layerDefinition: GROUND_DECORATION
 87:
-  layerDefinition: GROUND_DECORATION
   fileName: flag-04
+  layerDefinition: GROUND_DECORATION
 88:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-01
+  layerDefinition: GROUND_DECORATION
 89:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-02
+  layerDefinition: GROUND_DECORATION
 90:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-03
+  layerDefinition: GROUND_DECORATION
 91:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-06
+  layerDefinition: GROUND_DECORATION
 92:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-07
+  layerDefinition: GROUND_DECORATION
 93:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-08
+  layerDefinition: GROUND_DECORATION
 94:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-09
-95:
   layerDefinition: GROUND_DECORATION
+95:
   fileName: grave-stone-large-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -511,152 +511,152 @@
         - false
         - true
 96:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-stone-small-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 97:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-stone-small-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 98:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-stone-small-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 99:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-stone-small-base-01
+  layerDefinition: GROUND_DECORATION
 100:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-stone-small-base-02
-101:
   layerDefinition: GROUND_DECORATION
+101:
   fileName: grave-wooden-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 102:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-armor
+  layerDefinition: GROUND_DECORATION
 103:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-holy
+  layerDefinition: GROUND_DECORATION
 104:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-inn
+  layerDefinition: GROUND_DECORATION
 105:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-potion
+  layerDefinition: GROUND_DECORATION
 106:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-weapons
+  layerDefinition: GROUND_DECORATION
 107:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-armor
+  layerDefinition: GROUND_DECORATION
 108:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-holy
+  layerDefinition: GROUND_DECORATION
 109:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-inn
+  layerDefinition: GROUND_DECORATION
 110:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-potion
+  layerDefinition: GROUND_DECORATION
 111:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-weapons
+  layerDefinition: GROUND_DECORATION
 112:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-wood-armor
+  layerDefinition: GROUND_DECORATION
 113:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-wood-general-shop
+  layerDefinition: GROUND_DECORATION
 114:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-wood-inn
+  layerDefinition: GROUND_DECORATION
 115:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-wood-potion
+  layerDefinition: GROUND_DECORATION
 116:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-02
+  layerDefinition: GROUND_DECORATION
 117:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-03
+  layerDefinition: GROUND_DECORATION
 118:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-04
+  layerDefinition: GROUND_DECORATION
 119:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-05
+  layerDefinition: GROUND_DECORATION
 120:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-06
+  layerDefinition: GROUND_DECORATION
 121:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-09
+  layerDefinition: GROUND_DECORATION
 122:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-10
+  layerDefinition: GROUND_DECORATION
 123:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-11
+  layerDefinition: GROUND_DECORATION
 124:
-  layerDefinition: GROUND_DECORATION
   fileName: lillypad-01
+  layerDefinition: GROUND_DECORATION
 125:
-  layerDefinition: GROUND_DECORATION
   fileName: lillypad-02
-126:
   layerDefinition: GROUND_DECORATION
+126:
   fileName: log-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 127:
-  layerDefinition: GROUND_DECORATION
   fileName: log-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 128:
-  layerDefinition: GROUND_DECORATION
   fileName: log-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 129:
-  layerDefinition: GROUND_DECORATION
   fileName: minecart-horizontal
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 130:
-  layerDefinition: GROUND_DECORATION
   fileName: minecart-vertical
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList: [
       ]
 131:
-  layerDefinition: COLLIDABLES
   fileName: mushroom-house-base-red
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -681,8 +681,8 @@
         - false
         - false
 132:
-  layerDefinition: COLLIDABLES
   fileName: mushroom-house-mini-floor-blue-01
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -703,8 +703,8 @@
         - true
         - true
 133:
-  layerDefinition: COLLIDABLES
   fileName: mushroom-house-mini-floor-blue-02
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -718,8 +718,8 @@
         - true
         - true
 134:
-  layerDefinition: COLLIDABLES
   fileName: mushroom-house-mini-floor-green-01
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -740,8 +740,8 @@
         - true
         - true
 135:
-  layerDefinition: COLLIDABLES
   fileName: mushroom-house-mini-floor-green-02
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -755,26 +755,26 @@
         - true
         - true
 136:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-01
+  layerDefinition: GROUND_DECORATION
 137:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-02
+  layerDefinition: GROUND_DECORATION
 138:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-03
+  layerDefinition: GROUND_DECORATION
 139:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-04
+  layerDefinition: GROUND_DECORATION
 140:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-05
+  layerDefinition: GROUND_DECORATION
 141:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-08
-142:
   layerDefinition: GROUND_DECORATION
+142:
   fileName: mushroom-porch
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -794,297 +794,297 @@
         - true
         - true
 143:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-01
+  layerDefinition: GROUND_DECORATION
 144:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-02
+  layerDefinition: GROUND_DECORATION
 145:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-03
+  layerDefinition: GROUND_DECORATION
 146:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-06
+  layerDefinition: GROUND_DECORATION
 147:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-07
+  layerDefinition: GROUND_DECORATION
 148:
-  layerDefinition: GROUND_DECORATION
   fileName: painting-left-01
+  layerDefinition: GROUND_DECORATION
 149:
-  layerDefinition: GROUND_DECORATION
   fileName: painting-left-02
+  layerDefinition: GROUND_DECORATION
 150:
-  layerDefinition: GROUND_DECORATION
   fileName: painting-right-01
+  layerDefinition: GROUND_DECORATION
 151:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-01
+  layerDefinition: GROUND_DECORATION
 152:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-02
+  layerDefinition: GROUND_DECORATION
 153:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-03
+  layerDefinition: GROUND_DECORATION
 154:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-04
+  layerDefinition: GROUND_DECORATION
 155:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-05
-156:
   layerDefinition: GROUND_DECORATION
+156:
   fileName: pot-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 157:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 158:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 159:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 160:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 161:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 162:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-bush-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 163:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-bush-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 164:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-bush-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 165:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-bush-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 166:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-bush-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 167:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 168:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 169:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 170:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 171:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 172:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 173:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 174:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 175:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 176:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 177:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 178:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 179:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 180:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 181:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 182:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 183:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 184:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 185:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 186:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 187:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 188:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 189:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 190:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 191:
-  layerDefinition: GROUND_DECORATION
   fileName: prision-bed-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1093,8 +1093,8 @@
         - false
         - true
 192:
-  layerDefinition: GROUND_DECORATION
   fileName: prision-bed-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1103,8 +1103,8 @@
         - true
         - true
 193:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-large-brown-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1113,8 +1113,8 @@
         - true
         - true
 194:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-large-brown-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1123,8 +1123,8 @@
         - true
         - true
 195:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-large-brown-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1133,258 +1133,258 @@
         - false
         - true
 196:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 197:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 198:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 199:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 200:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 201:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-08
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 202:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-09
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 203:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-10
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 204:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-11
-205:
   layerDefinition: GROUND_DECORATION
+205:
   fileName: rock-small-dark-brown-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 206:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 207:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 208:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 209:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 210:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-08
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 211:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-11
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 212:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-12
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - false
 213:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-gray-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 214:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-gray-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 215:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-gray-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 216:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-gray-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 217:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-gray-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 218:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-gray-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 219:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 220:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 221:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 222:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 223:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 224:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-sword-brown-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 225:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-sword-brown-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 226:
-  layerDefinition: GROUND_DECORATION
   fileName: sign-post-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 227:
-  layerDefinition: GROUND_DECORATION
   fileName: sign-post-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 228:
-  layerDefinition: GROUND_DECORATION
   fileName: sign-post-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 229:
-  layerDefinition: GROUND_DECORATION
   fileName: small-stool
-230:
   layerDefinition: GROUND_DECORATION
+230:
   fileName: small-table-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 231:
-  layerDefinition: GROUND_DECORATION
   fileName: stick-pile-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 232:
-  layerDefinition: GROUND_DECORATION
   fileName: stick-pile-02
+  layerDefinition: GROUND_DECORATION
 233:
-  layerDefinition: COLLIDABLES
   fileName: stone-wall-arch
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1395,103 +1395,103 @@
         - false
         - true
 234:
-  layerDefinition: ROOF
   fileName: stone-wall-arch-mossy
+  layerDefinition: ROOF
 235:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-0
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 236:
-  layerDefinition: COLLIDABLES
   fileName: stone-wall-middle-horizontal-crack
+  layerDefinition: COLLIDABLES
 237:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-1
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 238:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-10
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 239:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-11
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 240:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-12
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 241:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-13
-  tileProperties:
-    WANG_TILE: {
-    }
-    COLLISION_BLOCK:
-      collisionList:
-        - true
-242:
   layerDefinition: COLLIDABLES
-  fileName: BW4-iron-fence-14
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
+242:
+  fileName: BW4-iron-fence-14
+  layerDefinition: COLLIDABLES
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
 243:
-  layerDefinition: GROUND_DECORATION
   fileName: stool-round-blue
+  layerDefinition: GROUND_DECORATION
 244:
-  layerDefinition: GROUND_DECORATION
   fileName: stool-round-wooden
+  layerDefinition: GROUND_DECORATION
 245:
-  layerDefinition: GROUND_DECORATION
   fileName: stool-square-wooden
-246:
   layerDefinition: GROUND_DECORATION
+246:
   fileName: stump-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 247:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-04
+  layerDefinition: GROUND_DECORATION
 248:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-05
+  layerDefinition: GROUND_DECORATION
 249:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-06
-250:
   layerDefinition: GROUND_DECORATION
+250:
   fileName: stump-house
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1505,8 +1505,8 @@
         - true
         - true
 251:
-  layerDefinition: GROUND_DECORATION
   fileName: temple-clean
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1520,8 +1520,8 @@
         - true
         - true
 252:
-  layerDefinition: GROUND_DECORATION
   fileName: temple-mossy
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1535,8 +1535,8 @@
         - true
         - true
 253:
-  layerDefinition: GROUND_DECORATION
   fileName: tent
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1556,11 +1556,11 @@
         - false
         - false
 254:
-  layerDefinition: ROOF
   fileName: tent-door
+  layerDefinition: ROOF
 255:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-large-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1585,8 +1585,8 @@
         - false
         - false
 256:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1595,8 +1595,8 @@
         - false
         - true
 257:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1605,8 +1605,8 @@
         - false
         - true
 258:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1615,8 +1615,8 @@
         - false
         - true
 259:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1625,8 +1625,8 @@
         - false
         - true
 260:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1635,17 +1635,17 @@
         - false
         - true
 261:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-15
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 262:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1654,8 +1654,8 @@
         - false
         - true
 263:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1664,8 +1664,8 @@
         - false
         - true
 264:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-medium-08
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1674,315 +1674,315 @@
         - false
         - true
 265:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 266:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 267:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 268:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 269:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 270:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 271:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 272:
-  layerDefinition: GROUND_DECORATION
   fileName: tree-small-08
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 273:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-cabinet-01
+  layerDefinition: GROUND_DECORATION
 274:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-cabinet-02
+  layerDefinition: GROUND_DECORATION
 275:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-chain-01
+  layerDefinition: GROUND_DECORATION
 276:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-chain-02
+  layerDefinition: GROUND_DECORATION
 277:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-shelf-01
+  layerDefinition: GROUND_DECORATION
 278:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-shelf-02
+  layerDefinition: GROUND_DECORATION
 279:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-shelf-03
+  layerDefinition: GROUND_DECORATION
 280:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-shelf-04
+  layerDefinition: GROUND_DECORATION
 281:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-01
+  layerDefinition: GROUND_DECORATION
 282:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-02
+  layerDefinition: GROUND_DECORATION
 283:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-blank
+  layerDefinition: GROUND_DECORATION
 284:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-armor
+  layerDefinition: GROUND_DECORATION
 285:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-holy
+  layerDefinition: GROUND_DECORATION
 286:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-inn
+  layerDefinition: GROUND_DECORATION
 287:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-potion
+  layerDefinition: GROUND_DECORATION
 288:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-pub
+  layerDefinition: GROUND_DECORATION
 289:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-shop
+  layerDefinition: GROUND_DECORATION
 290:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-gold-weapons
+  layerDefinition: GROUND_DECORATION
 291:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-armor
+  layerDefinition: GROUND_DECORATION
 292:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-holy
+  layerDefinition: GROUND_DECORATION
 293:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-inn
+  layerDefinition: GROUND_DECORATION
 294:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-potion
+  layerDefinition: GROUND_DECORATION
 295:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-pub
+  layerDefinition: GROUND_DECORATION
 296:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-shop
+  layerDefinition: GROUND_DECORATION
 297:
-  layerDefinition: GROUND_DECORATION
   fileName: wall-sign-silver-weapons
-298:
   layerDefinition: GROUND_DECORATION
+298:
   fileName: weapon-rack-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 299:
-  layerDefinition: GROUND_DECORATION
   fileName: weapon-rack-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 300:
-  layerDefinition: GROUND_DECORATION
   fileName: weapon-rack-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 301:
-  layerDefinition: GROUND_DECORATION
   fileName: well-broken
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 302:
-  layerDefinition: GROUND_DECORATION
   fileName: well-broken-rope
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 303:
-  layerDefinition: GROUND_DECORATION
   fileName: well-covered-empty
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 304:
-  layerDefinition: GROUND_DECORATION
   fileName: well-covered-filled
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 305:
-  layerDefinition: ROOF
   fileName: well-covered-roof
+  layerDefinition: ROOF
 306:
-  layerDefinition: GROUND_DECORATION
   fileName: well-filled
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 307:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-01
+  layerDefinition: GROUND_DECORATION
 308:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-02
+  layerDefinition: GROUND_DECORATION
 309:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-03
+  layerDefinition: GROUND_DECORATION
 310:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-04
+  layerDefinition: GROUND_DECORATION
 311:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-05
+  layerDefinition: GROUND_DECORATION
 312:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-06
+  layerDefinition: GROUND_DECORATION
 313:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-07
+  layerDefinition: GROUND_DECORATION
 314:
-  layerDefinition: GROUND_DECORATION
   fileName: bed-frame-04
+  layerDefinition: GROUND_DECORATION
 315:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-red-right
-316:
   layerDefinition: GROUND_DECORATION
+316:
   fileName: box-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 317:
-  layerDefinition: GROUND_DECORATION
   fileName: box-12
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 318:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 319:
-  layerDefinition: GROUND_DECORATION
   fileName: cactus-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 320:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-blue-left
+  layerDefinition: GROUND_DECORATION
 321:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-red-down
+  layerDefinition: GROUND_DECORATION
 322:
-  layerDefinition: GROUND_DECORATION
   fileName: coconut
+  layerDefinition: GROUND_DECORATION
 323:
-  layerDefinition: GROUND_DECORATION
   fileName: cup-01
+  layerDefinition: GROUND_DECORATION
 324:
-  layerDefinition: COLLIDABLES
   fileName: door-04-closed
+  layerDefinition: COLLIDABLES
 325:
-  layerDefinition: GROUND_DECORATION
   fileName: flag-02
+  layerDefinition: GROUND_DECORATION
 326:
-  layerDefinition: GROUND_DECORATION
   fileName: grass-05
-327:
   layerDefinition: GROUND_DECORATION
+327:
   fileName: grave-stone-small-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 328:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-wooden-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 329:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-shop
+  layerDefinition: GROUND_DECORATION
 330:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-shop
+  layerDefinition: GROUND_DECORATION
 331:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-01
+  layerDefinition: GROUND_DECORATION
 332:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-08
+  layerDefinition: GROUND_DECORATION
 333:
-  layerDefinition: GROUND_DECORATION
   fileName: lillypad-04
-334:
   layerDefinition: GROUND_DECORATION
+334:
   fileName: mushroom-house-base-green
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2007,8 +2007,8 @@
         - false
         - false
 335:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-mini-floor-red-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2022,14 +2022,14 @@
         - true
         - true
 336:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-07
+  layerDefinition: GROUND_DECORATION
 337:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-05
-338:
   layerDefinition: GROUND_DECORATION
+338:
   fileName: piano
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2038,124 +2038,124 @@
         - true
         - true
 339:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-07
-340:
   layerDefinition: GROUND_DECORATION
+340:
   fileName: pot-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 341:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-bush-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 342:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 343:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 344:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 345:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 346:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 347:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-large-mossy-02
-348:
   layerDefinition: GROUND_DECORATION
+348:
   fileName: rock-small-brown-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 349:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 350:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-10
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 351:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-gray-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 352:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 353:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-sword-mossy-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 354:
-  layerDefinition: GROUND_DECORATION
   fileName: small-table-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 355:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-2
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 356:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2164,424 +2164,424 @@
         - true
         - true
 357:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-house-door-frame
+  layerDefinition: GROUND_DECORATION
 358:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-house-door
+  layerDefinition: GROUND_DECORATION
 359:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-08
+  layerDefinition: GROUND_DECORATION
 360:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-09
+  layerDefinition: GROUND_DECORATION
 361:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-10
+  layerDefinition: GROUND_DECORATION
 362:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-11
+  layerDefinition: GROUND_DECORATION
 363:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-12
+  layerDefinition: GROUND_DECORATION
 364:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-blue-13
+  layerDefinition: GROUND_DECORATION
 365:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-01
+  layerDefinition: GROUND_DECORATION
 366:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-08
+  layerDefinition: GROUND_DECORATION
 367:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-07
+  layerDefinition: GROUND_DECORATION
 368:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-06
+  layerDefinition: GROUND_DECORATION
 369:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-05
+  layerDefinition: GROUND_DECORATION
 370:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-04
+  layerDefinition: GROUND_DECORATION
 371:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-03
+  layerDefinition: GROUND_DECORATION
 372:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-02
+  layerDefinition: GROUND_DECORATION
 373:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-09
+  layerDefinition: GROUND_DECORATION
 374:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-10
+  layerDefinition: GROUND_DECORATION
 375:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-11
+  layerDefinition: GROUND_DECORATION
 376:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-12
+  layerDefinition: GROUND_DECORATION
 377:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-brown-13
+  layerDefinition: GROUND_DECORATION
 378:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-01
+  layerDefinition: GROUND_DECORATION
 379:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-02
+  layerDefinition: GROUND_DECORATION
 380:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-03
+  layerDefinition: GROUND_DECORATION
 381:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-04
+  layerDefinition: GROUND_DECORATION
 382:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-05
+  layerDefinition: GROUND_DECORATION
 383:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-06
+  layerDefinition: GROUND_DECORATION
 384:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-07
+  layerDefinition: GROUND_DECORATION
 385:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-08
+  layerDefinition: GROUND_DECORATION
 386:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-09
+  layerDefinition: GROUND_DECORATION
 387:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-10
+  layerDefinition: GROUND_DECORATION
 388:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-11
+  layerDefinition: GROUND_DECORATION
 389:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-12
+  layerDefinition: GROUND_DECORATION
 390:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-gray-13
+  layerDefinition: GROUND_DECORATION
 391:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-01
+  layerDefinition: GROUND_DECORATION
 392:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-02
+  layerDefinition: GROUND_DECORATION
 393:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-03
+  layerDefinition: GROUND_DECORATION
 394:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-04
+  layerDefinition: GROUND_DECORATION
 395:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-05
+  layerDefinition: GROUND_DECORATION
 396:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-06
+  layerDefinition: GROUND_DECORATION
 397:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-07
+  layerDefinition: GROUND_DECORATION
 398:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-08
+  layerDefinition: GROUND_DECORATION
 399:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-09
+  layerDefinition: GROUND_DECORATION
 400:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-10
+  layerDefinition: GROUND_DECORATION
 401:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-11
+  layerDefinition: GROUND_DECORATION
 402:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-12
+  layerDefinition: GROUND_DECORATION
 403:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-orange-13
+  layerDefinition: GROUND_DECORATION
 404:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-01
+  layerDefinition: GROUND_DECORATION
 405:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-02
+  layerDefinition: GROUND_DECORATION
 406:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-03
+  layerDefinition: GROUND_DECORATION
 407:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-04
+  layerDefinition: GROUND_DECORATION
 408:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-05
+  layerDefinition: GROUND_DECORATION
 409:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-06
+  layerDefinition: GROUND_DECORATION
 410:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-07
+  layerDefinition: GROUND_DECORATION
 411:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-08
+  layerDefinition: GROUND_DECORATION
 412:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-09
+  layerDefinition: GROUND_DECORATION
 413:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-10
+  layerDefinition: GROUND_DECORATION
 414:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-11
+  layerDefinition: GROUND_DECORATION
 415:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-12
+  layerDefinition: GROUND_DECORATION
 416:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-pink-13
+  layerDefinition: GROUND_DECORATION
 417:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-01
+  layerDefinition: GROUND_DECORATION
 418:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-02
+  layerDefinition: GROUND_DECORATION
 419:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-03
+  layerDefinition: GROUND_DECORATION
 420:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-04
+  layerDefinition: GROUND_DECORATION
 421:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-05
+  layerDefinition: GROUND_DECORATION
 422:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-06
+  layerDefinition: GROUND_DECORATION
 423:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-07
+  layerDefinition: GROUND_DECORATION
 424:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-08
+  layerDefinition: GROUND_DECORATION
 425:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-09
+  layerDefinition: GROUND_DECORATION
 426:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-10
+  layerDefinition: GROUND_DECORATION
 427:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-11
+  layerDefinition: GROUND_DECORATION
 428:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-12
+  layerDefinition: GROUND_DECORATION
 429:
-  layerDefinition: GROUND_DECORATION
   fileName: wild-flower-white-13
+  layerDefinition: GROUND_DECORATION
 430:
-  layerDefinition: GROUND_DECORATION
   fileName: window-01
+  layerDefinition: WALL_DECORATION
 431:
-  layerDefinition: GROUND_DECORATION
   fileName: window-02
+  layerDefinition: WALL_DECORATION
 432:
-  layerDefinition: GROUND_DECORATION
   fileName: window-03
+  layerDefinition: WALL_DECORATION
 433:
-  layerDefinition: GROUND_DECORATION
   fileName: window-04
+  layerDefinition: WALL_DECORATION
 434:
-  layerDefinition: GROUND_DECORATION
   fileName: window-05
+  layerDefinition: WALL_DECORATION
 435:
-  layerDefinition: GROUND_DECORATION
   fileName: window-06
+  layerDefinition: WALL_DECORATION
 436:
-  layerDefinition: GROUND_DECORATION
   fileName: window-07
+  layerDefinition: WALL_DECORATION
 437:
-  layerDefinition: GROUND_DECORATION
   fileName: window-08
+  layerDefinition: WALL_DECORATION
 438:
-  layerDefinition: GROUND_DECORATION
   fileName: window-09
+  layerDefinition: WALL_DECORATION
 439:
-  layerDefinition: GROUND_DECORATION
   fileName: window-10
+  layerDefinition: WALL_DECORATION
 440:
-  layerDefinition: GROUND_DECORATION
   fileName: window-11
+  layerDefinition: WALL_DECORATION
 441:
-  layerDefinition: GROUND_DECORATION
   fileName: window-12
+  layerDefinition: WALL_DECORATION
 442:
-  layerDefinition: GROUND_DECORATION
   fileName: window-13
+  layerDefinition: WALL_DECORATION
 443:
-  layerDefinition: GROUND_DECORATION
   fileName: window-14
+  layerDefinition: WALL_DECORATION
 444:
-  layerDefinition: GROUND_DECORATION
   fileName: wooden-vanity
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 445:
-  layerDefinition: COLLIDABLES
   fileName: door-02-transition-dark
-446:
   layerDefinition: COLLIDABLES
+446:
   fileName: BW4-iron-fence-3
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 447:
-  layerDefinition: GROUND_DECORATION
   fileName: wooden-support-03
+  layerDefinition: GROUND_DECORATION
 448:
-  layerDefinition: GROUND_DECORATION
   fileName: wooden-support-02
+  layerDefinition: GROUND_DECORATION
 449:
-  layerDefinition: GROUND_DECORATION
   fileName: wooden-support-01
+  layerDefinition: GROUND_DECORATION
 450:
-  layerDefinition: ROOF
   fileName: roof-blue-01
+  layerDefinition: ROOF
 451:
-  layerDefinition: ROOF
   fileName: roof-blue-02
+  layerDefinition: ROOF
 452:
-  layerDefinition: ROOF
   fileName: roof-blue-03
+  layerDefinition: ROOF
 453:
-  layerDefinition: ROOF
   fileName: roof-blue-04
+  layerDefinition: ROOF
 454:
-  layerDefinition: ROOF
   fileName: roof-blue-05
+  layerDefinition: ROOF
 455:
-  layerDefinition: ROOF
   fileName: roof-blue-06
+  layerDefinition: ROOF
 456:
-  layerDefinition: ROOF
   fileName: roof-blue-07
+  layerDefinition: ROOF
 457:
-  layerDefinition: ROOF
   fileName: roof-blue-08
+  layerDefinition: ROOF
 458:
-  layerDefinition: ROOF
   fileName: roof-blue-35
+  layerDefinition: ROOF
 459:
-  layerDefinition: ROOF
   fileName: roof-blue-09
+  layerDefinition: ROOF
 460:
-  layerDefinition: ROOF
   fileName: roof-blue-10
+  layerDefinition: ROOF
 461:
-  layerDefinition: ROOF
   fileName: roof-blue-11
+  layerDefinition: ROOF
 462:
-  layerDefinition: ROOF
   fileName: roof-blue-12
+  layerDefinition: ROOF
 463:
-  layerDefinition: ROOF
   fileName: roof-blue-13
+  layerDefinition: ROOF
 464:
-  layerDefinition: ROOF
   fileName: roof-blue-14
+  layerDefinition: ROOF
 465:
-  layerDefinition: ROOF
   fileName: roof-blue-20
+  layerDefinition: ROOF
 466:
-  layerDefinition: ROOF
   fileName: roof-blue-15
+  layerDefinition: ROOF
 467:
-  layerDefinition: ROOF
   fileName: roof-blue-16
+  layerDefinition: ROOF
 468:
-  layerDefinition: ROOF
   fileName: roof-blue-17
+  layerDefinition: ROOF
 469:
-  layerDefinition: ROOF
   fileName: roof-blue-18
+  layerDefinition: ROOF
 470:
-  layerDefinition: ROOF
   fileName: roof-blue-19
+  layerDefinition: ROOF
 471:
-  layerDefinition: ROOF
   fileName: roof-blue-21
+  layerDefinition: ROOF
 472:
-  layerDefinition: ROOF
   fileName: roof-blue-22
+  layerDefinition: ROOF
 473:
-  layerDefinition: ROOF
   fileName: roof-blue-23
+  layerDefinition: ROOF
 474:
-  layerDefinition: ROOF
   fileName: roof-blue-24
+  layerDefinition: ROOF
 475:
-  layerDefinition: ROOF
   fileName: roof-blue-25
+  layerDefinition: ROOF
 476:
-  layerDefinition: ROOF
   fileName: roof-blue-26
+  layerDefinition: ROOF
 477:
-  layerDefinition: ROOF
   fileName: roof-blue-27
+  layerDefinition: ROOF
 478:
-  layerDefinition: ROOF
   fileName: roof-blue-28
+  layerDefinition: ROOF
 479:
-  layerDefinition: ROOF
   fileName: roof-blue-30
+  layerDefinition: ROOF
 480:
-  layerDefinition: ROOF
   fileName: roof-blue-31
+  layerDefinition: ROOF
 481:
-  layerDefinition: ROOF
   fileName: roof-blue-32
+  layerDefinition: ROOF
 482:
-  layerDefinition: ROOF
   fileName: roof-blue-33
+  layerDefinition: ROOF
 483:
-  layerDefinition: ROOF
   fileName: roof-blue-34
-484:
   layerDefinition: ROOF
+484:
   fileName: roof-blue-36
+  layerDefinition: ROOF
 485:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-01
+  layerDefinition: GROUND_DECORATION
 486:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-02
+  layerDefinition: GROUND_DECORATION
 487:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-03
+  layerDefinition: GROUND_DECORATION
 488:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-04
+  layerDefinition: GROUND_DECORATION
 489:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-05
+  layerDefinition: GROUND_DECORATION
 490:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-06
+  layerDefinition: GROUND_DECORATION
 491:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-door-07
-492:
   layerDefinition: GROUND_DECORATION
+492:
   fileName: mushroom-house-base-blue
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2606,54 +2606,54 @@
         - false
         - false
 493:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-blue-addon-01
+  layerDefinition: GROUND_DECORATION
 494:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-blue-addon-02
+  layerDefinition: GROUND_DECORATION
 495:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-blue-addon-03
+  layerDefinition: GROUND_DECORATION
 496:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-blue-addon-04
-497:
   layerDefinition: GROUND_DECORATION
+497:
   fileName: mushroom-house-blue-addon-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 498:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-red-addon-05
+  layerDefinition: GROUND_DECORATION
 499:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-blue-addon-06
+  layerDefinition: GROUND_DECORATION
 500:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-red-addon-06
+  layerDefinition: GROUND_DECORATION
 501:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-green-addon-01
+  layerDefinition: GROUND_DECORATION
 502:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-green-addon-02
+  layerDefinition: GROUND_DECORATION
 503:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-green-addon-03
+  layerDefinition: GROUND_DECORATION
 504:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-green-addon-04
+  layerDefinition: GROUND_DECORATION
 505:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-green-addon-05
+  layerDefinition: GROUND_DECORATION
 506:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-green-addon-06
-507:
   layerDefinition: GROUND_DECORATION
+507:
   fileName: mushroom-house-mini-floor-red-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2674,1519 +2674,1519 @@
         - true
         - true
 508:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-red-addon-01
+  layerDefinition: GROUND_DECORATION
 509:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-red-addon-02
+  layerDefinition: GROUND_DECORATION
 510:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-house-red-addon-03
-511:
   layerDefinition: GROUND_DECORATION
+511:
   fileName: mushroom-house-red-addon-04
+  layerDefinition: GROUND_DECORATION
 512:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-218
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 513:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-16
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 514:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-10
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 515:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-255
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 516:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-0
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 517:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-107
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 518:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-22
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 519:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-104
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 520:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-106
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 521:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-11
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 522:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-2
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 523:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-18
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 524:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-127
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 525:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-126
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 526:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-123
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 527:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-122
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 528:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-120
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 529:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-208
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 530:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-210
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 531:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-214
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 532:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-216
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 533:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-219
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 534:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-222
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 535:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-27
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 536:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-26
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 537:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-254
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 538:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-251
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 539:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-250
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 540:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-248
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 541:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-24
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 542:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-223
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 543:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-30
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 544:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-31
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 545:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-64
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 546:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-66
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 547:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-72
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 548:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-74
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 549:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-75
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 550:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-8
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 551:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-95
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 552:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-94
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 553:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-91
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 554:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-90
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 555:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-88
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 556:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-86
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 557:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-82
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 558:
-  layerDefinition: GROUND
   fileName: BW16-grass-dirt-80
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 559:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-218
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 560:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-127
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 561:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-0
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 562:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-10
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 563:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-104
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 564:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-106
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 565:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-107
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 566:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-11
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 567:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-120
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 568:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-122
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 569:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-123
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 570:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-126
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 571:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-16
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 572:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-18
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 573:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-22
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 574:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-219
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 575:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-216
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 576:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-214
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 577:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-210
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 578:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-208
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 579:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-2
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 580:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-222
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 581:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-223
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 582:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-24
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 583:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-248
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 584:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-250
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 585:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-251
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 586:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-254
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 587:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-255
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 588:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-74
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 589:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-72
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 590:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-66
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 591:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-64
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 592:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-31
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 593:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-30
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 594:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-27
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 595:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-26
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 596:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-75
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 597:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-8
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 598:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-80
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 599:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-82
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 600:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-86
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 601:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-88
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 602:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-90
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 603:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-91
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 604:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-11
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 605:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-107
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 606:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-106
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 607:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-104
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 608:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-10
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 609:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-0
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 610:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-95
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 611:
-  layerDefinition: GROUND
   fileName: BW16-dirt-darkdirt-94
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 612:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-120
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 613:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-122
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 614:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-123
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 615:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-126
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 616:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-127
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 617:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-16
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 618:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-18
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 619:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-2
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 620:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-222
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 621:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-22
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 622:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-219
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 623:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-218
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 624:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-216
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 625:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-214
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 626:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-210
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 627:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-208
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 628:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-223
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 629:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-24
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 630:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-248
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 631:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-250
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 632:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-251
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 633:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-254
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 634:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-255
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 635:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-26
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 636:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-75
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 637:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-74
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 638:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-72
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 639:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-66
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 640:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-64
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 641:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-31
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 642:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-30
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 643:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-27
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 644:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-8
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 645:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-80
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 646:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-82
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 647:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-86
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 648:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-88
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 649:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-90
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 650:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-91
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 651:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-94
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 652:
-  layerDefinition: GROUND
   fileName: BW16-dirt-pathway-95
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 653:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-0
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 654:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-10
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 655:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-126
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 656:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-123
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 657:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-122
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 658:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-120
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 659:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-11
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 660:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-107
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 661:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-106
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 662:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-104
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 663:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-127
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 664:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-16
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 665:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-18
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 666:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-2
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 667:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-208
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 668:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-210
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 669:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-214
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 670:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-216
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 671:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-250
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 672:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-248
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 673:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-24
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 674:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-223
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 675:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-222
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 676:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-22
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 677:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-219
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 678:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-218
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 679:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-251
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 680:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-254
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 681:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-255
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 682:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-26
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 683:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-27
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 684:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-30
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 685:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-31
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 686:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-64
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 687:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-86
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 688:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-82
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 689:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-80
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 690:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-8
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 691:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-75
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 692:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-74
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 693:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-72
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 694:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-66
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 695:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-88
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 696:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-90
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 697:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-91
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 698:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-94
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 699:
-  layerDefinition: GROUND
   fileName: BW16-grass-sand-95
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 700:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-0
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 701:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-10
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 702:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-104
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 703:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-127
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 704:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-126
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 705:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-123
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 706:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-122
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 707:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-120
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 708:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-11
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 709:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-107
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 710:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-106
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 711:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-16
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 712:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-18
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 713:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-2
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 714:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-208
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 715:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-210
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 716:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-214
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 717:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-216
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 718:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-218
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 719:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-251
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 720:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-250
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 721:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-248
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 722:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-24
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 723:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-223
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 724:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-222
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 725:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-22
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 726:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-219
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 727:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-254
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 728:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-255
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 729:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-26
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 730:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-27
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 731:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-30
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 732:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-31
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 733:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-64
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 734:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-66
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 735:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-88
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 736:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-86
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 737:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-82
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 738:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-80
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 739:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-8
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 740:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-75
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 741:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-74
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 742:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-72
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 743:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-90
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 744:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-91
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 745:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-94
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 746:
-  layerDefinition: GROUND
   fileName: BW16-rough-dirt-95
+  layerDefinition: GROUND
   tileProperties:
     WANG_TILE: {
     }
 747:
-  layerDefinition: GROUND_DECORATION
   fileName: bench-wide-back-single
+  layerDefinition: GROUND_DECORATION
 748:
-  layerDefinition: GROUND_DECORATION
   fileName: booth-red-left
+  layerDefinition: GROUND_DECORATION
 749:
-  layerDefinition: GROUND_DECORATION
   fileName: box-04
+  layerDefinition: GROUND_DECORATION
 750:
-  layerDefinition: GROUND_DECORATION
   fileName: box-11
+  layerDefinition: GROUND_DECORATION
 751:
-  layerDefinition: GROUND_DECORATION
   fileName: bed-frame-03
-752:
   layerDefinition: GROUND_DECORATION
+752:
   fileName: column-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 753:
-  layerDefinition: GROUND_DECORATION
   fileName: column-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 754:
-  layerDefinition: GROUND_DECORATION
   fileName: column-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 755:
-  layerDefinition: GROUND_DECORATION
   fileName: column-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 756:
-  layerDefinition: GROUND_DECORATION
   fileName: column-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 757:
-  layerDefinition: GROUND_DECORATION
   fileName: column-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 758:
-  layerDefinition: GROUND_DECORATION
   fileName: column-stone-complete
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 759:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-blue-down
+  layerDefinition: GROUND_DECORATION
 760:
-  layerDefinition: GROUND_DECORATION
   fileName: chair-brown-up
-761:
   layerDefinition: GROUND_DECORATION
+761:
   fileName: clock
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 762:
-  layerDefinition: GROUND_DECORATION
   fileName: cactus-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 763:
-  layerDefinition: GROUND_DECORATION
   fileName: egypt-statue-dog-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4195,16 +4195,16 @@
         - false
         - true
 764:
-  layerDefinition: GROUND_DECORATION
   fileName: egypt-statue-dog-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 765:
-  layerDefinition: GROUND_DECORATION
   fileName: egypt-statue-dog-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4213,19 +4213,19 @@
         - false
         - true
 766:
-  layerDefinition: GROUND_DECORATION
   fileName: egypt-statue-dog-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 767:
-  layerDefinition: GROUND_DECORATION
   fileName: flag-01
-768:
   layerDefinition: GROUND_DECORATION
+768:
   fileName: grave-stone-large-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4236,72 +4236,72 @@
         - false
         - true
 769:
-  layerDefinition: GROUND_DECORATION
   fileName: grave-wooden-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 770:
-  layerDefinition: GROUND_DECORATION
   fileName: lamp-post-skinny-01
-771:
   layerDefinition: GROUND_DECORATION
+771:
   fileName: mailbox-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 772:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-large-06
-773:
   layerDefinition: GROUND_DECORATION
+773:
   fileName: pot-bush-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 774:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-blue-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 775:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-orange-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 776:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-pink-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 777:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-white-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 778:
-  layerDefinition: GROUND_DECORATION
   fileName: pot-flower-yellow-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 779:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-large-mossy-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4310,66 +4310,66 @@
         - true
         - true
 780:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-brown-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 781:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 782:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-brown-09
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 783:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-gray-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 784:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-dark-gray-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 785:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-small-mossy-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 786:
-  layerDefinition: GROUND_DECORATION
   fileName: rock-sword-mossy-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
 787:
-  layerDefinition: GROUND_DECORATION
   fileName: small-table-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 788:
-  layerDefinition: GROUND_DECORATION
   fileName: stump-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4378,932 +4378,1031 @@
         - true
         - true
 789:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-4
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 790:
-  layerDefinition: GROUND_DECORATION
   fileName: well-egypt-filled
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 791:
-  layerDefinition: GROUND_DECORATION
   fileName: well-egypt-empty
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 792:
-  layerDefinition: GROUND_DECORATION
   fileName: well-egypt-broken
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 793:
-  layerDefinition: GROUND_DECORATION
   fileName: bench-wide-single
+  layerDefinition: GROUND_DECORATION
 794:
-  layerDefinition: GROUND_DECORATION
   fileName: bush-small-02
+  layerDefinition: GROUND_DECORATION
 795:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-01
+  layerDefinition: GROUND_DECORATION
 796:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-02
+  layerDefinition: GROUND_DECORATION
 797:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-03
+  layerDefinition: GROUND_DECORATION
 798:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-04
+  layerDefinition: GROUND_DECORATION
 799:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-05
+  layerDefinition: GROUND_DECORATION
 800:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-06
+  layerDefinition: GROUND_DECORATION
 801:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-07
+  layerDefinition: GROUND_DECORATION
 802:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-item-08
+  layerDefinition: GROUND_DECORATION
 803:
-  layerDefinition: GROUND_DECORATION
   fileName: dungeon-stairs-up
+  layerDefinition: GROUND_DECORATION
 804:
-  layerDefinition: GROUND_DECORATION
   fileName: dungeon-floor-trap-door
+  layerDefinition: GROUND_DECORATION
 805:
-  layerDefinition: GROUND_DECORATION
   fileName: dungeon-floor-vent
+  layerDefinition: GROUND_DECORATION
 806:
-  layerDefinition: GROUND_DECORATION
   fileName: dungeon-wall-vent-02
+  layerDefinition: GROUND_DECORATION
 807:
-  layerDefinition: GROUND_DECORATION
   fileName: dungeon-wall-vent-01
+  layerDefinition: GROUND_DECORATION
 808:
-  layerDefinition: GROUND_DECORATION
   fileName: dungeon-stairs-down
+  layerDefinition: GROUND_DECORATION
 809:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-gold-pub
+  layerDefinition: GROUND_DECORATION
 810:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-silver-pub
+  layerDefinition: GROUND_DECORATION
 811:
-  layerDefinition: GROUND_DECORATION
   fileName: hanging-sign-wood-weapons
+  layerDefinition: GROUND_DECORATION
 812:
-  layerDefinition: GROUND_DECORATION
   fileName: kitchen-item-07
+  layerDefinition: GROUND_DECORATION
 813:
-  layerDefinition: GROUND_DECORATION
   fileName: painting-right-02
+  layerDefinition: GROUND_DECORATION
 814:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-08
+  layerDefinition: GROUND_DECORATION
 815:
-  layerDefinition: GROUND_DECORATION
   fileName: mushroom-small-04
-816:
   layerDefinition: GROUND_DECORATION
+816:
   fileName: pot-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 817:
-  layerDefinition: GROUND_DECORATION
   fileName: plant-small-06
+  layerDefinition: GROUND_DECORATION
 818:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-01
+  layerDefinition: GROUND_DECORATION
 819:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-02
+  layerDefinition: GROUND_DECORATION
 820:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-03
+  layerDefinition: GROUND_DECORATION
 821:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-04
+  layerDefinition: GROUND_DECORATION
 822:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-05
+  layerDefinition: GROUND_DECORATION
 823:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-06
+  layerDefinition: GROUND_DECORATION
 824:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-07
+  layerDefinition: GROUND_DECORATION
 825:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-08
+  layerDefinition: GROUND_DECORATION
 826:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-09
+  layerDefinition: GROUND_DECORATION
 827:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-10
+  layerDefinition: GROUND_DECORATION
 828:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-11
+  layerDefinition: GROUND_DECORATION
 829:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-12
+  layerDefinition: GROUND_DECORATION
 830:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-13
+  layerDefinition: GROUND_DECORATION
 831:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-14
+  layerDefinition: GROUND_DECORATION
 832:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-15
+  layerDefinition: GROUND_DECORATION
 833:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-16
+  layerDefinition: GROUND_DECORATION
 834:
-  layerDefinition: COLLIDABLES
   fileName: door-01-transition-dark
+  layerDefinition: COLLIDABLES
 835:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-book-01
+  layerDefinition: GROUND_DECORATION
 836:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-book-02
+  layerDefinition: GROUND_DECORATION
 837:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-book-03
+  layerDefinition: GROUND_DECORATION
 838:
-  layerDefinition: GROUND_DECORATION
   fileName: table-item-book-04
-839:
   layerDefinition: GROUND_DECORATION
+839:
   fileName: table-with-item-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 840:
-  layerDefinition: GROUND_DECORATION
   fileName: table-with-item-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 841:
-  layerDefinition: GROUND_DECORATION
   fileName: table-with-item-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 842:
-  layerDefinition: GROUND_DECORATION
   fileName: table-with-item-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 843:
-  layerDefinition: COLLIDABLES
   fileName: door-02-transition-light
+  layerDefinition: COLLIDABLES
 844:
-  layerDefinition: COLLIDABLES
   fileName: door-03-transition-dark
+  layerDefinition: COLLIDABLES
 845:
-  layerDefinition: COLLIDABLES
   fileName: door-03-transition-light
+  layerDefinition: COLLIDABLES
 846:
-  layerDefinition: COLLIDABLES
   fileName: door-04-frame
+  layerDefinition: COLLIDABLES
 847:
-  layerDefinition: COLLIDABLES
   fileName: door-04-open-dark
+  layerDefinition: COLLIDABLES
 848:
-  layerDefinition: COLLIDABLES
   fileName: door-04-open-light
+  layerDefinition: COLLIDABLES
 849:
-  layerDefinition: COLLIDABLES
   fileName: door-04-transition-dark
+  layerDefinition: COLLIDABLES
 850:
-  layerDefinition: COLLIDABLES
   fileName: door-04-transition-light
+  layerDefinition: COLLIDABLES
 851:
-  layerDefinition: COLLIDABLES
   fileName: door-05-closed
+  layerDefinition: COLLIDABLES
 852:
-  layerDefinition: COLLIDABLES
   fileName: door-05-frame
+  layerDefinition: COLLIDABLES
 853:
-  layerDefinition: COLLIDABLES
   fileName: door-05-open-dark
+  layerDefinition: COLLIDABLES
 854:
-  layerDefinition: COLLIDABLES
   fileName: door-05-open-light
+  layerDefinition: COLLIDABLES
 855:
-  layerDefinition: COLLIDABLES
   fileName: door-05-transition-dark
+  layerDefinition: COLLIDABLES
 856:
-  layerDefinition: COLLIDABLES
   fileName: door-05-transition-light
+  layerDefinition: COLLIDABLES
 857:
-  layerDefinition: COLLIDABLES
   fileName: door-06-frame
+  layerDefinition: COLLIDABLES
 858:
-  layerDefinition: COLLIDABLES
   fileName: door-06-open-dark
+  layerDefinition: COLLIDABLES
 859:
-  layerDefinition: COLLIDABLES
   fileName: door-06-open-light
+  layerDefinition: COLLIDABLES
 860:
-  layerDefinition: COLLIDABLES
   fileName: door-06-transition-dark
+  layerDefinition: COLLIDABLES
 861:
-  layerDefinition: COLLIDABLES
   fileName: door-06-transition-light
+  layerDefinition: COLLIDABLES
 862:
-  layerDefinition: COLLIDABLES
   fileName: door-07-frame
+  layerDefinition: COLLIDABLES
 863:
-  layerDefinition: COLLIDABLES
   fileName: door-07-open-dark
+  layerDefinition: COLLIDABLES
 864:
-  layerDefinition: COLLIDABLES
   fileName: door-07-open-light
+  layerDefinition: COLLIDABLES
 865:
-  layerDefinition: COLLIDABLES
   fileName: door-07-transition-dark
+  layerDefinition: COLLIDABLES
 866:
-  layerDefinition: COLLIDABLES
   fileName: door-07-transition-light
+  layerDefinition: COLLIDABLES
 867:
-  layerDefinition: COLLIDABLES
   fileName: door-08-frame
+  layerDefinition: COLLIDABLES
 868:
-  layerDefinition: COLLIDABLES
   fileName: door-08-open-dark
+  layerDefinition: COLLIDABLES
 869:
-  layerDefinition: COLLIDABLES
   fileName: door-08-open-light
+  layerDefinition: COLLIDABLES
 870:
-  layerDefinition: COLLIDABLES
   fileName: door-08-transition-dark
+  layerDefinition: COLLIDABLES
 871:
-  layerDefinition: COLLIDABLES
   fileName: door-08-transition-light
+  layerDefinition: COLLIDABLES
 872:
-  layerDefinition: COLLIDABLES
   fileName: door-01-frame
-873:
   layerDefinition: COLLIDABLES
+873:
   fileName: door-03-frame
+  layerDefinition: COLLIDABLES
 874:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 875:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 876:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 877:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 878:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 879:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 880:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-07
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 881:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-08
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 882:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-09
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 883:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-10
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 884:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-11
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 885:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-12
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 886:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-13
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 887:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-bottom-14
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
         - true
 888:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-bottom-01
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 889:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-bottom-02
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 890:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-bottom-03
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 891:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-bottom-04
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 892:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-bottom-05
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 893:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-bottom-06
+  layerDefinition: GROUND_DECORATION
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 894:
-  layerDefinition: GROUND_DECORATION
   fileName: cabnient-small-top
-895:
   layerDefinition: GROUND_DECORATION
+895:
   fileName: cabnient-top
+  layerDefinition: GROUND_DECORATION
 896:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-0
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 897:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-1
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 898:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-10
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 899:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-11
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 900:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-12
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 901:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-13
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 902:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-14
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 903:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-15
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 904:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-2
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 905:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-3
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 906:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-4
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 907:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-5
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 908:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-6
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 909:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-7
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 910:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-8
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 911:
-  layerDefinition: COLLIDABLES
   fileName: BW4-brick-wall-9
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 912:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-0
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 913:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-1
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 914:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-10
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 915:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-11
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 916:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-12
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 917:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-13
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 918:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-14
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 919:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-2
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 920:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-3
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 921:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-4
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 922:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-5
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 923:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-6
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 924:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-7
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 925:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-8
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 926:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-9
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 927:
-  layerDefinition: COLLIDABLES
   fileName: BW4-wooden-fence-15
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 928:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-5
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 929:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-6
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 930:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-7
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 931:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-8
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 932:
-  layerDefinition: COLLIDABLES
   fileName: BW4-iron-fence-9
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 933:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-0
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 934:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-1
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 935:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-10
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 936:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-11
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 937:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-15
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 938:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-12
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 939:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-13
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 940:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-14
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 941:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-9
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 942:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-8
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 943:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-7
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 944:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-6
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 945:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-5
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 946:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-4
+  layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 947:
-  layerDefinition: COLLIDABLES
   fileName: BW4-post-wooden-fence-3
-  tileProperties:
-    WANG_TILE: {
-    }
-    COLLISION_BLOCK:
-      collisionList:
-        - true
-948:
   layerDefinition: COLLIDABLES
-  fileName: BW4-post-wooden-fence-2
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
+948:
+  fileName: BW4-post-wooden-fence-2
+  layerDefinition: COLLIDABLES
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
+    WANG_TILE: {
+    }
+949:
+  fileName: brick-wall-support-01
+  layerDefinition: WALL_DECORATION
+950:
+  fileName: brick-wall-support-02
+  layerDefinition: WALL_DECORATION
+951:
+  fileName: brick-wall-support-03
+  layerDefinition: WALL_DECORATION
+952:
+  fileName: brick-wall-support-04
+  layerDefinition: WALL_DECORATION
+953:
+  fileName: brick-wall-support-05
+  layerDefinition: WALL_DECORATION
+954:
+  fileName: brick-wall-support-06
+  layerDefinition: WALL_DECORATION
+955:
+  fileName: brick-wall-support-21
+  layerDefinition: WALL_DECORATION
+956:
+  fileName: brick-wall-support-07
+  layerDefinition: WALL_DECORATION
+957:
+  fileName: brick-wall-support-22
+  layerDefinition: WALL_DECORATION
+958:
+  fileName: brick-wall-support-08
+  layerDefinition: WALL_DECORATION
+959:
+  fileName: brick-wall-support-09
+  layerDefinition: WALL_DECORATION
+960:
+  fileName: brick-wall-support-10
+  layerDefinition: WALL_DECORATION
+961:
+  fileName: brick-wall-support-11
+  layerDefinition: WALL_DECORATION
+962:
+  fileName: brick-wall-support-12
+  layerDefinition: WALL_DECORATION
+963:
+  fileName: brick-wall-support-13
+  layerDefinition: WALL_DECORATION
+964:
+  fileName: brick-wall-support-14
+  layerDefinition: WALL_DECORATION
+965:
+  fileName: brick-wall-support-15
+  layerDefinition: WALL_DECORATION
+966:
+  fileName: brick-wall-support-16
+  layerDefinition: WALL_DECORATION
+967:
+  fileName: brick-wall-support-17
+  layerDefinition: WALL_DECORATION
+968:
+  fileName: brick-wall-support-18
+  layerDefinition: WALL_DECORATION
+969:
+  fileName: brick-wall-support-19
+  layerDefinition: WALL_DECORATION
+970:
+  fileName: brick-wall-support-20
+  layerDefinition: WALL_DECORATION
+971:
+  fileName: brick-wall-support-23
+  layerDefinition: WALL_DECORATION
+972:
+  fileName: brick-wall-support-24
+  layerDefinition: WALL_DECORATION
+973:
+  fileName: brick-wall-support-25
+  layerDefinition: WALL_DECORATION
+974:
+  fileName: brick-wall-support-26
+  layerDefinition: WALL_DECORATION
+975:
+  fileName: brick-wall-support-27
+  layerDefinition: WALL_DECORATION
+976:
+  fileName: brick-wall-gray-left
+  layerDefinition: COLLIDABLES
+977:
+  fileName: brick-wall-gray-right
+  layerDefinition: COLLIDABLES
+978:
+  fileName: brick-wall-green-left
+  layerDefinition: COLLIDABLES
+979:
+  fileName: brick-wall-green-right
+  layerDefinition: COLLIDABLES
+980:
+  fileName: brick-wall-red-left
+  layerDefinition: COLLIDABLES
+981:
+  fileName: brick-wall-red-right
+  layerDefinition: COLLIDABLES
