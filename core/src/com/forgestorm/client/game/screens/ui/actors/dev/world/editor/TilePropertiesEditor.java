@@ -24,6 +24,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTy
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
+import com.forgestorm.client.game.world.maps.Tags;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
@@ -43,7 +44,9 @@ import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -58,6 +61,10 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     private final ImageBuilder imageBuilder = new ImageBuilder();
     private final VisTable rightTable = new VisTable(true);
     private final VisTable propertiesTable = new VisTable(true);
+
+    private LayerDefinition workingLayerDefinition = LayerDefinition.COLLIDABLES;
+    private final VisTable layerSpecificTagTable = new VisTable(false);
+    private final VisTable tagsTable = new VisTable(false);
 
     private TileImage tileImage;
     private Map<TilePropertyTypes, AbstractTileProperty> copiedTileProperties;
@@ -220,6 +227,19 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             }
         });
 
+        //TODO
+
+        // Add TileImage tags
+        VisTable tagsContainerTable = new VisTable(true);
+        VisLabel tagsLabel = new VisLabel("Tags:");
+        buildLayerSpecificTagSelectBox();
+        buildTagsTable(tileImage);
+
+        tagsContainerTable.add(tagsLabel);
+        tagsContainerTable.add(layerSpecificTagTable);
+        rightTable.add(tagsContainerTable).row();
+        rightTable.add(tagsTable).row();
+
         // Add all individual selected options to the following table
         rightTable.addSeparator().growY().row();
         buildPropertiesTable();
@@ -271,6 +291,54 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                 YamlUtil.saveYamlToFile(worldBuilder.getTileImageMap(), FILE_PATH);
             }
         });
+    }
+
+    private void buildLayerSpecificTagSelectBox() {
+        layerSpecificTagTable.clear();
+
+        Tags[] tags = Tags.getLayerSpecificTags(workingLayerDefinition, false);
+        final VisSelectBox<Tags> tagsVisSelectBox = new VisSelectBox<Tags>();
+        tagsVisSelectBox.setItems(tags);
+        layerSpecificTagTable.add(tagsVisSelectBox);
+        tagsVisSelectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Now set the selected layer
+                if (tagsVisSelectBox.getSelected() == Tags.AN_UNUSED_TAG) return;
+                tileImage.addTag(tagsVisSelectBox.getSelected());
+                buildTagsTable(tileImage);
+            }
+        });
+    }
+
+    private void buildTagsTable(final TileImage tileImage) {
+        tagsTable.clear();
+        List<Tags> tagsList = new ArrayList<Tags>();
+        for (Tags tag : Tags.values()) if (tileImage.containsTag(tag)) tagsList.add(tag);
+
+        int tagsAdded = 0;
+        VisTable moduloTable = null;
+
+        for (final Tags tag : tagsList) {
+
+            if (tagsAdded % 4 == 0) {
+                moduloTable = new VisTable();
+                tagsTable.add(moduloTable).row();
+            }
+
+            tagsAdded++;
+
+            VisTextButton visTextButton = new VisTextButton(tag.toString() + " [RED]X");
+            moduloTable.add(visTextButton);
+
+            visTextButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    tileImage.removeTag(tag);
+                    buildTagsTable(tileImage);
+                }
+            });
+        }
     }
 
     private void buildPropertiesTable() {
@@ -338,6 +406,8 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             showLayer.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
+                    workingLayerDefinition = showLayer.getSelected();
+                    buildLayerSpecificTagSelectBox();
                     buildImageList(buttonTable, hideProcessedItems.isChecked(), showLayer.getSelected());
                 }
             });

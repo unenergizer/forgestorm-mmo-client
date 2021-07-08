@@ -15,6 +15,7 @@ import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.maps.Tags;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
@@ -22,9 +23,11 @@ import com.forgestorm.client.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
@@ -295,6 +298,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         private final LayerDefinition layerDefinition;
         private final String title;
         private final Table contentTable;
+        private VisScrollPane scrollPane;
 
         TileBuildTab(LayerDefinition layerDefinition) {
             super(false, false);
@@ -306,19 +310,59 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         public void build() {
             // Create a scroll pane.
-            VisTable buttonTable = new VisTable();
-            VisScrollPane scrollPane = new VisScrollPane(buttonTable);
+            final VisTable buttonTable = new VisTable();
+
+            // Get layer specific tags
+            Tags[] tags = Tags.getLayerSpecificTags(layerDefinition, true);
+
+            final VisCheckBox sortByTag = new VisCheckBox("Sort By Tag");
+            sortByTag.setChecked(false);
+            if (tags.length > 0) contentTable.add(sortByTag);
+
+            final VisSelectBox<Tags> showTag = new VisSelectBox<Tags>();
+            showTag.setItems(tags);
+            showTag.setDisabled(!sortByTag.isChecked());
+            if (tags.length > 0) contentTable.add(showTag).row();
+
+            sortByTag.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    buildImageList(buttonTable, sortByTag.isChecked(), showTag.getSelected());
+
+                    showTag.setDisabled(!sortByTag.isChecked());
+                }
+            });
+            showTag.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    buildImageList(buttonTable, sortByTag.isChecked(), showTag.getSelected());
+                }
+            });
+
+
+            scrollPane = new VisScrollPane(buttonTable);
             scrollPane.setOverscroll(false, false);
             scrollPane.setFlickScroll(false);
             scrollPane.setFadeScrollBars(false);
             scrollPane.setScrollbarsOnTop(true);
             scrollPane.setScrollingDisabled(true, false);
-            contentTable.add(scrollPane).prefHeight(1).grow();
+            contentTable.add(scrollPane).prefHeight(1).grow().colspan(2);
+
+            buildImageList(buttonTable, sortByTag.isChecked(), showTag.getSelected());
+            // TODO: Possibly add tool-tips to each one that describes it's properties?
+        }
+
+        private void buildImageList(VisTable buttonTable, boolean sortByTag, Tags tag) {
+            buttonTable.clear();
 
             // Add image buttons that represent the item. Filter by layer definition.
             int tilesAdded = 0;
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
+
+                // Sort by tag
+                if (sortByTag) if (!tileImage.containsTag(tag)) continue;
+
                 // If the TileImage is a wang tile, only show one image of it
                 boolean isWangTile = false;
                 if (tileImage.getFileName().startsWith("BW4")

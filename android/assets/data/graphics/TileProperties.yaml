@@ -1,41 +1,56 @@
 1:
   fileName: bag-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 2:
   fileName: bag-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 3:
   fileName: bag-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 4:
   fileName: barrel-big-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 5:
   fileName: barrel-big-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 6:
   fileName: barrel-big-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -66,7 +81,9 @@
   layerDefinition: COLLIDABLES
 15:
   fileName: bag-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -85,7 +102,10 @@
   layerDefinition: COLLIDABLES
 20:
   fileName: barrel-big-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -93,7 +113,10 @@
         - true
 21:
   fileName: barrel-big-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -103,27 +126,39 @@
         - true
 22:
   fileName: barrel-small-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 23:
   fileName: barrel-small-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 24:
   fileName: bed-frame-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 25:
   fileName: bed-frame-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 26:
   fileName: bed-frame-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -133,46 +168,67 @@
         - true
 27:
   fileName: booth-blue-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 28:
   fileName: booth-blue-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 29:
   fileName: booth-green-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 30:
   fileName: booth-green-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 31:
   fileName: booth-yellow-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 32:
   fileName: booth-yellow-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 33:
   fileName: box-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 34:
   fileName: box-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 35:
   fileName: box-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 36:
   fileName: box-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -180,70 +236,79 @@
         - true
 37:
   fileName: box-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 38:
   fileName: box-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 39:
   fileName: box-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 40:
   fileName: box-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 41:
   fileName: box-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 42:
   fileName: box-14
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 43:
   fileName: box-15
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 44:
   fileName: box-16
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 45:
   fileName: box-17
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 46:
   fileName: bush-large-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -253,7 +318,9 @@
         - true
 47:
   fileName: bush-large-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -263,49 +330,63 @@
         - true
 48:
   fileName: bush-small-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 49:
   fileName: bush-small-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 50:
   fileName: bush-small-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 51:
   fileName: bush-small-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 52:
   fileName: bush-small-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 53:
   fileName: cactus-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 54:
   fileName: cactus-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -313,7 +394,9 @@
         - true
 55:
   fileName: cactus-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -321,7 +404,9 @@
         - true
 56:
   fileName: cauldron-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -331,7 +416,9 @@
         - true
 57:
   fileName: cauldron-01-776
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -341,7 +428,9 @@
         - true
 58:
   fileName: cauldron-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -351,28 +440,44 @@
         - true
 59:
   fileName: chair-blue-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 60:
   fileName: chair-blue-up
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 61:
   fileName: chair-brown-down
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 62:
   fileName: chair-brown-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 63:
   fileName: chair-brown-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 64:
   fileName: chair-red-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 65:
   fileName: chair-red-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 66:
   fileName: chair-red-up
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 67:
   fileName: chimney-01
   layerDefinition: ROOF
@@ -391,7 +496,9 @@
         - true
 69:
   fileName: column-mossy-stone-broken-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -399,14 +506,18 @@
         - true
 70:
   fileName: column-mossy-stone-broken-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 71:
   fileName: column-mossy-stone-complete
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -414,7 +525,9 @@
         - true
 72:
   fileName: column-stone-broken-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -422,20 +535,30 @@
         - true
 73:
   fileName: column-stone-broken-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 74:
   fileName: cup-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 75:
   fileName: cup-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 76:
   fileName: door-01-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
   tileProperties:
     DOOR: {
     }
@@ -456,16 +579,24 @@
   layerDefinition: COLLIDABLES
 82:
   fileName: fancy-chair-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 83:
   fileName: fancy-chair-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 84:
   fileName: fancy-stool
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 85:
   fileName: fancy-table
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -475,34 +606,42 @@
         - true
 86:
   fileName: flag-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - FLAG
+    - DUNGEON
 87:
   fileName: flag-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - FLAG
+    - DUNGEON
 88:
   fileName: grass-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 89:
   fileName: grass-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 90:
   fileName: grass-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 91:
   fileName: grass-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 92:
   fileName: grass-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 93:
   fileName: grass-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 94:
   fileName: grass-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 95:
   fileName: grave-stone-large-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -512,113 +651,183 @@
         - true
 96:
   fileName: grave-stone-small-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 97:
   fileName: grave-stone-small-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 98:
   fileName: grave-stone-small-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 99:
   fileName: grave-stone-small-base-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
 100:
   fileName: grave-stone-small-base-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
 101:
   fileName: grave-wooden-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 102:
   fileName: hanging-sign-gold-armor
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 103:
   fileName: hanging-sign-gold-holy
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 104:
   fileName: hanging-sign-gold-inn
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 105:
   fileName: hanging-sign-gold-potion
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 106:
   fileName: hanging-sign-gold-weapons
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 107:
   fileName: hanging-sign-silver-armor
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 108:
   fileName: hanging-sign-silver-holy
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 109:
   fileName: hanging-sign-silver-inn
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 110:
   fileName: hanging-sign-silver-potion
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 111:
   fileName: hanging-sign-silver-weapons
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 112:
   fileName: hanging-sign-wood-armor
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 113:
   fileName: hanging-sign-wood-general-shop
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 114:
   fileName: hanging-sign-wood-inn
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 115:
   fileName: hanging-sign-wood-potion
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 116:
   fileName: kitchen-item-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 117:
   fileName: kitchen-item-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 118:
   fileName: kitchen-item-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 119:
   fileName: kitchen-item-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 120:
   fileName: kitchen-item-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 121:
   fileName: kitchen-item-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 122:
   fileName: kitchen-item-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 123:
   fileName: kitchen-item-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 124:
   fileName: lillypad-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 125:
   fileName: lillypad-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 126:
   fileName: log-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -626,7 +835,10 @@
         - true
 127:
   fileName: log-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -634,14 +846,16 @@
         - true
 128:
   fileName: log-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 129:
   fileName: minecart-horizontal
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -649,7 +863,7 @@
         - true
 130:
   fileName: minecart-vertical
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList: [
@@ -756,25 +970,27 @@
         - true
 136:
   fileName: mushroom-large-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 137:
   fileName: mushroom-large-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 138:
   fileName: mushroom-large-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 139:
   fileName: mushroom-large-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 140:
   fileName: mushroom-large-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 141:
   fileName: mushroom-large-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 142:
   fileName: mushroom-porch
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -795,88 +1011,94 @@
         - true
 143:
   fileName: mushroom-small-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 144:
   fileName: mushroom-small-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 145:
   fileName: mushroom-small-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 146:
   fileName: mushroom-small-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 147:
   fileName: mushroom-small-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 148:
   fileName: painting-left-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
 149:
   fileName: painting-left-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
 150:
   fileName: painting-right-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
 151:
   fileName: plant-small-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 152:
   fileName: plant-small-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 153:
   fileName: plant-small-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 154:
   fileName: plant-small-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 155:
   fileName: plant-small-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 156:
   fileName: pot-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 157:
   fileName: pot-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 158:
   fileName: pot-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 159:
   fileName: pot-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 160:
   fileName: pot-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 161:
   fileName: pot-flower-blue-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 162:
   fileName: pot-bush-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -884,7 +1106,7 @@
         - true
 163:
   fileName: pot-bush-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -892,7 +1114,7 @@
         - true
 164:
   fileName: pot-bush-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -900,7 +1122,7 @@
         - true
 165:
   fileName: pot-bush-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -908,7 +1130,7 @@
         - true
 166:
   fileName: pot-bush-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -916,175 +1138,178 @@
         - true
 167:
   fileName: pot-flower-blue-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 168:
   fileName: pot-flower-blue-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 169:
   fileName: pot-flower-blue-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 170:
   fileName: pot-flower-blue-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 171:
   fileName: pot-flower-orange-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 172:
   fileName: pot-flower-orange-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 173:
   fileName: pot-flower-orange-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 174:
   fileName: pot-flower-orange-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 175:
   fileName: pot-flower-orange-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 176:
   fileName: pot-flower-pink-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 177:
   fileName: pot-flower-pink-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 178:
   fileName: pot-flower-pink-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 179:
   fileName: pot-flower-pink-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 180:
   fileName: pot-flower-pink-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 181:
   fileName: pot-flower-white-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 182:
   fileName: pot-flower-white-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 183:
   fileName: pot-flower-white-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 184:
   fileName: pot-flower-white-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 185:
   fileName: pot-flower-white-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 186:
   fileName: pot-flower-yellow-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 187:
   fileName: pot-flower-yellow-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 188:
   fileName: pot-flower-yellow-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 189:
   fileName: pot-flower-yellow-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 190:
   fileName: pot-flower-yellow-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 191:
   fileName: prision-bed-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1094,7 +1319,10 @@
         - true
 192:
   fileName: prision-bed-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1104,7 +1332,7 @@
         - true
 193:
   fileName: rock-large-brown-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1114,7 +1342,7 @@
         - true
 194:
   fileName: rock-large-brown-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1124,7 +1352,7 @@
         - true
 195:
   fileName: rock-large-brown-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1134,28 +1362,28 @@
         - true
 196:
   fileName: rock-small-brown-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 197:
   fileName: rock-small-brown-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 198:
   fileName: rock-small-brown-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 199:
   fileName: rock-small-brown-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1163,87 +1391,87 @@
         - true
 200:
   fileName: rock-small-brown-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 201:
   fileName: rock-small-brown-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 202:
   fileName: rock-small-brown-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 203:
   fileName: rock-small-brown-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 204:
   fileName: rock-small-brown-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 205:
   fileName: rock-small-dark-brown-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 206:
   fileName: rock-small-dark-brown-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 207:
   fileName: rock-small-dark-brown-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 208:
   fileName: rock-small-dark-brown-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 209:
   fileName: rock-small-dark-brown-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 210:
   fileName: rock-small-dark-brown-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 211:
   fileName: rock-small-dark-brown-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 212:
   fileName: rock-small-dark-brown-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1251,84 +1479,86 @@
         - false
 213:
   fileName: rock-small-dark-gray-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 214:
   fileName: rock-small-dark-gray-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 215:
   fileName: rock-small-dark-gray-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 216:
   fileName: rock-small-gray-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 217:
   fileName: rock-small-gray-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 218:
   fileName: rock-small-gray-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 219:
   fileName: rock-small-mossy-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 220:
   fileName: rock-small-mossy-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 221:
   fileName: rock-small-mossy-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 222:
   fileName: rock-small-mossy-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 223:
   fileName: rock-small-mossy-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 224:
   fileName: rock-sword-brown-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1336,55 +1566,73 @@
         - true
 225:
   fileName: rock-sword-brown-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 226:
   fileName: sign-post-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - SIGNS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 227:
   fileName: sign-post-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - SIGNS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 228:
   fileName: sign-post-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - SIGNS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 229:
   fileName: small-stool
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - DUNGEON
 230:
   fileName: small-table-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 231:
   fileName: stick-pile-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 232:
   fileName: stick-pile-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 233:
   fileName: stone-wall-arch
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1400,81 +1648,93 @@
 235:
   fileName: BW4-iron-fence-0
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 236:
   fileName: stone-wall-middle-horizontal-crack
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
 237:
   fileName: BW4-iron-fence-1
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 238:
   fileName: BW4-iron-fence-10
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 239:
   fileName: BW4-iron-fence-11
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 240:
   fileName: BW4-iron-fence-12
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 241:
   fileName: BW4-iron-fence-13
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 242:
   fileName: BW4-iron-fence-14
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 243:
   fileName: stool-round-blue
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 244:
   fileName: stool-round-wooden
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 245:
   fileName: stool-square-wooden
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 246:
   fileName: stump-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1482,16 +1742,24 @@
         - true
 247:
   fileName: stump-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 248:
   fileName: stump-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 249:
   fileName: stump-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 250:
   fileName: stump-house
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1506,7 +1774,7 @@
         - true
 251:
   fileName: temple-clean
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1521,7 +1789,9 @@
         - true
 252:
   fileName: temple-mossy
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1536,7 +1806,9 @@
         - true
 253:
   fileName: tent
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1560,7 +1832,9 @@
   layerDefinition: ROOF
 255:
   fileName: tree-large-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1586,7 +1860,9 @@
         - false
 256:
   fileName: tree-medium-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1596,7 +1872,9 @@
         - true
 257:
   fileName: tree-medium-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1606,7 +1884,9 @@
         - true
 258:
   fileName: tree-medium-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1616,7 +1896,9 @@
         - true
 259:
   fileName: tree-medium-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1626,7 +1908,9 @@
         - true
 260:
   fileName: tree-medium-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1638,14 +1922,16 @@
   fileName: BW4-iron-fence-15
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 262:
   fileName: tree-medium-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1655,7 +1941,9 @@
         - true
 263:
   fileName: tree-medium-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1665,7 +1953,9 @@
         - true
 264:
   fileName: tree-medium-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1675,7 +1965,9 @@
         - true
 265:
   fileName: tree-small-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1683,7 +1975,9 @@
         - true
 266:
   fileName: tree-small-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1691,7 +1985,9 @@
         - true
 267:
   fileName: tree-small-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1699,7 +1995,9 @@
         - true
 268:
   fileName: tree-small-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1707,7 +2005,9 @@
         - true
 269:
   fileName: tree-small-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1715,7 +2015,9 @@
         - true
 270:
   fileName: tree-small-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1723,7 +2025,9 @@
         - true
 271:
   fileName: tree-small-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1731,7 +2035,9 @@
         - true
 272:
   fileName: tree-small-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1739,82 +2045,140 @@
         - true
 273:
   fileName: wall-cabinet-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - KITCHEN
 274:
   fileName: wall-cabinet-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - KITCHEN
 275:
   fileName: wall-chain-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - DUNGEON
 276:
   fileName: wall-chain-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - DUNGEON
 277:
   fileName: wall-shelf-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - KITCHEN
 278:
   fileName: wall-shelf-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - KITCHEN
 279:
   fileName: wall-shelf-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - KITCHEN
 280:
   fileName: wall-shelf-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+    - FURNITURE
 281:
   fileName: wall-sign-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 282:
   fileName: wall-sign-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 283:
   fileName: wall-sign-blank
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 284:
   fileName: wall-sign-gold-armor
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 285:
   fileName: wall-sign-gold-holy
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 286:
   fileName: wall-sign-gold-inn
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 287:
   fileName: wall-sign-gold-potion
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 288:
   fileName: wall-sign-gold-pub
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 289:
   fileName: wall-sign-gold-shop
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 290:
   fileName: wall-sign-gold-weapons
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 291:
   fileName: wall-sign-silver-armor
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 292:
   fileName: wall-sign-silver-holy
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 293:
   fileName: wall-sign-silver-inn
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 294:
   fileName: wall-sign-silver-potion
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 295:
   fileName: wall-sign-silver-pub
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 296:
   fileName: wall-sign-silver-shop
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 297:
   fileName: wall-sign-silver-weapons
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 298:
   fileName: weapon-rack-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1822,7 +2186,9 @@
         - true
 299:
   fileName: weapon-rack-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1830,7 +2196,9 @@
         - true
 300:
   fileName: weapon-rack-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1838,28 +2206,36 @@
         - true
 301:
   fileName: well-broken
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 302:
   fileName: well-broken-rope
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 303:
   fileName: well-covered-empty
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 304:
   fileName: well-covered-filled
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1869,62 +2245,89 @@
   layerDefinition: ROOF
 306:
   fileName: well-filled
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 307:
   fileName: wild-flower-blue-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 308:
   fileName: wild-flower-blue-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 309:
   fileName: wild-flower-blue-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 310:
   fileName: wild-flower-blue-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 311:
   fileName: wild-flower-blue-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 312:
   fileName: wild-flower-blue-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 313:
   fileName: wild-flower-blue-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 314:
   fileName: bed-frame-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 315:
   fileName: booth-red-right
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 316:
   fileName: box-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 317:
   fileName: box-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 318:
   fileName: bush-small-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 319:
   fileName: cactus-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1932,57 +2335,85 @@
         - true
 320:
   fileName: chair-blue-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 321:
   fileName: chair-red-down
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 322:
   fileName: coconut
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 323:
   fileName: cup-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 324:
   fileName: door-04-closed
   layerDefinition: COLLIDABLES
 325:
   fileName: flag-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - FLAG
+    - DUNGEON
 326:
   fileName: grass-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 327:
   fileName: grave-stone-small-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 328:
   fileName: grave-wooden-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 329:
   fileName: hanging-sign-gold-shop
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 330:
   fileName: hanging-sign-silver-shop
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 331:
   fileName: kitchen-item-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 332:
   fileName: kitchen-item-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 333:
   fileName: lillypad-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 334:
   fileName: mushroom-house-base-green
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2008,7 +2439,7 @@
         - false
 335:
   fileName: mushroom-house-mini-floor-red-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2023,13 +2454,15 @@
         - true
 336:
   fileName: mushroom-large-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 337:
   fileName: mushroom-small-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 338:
   fileName: piano
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2039,10 +2472,10 @@
         - true
 339:
   fileName: plant-small-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 340:
   fileName: pot-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2050,7 +2483,7 @@
         - true
 341:
   fileName: pot-bush-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2058,73 +2491,73 @@
         - true
 342:
   fileName: pot-flower-blue-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 343:
   fileName: pot-flower-orange-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 344:
   fileName: pot-flower-pink-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 345:
   fileName: pot-flower-white-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 346:
   fileName: pot-flower-yellow-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 347:
   fileName: rock-large-mossy-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 348:
   fileName: rock-small-brown-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 349:
   fileName: rock-small-dark-brown-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 350:
   fileName: rock-small-dark-brown-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 351:
   fileName: rock-small-gray-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 352:
   fileName: rock-small-mossy-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2132,14 +2565,17 @@
         - true
 353:
   fileName: rock-sword-mossy-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 354:
   fileName: small-table-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2148,14 +2584,16 @@
   fileName: BW4-iron-fence-2
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 356:
   fileName: stump-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2165,268 +2603,300 @@
         - true
 357:
   fileName: stump-house-door-frame
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 358:
   fileName: stump-house-door
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 359:
   fileName: wild-flower-blue-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 360:
   fileName: wild-flower-blue-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 361:
   fileName: wild-flower-blue-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 362:
   fileName: wild-flower-blue-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 363:
   fileName: wild-flower-blue-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 364:
   fileName: wild-flower-blue-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 365:
   fileName: wild-flower-brown-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 366:
   fileName: wild-flower-brown-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 367:
   fileName: wild-flower-brown-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 368:
   fileName: wild-flower-brown-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 369:
   fileName: wild-flower-brown-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 370:
   fileName: wild-flower-brown-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 371:
   fileName: wild-flower-brown-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 372:
   fileName: wild-flower-brown-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 373:
   fileName: wild-flower-brown-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 374:
   fileName: wild-flower-brown-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 375:
   fileName: wild-flower-brown-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 376:
   fileName: wild-flower-brown-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 377:
   fileName: wild-flower-brown-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 378:
   fileName: wild-flower-gray-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 379:
   fileName: wild-flower-gray-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 380:
   fileName: wild-flower-gray-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 381:
   fileName: wild-flower-gray-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 382:
   fileName: wild-flower-gray-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 383:
   fileName: wild-flower-gray-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 384:
   fileName: wild-flower-gray-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 385:
   fileName: wild-flower-gray-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 386:
   fileName: wild-flower-gray-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 387:
   fileName: wild-flower-gray-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 388:
   fileName: wild-flower-gray-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 389:
   fileName: wild-flower-gray-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 390:
   fileName: wild-flower-gray-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 391:
   fileName: wild-flower-orange-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 392:
   fileName: wild-flower-orange-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 393:
   fileName: wild-flower-orange-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 394:
   fileName: wild-flower-orange-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 395:
   fileName: wild-flower-orange-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 396:
   fileName: wild-flower-orange-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 397:
   fileName: wild-flower-orange-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 398:
   fileName: wild-flower-orange-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 399:
   fileName: wild-flower-orange-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 400:
   fileName: wild-flower-orange-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 401:
   fileName: wild-flower-orange-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 402:
   fileName: wild-flower-orange-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 403:
   fileName: wild-flower-orange-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 404:
   fileName: wild-flower-pink-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 405:
   fileName: wild-flower-pink-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 406:
   fileName: wild-flower-pink-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 407:
   fileName: wild-flower-pink-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 408:
   fileName: wild-flower-pink-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 409:
   fileName: wild-flower-pink-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 410:
   fileName: wild-flower-pink-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 411:
   fileName: wild-flower-pink-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 412:
   fileName: wild-flower-pink-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 413:
   fileName: wild-flower-pink-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 414:
   fileName: wild-flower-pink-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 415:
   fileName: wild-flower-pink-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 416:
   fileName: wild-flower-pink-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 417:
   fileName: wild-flower-white-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 418:
   fileName: wild-flower-white-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 419:
   fileName: wild-flower-white-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 420:
   fileName: wild-flower-white-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 421:
   fileName: wild-flower-white-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 422:
   fileName: wild-flower-white-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 423:
   fileName: wild-flower-white-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 424:
   fileName: wild-flower-white-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 425:
   fileName: wild-flower-white-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 426:
   fileName: wild-flower-white-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 427:
   fileName: wild-flower-white-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 428:
   fileName: wild-flower-white-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 429:
   fileName: wild-flower-white-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 430:
   fileName: window-01
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 431:
   fileName: window-02
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 432:
   fileName: window-03
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 433:
   fileName: window-04
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 434:
   fileName: window-05
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 435:
   fileName: window-06
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 436:
   fileName: window-07
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 437:
   fileName: window-08
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 438:
   fileName: window-09
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 439:
   fileName: window-10
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 440:
   fileName: window-11
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 441:
   fileName: window-12
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 442:
   fileName: window-13
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 443:
   fileName: window-14
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - WINDOW
 444:
   fileName: wooden-vanity
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2439,20 +2909,26 @@
   fileName: BW4-iron-fence-3
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 447:
   fileName: wooden-support-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 448:
   fileName: wooden-support-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 449:
   fileName: wooden-support-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 450:
   fileName: roof-blue-01
   layerDefinition: ROOF
@@ -2560,28 +3036,28 @@
   layerDefinition: ROOF
 485:
   fileName: mushroom-door-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 486:
   fileName: mushroom-door-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 487:
   fileName: mushroom-door-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 488:
   fileName: mushroom-door-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 489:
   fileName: mushroom-door-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 490:
   fileName: mushroom-door-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 491:
   fileName: mushroom-door-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 492:
   fileName: mushroom-house-base-blue
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2607,53 +3083,53 @@
         - false
 493:
   fileName: mushroom-house-blue-addon-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 494:
   fileName: mushroom-house-blue-addon-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 495:
   fileName: mushroom-house-blue-addon-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 496:
   fileName: mushroom-house-blue-addon-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 497:
   fileName: mushroom-house-blue-addon-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 498:
   fileName: mushroom-house-red-addon-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 499:
   fileName: mushroom-house-blue-addon-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 500:
   fileName: mushroom-house-red-addon-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 501:
   fileName: mushroom-house-green-addon-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 502:
   fileName: mushroom-house-green-addon-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 503:
   fileName: mushroom-house-green-addon-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 504:
   fileName: mushroom-house-green-addon-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 505:
   fileName: mushroom-house-green-addon-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 506:
   fileName: mushroom-house-green-addon-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 507:
   fileName: mushroom-house-mini-floor-red-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2675,16 +3151,16 @@
         - true
 508:
   fileName: mushroom-house-red-addon-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 509:
   fileName: mushroom-house-red-addon-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 510:
   fileName: mushroom-house-red-addon-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 511:
   fileName: mushroom-house-red-addon-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 512:
   fileName: BW16-grass-dirt-218
   layerDefinition: GROUND
@@ -3270,6 +3746,8 @@
 609:
   fileName: BW16-dirt-pathway-0
   layerDefinition: GROUND
+  tagsList:
+    - PATH_WAY
   tileProperties:
     WANG_TILE: {
     }
@@ -4097,22 +4575,32 @@
     }
 747:
   fileName: bench-wide-back-single
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 748:
   fileName: booth-red-left
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 749:
   fileName: box-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
 750:
   fileName: box-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 751:
   fileName: bed-frame-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 752:
   fileName: column-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4120,14 +4608,18 @@
         - true
 753:
   fileName: column-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 754:
   fileName: column-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4135,14 +4627,18 @@
         - true
 755:
   fileName: column-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 756:
   fileName: column-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4150,14 +4646,18 @@
         - true
 757:
   fileName: column-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 758:
   fileName: column-stone-complete
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4165,13 +4665,19 @@
         - true
 759:
   fileName: chair-blue-down
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 760:
   fileName: chair-brown-up
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 761:
   fileName: clock
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4179,14 +4685,18 @@
         - true
 762:
   fileName: cactus-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 763:
   fileName: egypt-statue-dog-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - EGYPTIAN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4196,7 +4706,9 @@
         - true
 764:
   fileName: egypt-statue-dog-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - EGYPTIAN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4204,7 +4716,9 @@
         - true
 765:
   fileName: egypt-statue-dog-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - EGYPTIAN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4214,7 +4728,9 @@
         - true
 766:
   fileName: egypt-statue-dog-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - EGYPTIAN
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4222,10 +4738,15 @@
         - true
 767:
   fileName: flag-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - FLAG
+    - DUNGEON
 768:
   fileName: grave-stone-large-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4237,17 +4758,21 @@
         - true
 769:
   fileName: grave-wooden-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - CEMETERY
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 770:
   fileName: lamp-post-skinny-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 771:
   fileName: mailbox-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4255,10 +4780,10 @@
         - true
 772:
   fileName: mushroom-large-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 773:
   fileName: pot-bush-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4266,42 +4791,42 @@
         - true
 774:
   fileName: pot-flower-blue-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 775:
   fileName: pot-flower-orange-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 776:
   fileName: pot-flower-pink-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 777:
   fileName: pot-flower-white-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 778:
   fileName: pot-flower-yellow-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 779:
   fileName: rock-large-mossy-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4311,28 +4836,28 @@
         - true
 780:
   fileName: rock-small-brown-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 781:
   fileName: rock-small-dark-brown-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 782:
   fileName: rock-small-dark-brown-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 783:
   fileName: rock-small-dark-gray-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4340,21 +4865,21 @@
         - true
 784:
   fileName: rock-small-dark-gray-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 785:
   fileName: rock-small-mossy-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 786:
   fileName: rock-sword-mossy-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4362,14 +4887,19 @@
         - true
 787:
   fileName: small-table-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 788:
   fileName: stump-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4381,198 +4911,290 @@
   fileName: BW4-iron-fence-4
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 790:
   fileName: well-egypt-filled
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 791:
   fileName: well-egypt-empty
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 792:
   fileName: well-egypt-broken
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 793:
   fileName: bench-wide-single
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 794:
   fileName: bush-small-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 795:
   fileName: cabnient-item-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - KITCHEN
 796:
   fileName: cabnient-item-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - KITCHEN
 797:
   fileName: cabnient-item-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 798:
   fileName: cabnient-item-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 799:
   fileName: cabnient-item-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 800:
   fileName: cabnient-item-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 801:
   fileName: cabnient-item-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 802:
   fileName: cabnient-item-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 803:
   fileName: dungeon-stairs-up
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 804:
   fileName: dungeon-floor-trap-door
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
+    - DOORS
 805:
   fileName: dungeon-floor-vent
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
 806:
   fileName: dungeon-wall-vent-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
 807:
   fileName: dungeon-wall-vent-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
 808:
   fileName: dungeon-stairs-down
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 809:
   fileName: hanging-sign-gold-pub
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 810:
   fileName: hanging-sign-silver-pub
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 811:
   fileName: hanging-sign-wood-weapons
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - SIGNS
 812:
   fileName: kitchen-item-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+    - KITCHEN
 813:
   fileName: painting-right-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
 814:
   fileName: mushroom-small-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 815:
   fileName: mushroom-small-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 816:
   fileName: pot-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 817:
   fileName: plant-small-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
 818:
   fileName: table-item-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 819:
   fileName: table-item-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 820:
   fileName: table-item-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 821:
   fileName: table-item-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 822:
   fileName: table-item-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 823:
   fileName: table-item-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 824:
   fileName: table-item-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 825:
   fileName: table-item-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 826:
   fileName: table-item-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 827:
   fileName: table-item-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 828:
   fileName: table-item-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 829:
   fileName: table-item-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 830:
   fileName: table-item-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 831:
   fileName: table-item-14
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 832:
   fileName: table-item-15
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 833:
   fileName: table-item-16
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 834:
   fileName: door-01-transition-dark
   layerDefinition: COLLIDABLES
 835:
   fileName: table-item-book-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 836:
   fileName: table-item-book-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 837:
   fileName: table-item-book-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 838:
   fileName: table-item-book-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
 839:
   fileName: table-with-item-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 840:
   fileName: table-with-item-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 841:
   fileName: table-with-item-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 842:
   fileName: table-with-item-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4672,7 +5294,9 @@
   layerDefinition: COLLIDABLES
 874:
   fileName: cabnient-bottom-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4680,7 +5304,9 @@
         - true
 875:
   fileName: cabnient-bottom-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4688,7 +5314,9 @@
         - true
 876:
   fileName: cabnient-bottom-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4696,7 +5324,9 @@
         - true
 877:
   fileName: cabnient-bottom-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4704,7 +5334,9 @@
         - true
 878:
   fileName: cabnient-bottom-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4712,7 +5344,9 @@
         - true
 879:
   fileName: cabnient-bottom-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4720,7 +5354,9 @@
         - true
 880:
   fileName: cabnient-bottom-07
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4728,7 +5364,9 @@
         - true
 881:
   fileName: cabnient-bottom-08
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4736,7 +5374,9 @@
         - true
 882:
   fileName: cabnient-bottom-09
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4744,7 +5384,9 @@
         - true
 883:
   fileName: cabnient-bottom-10
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4752,7 +5394,9 @@
         - true
 884:
   fileName: cabnient-bottom-11
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4760,7 +5404,9 @@
         - true
 885:
   fileName: cabnient-bottom-12
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4768,7 +5414,9 @@
         - true
 886:
   fileName: cabnient-bottom-13
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4776,7 +5424,9 @@
         - true
 887:
   fileName: cabnient-bottom-14
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4784,610 +5434,716 @@
         - true
 888:
   fileName: cabnient-small-bottom-01
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 889:
   fileName: cabnient-small-bottom-02
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 890:
   fileName: cabnient-small-bottom-03
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 891:
   fileName: cabnient-small-bottom-04
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 892:
   fileName: cabnient-small-bottom-05
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 893:
   fileName: cabnient-small-bottom-06
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 894:
   fileName: cabnient-small-top
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 895:
   fileName: cabnient-top
-  layerDefinition: GROUND_DECORATION
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
 896:
   fileName: BW4-brick-wall-0
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 897:
   fileName: BW4-brick-wall-1
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 898:
   fileName: BW4-brick-wall-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 899:
   fileName: BW4-brick-wall-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 900:
   fileName: BW4-brick-wall-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 901:
   fileName: BW4-brick-wall-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 902:
   fileName: BW4-brick-wall-14
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 903:
   fileName: BW4-brick-wall-15
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 904:
   fileName: BW4-brick-wall-2
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 905:
   fileName: BW4-brick-wall-3
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 906:
   fileName: BW4-brick-wall-4
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 907:
   fileName: BW4-brick-wall-5
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 908:
   fileName: BW4-brick-wall-6
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 909:
   fileName: BW4-brick-wall-7
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 910:
   fileName: BW4-brick-wall-8
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 911:
   fileName: BW4-brick-wall-9
   layerDefinition: COLLIDABLES
+  tagsList:
+    - WALLS
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 912:
   fileName: BW4-wooden-fence-0
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 913:
   fileName: BW4-wooden-fence-1
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 914:
   fileName: BW4-wooden-fence-10
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 915:
   fileName: BW4-wooden-fence-11
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 916:
   fileName: BW4-wooden-fence-12
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 917:
   fileName: BW4-wooden-fence-13
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 918:
   fileName: BW4-wooden-fence-14
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 919:
   fileName: BW4-wooden-fence-2
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 920:
   fileName: BW4-wooden-fence-3
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 921:
   fileName: BW4-wooden-fence-4
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 922:
   fileName: BW4-wooden-fence-5
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 923:
   fileName: BW4-wooden-fence-6
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 924:
   fileName: BW4-wooden-fence-7
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 925:
   fileName: BW4-wooden-fence-8
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 926:
   fileName: BW4-wooden-fence-9
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 927:
   fileName: BW4-wooden-fence-15
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 928:
   fileName: BW4-iron-fence-5
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 929:
   fileName: BW4-iron-fence-6
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 930:
   fileName: BW4-iron-fence-7
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 931:
   fileName: BW4-iron-fence-8
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 932:
   fileName: BW4-iron-fence-9
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 933:
   fileName: BW4-post-wooden-fence-0
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 934:
   fileName: BW4-post-wooden-fence-1
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 935:
   fileName: BW4-post-wooden-fence-10
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 936:
   fileName: BW4-post-wooden-fence-11
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 937:
   fileName: BW4-post-wooden-fence-15
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 938:
   fileName: BW4-post-wooden-fence-12
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 939:
   fileName: BW4-post-wooden-fence-13
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 940:
   fileName: BW4-post-wooden-fence-14
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 941:
   fileName: BW4-post-wooden-fence-9
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 942:
   fileName: BW4-post-wooden-fence-8
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 943:
   fileName: BW4-post-wooden-fence-7
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 944:
   fileName: BW4-post-wooden-fence-6
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 945:
   fileName: BW4-post-wooden-fence-5
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 946:
   fileName: BW4-post-wooden-fence-4
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 947:
   fileName: BW4-post-wooden-fence-3
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 948:
   fileName: BW4-post-wooden-fence-2
   layerDefinition: COLLIDABLES
   tileProperties:
+    WANG_TILE: {
+    }
     COLLISION_BLOCK:
       collisionList:
         - true
-    WANG_TILE: {
-    }
 949:
   fileName: brick-wall-support-01
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 950:
   fileName: brick-wall-support-02
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 951:
   fileName: brick-wall-support-03
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 952:
   fileName: brick-wall-support-04
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 953:
   fileName: brick-wall-support-05
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 954:
   fileName: brick-wall-support-06
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 955:
   fileName: brick-wall-support-21
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 956:
   fileName: brick-wall-support-07
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 957:
   fileName: brick-wall-support-22
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 958:
   fileName: brick-wall-support-08
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 959:
   fileName: brick-wall-support-09
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 960:
   fileName: brick-wall-support-10
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 961:
   fileName: brick-wall-support-11
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 962:
   fileName: brick-wall-support-12
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 963:
   fileName: brick-wall-support-13
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 964:
   fileName: brick-wall-support-14
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 965:
   fileName: brick-wall-support-15
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 966:
   fileName: brick-wall-support-16
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 967:
   fileName: brick-wall-support-17
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 968:
   fileName: brick-wall-support-18
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 969:
   fileName: brick-wall-support-19
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 970:
   fileName: brick-wall-support-20
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 971:
   fileName: brick-wall-support-23
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 972:
   fileName: brick-wall-support-24
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 973:
   fileName: brick-wall-support-25
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 974:
   fileName: brick-wall-support-26
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 975:
   fileName: brick-wall-support-27
   layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
 976:
   fileName: brick-wall-gray-left
   layerDefinition: COLLIDABLES

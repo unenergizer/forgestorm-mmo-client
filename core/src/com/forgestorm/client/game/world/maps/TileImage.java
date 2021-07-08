@@ -6,7 +6,9 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -14,19 +16,30 @@ import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
-@Getter
-@Setter
+
 public class TileImage {
 
     private static final transient boolean PRINT_DEBUG = false;
 
-
+    @Getter
     private final transient int imageId;
+
+    @Getter
     private final String fileName;
 
+
+    @Getter
+    @Setter
     private transient TileAnimation tileAnimation;
 
+    @Getter
+    @Setter
     private Map<TilePropertyTypes, AbstractTileProperty> tileProperties;
+
+    private List<String> tagsList;
+
+    @Getter
+    @Setter
     private LayerDefinition layerDefinition;
 
     public TileImage(int imageId, String fileName, LayerDefinition layerDefinition) {
@@ -56,6 +69,24 @@ public class TileImage {
             AbstractTileProperty abstractTileProperty = entry.getValue();
             tileProperties.put(tilePropertyTypes, abstractTileProperty);
         }
+    }
+
+    public void addTag(Tags tag) {
+        if (tag == Tags.AN_UNUSED_TAG) return;
+        if (tagsList == null) tagsList = new ArrayList<String>();
+        if (containsTag(tag)) return;
+        tagsList.add(tag.name());
+    }
+
+    public boolean containsTag(Tags tag) {
+        if (tagsList == null) return false;
+        for (String s : tagsList) if (s.equals(tag.name())) return true;
+        return false;
+    }
+
+    public void removeTag(Tags tag) {
+        if (tagsList == null) return;
+        tagsList.remove(tag.name());
     }
 
     public boolean containsProperty(TilePropertyTypes tilePropertyType) {

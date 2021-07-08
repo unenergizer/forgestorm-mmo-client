@@ -10,12 +10,14 @@ import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypeHelper;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.world.maps.Tags;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -60,6 +62,20 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
 
             // Create the TileImage
             TileImage tileImage = new TileImage(imageId, name, layerDefinition);
+
+            // Load tile tags
+            List<String> tagsList = (List<String>) itemNode.get("tagsList");
+            if (tagsList != null && !tagsList.isEmpty()) {
+                for (String tag : tagsList) {
+                    Tags tagValue = Tags.valueOfEnum(tag);
+
+                    // Only add the Tag if it still exists in code (Tags can be added/removed)
+                    // Don't crash the client if a tag is removed. Silently ignore a bad tag.
+                    if (tagValue != null && tagValue != Tags.AN_UNUSED_TAG) {
+                        tileImage.addTag(tagValue);
+                    }
+                }
+            }
 
             // Load properties based on tile type
             Map<String, Object> mapOfTileProperties = (Map<String, Object>) itemNode.get("tileProperties");
