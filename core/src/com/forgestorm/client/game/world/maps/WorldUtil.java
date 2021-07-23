@@ -38,7 +38,7 @@ public class WorldUtil {
     public static boolean isDoor(int entityX, int entityY) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
         Tile tile = gameWorld.getTile(LayerDefinition.COLLIDABLES, entityX, entityY);
-
+        if (tile == null) return false;
         if (tile.getTileImage() == null) return false;
         return tile.getTileImage().containsProperty(TilePropertyTypes.DOOR);
     }
