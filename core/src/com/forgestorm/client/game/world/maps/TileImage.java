@@ -62,12 +62,17 @@ public class TileImage {
         }
 
         // Copy tile properties
-        if (tileImage.getTileProperties() == null) return;
-        initAbstractTilePropertyMap();
-        for (Map.Entry<TilePropertyTypes, AbstractTileProperty> entry : tileImage.getTileProperties().entrySet()) {
-            TilePropertyTypes tilePropertyTypes = entry.getKey();
-            AbstractTileProperty abstractTileProperty = entry.getValue();
-            tileProperties.put(tilePropertyTypes, abstractTileProperty);
+        if (tileImage.getTileProperties() != null) {
+            for (AbstractTileProperty entry : tileImage.getTileProperties().values()) {
+                setCustomTileProperty(entry);
+            }
+        }
+
+        // Copy Tags List
+        if (tileImage.tagsList != null) {
+            for (String tag : tileImage.tagsList) {
+                addTag(Tags.valueOf(tag));
+            }
         }
     }
 
