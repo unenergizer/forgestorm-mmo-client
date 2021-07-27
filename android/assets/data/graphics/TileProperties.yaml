@@ -265,6 +265,8 @@
 40:
   fileName: box-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -272,6 +274,8 @@
 41:
   fileName: box-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -279,6 +283,8 @@
 42:
   fileName: box-14
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -286,6 +292,8 @@
 43:
   fileName: box-15
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -293,6 +301,8 @@
 44:
   fileName: box-16
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -300,6 +310,8 @@
 45:
   fileName: box-17
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -619,24 +631,38 @@
 88:
   fileName: grass-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 89:
   fileName: grass-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 90:
   fileName: grass-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 91:
   fileName: grass-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 92:
   fileName: grass-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 93:
   fileName: grass-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 94:
   fileName: grass-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 95:
   fileName: grave-stone-large-01
   layerDefinition: COLLIDABLES
@@ -856,6 +882,8 @@
 129:
   fileName: minecart-horizontal
   layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -864,6 +892,8 @@
 130:
   fileName: minecart-vertical
   layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList: [
@@ -971,21 +1001,33 @@
 136:
   fileName: mushroom-large-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 137:
   fileName: mushroom-large-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 138:
   fileName: mushroom-large-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 139:
   fileName: mushroom-large-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 140:
   fileName: mushroom-large-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 141:
   fileName: mushroom-large-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 142:
   fileName: mushroom-porch
   layerDefinition: COLLIDABLES
@@ -1012,18 +1054,28 @@
 143:
   fileName: mushroom-small-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 144:
   fileName: mushroom-small-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 145:
   fileName: mushroom-small-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 146:
   fileName: mushroom-small-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 147:
   fileName: mushroom-small-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 148:
   fileName: painting-left-01
   layerDefinition: WALL_DECORATION
@@ -1036,21 +1088,33 @@
 151:
   fileName: plant-small-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 152:
   fileName: plant-small-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 153:
   fileName: plant-small-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 154:
   fileName: plant-small-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 155:
   fileName: plant-small-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 156:
   fileName: pot-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DUNGEON
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1085,6 +1149,8 @@
 160:
   fileName: pot-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1092,6 +1158,9 @@
 161:
   fileName: pot-flower-blue-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1099,6 +1168,9 @@
 162:
   fileName: pot-bush-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1115,6 +1187,9 @@
 164:
   fileName: pot-bush-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1123,6 +1198,9 @@
 165:
   fileName: pot-bush-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1131,6 +1209,9 @@
 166:
   fileName: pot-bush-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1139,6 +1220,9 @@
 167:
   fileName: pot-flower-blue-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1146,6 +1230,9 @@
 168:
   fileName: pot-flower-blue-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1153,6 +1240,9 @@
 169:
   fileName: pot-flower-blue-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1160,6 +1250,9 @@
 170:
   fileName: pot-flower-blue-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1167,6 +1260,9 @@
 171:
   fileName: pot-flower-orange-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1174,6 +1270,9 @@
 172:
   fileName: pot-flower-orange-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1181,6 +1280,9 @@
 173:
   fileName: pot-flower-orange-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1188,6 +1290,9 @@
 174:
   fileName: pot-flower-orange-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1195,6 +1300,9 @@
 175:
   fileName: pot-flower-orange-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1202,6 +1310,9 @@
 176:
   fileName: pot-flower-pink-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1209,6 +1320,9 @@
 177:
   fileName: pot-flower-pink-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1216,6 +1330,9 @@
 178:
   fileName: pot-flower-pink-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1223,6 +1340,9 @@
 179:
   fileName: pot-flower-pink-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1230,6 +1350,9 @@
 180:
   fileName: pot-flower-pink-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1237,6 +1360,9 @@
 181:
   fileName: pot-flower-white-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1244,6 +1370,9 @@
 182:
   fileName: pot-flower-white-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1251,6 +1380,9 @@
 183:
   fileName: pot-flower-white-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1258,6 +1390,9 @@
 184:
   fileName: pot-flower-white-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1265,6 +1400,9 @@
 185:
   fileName: pot-flower-white-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1272,6 +1410,9 @@
 186:
   fileName: pot-flower-yellow-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1279,6 +1420,9 @@
 187:
   fileName: pot-flower-yellow-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1286,6 +1430,9 @@
 188:
   fileName: pot-flower-yellow-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1293,6 +1440,9 @@
 189:
   fileName: pot-flower-yellow-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1300,6 +1450,9 @@
 190:
   fileName: pot-flower-yellow-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1333,6 +1486,8 @@
 193:
   fileName: rock-large-brown-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1343,6 +1498,8 @@
 194:
   fileName: rock-large-brown-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1353,6 +1510,8 @@
 195:
   fileName: rock-large-brown-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1363,6 +1522,8 @@
 196:
   fileName: rock-small-brown-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1370,6 +1531,8 @@
 197:
   fileName: rock-small-brown-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1377,6 +1540,8 @@
 198:
   fileName: rock-small-brown-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1384,6 +1549,8 @@
 199:
   fileName: rock-small-brown-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1392,6 +1559,8 @@
 200:
   fileName: rock-small-brown-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1399,6 +1568,8 @@
 201:
   fileName: rock-small-brown-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1406,6 +1577,8 @@
 202:
   fileName: rock-small-brown-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1413,6 +1586,8 @@
 203:
   fileName: rock-small-brown-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1420,9 +1595,13 @@
 204:
   fileName: rock-small-brown-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
 205:
   fileName: rock-small-dark-brown-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1430,6 +1609,8 @@
 206:
   fileName: rock-small-dark-brown-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1437,6 +1618,8 @@
 207:
   fileName: rock-small-dark-brown-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1444,6 +1627,8 @@
 208:
   fileName: rock-small-dark-brown-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1451,6 +1636,8 @@
 209:
   fileName: rock-small-dark-brown-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1458,6 +1645,8 @@
 210:
   fileName: rock-small-dark-brown-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1465,6 +1654,8 @@
 211:
   fileName: rock-small-dark-brown-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1472,6 +1663,8 @@
 212:
   fileName: rock-small-dark-brown-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1489,6 +1682,8 @@
 214:
   fileName: rock-small-dark-gray-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1496,6 +1691,8 @@
 215:
   fileName: rock-small-dark-gray-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1503,6 +1700,8 @@
 216:
   fileName: rock-small-gray-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1510,6 +1709,8 @@
 217:
   fileName: rock-small-gray-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1517,6 +1718,8 @@
 218:
   fileName: rock-small-gray-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1524,6 +1727,8 @@
 219:
   fileName: rock-small-mossy-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1531,6 +1736,8 @@
 220:
   fileName: rock-small-mossy-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1538,6 +1745,8 @@
 221:
   fileName: rock-small-mossy-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1545,6 +1754,8 @@
 222:
   fileName: rock-small-mossy-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1552,6 +1763,8 @@
 223:
   fileName: rock-small-mossy-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1559,6 +1772,8 @@
 224:
   fileName: rock-sword-brown-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1567,6 +1782,8 @@
 225:
   fileName: rock-sword-brown-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1619,6 +1836,7 @@
   layerDefinition: COLLIDABLES
   tagsList:
     - OUTDOOR
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1775,6 +1993,8 @@
 251:
   fileName: temple-clean
   layerDefinition: COLLIDABLES
+  tagsList:
+    - OUTDOOR
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2310,6 +2530,8 @@
 317:
   fileName: box-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2366,6 +2588,8 @@
 326:
   fileName: grass-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 327:
   fileName: grave-stone-small-01
   layerDefinition: COLLIDABLES
@@ -2455,9 +2679,13 @@
 336:
   fileName: mushroom-large-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 337:
   fileName: mushroom-small-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 338:
   fileName: piano
   layerDefinition: COLLIDABLES
@@ -2473,9 +2701,13 @@
 339:
   fileName: plant-small-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 340:
   fileName: pot-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2484,6 +2716,9 @@
 341:
   fileName: pot-bush-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2492,6 +2727,9 @@
 342:
   fileName: pot-flower-blue-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2499,6 +2737,9 @@
 343:
   fileName: pot-flower-orange-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2506,6 +2747,9 @@
 344:
   fileName: pot-flower-pink-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2513,6 +2757,9 @@
 345:
   fileName: pot-flower-white-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2520,6 +2767,9 @@
 346:
   fileName: pot-flower-yellow-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2527,9 +2777,20 @@
 347:
   fileName: rock-large-mossy-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - false
+        - true
+        - false
+        - true
 348:
   fileName: rock-small-brown-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2537,6 +2798,8 @@
 349:
   fileName: rock-small-dark-brown-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2544,6 +2807,8 @@
 350:
   fileName: rock-small-dark-brown-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2551,6 +2816,8 @@
 351:
   fileName: rock-small-gray-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2558,6 +2825,8 @@
 352:
   fileName: rock-small-mossy-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2566,6 +2835,8 @@
 353:
   fileName: rock-sword-mossy-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2612,216 +2883,358 @@
 359:
   fileName: wild-flower-blue-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 360:
   fileName: wild-flower-blue-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 361:
   fileName: wild-flower-blue-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 362:
   fileName: wild-flower-blue-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 363:
   fileName: wild-flower-blue-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 364:
   fileName: wild-flower-blue-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 365:
   fileName: wild-flower-brown-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 366:
   fileName: wild-flower-brown-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 367:
   fileName: wild-flower-brown-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 368:
   fileName: wild-flower-brown-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 369:
   fileName: wild-flower-brown-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 370:
   fileName: wild-flower-brown-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 371:
   fileName: wild-flower-brown-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 372:
   fileName: wild-flower-brown-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 373:
   fileName: wild-flower-brown-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 374:
   fileName: wild-flower-brown-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 375:
   fileName: wild-flower-brown-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 376:
   fileName: wild-flower-brown-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 377:
   fileName: wild-flower-brown-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 378:
   fileName: wild-flower-gray-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 379:
   fileName: wild-flower-gray-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 380:
   fileName: wild-flower-gray-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 381:
   fileName: wild-flower-gray-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 382:
   fileName: wild-flower-gray-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 383:
   fileName: wild-flower-gray-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 384:
   fileName: wild-flower-gray-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 385:
   fileName: wild-flower-gray-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 386:
   fileName: wild-flower-gray-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 387:
   fileName: wild-flower-gray-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 388:
   fileName: wild-flower-gray-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 389:
   fileName: wild-flower-gray-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 390:
   fileName: wild-flower-gray-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 391:
   fileName: wild-flower-orange-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 392:
   fileName: wild-flower-orange-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 393:
   fileName: wild-flower-orange-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 394:
   fileName: wild-flower-orange-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 395:
   fileName: wild-flower-orange-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 396:
   fileName: wild-flower-orange-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 397:
   fileName: wild-flower-orange-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 398:
   fileName: wild-flower-orange-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 399:
   fileName: wild-flower-orange-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 400:
   fileName: wild-flower-orange-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 401:
   fileName: wild-flower-orange-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 402:
   fileName: wild-flower-orange-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 403:
   fileName: wild-flower-orange-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 404:
   fileName: wild-flower-pink-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 405:
   fileName: wild-flower-pink-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 406:
   fileName: wild-flower-pink-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 407:
   fileName: wild-flower-pink-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 408:
   fileName: wild-flower-pink-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 409:
   fileName: wild-flower-pink-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 410:
   fileName: wild-flower-pink-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 411:
   fileName: wild-flower-pink-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 412:
   fileName: wild-flower-pink-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 413:
   fileName: wild-flower-pink-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 414:
   fileName: wild-flower-pink-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 415:
   fileName: wild-flower-pink-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 416:
   fileName: wild-flower-pink-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 417:
   fileName: wild-flower-white-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 418:
   fileName: wild-flower-white-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 419:
   fileName: wild-flower-white-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 420:
   fileName: wild-flower-white-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 421:
   fileName: wild-flower-white-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 422:
   fileName: wild-flower-white-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 423:
   fileName: wild-flower-white-07
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 424:
   fileName: wild-flower-white-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 425:
   fileName: wild-flower-white-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 426:
   fileName: wild-flower-white-10
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 427:
   fileName: wild-flower-white-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 428:
   fileName: wild-flower-white-12
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 429:
   fileName: wild-flower-white-13
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 430:
   fileName: window-01
   layerDefinition: WALL_DECORATION
@@ -4591,6 +5004,8 @@
 750:
   fileName: box-11
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
 751:
   fileName: bed-frame-03
   layerDefinition: COLLIDABLES
@@ -4781,9 +5196,14 @@
 772:
   fileName: mushroom-large-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 773:
   fileName: pot-bush-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4792,6 +5212,9 @@
 774:
   fileName: pot-flower-blue-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4799,6 +5222,9 @@
 775:
   fileName: pot-flower-orange-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4806,6 +5232,9 @@
 776:
   fileName: pot-flower-pink-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4813,6 +5242,9 @@
 777:
   fileName: pot-flower-white-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FURNITURE
+    - PLANTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4820,6 +5252,9 @@
 778:
   fileName: pot-flower-yellow-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+    - FURNITURE
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4827,6 +5262,8 @@
 779:
   fileName: rock-large-mossy-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4837,6 +5274,8 @@
 780:
   fileName: rock-small-brown-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4844,6 +5283,8 @@
 781:
   fileName: rock-small-dark-brown-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4851,6 +5292,8 @@
 782:
   fileName: rock-small-dark-brown-09
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4858,6 +5301,8 @@
 783:
   fileName: rock-small-dark-gray-05
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4866,6 +5311,8 @@
 784:
   fileName: rock-small-dark-gray-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4873,6 +5320,8 @@
 785:
   fileName: rock-small-mossy-03
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -4880,6 +5329,8 @@
 786:
   fileName: rock-sword-mossy-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - ROCKS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -5047,12 +5498,18 @@
 814:
   fileName: mushroom-small-08
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 815:
   fileName: mushroom-small-04
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 816:
   fileName: pot-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - CONTAINER
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -5060,6 +5517,8 @@
 817:
   fileName: plant-small-06
   layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
 818:
   fileName: table-item-01
   layerDefinition: WALL_DECORATION
