@@ -17,8 +17,7 @@ import static com.forgestorm.client.util.Log.println;
 
 public class EntityManager implements Disposable {
 
-    private EntityManager() {
-    }
+    private static final boolean PRINT_DEBUG = false;
 
     @Getter
     @Setter
@@ -39,6 +38,9 @@ public class EntityManager implements Disposable {
 
     @Getter
     private final Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
+
+    private EntityManager() {
+    }
 
     public void addPlayerEntity(short entityId, Player player) {
         playerEntityList.put(entityId, player);
@@ -81,12 +83,12 @@ public class EntityManager implements Disposable {
 
     public void addItemStackDrop(short entityId, ItemStackDrop entity) {
         itemStackDropList.put(entityId, entity);
-        println(getClass(), "ItemStack put into map");
+        println(getClass(), "ItemStack put into map", false, PRINT_DEBUG);
     }
 
     public void removeItemStackDrop(Short entityId) {
         itemStackDropList.remove(entityId);
-        println(getClass(), "ItemStack removed from map");
+        println(getClass(), "ItemStack removed from map", false, PRINT_DEBUG);
     }
 
     public void drawEntityShadows(SpriteBatch spriteBatch) {
