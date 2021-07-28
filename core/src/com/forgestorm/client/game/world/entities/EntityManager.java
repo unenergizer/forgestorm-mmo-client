@@ -23,8 +23,7 @@ public class EntityManager implements Disposable {
     @Setter
     private PlayerClient playerClient;
 
-    @Getter
-    private static final EntityManager instance = new EntityManager();
+    private static EntityManager instance;
 
     //  EntityId -> Entity
     @Getter
@@ -40,6 +39,11 @@ public class EntityManager implements Disposable {
     private final Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
 
     private EntityManager() {
+    }
+
+    public static EntityManager getInstance() {
+        if (instance == null) instance = new EntityManager();
+        return instance;
     }
 
     public void addPlayerEntity(short entityId, Player player) {
