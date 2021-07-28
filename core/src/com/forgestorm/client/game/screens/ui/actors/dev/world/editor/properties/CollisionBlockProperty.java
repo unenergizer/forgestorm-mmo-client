@@ -77,7 +77,7 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
     }
 
     @Override
-    public void removePropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
+    public void removePropertyFromWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
         processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, true);
     }
 

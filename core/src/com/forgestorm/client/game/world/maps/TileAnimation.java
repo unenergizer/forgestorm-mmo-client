@@ -103,7 +103,7 @@ public class TileAnimation {
             animationFrame.setDurationLeft(durationLeft);
         }
 
-        System.out.println("ActiveFrame: " + activeFrame);
+//        System.out.println("ActiveFrame: " + activeFrame);
 
         return activeFrame;
     }
