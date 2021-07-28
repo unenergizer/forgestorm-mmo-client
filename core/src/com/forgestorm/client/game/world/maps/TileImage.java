@@ -104,7 +104,12 @@ public class TileImage {
     }
 
     public void setCustomTileProperty(AbstractTileProperty customTileProperty) {
-        initAbstractTilePropertyMap();
+        // Only create an instance of the HashMap here!
+        // Doing so will keep the YAML saving code from producing empty brackets
+        // in the TileProperties.yaml document.
+        if (tileProperties == null) {
+            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
+        }
 
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {
             println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
@@ -124,15 +129,6 @@ public class TileImage {
         }
     }
 
-    private void initAbstractTilePropertyMap() {
-        // Only create an instance of the HashMap here!
-        // Doing so will keep the YAML saving code from producing empty brackets
-        // in the TileProperties.yaml document.
-        if (tileProperties == null) {
-            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
-        }
-    }
-
     public TileImage getAnimationFrame() {
         if (tileAnimation == null) return this;
 
@@ -145,10 +141,10 @@ public class TileImage {
     }
 
     public int getWidth() {
-        return ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(fileName).originalWidth;
+        return ClientMain.getInstance().getWorldBuilder().getWorldTileImages().findRegion(fileName).originalWidth;
     }
 
     public int getHeight() {
-        return ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(fileName).originalHeight;
+        return ClientMain.getInstance().getWorldBuilder().getWorldTileImages().findRegion(fileName).originalHeight;
     }
 }

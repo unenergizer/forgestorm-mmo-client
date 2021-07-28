@@ -15,19 +15,23 @@ public class Tile {
     private final LayerDefinition layerDefinition;
 
     @Getter
+    private final String worldName;
+
+    @Getter
     private final int worldX, worldY;
 
     @Getter
     private TileImage tileImage;
 
-    public Tile(LayerDefinition layerDefinition, int worldX, int worldY) {
+    public Tile(LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
         this.layerDefinition = layerDefinition;
+        this.worldName = worldName;
         this.worldX = worldX;
         this.worldY = worldY;
     }
 
     public void setTileImage(TileImage tileImage) {
-        if (tileImage != null) removeTileImage();
+        if (this.tileImage != null) removeTileImage();
 
         this.tileImage = tileImage;
         applyTileProperties();
@@ -44,7 +48,7 @@ public class Tile {
         // DO COLLISION APPLICATION
         if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) {
             CollisionBlockProperty collisionBlockProperty = (CollisionBlockProperty) tileImage.getProperty(TilePropertyTypes.COLLISION_BLOCK);
-            collisionBlockProperty.applyPropertyToWorld(tileImage, layerDefinition, worldX, worldY);
+            collisionBlockProperty.applyPropertyToWorld(tileImage, layerDefinition, worldName, worldX, worldY);
         }
     }
 
@@ -54,7 +58,7 @@ public class Tile {
         // DO COLLISION REMOVAL
         if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) {
             CollisionBlockProperty collisionBlockProperty = (CollisionBlockProperty) tileImage.getProperty(TilePropertyTypes.COLLISION_BLOCK);
-            collisionBlockProperty.removePropertyToWorld(tileImage, layerDefinition, worldX, worldY);
+            collisionBlockProperty.removePropertyToWorld(tileImage, layerDefinition, worldName, worldX, worldY);
         }
     }
 

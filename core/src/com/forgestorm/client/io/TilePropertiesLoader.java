@@ -98,14 +98,6 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
                 }
             }
 
-            // Get layer definition
-//            String tileLayerValue = (String) itemNode.get("layerDefinition");
-//            if (tileLayerValue != null && !tileLayerValue.isEmpty()) {
-//                LayerDefinition tileLayers = LayerDefinition.valueOf(tileLayerValue);
-//                tileImage.setLayerDefinition(tileLayers);
-//                println(getClass(), "TileLayer: " + tileLayers, false, PRINT_DEBUG);
-//            }
-
             println(PRINT_DEBUG);
 
             tilePropertiesDataWrapper.getWorldImageMap().put(imageId, tileImage);

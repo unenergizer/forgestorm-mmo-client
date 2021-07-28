@@ -42,12 +42,7 @@ public class WorldManager implements Disposable {
         if (gameWorlds.containsKey(worldName)) {
             return gameWorlds.get(worldName);
         } else {
-
-            new GameWorld(
-                    worldName,
-                    5,
-                    5,
-                    Color.BLUE);
+            new GameWorld(worldName, Color.BLUE);
         }
         return null;
     }

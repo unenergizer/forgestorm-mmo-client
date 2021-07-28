@@ -34,7 +34,7 @@ public class WorldBuilder {
     private final WangTile4Bit wangTile16 = new WangTile4Bit();
     private final WangTile16Bit wangTile48 = new WangTile16Bit();
     private final Map<Integer, TileImage> tileImageMap;
-    private final TextureAtlas textureAtlas;
+    private final TextureAtlas worldTileImages;
     private final Array<TextureAtlas.AtlasRegion> regions;
     private final Map<LayerDefinition, Boolean> layerVisibilityMap;
     private final Map<Integer, WangTile> wangImageMap;
@@ -59,8 +59,8 @@ public class WorldBuilder {
     public WorldBuilder() {
 
         // Load Tiles atlas
-        textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
-        regions = textureAtlas.getRegions();
+        worldTileImages = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+        regions = worldTileImages.getRegions();
 
         // Load AbstractTileProperty.yaml
         tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
@@ -71,7 +71,7 @@ public class WorldBuilder {
         while (iterator.hasNext()) {
             Map.Entry<Integer, TileImage> entry = iterator.next();
             TileImage tileImage = entry.getValue();
-            if (textureAtlas.findRegion(tileImage.getFileName()) == null) {
+            if (worldTileImages.findRegion(tileImage.getFileName()) == null) {
                 println(getClass(), "TileImage Removed: " + tileImage.getFileName(), true);
                 iterator.remove();
             }
@@ -219,7 +219,7 @@ public class WorldBuilder {
         if (useEraser) {
             spriteBatch.draw(ClientMain.getInstance().getGameScreen().getInvalidTileLocationTexture(), x, y);
         } else {
-            TextureAtlas.AtlasRegion region = textureAtlas.findRegion(tileImageMap.get(currentTextureId).getFileName());
+            TextureAtlas.AtlasRegion region = worldTileImages.findRegion(tileImageMap.get(currentTextureId).getFileName());
             spriteBatch.draw(region, x, y, region.getRegionWidth(), region.getRegionHeight());
         }
 

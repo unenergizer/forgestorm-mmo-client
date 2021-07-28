@@ -38,13 +38,9 @@ public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.Gam
         int green = root.get("backgroundGreen").asInt();
         int blue = root.get("backgroundBlue").asInt();
         int alpha = root.get("backgroundAlpha").asInt();
-        int widthInChunks = root.get("widthInChunks").asInt();
-        int heightInChunks = root.get("heightInChunks").asInt();
 
         GameWorld gameWorld = new GameWorld(
                 worldName,
-                widthInChunks,
-                heightInChunks,
                 new Color(red / 255f, green / 255f, blue / 255f, alpha));
 
         gameWorldDataWrapper.setGameWorld(gameWorld);

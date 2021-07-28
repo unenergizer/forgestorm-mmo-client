@@ -5,7 +5,7 @@ import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 public interface WorldEdit {
 
-    void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, int worldX, int worldY);
+    void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY);
 
-    void removePropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, int worldX, int worldY);
+    void removePropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY);
 }

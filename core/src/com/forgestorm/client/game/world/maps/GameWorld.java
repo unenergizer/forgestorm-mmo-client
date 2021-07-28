@@ -23,8 +23,6 @@ import lombok.Setter;
 public class GameWorld {
 
     private final String worldName;
-    private final int worldWidthInChunks;
-    private final int worldHeightInChunks;
     private final Color backgroundColor;
 
     private final Map<Integer, WorldChunk> worldChunkMap = new HashMap<Integer, WorldChunk>();
@@ -32,10 +30,8 @@ public class GameWorld {
     private Texture parallaxBackground;
     private int parallaxX, parallaxY;
 
-    public GameWorld(String worldName, int worldWidthInChunks, int worldHeightInChunks, Color backgroundColor) {
+    public GameWorld(String worldName, Color backgroundColor) {
         this.worldName = worldName;
-        this.worldWidthInChunks = worldWidthInChunks;
-        this.worldHeightInChunks = worldHeightInChunks;
         this.backgroundColor = backgroundColor;
     }
 
@@ -51,7 +47,7 @@ public class GameWorld {
         for (int chunkY = clientChunkY - ClientConstants.CHUNK_RADIUS; chunkY < clientChunkY + ClientConstants.CHUNK_RADIUS + 1; chunkY++) {
             for (int chunkX = clientChunkX - ClientConstants.CHUNK_RADIUS; chunkX < clientChunkX + ClientConstants.CHUNK_RADIUS + 1; chunkX++) {
                 fileManager.loadMapChunkData(worldName, (short) chunkX, (short) chunkY, true);
-                ChunkLoader.MapChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, (short) chunkX, (short) chunkY);
+                ChunkLoader.WorldChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, (short) chunkX, (short) chunkY);
                 if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunk());
             }
         }
@@ -101,7 +97,7 @@ public class GameWorld {
 
         // Create the chunk if it doesn't exist
         if (worldChunk == null) {
-            worldChunk = new WorldChunk(chunkX, chunkY);
+            worldChunk = new WorldChunk(worldName, chunkX, chunkY);
             setChunk(worldChunk);
         }
 

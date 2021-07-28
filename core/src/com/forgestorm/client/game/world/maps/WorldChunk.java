@@ -20,6 +20,9 @@ public class WorldChunk {
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
 
     @Getter
+    private final String worldName;
+
+    @Getter
     private final short chunkX, chunkY;
 
     @Getter
@@ -28,7 +31,8 @@ public class WorldChunk {
     @Getter
     private final Map<WarpLocation, Warp> tileWarps = new HashMap<WarpLocation, Warp>();
 
-    public WorldChunk(short chunkX, short chunkY) {
+    public WorldChunk(String worldName, short chunkX, short chunkY) {
+        this.worldName = worldName;
         this.chunkX = chunkX;
         this.chunkY = chunkY;
 
@@ -46,6 +50,7 @@ public class WorldChunk {
                 for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
 
                     tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
+                            worldName,
                             localX + chunkX * ClientConstants.CHUNK_SIZE,
                             localY + chunkY * ClientConstants.CHUNK_SIZE);
                 }

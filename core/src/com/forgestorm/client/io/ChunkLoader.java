@@ -25,17 +25,21 @@ import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDataWrapper, ChunkLoader.MapChunkParameter> {
+public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.WorldChunkDataWrapper, ChunkLoader.MapChunkParameter> {
 
-    static class MapChunkParameter extends AssetLoaderParameters<MapChunkDataWrapper> {
+    static class MapChunkParameter extends AssetLoaderParameters<WorldChunkDataWrapper> {
     }
 
     private static final boolean PRINT_DEBUG = false;
     private static final String EXTENSION_TYPE = ".json";
-    private MapChunkDataWrapper mapChunkDataWrapper = null;
 
-    ChunkLoader(FileHandleResolver resolver) {
+    private final String worldName;
+
+    private WorldChunkDataWrapper worldChunkDataWrapper = null;
+
+    ChunkLoader(FileHandleResolver resolver, String worldName) {
         super(resolver);
+        this.worldName = worldName;
     }
 
     @Override
@@ -46,15 +50,14 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         println(getClass(), "Directory Name: " + file.name(), false, PRINT_DEBUG);
         println(PRINT_DEBUG);
 
-        mapChunkDataWrapper = null;
-        mapChunkDataWrapper = new MapChunkDataWrapper();
-
-        mapChunkDataWrapper.setWorldChunk(load(file));
+        worldChunkDataWrapper = null;
+        worldChunkDataWrapper = new WorldChunkDataWrapper();
+        worldChunkDataWrapper.setWorldChunk(load(file));
     }
 
     @Override
-    public MapChunkDataWrapper loadSync(AssetManager manager, String fileName, FileHandle file, MapChunkParameter parameter) {
-        return mapChunkDataWrapper;
+    public WorldChunkDataWrapper loadSync(AssetManager manager, String fileName, FileHandle file, MapChunkParameter parameter) {
+        return worldChunkDataWrapper;
     }
 
     @SuppressWarnings("rawtypes")
@@ -72,7 +75,7 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
         short chunkX = Short.parseShort(parts[0]);
         short chunkY = Short.parseShort(parts[1]);
 
-        WorldChunk chunk = new WorldChunk(chunkX, chunkY);
+        WorldChunk chunk = new WorldChunk(worldName, chunkX, chunkY);
 
         // Process Tile Layers
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
@@ -121,7 +124,7 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.MapChunkDat
 
     @Setter
     @Getter
-    public static class MapChunkDataWrapper {
+    public static class WorldChunkDataWrapper {
         private WorldChunk worldChunk;
     }
 }

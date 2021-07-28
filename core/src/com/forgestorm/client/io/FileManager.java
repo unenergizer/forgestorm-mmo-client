@@ -344,12 +344,12 @@ public class FileManager {
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
         String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
-        abstractedLoad(filePath, forceFinishLoading, true, ChunkLoader.MapChunkDataWrapper.class, new ChunkLoader(absoluteResolver));
+        abstractedLoad(filePath, forceFinishLoading, true, ChunkLoader.WorldChunkDataWrapper.class, new ChunkLoader(absoluteResolver, worldName));
     }
 
-    public ChunkLoader.MapChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {
+    public ChunkLoader.WorldChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {
         String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
-        return abstractGet(filePath, true, ChunkLoader.MapChunkDataWrapper.class);
+        return abstractGet(filePath, true, ChunkLoader.WorldChunkDataWrapper.class);
     }
 
     public void unloadMapChunkData(String worldName, short chunkX, short chunkY) {

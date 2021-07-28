@@ -46,7 +46,7 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
         visTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                collisionWindow.loadTileImage(collisionBlockProperty, collisionList, ClientMain.getInstance().getWorldBuilder().getTextureAtlas().findRegion(getTileImage().getFileName()));
+                collisionWindow.loadTileImage(collisionBlockProperty, collisionList, ClientMain.getInstance().getWorldBuilder().getWorldTileImages().findRegion(getTileImage().getFileName()));
                 collisionWindow.setVisible(true);
             }
         });
@@ -72,16 +72,16 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
     }
 
     @Override
-    public void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, int worldX, int worldY) {
-        processCollisionTiles(tileImage, layerDefinition, worldX, worldY, false);
+    public void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
+        processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, false);
     }
 
     @Override
-    public void removePropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, int worldX, int worldY) {
-        processCollisionTiles(tileImage, layerDefinition, worldX, worldY, true);
+    public void removePropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
+        processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, true);
     }
 
-    private void processCollisionTiles(TileImage tileImage, LayerDefinition layerDefinition, int worldX, int worldY, boolean useEraser) {
+    private void processCollisionTiles(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, boolean useEraser) {
         int tilesWide = tileImage.getWidth() / ClientConstants.TILE_SIZE;
         int tilesTall = tileImage.getHeight() / ClientConstants.TILE_SIZE;
 
@@ -97,7 +97,7 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
                     int tileX = worldX + column;
                     int tileY = worldY + tilesTall - row - 1;
                     Tile tileParent = ClientMain.getInstance().getWorldManager()
-                            .getGameWorld(ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldName())
+                            .getGameWorld(worldName)
                             .getTile(layerDefinition, tileX, tileY);
 
                     if (tileParent == null) continue;
