@@ -365,11 +365,16 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
                 // If the TileImage is a wang tile, only show one image of it
                 boolean isWangTile = false;
-                if (tileImage.getFileName().startsWith("BW4")
-                        || tileImage.getFileName().startsWith("BW16")) {
+                if (tileImage.getFileName().startsWith("BW4") || tileImage.getFileName().startsWith("BW16")) {
                     isWangTile = true;
                     if (!tileImage.getFileName().endsWith("-0")) continue;
                 }
+
+                // Manually skip and ignore these images
+                if (tileImage.getFileName().contains("-transition"))
+                    continue; // Door animation frames
+                if (tileImage.getFileName().contains("-open")) continue; // Door animation frames
+
                 if (tileImage.getLayerDefinition() != layerDefinition) continue;
                 if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes

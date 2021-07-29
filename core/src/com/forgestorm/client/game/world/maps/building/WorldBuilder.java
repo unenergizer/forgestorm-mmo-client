@@ -67,8 +67,7 @@ public class WorldBuilder {
 
         // Validate and remove any TileImages that are missing from the Tiles.Atlas file.
         // This will happen if graphics are removed or renamed in the Tiles.Atlas file.
-        Iterator<Map.Entry<Integer, TileImage>> iterator = tileImageMap.entrySet().iterator();
-        while (iterator.hasNext()) {
+        for (Iterator<Map.Entry<Integer, TileImage>> iterator = tileImageMap.entrySet().iterator(); iterator.hasNext(); ) {
             Map.Entry<Integer, TileImage> entry = iterator.next();
             TileImage tileImage = entry.getValue();
             if (worldTileImages.findRegion(tileImage.getFileName()) == null) {
@@ -83,9 +82,38 @@ public class WorldBuilder {
         // Load TileAnimations.yaml
         tileAnimationMap = ClientMain.getInstance().getFileManager().getTileAnimationData().getTileAnimationMap();
 
-        // Process Tile Animations
-        for (TileAnimation tileAnimation : tileAnimationMap.values()) {
+        // Removing broken animations
+        for (Iterator<Map.Entry<Integer, TileAnimation>> iteratorEntry = tileAnimationMap.entrySet().iterator(); iteratorEntry.hasNext(); ) {
+            Map.Entry<Integer, TileAnimation> tileAnimationEntry = iteratorEntry.next();
+            int id = tileAnimationEntry.getKey();
+            TileAnimation tileAnimation = tileAnimationEntry.getValue();
 
+            boolean brokenAnimationFound = false;
+
+            // Loop through and compare frame id with tileImage id's.
+            for (TileAnimation.AnimationFrame animationFrame : tileAnimation.getAnimationFrames().values()) {
+                boolean animationFrameImageMissing = true;
+                for (TileImage tileImage : tileImageMap.values()) {
+                    if (tileImage.getImageId() == animationFrame.getTileId()) {
+                        animationFrameImageMissing = false;
+                        break;
+                    }
+                }
+                if (animationFrameImageMissing) {
+                    brokenAnimationFound = true;
+                    break;
+                }
+            }
+
+            // Remove TileAnimations that can't be found.
+            if (brokenAnimationFound) {
+                println(getClass(), "TileAnimation Removed ID: " + id, true);
+                iteratorEntry.remove();
+            }
+        }
+
+        // Process remaining animations
+        for (TileAnimation tileAnimation : tileAnimationMap.values()) {
             // Loop through TileImageMap and set animation ID's
             for (TileImage tileImage : tileImageMap.values()) {
                 if (tileImage.getImageId() == tileAnimation.getAnimationFrames().get(0).getTileId()) {
@@ -193,6 +221,8 @@ public class WorldBuilder {
     public void placeTile(LayerDefinition layerDefinition, int textureId, int worldX, int worldY, boolean sendPacket) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
         Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY);
+
+        if (tile == null) return;
 
         if (useEraser) {
             tile.removeTileImage();

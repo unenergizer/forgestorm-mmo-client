@@ -68,16 +68,16 @@
   fileName: brick-wall-tan
   layerDefinition: COLLIDABLES
 11:
-  fileName: door-01-open-dark
+  fileName: door-01-open
   layerDefinition: COLLIDABLES
 12:
-  fileName: door-03-open-dark
+  fileName: door-03-open
   layerDefinition: COLLIDABLES
 13:
-  fileName: door-01-open-light
+  fileName: door-01-transition
   layerDefinition: COLLIDABLES
 14:
-  fileName: door-03-open-light
+  fileName: door-02-open
   layerDefinition: COLLIDABLES
 15:
   fileName: bag-01
@@ -89,16 +89,18 @@
       collisionList:
         - true
 16:
-  fileName: door-01-transition-light
+  fileName: door-02-transition
   layerDefinition: COLLIDABLES
 17:
   fileName: door-02-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 18:
-  fileName: door-02-open-dark
+  fileName: door-03-transition
   layerDefinition: COLLIDABLES
 19:
-  fileName: door-02-open-light
+  fileName: door-07-transition
   layerDefinition: COLLIDABLES
 20:
   fileName: barrel-big-04
@@ -577,18 +579,43 @@
 77:
   fileName: door-03-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 78:
   fileName: door-02-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 79:
   fileName: door-06-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 80:
   fileName: door-07-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 81:
   fileName: door-08-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 82:
   fileName: fancy-chair-left
   layerDefinition: COLLIDABLES
@@ -1863,17 +1890,19 @@
 234:
   fileName: stone-wall-arch-mossy
   layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 235:
   fileName: BW4-iron-fence-0
   layerDefinition: COLLIDABLES
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 236:
   fileName: stone-wall-middle-horizontal-crack
   layerDefinition: COLLIDABLES
@@ -1883,56 +1912,56 @@
   fileName: BW4-iron-fence-1
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 238:
   fileName: BW4-iron-fence-10
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 239:
   fileName: BW4-iron-fence-11
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 240:
   fileName: BW4-iron-fence-12
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 241:
   fileName: BW4-iron-fence-13
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 242:
   fileName: BW4-iron-fence-14
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 243:
   fileName: stool-round-blue
   layerDefinition: COLLIDABLES
@@ -2050,6 +2079,8 @@
 254:
   fileName: tent-door
   layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 255:
   fileName: tree-large-01
   layerDefinition: COLLIDABLES
@@ -2142,11 +2173,11 @@
   fileName: BW4-iron-fence-15
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 262:
   fileName: tree-medium-01
   layerDefinition: COLLIDABLES
@@ -2579,6 +2610,11 @@
 324:
   fileName: door-04-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 325:
   fileName: flag-02
   layerDefinition: WALL_DECORATION
@@ -2855,11 +2891,11 @@
   fileName: BW4-iron-fence-2
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 356:
   fileName: stump-02
   layerDefinition: COLLIDABLES
@@ -3316,17 +3352,17 @@
         - false
         - true
 445:
-  fileName: door-02-transition-dark
+  fileName: door-08-open
   layerDefinition: COLLIDABLES
 446:
   fileName: BW4-iron-fence-3
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 447:
   fileName: wooden-support-03
   layerDefinition: WALL_DECORATION
@@ -5362,11 +5398,11 @@
   fileName: BW4-iron-fence-4
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 790:
   fileName: well-egypt-filled
   layerDefinition: COLLIDABLES
@@ -5600,7 +5636,7 @@
   tagsList:
     - TABLE_TOP
 834:
-  fileName: door-01-transition-dark
+  fileName: door-04-open
   layerDefinition: COLLIDABLES
 835:
   fileName: table-item-book-01
@@ -5659,98 +5695,187 @@
       collisionList:
         - true
 843:
-  fileName: door-02-transition-light
+  fileName: door-04-transition
   layerDefinition: COLLIDABLES
 844:
-  fileName: door-03-transition-dark
+  fileName: door-08-transition
   layerDefinition: COLLIDABLES
 845:
-  fileName: door-03-transition-light
-  layerDefinition: COLLIDABLES
+  fileName: door-background-dark
+  layerDefinition: GROUND_DECORATION
+  tagsList:
+    - DOOR_LIGHTING
 846:
   fileName: door-04-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 847:
-  fileName: door-04-open-dark
+  fileName: door-05-open
   layerDefinition: COLLIDABLES
 848:
-  fileName: door-04-open-light
+  fileName: door-05-transition
   layerDefinition: COLLIDABLES
 849:
-  fileName: door-04-transition-dark
-  layerDefinition: COLLIDABLES
+  fileName: door-background-light
+  layerDefinition: GROUND_DECORATION
+  tagsList:
+    - DOOR_LIGHTING
 850:
-  fileName: door-04-transition-light
+  fileName: door-06-open
   layerDefinition: COLLIDABLES
 851:
   fileName: door-05-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+  tileProperties:
+    DOOR: {
+    }
 852:
   fileName: door-05-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 853:
-  fileName: door-05-open-dark
+  fileName: door-06-transition
   layerDefinition: COLLIDABLES
 854:
-  fileName: door-05-open-light
+  fileName: door-07-open
   layerDefinition: COLLIDABLES
 855:
-  fileName: door-05-transition-dark
+  fileName: gate-03-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 856:
-  fileName: door-05-transition-light
+  fileName: gate-03-open
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 857:
   fileName: door-06-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 858:
-  fileName: door-06-open-dark
+  fileName: gate-04-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 859:
-  fileName: door-06-open-light
+  fileName: gate-04-open
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 860:
-  fileName: door-06-transition-dark
+  fileName: iron-fence-grass-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 861:
-  fileName: door-06-transition-light
+  fileName: iron-fence-grass-02
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 862:
   fileName: door-07-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 863:
-  fileName: door-07-open-dark
+  fileName: gate-02-open
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 864:
-  fileName: door-07-open-light
+  fileName: gate-02-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 865:
-  fileName: door-07-transition-dark
+  fileName: gate-01-open
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 866:
-  fileName: door-07-transition-light
+  fileName: gate-01-closed
   layerDefinition: COLLIDABLES
+  tagsList:
+    - DOORS
+    - FENCE
+  tileProperties:
+    DOOR: {
+    }
 867:
   fileName: door-08-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 868:
-  fileName: door-08-open-dark
+  fileName: wooden-fence-grass-01
   layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 869:
-  fileName: door-08-open-light
+  fileName: wooden-fence-grass-02
   layerDefinition: COLLIDABLES
-870:
-  fileName: door-08-transition-dark
-  layerDefinition: COLLIDABLES
-871:
-  fileName: door-08-transition-light
-  layerDefinition: COLLIDABLES
+  tagsList:
+    - FENCE
+  tileProperties:
+    COLLISION_BLOCK:
+      collisionList:
+        - true
 872:
   fileName: door-01-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 873:
   fileName: door-03-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: ROOF
+  tagsList:
+    - DOOR_FRAMES
 874:
   fileName: cabnient-bottom-01
   layerDefinition: COLLIDABLES
@@ -5961,513 +6086,513 @@
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 897:
   fileName: BW4-brick-wall-1
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 898:
   fileName: BW4-brick-wall-10
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 899:
   fileName: BW4-brick-wall-11
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 900:
   fileName: BW4-brick-wall-12
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 901:
   fileName: BW4-brick-wall-13
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 902:
   fileName: BW4-brick-wall-14
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 903:
   fileName: BW4-brick-wall-15
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 904:
   fileName: BW4-brick-wall-2
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 905:
   fileName: BW4-brick-wall-3
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 906:
   fileName: BW4-brick-wall-4
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 907:
   fileName: BW4-brick-wall-5
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 908:
   fileName: BW4-brick-wall-6
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 909:
   fileName: BW4-brick-wall-7
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 910:
   fileName: BW4-brick-wall-8
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 911:
   fileName: BW4-brick-wall-9
   layerDefinition: COLLIDABLES
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 912:
   fileName: BW4-wooden-fence-0
   layerDefinition: COLLIDABLES
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 913:
   fileName: BW4-wooden-fence-1
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 914:
   fileName: BW4-wooden-fence-10
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 915:
   fileName: BW4-wooden-fence-11
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 916:
   fileName: BW4-wooden-fence-12
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 917:
   fileName: BW4-wooden-fence-13
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 918:
   fileName: BW4-wooden-fence-14
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 919:
   fileName: BW4-wooden-fence-2
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 920:
   fileName: BW4-wooden-fence-3
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 921:
   fileName: BW4-wooden-fence-4
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 922:
   fileName: BW4-wooden-fence-5
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 923:
   fileName: BW4-wooden-fence-6
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 924:
   fileName: BW4-wooden-fence-7
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 925:
   fileName: BW4-wooden-fence-8
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 926:
   fileName: BW4-wooden-fence-9
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 927:
   fileName: BW4-wooden-fence-15
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 928:
   fileName: BW4-iron-fence-5
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 929:
   fileName: BW4-iron-fence-6
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 930:
   fileName: BW4-iron-fence-7
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 931:
   fileName: BW4-iron-fence-8
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 932:
   fileName: BW4-iron-fence-9
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 933:
   fileName: BW4-post-wooden-fence-0
   layerDefinition: COLLIDABLES
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 934:
   fileName: BW4-post-wooden-fence-1
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 935:
   fileName: BW4-post-wooden-fence-10
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 936:
   fileName: BW4-post-wooden-fence-11
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 937:
   fileName: BW4-post-wooden-fence-15
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 938:
   fileName: BW4-post-wooden-fence-12
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 939:
   fileName: BW4-post-wooden-fence-13
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 940:
   fileName: BW4-post-wooden-fence-14
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 941:
   fileName: BW4-post-wooden-fence-9
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 942:
   fileName: BW4-post-wooden-fence-8
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 943:
   fileName: BW4-post-wooden-fence-7
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 944:
   fileName: BW4-post-wooden-fence-6
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 945:
   fileName: BW4-post-wooden-fence-5
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 946:
   fileName: BW4-post-wooden-fence-4
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 947:
   fileName: BW4-post-wooden-fence-3
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 948:
   fileName: BW4-post-wooden-fence-2
   layerDefinition: COLLIDABLES
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 949:
   fileName: brick-wall-support-01
   layerDefinition: WALL_DECORATION
@@ -6621,3 +6746,201 @@
 981:
   fileName: brick-wall-red-right
   layerDefinition: COLLIDABLES
+982:
+  fileName: table-metal-kitchen-01
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+983:
+  fileName: table-metal-kitchen-02
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+984:
+  fileName: table-metal-kitchen-03
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+985:
+  fileName: table-metal-kitchen-04
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+986:
+  fileName: table-metal-kitchen-05
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+987:
+  fileName: table-metal-kitchen-06
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+988:
+  fileName: table-metal-kitchen-07
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - KITCHEN
+989:
+  fileName: table-item-17
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - TABLE_TOP
+990:
+  fileName: grass-04
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+991:
+  fileName: egypt-wall-25
+  layerDefinition: COLLIDABLES
+992:
+  fileName: lillypad-03
+  layerDefinition: COLLIDABLES
+  tagsList:
+    - PLANTS
+993:
+  fileName: bridge-dungeon-01
+  layerDefinition: GROUND
+  tagsList:
+    - PATH_WAY
+994:
+  fileName: bridge-dungeon-02
+  layerDefinition: GROUND
+  tagsList:
+    - PATH_WAY
+995:
+  fileName: bridge-dungeon-03
+  layerDefinition: GROUND
+  tagsList:
+    - PATH_WAY
+996:
+  fileName: brick-wall-support-28
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+997:
+  fileName: brick-wall-support-29
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+998:
+  fileName: brick-wall-support-30
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+999:
+  fileName: brick-wall-support-31
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1000:
+  fileName: brick-wall-support-32
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1001:
+  fileName: brick-wall-support-33
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1002:
+  fileName: brick-wall-support-47
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1003:
+  fileName: brick-wall-support-34
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1004:
+  fileName: brick-wall-support-48
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1005:
+  fileName: brick-wall-support-35
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1006:
+  fileName: brick-wall-support-36
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1007:
+  fileName: brick-wall-support-37
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1008:
+  fileName: brick-wall-support-38
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1009:
+  fileName: brick-wall-support-39
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1010:
+  fileName: brick-wall-support-40
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1011:
+  fileName: brick-wall-support-41
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1012:
+  fileName: brick-wall-support-42
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1013:
+  fileName: brick-wall-support-43
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1014:
+  fileName: brick-wall-support-44
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1015:
+  fileName: brick-wall-support-45
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1016:
+  fileName: brick-wall-support-46
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1017:
+  fileName: brick-wall-support-49
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1018:
+  fileName: brick-wall-support-50
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1019:
+  fileName: brick-wall-support-51
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1020:
+  fileName: brick-wall-support-52
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS
+1021:
+  fileName: brick-wall-support-53
+  layerDefinition: WALL_DECORATION
+  tagsList:
+    - BUILDING_DECORATIONS

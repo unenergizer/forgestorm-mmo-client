@@ -23,6 +23,8 @@ public enum Tags {
     CEMETERY(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
     CONTAINER(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
     DOORS(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
+    DOOR_LIGHTING(new LayerDefinition[]{LayerDefinition.GROUND_DECORATION}),
+    DOOR_FRAMES(new LayerDefinition[]{LayerDefinition.ROOF}),
     DUNGEON(new LayerDefinition[]{LayerDefinition.COLLIDABLES, LayerDefinition.WALL_DECORATION}),
     EGYPTIAN(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
     FENCE(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),

@@ -16,7 +16,116 @@
       tileId: 76
     1:
       duration: 15
-      tileId: 834
+      tileId: 13
     2:
       duration: 1
       tileId: 11
+3:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 78
+    1:
+      duration: 15
+      tileId: 16
+    2:
+      duration: 1
+      tileId: 14
+4:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 77
+    1:
+      duration: 15
+      tileId: 18
+    2:
+      duration: 1
+      tileId: 12
+5:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 324
+    1:
+      duration: 15
+      tileId: 843
+    2:
+      duration: 1
+      tileId: 834
+6:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 851
+    1:
+      duration: 15
+      tileId: 848
+    2:
+      duration: 1
+      tileId: 847
+7:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 79
+    1:
+      duration: 15
+      tileId: 853
+    2:
+      duration: 1
+      tileId: 850
+8:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 80
+    1:
+      duration: 15
+      tileId: 19
+    2:
+      duration: 1
+      tileId: 854
+9:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 81
+    1:
+      duration: 15
+      tileId: 844
+    2:
+      duration: 1
+      tileId: 445
+10:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 866
+    1:
+      duration: 1
+      tileId: 865
+11:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 864
+    1:
+      duration: 1
+      tileId: 863
+12:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 855
+    1:
+      duration: 1
+      tileId: 856
+13:
+  animationFrames:
+    0:
+      duration: 1
+      tileId: 858
+    1:
+      duration: 1
+      tileId: 859
