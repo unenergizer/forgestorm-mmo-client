@@ -8,11 +8,8 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.game.world.maps.Tile;
-import com.forgestorm.client.game.world.maps.TileAnimation;
 import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldUtil;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.network.game.packet.out.PlayerMovePacketOut;
 import com.forgestorm.client.util.FadeOut;
 import com.forgestorm.client.util.MoveNode;
@@ -90,18 +87,6 @@ public class ClientPlayerMovementManager {
 
         playerClient.setFacingDirection(moveDirection);
         playerClient.setWalkTime(0f);
-
-        // Door checks
-        boolean enteringDoor = WorldUtil.isDoor(futureLocation.getX(), futureLocation.getY());
-
-        Tile futureTile = futureLocation.getGameWorld().getTile(LayerDefinition.COLLIDABLES, futureLocation.getX(), futureLocation.getY());
-        if (enteringDoor) {
-            if (futureTile.getTileImage().getTileAnimation() != null) {
-                System.out.println("PLAYING DOOR ENTER");
-                futureTile.getTileImage().getTileAnimation().playAnimation(TileAnimation.AnimationControls.PLAY_NORMAL);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20);
-            }
-        }
 
         // Warp checks
         if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY())) {

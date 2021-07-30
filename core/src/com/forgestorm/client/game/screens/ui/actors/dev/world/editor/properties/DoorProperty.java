@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.game.world.maps.DoorManager;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
@@ -17,6 +18,8 @@ import static com.forgestorm.client.util.Log.println;
 @Setter
 public class DoorProperty extends AbstractTileProperty {
 
+    // Must match the game-server
+    private transient DoorManager.DoorStatus doorStatus = DoorManager.DoorStatus.CLOSED;
     private Integer magicLockingLevel;
 
     public DoorProperty() {

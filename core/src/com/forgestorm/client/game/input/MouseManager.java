@@ -51,8 +51,8 @@ public class MouseManager {
 
     private final Vector3 clickLocation = new Vector3();
 
-    private float leftClickTileX, leftClickTileY;
-    private float rightClickTileX, rightClickTileY;
+    private int leftClickTileX, leftClickTileY;
+    private int rightClickTileX, rightClickTileY;
     private float mouseTileX, mouseTileY;
     private float mouseWorldX, mouseWorldY;
 
@@ -129,8 +129,8 @@ public class MouseManager {
     private void left(final int screenX, final int screenY) {
         foundClick = false;
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.leftClickTileX = tiledMapCoordinates.x / ClientConstants.TILE_SIZE;
-        this.leftClickTileY = tiledMapCoordinates.y / ClientConstants.TILE_SIZE;
+        this.leftClickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
+        this.leftClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         // Clear scroll focus so map zooming can resume.
         ClientMain.getInstance().getStageHandler().getStage().setScrollFocus(null);
@@ -144,6 +144,9 @@ public class MouseManager {
             if (entityEditor.getNpcTab().isSelectSpawnActivated()) return;
             if (entityEditor.getMonsterTab().isSelectSpawnActivated()) return;
         }
+
+        // Toggle clicked door
+        ClientMain.getInstance().getDoorManager().playerClientToggleDoor(leftClickTileX, leftClickTileY);
 
         clickAIEntities();
         clickPlayerEntities();
@@ -258,8 +261,11 @@ public class MouseManager {
 
     private void right(final int screenX, final int screenY) {
         Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
-        this.rightClickTileX = (short) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
-        this.rightClickTileY = (short) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+        this.rightClickTileX = (int) (tiledMapCoordinates.x / ClientConstants.TILE_SIZE);
+        this.rightClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
+
+        // Toggle clicked door
+        ClientMain.getInstance().getDoorManager().playerClientToggleDoor(rightClickTileX, rightClickTileY);
 
         /*
          * Build right click menu!
@@ -382,25 +388,25 @@ public class MouseManager {
 
     public int getLeftClickTileX() {
         // If the mouse goes into the negatives, fix the value.
-        if (leftClickTileX < 0) return (int) leftClickTileX - 1;
-        return (int) leftClickTileX;
+        if (leftClickTileX < 0) return leftClickTileX - 1;
+        return leftClickTileX;
     }
 
     public int getLeftClickTileY() {
         // If the mouse goes into the negatives, fix the value.
-        if (leftClickTileY < 0) return (int) leftClickTileY - 1;
-        return (int) leftClickTileY;
+        if (leftClickTileY < 0) return leftClickTileY - 1;
+        return leftClickTileY;
     }
 
     public int getRightClickTileX() {
         // If the mouse goes into the negatives, fix the value.
-        if (rightClickTileX < 0) return (int) rightClickTileX - 1;
-        return (int) rightClickTileX;
+        if (rightClickTileX < 0) return rightClickTileX - 1;
+        return rightClickTileX;
     }
 
     public int getRightClickTileY() {
         // If the mouse goes into the negatives, fix the value.
-        if (rightClickTileY < 0) return (int) rightClickTileY - 1;
-        return (int) rightClickTileY;
+        if (rightClickTileY < 0) return rightClickTileY - 1;
+        return rightClickTileY;
     }
 }

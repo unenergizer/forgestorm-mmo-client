@@ -113,6 +113,7 @@ public class WorldChunk {
         Tile[] tiles = layers.get(layerDefinition);
         Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
         if (tile == null) return true;
+        if (!ClientMain.getInstance().getDoorManager().isDoorwayTraversable(tile)) return false;
         return !tile.hasCollision();
     }
 
