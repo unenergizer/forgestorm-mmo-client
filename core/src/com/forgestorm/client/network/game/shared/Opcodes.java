@@ -6,6 +6,7 @@ public class Opcodes {
      * SHARED
      */
     public static final byte PING = 0x00;
+    public static final byte DOOR_INTERACT = 0x75;
     public static final byte WORLD_CHUNK_WARP = 0x76;
     public static final byte WORLD_CHUNK_LAYER = 0x77;
     public static final byte WORLD_BUILDER = 0x78;

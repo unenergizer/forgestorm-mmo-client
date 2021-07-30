@@ -35,6 +35,7 @@ import com.forgestorm.client.network.game.packet.in.CharacterCreatorPacketIn;
 import com.forgestorm.client.network.game.packet.in.CharactersMenuLoadPacketIn;
 import com.forgestorm.client.network.game.packet.in.ChatMessagePacketIn;
 import com.forgestorm.client.network.game.packet.in.ClientMoveResyncPacketIn;
+import com.forgestorm.client.network.game.packet.in.DoorInteractPacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityAppearancePacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityAttributesUpdatePacketIn;
 import com.forgestorm.client.network.game.packet.in.EntityDamagePacketIn;
@@ -229,6 +230,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new WorldBuilderPacketIn());
                         eventBus.registerListener(new WorldChunkPartPacketIn());
                         eventBus.registerListener(new TileWarpPacketIn());
+                        eventBus.registerListener(new DoorInteractPacketIn());
                     }
                 });
     }

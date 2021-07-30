@@ -5,11 +5,11 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.screens.ui.actors.character.CharacterSelectMenu;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.game.world.maps.Tile;
+import com.forgestorm.client.game.world.maps.TileAnimation;
 import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
@@ -93,22 +93,14 @@ public class ClientPlayerMovementManager {
 
         // Door checks
         boolean enteringDoor = WorldUtil.isDoor(futureLocation.getX(), futureLocation.getY());
-        boolean leavingDoor = WorldUtil.isDoor(currentLocation.getX(), currentLocation.getY());
+
         Tile futureTile = futureLocation.getGameWorld().getTile(LayerDefinition.COLLIDABLES, futureLocation.getX(), futureLocation.getY());
-//        Tile currentTile = currentLocation.getGameWorld().getTile(LayerDefinition.COLLIDABLES, currentLocation.getX(), currentLocation.getY());
         if (enteringDoor) {
             if (futureTile.getTileImage().getTileAnimation() != null) {
-                futureTile.getTileImage().getTileAnimation().playAnimation();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 20);
+                System.out.println("PLAYING DOOR ENTER");
+                futureTile.getTileImage().getTileAnimation().playAnimation(TileAnimation.AnimationControls.PLAY_NORMAL);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20);
             }
-        }
-        if (leavingDoor && !enteringDoor) {
-            System.out.println("Leaving Door");
-//            if (futureTile.getTileImage() != null) {
-//                if (futureTile.getTileImage().getTileAnimation() != null) {
-//                futureTile.getTileImage().getTileAnimation().playAnimation();
-//                }
-//            }
         }
 
         // Warp checks
