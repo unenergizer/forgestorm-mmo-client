@@ -65,9 +65,29 @@ public class TileAnimation {
         return true;
     }
 
-    public void playAnimation() {
-        activeFrame = 0;
-        animationControl = AnimationControls.PLAY_NORMAL;
+    public void playAnimation(AnimationControls animationControl) {
+        resetAnimationFrameDurations();
+
+        switch (animationControl) {
+            case PLAY_BACKWARDS:
+            case PLAY_BACKWARDS_LOOPING:
+                activeFrame = animationFrames.size() - 1;
+                break;
+            case PLAY_NORMAL:
+            case PLAY_NORMAL_LOOPING:
+            case STOP:
+            default:
+                activeFrame = 0;
+                break;
+        }
+
+        this.animationControl = animationControl;
+    }
+
+    private void resetAnimationFrameDurations() {
+        for (AnimationFrame animationFrame : animationFrames.values()) {
+            animationFrame.resetDuration();
+        }
     }
 
     /**
@@ -84,26 +104,48 @@ public class TileAnimation {
 
         int durationLeft = animationFrame.getDurationLeft() - 1;
 
-        if (durationLeft <= 0) {
+        if (durationLeft > 0) {
+            // Continue playing out the duration of this animation frame
+            animationFrame.setDurationLeft(durationLeft);
+        } else {
+            // The duration of the frame has ended. Decide what is next.
             animationFrame.setDurationLeft(animationFrame.getDuration()); // Reset duration
 
-            int tempFrame = activeFrame + 1;
-            int totalFrames = animationFrames.size();
+            if (animationControl == AnimationControls.PLAY_NORMAL || animationControl == AnimationControls.PLAY_NORMAL_LOOPING) {
+                // Animation playing normally (looping and non-looping)
+                int tempFrame = activeFrame + 1;
+                int totalFrames = animationFrames.size();
 
-            if (tempFrame == totalFrames) {
-                if (animationControl != AnimationControls.CONTINUOUS) {
-                    animationControl = AnimationControls.STOP;
-                } else if (animationControl == AnimationControls.CONTINUOUS) {
-                    activeFrame = 0; // Go back to first frame
+                // Check we reached animation end
+                if (tempFrame == totalFrames) {
+                    if (animationControl != AnimationControls.PLAY_NORMAL_LOOPING) {
+                        // Stop animating, last frame reached
+                        animationControl = AnimationControls.STOP;
+                    } else if (animationControl == AnimationControls.PLAY_NORMAL_LOOPING) {
+                        // Continue to loop
+                        activeFrame = 0; // Go back to first frame
+                    }
+                } else {
+                    activeFrame++;
                 }
-            } else {
-                activeFrame++;
-            }
-        } else {
-            animationFrame.setDurationLeft(durationLeft);
-        }
+            } else if (animationControl == AnimationControls.PLAY_BACKWARDS || animationControl == AnimationControls.PLAY_BACKWARDS_LOOPING) {
+                // Animation playing in reverse (looping and non-looping)
+                int tempFrame = activeFrame - 1;
 
-//        System.out.println("ActiveFrame: " + activeFrame);
+                // Check we reached animation end
+                if (tempFrame < 0) {
+                    if (animationControl != AnimationControls.PLAY_BACKWARDS_LOOPING) {
+                        // Stop animating, last frame reached
+                        animationControl = AnimationControls.STOP;
+                    } else if (animationControl == AnimationControls.PLAY_BACKWARDS_LOOPING) {
+                        // Continue to loop
+                        activeFrame = animationFrames.size() - 1; // Go back to last frame
+                    }
+                } else {
+                    activeFrame--;
+                }
+            }
+        }
 
         return activeFrame;
     }
@@ -157,8 +199,9 @@ public class TileAnimation {
 
     public enum AnimationControls {
         PLAY_NORMAL,
+        PLAY_NORMAL_LOOPING,
         PLAY_BACKWARDS,
-        CONTINUOUS,
+        PLAY_BACKWARDS_LOOPING,
         STOP
     }
 
@@ -188,6 +231,10 @@ public class TileAnimation {
             this.tileId = tileId;
             this.duration = duration;
             this.durationLeft = duration;
+        }
+
+        public void resetDuration() {
+            durationLeft = duration;
         }
     }
 }
