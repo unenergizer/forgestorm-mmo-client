@@ -80,6 +80,8 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
         float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
         if (this.isPlayerClientTarget || this instanceof PlayerClient) {
+            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getUsernameVisibleCheckBox().isChecked())
+                return;
             GameTextUtil.drawMessage(getEntityName(), Color.WHITE, .5f, x, y);
         } else {
             GameTextUtil.drawMessage(getEntityName(), Color.LIGHT_GRAY, .5f, x, y);
@@ -113,6 +115,10 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
     private int currentHealth;
 
     public void drawEntityHpBar() {
+        if (this.isPlayerClientTarget || this instanceof PlayerClient) {
+            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getHealthBarVisibleCheckBox().isChecked())
+                return;
+        }
         float x = getDrawX() + 8;
         float y = getDrawY() + 16;
         float width = 14;
