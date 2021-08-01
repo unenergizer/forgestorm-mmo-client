@@ -10,10 +10,10 @@ import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.screens.ui.actors.NewVisImageButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
 import com.forgestorm.client.io.type.GameAtlas;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 
@@ -89,7 +89,7 @@ public class CollisionWindow extends HideableVisWindow {
                 final int finalRow = row, finalColumn = column;
                 final int index = finalRow + finalColumn * tilesTall;
 
-                final NewVisImageButton visImageButton = new NewVisImageButton(new ImageBuilder(GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
+                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
                 visImageButton.setSize(ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
                 if (collisionList.get(index)) {
                     visImageButton.setColor(Color.YELLOW);
