@@ -15,7 +15,7 @@ import static com.forgestorm.client.util.Log.println;
 public class Keyboard implements InputProcessor {
 
     @Getter
-    private KeyboardMovement keyboardMovement = new KeyboardMovement();
+    private final KeyboardMovement keyboardMovement = new KeyboardMovement();
 
     public boolean keyDown(int keycode) {
         if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
@@ -62,7 +62,8 @@ public class Keyboard implements InputProcessor {
         return false;
     }
 
-    public boolean scrolled(int amount) {
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
         return false;
     }
 }

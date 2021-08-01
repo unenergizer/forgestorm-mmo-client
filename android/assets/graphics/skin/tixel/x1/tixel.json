@@ -192,6 +192,10 @@
       name: t-dot,
       color: t-light
     },
+    separator-vertical: {
+      name: t-dot,
+      color: t-medium
+    },
     separator-menu: {
       name: t-dot,
       color: t-medium
@@ -975,6 +979,10 @@
     default: {
       background: separator,
       thickness: 4
+    },
+    vertical: {
+      background: separator-vertical,
+      thickness: 3,
     },
     menu: {
       background: separator-menu,

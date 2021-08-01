@@ -3,7 +3,7 @@ buildscript {
         mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        jcenter()
+        jcenter() // gradlePluginPortal() // this replaces as of libGDX version 1.10.0 jcenter()
         maven {
             url 'https://maven.google.com/'
             name 'Google'
@@ -27,13 +27,13 @@ allprojects {
     version = '1.0'
     ext {
         appName = "forgestorm"
-        gdxVersion = '1.9.9' // Version 1.9.10 breaks TMX maps...
+        gdxVersion = '1.10.0' // Version 1.9.10 breaks TMX maps...
         roboVMVersion = '2.3.1'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
-        visuiVersion = '1.4.3' // Version 1.4.4 breaks TMX maps...
-        lombokVersion = '1.18.8'
+        visuiVersion = '1.5.0' // Version 1.4.4 breaks TMX maps...
+        lombokVersion = '1.18.20'
         snakeYAML = '1.23'
         romeVersion = '1.12.0'
         jsoupVersion = '1.12.1'
@@ -73,13 +73,13 @@ project(":android") {
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+//        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
+//        natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
@@ -113,7 +113,8 @@ project(":core") {
         compile "org.jsoup:jsoup:$jsoupVersion"
         compile "commons-codec:commons-codec:$apacheCommonsCodec"
 //        compile "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
-        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+//        annotationProcessor 'org.projectlombok:lombok:1.18.20'
     }
 }
 

@@ -56,8 +56,8 @@ public class Mouse implements InputProcessor {
     }
 
     @Override
-    public boolean scrolled(int amount) {
-        ClientMain.getInstance().getGameScreen().getCamera().scrollZoomLevel(amount);
+    public boolean scrolled(float amountX, float amountY) {
+        ClientMain.getInstance().getGameScreen().getCamera().scrollZoomLevel((int) amountY);
         return false;
     }
 }
