@@ -23,6 +23,7 @@ import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.item.inventory.MoveInventoryEvents;
 import com.forgestorm.client.game.world.item.trade.TradeManager;
 import com.forgestorm.client.game.world.maps.DoorManager;
+import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.WorldManager;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
@@ -107,6 +108,7 @@ public class ClientMain extends Game {
     private AbilityManager abilityManager;
     private TradeManager tradeManager;
     private DoorManager doorManager;
+    private RegionManager regionManager;
 
     private InputMultiplexer inputMultiplexer;
 
@@ -159,6 +161,7 @@ public class ClientMain extends Game {
         moveInventoryEvents = new MoveInventoryEvents();
         abilityManager = new AbilityManager();
         doorManager = new DoorManager();
+        regionManager = new RegionManager();
 
         // load screens
         stageHandler = new StageHandler();

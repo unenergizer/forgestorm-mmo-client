@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -36,6 +37,7 @@ import com.forgestorm.client.util.PixmapUtil;
 import java.util.Map;
 
 import lombok.Getter;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -64,6 +66,9 @@ public class GameScreen implements Screen {
     private Texture invalidTileLocationTexture;
     private Texture validTileLocationTexture;
     private Texture warpTileLocationTexture;
+
+    private ShapeDrawer shapeDrawer;
+    private Texture shapeDrawerTexture;
 
     public GameScreen(StageHandler stageHandler) {
         this.stageHandler = stageHandler;
@@ -130,6 +135,14 @@ public class GameScreen implements Screen {
         Pixmap warpTextureHighlight = PixmapUtil.createProceduralPixmap(16, 16, Color.PURPLE);
         warpTileLocationTexture = new Texture(warpTextureHighlight);
         warpTextureHighlight.dispose();
+
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.drawPixel(0, 0);
+        shapeDrawerTexture = new Texture(pixmap); //remember to dispose of later
+        pixmap.dispose();
+        TextureRegion region = new TextureRegion(shapeDrawerTexture, 0, 0, 1, 1);
+        shapeDrawer = new ShapeDrawer(spriteBatch, region);
     }
 
     @Override
@@ -229,6 +242,10 @@ public class GameScreen implements Screen {
         if (tileAnimationEditor != null) tileAnimationEditor.render();
 
         ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
+
+        // TODO: TEST DRAWLING REGION
+        ClientMain.getInstance().getRegionManager().editRegion(shapeDrawer);
+
         spriteBatch.end();
     }
 
@@ -291,6 +308,7 @@ public class GameScreen implements Screen {
         if (invalidTileLocationTexture != null) invalidTileLocationTexture.dispose();
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
         if (warpTileLocationTexture != null) warpTileLocationTexture.dispose();
+        if (shapeDrawerTexture != null) shapeDrawerTexture.dispose();
         GameTextures.dispose();
         stageHandler.dispose();
     }

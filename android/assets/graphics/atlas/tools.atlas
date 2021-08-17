@@ -18,23 +18,30 @@ tool_pencil
   orig: 16, 16
   offset: 0, 0
   index: -1
-tool_run_allow
+tool_region_select
   rotate: false
   xy: 38, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-tool_run_stop
+tool_run_allow
   rotate: false
   xy: 56, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-tool_wang
+tool_run_stop
   rotate: false
   xy: 74, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tool_wang
+  rotate: false
+  xy: 92, 2
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

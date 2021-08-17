@@ -15,6 +15,7 @@ import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.Tags;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
@@ -45,12 +46,14 @@ import lombok.Getter;
 public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+    private final RegionManager regionManager = ClientMain.getInstance().getRegionManager();
     private final Map<LayerDefinition, VisTextButton> layerButtonMap = new HashMap<LayerDefinition, VisTextButton>();
     private final List<VisImageButton> editorButtonList = new ArrayList<VisImageButton>();
 
     private VisImageButton drawlButton;
     private VisImageButton eraserButton;
     private VisImageButton wangBrushButton;
+    private VisImageButton regionSelectButton;
 
     private TabbedPane tabbedPane;
 
@@ -70,6 +73,8 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final Drawable wangBrush = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_wang").setSize(32).buildTextureRegionDrawable();
         final Drawable runAllow = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_run_allow").setSize(32).buildTextureRegionDrawable();
         final Drawable runStop = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_run_stop").setSize(32).buildTextureRegionDrawable();
+        final Drawable tileSelect = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_region_select").setSize(32).buildTextureRegionDrawable();
+
         final Drawable drawableActive = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_158").setSize(16).buildTextureRegionDrawable();
         final Drawable drawableInactive = imageBuilder.setGameAtlas(GameAtlas.ITEMS).setRegionName("skill_159").setSize(16).buildTextureRegionDrawable();
 
@@ -79,16 +84,19 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         eraserButton = new VisImageButton(eraser, "Eraser Tool");
         wangBrushButton = new VisImageButton(wangBrush, "Wang Brush");
         final VisImageButton allowRunningButton = new VisImageButton(runAllow, "Allow/Prevent Click to Move");
+        regionSelectButton = new VisImageButton(tileSelect, "Region Selection");
 
         drawlButton.setGenerateDisabledImage(true);
         eraserButton.setGenerateDisabledImage(true);
         wangBrushButton.setGenerateDisabledImage(true);
         allowRunningButton.setGenerateDisabledImage(true);
+        regionSelectButton.setGenerateDisabledImage(true);
 
         editorButtonList.add(drawlButton);
         editorButtonList.add(eraserButton);
         editorButtonList.add(wangBrushButton);
         editorButtonList.add(allowRunningButton);
+        editorButtonList.add(regionSelectButton);
 
         // Initialize build menu with drawl tool enabled first
         drawlButton.setDisabled(true);
@@ -128,11 +136,19 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             }
         });
 
+        regionSelectButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                activateTool(Tools.REGION_SELECT);
+            }
+        });
+
         VisTable buttonTable = new VisTable();
         buttonTable.add(drawlButton);
         buttonTable.add(eraserButton);
         buttonTable.add(wangBrushButton);
         buttonTable.add(allowRunningButton);
+        buttonTable.add(regionSelectButton);
 
         toolsTable.add(new VisLabel("[YELLOW]Tools:")).align(Alignment.LEFT.getAlignment()).row();
         toolsTable.add(buttonTable).align(Alignment.LEFT.getAlignment()).row();
@@ -250,10 +266,16 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             visImageButton.setColor(Color.WHITE);
         }
 
+        // Clear the selected texture
+        worldBuilder.setCurrentTextureId(null);
+        worldBuilder.setCurrentWangId(null);
+
         // Auto default this to false.
         // Inside the listener, change to true when activated
         worldBuilder.setUseEraser(false);
         worldBuilder.setUseWangTile(false);
+        regionManager.setEditRegion(false);
+        regionManager.setDrawRegion(false);
     }
 
     private void activateTool(Tools tool) {
@@ -273,6 +295,12 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 worldBuilder.setUseWangTile(true);
                 wangBrushButton.setDisabled(true);
                 wangBrushButton.setColor(Color.RED);
+                break;
+            case REGION_SELECT:
+                regionManager.setEditRegion(true);
+                regionManager.setDrawRegion(true);
+                regionSelectButton.setDisabled(true);
+                regionSelectButton.setColor(Color.RED);
                 break;
         }
     }
@@ -389,9 +417,6 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 visImageButton.addListener(new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        worldBuilder.setCurrentLayer(layerDefinition);
-                        worldBuilder.setCurrentTextureId(tileImage.getImageId());
-
                         // See if this TileImage is a WangTile
                         if (tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
                             activateTool(Tools.WANG);
@@ -408,6 +433,10 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                         } else {
                             activateTool(Tools.DRAWL);
                         }
+
+                        // Set working layer and texture id
+                        worldBuilder.setCurrentLayer(layerDefinition);
+                        worldBuilder.setCurrentTextureId(tileImage.getImageId());
                     }
                 });
             }
@@ -431,6 +460,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
     enum Tools {
         DRAWL,
         ERASE,
-        WANG
+        WANG,
+        REGION_SELECT
     }
 }

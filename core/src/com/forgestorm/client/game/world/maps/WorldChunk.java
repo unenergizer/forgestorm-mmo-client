@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
@@ -176,6 +177,17 @@ public class WorldChunk {
 
                 TileImage tileImage = tile.getTileImage();
                 if (tileImage == null) continue;
+
+                RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+                Region region = regionManager.getRegionToEdit();
+
+                if (region.getRegionType() == RegionManager.RegionType.BUILDING) {
+                    Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+                    boolean playerIntersect = region.doesIntersect(playerLocation.getX(), playerLocation.getY());
+                    boolean tileIntersect = region.doesIntersect(tile.getWorldX(), tile.getWorldY());
+                    if (playerIntersect && tileIntersect && layerDefinition == LayerDefinition.ROOF)
+                        continue;
+                }
 
                 FileManager fileManager = ClientMain.getInstance().getFileManager();
                 TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);

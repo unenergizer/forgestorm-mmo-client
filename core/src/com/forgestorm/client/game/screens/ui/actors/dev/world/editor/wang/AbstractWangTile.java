@@ -52,6 +52,8 @@ public abstract class AbstractWangTile {
         if (currentTileImage == null) return;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+        if (worldBuilder.getCurrentWangId() == null) return;
+
         TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangRegionNamePrefix() + autoTileID);
 
         if (currentTileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return;

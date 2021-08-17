@@ -27,6 +27,7 @@ import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.entities.StationaryEntity;
 import com.forgestorm.client.game.world.maps.CursorDrawType;
 import com.forgestorm.client.game.world.maps.Location;
+import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.type.GameAtlas;
@@ -242,6 +243,8 @@ public class MouseManager {
     private void clickToWalkToPath() {
         if (foundClick) return;
 
+        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+
         StageHandler stageHandler = ClientMain.getInstance().getStageHandler();
         TileBuildMenu tileBuildMenu = stageHandler.getTileBuildMenu();
 
@@ -250,6 +253,8 @@ public class MouseManager {
             WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
             if (!worldBuilder.isAllowClickToMove()) return;
         }
+
+        if (regionManager.isEditRegion()) return;
 
         // Click to walk path finding
         ClientMain.getInstance().getEntityTracker().walkTo(getLeftClickTileX(), getLeftClickTileY(), false);

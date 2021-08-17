@@ -41,7 +41,7 @@ public class WorldBuilder {
 
     private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
     @Setter
-    private int currentTextureId = 1;
+    private Integer currentTextureId = null;
 
     @Setter
     private boolean useEraser = false;
@@ -49,7 +49,7 @@ public class WorldBuilder {
     @Setter
     private boolean useWangTile = false;
 
-    private int currentWangId = 1;
+    private Integer currentWangId = null;
     private String wangRegionNamePrefix;
     private WangType wangType;
 
@@ -130,8 +130,9 @@ public class WorldBuilder {
         }
     }
 
-    public void setCurrentWangId(int selectedWangTile) {
+    public void setCurrentWangId(Integer selectedWangTile) {
         currentWangId = selectedWangTile;
+        if (selectedWangTile == null) return;
         WangTile wangTile = wangImageMap.get(currentWangId);
         wangType = wangTile.getWangType();
         wangRegionNamePrefix = wangType.getPrefix() + "-" + wangTile.getFileName() + "-";
@@ -218,7 +219,7 @@ public class WorldBuilder {
         }
     }
 
-    public void placeTile(LayerDefinition layerDefinition, int textureId, int worldX, int worldY, boolean sendPacket) {
+    public void placeTile(LayerDefinition layerDefinition, Integer textureId, int worldX, int worldY, boolean sendPacket) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
         Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY);
 
@@ -228,6 +229,7 @@ public class WorldBuilder {
             tile.removeTileImage();
             textureId = ClientConstants.BLANK_TILE_ID; // Set texture to erase
         } else {
+            if (textureId == null) return;
             tile.setTileImage(new TileImage(tileImageMap.get(textureId)));
         }
 
@@ -238,6 +240,8 @@ public class WorldBuilder {
 
     public void drawMouse(SpriteBatch spriteBatch) {
         if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
+        if (currentTextureId == null && !useEraser) return;
+
         MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
         int x = mouseManager.getMouseTileX() * 16;
         int y = mouseManager.getMouseTileY() * 16;

@@ -308,6 +308,14 @@ public class FileManager {
         return abstractGet(FilePaths.TILE_ANIMATIONS.getInternalFilePath(), false, TileAnimationsLoader.TileAnimationsDataWrapper.class);
     }
 
+    public void loadRegionData() {
+        abstractedLoad(FilePaths.MAP_REGIONS.getInternalFilePath(), false, false, RegionLoader.RegionDataWrapper.class, new RegionLoader(internalResolver));
+    }
+
+    public RegionLoader.RegionDataWrapper getRegionData() {
+        return abstractGet(FilePaths.MAP_REGIONS.getInternalFilePath(), false, RegionLoader.RegionDataWrapper.class);
+    }
+
     public void loadNetworkSettingsData() {
         abstractedLoad(FilePaths.NETWORK_SETTINGS.getInternalFilePath(), false, false, NetworkSettingsLoader.NetworkSettingsData.class, new NetworkSettingsLoader(internalResolver));
     }

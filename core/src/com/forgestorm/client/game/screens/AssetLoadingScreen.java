@@ -101,6 +101,7 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadSoundData();
         fileManager.loadMusicData();
         fileManager.loadFactionData();
+        fileManager.loadRegionData();
         fileManager.loadTileAnimationData();
         fileManager.loadTilePropertiesData();
         fileManager.loadWangPropertiesData();
