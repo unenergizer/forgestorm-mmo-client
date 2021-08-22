@@ -6,9 +6,11 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.game.world.maps.Warp;
+import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.network.game.packet.out.PlayerMovePacketOut;
 import com.forgestorm.client.util.FadeOut;
@@ -71,6 +73,7 @@ public class ClientPlayerMovementManager {
         MoveNode nextNode = movements.remove();
 
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
+        GameWorld gameWorld = playerClient.getGameMap();
         Location currentLocation = playerClient.getCurrentMapLocation();
         Location futureLocation = new Location(playerClient.getWorldName(), nextNode.getWorldX(), nextNode.getWorldY());
         playerClient.setFutureMapLocation(futureLocation);
@@ -87,6 +90,13 @@ public class ClientPlayerMovementManager {
 
         playerClient.setFacingDirection(moveDirection);
         playerClient.setWalkTime(0f);
+
+        // Check chunk change
+        WorldChunk currentChunk = currentLocation.getLocationChunk();
+        WorldChunk futureChunk = futureLocation.getLocationChunk();
+        if (!gameWorld.isSameChunk(currentChunk, futureChunk)) {
+            gameWorld.playerChunkChange(playerClient);
+        }
 
         // Warp checks
         if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY())) {

@@ -36,6 +36,10 @@ public class Location {
         return ClientMain.getInstance().getWorldManager().getGameWorld(worldName);
     }
 
+    public WorldChunk getLocationChunk() {
+        return getGameWorld().findChunk(x, y);
+    }
+
     public Location add(int x, int y) {
         this.x = this.x + x;
         this.y = this.y + y;
@@ -94,7 +98,7 @@ public class Location {
         int diffX = otherLocation.getX() - x;
         int diffY = otherLocation.getY() - y;
 
-        double realDifference = Math.sqrt((double) (diffX * diffX + diffY * diffY));
+        double realDifference = Math.sqrt(diffX * diffX + diffY * diffY);
         return (int) Math.floor(realDifference);
     }
 

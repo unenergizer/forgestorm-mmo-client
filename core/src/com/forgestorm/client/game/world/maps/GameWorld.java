@@ -18,14 +18,20 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.forgestorm.client.util.Log.println;
+
 @Getter
 @Setter
 public class GameWorld {
 
+    private static final boolean PRINT_DEBUG = false;
+
+    private final FileManager fileManager = ClientMain.getInstance().getFileManager();
+
     private final String worldName;
     private final Color backgroundColor;
 
-    private final Map<Integer, WorldChunk> worldChunkMap = new HashMap<Integer, WorldChunk>();
+    private final Map<Integer, WorldChunk> worldChunkDrawMap = new HashMap<Integer, WorldChunk>();
 
     private Texture parallaxBackground;
     private int parallaxX, parallaxY;
@@ -35,11 +41,9 @@ public class GameWorld {
         this.backgroundColor = backgroundColor;
     }
 
-    public void loadAroundPlayer(PlayerClient client) {
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
-
-        int clientX = client.getFutureMapLocation().getX();
-        int clientY = client.getFutureMapLocation().getY();
+    public void loadAroundPlayer(PlayerClient playerClient) {
+        int clientX = playerClient.getFutureMapLocation().getX();
+        int clientY = playerClient.getFutureMapLocation().getY();
 
         int clientChunkX = (int) Math.floor(clientX / (float) ClientConstants.CHUNK_SIZE);
         int clientChunkY = (int) Math.floor(clientY / (float) ClientConstants.CHUNK_SIZE);
@@ -51,6 +55,70 @@ public class GameWorld {
                 if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunk());
             }
         }
+    }
+
+    public void playerChunkChange(PlayerClient playerClient) {
+        MoveDirection moveDirection = playerClient.getFacingDirection();
+        int clientX = playerClient.getFutureMapLocation().getX();
+        int clientY = playerClient.getFutureMapLocation().getY();
+
+        int clientChunkX = (int) Math.floor(clientX / (float) ClientConstants.CHUNK_SIZE);
+        int clientChunkY = (int) Math.floor(clientY / (float) ClientConstants.CHUNK_SIZE);
+
+        // Load and unload chunks based on direction
+        switch (moveDirection) {
+            case NORTH:
+                for (int x = clientChunkX - ClientConstants.CHUNK_RADIUS; x <= clientChunkX + ClientConstants.CHUNK_RADIUS; x++) {
+                    short chunkUnloadY = (short) (clientChunkY - ClientConstants.CHUNK_RADIUS - 1);
+                    short chunkLoadY = (short) (clientChunkY + ClientConstants.CHUNK_RADIUS);
+                    unloadChunk((short) x, chunkUnloadY);
+                    loadChunk((short) x, chunkLoadY);
+                    println(getClass(), "Direction: NORTH, PlayerChunkY: " + clientChunkY + ", ChunkUnloadY: " + chunkUnloadY + ", ChunkLoadY: " + chunkLoadY, false, PRINT_DEBUG);
+                }
+                break;
+            case SOUTH:
+                for (int x = clientChunkX - ClientConstants.CHUNK_RADIUS; x <= clientChunkX + ClientConstants.CHUNK_RADIUS; x++) {
+                    short chunkUnloadY = (short) (clientChunkY + ClientConstants.CHUNK_RADIUS + 1);
+                    short chunkLoadY = (short) (clientChunkY - ClientConstants.CHUNK_RADIUS);
+                    unloadChunk((short) x, chunkUnloadY);
+                    loadChunk((short) x, chunkLoadY);
+                    println(getClass(), "Direction: SOUTH, PlayerChunkY: " + clientChunkY + ", ChunkUnloadY: " + chunkUnloadY + ", ChunkLoadY: " + chunkLoadY, false, PRINT_DEBUG);
+                }
+                break;
+            case WEST:
+                for (int y = clientChunkY - ClientConstants.CHUNK_RADIUS; y <= clientChunkY + ClientConstants.CHUNK_RADIUS; y++) {
+                    short chunkUnloadX = (short) (clientChunkX + ClientConstants.CHUNK_RADIUS + 1);
+                    short chunkLoadX = (short) (clientChunkX - ClientConstants.CHUNK_RADIUS);
+                    unloadChunk(chunkUnloadX, (short) y);
+                    loadChunk(chunkLoadX, (short) y);
+                    println(getClass(), "Direction: WEST, PlayerChunkX: " + clientChunkX + ", ChunkUnloadX: " + chunkUnloadX + ", ChunkLoadX: " + chunkLoadX, false, PRINT_DEBUG);
+                }
+                break;
+            case EAST:
+                for (int y = clientChunkY - ClientConstants.CHUNK_RADIUS; y <= clientChunkY + ClientConstants.CHUNK_RADIUS; y++) {
+                    short chunkUnloadX = (short) (clientChunkX - ClientConstants.CHUNK_RADIUS - 1);
+                    short chunkLoadX = (short) (clientChunkX + ClientConstants.CHUNK_RADIUS);
+                    unloadChunk(chunkUnloadX, (short) y);
+                    loadChunk(chunkLoadX, (short) y);
+                    println(getClass(), "Direction: EAST, PlayerChunkX: " + clientChunkX + ", ChunkUnloadX: " + chunkUnloadX + ", ChunkLoadX: " + chunkLoadX, false, PRINT_DEBUG);
+                }
+                break;
+        }
+
+    }
+
+    public void loadChunk(short chunkX, short chunkY) {
+        fileManager.loadMapChunkData(worldName, chunkX, chunkY, true);
+        ChunkLoader.WorldChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, chunkX, chunkY);
+        if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunk());
+    }
+
+    public void unloadChunk(short chunkX, short chunkY) {
+        // Remove from file manager
+        fileManager.unloadMapChunkData(worldName, chunkX, chunkY);
+
+        // Clear the chunk from the draw hashmap
+        worldChunkDrawMap.remove((chunkX << 16) | (chunkY & 0xFFFF));
     }
 
     public Tile getTile(LayerDefinition layerDefinition, int worldX, int worldY) {
@@ -79,7 +147,7 @@ public class GameWorld {
         int chunkX = (int) Math.floor(entityX / (float) ClientConstants.CHUNK_SIZE);
         int chunkY = (int) Math.floor(entityY / (float) ClientConstants.CHUNK_SIZE);
 
-        for (WorldChunk worldChunk : worldChunkMap.values()) {
+        for (WorldChunk worldChunk : worldChunkDrawMap.values()) {
             if (worldChunk.getChunkX() == chunkX && worldChunk.getChunkY() == chunkY) {
                 return worldChunk;
             }
@@ -93,7 +161,7 @@ public class GameWorld {
     }
 
     public WorldChunk getChunk(short chunkX, short chunkY) {
-        WorldChunk worldChunk = worldChunkMap.get((chunkX << 16) | (chunkY & 0xFFFF));
+        WorldChunk worldChunk = worldChunkDrawMap.get((chunkX << 16) | (chunkY & 0xFFFF));
 
         // Create the chunk if it doesn't exist
         if (worldChunk == null) {
@@ -104,8 +172,15 @@ public class GameWorld {
         return worldChunk;
     }
 
+    public boolean isSameChunk(WorldChunk chunk1, WorldChunk chunk2) {
+        if (chunk1 == null) println(getClass(), "Chunk 1 null", false, PRINT_DEBUG);
+        if (chunk2 == null) println(getClass(), "Chunk 2 null", false, PRINT_DEBUG);
+        if (chunk1 == null || chunk2 == null) return false;
+        return ((chunk1.getChunkX() << 16) | (chunk1.getChunkY() & 0xFFFF)) == ((chunk2.getChunkX() << 16) | (chunk2.getChunkY() & 0xFFFF));
+    }
+
     private void setChunk(WorldChunk worldChunk) {
-        worldChunkMap.put((worldChunk.getChunkX() << 16) | (worldChunk.getChunkY() & 0xFFFF), worldChunk);
+        worldChunkDrawMap.put((worldChunk.getChunkX() << 16) | (worldChunk.getChunkY() & 0xFFFF), worldChunk);
     }
 
     public void drawParallax(SpriteBatch spriteBatch) {
@@ -123,30 +198,30 @@ public class GameWorld {
     public void renderBottomLayers(Batch batch) {
         // TODO: Check against camera before trying to render
         // Render layer from most bottom, going up.
-        for (WorldChunk chunk : worldChunkMap.values()) {
+        for (WorldChunk chunk : worldChunkDrawMap.values()) {
             chunk.renderBottomLayers(batch);
         }
     }
 
     public void renderDecorationLayer(Batch batch) {
-        for (WorldChunk chunk : worldChunkMap.values()) {
+        for (WorldChunk chunk : worldChunkDrawMap.values()) {
             chunk.renderDecorationLayer(batch);
         }
     }
 
     public void renderOverheadLayer(Batch batch) {
-        for (WorldChunk chunk : worldChunkMap.values()) {
+        for (WorldChunk chunk : worldChunkDrawMap.values()) {
             chunk.renderOverheadLayer(batch);
         }
     }
 
     void clearData() {
         // Remove world chunks from asset manager
-        for (WorldChunk worldChunk : worldChunkMap.values()) {
+        for (WorldChunk worldChunk : worldChunkDrawMap.values()) {
             ClientMain.getInstance().getFileManager().unloadMapChunkData(worldName, worldChunk.getChunkX(), worldChunk.getChunkY());
         }
 
         // Clear arrays and maps
-        worldChunkMap.clear();
+        worldChunkDrawMap.clear();
     }
 }

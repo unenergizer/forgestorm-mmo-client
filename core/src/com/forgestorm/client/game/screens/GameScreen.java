@@ -200,7 +200,7 @@ public class GameScreen implements Screen {
 
         // Render warp texture
         if (stageHandler.getWarpEditor() != null && stageHandler.getWarpEditor().isVisible()) {
-            for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkMap().values()) {
+            for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkDrawMap().values()) {
                 for (Map.Entry<WarpLocation, Warp> entry : worldChunk.getTileWarps().entrySet()) {
                     float fromX = entry.getKey().getFromX() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
                     float fromY = entry.getKey().getFromY() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
