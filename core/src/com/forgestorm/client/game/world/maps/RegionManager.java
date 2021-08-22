@@ -119,8 +119,8 @@ public class RegionManager {
         // Draw cords
         int drawX1 = regionToEdit.getWorld1X() * ClientConstants.TILE_SIZE;
         int drawY1 = regionToEdit.getWorld1Y() * ClientConstants.TILE_SIZE;
-        int drawX2 = regionToEdit.getWorld2X() * ClientConstants.TILE_SIZE;
-        int drawY2 = regionToEdit.getWorld2Y() * ClientConstants.TILE_SIZE;
+        int drawX2 = (regionToEdit.getWorld2X() + 1) * ClientConstants.TILE_SIZE;
+        int drawY2 = (regionToEdit.getWorld2Y() + 1) * ClientConstants.TILE_SIZE;
 
         // Select edge color
         // Right here we are assuming the center area is selected

@@ -64,7 +64,13 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
     @Override
     public Actor build(final StageHandler stageHandler) {
         TableUtils.setSpacingDefaults(this);
-        addCloseButton();
+        addCloseButton(new CloseButtonCallBack() {
+            @Override
+            public void closeButtonClicked() {
+                // Disable any world building tools when the window is closed
+                activateOtherButton();
+            }
+        });
         setResizable(true);
 
         final ImageBuilder imageBuilder = new ImageBuilder();
