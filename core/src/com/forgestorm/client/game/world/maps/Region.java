@@ -49,6 +49,14 @@ public class Region {
         this.world2Y = world2Y;
     }
 
+    public int getWidth() {
+        return 1 + world2X - world1X;
+    }
+
+    public int getHeight() {
+        return 1 + world2Y - world1Y;
+    }
+
     public boolean doesIntersect(int worldX, int worldY) {
         boolean intersectX = worldX >= world1X && worldX <= world2X;
         boolean intersectY = worldY >= world1Y && worldY <= world2Y;

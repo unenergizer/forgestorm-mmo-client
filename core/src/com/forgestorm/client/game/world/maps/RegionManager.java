@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
 
 import java.util.Map;
 
@@ -141,6 +142,10 @@ public class RegionManager {
         // Record last mouse location
         lastMouseX = mouseTileX;
         lastMouseY = mouseTileY;
+
+        // Update UI
+        RegionEditor regionEditor = ClientMain.getInstance().getStageHandler().getRegionEditor();
+        if (regionEditor != null && regionEditor.isVisible()) regionEditor.updateRegionInfo();
     }
 
     public void drawRegion(ShapeDrawer shapeDrawer, int drawX1, int drawY1, int drawX2, int drawY2, Color topColor, Color bottomColor, Color leftColor, Color rightColor) {
