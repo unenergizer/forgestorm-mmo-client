@@ -1,7 +1,9 @@
 package com.forgestorm.client.game.world.maps;
 
+import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 
 import lombok.Getter;
 
-public class Tile {
+public class Tile extends WorldObject {
 
     private final transient List<Integer> collisionParents = new ArrayList<Integer>(0);
     private final LayerDefinition layerDefinition;
@@ -28,6 +30,10 @@ public class Tile {
         this.worldName = worldName;
         this.worldX = worldX;
         this.worldY = worldY;
+
+        // Set the draw cords
+        this.setDrawX(worldX * ClientConstants.TILE_SIZE);
+        this.setDrawY(worldY * ClientConstants.TILE_SIZE);
     }
 
     public void setTileImage(TileImage tileImage) {

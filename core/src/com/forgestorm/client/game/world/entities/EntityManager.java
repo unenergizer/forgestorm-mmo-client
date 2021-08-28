@@ -3,7 +3,7 @@ package com.forgestorm.client.game.world.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.item.ItemStack;
+import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.io.type.GameAtlas;
 
 import java.util.HashMap;
@@ -110,29 +110,22 @@ public class EntityManager implements Disposable {
         playerClient.drawShadow(spriteBatch);
     }
 
-    public void drawEntities(float delta, SpriteBatch spriteBatch, PlayerClient playerClient) {
+    public void drawGroundEntities(float delta, SpriteBatch spriteBatch) {
         // Draw Items on ground
-        for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
-            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
-            spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
-        }
+//        for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
+//            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
+//            spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
+//        }
         // Draw over items
         for (StationaryEntity stationaryEntity : stationaryEntityList.values()) {
             spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getSingleBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
+    }
 
-        // Drawing entities and players over ItemStackDrops
-        // Putting both entity types into a collection to be sorted on the Y axis
-        PriorityQueue<MovingEntity> yAxisSortedEntities = new PriorityQueue<MovingEntity>();
-        yAxisSortedEntities.addAll(aiEntityList.values());
-        yAxisSortedEntities.addAll(playerEntityList.values());
-        yAxisSortedEntities.add(playerClient);
-
-        // Now draw all the entities on the screen
-        while (!yAxisSortedEntities.isEmpty()) {
-            MovingEntity movingEntity = yAxisSortedEntities.poll();
-            movingEntity.getEntityAnimation().animate(delta, spriteBatch);
-        }
+    public void getSortableEntities(PriorityQueue<WorldObject> worldObjectList) {
+        worldObjectList.addAll(itemStackDropList.values());
+        worldObjectList.addAll(aiEntityList.values());
+        worldObjectList.addAll(playerEntityList.values());
     }
 
     public void drawEntityNames() {

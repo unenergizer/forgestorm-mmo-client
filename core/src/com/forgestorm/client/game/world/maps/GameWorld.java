@@ -7,13 +7,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.io.ChunkLoader;
 import com.forgestorm.client.io.FileManager;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -223,5 +226,11 @@ public class GameWorld {
 
         // Clear arrays and maps
         worldChunkDrawMap.clear();
+    }
+
+    public void getSortableWorldObjects(PriorityQueue<WorldObject> worldObjectList) {
+        for (WorldChunk chunk : worldChunkDrawMap.values()) {
+            worldObjectList.addAll(Arrays.asList(chunk.getSortableTiles()));
+        }
     }
 }

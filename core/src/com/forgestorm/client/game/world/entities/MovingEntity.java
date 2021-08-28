@@ -22,7 +22,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MovingEntity extends Entity implements Comparable<MovingEntity> {
+public class MovingEntity extends Entity {
 
     /**
      * The exact tile location of the entity on the tile grid.
@@ -134,11 +134,6 @@ public class MovingEntity extends Entity implements Comparable<MovingEntity> {
 
     public void loadTextures(GameAtlas gameAtlas) {
         entityAnimation.loadAll(gameAtlas);
-    }
-
-    @Override
-    public int compareTo(MovingEntity o) {
-        return (int) (o.getDrawY() - this.getDrawY());
     }
 
     /**

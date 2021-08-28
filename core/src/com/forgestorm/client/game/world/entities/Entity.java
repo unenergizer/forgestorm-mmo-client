@@ -2,6 +2,7 @@ package com.forgestorm.client.game.world.entities;
 
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
 
@@ -10,7 +11,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Entity {
+public class Entity extends WorldObject {
 
     private EntityType entityType;
 
@@ -33,11 +34,6 @@ public class Entity {
      * The world this entity was last seen on.
      */
     private String worldName;
-
-    /**
-     * The actual sprite position on the screen.
-     */
-    private float drawX, drawY;
 
     /**
      * The appearance of the entity.

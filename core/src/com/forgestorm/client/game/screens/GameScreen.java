@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
@@ -22,19 +23,27 @@ import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
+import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.entities.EntityManager;
+import com.forgestorm.client.game.world.entities.ItemStackDrop;
+import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.Tile;
+import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WarpLocation;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.io.FileManager;
+import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GraphicsUtils;
 import com.forgestorm.client.util.PixmapUtil;
 
 import java.util.Map;
+import java.util.PriorityQueue;
 
 import lombok.Getter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -186,11 +195,52 @@ public class GameScreen implements Screen {
         spriteBatch.setProjectionMatrix(camera.combined);
 
         EntityManager.getInstance().drawEntityShadows(spriteBatch);
+        EntityManager.getInstance().drawGroundEntities(delta, spriteBatch);
+
+        //////////////////////////////////////////////////
+        //// -------- COLLECT WORLD OBJECTS -------- /////
+        //////////////////////////////////////////////////
+        PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<WorldObject>();
+
+        getGameMap().getSortableWorldObjects(ySortedWorldObjects);
+        EntityManager.getInstance().getSortableEntities(ySortedWorldObjects);
+        ySortedWorldObjects.add(playerClient);
+
+        //////////////////////////////////////////////////////
+        //// -------- SORT & DRAW WORLD OBJECTS -------- /////
+        //////////////////////////////////////////////////////
+        while (!ySortedWorldObjects.isEmpty()) {
+            WorldObject worldObject = ySortedWorldObjects.poll();
+
+            if (worldObject instanceof MovingEntity) {
+                ((MovingEntity) worldObject).getEntityAnimation().animate(delta, spriteBatch);
+            } else if (worldObject instanceof ItemStackDrop) {
+                ItemStackDrop itemStackDrop = (ItemStackDrop) worldObject;
+                ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
+                spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY(), 8, 8);
+            } else if (worldObject instanceof Tile) {
+
+                Tile tile = (Tile) worldObject;
+                TileImage tileImage = tile.getTileImage();
+                if (tileImage == null) continue;
+
+                FileManager fileManager = ClientMain.getInstance().getFileManager();
+                TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
+                TextureRegion textureRegion = atlas.findRegion(tileImage.getAnimationFrame().getFileName());
+
+                final float TILE_SIZE_FIX = 0.005F;
+                spriteBatch.draw(textureRegion,
+                        tile.getDrawX(),
+                        tile.getDrawY(),
+                        textureRegion.getRegionWidth() + TILE_SIZE_FIX,
+                        textureRegion.getRegionHeight() + TILE_SIZE_FIX);
+            }
+        }
+        //////////////////////////////////////////////////////////
+        //// -------- END SORT & DRAW WORLD OBJECTS -------- /////
+        //////////////////////////////////////////////////////////
 
         getGameMap().renderDecorationLayer(spriteBatch);
-
-        // Drawing all entities. Ground items, moving entities, ect...
-        EntityManager.getInstance().drawEntities(delta, spriteBatch, playerClient);
 
         // Draw damage animations
         ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);

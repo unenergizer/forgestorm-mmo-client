@@ -151,8 +151,11 @@ public class WorldChunk {
     }
 
     void renderDecorationLayer(Batch batch) {
-        renderLayer(LayerDefinition.COLLIDABLES, batch);
         renderLayer(LayerDefinition.WALL_DECORATION, batch);
+    }
+
+    Tile[] getSortableTiles() {
+        return layers.get(LayerDefinition.COLLIDABLES);
     }
 
     void renderOverheadLayer(Batch batch) {
