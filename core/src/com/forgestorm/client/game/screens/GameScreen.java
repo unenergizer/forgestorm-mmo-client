@@ -245,9 +245,6 @@ public class GameScreen implements Screen {
         // Draw damage animations
         ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
 
-        // Render overhead layer here
-        getGameMap().renderOverheadLayer(spriteBatch);
-
         // Render warp texture
         if (stageHandler.getWarpEditor() != null && stageHandler.getWarpEditor().isVisible()) {
             for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkDrawMap().values()) {
@@ -276,6 +273,9 @@ public class GameScreen implements Screen {
 
         // Draw Level up messages
         playerClient.drawLevelUpMessage();
+
+        // Render overhead layer here
+        getGameMap().renderOverheadLayer(spriteBatch);
 
         // Draw mouse
         MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
