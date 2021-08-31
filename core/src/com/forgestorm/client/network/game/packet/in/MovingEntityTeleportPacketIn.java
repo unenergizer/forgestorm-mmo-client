@@ -15,8 +15,12 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 
 import lombok.AllArgsConstructor;
 
+import static com.forgestorm.client.util.Log.println;
+
 @Opcode(getOpcode = Opcodes.PLAYER_TELEPORT)
 public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntityTeleportPacketIn.MovingEntityTeleportPacket> {
+
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -25,9 +29,15 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
         final String worldName = clientHandler.readString();
         final int x = clientHandler.readInt();
         final int y = clientHandler.readInt();
+        final short worldZ = clientHandler.readShort();
         final byte facingDirection = clientHandler.readByte();
 
-        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(worldName, x, y), MoveDirection.getDirection(facingDirection));
+        println(getClass(), "World: " + worldName, false, PRINT_DEBUG);
+        println(getClass(), "x: " + x, false, PRINT_DEBUG);
+        println(getClass(), "y: " + y, false, PRINT_DEBUG);
+        println(getClass(), "worldZ: " + worldZ, false, PRINT_DEBUG);
+
+        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(worldName, x, y, worldZ), MoveDirection.getDirection(facingDirection));
     }
 
     @Override

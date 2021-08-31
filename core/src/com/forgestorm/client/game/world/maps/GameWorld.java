@@ -124,14 +124,14 @@ public class GameWorld {
         worldChunkDrawMap.remove((chunkX << 16) | (chunkY & 0xFFFF));
     }
 
-    public Tile getTile(LayerDefinition layerDefinition, int worldX, int worldY) {
+    public Tile getTile(LayerDefinition layerDefinition, int worldX, int worldY, short worldZ) {
         WorldChunk worldChunk = findChunk(worldX, worldY);
         if (worldChunk == null) return null;
 
         int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
         int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        return worldChunk.getTile(layerDefinition, localX, localY);
+        return worldChunk.getTile(layerDefinition, localX, localY, Floors.getFloor(worldZ));
     }
 
     Warp getWarp(int entityX, int entityY) {
@@ -198,23 +198,29 @@ public class GameWorld {
                 Gdx.graphics.getHeight() + parallaxBackground.getHeight() * 2);
     }
 
-    public void renderBottomLayers(Batch batch) {
+    public void renderBottomLayers(Batch batch, Floors floor) {
         // TODO: Check against camera before trying to render
         // Render layer from most bottom, going up.
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
-            chunk.renderBottomLayers(batch);
+            chunk.renderBottomLayers(batch, floor);
         }
     }
 
-    public void renderDecorationLayer(Batch batch) {
+    public void renderDecorationLayer(Batch batch, Floors floor) {
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
-            chunk.renderDecorationLayer(batch);
+            chunk.renderDecorationLayer(batch, floor);
         }
     }
 
-    public void renderOverheadLayer(Batch batch) {
+    public void renderOverheadLayer(Batch batch, Floors floor) {
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
-            chunk.renderOverheadLayer(batch);
+            chunk.renderOverheadLayer(batch, floor);
+        }
+    }
+
+    public void getSortableWorldObjects(PriorityQueue<WorldObject> worldObjectList, Floors floor) {
+        for (WorldChunk chunk : worldChunkDrawMap.values()) {
+            worldObjectList.addAll(Arrays.asList(chunk.getSortableTiles(floor)));
         }
     }
 
@@ -226,11 +232,5 @@ public class GameWorld {
 
         // Clear arrays and maps
         worldChunkDrawMap.clear();
-    }
-
-    public void getSortableWorldObjects(PriorityQueue<WorldObject> worldObjectList) {
-        for (WorldChunk chunk : worldChunkDrawMap.values()) {
-            worldObjectList.addAll(Arrays.asList(chunk.getSortableTiles()));
-        }
     }
 }

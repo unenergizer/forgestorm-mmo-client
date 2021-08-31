@@ -49,6 +49,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entitySpawnPacket.setEntityName(clientHandler.readString());
         entitySpawnPacket.setTileX(clientHandler.readInt());
         entitySpawnPacket.setTileY(clientHandler.readInt());
+        entitySpawnPacket.setWorldZ(clientHandler.readShort());
 
         switch (entityType) {
             case SKILL_NODE:
@@ -75,7 +76,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     String worldName = clientHandler.readString();
                     int x = clientHandler.readInt();
                     int y = clientHandler.readInt();
-                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y));
+                    short worldZ = clientHandler.readShort();
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y, worldZ));
                 }
 
                 entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
@@ -102,7 +104,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     String worldName = clientHandler.readString();
                     int x = clientHandler.readInt();
                     int y = clientHandler.readInt();
-                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y));
+                    short worldZ = clientHandler.readShort();
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y, worldZ));
                 }
 
                 entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
@@ -178,7 +181,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setServerEntityID(packetData.entityId);
         entity.setEntityName(packetData.entityName);
         entity.setWorldName(worldName);
-        entity.setCurrentMapLocation(new Location(entity.getWorldName(), packetData.tileX, packetData.tileY));
+        entity.setCurrentMapLocation(new Location(entity.getWorldName(), packetData.tileX, packetData.tileY, packetData.worldZ));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
 
@@ -189,6 +192,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         println(getClass(), "worldName: NULL?", false, PRINT_DEBUG);
         println(getClass(), "tileX: " + packetData.tileX, false, PRINT_DEBUG);
         println(getClass(), "tileY: " + packetData.tileY, false, PRINT_DEBUG);
+        println(getClass(), "worldZ: " + packetData.worldZ, false, PRINT_DEBUG);
         println(getClass(), "directional Byte: " + packetData.moveDirection, false, PRINT_DEBUG);
         println(getClass(), "move speed: " + packetData.moveSpeed, false, PRINT_DEBUG);
         println(getClass(), "MaxHP: " + packetData.maxHealth, false, PRINT_DEBUG);
@@ -373,7 +377,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData, String worldName) {
-        entity.setFutureMapLocation(new Location(worldName, packetData.tileX, packetData.tileY));
+        entity.setFutureMapLocation(new Location(worldName, packetData.tileX, packetData.tileY, packetData.worldZ));
         MoveDirection facingDirection = packetData.moveDirection;
 
         if (facingDirection == MoveDirection.NONE) {
@@ -412,6 +416,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         private String entityName;
         private int tileX;
         private int tileY;
+        private short worldZ;
         private MoveDirection moveDirection;
         private float moveSpeed;
         private int maxHealth;

@@ -33,11 +33,12 @@ public class WorldUtil {
      *
      * @param entityX The X grid coordinate a entity is attempting to playerMove to.
      * @param entityY The Y grid coordinate a entity is attempting to playerMove to.
+     * @param worldZ  The Z axis an entity is already on.
      * @return True if the tile/coordinate is a door. False otherwise.
      */
-    public static boolean isDoor(int entityX, int entityY) {
+    public static boolean isDoor(int entityX, int entityY, short worldZ) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        Tile tile = gameWorld.getTile(LayerDefinition.COLLIDABLES, entityX, entityY);
+        Tile tile = gameWorld.getTile(LayerDefinition.COLLIDABLES, entityX, entityY, worldZ);
         if (tile == null) return false;
         if (tile.getTileImage() == null) return false;
         return tile.getTileImage().containsProperty(TilePropertyTypes.DOOR);

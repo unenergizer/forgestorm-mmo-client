@@ -18,7 +18,7 @@ public abstract class AbstractWangTile {
      * @param x            The X coordinate that needs to be updated.
      * @param y            The Y coordinate that needs to be updated.
      */
-    public abstract void updateAroundTile(LayerDefinition currentLayer, int x, int y);
+    public abstract void updateAroundTile(LayerDefinition currentLayer, int x, int y, short z);
 
     /**
      * An implementation used to calculate what tile is
@@ -32,7 +32,7 @@ public abstract class AbstractWangTile {
      * @return A index total used to see what image needs
      * to be used.
      */
-    public abstract int autoTile(LayerDefinition currentLayer, int x, int y);
+    public abstract int autoTile(LayerDefinition currentLayer, int x, int y, short z);
 
     /**
      * Updates a specific tile as specified.
@@ -42,10 +42,9 @@ public abstract class AbstractWangTile {
      * @param worldX       The world X location.
      * @param worldY       The world Y location.
      */
-    protected void updateTile(LayerDefinition currentLayer, int autoTileID, int worldX, int worldY) {
+    protected void updateTile(LayerDefinition currentLayer, int autoTileID, int worldX, int worldY, short worldZ) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-
-        Tile tile = gameWorld.getTile(currentLayer, worldX, worldY);
+        Tile tile = gameWorld.getTile(currentLayer, worldX, worldY, worldZ);
         if (tile == null) return;
 
         TileImage currentTileImage = tile.getTileImage();
@@ -69,8 +68,7 @@ public abstract class AbstractWangTile {
         }
 
         // Set new tile image
-        worldBuilder.placeTile(currentLayer, autoTileImage.getImageId(), worldX, worldY, true
-        );
+        worldBuilder.placeTile(currentLayer, autoTileImage.getImageId(), worldX, worldY, worldZ, true);
     }
 
     /**
@@ -89,12 +87,12 @@ public abstract class AbstractWangTile {
      * @param currentLayer The layer we are tiling on.
      * @param worldX       The world X location.
      * @param worldY       The world Y location.
+     * @param worldZ       The world Z location.
      * @return True if the tile type is the same or False if it is not.
      */
-    protected boolean detectSameTileType(LayerDefinition currentLayer, int worldX, int worldY) {
+    protected boolean detectSameTileType(LayerDefinition currentLayer, int worldX, int worldY, short worldZ) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-
-        Tile tile = gameWorld.getTile(currentLayer, worldX, worldY);
+        Tile tile = gameWorld.getTile(currentLayer, worldX, worldY, worldZ);
         if (tile == null) return false;
 
         TileImage tileImage = tile.getTileImage();

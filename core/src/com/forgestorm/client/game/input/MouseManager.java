@@ -257,7 +257,11 @@ public class MouseManager {
         if (regionManager.isEditRegion()) return;
 
         // Click to walk path finding
-        ClientMain.getInstance().getEntityTracker().walkTo(getLeftClickTileX(), getLeftClickTileY(), false);
+        ClientMain.getInstance().getEntityTracker().walkTo(
+                getLeftClickTileX(),
+                getLeftClickTileY(),
+                EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getZ(),
+                false);
     }
 
     private void middle(final int screenX, final int screenY) {

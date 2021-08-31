@@ -22,16 +22,18 @@ public class TileWarpPacketIn implements PacketListener<TileWarpPacketIn.ChunkWa
     public PacketData decodePacket(ClientHandler clientHandler) {
         boolean clearWarps = clientHandler.readBoolean();
 
-        short fromX = clientHandler.readShort();
-        short fromY = clientHandler.readShort();
+        int fromX = clientHandler.readInt();
+        int fromY = clientHandler.readInt();
+        short fromZ = clientHandler.readShort();
 
         String worldName = clientHandler.readString();
         int toX = clientHandler.readInt();
         int toY = clientHandler.readInt();
+        short toZ = clientHandler.readShort();
         byte facingDirection = clientHandler.readByte();
-        Warp warp = new Warp(new Location(worldName, toX, toY), MoveDirection.getDirection(facingDirection));
+        Warp warp = new Warp(new Location(worldName, toX, toY, toZ), MoveDirection.getDirection(facingDirection));
 
-        return new ChunkWarpDataPacket(clearWarps, new WarpLocation(fromX, fromY), warp);
+        return new ChunkWarpDataPacket(clearWarps, new WarpLocation(fromX, fromY, fromZ), warp);
     }
 
     @Override

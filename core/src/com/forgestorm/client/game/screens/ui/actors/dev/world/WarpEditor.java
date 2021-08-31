@@ -7,6 +7,7 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.network.game.packet.out.TileWarpPacketOut;
@@ -21,9 +22,11 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
 
     private final VisValidatableTextField fromWorldX = new VisValidatableTextField();
     private final VisValidatableTextField fromWorldY = new VisValidatableTextField();
+    private final VisSelectBox<Floors> fromWorldZ = new VisSelectBox<Floors>();
     private final VisValidatableTextField toWorldName = new VisValidatableTextField();
     private final VisValidatableTextField toWorldX = new VisValidatableTextField();
     private final VisValidatableTextField toWorldY = new VisValidatableTextField();
+    private final VisSelectBox<Floors> toWorldZ = new VisSelectBox<Floors>();
     private final VisSelectBox<MoveDirection> facingDirection = new VisSelectBox<MoveDirection>();
 
     public WarpEditor() {
@@ -63,9 +66,11 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
                     new TileWarpPacketOut(
                             Integer.parseInt(fromWorldX.getText()),
                             Integer.parseInt(fromWorldY.getText()),
+                            fromWorldZ.getSelected().getWorldZ(),
                             toWorldName.getText(),
                             Integer.parseInt(toWorldX.getText()),
                             Integer.parseInt(toWorldY.getText()),
+                            toWorldZ.getSelected().getWorldZ(),
                             facingDirection.getSelected()).sendPacket();
                     resetFields();
                     errorLabel.setText("[GREEN]Sent warp data to server!");
@@ -85,16 +90,23 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
 
         // Map location warp field exists at
         VisTable fromTable = new VisTable();
+        fromWorldZ.setItems(Floors.values());
+        fromWorldZ.setSelected(Floors.GROUND_FLOOR);
+
         fromTable.add(new VisLabel("From Location: ")).colspan(2).row();
         fromTable.add(new VisLabel("X: "));
         fromTable.add(fromWorldX).row();
         fromTable.add(new VisLabel("Y: "));
         fromTable.add(fromWorldY).row();
+        fromTable.add(new VisLabel("Z: "));
+        fromTable.add(fromWorldZ).row();
         contentTable.add(fromTable).row();
 
         // Location to go to when player enters the warp
         // x, y, map name, facing direction
         VisTable toTable = new VisTable();
+        toWorldZ.setItems(Floors.values());
+        toWorldZ.setSelected(Floors.GROUND_FLOOR);
         facingDirection.setItems(MoveDirection.values());
         facingDirection.setSelected(MoveDirection.NONE);
 
@@ -105,6 +117,8 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
         toTable.add(toWorldX).row();
         toTable.add(new VisLabel("Y: "));
         toTable.add(toWorldY).row();
+        toTable.add(new VisLabel("Z: "));
+        toTable.add(toWorldZ).row();
         toTable.add(new VisLabel("Facing: "));
         toTable.add(facingDirection).row();
         contentTable.add(toTable).row();

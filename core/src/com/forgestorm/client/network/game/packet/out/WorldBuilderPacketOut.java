@@ -13,18 +13,21 @@ public class WorldBuilderPacketOut extends AbstractClientPacketOut {
     private final LayerDefinition layerDefinition;
     private final int textureId;
     private final int tileX, tileY;
+    private final short worldZ;
 
-    public WorldBuilderPacketOut(LayerDefinition layerDefinition, int textureId, int tileX, int tileY) {
+    public WorldBuilderPacketOut(LayerDefinition layerDefinition, int textureId, int tileX, int tileY, short worldZ) {
         super(Opcodes.WORLD_BUILDER);
         this.layerDefinition = layerDefinition;
         this.textureId = textureId;
         this.tileX = tileX;
         this.tileY = tileY;
+        this.worldZ = worldZ;
 
         println(getClass(), "LayerDefinition: " + layerDefinition, false, PRINT_DEBUG);
         println(getClass(), "textureId: " + textureId, false, PRINT_DEBUG);
         println(getClass(), "tileX: " + tileX, false, PRINT_DEBUG);
         println(getClass(), "tileY: " + tileY, false, PRINT_DEBUG);
+        println(getClass(), "worldZ: " + worldZ, false, PRINT_DEBUG);
     }
 
     @Override
@@ -33,5 +36,6 @@ public class WorldBuilderPacketOut extends AbstractClientPacketOut {
         write.writeInt(textureId);
         write.writeInt(tileX);
         write.writeInt(tileY);
+        write.writeShort(worldZ);
     }
 }

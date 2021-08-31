@@ -15,6 +15,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.FirstInteraction;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
@@ -58,6 +59,7 @@ public class MonsterTab extends EditorTab {
     private final VisValidatableTextField worldName = new VisValidatableTextField();
     private final VisValidatableTextField mapX = new VisValidatableTextField();
     private final VisValidatableTextField mapY = new VisValidatableTextField();
+    private final VisSelectBox<Floors> mapZ = new VisSelectBox<Floors>();
     private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
@@ -98,6 +100,7 @@ public class MonsterTab extends EditorTab {
         worldName.setText("");
         mapX.setText("");
         mapY.setText("");
+        mapZ.setSelected(Floors.GROUND_FLOOR);
 
         deleteButton.setDisabled(true);
 
@@ -125,6 +128,7 @@ public class MonsterTab extends EditorTab {
         worldName.setText(aiEntity.getDefaultSpawnLocation().getWorldName());
         mapX.setText(Integer.toString(aiEntity.getDefaultSpawnLocation().getX()));
         mapY.setText(Integer.toString(aiEntity.getDefaultSpawnLocation().getY()));
+        mapZ.setSelected(Floors.getFloor(aiEntity.getDefaultSpawnLocation().getZ()));
 
         // Load Appearance
         appearanceTable.clear();
@@ -277,6 +281,12 @@ public class MonsterTab extends EditorTab {
         mapYTable.add(mapY).pad(1);
         leftPane.add(mapYTable).expandX().fillX().pad(1).row();
 
+        VisTable mapZTable = new VisTable();
+        mapZ.setItems(Floors.values());
+        mapZTable.add(new VisLabel("Spawn Z:")).grow().pad(1);
+        mapZTable.add(mapZ).pad(1);
+        leftPane.add(mapZTable).expandX().fillX().pad(1).row();
+
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
         VisTextButton textButton = new VisTextButton("Print Details to Console");
@@ -300,7 +310,7 @@ public class MonsterTab extends EditorTab {
                 println(MonsterTab.class, "Probability Walk: " + probWalk.getValue());
                 println(MonsterTab.class, "ShopID: " + shopId.getText());
                 println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
-                println(MonsterTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
+                println(MonsterTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText() + ", Z: " + mapZ.getSelected().getWorldZ());
                 println(MonsterTab.class, "--- Appearance ---");
 
                 appearancePanel.printDebug();
@@ -377,7 +387,8 @@ public class MonsterTab extends EditorTab {
         Location location = new Location(
                 worldName.getText(),
                 Integer.parseInt(mapX.getText()),
-                Integer.parseInt(mapY.getText()));
+                Integer.parseInt(mapY.getText()),
+                mapZ.getSelected().getWorldZ());
 
         EntityEditorData entityEditorData = new MonsterData(true, save, delete, location, entityIDNum);
 

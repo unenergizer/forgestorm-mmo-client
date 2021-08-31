@@ -23,8 +23,9 @@ public class DoorInteractPacketIn implements PacketListener<DoorInteractPacketIn
         byte doorStatus = clientHandler.readByte();
         int tileX = clientHandler.readInt();
         int tileY = clientHandler.readInt();
+        short worldZ = clientHandler.readShort();
 
-        return new DoorStatusPacket(DoorManager.DoorStatus.getDoorStatus(doorStatus), tileX, tileY);
+        return new DoorStatusPacket(DoorManager.DoorStatus.getDoorStatus(doorStatus), tileX, tileY, worldZ);
     }
 
     @Override
@@ -32,14 +33,16 @@ public class DoorInteractPacketIn implements PacketListener<DoorInteractPacketIn
         println(getClass(), "DoorStatus: " + packetData.doorStatus, false, PRINT_DEBUG);
         println(getClass(), "TileX: " + packetData.tileX, false, PRINT_DEBUG);
         println(getClass(), "TileY: " + packetData.tileY, false, PRINT_DEBUG);
+        println(getClass(), "TileZ: " + packetData.worldZ, false, PRINT_DEBUG);
 
-        ClientMain.getInstance().getDoorManager().networkToggleDoor(packetData.doorStatus, packetData.tileX, packetData.tileY);
+        ClientMain.getInstance().getDoorManager().networkToggleDoor(packetData.doorStatus, packetData.tileX, packetData.tileY, packetData.worldZ);
     }
 
     @AllArgsConstructor
-    class DoorStatusPacket extends PacketData {
+    static class DoorStatusPacket extends PacketData {
         private final DoorManager.DoorStatus doorStatus;
         private final int tileX;
         private final int tileY;
+        private final short worldZ;
     }
 }

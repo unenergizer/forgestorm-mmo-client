@@ -29,6 +29,7 @@ import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.item.ItemStack;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileImage;
@@ -187,95 +188,104 @@ public class GameScreen implements Screen {
         camera.update();
 
         spriteBatch.begin();
+        spriteBatch.setProjectionMatrix(camera.combined);
 
         getGameMap().drawParallax(spriteBatch);
 
-        getGameMap().renderBottomLayers(spriteBatch);
+        // Loop the floors in reverse (bottom floor first, top floor last)
+        Floors[] values = Floors.values();
+        for (int i = values.length - 1; i >= 0; i--) {
+            Floors floor = values[i];
 
-        spriteBatch.setProjectionMatrix(camera.combined);
+            getGameMap().renderBottomLayers(spriteBatch, floor);
 
-        EntityManager.getInstance().drawEntityShadows(spriteBatch);
-        EntityManager.getInstance().drawGroundEntities(delta, spriteBatch);
+            EntityManager.getInstance().drawEntityShadows(spriteBatch, floor);
+            EntityManager.getInstance().drawGroundEntities(spriteBatch);
 
-        //////////////////////////////////////////////////
-        //// -------- COLLECT WORLD OBJECTS -------- /////
-        //////////////////////////////////////////////////
-        PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<WorldObject>();
+            //////////////////////////////////////////////////
+            //// -------- COLLECT WORLD OBJECTS -------- /////
+            //////////////////////////////////////////////////
+            // TODO : Possibly do not recreate this object ever frame...
+            PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<WorldObject>();
 
-        getGameMap().getSortableWorldObjects(ySortedWorldObjects);
-        EntityManager.getInstance().getSortableEntities(ySortedWorldObjects);
-        ySortedWorldObjects.add(playerClient);
+            getGameMap().getSortableWorldObjects(ySortedWorldObjects, floor);
+            EntityManager.getInstance().getSortableEntities(ySortedWorldObjects);
+            ySortedWorldObjects.add(playerClient);
 
-        //////////////////////////////////////////////////////
-        //// -------- SORT & DRAW WORLD OBJECTS -------- /////
-        //////////////////////////////////////////////////////
-        while (!ySortedWorldObjects.isEmpty()) {
-            WorldObject worldObject = ySortedWorldObjects.poll();
+            //////////////////////////////////////////////////////
+            //// -------- SORT & DRAW WORLD OBJECTS -------- /////
+            //////////////////////////////////////////////////////
+            while (!ySortedWorldObjects.isEmpty()) {
+                WorldObject worldObject = ySortedWorldObjects.poll();
 
-            if (worldObject instanceof MovingEntity) {
-                ((MovingEntity) worldObject).getEntityAnimation().animate(delta, spriteBatch);
-            } else if (worldObject instanceof ItemStackDrop) {
-                ItemStackDrop itemStackDrop = (ItemStackDrop) worldObject;
-                ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
-                spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY(), 8, 8);
-            } else if (worldObject instanceof Tile) {
+                if (worldObject instanceof MovingEntity) {
+                    MovingEntity movingEntity = (MovingEntity) worldObject;
+                    if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+                    movingEntity.getEntityAnimation().animate(delta, spriteBatch);
+                } else if (worldObject instanceof ItemStackDrop) {
+                    ItemStackDrop itemStackDrop = (ItemStackDrop) worldObject;
+                    if (itemStackDrop.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+                    ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
+                    spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY(), 8, 8);
+                } else if (worldObject instanceof Tile) {
 
-                Tile tile = (Tile) worldObject;
-                TileImage tileImage = tile.getTileImage();
-                if (tileImage == null) continue;
+                    Tile tile = (Tile) worldObject;
+                    TileImage tileImage = tile.getTileImage();
+                    if (tileImage == null) continue;
 
-                FileManager fileManager = ClientMain.getInstance().getFileManager();
-                TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
-                TextureRegion textureRegion = atlas.findRegion(tileImage.getAnimationFrame().getFileName());
+                    FileManager fileManager = ClientMain.getInstance().getFileManager();
+                    TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
+                    TextureRegion textureRegion = atlas.findRegion(tileImage.getAnimationFrame().getFileName());
 
-                final float TILE_SIZE_FIX = 0.005F;
-                spriteBatch.draw(textureRegion,
-                        tile.getDrawX(),
-                        tile.getDrawY(),
-                        textureRegion.getRegionWidth() + TILE_SIZE_FIX,
-                        textureRegion.getRegionHeight() + TILE_SIZE_FIX);
-            }
-        }
-        //////////////////////////////////////////////////////////
-        //// -------- END SORT & DRAW WORLD OBJECTS -------- /////
-        //////////////////////////////////////////////////////////
-
-        getGameMap().renderDecorationLayer(spriteBatch);
-
-        // Draw damage animations
-        ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
-
-        // Render warp texture
-        if (stageHandler.getWarpEditor() != null && stageHandler.getWarpEditor().isVisible()) {
-            for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkDrawMap().values()) {
-                for (Map.Entry<WarpLocation, Warp> entry : worldChunk.getTileWarps().entrySet()) {
-                    float fromX = entry.getKey().getFromX() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
-                    float fromY = entry.getKey().getFromY() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
-                    float toX = entry.getValue().getWarpDestination().getX() * ClientConstants.TILE_SIZE;
-                    float toY = entry.getValue().getWarpDestination().getY() * ClientConstants.TILE_SIZE;
-                    spriteBatch.draw(warpTileLocationTexture, fromX, fromY);
-                    spriteBatch.draw(warpTileLocationTexture, toX, toY);
+                    final float TILE_SIZE_FIX = 0.005F;
+                    spriteBatch.draw(textureRegion,
+                            tile.getDrawX(),
+                            tile.getDrawY(),
+                            textureRegion.getRegionWidth() + TILE_SIZE_FIX,
+                            textureRegion.getRegionHeight() + TILE_SIZE_FIX);
                 }
             }
+            //////////////////////////////////////////////////////////
+            //// -------- END SORT & DRAW WORLD OBJECTS -------- /////
+            //////////////////////////////////////////////////////////
+
+            getGameMap().renderDecorationLayer(spriteBatch, floor);
+
+            // Draw damage animations
+            ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
+
+            // Render warp texture
+            if (stageHandler.getWarpEditor() != null && stageHandler.getWarpEditor().isVisible()) {
+                for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkDrawMap().values()) {
+                    for (Map.Entry<WarpLocation, Warp> entry : worldChunk.getTileWarps().entrySet()) {
+                        float fromX = entry.getKey().getFromX() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
+                        float fromY = entry.getKey().getFromY() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
+                        float toX = entry.getValue().getWarpDestination().getX() * ClientConstants.TILE_SIZE;
+                        float toY = entry.getValue().getWarpDestination().getY() * ClientConstants.TILE_SIZE;
+                        spriteBatch.draw(warpTileLocationTexture, fromX, fromY);
+                        spriteBatch.draw(warpTileLocationTexture, toX, toY);
+                    }
+                }
+            }
+
+            // Draw Names
+            EntityManager.getInstance().drawEntityNames(floor);
+            playerClient.drawEntityName();
+
+            // Draw HP Bar
+            EntityManager.getInstance().drawHealthBar(floor);
+            playerClient.drawEntityHpBar();
+
+            // Draw damage indicators
+            EntityManager.getInstance().drawDamageNumbers(floor);
+            playerClient.drawFloatingNumbers();
+
+            // Draw Level up messages
+            playerClient.drawLevelUpMessage();
+
+            // Render overhead layer here
+            getGameMap().renderOverheadLayer(spriteBatch, floor);
         }
-
-        // Draw Names
-        EntityManager.getInstance().drawEntityNames();
-        playerClient.drawEntityName();
-
-        // Draw HP Bar
-        EntityManager.getInstance().drawHealthBar();
-        playerClient.drawEntityHpBar();
-
-        // Draw damage indicators
-        EntityManager.getInstance().drawDamageNumbers();
-        playerClient.drawFloatingNumbers();
-
-        // Draw Level up messages
-        playerClient.drawLevelUpMessage();
-
-        // Render overhead layer here
-        getGameMap().renderOverheadLayer(spriteBatch);
 
         // Draw mouse
         MouseManager mouseManager = ClientMain.getInstance().getMouseManager();

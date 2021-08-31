@@ -32,6 +32,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
         write.writeString(entityEditorData.getSpawnLocation().getWorldName());
         write.writeInt(entityEditorData.getSpawnLocation().getX());
         write.writeInt(entityEditorData.getSpawnLocation().getY());
+        write.writeShort(entityEditorData.getSpawnLocation().getZ());
 
         write.writeShort(entityEditorData.getEntityID());
 

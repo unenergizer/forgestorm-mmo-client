@@ -75,7 +75,7 @@ public class ClientPlayerMovementManager {
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         GameWorld gameWorld = playerClient.getGameMap();
         Location currentLocation = playerClient.getCurrentMapLocation();
-        Location futureLocation = new Location(playerClient.getWorldName(), nextNode.getWorldX(), nextNode.getWorldY());
+        Location futureLocation = new Location(playerClient.getWorldName(), nextNode.getWorldX(), nextNode.getWorldY(), currentLocation.getZ());
         playerClient.setFutureMapLocation(futureLocation);
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentLocation, futureLocation);
 

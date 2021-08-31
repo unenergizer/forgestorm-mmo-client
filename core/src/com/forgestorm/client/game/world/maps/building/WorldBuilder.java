@@ -11,6 +11,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTi
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile4Bit;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileAnimation;
@@ -42,6 +43,9 @@ public class WorldBuilder {
     private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
     @Setter
     private Integer currentTextureId = null;
+
+    @Setter
+    private Floors currentWorkingFloor = Floors.GROUND_FLOOR;
 
     @Setter
     private boolean useEraser = false;
@@ -188,10 +192,10 @@ public class WorldBuilder {
             Integer autoTileID = null;
             switch (wangType) {
                 case TYPE_16:
-                    autoTileID = wangTile16.autoTile(currentLayer, worldX, worldY);
+                    autoTileID = wangTile16.autoTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
                     break;
                 case TYPE_48:
-                    autoTileID = wangTile48.autoTile(currentLayer, worldX, worldY);
+                    autoTileID = wangTile48.autoTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
                     break;
             }
 
@@ -202,26 +206,27 @@ public class WorldBuilder {
             System.out.println("TileImage: " + tileImage.getImageId());
             System.out.println("worldX: " + worldX);
             System.out.println("worldY: " + worldY);
+            System.out.println("worldZ: " + currentWorkingFloor.getWorldZ());
 
-            placeTile(currentLayer, tileImage.getImageId(), worldX, worldY, true);
+            placeTile(currentLayer, tileImage.getImageId(), worldX, worldY, currentWorkingFloor.getWorldZ(), true);
 
             switch (wangType) {
                 case TYPE_16:
-                    wangTile16.updateAroundTile(currentLayer, worldX, worldY);
+                    wangTile16.updateAroundTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
                     break;
                 case TYPE_48:
-                    wangTile48.updateAroundTile(currentLayer, worldX, worldY);
+                    wangTile48.updateAroundTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
                     break;
             }
         } else {
             // BUILDING USING DRAW BRUSH, USE USER SELECTED TILE!
-            placeTile(currentLayer, currentTextureId, worldX, worldY, true);
+            placeTile(currentLayer, currentTextureId, worldX, worldY, currentWorkingFloor.getWorldZ(), true);
         }
     }
 
-    public void placeTile(LayerDefinition layerDefinition, Integer textureId, int worldX, int worldY, boolean sendPacket) {
+    public void placeTile(LayerDefinition layerDefinition, Integer textureId, int worldX, int worldY, short worldZ, boolean sendPacket) {
         GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
-        Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY);
+        Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY, worldZ);
 
         if (tile == null) return;
 
@@ -234,7 +239,7 @@ public class WorldBuilder {
         }
 
         if (sendPacket) {
-            new WorldBuilderPacketOut(currentLayer, textureId, worldX, worldY).sendPacket();
+            new WorldBuilderPacketOut(currentLayer, textureId, worldX, worldY, worldZ).sendPacket();
         }
     }
 

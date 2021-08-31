@@ -14,17 +14,20 @@ public class Location {
     private String worldName;
     private int x;
     private int y;
+    private short z;
 
-    public Location(String worldName, int x, int y) {
+    public Location(String worldName, int x, int y, short z) {
         this.worldName = worldName;
         this.x = x;
         this.y = y;
+        this.z = z;
     }
 
     public Location(Location location) {
         this.worldName = location.worldName;
         this.x = location.x;
         this.y = location.y;
+        this.z = location.z;
     }
 
     /**
@@ -76,13 +79,15 @@ public class Location {
         this.worldName = location.worldName;
         this.x = location.x;
         this.y = location.y;
+        this.z = location.z;
         return this;
     }
 
-    public Location set(String worldName, int tileX, int tileY) {
+    public Location set(String worldName, int tileX, int tileY, short worldZ) {
         this.worldName = worldName;
         this.x = tileX;
         this.y = tileY;
+        this.z = worldZ;
         return this;
     }
 
@@ -111,11 +116,12 @@ public class Location {
         if (!otherLocation.getWorldName().equals(worldName)) return false;
         if (otherLocation.getX() != x) return false;
         if (otherLocation.getY() != y) return false;
+        if (otherLocation.getZ() != z) return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "[" + worldName + "] -> [" + x + ", " + y + "]";
+        return "[" + worldName + "] -> [" + x + ", " + y + ", " + z + "]";
     }
 }

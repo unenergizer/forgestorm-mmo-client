@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.WorldObject;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.io.type.GameAtlas;
 
 import java.util.HashMap;
@@ -95,22 +96,13 @@ public class EntityManager implements Disposable {
         println(getClass(), "ItemStack removed from map", false, PRINT_DEBUG);
     }
 
-    public void drawEntityShadows(SpriteBatch spriteBatch) {
-        // Draw shadows underneath aiEntities
-        for (AiEntity aiEntity : aiEntityList.values()) {
-            aiEntity.drawShadow(spriteBatch);
-        }
-
-        // Draw shadows underneath players
-        for (Player player : playerEntityList.values()) {
-            player.drawShadow(spriteBatch);
-        }
-
-        // Draw the player shadow
-        playerClient.drawShadow(spriteBatch);
+    public void getSortableEntities(PriorityQueue<WorldObject> worldObjectList) {
+        worldObjectList.addAll(itemStackDropList.values());
+        worldObjectList.addAll(aiEntityList.values());
+        worldObjectList.addAll(playerEntityList.values());
     }
 
-    public void drawGroundEntities(float delta, SpriteBatch spriteBatch) {
+    public void drawGroundEntities(SpriteBatch spriteBatch) {
         // Draw Items on ground
 //        for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
 //            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
@@ -122,35 +114,54 @@ public class EntityManager implements Disposable {
         }
     }
 
-    public void getSortableEntities(PriorityQueue<WorldObject> worldObjectList) {
-        worldObjectList.addAll(itemStackDropList.values());
-        worldObjectList.addAll(aiEntityList.values());
-        worldObjectList.addAll(playerEntityList.values());
+    public void drawEntityShadows(SpriteBatch spriteBatch, Floors floor) {
+        // Draw shadows underneath aiEntities
+        for (AiEntity aiEntity : aiEntityList.values()) {
+            if (aiEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+            aiEntity.drawShadow(spriteBatch);
+        }
+
+        // Draw shadows underneath players
+        for (Player player : playerEntityList.values()) {
+            if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+            player.drawShadow(spriteBatch);
+        }
+
+        // Draw the player shadow
+        if (playerClient.getCurrentMapLocation().getZ() == floor.getWorldZ()) {
+            playerClient.drawShadow(spriteBatch);
+        }
     }
 
-    public void drawEntityNames() {
+    public void drawEntityNames(Floors floor) {
         for (MovingEntity movingEntity : aiEntityList.values()) {
+            if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
             movingEntity.drawEntityName();
         }
         for (Player player : playerEntityList.values()) {
+            if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
             player.drawEntityName();
         }
     }
 
-    public void drawDamageNumbers() {
+    public void drawDamageNumbers(Floors floor) {
         for (MovingEntity movingEntity : aiEntityList.values()) {
+            if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
             movingEntity.drawFloatingNumbers();
         }
         for (Player player : playerEntityList.values()) {
+            if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
             player.drawFloatingNumbers();
         }
     }
 
-    public void drawHealthBar() {
+    public void drawHealthBar(Floors floor) {
         for (MovingEntity movingEntity : aiEntityList.values()) {
+            if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
             movingEntity.drawEntityHpBar();
         }
         for (Player player : playerEntityList.values()) {
+            if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
             player.drawEntityHpBar();
         }
     }

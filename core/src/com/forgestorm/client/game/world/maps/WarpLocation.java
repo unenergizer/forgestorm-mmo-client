@@ -7,4 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class WarpLocation {
     private final int fromX, fromY;
+    private final short fromZ;
 }

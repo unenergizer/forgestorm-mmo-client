@@ -108,13 +108,13 @@ public class ClientMovementProcessor {
     private MoveDirection getPredictedDirection(PlayerClient playerClient, Location currentLocation) {
         MoveNode moveNode = inputData.getMoveNodes().peek();
         checkNotNull(moveNode, "The move node was null!");
-        Location predictedFutureMapLocation = new Location(playerClient.getWorldName(), moveNode.getWorldX(), moveNode.getWorldY());
+        Location predictedFutureMapLocation = new Location(playerClient.getWorldName(), moveNode.getWorldX(), moveNode.getWorldY(), currentLocation.getZ());
         return MoveUtil.getMoveDirection(currentLocation, predictedFutureMapLocation);
     }
 
     Queue<MoveNode> getNodeForDirection(PlayerClient playerClient, Location currentPlayerLocation, MoveDirection direction) {
         Queue<MoveNode> nextNode = new LinkedList<MoveNode>();
-        Location futureLocation = MoveUtil.getLocation(playerClient.getGameMap(), direction).add(currentPlayerLocation);
+        Location futureLocation = MoveUtil.getLocation(playerClient.getGameMap(), direction, currentPlayerLocation.getZ()).add(currentPlayerLocation);
         nextNode.add(new MoveNode(futureLocation.getX(), futureLocation.getY(), (short) 0, (short) 0));
         return nextNode;
     }

@@ -28,8 +28,9 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         final byte entityType = clientHandler.readByte();
         final int futureX = clientHandler.readInt();
         final int futureY = clientHandler.readInt();
+        final short futureZ = clientHandler.readShort();
 
-        return new EntityMovePacket(entityId, EntityType.getEntityType(entityType), futureX, futureY);
+        return new EntityMovePacket(entityId, EntityType.getEntityType(entityType), futureX, futureY, futureZ);
     }
 
     @Override
@@ -68,17 +69,18 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         }
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
-            movingEntity.addLocationToFutureQueue(new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY));
+            movingEntity.addLocationToFutureQueue(new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ));
         } else {
-            ClientMain.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY));
+            ClientMain.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ));
         }
     }
 
     @AllArgsConstructor
-    class EntityMovePacket extends PacketData {
+    static class EntityMovePacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
         private final int futureX;
         private final int futureY;
+        private final short futureZ;
     }
 }

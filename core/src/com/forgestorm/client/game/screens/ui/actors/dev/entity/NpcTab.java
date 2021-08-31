@@ -19,6 +19,7 @@ import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.entities.NPC;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
@@ -67,6 +68,7 @@ public class NpcTab extends EditorTab {
     private final VisValidatableTextField worldName = new VisValidatableTextField();
     private final VisValidatableTextField mapX = new VisValidatableTextField();
     private final VisValidatableTextField mapY = new VisValidatableTextField();
+    private final VisSelectBox<Floors> mapZ = new VisSelectBox<Floors>();
     private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
@@ -110,6 +112,7 @@ public class NpcTab extends EditorTab {
         worldName.setText("");
         mapX.setText("");
         mapY.setText("");
+        mapZ.setSelected(Floors.GROUND_FLOOR);
 
         deleteButton.setDisabled(true);
 
@@ -141,6 +144,7 @@ public class NpcTab extends EditorTab {
         worldName.setText(npc.getDefaultSpawnLocation().getWorldName());
         mapX.setText(Integer.toString(npc.getDefaultSpawnLocation().getX()));
         mapY.setText(Integer.toString(npc.getDefaultSpawnLocation().getY()));
+        mapZ.setSelected(Floors.getFloor(npc.getDefaultSpawnLocation().getZ()));
 
         // Load Appearance
         appearanceTable.clear();
@@ -310,6 +314,12 @@ public class NpcTab extends EditorTab {
         mapYTable.add(mapY).pad(1);
         leftPane.add(mapYTable).expandX().fillX().pad(1).row();
 
+        VisTable mapZTable = new VisTable();
+        mapZ.setItems(Floors.values());
+        mapZTable.add(new VisLabel("Spawn Z:")).grow().pad(1);
+        mapZTable.add(mapZ).pad(1);
+        leftPane.add(mapZTable).expandX().fillX().pad(1).row();
+
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
         VisTextButton textButton = new VisTextButton("Print Details to Console");
@@ -334,7 +344,7 @@ public class NpcTab extends EditorTab {
                 println(NpcTab.class, "Probability Walk: " + probWalk.getValue());
                 println(NpcTab.class, "ShopID: " + shopId.getText());
                 println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
-                println(NpcTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
+                println(NpcTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText() + ", Z: " + mapZ.getSelected().getWorldZ());
                 println(NpcTab.class, "--- Appearance ---");
 
                 appearancePanel.printDebug();
@@ -457,7 +467,8 @@ public class NpcTab extends EditorTab {
         Location location = new Location(
                 worldName.getText(),
                 Integer.parseInt(mapX.getText()),
-                Integer.parseInt(mapY.getText()));
+                Integer.parseInt(mapY.getText()),
+                mapZ.getSelected().getWorldZ());
 
         EntityEditorData entityEditorData = new NPCData(true, save, delete, location, entityIDNum);
 

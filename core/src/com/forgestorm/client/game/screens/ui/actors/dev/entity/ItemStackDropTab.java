@@ -15,6 +15,7 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.ItemStackManager;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
@@ -23,6 +24,7 @@ import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
@@ -52,6 +54,7 @@ public class ItemStackDropTab extends EditorTab {
     private final VisValidatableTextField worldName = new VisValidatableTextField();
     private final VisValidatableTextField mapX = new VisValidatableTextField();
     private final VisValidatableTextField mapY = new VisValidatableTextField();
+    private final VisSelectBox<Floors> mapZ = new VisSelectBox<Floors>();
     private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
@@ -78,6 +81,7 @@ public class ItemStackDropTab extends EditorTab {
         worldName.setText(itemStackDrop.getCurrentMapLocation().getWorldName());
         mapX.setText(Integer.toString(itemStackDrop.getCurrentMapLocation().getX()));
         mapY.setText(Integer.toString(itemStackDrop.getCurrentMapLocation().getY()));
+        mapZ.setSelected(Floors.getFloor(itemStackDrop.getCurrentMapLocation().getZ()));
 
         // Load Appearance
         updateEditorDisplay();
@@ -98,6 +102,7 @@ public class ItemStackDropTab extends EditorTab {
         worldName.setText("");
         mapX.setText("");
         mapY.setText("");
+        mapZ.setSelected(Floors.GROUND_FLOOR);
 
         updateEditorDisplay();
     }
@@ -227,6 +232,13 @@ public class ItemStackDropTab extends EditorTab {
         mapYTable.add(new VisLabel("Spawn Y:")).grow().pad(1);
         mapYTable.add(mapY).pad(1);
         leftPane.add(mapYTable).expandX().fillX().pad(1).row();
+
+        VisTable mapZTable = new VisTable();
+        mapZ.setItems(Floors.values());
+        mapZTable.add(new VisLabel("Spawn Z:")).grow().pad(1);
+        mapZTable.add(mapZ).pad(1);
+        leftPane.add(mapZTable).expandX().fillX().pad(1).row();
+
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
         VisTextButton textButton = new VisTextButton("Print Details to Console");
@@ -243,7 +255,7 @@ public class ItemStackDropTab extends EditorTab {
                 println(MonsterTab.class, "StackSize: " + stackSize.getText());
                 println(MonsterTab.class, "Min RespawnTime (minutes): " + respawnTimeMin.getText());
                 println(MonsterTab.class, "Max RespawnTime (minutes): " + respawnTimeMax.getText());
-                println(MonsterTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText());
+                println(MonsterTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText() + ", Z: " + mapZ.getSelected().getName());
                 println(MonsterTab.class, "--- Appearance ---");
             }
         });
@@ -384,7 +396,8 @@ public class ItemStackDropTab extends EditorTab {
         Location location = new Location(
                 worldName.getText(),
                 Integer.parseInt(mapX.getText()),
-                Integer.parseInt(mapY.getText()));
+                Integer.parseInt(mapY.getText()),
+                mapZ.getSelected().getWorldZ());
 
         ItemStackDropData entityEditorData = new ItemStackDropData(true, save, delete, location, entityIDNum);
 

@@ -19,7 +19,8 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
         int textureId = clientHandler.readInt();
         int tileX = clientHandler.readInt();
         int tileY = clientHandler.readInt();
-        return new WorldBuilderPacket(layerDefinition, textureId, tileX, tileY);
+        short worldZ = clientHandler.readShort();
+        return new WorldBuilderPacket(layerDefinition, textureId, tileX, tileY, worldZ);
     }
 
     @Override
@@ -29,6 +30,7 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
                 packetData.textureId,
                 packetData.tileX,
                 packetData.tileY,
+                packetData.worldZ,
                 false);
     }
 
@@ -38,5 +40,6 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
         private final int textureId;
         private final int tileX;
         private final int tileY;
+        private final short worldZ;
     }
 }

@@ -20,14 +20,14 @@ public class ClientMoveResyncPacketIn implements PacketListener<ClientMoveResync
     public PacketData decodePacket(ClientHandler clientHandler) {
         final int futureX = clientHandler.readInt();
         final int futureY = clientHandler.readInt();
-        return new ClientMoveResyncPacket(futureX, futureY);
+        final short futureZ = clientHandler.readShort();
+        return new ClientMoveResyncPacket(futureX, futureY, futureZ);
     }
 
     @Override
     public void onEvent(ClientMoveResyncPacket packetData) {
-
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Location resyncLocation = new Location(playerClient.getWorldName(), packetData.futureX, packetData.futureY);
+        Location resyncLocation = new Location(playerClient.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ);
 
         playerClient.setCurrentMapLocation(new Location(resyncLocation));
         playerClient.setFutureMapLocation(new Location(resyncLocation));
@@ -35,12 +35,12 @@ public class ClientMoveResyncPacketIn implements PacketListener<ClientMoveResync
         playerClient.setDrawY(resyncLocation.getY() * ClientConstants.TILE_SIZE);
 
         ClientMain.getInstance().getClientMovementProcessor().resetInput();
-
     }
 
     @AllArgsConstructor
     class ClientMoveResyncPacket extends PacketData {
         private final int futureX;
         private final int futureY;
+        private final short futureZ;
     }
 }

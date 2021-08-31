@@ -97,7 +97,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                ClientMain.getInstance().getEntityTracker().walkTo(toLocation.getX(), toLocation.getY(), false);
+                ClientMain.getInstance().getEntityTracker().walkTo(toLocation.getX(), toLocation.getY(), toLocation.getZ(), false);
                 cleanUpDropDownMenu(true);
             }
         });

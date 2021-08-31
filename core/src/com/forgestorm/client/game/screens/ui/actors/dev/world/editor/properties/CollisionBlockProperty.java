@@ -72,16 +72,16 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
     }
 
     @Override
-    public void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
-        processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, false);
+    public void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
+        processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, worldZ, false);
     }
 
     @Override
-    public void removePropertyFromWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY) {
-        processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, true);
+    public void removePropertyFromWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
+        processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, worldZ, true);
     }
 
-    private void processCollisionTiles(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, boolean useEraser) {
+    private void processCollisionTiles(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ, boolean useEraser) {
         int tilesWide = tileImage.getWidth() / ClientConstants.TILE_SIZE;
         int tilesTall = tileImage.getHeight() / ClientConstants.TILE_SIZE;
 
@@ -98,7 +98,7 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
                     int tileY = worldY + tilesTall - row - 1;
                     Tile tileParent = ClientMain.getInstance().getWorldManager()
                             .getGameWorld(worldName)
-                            .getTile(layerDefinition, tileX, tileY);
+                            .getTile(layerDefinition, tileX, tileY, worldZ);
 
                     if (tileParent == null) continue;
                     if (useEraser) {

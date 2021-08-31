@@ -11,19 +11,22 @@ public class PlayerMovePacketOut extends AbstractClientPacketOut {
     private final String worldName;
     private final int x;
     private final int y;
+    private final short z;
 
     public PlayerMovePacketOut(Location attemptLocation) {
         super(Opcodes.MOVE_REQUEST);
         worldName = attemptLocation.getWorldName();
         x = attemptLocation.getX();
         y = attemptLocation.getY();
+        z = attemptLocation.getZ();
     }
 
     @Override
     protected void createPacket(ForgeStormOutputStream write) {
-        checkArgument(!EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().equals(new Location(worldName, x, y)),
+        checkArgument(!EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().equals(new Location(worldName, x, y, z)),
                 "Locations can not be equal!");
         write.writeInt(x);
         write.writeInt(y);
+        write.writeShort(z);
     }
 }

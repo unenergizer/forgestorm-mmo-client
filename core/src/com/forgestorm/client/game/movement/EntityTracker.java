@@ -51,16 +51,16 @@ public class EntityTracker implements GameQuitReset {
         setup(entity);
     }
 
-    public void walkTo(int tileX, int tileY, boolean ignoreFileTile) {
+    public void walkTo(int tileX, int tileY, short worldZ, boolean ignoreFileTile) {
         cancelFollow();
-        walkToTileLocation(tileX, tileY, ignoreFileTile);
+        walkToTileLocation(tileX, tileY, worldZ, ignoreFileTile);
     }
 
     public void setPostProcessor(AbstractPostProcessor abstractPostProcessor) {
         this.abstractPostProcessor = abstractPostProcessor;
     }
 
-    private boolean walkToTileLocation(int tileX, int tileY, boolean ignoreFinalTile) {
+    private boolean walkToTileLocation(int tileX, int tileY, short worldZ, boolean ignoreFinalTile) {
 
         println(getClass(), "walkToTileLocation()", false, PRINT_DEBUG);
 
@@ -74,14 +74,14 @@ public class EntityTracker implements GameQuitReset {
             if (distanceCheck > 0) {
                 println(getClass(), "CHECKING DISTANCE", false, PRINT_DEBUG);
 
-                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY), distanceCheck)) {
+                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY, worldZ), distanceCheck)) {
                     if (abstractPostProcessor != null)
                         abstractPostProcessor.postMoveAction();
                     if (trackType != TrackType.FOLLOW)
                         cancelFollow();
                 }
             } else {
-                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY), 1)) {
+                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY, worldZ), 1)) {
                     if (abstractPostProcessor != null)
                         abstractPostProcessor.postMoveAction();
                     if (trackType != TrackType.FOLLOW)
@@ -130,7 +130,7 @@ public class EntityTracker implements GameQuitReset {
         if (previousLocation == null || entityToTrack == null) return false;
 
         Location entityLocation = entityToTrack.getCurrentMapLocation();
-        if (walkToTileLocation(entityLocation.getX(), entityLocation.getY(), true)) {
+        if (walkToTileLocation(entityLocation.getX(), entityLocation.getY(), entityLocation.getZ(), true)) {
             return false;
         }
 

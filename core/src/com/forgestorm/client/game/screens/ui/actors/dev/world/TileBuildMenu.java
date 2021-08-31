@@ -15,6 +15,7 @@ import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.Tags;
 import com.forgestorm.client.game.world.maps.TileImage;
@@ -216,7 +217,30 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         // FLOOR SELECT
         final VisTable floorSelectTable = new VisTable();
         floorSelectTable.add(new VisLabel("[YELLOW]Floor Select:")).row();
-        floorSelectTable.add(new VisLabel("Coming soon...")).row();
+
+        final Map<Floors, LeftAlignTextButton> floorsVisTextButtonMap = new HashMap<Floors, LeftAlignTextButton>();
+
+        for (final Floors floor : Floors.values()) {
+            final LeftAlignTextButton visTextButton = new LeftAlignTextButton(floor.getName());
+            visTextButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    // Reset floor button states
+                    for (VisTextButton button : floorsVisTextButtonMap.values()) {
+                        button.setDisabled(false);
+                    }
+
+                    worldBuilder.setCurrentWorkingFloor(floor);
+                    visTextButton.setDisabled(true);
+                }
+            });
+
+            floorSelectTable.add(visTextButton).growX().row();
+            floorsVisTextButtonMap.put(floor, visTextButton);
+        }
+
+        // set default floor to disabled
+        floorsVisTextButtonMap.get(worldBuilder.getCurrentWorkingFloor()).setDisabled(true);
 
         // LAYER AND FLOOR WRAPPER TABLE ADD....
         final VisTable layerFloorWrapperTable = new VisTable(true);

@@ -5562,6 +5562,13 @@ panel-wall-04
   orig: 16, 16
   offset: 0, 0
   index: -1
+roof-blue-17
+  rotate: false
+  xy: 324, 184
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 table-clothed-05
   rotate: false
   xy: 324, 184
@@ -6423,13 +6430,6 @@ roof-blue-08
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-35
-  rotate: false
-  xy: 964, 902
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
 roof-blue-09
   rotate: false
   xy: 982, 902
@@ -6493,147 +6493,147 @@ roof-blue-16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-17
+roof-blue-18
   rotate: false
   xy: 460, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-18
+roof-blue-19
   rotate: false
   xy: 478, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-19
+roof-blue-21
   rotate: false
   xy: 496, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-21
+roof-blue-22
   rotate: false
   xy: 514, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-22
+roof-blue-23
   rotate: false
   xy: 532, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-23
+roof-blue-24
   rotate: false
   xy: 550, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-24
+roof-blue-25
   rotate: false
   xy: 568, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-25
+roof-blue-26
   rotate: false
   xy: 586, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-26
+roof-blue-27
   rotate: false
   xy: 604, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-27
+roof-blue-28
   rotate: false
   xy: 622, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-28
+roof-blue-29
   rotate: false
   xy: 640, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-roof-blue-29
-  rotate: false
-  xy: 658, 884
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
 roof-gray-29
   rotate: false
-  xy: 658, 884
+  xy: 640, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-green-29
   rotate: false
-  xy: 658, 884
+  xy: 640, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-purple-29
   rotate: false
-  xy: 658, 884
+  xy: 640, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-red-29
   rotate: false
-  xy: 658, 884
+  xy: 640, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-blue-30
   rotate: false
-  xy: 676, 884
+  xy: 658, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-blue-31
   rotate: false
-  xy: 694, 884
+  xy: 676, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-blue-32
   rotate: false
-  xy: 712, 884
+  xy: 694, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-blue-33
   rotate: false
-  xy: 730, 884
+  xy: 712, 884
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 roof-blue-34
+  rotate: false
+  xy: 730, 884
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+roof-blue-35
   rotate: false
   xy: 748, 884
   size: 16, 16
