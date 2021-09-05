@@ -308,12 +308,12 @@ public class FileManager {
         return abstractGet(FilePaths.TILE_ANIMATIONS.getInternalFilePath(), false, TileAnimationsLoader.TileAnimationsDataWrapper.class);
     }
 
-    public void loadRegionData() {
-        abstractedLoad(FilePaths.MAP_REGIONS.getInternalFilePath(), false, false, RegionLoader.RegionDataWrapper.class, new RegionLoader(internalResolver));
+    public void loadRegionData(String filePath) {
+        abstractedLoad(filePath, true, false, RegionLoader.RegionDataWrapper.class, new RegionLoader(internalResolver));
     }
 
-    public RegionLoader.RegionDataWrapper getRegionData() {
-        return abstractGet(FilePaths.MAP_REGIONS.getInternalFilePath(), false, RegionLoader.RegionDataWrapper.class);
+    public RegionLoader.RegionDataWrapper getRegionData(String filePath) {
+        return abstractGet(filePath, false, RegionLoader.RegionDataWrapper.class);
     }
 
     public void loadNetworkSettingsData() {
@@ -405,11 +405,12 @@ public class FileManager {
 
         // Load the asset
         if (fileHandleResolver.resolve(filePath).exists()) {
+            println(getClass(), "Loading File: " + filePath);
             assetManager.setLoader(type, loader);
             assetManager.load(filePath, type);
             if (forceFinishLoading) assetManager.finishLoading();
         } else {
-            println(getClass(), "File doesn't exist: " + filePath, true, PRINT_DEBUG);
+            println(getClass(), "File doesn't exist: " + filePath, true);
         }
         return filePath;
     }

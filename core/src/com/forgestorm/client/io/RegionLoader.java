@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -39,7 +38,7 @@ public class RegionLoader extends SynchronousAssetLoader<RegionLoader.RegionData
         Yaml yaml = new Yaml();
         Map<Integer, Map<String, Object>> root = yaml.load(file.read());
 
-        regionDataWrapper.setRegionMap(new HashMap<Integer, Region>());
+        regionDataWrapper.regionMap = new HashMap<Integer, Region>();
 
         for (Map.Entry<Integer, Map<String, Object>> entry : root.entrySet()) {
             Map<String, Object> itemNode = entry.getValue();
@@ -77,7 +76,7 @@ public class RegionLoader extends SynchronousAssetLoader<RegionLoader.RegionData
         return null;
     }
 
-    @Setter
+
     @Getter
     public static class RegionDataWrapper {
         private Map<Integer, Region> regionMap = null;

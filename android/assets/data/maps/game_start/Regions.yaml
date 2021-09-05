@@ -1,9 +1,9 @@
 1:
   worldName: "game_start"
-  x1: 5
-  y1: 7
-  x2: 11
-  y2: 12
+  x1: 6
+  y1: 6
+  x2: 17
+  y2: 14
   z: 0
 2:
   worldName: "game_start"

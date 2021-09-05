@@ -58,6 +58,7 @@ public class WorldManager implements Disposable {
 
         println(getClass(), "World Name: " + worldName, false, PRINT_DEBUG);
         currentGameWorld = getGameWorld(worldName);
+        currentGameWorld.loadRegions();
 
         // Map loaded, now fade it in!
         ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);

@@ -12,6 +12,7 @@ import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.io.ChunkLoader;
 import com.forgestorm.client.io.FileManager;
+import com.forgestorm.client.io.RegionLoader;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -108,6 +109,20 @@ public class GameWorld {
                 break;
         }
 
+    }
+
+    public void loadRegions() {
+        // Load game world regions
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        String removeMe = "data/";
+        String filePath = removeMe + "maps/" + worldName + "/Regions.yaml";
+        fileManager.loadRegionData(filePath);
+
+        // Set the gameworld regions
+        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        RegionLoader.RegionDataWrapper regionDataWrapper = fileManager.getRegionData(filePath);
+        Map<Integer, Region> regionMap = regionDataWrapper.getRegionMap();
+        regionManager.setRegionMap(regionMap);
     }
 
     public void loadChunk(short chunkX, short chunkY) {

@@ -24,7 +24,6 @@ public enum FilePaths {
     // Maps
     MAP_LIST("maps/game_worlds.json"),
     MAP_DIRECTORY("maps"),
-    MAP_REGIONS("maps/Regions.yaml"),
     TILE_ANIMATIONS("graphics/TileAnimations.yaml"),
     TILE_PROPERTIES("graphics/TileProperties.yaml"),
     WANG_PROPERTIES("graphics/WangProperties.yaml"),

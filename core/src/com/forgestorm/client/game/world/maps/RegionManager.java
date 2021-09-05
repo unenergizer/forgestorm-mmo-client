@@ -21,7 +21,7 @@ public class RegionManager {
     private static final Color BORDER_COLOR = Color.RED;
     private static final Color HIGHLIGHT_EDGE_COLOR = Color.YELLOW;
 
-    private final Map<Integer, Region> regionMap;
+    private Map<Integer, Region> regionMap;
 
 
     @Getter
@@ -40,10 +40,8 @@ public class RegionManager {
 
     private int lastMouseX, lastMouseY;
 
-
-    public RegionManager() {
-        regionMap = ClientMain.getInstance().getFileManager().getRegionData().getRegionMap();
-
+    public void setRegionMap(Map<Integer, Region> regionMap) {
+        this.regionMap = regionMap;
         regionToEdit = regionMap.get(1);
     }
 
