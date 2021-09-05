@@ -101,7 +101,7 @@ public class ImageBuilder {
     public TextureRegionDrawable buildTextureRegionDrawable() {
         if (gameAtlas == null) throw new RuntimeException("GameAtlas must be defined.");
 
-        ClientMain.getInstance().getFileManager().loadAtlas(gameAtlas);
+        ClientMain.getInstance().getFileManager().loadAtlas(gameAtlas, true);
         TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
         TextureRegionDrawable textureRegionDrawable;
 

@@ -102,11 +102,11 @@ public class FileManager {
         assetManager.dispose();
     }
 
-    public boolean updateAssetLoading() {
+    public boolean update() {
         return assetManager.update();
     }
 
-    public float loadCompleted() {
+    public float getProgress() {
         return assetManager.getProgress();
     }
 
@@ -191,7 +191,7 @@ public class FileManager {
      * @param gameTexture The texture file to load.
      */
     public void loadTexture(GameTexture gameTexture) {
-        abstractedLoad(gameTexture.getFilePath(), true, false, Texture.class, new TextureLoader(internalResolver));
+        abstractedLoad(gameTexture.getFilePath(), false, false, Texture.class, new TextureLoader(internalResolver));
     }
 
     /**
@@ -212,8 +212,8 @@ public class FileManager {
         return abstractGet(gameFont.getFilePath(), false, BitmapFont.class);
     }
 
-    public void loadAtlas(GameAtlas gameAtlas) {
-        abstractedLoad(gameAtlas.getFilePath(), true, false, TextureAtlas.class, new TextureAtlasLoader(internalResolver));
+    public void loadAtlas(GameAtlas gameAtlas, boolean forceFinishLoading) {
+        abstractedLoad(gameAtlas.getFilePath(), forceFinishLoading, false, TextureAtlas.class, new TextureAtlasLoader(internalResolver));
     }
 
     public TextureAtlas getAtlas(GameAtlas gameAtlas) {
@@ -342,7 +342,7 @@ public class FileManager {
 
     public void loadGameWorldData(String worldName) {
         String filePath = FilePaths.MAP_DIRECTORY.getInternalFilePath() + "/" + worldName;
-        abstractedLoad(filePath, true, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
+        abstractedLoad(filePath, false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
     }
 
     public GameWorldLoader.GameWorldDataWrapper getGameWorldData(String worldName) {
