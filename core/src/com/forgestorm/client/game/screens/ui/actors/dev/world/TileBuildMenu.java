@@ -185,7 +185,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             });
 
             // Layer select button
-            LeftAlignTextButton layerSelectButton = new LeftAlignTextButton(layerDefinition.getLayerName());
+            LeftAlignTextButton layerSelectButton = new LeftAlignTextButton(layerDefinition.toString());
             layerSelectTable.add(layerSelectButton).growX().padRight(3);
             layerSelectButton.addListener(new ChangeListener() {
                 @Override
@@ -216,11 +216,28 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         // FLOOR SELECT
         final VisTable floorSelectTable = new VisTable();
-        floorSelectTable.add(new VisLabel("[YELLOW]Floor Select:")).row();
+        floorSelectTable.add(new VisLabel("[YELLOW]Floor Select:")).colspan(2).align(Alignment.LEFT.getAlignment()).row();
 
         final Map<Floors, LeftAlignTextButton> floorsVisTextButtonMap = new HashMap<Floors, LeftAlignTextButton>();
 
         for (final Floors floor : Floors.values()) {
+            // Floor visibility
+
+            final VisImageButton floorVisibilityButton = new VisImageButton(drawableActive, "Toggle Floor Visibility");
+            floorVisibilityButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    boolean isVisible = worldBuilder.toggleFloorVisibility(floor);
+                    if (isVisible) {
+                        floorVisibilityButton.getStyle().imageUp = drawableActive;
+                    } else {
+                        floorVisibilityButton.getStyle().imageUp = drawableInactive;
+                    }
+                }
+            });
+
+
+            // Floor Select
             final LeftAlignTextButton visTextButton = new LeftAlignTextButton(floor.getName());
             visTextButton.addListener(new ChangeListener() {
                 @Override
@@ -235,6 +252,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 }
             });
 
+            floorSelectTable.add(floorVisibilityButton).padRight(3);
             floorSelectTable.add(visTextButton).growX().row();
             floorsVisTextButtonMap.put(floor, visTextButton);
         }
@@ -244,7 +262,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         // LAYER AND FLOOR WRAPPER TABLE ADD....
         final VisTable layerFloorWrapperTable = new VisTable(true);
-        layerFloorWrapperTable.add(layerContainer);
+        layerFloorWrapperTable.add(layerContainer).align(Alignment.TOP.getAlignment());
         layerFloorWrapperTable.addSeparator(true).expandY();
         layerFloorWrapperTable.add(floorSelectTable).growX();
 
@@ -268,7 +286,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
             tabbedPane.add(new TileBuildTab(layerDefinition));
         }
-        tabbedPane.switchTab(0);
+        tabbedPane.switchTab(2); // World Objects (layer definition)
 
         // Add Tables...
         add(toolsTable).growX().row();

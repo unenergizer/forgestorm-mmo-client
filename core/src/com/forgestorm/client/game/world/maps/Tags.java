@@ -18,28 +18,28 @@ public enum Tags {
 //    GROUND
 //    BACKGROUND
 
-    AN_UNUSED_TAG(new LayerDefinition[]{LayerDefinition.ROOF, LayerDefinition.WALL_DECORATION, LayerDefinition.COLLIDABLES, LayerDefinition.GROUND_DECORATION, LayerDefinition.GROUND, LayerDefinition.BACKGROUND}),
-    BUILDING_DECORATIONS(new LayerDefinition[]{LayerDefinition.WALL_DECORATION}),
-    CEMETERY(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    CONTAINER(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    DOORS(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
+    AN_UNUSED_TAG(new LayerDefinition[]{LayerDefinition.OVERHEAD, LayerDefinition.WORLD_OBJECT_DECORATION, LayerDefinition.WORLD_OBJECTS, LayerDefinition.GROUND_DECORATION, LayerDefinition.GROUND, LayerDefinition.BACKGROUND}),
+    BUILDING_DECORATIONS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECT_DECORATION}),
+    CEMETERY(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    CONTAINER(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    DOORS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
     DOOR_LIGHTING(new LayerDefinition[]{LayerDefinition.GROUND_DECORATION}),
-    DOOR_FRAMES(new LayerDefinition[]{LayerDefinition.ROOF}),
-    DUNGEON(new LayerDefinition[]{LayerDefinition.COLLIDABLES, LayerDefinition.WALL_DECORATION}),
-    EGYPTIAN(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    FENCE(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    FLAG(new LayerDefinition[]{LayerDefinition.WALL_DECORATION}),
-    FURNITURE(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    KITCHEN(new LayerDefinition[]{LayerDefinition.COLLIDABLES, LayerDefinition.WALL_DECORATION}),
-    OUTDOOR(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
+    DOOR_FRAMES(new LayerDefinition[]{LayerDefinition.OVERHEAD}),
+    DUNGEON(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS, LayerDefinition.WORLD_OBJECT_DECORATION}),
+    EGYPTIAN(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    FENCE(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    FLAG(new LayerDefinition[]{LayerDefinition.WORLD_OBJECT_DECORATION}),
+    FURNITURE(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    KITCHEN(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS, LayerDefinition.WORLD_OBJECT_DECORATION}),
+    OUTDOOR(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
     PATH_WAY(new LayerDefinition[]{LayerDefinition.GROUND}),
-    PLANTS(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    ROCKS(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    ROOF(new LayerDefinition[]{LayerDefinition.ROOF}),
-    SIGNS(new LayerDefinition[]{LayerDefinition.COLLIDABLES, LayerDefinition.WALL_DECORATION}),
-    TABLE_TOP(new LayerDefinition[]{LayerDefinition.WALL_DECORATION}),
-    WALLS(new LayerDefinition[]{LayerDefinition.COLLIDABLES}),
-    WINDOW(new LayerDefinition[]{LayerDefinition.WALL_DECORATION});
+    PLANTS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    ROCKS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    ROOF(new LayerDefinition[]{LayerDefinition.OVERHEAD}),
+    SIGNS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS, LayerDefinition.WORLD_OBJECT_DECORATION}),
+    TABLE_TOP(new LayerDefinition[]{LayerDefinition.WORLD_OBJECT_DECORATION}),
+    WALLS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
+    WINDOW(new LayerDefinition[]{LayerDefinition.WORLD_OBJECT_DECORATION});
 
     @Getter
     public LayerDefinition[] tagLayerDefinitions;

@@ -62,7 +62,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     private final VisTable rightTable = new VisTable(true);
     private final VisTable propertiesTable = new VisTable(true);
 
-    private LayerDefinition workingLayerDefinition = LayerDefinition.COLLIDABLES;
+    private LayerDefinition workingLayerDefinition = LayerDefinition.WORLD_OBJECTS;
     private final VisTable layerSpecificTagTable = new VisTable(false);
     private final VisTable tagsTable = new VisTable(false);
 
@@ -166,7 +166,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             tileImage = new TileImage(
                     id,
                     atlasRegion.name,
-                    LayerDefinition.COLLIDABLES
+                    LayerDefinition.WORLD_OBJECTS
             );
             worldBuilder.addNewTile(tileImage);
         }
@@ -212,7 +212,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         VisLabel layerDefinitionLabel = new VisLabel("Layer Definition:");
         final VisSelectBox<LayerDefinition> layerDefinitionVisSelectBox = new VisSelectBox<LayerDefinition>();
         layerDefinitionVisSelectBox.setItems(LayerDefinition.values());
-        layerDefinitionVisSelectBox.setSelected(LayerDefinition.COLLIDABLES);
+        layerDefinitionVisSelectBox.setSelected(LayerDefinition.WORLD_OBJECTS);
         if (layerDefinition != null) layerDefinitionVisSelectBox.setSelected(layerDefinition);
 
         layerDefinitionTable.add(layerDefinitionLabel);
@@ -392,7 +392,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
             final VisSelectBox<LayerDefinition> showLayer = new VisSelectBox<LayerDefinition>();
             showLayer.setItems(LayerDefinition.values());
-            showLayer.setSelected(LayerDefinition.COLLIDABLES);
+            showLayer.setSelected(LayerDefinition.WORLD_OBJECTS);
             contentTable.add(showLayer).row();
 
             hideProcessedItems.addListener(new ChangeListener() {

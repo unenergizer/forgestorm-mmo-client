@@ -27,7 +27,7 @@ public class WorldChunk {
     private final short chunkX, chunkY;
 
     @Getter
-    private final Map<LayerDefinition, Tile[]> layers = new HashMap<LayerDefinition, Tile[]>();
+    private final Map<Floors, Map<LayerDefinition, Tile[]>> floorLayers = new HashMap<Floors, Map<LayerDefinition, Tile[]>>();
 
     @Getter
     private final Map<WarpLocation, Warp> tileWarps = new HashMap<WarpLocation, Warp>();
@@ -42,37 +42,46 @@ public class WorldChunk {
 
     private void initTileLayers() {
 
-        for (LayerDefinition layerDefinition : LayerDefinition.values()) {
+        for (Floors floor : Floors.values()) {
+            Map<LayerDefinition, Tile[]> layers = new HashMap<LayerDefinition, Tile[]>();
 
-            Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
+            for (LayerDefinition layerDefinition : LayerDefinition.values()) {
 
-            // Initialize all tiles
-            for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
-                for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
+                Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
 
-                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
-                            worldName,
-                            localX + chunkX * ClientConstants.CHUNK_SIZE,
-                            localY + chunkY * ClientConstants.CHUNK_SIZE);
+                // Initialize all tiles
+                for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
+                    for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
+
+                        tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
+                                worldName,
+                                localX + chunkX * ClientConstants.CHUNK_SIZE,
+                                localY + chunkY * ClientConstants.CHUNK_SIZE,
+                                floor.getWorldZ());
+                    }
                 }
+
+                layers.put(layerDefinition, tiles);
             }
 
-            layers.put(layerDefinition, tiles);
+            floorLayers.put(floor, layers);
         }
     }
 
     public void setChunkFromDisk(WorldChunk chunkFromDisk) {
-        // Copy layers
-        for (Map.Entry<LayerDefinition, Tile[]> entry : chunkFromDisk.getLayers().entrySet()) {
-            LayerDefinition layerDefinition = entry.getKey();
-            Tile[] tiles = entry.getValue();
+        // Copy layers and floors
+        for (Floors floor : Floors.values()) {
+            for (Map.Entry<LayerDefinition, Tile[]> entry : chunkFromDisk.floorLayers.get(floor).entrySet()) {
+                LayerDefinition layerDefinition = entry.getKey();
+                Tile[] tiles = entry.getValue();
 
-            for (Tile tileFromDisk : tiles) {
-                if (tileFromDisk.getTileImage() == null) continue;
-                int localTileX = tileFromDisk.getWorldX() - ClientConstants.CHUNK_SIZE * chunkX;
-                int localTileY = tileFromDisk.getWorldY() - ClientConstants.CHUNK_SIZE * chunkY;
-                Tile localTile = getTile(layerDefinition, localTileX, localTileY);
-                localTile.setTileImage(tileFromDisk.getTileImage());
+                for (Tile tileFromDisk : tiles) {
+                    if (tileFromDisk.getTileImage() == null) continue;
+                    int localTileX = tileFromDisk.getWorldX() - ClientConstants.CHUNK_SIZE * chunkX;
+                    int localTileY = tileFromDisk.getWorldY() - ClientConstants.CHUNK_SIZE * chunkY;
+                    Tile localTile = getTile(layerDefinition, localTileX, localTileY, floor);
+                    localTile.setTileImage(tileFromDisk.getTileImage());
+                }
             }
         }
 
@@ -85,7 +94,7 @@ public class WorldChunk {
         }
     }
 
-    public void setNetworkTiles(LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
+    public void setNetworkTiles(Floors floor, LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
         for (int localX = 0; localX < tileImageIDs.length; localX++) {
 
             TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
@@ -94,24 +103,23 @@ public class WorldChunk {
             if (tileImage != null) {
                 //noinspection UnnecessaryLocalVariable
                 int localY = section; // Defined for readability...
-                Tile tile = getTile(layerDefinition, localX, localY);
+                Tile tile = getTile(layerDefinition, localX, localY, floor);
                 tile.setTileImage(new TileImage(tileImage));
             }
         }
     }
 
-    public Tile getTile(LayerDefinition layerDefinition, int localX, int localY) {
-        return layers.get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
+    public Tile getTile(LayerDefinition layerDefinition, int localX, int localY, Floors floor) {
+        return floorLayers.get(floor).get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
     }
 
     public boolean isTraversable(int localX, int localY) {
-        // We only have collision on two layers. (Removed looping through all tiles)
-        if (!isTraversable(LayerDefinition.COLLIDABLES, localX, localY)) return false;
-        return isTraversable(LayerDefinition.GROUND_DECORATION, localX, localY);
+        Location location = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+        return isTraversable(Floors.getFloor(location.getZ()), localX, localY);
     }
 
-    private boolean isTraversable(LayerDefinition layerDefinition, int localX, int localY) {
-        Tile[] tiles = layers.get(layerDefinition);
+    private boolean isTraversable(Floors floor, int localX, int localY) {
+        Tile[] tiles = floorLayers.get(floor).get(LayerDefinition.WORLD_OBJECTS);
         Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
         if (tile == null) return true;
         if (!ClientMain.getInstance().getDoorManager().isDoorwayTraversable(tile)) return false;
@@ -122,8 +130,8 @@ public class WorldChunk {
         tileWarps.clear();
     }
 
-    public void addTileWarp(int localX, int localY, Warp warp) {
-        addTileWarp(new WarpLocation(localX, localY), warp);
+    public void addTileWarp(int localX, int localY, short localZ, Warp warp) {
+        addTileWarp(new WarpLocation(localX, localY, localZ), warp);
     }
 
     public void addTileWarp(WarpLocation warpLocation, Warp warp) {
@@ -143,28 +151,28 @@ public class WorldChunk {
         return tileWarps.size();
     }
 
-    void renderBottomLayers(Batch batch) {
+    void renderBottomLayers(Batch batch, Floors floor) {
         // Render layer from most bottom, going up.
-        renderLayer(LayerDefinition.BACKGROUND, batch);
-        renderLayer(LayerDefinition.GROUND, batch);
-        renderLayer(LayerDefinition.GROUND_DECORATION, batch);
+        renderLayer(floor, LayerDefinition.BACKGROUND, batch);
+        renderLayer(floor, LayerDefinition.GROUND, batch);
+        renderLayer(floor, LayerDefinition.GROUND_DECORATION, batch);
     }
 
-    void renderDecorationLayer(Batch batch) {
-        renderLayer(LayerDefinition.WALL_DECORATION, batch);
+    void renderDecorationLayer(Batch batch, Floors floor) {
+        renderLayer(floor, LayerDefinition.WORLD_OBJECT_DECORATION, batch);
     }
 
-    Tile[] getSortableTiles() {
-        return layers.get(LayerDefinition.COLLIDABLES);
+    void renderOverheadLayer(Batch batch, Floors floor) {
+        renderLayer(floor, LayerDefinition.OVERHEAD, batch);
     }
 
-    void renderOverheadLayer(Batch batch) {
-        renderLayer(LayerDefinition.ROOF, batch);
+    Tile[] getSortableTiles(Floors floor) {
+        return floorLayers.get(floor).get(LayerDefinition.WORLD_OBJECTS);
     }
 
-    private void renderLayer(LayerDefinition layerDefinition, Batch batch) {
+    private void renderLayer(Floors floor, LayerDefinition layerDefinition, Batch batch) {
         if (!worldBuilder.canDrawLayer(layerDefinition)) return;
-        Tile[] layerTiles = layers.get(layerDefinition);
+        Tile[] layerTiles = floorLayers.get(floor).get(layerDefinition);
         if (layerTiles == null) return;
 
         // Make the width and height of a given tile just a tad bit larger
@@ -188,7 +196,7 @@ public class WorldChunk {
                     Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
                     boolean playerIntersect = region.doesIntersect(playerLocation.getX(), playerLocation.getY());
                     boolean tileIntersect = region.doesIntersect(tile.getWorldX(), tile.getWorldY());
-                    if (playerIntersect && tileIntersect && layerDefinition == LayerDefinition.ROOF)
+                    if (playerIntersect && tileIntersect && layerDefinition == LayerDefinition.OVERHEAD)
                         continue;
                 }
 

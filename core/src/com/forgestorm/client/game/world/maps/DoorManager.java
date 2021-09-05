@@ -16,7 +16,7 @@ public class DoorManager {
         GameWorld gameWorld = playerClient.getGameMap();
         Location playerLocation = playerClient.getCurrentMapLocation();
 
-        Tile tile = gameWorld.getTile(LayerDefinition.COLLIDABLES, tileX, tileY, playerLocation.getZ());
+        Tile tile = gameWorld.getTile(LayerDefinition.WORLD_OBJECTS, tileX, tileY, playerLocation.getZ());
         if (tile == null) return;
 
         TileImage tileImage = tile.getTileImage();
@@ -49,7 +49,7 @@ public class DoorManager {
 
     public void networkToggleDoor(DoorStatus doorStatus, int tileX, int tileY, short worldZ) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-        Tile tile = playerClient.getGameMap().getTile(LayerDefinition.COLLIDABLES, tileX, tileY, worldZ);
+        Tile tile = playerClient.getGameMap().getTile(LayerDefinition.WORLD_OBJECTS, tileX, tileY, worldZ);
         TileImage tileImage = tile.getTileImage();
 
         if (tileImage == null) return;

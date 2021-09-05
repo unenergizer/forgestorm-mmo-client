@@ -99,9 +99,10 @@ public class DebugTable extends VisTable implements Buildable {
 
             int x = playerClient.getCurrentMapLocation().getX();
             int y = playerClient.getCurrentMapLocation().getY();
+            short z = playerClient.getCurrentMapLocation().getZ();
 
             playerWorld.setText("World: " + playerClient.getCurrentMapLocation().getWorldName() + ", FacingDirection: " + playerClient.getFacingDirection());
-            playerTile.setText("Tile XY: " + x + " / " + y + ", Pixel XY: " + playerClient.getDrawX() + " / " + playerClient.getDrawY());
+            playerTile.setText("Tile XYZ: " + x + " / " + y + " / " + z + ", Pixel XY: " + playerClient.getDrawX() + " / " + playerClient.getDrawY());
 
             GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
             WorldChunk worldChunk = gameWorld.findChunk(x, y);

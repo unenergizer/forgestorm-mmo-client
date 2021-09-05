@@ -2,6 +2,7 @@ package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldManager;
@@ -31,6 +32,7 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
         short chunkY = clientHandler.readShort();
 
         // Get layer information
+        short floor = clientHandler.readShort();
         LayerDefinition layerDefinition = LayerDefinition.getLayerDefinition(clientHandler.readByte());
         byte sectionSent = clientHandler.readByte();
 
@@ -44,19 +46,20 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
 
         println(getClass(), "Receiving chunk section! Layer: " + layerDefinition + ", Section: " + sectionSent, true, PRINT_DEBUG);
 
-        return new WorldChunkPartPacket(chunkX, chunkY, layerDefinition, sectionSent, layerParts);
+        return new WorldChunkPartPacket(chunkX, chunkY, Floors.getFloor(floor), layerDefinition, sectionSent, layerParts);
     }
 
     @Override
     public void onEvent(WorldChunkPartPacket packetData) {
         GameWorld gameWorld = worldManager.getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.getChunk(packetData.chunkX, packetData.chunkY);
-        worldChunk.setNetworkTiles(packetData.layerDefinition, packetData.sectionSent, packetData.layerPart);
+        worldChunk.setNetworkTiles(packetData.floor, packetData.layerDefinition, packetData.sectionSent, packetData.layerPart);
     }
 
     @AllArgsConstructor
     class WorldChunkPartPacket extends PacketData {
         private final short chunkX, chunkY;
+        private final Floors floor;
         private final LayerDefinition layerDefinition;
         private final byte sectionSent;
         private final int[] layerPart;

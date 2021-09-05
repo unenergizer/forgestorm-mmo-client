@@ -1,6 +1,6 @@
 1:
   fileName: bag-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -9,7 +9,7 @@
         - true
 2:
   fileName: bag-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -18,7 +18,7 @@
         - true
 3:
   fileName: bag-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -27,7 +27,7 @@
         - true
 4:
   fileName: barrel-big-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -37,7 +37,7 @@
         - true
 5:
   fileName: barrel-big-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -47,7 +47,7 @@
         - true
 6:
   fileName: barrel-big-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -57,31 +57,31 @@
         - true
 7:
   fileName: brick-wall-gray
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 8:
   fileName: brick-wall-green
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 9:
   fileName: brick-wall-red
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 10:
   fileName: brick-wall-tan
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 11:
   fileName: door-01-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 12:
   fileName: door-03-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 13:
   fileName: door-01-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 14:
   fileName: door-02-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 15:
   fileName: bag-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -90,10 +90,10 @@
         - true
 16:
   fileName: door-02-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 17:
   fileName: testwall
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -103,13 +103,13 @@
         - true
 18:
   fileName: door-03-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 19:
   fileName: door-07-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 20:
   fileName: barrel-big-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -120,7 +120,7 @@
         - true
 21:
   fileName: barrel-big-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -133,7 +133,7 @@
         - true
 22:
   fileName: barrel-small-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -143,7 +143,7 @@
         - true
 23:
   fileName: barrel-small-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -153,17 +153,17 @@
         - true
 24:
   fileName: bed-frame-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 25:
   fileName: bed-frame-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 26:
   fileName: bed-frame-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -175,37 +175,37 @@
         - true
 27:
   fileName: booth-blue-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 28:
   fileName: booth-blue-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 29:
   fileName: booth-green-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 30:
   fileName: booth-green-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 31:
   fileName: booth-yellow-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 32:
   fileName: booth-yellow-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 33:
   fileName: box-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -214,7 +214,7 @@
         - true
 34:
   fileName: box-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -223,7 +223,7 @@
         - true
 35:
   fileName: box-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -232,7 +232,7 @@
         - true
 36:
   fileName: box-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -243,7 +243,7 @@
         - true
 37:
   fileName: box-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -253,7 +253,7 @@
         - true
 38:
   fileName: box-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -262,7 +262,7 @@
         - true
 39:
   fileName: box-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -271,7 +271,7 @@
         - true
 40:
   fileName: box-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -280,7 +280,7 @@
         - true
 41:
   fileName: box-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -289,7 +289,7 @@
         - true
 42:
   fileName: box-14
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -298,7 +298,7 @@
         - true
 43:
   fileName: box-15
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -307,7 +307,7 @@
         - true
 44:
   fileName: box-16
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -316,7 +316,7 @@
         - true
 45:
   fileName: box-17
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -325,7 +325,7 @@
         - true
 46:
   fileName: bush-large-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -337,7 +337,7 @@
         - true
 47:
   fileName: bush-large-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -349,7 +349,7 @@
         - true
 48:
   fileName: bush-small-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -358,7 +358,7 @@
         - true
 49:
   fileName: bush-small-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -367,7 +367,7 @@
         - true
 50:
   fileName: bush-small-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -376,7 +376,7 @@
         - true
 51:
   fileName: bush-small-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -385,7 +385,7 @@
         - true
 52:
   fileName: bush-small-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -394,7 +394,7 @@
         - true
 53:
   fileName: cactus-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -403,7 +403,7 @@
         - true
 54:
   fileName: cactus-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -413,7 +413,7 @@
         - true
 55:
   fileName: cactus-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -423,7 +423,7 @@
         - true
 56:
   fileName: cauldron-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
   tileProperties:
@@ -435,12 +435,12 @@
         - true
 57:
   fileName: bed-cover-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 58:
   fileName: cauldron-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
   tileProperties:
@@ -452,47 +452,47 @@
         - true
 59:
   fileName: chair-blue-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 60:
   fileName: chair-blue-up
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 61:
   fileName: chair-brown-down
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 62:
   fileName: chair-brown-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 63:
   fileName: chair-brown-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 64:
   fileName: chair-red-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 65:
   fileName: chair-red-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 66:
   fileName: chair-red-up
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 67:
   fileName: chimney-01
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -500,7 +500,7 @@
         - true
 68:
   fileName: chimney-02
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -508,7 +508,7 @@
         - true
 69:
   fileName: column-mossy-stone-broken-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -518,7 +518,7 @@
         - true
 70:
   fileName: column-mossy-stone-broken-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -527,7 +527,7 @@
         - true
 71:
   fileName: column-mossy-stone-complete
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -537,7 +537,7 @@
         - true
 72:
   fileName: column-stone-broken-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -547,7 +547,7 @@
         - true
 73:
   fileName: column-stone-broken-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -556,19 +556,19 @@
         - true
 74:
   fileName: cup-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 75:
   fileName: cup-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 76:
   fileName: door-01-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -576,7 +576,7 @@
     }
 77:
   fileName: door-03-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -584,7 +584,7 @@
     }
 78:
   fileName: door-02-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -592,7 +592,7 @@
     }
 79:
   fileName: door-06-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -600,7 +600,7 @@
     }
 80:
   fileName: door-07-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -608,7 +608,7 @@
     }
 81:
   fileName: door-08-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -616,22 +616,22 @@
     }
 82:
   fileName: fancy-chair-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 83:
   fileName: fancy-chair-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 84:
   fileName: fancy-stool
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 85:
   fileName: fancy-table
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -643,54 +643,54 @@
         - true
 86:
   fileName: flag-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - FLAG
     - DUNGEON
 87:
   fileName: flag-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - FLAG
     - DUNGEON
 88:
   fileName: grass-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 89:
   fileName: grass-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 90:
   fileName: grass-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 91:
   fileName: grass-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 92:
   fileName: grass-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 93:
   fileName: grass-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 94:
   fileName: grass-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 95:
   fileName: grave-stone-large-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -702,7 +702,7 @@
         - true
 96:
   fileName: grave-stone-small-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -711,7 +711,7 @@
         - true
 97:
   fileName: grave-stone-small-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -720,7 +720,7 @@
         - true
 98:
   fileName: grave-stone-small-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -729,17 +729,17 @@
         - true
 99:
   fileName: grave-stone-small-base-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
 100:
   fileName: grave-stone-small-base-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
 101:
   fileName: grave-wooden-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -748,135 +748,135 @@
         - true
 102:
   fileName: hanging-sign-gold-armor
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 103:
   fileName: hanging-sign-gold-holy
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 104:
   fileName: hanging-sign-gold-inn
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 105:
   fileName: hanging-sign-gold-potion
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 106:
   fileName: hanging-sign-gold-weapons
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 107:
   fileName: hanging-sign-silver-armor
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 108:
   fileName: hanging-sign-silver-holy
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 109:
   fileName: hanging-sign-silver-inn
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 110:
   fileName: hanging-sign-silver-potion
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 111:
   fileName: hanging-sign-silver-weapons
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 112:
   fileName: hanging-sign-wood-armor
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 113:
   fileName: hanging-sign-wood-general-shop
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 114:
   fileName: hanging-sign-wood-inn
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 115:
   fileName: hanging-sign-wood-potion
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 116:
   fileName: kitchen-item-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 117:
   fileName: kitchen-item-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 118:
   fileName: kitchen-item-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 119:
   fileName: kitchen-item-05
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 120:
   fileName: kitchen-item-06
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 121:
   fileName: kitchen-item-09
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 122:
   fileName: kitchen-item-10
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 123:
   fileName: kitchen-item-11
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 124:
   fileName: lillypad-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 125:
   fileName: lillypad-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 126:
   fileName: log-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -886,7 +886,7 @@
         - true
 127:
   fileName: log-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - OUTDOOR
@@ -897,7 +897,7 @@
         - true
 128:
   fileName: log-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -906,7 +906,7 @@
         - true
 129:
   fileName: minecart-horizontal
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -916,7 +916,7 @@
         - true
 130:
   fileName: minecart-vertical
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -925,7 +925,7 @@
       ]
 131:
   fileName: mushroom-house-base-red
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -951,7 +951,7 @@
         - false
 132:
   fileName: mushroom-house-mini-floor-blue-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -973,7 +973,7 @@
         - true
 133:
   fileName: mushroom-house-mini-floor-blue-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -988,7 +988,7 @@
         - true
 134:
   fileName: mushroom-house-mini-floor-green-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1010,7 +1010,7 @@
         - true
 135:
   fileName: mushroom-house-mini-floor-green-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1025,37 +1025,37 @@
         - true
 136:
   fileName: mushroom-large-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 137:
   fileName: mushroom-large-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 138:
   fileName: mushroom-large-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 139:
   fileName: mushroom-large-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 140:
   fileName: mushroom-large-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 141:
   fileName: mushroom-large-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 142:
   fileName: mushroom-porch
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -1078,66 +1078,66 @@
         - true
 143:
   fileName: mushroom-small-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 144:
   fileName: mushroom-small-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 145:
   fileName: mushroom-small-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 146:
   fileName: mushroom-small-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 147:
   fileName: mushroom-small-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 148:
   fileName: painting-left-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
 149:
   fileName: painting-left-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
 150:
   fileName: painting-right-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
 151:
   fileName: plant-small-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 152:
   fileName: plant-small-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 153:
   fileName: plant-small-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 154:
   fileName: plant-small-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 155:
   fileName: plant-small-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 156:
   fileName: pot-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
   tileProperties:
@@ -1146,7 +1146,7 @@
         - true
 157:
   fileName: pot-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
   tileProperties:
@@ -1155,7 +1155,7 @@
         - true
 158:
   fileName: pot-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
   tileProperties:
@@ -1164,7 +1164,7 @@
         - true
 159:
   fileName: pot-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
   tileProperties:
@@ -1173,7 +1173,7 @@
         - true
 160:
   fileName: pot-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -1182,7 +1182,7 @@
         - true
 161:
   fileName: pot-flower-blue-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1192,7 +1192,7 @@
         - true
 162:
   fileName: pot-bush-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1203,7 +1203,7 @@
         - true
 163:
   fileName: pot-bush-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -1211,7 +1211,7 @@
         - true
 164:
   fileName: pot-bush-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1222,7 +1222,7 @@
         - true
 165:
   fileName: pot-bush-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1233,7 +1233,7 @@
         - true
 166:
   fileName: pot-bush-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1244,7 +1244,7 @@
         - true
 167:
   fileName: pot-flower-blue-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1254,7 +1254,7 @@
         - true
 168:
   fileName: pot-flower-blue-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1264,7 +1264,7 @@
         - true
 169:
   fileName: pot-flower-blue-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1274,7 +1274,7 @@
         - true
 170:
   fileName: pot-flower-blue-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1284,7 +1284,7 @@
         - true
 171:
   fileName: pot-flower-orange-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1294,7 +1294,7 @@
         - true
 172:
   fileName: pot-flower-orange-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1304,7 +1304,7 @@
         - true
 173:
   fileName: pot-flower-orange-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1314,7 +1314,7 @@
         - true
 174:
   fileName: pot-flower-orange-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1324,7 +1324,7 @@
         - true
 175:
   fileName: pot-flower-orange-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -1334,7 +1334,7 @@
         - true
 176:
   fileName: pot-flower-pink-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -1344,7 +1344,7 @@
         - true
 177:
   fileName: pot-flower-pink-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1354,7 +1354,7 @@
         - true
 178:
   fileName: pot-flower-pink-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1364,7 +1364,7 @@
         - true
 179:
   fileName: pot-flower-pink-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1374,7 +1374,7 @@
         - true
 180:
   fileName: pot-flower-pink-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1384,7 +1384,7 @@
         - true
 181:
   fileName: pot-flower-white-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1394,7 +1394,7 @@
         - true
 182:
   fileName: pot-flower-white-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1404,7 +1404,7 @@
         - true
 183:
   fileName: pot-flower-white-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1414,7 +1414,7 @@
         - true
 184:
   fileName: pot-flower-white-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1424,7 +1424,7 @@
         - true
 185:
   fileName: pot-flower-white-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1434,7 +1434,7 @@
         - true
 186:
   fileName: pot-flower-yellow-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -1444,7 +1444,7 @@
         - true
 187:
   fileName: pot-flower-yellow-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -1454,7 +1454,7 @@
         - true
 188:
   fileName: pot-flower-yellow-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -1464,7 +1464,7 @@
         - true
 189:
   fileName: pot-flower-yellow-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -1474,7 +1474,7 @@
         - true
 190:
   fileName: pot-flower-yellow-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -1484,7 +1484,7 @@
         - true
 191:
   fileName: prision-bed-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - DUNGEON
@@ -1497,7 +1497,7 @@
         - true
 192:
   fileName: prision-bed-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - DUNGEON
@@ -1510,7 +1510,7 @@
         - true
 193:
   fileName: rock-large-brown-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1522,7 +1522,7 @@
         - true
 194:
   fileName: rock-large-brown-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1534,7 +1534,7 @@
         - true
 195:
   fileName: rock-large-brown-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1546,7 +1546,7 @@
         - true
 196:
   fileName: rock-small-brown-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1555,7 +1555,7 @@
         - true
 197:
   fileName: rock-small-brown-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1564,7 +1564,7 @@
         - true
 198:
   fileName: rock-small-brown-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1573,7 +1573,7 @@
         - true
 199:
   fileName: rock-small-brown-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1583,7 +1583,7 @@
         - true
 200:
   fileName: rock-small-brown-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1592,7 +1592,7 @@
         - true
 201:
   fileName: rock-small-brown-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1601,7 +1601,7 @@
         - true
 202:
   fileName: rock-small-brown-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1610,7 +1610,7 @@
         - true
 203:
   fileName: rock-small-brown-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1619,12 +1619,12 @@
         - true
 204:
   fileName: rock-small-brown-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
 205:
   fileName: rock-small-dark-brown-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1633,7 +1633,7 @@
         - true
 206:
   fileName: rock-small-dark-brown-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1642,7 +1642,7 @@
         - true
 207:
   fileName: rock-small-dark-brown-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1651,7 +1651,7 @@
         - true
 208:
   fileName: rock-small-dark-brown-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1660,7 +1660,7 @@
         - true
 209:
   fileName: rock-small-dark-brown-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1669,7 +1669,7 @@
         - true
 210:
   fileName: rock-small-dark-brown-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1678,7 +1678,7 @@
         - true
 211:
   fileName: rock-small-dark-brown-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1687,7 +1687,7 @@
         - true
 212:
   fileName: rock-small-dark-brown-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1697,7 +1697,7 @@
         - false
 213:
   fileName: rock-small-dark-gray-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1706,7 +1706,7 @@
         - true
 214:
   fileName: rock-small-dark-gray-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1715,7 +1715,7 @@
         - true
 215:
   fileName: rock-small-dark-gray-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1724,7 +1724,7 @@
         - true
 216:
   fileName: rock-small-gray-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1733,7 +1733,7 @@
         - true
 217:
   fileName: rock-small-gray-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1742,7 +1742,7 @@
         - true
 218:
   fileName: rock-small-gray-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1751,7 +1751,7 @@
         - true
 219:
   fileName: rock-small-mossy-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1760,7 +1760,7 @@
         - true
 220:
   fileName: rock-small-mossy-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1769,7 +1769,7 @@
         - true
 221:
   fileName: rock-small-mossy-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1778,7 +1778,7 @@
         - true
 222:
   fileName: rock-small-mossy-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1787,7 +1787,7 @@
         - true
 223:
   fileName: rock-small-mossy-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1796,7 +1796,7 @@
         - true
 224:
   fileName: rock-sword-brown-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1806,7 +1806,7 @@
         - true
 225:
   fileName: rock-sword-brown-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -1815,7 +1815,7 @@
         - true
 226:
   fileName: sign-post-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - SIGNS
   tileProperties:
@@ -1824,7 +1824,7 @@
         - true
 227:
   fileName: sign-post-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - SIGNS
   tileProperties:
@@ -1833,7 +1833,7 @@
         - true
 228:
   fileName: sign-post-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - SIGNS
   tileProperties:
@@ -1842,13 +1842,13 @@
         - true
 229:
   fileName: small-stool
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - DUNGEON
 230:
   fileName: small-table-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - DUNGEON
@@ -1858,7 +1858,7 @@
         - true
 231:
   fileName: stick-pile-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
     - PLANTS
@@ -1868,12 +1868,12 @@
         - true
 232:
   fileName: stick-pile-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 233:
   fileName: stone-wall-arch
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -1887,12 +1887,12 @@
         - true
 234:
   fileName: stone-wall-arch-mossy
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
   tagsList:
     - DOOR_FRAMES
 235:
   fileName: BW4-iron-fence-0
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -1903,12 +1903,12 @@
         - true
 236:
   fileName: stone-wall-middle-horizontal-crack
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
 237:
   fileName: BW4-iron-fence-1
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -1917,7 +1917,7 @@
         - true
 238:
   fileName: BW4-iron-fence-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -1926,7 +1926,7 @@
         - true
 239:
   fileName: BW4-iron-fence-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -1935,7 +1935,7 @@
         - true
 240:
   fileName: BW4-iron-fence-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -1944,7 +1944,7 @@
         - true
 241:
   fileName: BW4-iron-fence-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -1953,7 +1953,7 @@
         - true
 242:
   fileName: BW4-iron-fence-14
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -1962,22 +1962,22 @@
         - true
 243:
   fileName: stool-round-blue
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 244:
   fileName: stool-round-wooden
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 245:
   fileName: stool-square-wooden
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 246:
   fileName: stump-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -1987,22 +1987,22 @@
         - true
 247:
   fileName: stump-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 248:
   fileName: stump-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 249:
   fileName: stump-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 250:
   fileName: stump-house
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2019,7 +2019,7 @@
         - true
 251:
   fileName: temple-clean
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2036,7 +2036,7 @@
         - true
 252:
   fileName: temple-mossy
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2053,7 +2053,7 @@
         - true
 253:
   fileName: tent
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2076,12 +2076,12 @@
         - true
 254:
   fileName: tent-door
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
   tagsList:
     - DOOR_FRAMES
 255:
   fileName: tree-large-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2109,7 +2109,7 @@
         - false
 256:
   fileName: tree-medium-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2121,7 +2121,7 @@
         - true
 257:
   fileName: tree-medium-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2133,7 +2133,7 @@
         - true
 258:
   fileName: tree-medium-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2145,7 +2145,7 @@
         - true
 259:
   fileName: tree-medium-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2157,7 +2157,7 @@
         - true
 260:
   fileName: tree-medium-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2169,7 +2169,7 @@
         - true
 261:
   fileName: BW4-iron-fence-15
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -2178,7 +2178,7 @@
         - true
 262:
   fileName: tree-medium-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2190,7 +2190,7 @@
         - true
 263:
   fileName: tree-medium-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2202,7 +2202,7 @@
         - true
 264:
   fileName: tree-medium-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2214,7 +2214,7 @@
         - true
 265:
   fileName: tree-small-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2224,7 +2224,7 @@
         - true
 266:
   fileName: tree-small-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2234,7 +2234,7 @@
         - true
 267:
   fileName: tree-small-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2244,7 +2244,7 @@
         - true
 268:
   fileName: tree-small-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2254,7 +2254,7 @@
         - true
 269:
   fileName: tree-small-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2264,7 +2264,7 @@
         - true
 270:
   fileName: tree-small-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2274,7 +2274,7 @@
         - true
 271:
   fileName: tree-small-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2284,7 +2284,7 @@
         - true
 272:
   fileName: tree-small-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2294,138 +2294,138 @@
         - true
 273:
   fileName: wall-cabinet-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - KITCHEN
 274:
   fileName: wall-cabinet-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - KITCHEN
 275:
   fileName: wall-chain-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - DUNGEON
 276:
   fileName: wall-chain-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - DUNGEON
 277:
   fileName: wall-shelf-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - KITCHEN
 278:
   fileName: wall-shelf-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - KITCHEN
 279:
   fileName: wall-shelf-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - KITCHEN
 280:
   fileName: wall-shelf-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
     - FURNITURE
 281:
   fileName: wall-sign-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 282:
   fileName: wall-sign-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 283:
   fileName: wall-sign-blank
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 284:
   fileName: wall-sign-gold-armor
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 285:
   fileName: wall-sign-gold-holy
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 286:
   fileName: wall-sign-gold-inn
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 287:
   fileName: wall-sign-gold-potion
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 288:
   fileName: wall-sign-gold-pub
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 289:
   fileName: wall-sign-gold-shop
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 290:
   fileName: wall-sign-gold-weapons
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 291:
   fileName: wall-sign-silver-armor
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 292:
   fileName: wall-sign-silver-holy
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 293:
   fileName: wall-sign-silver-inn
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 294:
   fileName: wall-sign-silver-potion
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 295:
   fileName: wall-sign-silver-pub
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 296:
   fileName: wall-sign-silver-shop
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 297:
   fileName: wall-sign-silver-weapons
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 298:
   fileName: weapon-rack-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -2435,7 +2435,7 @@
         - true
 299:
   fileName: weapon-rack-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -2445,7 +2445,7 @@
         - true
 300:
   fileName: weapon-rack-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -2455,7 +2455,7 @@
         - true
 301:
   fileName: well-broken
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2464,7 +2464,7 @@
         - true
 302:
   fileName: well-broken-rope
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2473,7 +2473,7 @@
         - true
 303:
   fileName: well-covered-empty
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2483,7 +2483,7 @@
         - true
 304:
   fileName: well-covered-filled
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2493,12 +2493,12 @@
         - true
 305:
   fileName: bed-cover-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 306:
   fileName: well-filled
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -2507,52 +2507,52 @@
         - true
 307:
   fileName: wild-flower-blue-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 308:
   fileName: wild-flower-blue-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 309:
   fileName: wild-flower-blue-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 310:
   fileName: wild-flower-blue-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 311:
   fileName: wild-flower-blue-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 312:
   fileName: wild-flower-blue-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 313:
   fileName: wild-flower-blue-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 314:
   fileName: bed-frame-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 315:
   fileName: booth-red-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 316:
   fileName: box-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
     - DUNGEON
@@ -2562,7 +2562,7 @@
         - true
 317:
   fileName: box-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -2571,7 +2571,7 @@
         - true
 318:
   fileName: bush-small-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2580,7 +2580,7 @@
         - true
 319:
   fileName: cactus-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2590,28 +2590,28 @@
         - true
 320:
   fileName: chair-blue-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 321:
   fileName: chair-red-down
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 322:
   fileName: coconut
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 323:
   fileName: cup-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 324:
   fileName: door-04-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -2619,18 +2619,18 @@
     }
 325:
   fileName: flag-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - FLAG
     - DUNGEON
 326:
   fileName: grass-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 327:
   fileName: grave-stone-small-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -2639,7 +2639,7 @@
         - true
 328:
   fileName: grave-wooden-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -2648,34 +2648,34 @@
         - true
 329:
   fileName: hanging-sign-gold-shop
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 330:
   fileName: hanging-sign-silver-shop
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 331:
   fileName: kitchen-item-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 332:
   fileName: kitchen-item-08
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 333:
   fileName: lillypad-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 334:
   fileName: mushroom-house-base-green
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2701,7 +2701,7 @@
         - false
 335:
   fileName: mushroom-house-mini-floor-red-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -2716,17 +2716,17 @@
         - true
 336:
   fileName: mushroom-large-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 337:
   fileName: mushroom-small-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 338:
   fileName: piano
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -2738,12 +2738,12 @@
         - true
 339:
   fileName: plant-small-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 340:
   fileName: pot-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -2753,7 +2753,7 @@
         - true
 341:
   fileName: pot-bush-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -2764,7 +2764,7 @@
         - true
 342:
   fileName: pot-flower-blue-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -2774,7 +2774,7 @@
         - true
 343:
   fileName: pot-flower-orange-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -2784,7 +2784,7 @@
         - true
 344:
   fileName: pot-flower-pink-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -2794,7 +2794,7 @@
         - true
 345:
   fileName: pot-flower-white-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -2804,7 +2804,7 @@
         - true
 346:
   fileName: pot-flower-yellow-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -2814,7 +2814,7 @@
         - true
 347:
   fileName: rock-large-mossy-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2826,7 +2826,7 @@
         - true
 348:
   fileName: rock-small-brown-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2835,7 +2835,7 @@
         - true
 349:
   fileName: rock-small-dark-brown-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2844,7 +2844,7 @@
         - true
 350:
   fileName: rock-small-dark-brown-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2853,7 +2853,7 @@
         - true
 351:
   fileName: rock-small-gray-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2862,7 +2862,7 @@
         - true
 352:
   fileName: rock-small-mossy-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2872,7 +2872,7 @@
         - true
 353:
   fileName: rock-sword-mossy-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -2881,7 +2881,7 @@
         - true
 354:
   fileName: small-table-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - DUNGEON
@@ -2891,7 +2891,7 @@
         - true
 355:
   fileName: BW4-iron-fence-2
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -2900,7 +2900,7 @@
         - true
 356:
   fileName: stump-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -2912,440 +2912,440 @@
         - true
 357:
   fileName: stump-house-door-frame
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 358:
   fileName: stump-house-door
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 359:
   fileName: wild-flower-blue-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 360:
   fileName: wild-flower-blue-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 361:
   fileName: wild-flower-blue-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 362:
   fileName: wild-flower-blue-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 363:
   fileName: wild-flower-blue-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 364:
   fileName: wild-flower-blue-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 365:
   fileName: wild-flower-brown-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 366:
   fileName: wild-flower-brown-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 367:
   fileName: wild-flower-brown-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 368:
   fileName: wild-flower-brown-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 369:
   fileName: wild-flower-brown-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 370:
   fileName: wild-flower-brown-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 371:
   fileName: wild-flower-brown-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 372:
   fileName: wild-flower-brown-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 373:
   fileName: wild-flower-brown-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 374:
   fileName: wild-flower-brown-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 375:
   fileName: wild-flower-brown-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 376:
   fileName: wild-flower-brown-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 377:
   fileName: wild-flower-brown-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 378:
   fileName: wild-flower-gray-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 379:
   fileName: wild-flower-gray-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 380:
   fileName: wild-flower-gray-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 381:
   fileName: wild-flower-gray-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 382:
   fileName: wild-flower-gray-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 383:
   fileName: wild-flower-gray-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 384:
   fileName: wild-flower-gray-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 385:
   fileName: wild-flower-gray-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 386:
   fileName: wild-flower-gray-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 387:
   fileName: wild-flower-gray-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 388:
   fileName: wild-flower-gray-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 389:
   fileName: wild-flower-gray-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 390:
   fileName: wild-flower-gray-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 391:
   fileName: wild-flower-orange-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 392:
   fileName: wild-flower-orange-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 393:
   fileName: wild-flower-orange-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 394:
   fileName: wild-flower-orange-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 395:
   fileName: wild-flower-orange-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 396:
   fileName: wild-flower-orange-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 397:
   fileName: wild-flower-orange-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 398:
   fileName: wild-flower-orange-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 399:
   fileName: wild-flower-orange-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 400:
   fileName: wild-flower-orange-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 401:
   fileName: wild-flower-orange-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 402:
   fileName: wild-flower-orange-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 403:
   fileName: wild-flower-orange-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 404:
   fileName: wild-flower-pink-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 405:
   fileName: wild-flower-pink-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 406:
   fileName: wild-flower-pink-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 407:
   fileName: wild-flower-pink-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 408:
   fileName: wild-flower-pink-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 409:
   fileName: wild-flower-pink-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 410:
   fileName: wild-flower-pink-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 411:
   fileName: wild-flower-pink-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 412:
   fileName: wild-flower-pink-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 413:
   fileName: wild-flower-pink-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 414:
   fileName: wild-flower-pink-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 415:
   fileName: wild-flower-pink-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 416:
   fileName: wild-flower-pink-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 417:
   fileName: wild-flower-white-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 418:
   fileName: wild-flower-white-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 419:
   fileName: wild-flower-white-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 420:
   fileName: wild-flower-white-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 421:
   fileName: wild-flower-white-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 422:
   fileName: wild-flower-white-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 423:
   fileName: wild-flower-white-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 424:
   fileName: wild-flower-white-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 425:
   fileName: wild-flower-white-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 426:
   fileName: wild-flower-white-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 427:
   fileName: wild-flower-white-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 428:
   fileName: wild-flower-white-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 429:
   fileName: wild-flower-white-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 430:
   fileName: window-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 431:
   fileName: window-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 432:
   fileName: window-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 433:
   fileName: window-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 434:
   fileName: window-05
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 435:
   fileName: window-06
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 436:
   fileName: window-07
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 437:
   fileName: window-08
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 438:
   fileName: window-09
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 439:
   fileName: window-10
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 440:
   fileName: window-11
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 441:
   fileName: window-12
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 442:
   fileName: window-13
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 443:
   fileName: window-14
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - WINDOW
 444:
   fileName: wooden-vanity
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -3355,10 +3355,10 @@
         - true
 445:
   fileName: door-08-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 446:
   fileName: BW4-iron-fence-3
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -3367,148 +3367,148 @@
         - true
 447:
   fileName: wooden-support-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 448:
   fileName: wooden-support-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 449:
   fileName: wooden-support-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 450:
   fileName: roof-blue-01
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 451:
   fileName: roof-blue-02
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 452:
   fileName: roof-blue-03
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 453:
   fileName: roof-blue-04
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 454:
   fileName: roof-blue-05
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 455:
   fileName: roof-blue-06
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 456:
   fileName: roof-blue-07
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 457:
   fileName: roof-blue-08
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 458:
   fileName: roof-blue-35
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 459:
   fileName: roof-blue-09
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 460:
   fileName: roof-blue-10
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 461:
   fileName: roof-blue-11
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 462:
   fileName: roof-blue-12
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 463:
   fileName: roof-blue-13
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 464:
   fileName: roof-blue-14
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 465:
   fileName: roof-blue-20
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 466:
   fileName: roof-blue-15
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 467:
   fileName: roof-blue-16
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 468:
   fileName: roof-blue-17
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 469:
   fileName: roof-blue-18
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 470:
   fileName: roof-blue-19
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 471:
   fileName: roof-blue-21
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 472:
   fileName: roof-blue-22
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 473:
   fileName: roof-blue-23
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 474:
   fileName: roof-blue-24
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 475:
   fileName: roof-blue-25
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 476:
   fileName: roof-blue-26
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 477:
   fileName: roof-blue-27
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 478:
   fileName: roof-blue-28
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 479:
   fileName: roof-blue-30
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 480:
   fileName: roof-blue-31
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 481:
   fileName: roof-blue-32
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 482:
   fileName: roof-blue-33
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 483:
   fileName: roof-blue-34
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 484:
   fileName: roof-blue-36
-  layerDefinition: ROOF
+  layerDefinition: OVERHEAD
 485:
   fileName: mushroom-door-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 486:
   fileName: mushroom-door-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 487:
   fileName: mushroom-door-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 488:
   fileName: mushroom-door-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 489:
   fileName: mushroom-door-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 490:
   fileName: mushroom-door-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 491:
   fileName: mushroom-door-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 492:
   fileName: mushroom-house-base-blue
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -3534,53 +3534,53 @@
         - false
 493:
   fileName: mushroom-house-blue-addon-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 494:
   fileName: mushroom-house-blue-addon-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 495:
   fileName: mushroom-house-blue-addon-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 496:
   fileName: mushroom-house-blue-addon-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 497:
   fileName: mushroom-house-blue-addon-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
         - true
 498:
   fileName: mushroom-house-red-addon-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 499:
   fileName: mushroom-house-blue-addon-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 500:
   fileName: mushroom-house-red-addon-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 501:
   fileName: mushroom-house-green-addon-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 502:
   fileName: mushroom-house-green-addon-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 503:
   fileName: mushroom-house-green-addon-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 504:
   fileName: mushroom-house-green-addon-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 505:
   fileName: mushroom-house-green-addon-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 506:
   fileName: mushroom-house-green-addon-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 507:
   fileName: mushroom-house-mini-floor-red-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     COLLISION_BLOCK:
       collisionList:
@@ -3602,16 +3602,16 @@
         - true
 508:
   fileName: mushroom-house-red-addon-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 509:
   fileName: mushroom-house-red-addon-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 510:
   fileName: mushroom-house-red-addon-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 511:
   fileName: mushroom-house-red-addon-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 512:
   fileName: BW16-grass-dirt-218
   layerDefinition: GROUND
@@ -5026,32 +5026,32 @@
     }
 747:
   fileName: bench-wide-back-single
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 748:
   fileName: booth-red-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 749:
   fileName: box-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
 750:
   fileName: box-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
 751:
   fileName: bed-frame-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 752:
   fileName: column-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5061,7 +5061,7 @@
         - true
 753:
   fileName: column-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5070,7 +5070,7 @@
         - true
 754:
   fileName: column-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5080,7 +5080,7 @@
         - true
 755:
   fileName: column-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5089,7 +5089,7 @@
         - true
 756:
   fileName: column-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5099,7 +5099,7 @@
         - true
 757:
   fileName: column-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5108,7 +5108,7 @@
         - true
 758:
   fileName: column-stone-complete
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -5118,17 +5118,17 @@
         - true
 759:
   fileName: chair-blue-down
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 760:
   fileName: chair-brown-up
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 761:
   fileName: clock
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5138,7 +5138,7 @@
         - true
 762:
   fileName: cactus-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -5147,7 +5147,7 @@
         - true
 763:
   fileName: egypt-statue-dog-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - EGYPTIAN
   tileProperties:
@@ -5159,7 +5159,7 @@
         - true
 764:
   fileName: egypt-statue-dog-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - EGYPTIAN
   tileProperties:
@@ -5169,7 +5169,7 @@
         - true
 765:
   fileName: egypt-statue-dog-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - EGYPTIAN
   tileProperties:
@@ -5181,7 +5181,7 @@
         - true
 766:
   fileName: egypt-statue-dog-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - EGYPTIAN
   tileProperties:
@@ -5191,13 +5191,13 @@
         - true
 767:
   fileName: flag-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - FLAG
     - DUNGEON
 768:
   fileName: grave-stone-large-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -5211,7 +5211,7 @@
         - true
 769:
   fileName: grave-wooden-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CEMETERY
   tileProperties:
@@ -5220,12 +5220,12 @@
         - true
 770:
   fileName: bed-cover-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 771:
   fileName: mailbox-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5235,12 +5235,12 @@
         - true
 772:
   fileName: mushroom-large-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 773:
   fileName: pot-bush-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -5251,7 +5251,7 @@
         - true
 774:
   fileName: pot-flower-blue-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -5261,7 +5261,7 @@
         - true
 775:
   fileName: pot-flower-orange-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -5271,7 +5271,7 @@
         - true
 776:
   fileName: pot-flower-pink-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -5281,7 +5281,7 @@
         - true
 777:
   fileName: pot-flower-white-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - PLANTS
@@ -5291,7 +5291,7 @@
         - true
 778:
   fileName: pot-flower-yellow-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
     - FURNITURE
@@ -5301,7 +5301,7 @@
         - true
 779:
   fileName: rock-large-mossy-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5313,7 +5313,7 @@
         - true
 780:
   fileName: rock-small-brown-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5322,7 +5322,7 @@
         - true
 781:
   fileName: rock-small-dark-brown-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5331,7 +5331,7 @@
         - true
 782:
   fileName: rock-small-dark-brown-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5340,7 +5340,7 @@
         - true
 783:
   fileName: rock-small-dark-gray-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5350,7 +5350,7 @@
         - true
 784:
   fileName: rock-small-dark-gray-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5359,7 +5359,7 @@
         - true
 785:
   fileName: rock-small-mossy-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5368,7 +5368,7 @@
         - true
 786:
   fileName: rock-sword-mossy-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - ROCKS
   tileProperties:
@@ -5378,7 +5378,7 @@
         - true
 787:
   fileName: small-table-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
     - DUNGEON
@@ -5388,7 +5388,7 @@
         - true
 788:
   fileName: stump-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
   tileProperties:
@@ -5400,7 +5400,7 @@
         - true
 789:
   fileName: BW4-iron-fence-4
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -5409,7 +5409,7 @@
         - true
 790:
   fileName: well-egypt-filled
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5418,7 +5418,7 @@
         - true
 791:
   fileName: well-egypt-empty
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5427,7 +5427,7 @@
         - true
 792:
   fileName: well-egypt-broken
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5436,118 +5436,118 @@
         - true
 793:
   fileName: bench-wide-single
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 794:
   fileName: bush-small-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 795:
   fileName: cabnient-item-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - KITCHEN
 796:
   fileName: cabnient-item-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - KITCHEN
 797:
   fileName: cabnient-item-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 798:
   fileName: cabnient-item-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 799:
   fileName: cabnient-item-05
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 800:
   fileName: cabnient-item-06
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 801:
   fileName: cabnient-item-07
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 802:
   fileName: cabnient-item-08
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 803:
   fileName: dungeon-stairs-up
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 804:
   fileName: dungeon-floor-trap-door
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
     - DOORS
 805:
   fileName: dungeon-floor-vent
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
 806:
   fileName: dungeon-wall-vent-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
 807:
   fileName: dungeon-wall-vent-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DUNGEON
 808:
   fileName: dungeon-stairs-down
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 809:
   fileName: hanging-sign-gold-pub
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 810:
   fileName: hanging-sign-silver-pub
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 811:
   fileName: hanging-sign-wood-weapons
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - SIGNS
 812:
   fileName: kitchen-item-07
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
     - KITCHEN
 813:
   fileName: painting-right-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
 814:
   fileName: mushroom-small-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 815:
   fileName: mushroom-small-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 816:
   fileName: pot-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - CONTAINER
   tileProperties:
@@ -5556,115 +5556,115 @@
         - true
 817:
   fileName: plant-small-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 818:
   fileName: table-item-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 819:
   fileName: table-item-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 820:
   fileName: table-item-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 821:
   fileName: table-item-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 822:
   fileName: table-item-05
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 823:
   fileName: table-item-06
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 824:
   fileName: table-item-07
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 825:
   fileName: table-item-08
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 826:
   fileName: table-item-09
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 827:
   fileName: table-item-10
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 828:
   fileName: table-item-11
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 829:
   fileName: table-item-12
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 830:
   fileName: table-item-13
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 831:
   fileName: table-item-14
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 832:
   fileName: table-item-15
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 833:
   fileName: table-item-16
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 834:
   fileName: door-04-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 835:
   fileName: table-item-book-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 836:
   fileName: table-item-book-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 837:
   fileName: table-item-book-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 838:
   fileName: table-item-book-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 839:
   fileName: table-with-item-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5673,7 +5673,7 @@
         - true
 840:
   fileName: table-with-item-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5682,7 +5682,7 @@
         - true
 841:
   fileName: table-with-item-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5691,7 +5691,7 @@
         - true
 842:
   fileName: table-with-item-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5700,10 +5700,10 @@
         - true
 843:
   fileName: door-04-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 844:
   fileName: door-08-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 845:
   fileName: door-background-dark
   layerDefinition: GROUND_DECORATION
@@ -5711,15 +5711,15 @@
     - DOOR_LIGHTING
 846:
   fileName: bed-cover-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 847:
   fileName: door-05-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 848:
   fileName: door-05-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 849:
   fileName: door-background-light
   layerDefinition: GROUND_DECORATION
@@ -5727,10 +5727,10 @@
     - DOOR_LIGHTING
 850:
   fileName: door-06-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 851:
   fileName: door-05-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
   tileProperties:
@@ -5738,18 +5738,18 @@
     }
 852:
   fileName: bed-cover-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
 853:
   fileName: door-06-transition
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 854:
   fileName: door-07-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 855:
   fileName: gate-03-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5758,7 +5758,7 @@
     }
 856:
   fileName: gate-03-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5767,12 +5767,12 @@
     }
 857:
   fileName: cauldron-01-751
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 858:
   fileName: gate-04-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5781,7 +5781,7 @@
     }
 859:
   fileName: gate-04-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5790,7 +5790,7 @@
     }
 860:
   fileName: iron-fence-grass-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -5799,7 +5799,7 @@
         - true
 861:
   fileName: iron-fence-grass-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -5808,12 +5808,12 @@
         - true
 862:
   fileName: lamp-post-big-off
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
 863:
   fileName: gate-02-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5822,7 +5822,7 @@
     }
 864:
   fileName: gate-02-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5831,7 +5831,7 @@
     }
 865:
   fileName: gate-01-open
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5840,7 +5840,7 @@
     }
 866:
   fileName: gate-01-closed
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - DOORS
     - FENCE
@@ -5849,14 +5849,14 @@
     }
 867:
   fileName: lamp-post-big-on
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties: {
   }
 868:
   fileName: wooden-fence-grass-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -5865,7 +5865,7 @@
         - true
 869:
   fileName: wooden-fence-grass-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -5874,7 +5874,7 @@
         - true
 870:
   fileName: lamp-post-small-off
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5884,7 +5884,7 @@
         - true
 871:
   fileName: lamp-post-small-on
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5894,7 +5894,7 @@
         - true
 872:
   fileName: mailbox-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5904,7 +5904,7 @@
         - true
 873:
   fileName: mailbox-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
   tileProperties:
@@ -5914,7 +5914,7 @@
         - true
 874:
   fileName: cabnient-bottom-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5926,7 +5926,7 @@
         - true
 875:
   fileName: cabnient-bottom-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5938,7 +5938,7 @@
         - true
 876:
   fileName: cabnient-bottom-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5950,7 +5950,7 @@
         - true
 877:
   fileName: cabnient-bottom-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5962,7 +5962,7 @@
         - true
 878:
   fileName: cabnient-bottom-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5974,7 +5974,7 @@
         - true
 879:
   fileName: cabnient-bottom-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5986,7 +5986,7 @@
         - true
 880:
   fileName: cabnient-bottom-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -5998,7 +5998,7 @@
         - true
 881:
   fileName: cabnient-bottom-08
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6010,7 +6010,7 @@
         - true
 882:
   fileName: cabnient-bottom-09
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6022,7 +6022,7 @@
         - true
 883:
   fileName: cabnient-bottom-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6034,7 +6034,7 @@
         - true
 884:
   fileName: cabnient-bottom-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6046,7 +6046,7 @@
         - true
 885:
   fileName: cabnient-bottom-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6058,7 +6058,7 @@
         - true
 886:
   fileName: cabnient-bottom-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6070,7 +6070,7 @@
         - true
 887:
   fileName: cabnient-bottom-14
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6082,7 +6082,7 @@
         - true
 888:
   fileName: cabnient-small-bottom-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6092,7 +6092,7 @@
         - true
 889:
   fileName: cabnient-small-bottom-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6102,7 +6102,7 @@
         - true
 890:
   fileName: cabnient-small-bottom-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6112,7 +6112,7 @@
         - true
 891:
   fileName: cabnient-small-bottom-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6122,7 +6122,7 @@
         - true
 892:
   fileName: cabnient-small-bottom-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6132,7 +6132,7 @@
         - true
 893:
   fileName: cabnient-small-bottom-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
@@ -6142,7 +6142,7 @@
         - true
 896:
   fileName: BW4-brick-wall-0
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6153,7 +6153,7 @@
         - true
 897:
   fileName: BW4-brick-wall-1
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6164,7 +6164,7 @@
         - true
 898:
   fileName: BW4-brick-wall-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6175,7 +6175,7 @@
         - true
 899:
   fileName: BW4-brick-wall-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6186,7 +6186,7 @@
         - true
 900:
   fileName: BW4-brick-wall-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6197,7 +6197,7 @@
         - true
 901:
   fileName: BW4-brick-wall-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6208,7 +6208,7 @@
         - true
 902:
   fileName: BW4-brick-wall-14
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6219,7 +6219,7 @@
         - true
 903:
   fileName: BW4-brick-wall-15
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6230,7 +6230,7 @@
         - true
 904:
   fileName: BW4-brick-wall-2
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6241,7 +6241,7 @@
         - true
 905:
   fileName: BW4-brick-wall-3
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6252,7 +6252,7 @@
         - true
 906:
   fileName: BW4-brick-wall-4
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6263,7 +6263,7 @@
         - true
 907:
   fileName: BW4-brick-wall-5
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6274,7 +6274,7 @@
         - true
 908:
   fileName: BW4-brick-wall-6
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6285,7 +6285,7 @@
         - true
 909:
   fileName: BW4-brick-wall-7
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6296,7 +6296,7 @@
         - true
 910:
   fileName: BW4-brick-wall-8
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6307,7 +6307,7 @@
         - true
 911:
   fileName: BW4-brick-wall-9
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
@@ -6318,7 +6318,7 @@
         - true
 912:
   fileName: BW4-wooden-fence-0
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -6329,7 +6329,7 @@
         - true
 913:
   fileName: BW4-wooden-fence-1
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6338,7 +6338,7 @@
         - true
 914:
   fileName: BW4-wooden-fence-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6347,7 +6347,7 @@
         - true
 915:
   fileName: BW4-wooden-fence-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6356,7 +6356,7 @@
         - true
 916:
   fileName: BW4-wooden-fence-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6365,7 +6365,7 @@
         - true
 917:
   fileName: BW4-wooden-fence-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6374,7 +6374,7 @@
         - true
 918:
   fileName: BW4-wooden-fence-14
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6383,7 +6383,7 @@
         - true
 919:
   fileName: BW4-wooden-fence-2
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6392,7 +6392,7 @@
         - true
 920:
   fileName: BW4-wooden-fence-3
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6401,7 +6401,7 @@
         - true
 921:
   fileName: BW4-wooden-fence-4
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6410,7 +6410,7 @@
         - true
 922:
   fileName: BW4-wooden-fence-5
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6419,7 +6419,7 @@
         - true
 923:
   fileName: BW4-wooden-fence-6
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6428,7 +6428,7 @@
         - true
 924:
   fileName: BW4-wooden-fence-7
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6437,7 +6437,7 @@
         - true
 925:
   fileName: BW4-wooden-fence-8
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6446,7 +6446,7 @@
         - true
 926:
   fileName: BW4-wooden-fence-9
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6455,7 +6455,7 @@
         - true
 927:
   fileName: BW4-wooden-fence-15
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6464,7 +6464,7 @@
         - true
 928:
   fileName: BW4-iron-fence-5
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6473,7 +6473,7 @@
         - true
 929:
   fileName: BW4-iron-fence-6
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6482,7 +6482,7 @@
         - true
 930:
   fileName: BW4-iron-fence-7
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6491,7 +6491,7 @@
         - true
 931:
   fileName: BW4-iron-fence-8
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6500,7 +6500,7 @@
         - true
 932:
   fileName: BW4-iron-fence-9
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6509,7 +6509,7 @@
         - true
 933:
   fileName: BW4-post-wooden-fence-0
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
@@ -6520,7 +6520,7 @@
         - true
 934:
   fileName: BW4-post-wooden-fence-1
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6529,7 +6529,7 @@
         - true
 935:
   fileName: BW4-post-wooden-fence-10
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6538,7 +6538,7 @@
         - true
 936:
   fileName: BW4-post-wooden-fence-11
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6547,7 +6547,7 @@
         - true
 937:
   fileName: BW4-post-wooden-fence-15
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6556,7 +6556,7 @@
         - true
 938:
   fileName: BW4-post-wooden-fence-12
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6565,7 +6565,7 @@
         - true
 939:
   fileName: BW4-post-wooden-fence-13
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6574,7 +6574,7 @@
         - true
 940:
   fileName: BW4-post-wooden-fence-14
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6583,7 +6583,7 @@
         - true
 941:
   fileName: BW4-post-wooden-fence-9
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6592,7 +6592,7 @@
         - true
 942:
   fileName: BW4-post-wooden-fence-8
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6601,7 +6601,7 @@
         - true
 943:
   fileName: BW4-post-wooden-fence-7
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6610,7 +6610,7 @@
         - true
 944:
   fileName: BW4-post-wooden-fence-6
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6619,7 +6619,7 @@
         - true
 945:
   fileName: BW4-post-wooden-fence-5
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6628,7 +6628,7 @@
         - true
 946:
   fileName: BW4-post-wooden-fence-4
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6637,7 +6637,7 @@
         - true
 947:
   fileName: BW4-post-wooden-fence-3
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6646,7 +6646,7 @@
         - true
 948:
   fileName: BW4-post-wooden-fence-2
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tileProperties:
     WANG_TILE: {
     }
@@ -6655,205 +6655,205 @@
         - true
 949:
   fileName: brick-wall-support-01
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 950:
   fileName: brick-wall-support-02
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 951:
   fileName: brick-wall-support-03
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 952:
   fileName: brick-wall-support-04
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 953:
   fileName: brick-wall-support-05
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 954:
   fileName: brick-wall-support-06
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 955:
   fileName: brick-wall-support-21
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 956:
   fileName: brick-wall-support-07
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 957:
   fileName: brick-wall-support-22
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 958:
   fileName: brick-wall-support-08
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 959:
   fileName: brick-wall-support-09
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 960:
   fileName: brick-wall-support-10
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 961:
   fileName: brick-wall-support-11
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 962:
   fileName: brick-wall-support-12
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 963:
   fileName: brick-wall-support-13
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 964:
   fileName: brick-wall-support-14
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 965:
   fileName: brick-wall-support-15
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 966:
   fileName: brick-wall-support-16
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 967:
   fileName: brick-wall-support-17
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 968:
   fileName: brick-wall-support-18
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 969:
   fileName: brick-wall-support-19
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 970:
   fileName: brick-wall-support-20
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 971:
   fileName: brick-wall-support-23
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 972:
   fileName: brick-wall-support-24
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 973:
   fileName: brick-wall-support-25
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 974:
   fileName: brick-wall-support-26
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 975:
   fileName: brick-wall-support-27
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 976:
   fileName: brick-wall-gray-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 977:
   fileName: brick-wall-gray-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 978:
   fileName: brick-wall-green-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 979:
   fileName: brick-wall-green-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 980:
   fileName: brick-wall-red-left
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 981:
   fileName: brick-wall-red-right
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
 982:
   fileName: table-metal-kitchen-01
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 983:
   fileName: table-metal-kitchen-02
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 984:
   fileName: table-metal-kitchen-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 985:
   fileName: table-metal-kitchen-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 986:
   fileName: table-metal-kitchen-05
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 987:
   fileName: table-metal-kitchen-06
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 988:
   fileName: table-metal-kitchen-07
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - KITCHEN
 989:
   fileName: table-item-17
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - TABLE_TOP
 990:
   fileName: grass-04
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 991:
   fileName: egypt-wall-25
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - EGYPTIAN
     - FENCE
@@ -6868,7 +6868,7 @@
         - true
 992:
   fileName: lillypad-03
-  layerDefinition: COLLIDABLES
+  layerDefinition: WORLD_OBJECTS
   tagsList:
     - PLANTS
 993:
@@ -6888,131 +6888,131 @@
     - PATH_WAY
 996:
   fileName: brick-wall-support-28
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 997:
   fileName: brick-wall-support-29
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 998:
   fileName: brick-wall-support-30
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 999:
   fileName: brick-wall-support-31
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1000:
   fileName: brick-wall-support-32
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1001:
   fileName: brick-wall-support-33
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1002:
   fileName: brick-wall-support-47
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1003:
   fileName: brick-wall-support-34
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1004:
   fileName: brick-wall-support-48
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1005:
   fileName: brick-wall-support-35
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1006:
   fileName: brick-wall-support-36
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1007:
   fileName: brick-wall-support-37
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1008:
   fileName: brick-wall-support-38
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1009:
   fileName: brick-wall-support-39
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1010:
   fileName: brick-wall-support-40
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1011:
   fileName: brick-wall-support-41
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1012:
   fileName: brick-wall-support-42
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1013:
   fileName: brick-wall-support-43
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1014:
   fileName: brick-wall-support-44
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1015:
   fileName: brick-wall-support-45
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1016:
   fileName: brick-wall-support-46
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1017:
   fileName: brick-wall-support-49
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1018:
   fileName: brick-wall-support-50
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1019:
   fileName: brick-wall-support-51
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1020:
   fileName: brick-wall-support-52
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS
 1021:
   fileName: brick-wall-support-53
-  layerDefinition: WALL_DECORATION
+  layerDefinition: WORLD_OBJECT_DECORATION
   tagsList:
     - BUILDING_DECORATIONS

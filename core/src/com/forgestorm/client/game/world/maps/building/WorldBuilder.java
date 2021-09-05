@@ -38,9 +38,10 @@ public class WorldBuilder {
     private final TextureAtlas worldTileImages;
     private final Array<TextureAtlas.AtlasRegion> regions;
     private final Map<LayerDefinition, Boolean> layerVisibilityMap;
+    private final Map<Floors, Boolean> floorVisibilityMap;
     private final Map<Integer, WangTile> wangImageMap;
 
-    private LayerDefinition currentLayer = LayerDefinition.GROUND_DECORATION;
+    private LayerDefinition currentLayer = LayerDefinition.WORLD_OBJECTS;
     @Setter
     private Integer currentTextureId = null;
 
@@ -132,6 +133,12 @@ public class WorldBuilder {
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
             layerVisibilityMap.put(layerDefinition, true);
         }
+
+        // Setup floor visibility
+        floorVisibilityMap = new HashMap<Floors, Boolean>();
+        for (Floors floors : Floors.values()) {
+            floorVisibilityMap.put(floors, true);
+        }
     }
 
     public void setCurrentWangId(Integer selectedWangTile) {
@@ -157,6 +164,16 @@ public class WorldBuilder {
         boolean visibility = !layerVisibilityMap.get(layerDefinition);
         layerVisibilityMap.put(layerDefinition, visibility);
         return visibility;
+    }
+
+    public boolean toggleFloorVisibility(Floors floors) {
+        boolean visibility = !floorVisibilityMap.get(floors);
+        floorVisibilityMap.put(floors, visibility);
+        return visibility;
+    }
+
+    public boolean isFloorVisible(Floors floor) {
+        return floorVisibilityMap.get(floor);
     }
 
     public boolean canDrawLayer(LayerDefinition layerDefinition) {

@@ -196,8 +196,9 @@ public class GameScreen implements Screen {
         Floors[] values = Floors.values();
         for (int i = values.length - 1; i >= 0; i--) {
             Floors floor = values[i];
+            boolean isVisible = ClientMain.getInstance().getWorldBuilder().isFloorVisible(floor);
 
-            getGameMap().renderBottomLayers(spriteBatch, floor);
+            if (isVisible) getGameMap().renderBottomLayers(spriteBatch, floor);
 
             EntityManager.getInstance().drawEntityShadows(spriteBatch, floor);
             EntityManager.getInstance().drawGroundEntities(spriteBatch);
@@ -208,7 +209,7 @@ public class GameScreen implements Screen {
             // TODO : Possibly do not recreate this object ever frame...
             PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<WorldObject>();
 
-            getGameMap().getSortableWorldObjects(ySortedWorldObjects, floor);
+            if (isVisible) getGameMap().getSortableWorldObjects(ySortedWorldObjects, floor);
             EntityManager.getInstance().getSortableEntities(ySortedWorldObjects);
             ySortedWorldObjects.add(playerClient);
 
@@ -249,7 +250,7 @@ public class GameScreen implements Screen {
             //// -------- END SORT & DRAW WORLD OBJECTS -------- /////
             //////////////////////////////////////////////////////////
 
-            getGameMap().renderDecorationLayer(spriteBatch, floor);
+            if (isVisible) getGameMap().renderDecorationLayer(spriteBatch, floor);
 
             // Draw damage animations
             ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
@@ -284,7 +285,7 @@ public class GameScreen implements Screen {
             playerClient.drawLevelUpMessage();
 
             // Render overhead layer here
-            getGameMap().renderOverheadLayer(spriteBatch, floor);
+            if (isVisible) getGameMap().renderOverheadLayer(spriteBatch, floor);
         }
 
         // Draw mouse
