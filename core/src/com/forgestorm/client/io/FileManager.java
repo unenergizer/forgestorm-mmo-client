@@ -46,7 +46,6 @@ public class FileManager {
     @Getter
     private final String worldDirectory;
 
-    @Getter
     private final AssetManager assetManager = new AssetManager();
     private final FileHandleResolver internalResolver = new InternalFileHandleResolver();
     private final FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();

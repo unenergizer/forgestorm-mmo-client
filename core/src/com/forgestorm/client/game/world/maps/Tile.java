@@ -1,8 +1,8 @@
 package com.forgestorm.client.game.world.maps;
 
 import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WorldEdit;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 
@@ -54,21 +54,25 @@ public class Tile extends WorldObject {
 
     private void applyTileProperties() {
         if (tileImage == null) return;
+        if (tileImage.getTileProperties() == null) return;
 
-        // DO COLLISION APPLICATION
-        if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) {
-            CollisionBlockProperty collisionBlockProperty = (CollisionBlockProperty) tileImage.getProperty(TilePropertyTypes.COLLISION_BLOCK);
-            collisionBlockProperty.applyPropertyToWorld(tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
+        // Apply properties to the world
+        for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
+            if (abstractTileProperty instanceof WorldEdit) {
+                ((WorldEdit) abstractTileProperty).applyPropertyToWorld(tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
+            }
         }
     }
 
     private void removeTileProperties() {
         if (tileImage == null) return;
+        if (tileImage.getTileProperties() == null) return;
 
-        // DO COLLISION REMOVAL
-        if (tileImage.containsProperty(TilePropertyTypes.COLLISION_BLOCK)) {
-            CollisionBlockProperty collisionBlockProperty = (CollisionBlockProperty) tileImage.getProperty(TilePropertyTypes.COLLISION_BLOCK);
-            collisionBlockProperty.removePropertyFromWorld(tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
+        // Remove properties from world
+        for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
+            if (abstractTileProperty instanceof WorldEdit) {
+                ((WorldEdit) abstractTileProperty).removePropertyFromWorld(tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
+            }
         }
     }
 
