@@ -7,6 +7,7 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.window.CollisionWindow;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -72,12 +73,12 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
     }
 
     @Override
-    public void applyPropertyToWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
+    public void applyPropertyToWorld(WorldChunk worldChunk, TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
         processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, worldZ, false);
     }
 
     @Override
-    public void removePropertyFromWorld(TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
+    public void removePropertyFromWorld(WorldChunk worldChunk, TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
         processCollisionTiles(tileImage, layerDefinition, worldName, worldX, worldY, worldZ, true);
     }
 

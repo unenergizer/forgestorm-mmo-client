@@ -149,14 +149,14 @@ public class GameWorld {
         return worldChunk.getTile(layerDefinition, localX, localY, Floors.getFloor(worldZ));
     }
 
-    Warp getWarp(int entityX, int entityY) {
+    Warp getWarp(int entityX, int entityY, short entityZ) {
         WorldChunk worldChunk = findChunk(entityX, entityY);
         if (worldChunk == null) return null;
 
         int localX = entityX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
         int localY = entityY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        return worldChunk.getWarp((short) localX, (short) localY);
+        return worldChunk.getWarp((short) localX, (short) localY, entityZ);
     }
 
     public WorldChunk findChunk(int entityX, int entityY) {

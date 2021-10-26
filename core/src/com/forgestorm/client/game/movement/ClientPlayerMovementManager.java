@@ -99,10 +99,10 @@ public class ClientPlayerMovementManager {
         }
 
         // Warp checks
-        if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY())) {
+        if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY(), futureLocation.getZ())) {
             println(getClass(), "We hit a tile that is a warp.", false, true);
 
-            Warp warp = WorldUtil.getWarp(futureLocation.getX(), futureLocation.getY());
+            Warp warp = WorldUtil.getWarp(futureLocation.getX(), futureLocation.getY(), futureLocation.getZ());
             println(getClass(), warp.getWarpDestination().toString());
             println(getClass(), warp.getDirectionToFace().getDirectionName());
 

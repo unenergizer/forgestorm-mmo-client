@@ -1,17 +1,19 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties;
 
 public enum TilePropertyTypes {
-    CURSOR_DRAW_OVER_TILE,
+
+    BLOCK_MOVE_DIRECTION,
     COLLISION_BLOCK,
+    CURSOR_DRAW_OVER_TILE,
     DOOR,
     INTERACTIVE_CONTAINER,
-    WANG_TILE,
-    BLOCK_MOVE_DIRECTION,
+    INTERACT_DAMAGE,
+    INTERIOR_STAIRS_PROPERTY,
     JUMP_TO_DIRECTION,
     LADDER,
+    WALK_OVER_SOUND,
     WATER,
-    INTERACT_DAMAGE,
-    WALK_OVER_SOUND;
+    WANG_TILE;
 
     @Override
     public String toString() {

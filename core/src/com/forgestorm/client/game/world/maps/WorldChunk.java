@@ -12,6 +12,7 @@ import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameAtlas;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import lombok.Getter;
@@ -55,6 +56,7 @@ public class WorldChunk {
 
                         tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
                                 worldName,
+                                this,
                                 localX + chunkX * ClientConstants.CHUNK_SIZE,
                                 localY + chunkY * ClientConstants.CHUNK_SIZE,
                                 floor.getWorldZ());
@@ -130,6 +132,20 @@ public class WorldChunk {
         tileWarps.clear();
     }
 
+    public void removeTileWarp(int localX, int localY, short localZ) {
+        for (Iterator<Map.Entry<WarpLocation, Warp>> iterator = tileWarps.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<WarpLocation, Warp> entry = iterator.next();
+            WarpLocation warpLocation = entry.getKey();
+
+            if (warpLocation.getFromX() == localX
+                    && warpLocation.getFromY() == localY
+                    && warpLocation.getFromZ() == localZ) {
+                iterator.remove();
+                return;
+            }
+        }
+    }
+
     public void addTileWarp(int localX, int localY, short localZ, Warp warp) {
         addTileWarp(new WarpLocation(localX, localY, localZ), warp);
     }
@@ -138,10 +154,12 @@ public class WorldChunk {
         tileWarps.put(warpLocation, warp);
     }
 
-    Warp getWarp(int localX, int localY) {
+    Warp getWarp(int localX, int localY, short localZ) {
         for (Map.Entry<WarpLocation, Warp> entry : tileWarps.entrySet()) {
             WarpLocation warpLocation = entry.getKey();
-            if (warpLocation.getFromX() == localX && warpLocation.getFromY() == localY)
+            if (warpLocation.getFromX() == localX
+                    && warpLocation.getFromY() == localY
+                    && warpLocation.getFromZ() == localZ)
                 return entry.getValue();
         }
         return null;

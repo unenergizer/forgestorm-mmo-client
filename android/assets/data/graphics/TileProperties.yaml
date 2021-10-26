@@ -1896,11 +1896,11 @@
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 236:
   fileName: stone-wall-middle-horizontal-crack
   layerDefinition: WORLD_OBJECTS
@@ -1910,56 +1910,56 @@
   fileName: BW4-iron-fence-1
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 238:
   fileName: BW4-iron-fence-10
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 239:
   fileName: BW4-iron-fence-11
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 240:
   fileName: BW4-iron-fence-12
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 241:
   fileName: BW4-iron-fence-13
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 242:
   fileName: BW4-iron-fence-14
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 243:
   fileName: stool-round-blue
   layerDefinition: WORLD_OBJECTS
@@ -2171,11 +2171,11 @@
   fileName: BW4-iron-fence-15
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 262:
   fileName: tree-medium-01
   layerDefinition: WORLD_OBJECTS
@@ -2893,11 +2893,11 @@
   fileName: BW4-iron-fence-2
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 356:
   fileName: stump-02
   layerDefinition: WORLD_OBJECTS
@@ -3360,11 +3360,11 @@
   fileName: BW4-iron-fence-3
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 447:
   fileName: wooden-support-03
   layerDefinition: WORLD_OBJECT_DECORATION
@@ -5402,11 +5402,11 @@
   fileName: BW4-iron-fence-4
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 790:
   fileName: well-egypt-filled
   layerDefinition: WORLD_OBJECTS
@@ -5487,6 +5487,9 @@
 803:
   fileName: dungeon-stairs-up
   layerDefinition: WORLD_OBJECTS
+  tileProperties:
+    INTERIOR_STAIRS_PROPERTY:
+      stairsDownImageID: 808
 804:
   fileName: dungeon-floor-trap-door
   layerDefinition: WORLD_OBJECTS
@@ -5852,8 +5855,6 @@
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - OUTDOOR
-  tileProperties: {
-  }
 868:
   fileName: wooden-fence-grass-01
   layerDefinition: WORLD_OBJECTS
@@ -6146,513 +6147,513 @@
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 897:
   fileName: BW4-brick-wall-1
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 898:
   fileName: BW4-brick-wall-10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 899:
   fileName: BW4-brick-wall-11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 900:
   fileName: BW4-brick-wall-12
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 901:
   fileName: BW4-brick-wall-13
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 902:
   fileName: BW4-brick-wall-14
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 903:
   fileName: BW4-brick-wall-15
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 904:
   fileName: BW4-brick-wall-2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 905:
   fileName: BW4-brick-wall-3
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 906:
   fileName: BW4-brick-wall-4
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 907:
   fileName: BW4-brick-wall-5
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 908:
   fileName: BW4-brick-wall-6
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 909:
   fileName: BW4-brick-wall-7
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 910:
   fileName: BW4-brick-wall-8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 911:
   fileName: BW4-brick-wall-9
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 912:
   fileName: BW4-wooden-fence-0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 913:
   fileName: BW4-wooden-fence-1
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 914:
   fileName: BW4-wooden-fence-10
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 915:
   fileName: BW4-wooden-fence-11
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 916:
   fileName: BW4-wooden-fence-12
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 917:
   fileName: BW4-wooden-fence-13
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 918:
   fileName: BW4-wooden-fence-14
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 919:
   fileName: BW4-wooden-fence-2
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 920:
   fileName: BW4-wooden-fence-3
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 921:
   fileName: BW4-wooden-fence-4
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 922:
   fileName: BW4-wooden-fence-5
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 923:
   fileName: BW4-wooden-fence-6
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 924:
   fileName: BW4-wooden-fence-7
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 925:
   fileName: BW4-wooden-fence-8
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 926:
   fileName: BW4-wooden-fence-9
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 927:
   fileName: BW4-wooden-fence-15
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 928:
   fileName: BW4-iron-fence-5
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 929:
   fileName: BW4-iron-fence-6
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 930:
   fileName: BW4-iron-fence-7
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 931:
   fileName: BW4-iron-fence-8
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 932:
   fileName: BW4-iron-fence-9
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 933:
   fileName: BW4-post-wooden-fence-0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 934:
   fileName: BW4-post-wooden-fence-1
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 935:
   fileName: BW4-post-wooden-fence-10
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 936:
   fileName: BW4-post-wooden-fence-11
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 937:
   fileName: BW4-post-wooden-fence-15
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 938:
   fileName: BW4-post-wooden-fence-12
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 939:
   fileName: BW4-post-wooden-fence-13
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 940:
   fileName: BW4-post-wooden-fence-14
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 941:
   fileName: BW4-post-wooden-fence-9
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 942:
   fileName: BW4-post-wooden-fence-8
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 943:
   fileName: BW4-post-wooden-fence-7
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 944:
   fileName: BW4-post-wooden-fence-6
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 945:
   fileName: BW4-post-wooden-fence-5
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 946:
   fileName: BW4-post-wooden-fence-4
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 947:
   fileName: BW4-post-wooden-fence-3
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 948:
   fileName: BW4-post-wooden-fence-2
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE: {
-    }
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE: {
+    }
 949:
   fileName: brick-wall-support-01
   layerDefinition: WORLD_OBJECT_DECORATION

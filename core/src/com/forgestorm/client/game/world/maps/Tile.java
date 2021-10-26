@@ -20,6 +20,9 @@ public class Tile extends WorldObject {
     private final String worldName;
 
     @Getter
+    private final WorldChunk worldChunk;
+
+    @Getter
     private final int worldX, worldY;
 
     @Getter
@@ -28,9 +31,10 @@ public class Tile extends WorldObject {
     @Getter
     private TileImage tileImage;
 
-    public Tile(LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
+    public Tile(LayerDefinition layerDefinition, String worldName, WorldChunk worldChunk, int worldX, int worldY, short worldZ) {
         this.layerDefinition = layerDefinition;
         this.worldName = worldName;
+        this.worldChunk = worldChunk;
         this.worldX = worldX;
         this.worldY = worldY;
         this.worldZ = worldZ;
@@ -59,7 +63,7 @@ public class Tile extends WorldObject {
         // Apply properties to the world
         for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
             if (abstractTileProperty instanceof WorldEdit) {
-                ((WorldEdit) abstractTileProperty).applyPropertyToWorld(tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
+                ((WorldEdit) abstractTileProperty).applyPropertyToWorld(worldChunk, tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
             }
         }
     }
@@ -71,7 +75,7 @@ public class Tile extends WorldObject {
         // Remove properties from world
         for (AbstractTileProperty abstractTileProperty : tileImage.getTileProperties().values()) {
             if (abstractTileProperty instanceof WorldEdit) {
-                ((WorldEdit) abstractTileProperty).removePropertyFromWorld(tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
+                ((WorldEdit) abstractTileProperty).removePropertyFromWorld(worldChunk, tileImage, layerDefinition, worldName, worldX, worldY, worldZ);
             }
         }
     }
