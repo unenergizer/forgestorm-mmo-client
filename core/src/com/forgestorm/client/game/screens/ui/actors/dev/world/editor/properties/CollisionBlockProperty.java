@@ -8,7 +8,9 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.WorldChunk;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.tile.properties.WorldEdit;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;

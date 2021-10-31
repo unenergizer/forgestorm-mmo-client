@@ -1,10 +1,11 @@
 package com.forgestorm.client.network.game.packet.out;
 
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class CharacterSelectPacketOut extends AbstractClientPacketOut {
+public class CharacterSelectPacketOut extends AbstractPacketOut {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -16,7 +17,7 @@ public class CharacterSelectPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         println(getClass(), "Selecting character ID: " + characterId, false, PRINT_DEBUG);
         write.writeByte(characterId);
     }

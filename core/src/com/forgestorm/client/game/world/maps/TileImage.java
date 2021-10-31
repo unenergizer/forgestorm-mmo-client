@@ -3,8 +3,9 @@ package com.forgestorm.client.game.world.maps;
 
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.Tags;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +27,6 @@ public class TileImage {
 
     @Getter
     private final String fileName;
-
 
     @Getter
     @Setter
@@ -71,19 +71,19 @@ public class TileImage {
         // Copy Tags List
         if (tileImage.tagsList != null) {
             for (String tag : tileImage.tagsList) {
-                addTag(Tags.valueOf(tag));
+                addTag(com.forgestorm.shared.game.world.maps.Tags.valueOf(tag));
             }
         }
     }
 
-    public void addTag(Tags tag) {
-        if (tag == Tags.AN_UNUSED_TAG) return;
+    public void addTag(com.forgestorm.shared.game.world.maps.Tags tag) {
+        if (tag == com.forgestorm.shared.game.world.maps.Tags.AN_UNUSED_TAG) return;
         if (tagsList == null) tagsList = new ArrayList<String>();
         if (containsTag(tag)) return;
         tagsList.add(tag.name());
     }
 
-    public boolean containsTag(Tags tag) {
+    public boolean containsTag(com.forgestorm.shared.game.world.maps.Tags tag) {
         if (tagsList == null) return false;
         for (String s : tagsList) if (s.equals(tag.name())) return true;
         return false;

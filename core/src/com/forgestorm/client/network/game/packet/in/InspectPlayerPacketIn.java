@@ -3,10 +3,10 @@ package com.forgestorm.client.network.game.packet.in;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 
@@ -43,6 +43,6 @@ public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacket
 
     @AllArgsConstructor
     class InspectPlayerPacket extends PacketData {
-        private int[] itemIds;
+        private final int[] itemIds;
     }
 }

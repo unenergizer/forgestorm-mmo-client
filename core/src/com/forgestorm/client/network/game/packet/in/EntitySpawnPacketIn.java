@@ -11,7 +11,6 @@ import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
-import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.entities.Monster;
 import com.forgestorm.client.game.world.entities.MovingEntity;
@@ -22,13 +21,14 @@ import com.forgestorm.client.game.world.entities.SkillNode;
 import com.forgestorm.client.game.world.entities.animations.MonsterAnimation;
 import com.forgestorm.client.game.world.entities.animations.human.HumanAnimation;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.game.world.entities.FirstInteraction;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.Setter;
 

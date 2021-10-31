@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.animations.human.HumanAnimation;
-import com.forgestorm.client.io.type.GameAtlas;
-import com.forgestorm.client.util.color.LibGDXColorList;
+import com.forgestorm.shared.game.world.entities.AppearanceType;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.util.color.LibGDXColorList;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class Player extends MovingEntity {
         getEntityAnimation().loadAll(gameAtlas);
     }
 
-    public void setBodyPart(AppearanceType appearanceType, int textureId) {
+    public void setBodyPart(com.forgestorm.shared.game.world.entities.AppearanceType appearanceType, int textureId) {
         HumanAnimation humanAnimation = (HumanAnimation) getEntityAnimation();
         Appearance appearance = getAppearance();
 

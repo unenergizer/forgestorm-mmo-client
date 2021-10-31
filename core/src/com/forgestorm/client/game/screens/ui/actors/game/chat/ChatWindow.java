@@ -14,8 +14,8 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ExperienceBar;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.ChatMessagePacketOut;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImageButton;
@@ -53,7 +53,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
     private int previousMessageIndex = -1;
     private String currentBufferString = "";
 
-    private List<ChatChannel> chatChannelList = new ArrayList<ChatChannel>();
+    private final List<ChatChannel> chatChannelList = new ArrayList<ChatChannel>();
 
     private VisTable channelTable;
     private VisTable chatChannelWrapperTable;
@@ -375,11 +375,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                         channelButton.setText(chatChannelType.name());
 
                         // See if we can send messages in for this channel
-                        if (chatChannelType.isCanSendMessages()) {
-                            messageInput.setDisabled(false);
-                        } else {
-                            messageInput.setDisabled(true);
-                        }
+                        messageInput.setDisabled(!chatChannelType.isCanSendMessages());
                     }
                     return false;
                 }

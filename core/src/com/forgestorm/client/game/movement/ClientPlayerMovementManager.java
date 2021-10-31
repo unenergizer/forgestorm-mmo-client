@@ -8,13 +8,13 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.game.world.maps.Warp;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.network.game.packet.out.PlayerMovePacketOut;
 import com.forgestorm.client.util.FadeOut;
 import com.forgestorm.client.util.MoveNode;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
+import com.forgestorm.shared.game.world.maps.Warp;
 
 import java.util.LinkedList;
 import java.util.Queue;

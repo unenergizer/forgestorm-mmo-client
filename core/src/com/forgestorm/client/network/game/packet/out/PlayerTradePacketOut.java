@@ -1,12 +1,13 @@
 package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
-import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class PlayerTradePacketOut extends AbstractClientPacketOut {
+public class PlayerTradePacketOut extends AbstractPacketOut {
 
     private final TradeStatusOpcode tradeStatusOpcode;
     private final int tradeUUID;
@@ -22,7 +23,7 @@ public class PlayerTradePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         println(getClass(), "Opcode: " + tradeStatusOpcode);
 
         write.writeByte(tradeStatusOpcode.getTradeOpcodeByte());

@@ -6,10 +6,10 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 

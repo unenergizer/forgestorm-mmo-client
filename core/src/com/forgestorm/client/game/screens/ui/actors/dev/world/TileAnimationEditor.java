@@ -13,9 +13,9 @@ import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.maps.TileAnimation;
 import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
-import com.forgestorm.client.io.type.GameAtlas;
-import com.forgestorm.client.util.StringUtils;
 import com.forgestorm.client.util.yaml.YamlUtil;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.util.StringUtil;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.form.FormValidator;
 import com.kotcrab.vis.ui.widget.VisImage;
@@ -218,7 +218,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
 
                     // If the durationLength String contains anything other than numbers,
                     // then we do not update the frame with new animation time.
-                    if (!StringUtils.isNumeric(durationLength)) return;
+                    if (!StringUtil.isNumeric(durationLength)) return;
 
                     // Update the frame animation as it is being typed
                     TileAnimation.AnimationFrame animationFrame = workingTileAnimation.getAnimationFrame(frameId);

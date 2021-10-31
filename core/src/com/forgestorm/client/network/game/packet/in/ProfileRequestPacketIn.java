@@ -2,10 +2,10 @@ package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,11 +44,11 @@ public class ProfileRequestPacketIn implements PacketListener<ProfileRequestPack
     @Getter
     @AllArgsConstructor
     public static class XenforoProfilePacket extends PacketData {
-        private String accountName;
-        private int xenforoUserID;
-        private int messageCount;
-        private int trophyPoints;
-        private String gravatarHash;
-        private int reactionScore;
+        private final String accountName;
+        private final int xenforoUserID;
+        private final int messageCount;
+        private final int trophyPoints;
+        private final String gravatarHash;
+        private final int reactionScore;
     }
 }

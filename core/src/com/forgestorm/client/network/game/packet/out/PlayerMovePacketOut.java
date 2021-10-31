@@ -2,11 +2,12 @@ package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import static com.forgestorm.client.util.Preconditions.checkArgument;
 
-public class PlayerMovePacketOut extends AbstractClientPacketOut {
+public class PlayerMovePacketOut extends AbstractPacketOut {
 
     private final String worldName;
     private final int x;
@@ -22,7 +23,7 @@ public class PlayerMovePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         checkArgument(!EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().equals(new Location(worldName, x, y, z)),
                 "Locations can not be equal!");
         write.writeInt(x);

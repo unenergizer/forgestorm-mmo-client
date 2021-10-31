@@ -17,13 +17,13 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditor
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.entities.NPC;
-import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
-import com.forgestorm.client.util.color.LibGDXColorList;
+import com.forgestorm.shared.game.world.entities.FirstInteraction;
+import com.forgestorm.shared.game.world.maps.Floors;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.util.color.LibGDXColorList;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;

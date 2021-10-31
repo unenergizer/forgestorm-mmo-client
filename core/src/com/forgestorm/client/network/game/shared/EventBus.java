@@ -1,5 +1,7 @@
 package com.forgestorm.client.network.game.shared;
 
+import com.forgestorm.shared.network.game.Opcode;
+
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Queue;

@@ -1,5 +1,7 @@
 package com.forgestorm.client.util.color;
 
+import com.forgestorm.shared.util.color.SkinColorList;
+
 import static com.forgestorm.client.util.Log.println;
 
 public class ColorConverter {

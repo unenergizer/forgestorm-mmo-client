@@ -3,10 +3,10 @@ package com.forgestorm.client.network.game.packet.in;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 
@@ -43,7 +43,7 @@ public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.C
 
     @AllArgsConstructor
     class ChatMessagePacket extends PacketData {
-        private ChatChannelType chatChannelType;
-        private String chatMessage;
+        private final ChatChannelType chatChannelType;
+        private final String chatMessage;
     }
 }

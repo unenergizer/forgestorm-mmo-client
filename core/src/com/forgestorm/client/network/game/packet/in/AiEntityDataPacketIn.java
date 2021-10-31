@@ -4,10 +4,10 @@ import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 
@@ -46,9 +46,9 @@ public class AiEntityDataPacketIn implements PacketListener<AiEntityDataPacketIn
 
     @AllArgsConstructor
     class AiEntityData extends PacketData {
-        private short entityId;
-        private byte dataBits;
-        private EntityAlignment entityAlignment;
-        private boolean isBankKeeper;
+        private final short entityId;
+        private final byte dataBits;
+        private final EntityAlignment entityAlignment;
+        private final boolean isBankKeeper;
     }
 }

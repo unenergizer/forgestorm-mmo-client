@@ -11,10 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -42,13 +42,13 @@ public class ItemStackSlot extends VisTable {
      * for the server and the client.
      */
     @Getter
-    private byte slotIndex;
+    private final byte slotIndex;
 
     /**
      * The type of inventory that this {@link ItemStackSlot} represents
      */
     @Getter
-    private InventoryType inventoryType;
+    private final InventoryType inventoryType;
 
     /**
      * The {@link ItemStack} that is contained within this {@link ItemStackSlot}
@@ -76,9 +76,9 @@ public class ItemStackSlot extends VisTable {
     /**
      * A label that represents the amount of the {@link ItemStack}
      */
-    private VisLabel amountLabel = new VisLabel();
-    private VisLabel countdownLabel = new VisLabel();
-    private Stack stack = new Stack();
+    private final VisLabel amountLabel = new VisLabel();
+    private final VisLabel countdownLabel = new VisLabel();
+    private final Stack stack = new Stack();
 
     /**
      * If this slot is locked, prevent any and all changes to it!
@@ -108,7 +108,7 @@ public class ItemStackSlot extends VisTable {
     private InputListener clickListener;
 
     @Getter
-    private ItemSlotContainer itemSlotContainer;
+    private final ItemSlotContainer itemSlotContainer;
 
     @Getter
     private boolean magicItemActivated = false;
@@ -287,7 +287,7 @@ public class ItemStackSlot extends VisTable {
 
         // Add item amount
         if (itemStack.getStackable() > 1) {
-            displayItemAmount();
+            ItemSlotInterfaceUtil.displayItemAmount(itemStack, amountLabel, stack);
         } else {
             amountLabel.setText("");
         }
@@ -326,25 +326,10 @@ public class ItemStackSlot extends VisTable {
 
         // Add item amount
         if (itemStack.getStackable() > 1) {
-            displayItemAmount();
+            ItemSlotInterfaceUtil.displayItemAmount(itemStack, amountLabel, stack);
         } else {
             amountLabel.remove();
         }
-    }
-
-    private void displayItemAmount() {
-        if (itemStack.getAmount() <= 1) return;
-        int itemStackAmount = itemStack.getAmount();
-        String displayText = String.valueOf(itemStackAmount);
-        if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
-            displayText = itemStackAmount / 1000 + "K";
-        } else if (itemStackAmount >= 1000000) {
-            displayText = itemStackAmount / 1000000 + "M";
-        }
-
-        amountLabel.setText(displayText);
-        amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
-        stack.add(amountLabel);
     }
 
     public void toggleLockedSlot(boolean lockThisSlot) {

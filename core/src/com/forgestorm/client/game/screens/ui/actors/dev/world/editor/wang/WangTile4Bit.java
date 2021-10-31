@@ -1,6 +1,6 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang;
 
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 
 public class WangTile4Bit extends AbstractWangTile {
 

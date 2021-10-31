@@ -1,10 +1,11 @@
 package com.forgestorm.client.network.game;
 
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.network.ConnectionManager;
-import com.forgestorm.client.network.game.packet.out.ForgeStormOutputStream;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.EventBus;
+import com.forgestorm.shared.network.game.GameOutputStream;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,7 +18,6 @@ import java.net.SocketTimeoutException;
 import java.util.UUID;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -42,7 +42,12 @@ public class ClientGameConnection {
      * @param port              The port of the remote server.
      * @param registerListeners Packets that we will listen for from the server.
      */
-    public void openConnection(final UUID uuid, final String address, final int port, final Consumer<EventBus> registerListeners) {
+    public void openConnection(final UUID uuid, String address, final int port, final Consumer<EventBus> registerListeners) {
+
+        // Check if local host run
+        boolean forceLocalHost = ClientMain.getInstance().isForceLocalHost();
+        if (forceLocalHost) address = "localhost";
+
         this.uuid = uuid;
         println(getClass(), "Connecting to: " + address + ":" + port);
         println(ClientGameConnection.class, "Attempting network connection...");
@@ -112,7 +117,7 @@ public class ClientGameConnection {
         }
 
         // Create our server handler
-        clientHandler = new ClientHandler(socket, new ForgeStormOutputStream(outputStream), inputStream);
+        clientHandler = new ClientHandler(socket, new GameOutputStream(outputStream), inputStream);
 
         println(ClientGameConnection.class, "Connection established! Receiving packets!");
         connectionManager.threadSafeConnectionMessage("Connection established! Receiving packets!");

@@ -2,16 +2,16 @@ package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.WorldManager;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.game.world.maps.Floors;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 

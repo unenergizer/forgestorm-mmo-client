@@ -11,13 +11,14 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTi
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile4Bit;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
-import com.forgestorm.client.game.world.maps.Floors;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileAnimation;
 import com.forgestorm.client.game.world.maps.TileImage;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
+import com.forgestorm.shared.game.world.maps.Floors;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,11 +38,11 @@ public class WorldBuilder {
     private final Map<Integer, TileImage> tileImageMap;
     private final TextureAtlas worldTileImages;
     private final Array<TextureAtlas.AtlasRegion> regions;
-    private final Map<LayerDefinition, Boolean> layerVisibilityMap;
+    private final Map<com.forgestorm.shared.game.world.maps.building.LayerDefinition, Boolean> layerVisibilityMap;
     private final Map<Floors, Boolean> floorVisibilityMap;
     private final Map<Integer, WangTile> wangImageMap;
 
-    private LayerDefinition currentLayer = LayerDefinition.WORLD_OBJECTS;
+    private com.forgestorm.shared.game.world.maps.building.LayerDefinition currentLayer = com.forgestorm.shared.game.world.maps.building.LayerDefinition.WORLD_OBJECTS;
     @Setter
     private Integer currentTextureId = null;
 
@@ -129,8 +130,8 @@ public class WorldBuilder {
         }
 
         // Setup layer visibility
-        layerVisibilityMap = new HashMap<LayerDefinition, Boolean>();
-        for (LayerDefinition layerDefinition : LayerDefinition.values()) {
+        layerVisibilityMap = new HashMap<com.forgestorm.shared.game.world.maps.building.LayerDefinition, Boolean>();
+        for (com.forgestorm.shared.game.world.maps.building.LayerDefinition layerDefinition : com.forgestorm.shared.game.world.maps.building.LayerDefinition.values()) {
             layerVisibilityMap.put(layerDefinition, true);
         }
 
@@ -160,7 +161,7 @@ public class WorldBuilder {
         return null;
     }
 
-    public boolean toggleLayerVisibility(LayerDefinition layerDefinition) {
+    public boolean toggleLayerVisibility(com.forgestorm.shared.game.world.maps.building.LayerDefinition layerDefinition) {
         boolean visibility = !layerVisibilityMap.get(layerDefinition);
         layerVisibilityMap.put(layerDefinition, visibility);
         return visibility;
@@ -176,11 +177,11 @@ public class WorldBuilder {
         return floorVisibilityMap.get(floor);
     }
 
-    public boolean canDrawLayer(LayerDefinition layerDefinition) {
+    public boolean canDrawLayer(com.forgestorm.shared.game.world.maps.building.LayerDefinition layerDefinition) {
         return layerVisibilityMap.get(layerDefinition);
     }
 
-    public void setCurrentLayer(LayerDefinition layerDefinition) {
+    public void setCurrentLayer(com.forgestorm.shared.game.world.maps.building.LayerDefinition layerDefinition) {
         this.currentLayer = layerDefinition;
         ClientMain.getInstance().getStageHandler().getTileBuildMenu().setSelectedLayerButton(layerDefinition);
     }

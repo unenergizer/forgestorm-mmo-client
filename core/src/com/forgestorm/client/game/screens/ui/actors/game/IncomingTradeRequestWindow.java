@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.kotcrab.vis.ui.VisUI;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -13,8 +12,9 @@ import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
-import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
+import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
+import com.kotcrab.vis.ui.VisUI;
 
 public class IncomingTradeRequestWindow extends HideableVisWindow implements Buildable {
 

@@ -4,10 +4,10 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.rpg.EntityShopManager;
 import com.forgestorm.client.game.rpg.ShopOpcodes;
 import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.item.inventory.ShopItemStackInfo;
 import com.forgestorm.client.network.game.packet.out.EntityShopPacketOut;
+import com.forgestorm.shared.game.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;

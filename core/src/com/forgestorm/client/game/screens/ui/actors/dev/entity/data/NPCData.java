@@ -3,8 +3,8 @@ package com.forgestorm.client.game.screens.ui.actors.dev.entity.data;
 import com.badlogic.gdx.graphics.Color;
 import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.world.entities.EntityType;
-import com.forgestorm.client.game.world.entities.FirstInteraction;
 import com.forgestorm.client.game.world.maps.Location;
+import com.forgestorm.shared.game.world.entities.FirstInteraction;
 
 import lombok.Getter;
 import lombok.Setter;

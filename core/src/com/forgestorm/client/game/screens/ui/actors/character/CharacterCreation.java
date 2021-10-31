@@ -9,13 +9,13 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.entities.Appearance;
-import com.forgestorm.client.network.game.CharacterCreatorResponses;
 import com.forgestorm.client.network.game.packet.out.CharacterCreatorPacketOut;
-import com.forgestorm.client.util.RandomUtil;
-import com.forgestorm.client.util.color.EyeColorList;
-import com.forgestorm.client.util.color.HairColorList;
-import com.forgestorm.client.util.color.SkinColorList;
 import com.forgestorm.client.util.string.NameGenerator;
+import com.forgestorm.shared.network.game.CharacterCreatorResponses;
+import com.forgestorm.shared.util.RandomNumberUtil;
+import com.forgestorm.shared.util.color.EyeColorList;
+import com.forgestorm.shared.util.color.HairColorList;
+import com.forgestorm.shared.util.color.SkinColorList;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.form.FormValidator;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -37,17 +37,17 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     private final int maxHairStyles = 14;
 
     private StageHandler stageHandler;
-    private CharacterPreviewer characterPreviewer = new CharacterPreviewer(15);
+    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer(15);
     private VisValidatableTextField characterName;
-    private Appearance appearance;
+    private final Appearance appearance;
 
-    private CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) maxHairStyles, (byte) 0); // Number of hair textures
-    private CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1), (byte) 22);
-    private CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1), (byte) 0);
-    private CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1), (byte) 1);
+    private final CharacterOption hairStyleOption = new CharacterOption("Hair Style", (byte) maxHairStyles, (byte) 0); // Number of hair textures
+    private final CharacterOption hairColorOption = new CharacterOption("Hair Color", (byte) (HairColorList.values().length - 1), (byte) 22);
+    private final CharacterOption eyeColorOption = new CharacterOption("Eye Color", (byte) (EyeColorList.values().length - 1), (byte) 0);
+    private final CharacterOption skinColorOption = new CharacterOption("Skin Color", (byte) (SkinColorList.values().length - 1), (byte) 1);
 
-    private VisTextButton submit = new VisTextButton("Submit");
-    private VisLabel errorLabel = new VisLabel();
+    private final VisTextButton submit = new VisTextButton("Submit");
+    private final VisLabel errorLabel = new VisLabel();
 
     public CharacterCreation() {
         super("Create a Character");
@@ -273,10 +273,10 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     }
 
     private void randomizeCharacter() {
-        hairStyleOption.setOptionValue((byte) RandomUtil.getNewRandom(0, maxHairStyles));
-        hairColorOption.setOptionValue((byte) RandomUtil.getNewRandom(0, HairColorList.values().length - 1));
-        eyeColorOption.setOptionValue((byte) RandomUtil.getNewRandom(0, EyeColorList.values().length - 1));
-        skinColorOption.setOptionValue((byte) RandomUtil.getNewRandom(0, SkinColorList.values().length - 1));
+        hairStyleOption.setOptionValue((byte) RandomNumberUtil.getNewRandom(0, maxHairStyles));
+        hairColorOption.setOptionValue((byte) RandomNumberUtil.getNewRandom(0, HairColorList.values().length - 1));
+        eyeColorOption.setOptionValue((byte) RandomNumberUtil.getNewRandom(0, EyeColorList.values().length - 1));
+        skinColorOption.setOptionValue((byte) RandomNumberUtil.getNewRandom(0, SkinColorList.values().length - 1));
         rebuildPreviewTable();
     }
 

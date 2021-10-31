@@ -3,8 +3,8 @@ package com.forgestorm.client.game.audio;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.util.RandomUtil;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.util.RandomNumberUtil;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class SoundManager implements Disposable {
     private final Map<Short, AudioData> soundFX;
 
     @Getter
-    private AudioPreferences audioPreferences = new AudioPreferences();
+    private final AudioPreferences audioPreferences = new AudioPreferences();
     private Sound currentSound;
     private AudioData audioData;
     private long id;
@@ -50,7 +50,7 @@ public class SoundManager implements Disposable {
         currentSound.setVolume(id, audioPreferences.getSoundEffectsVolume());
 
         // Adjust the pitch to give sound variance (less annoying sounds)
-        if (sameSound) currentSound.setPitch(id, RandomUtil.getNewRandom(0.5f, 1.5f));
+        if (sameSound) currentSound.setPitch(id, RandomNumberUtil.getNewRandom(0.5f, 1.5f));
 
         println(getClass(), "AudioID: " + audioData.getAudioId(), false, PRINT_DEBUG);
         println(getClass(), " -Playing: " + audioData.getFileName(), false, PRINT_DEBUG);

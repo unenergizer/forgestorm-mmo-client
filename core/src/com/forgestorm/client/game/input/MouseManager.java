@@ -25,15 +25,15 @@ import com.forgestorm.client.game.world.entities.NPC;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.entities.StationaryEntity;
-import com.forgestorm.client.game.world.maps.CursorDrawType;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
 import com.forgestorm.client.util.FadeOut;
 import com.forgestorm.client.util.MoveNode;
+import com.forgestorm.shared.game.world.maps.CursorDrawType;
+import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.ArrayList;
 import java.util.List;

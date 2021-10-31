@@ -7,9 +7,9 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.item.BankActions;
-import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
 import com.forgestorm.client.util.GameTextUtil;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.event;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.forgestorm.client.game.rpg.Attributes;
+import com.forgestorm.shared.game.rpg.Attributes;
 
 public abstract class StatsUpdateListener implements EventListener {
 

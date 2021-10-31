@@ -2,29 +2,29 @@ package com.forgestorm.client.game.screens.ui.actors.character;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.FocusManager;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.CharacterDeletePacketOut;
-import com.forgestorm.client.util.RandomUtil;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.util.RandomNumberUtil;
+import com.kotcrab.vis.ui.FocusManager;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTextField;
 
 public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
     private final DeleteCharacter deleteCharacterWindow;
 
     private StageHandler stageHandler;
-    private VisTextField deleteCodeBox = new VisTextField();
-    private VisLabel characterNameLabel = new VisLabel();
+    private final VisTextField deleteCodeBox = new VisTextField();
+    private final VisLabel characterNameLabel = new VisLabel();
     private VisLabel confirmStringLabel;
     private String deleteCode;
     private byte characterListIndex;
@@ -71,11 +71,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
         deleteCodeBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (deleteCodeBox.getText().equals(deleteCode)) {
-                    confirm.setDisabled(false);
-                } else {
-                    confirm.setDisabled(true);
-                }
+                confirm.setDisabled(!deleteCodeBox.getText().equals(deleteCode));
             }
         });
 
@@ -112,7 +108,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
     void toggleDeleteWindow(String characterName, byte characterListIndex) {
         this.characterListIndex = characterListIndex;
         deleteCodeBox.setText("");
-        deleteCode = String.valueOf(RandomUtil.getNewRandom(10000, 99999));
+        deleteCode = String.valueOf(RandomNumberUtil.getNewRandom(10000, 99999));
         characterNameLabel.setText("[GREEN]Character Name: " + characterName);
         confirmStringLabel.setText("Enter [YELLOW]" + deleteCode + "[WHITE] to delete your character.");
         FocusManager.switchFocus(stageHandler.getStage(), deleteCodeBox);

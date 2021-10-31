@@ -1,7 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.dev;
 
 import com.badlogic.gdx.graphics.Color;
-import com.forgestorm.client.util.color.LibGDXColorList;
+import com.forgestorm.shared.util.color.LibGDXColorList;
 
 import lombok.Getter;
 import lombok.Setter;

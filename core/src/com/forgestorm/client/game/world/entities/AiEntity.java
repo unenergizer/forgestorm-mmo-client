@@ -4,6 +4,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.util.GameTextUtil;
+import com.forgestorm.shared.game.world.entities.FirstInteraction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class AiEntity extends MovingEntity {
 
     private Location defaultSpawnLocation;
 
-    private FirstInteraction firstInteraction = FirstInteraction.ATTACK;
+    private com.forgestorm.shared.game.world.entities.FirstInteraction firstInteraction = FirstInteraction.ATTACK;
 
     /**
      * Entity name drawing

@@ -11,8 +11,8 @@ import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.world.entities.Player;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ import lombok.Setter;
 public class CharacterInspectionWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
-    private EquipmentPreview equipmentPreview = new EquipmentPreview();
+    private final EquipmentPreview equipmentPreview = new EquipmentPreview();
 
     @Setter
     private Player playerToInspect;

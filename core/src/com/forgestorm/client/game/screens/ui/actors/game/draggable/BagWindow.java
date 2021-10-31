@@ -9,8 +9,8 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
-import com.forgestorm.client.game.world.item.inventory.InventoryConstants;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryConstants;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
 
 public class BagWindow extends ItemSlotContainerWindow implements Buildable {
 

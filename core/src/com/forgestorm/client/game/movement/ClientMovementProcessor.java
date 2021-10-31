@@ -5,8 +5,8 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MoveDirection;
 import com.forgestorm.client.util.MoveNode;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
 
 import java.util.LinkedList;
 import java.util.Queue;

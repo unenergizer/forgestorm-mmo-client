@@ -3,13 +3,13 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.kotcrab.vis.ui.widget.VisImage;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.kotcrab.vis.ui.widget.VisImage;
 
 import lombok.Getter;
 

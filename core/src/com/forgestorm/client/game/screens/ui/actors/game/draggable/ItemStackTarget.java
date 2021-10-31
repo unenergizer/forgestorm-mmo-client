@@ -2,9 +2,9 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
 
 import static com.forgestorm.client.util.Log.println;
 

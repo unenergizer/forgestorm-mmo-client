@@ -1,9 +1,10 @@
 package com.forgestorm.client.network.game.packet.out;
 
-import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
-public class TileWarpPacketOut extends AbstractClientPacketOut {
+public class TileWarpPacketOut extends AbstractPacketOut {
 
     private final int fromX, fromY;
     private final short fromZ;
@@ -25,7 +26,7 @@ public class TileWarpPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         write.writeInt(fromX);
         write.writeInt(fromY);
         write.writeShort(fromZ);

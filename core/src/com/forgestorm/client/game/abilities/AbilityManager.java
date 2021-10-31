@@ -13,10 +13,11 @@ import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackSlot
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.AbilityRequestPacketOut;
+import com.forgestorm.shared.game.abilities.Ability;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +31,13 @@ public class AbilityManager implements GameQuitReset, Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private TextureAtlas textureAtlas;
+    private final TextureAtlas textureAtlas;
 
-    private Map<Short, Cooldown> cooldowns = new HashMap<Short, Cooldown>();
+    private final Map<Short, Cooldown> cooldowns = new HashMap<Short, Cooldown>();
 
-    private Map<Short, Ability> combatAbilities;
+    private final Map<Short, com.forgestorm.shared.game.abilities.Ability> combatAbilities;
 
-    private List<AbilityAnimation> abilityAnimationList = new ArrayList<AbilityAnimation>();
+    private final List<AbilityAnimation> abilityAnimationList = new ArrayList<AbilityAnimation>();
 
     public AbilityManager() {
         combatAbilities = ClientMain.getInstance().getFileManager().getAbilityData().getCombatAbilitiesMap();
@@ -53,7 +54,7 @@ public class AbilityManager implements GameQuitReset, Disposable {
             return;
         }
 
-        Ability ability = combatAbilities.get(abilityID);
+        com.forgestorm.shared.game.abilities.Ability ability = combatAbilities.get(abilityID);
         if (cooldowns.containsKey(abilityID)) return;
 
         MovingEntity targetEntity = EntityManager.getInstance().getPlayerClient().getTargetEntity();
@@ -156,7 +157,7 @@ public class AbilityManager implements GameQuitReset, Disposable {
         private final ItemStackSlot sourceSlot;
         private int remaining;
 
-        private int initCooldown;
+        private final int initCooldown;
 
         Cooldown(ItemStackSlot sourceSlot, int time) {
             this.sourceSlot = sourceSlot;

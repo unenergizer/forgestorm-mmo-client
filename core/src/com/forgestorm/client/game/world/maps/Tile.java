@@ -2,9 +2,9 @@ package com.forgestorm.client.game.world.maps;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WorldEdit;
 import com.forgestorm.client.game.world.WorldObject;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.tile.properties.WorldEdit;
 
 import java.util.ArrayList;
 import java.util.List;

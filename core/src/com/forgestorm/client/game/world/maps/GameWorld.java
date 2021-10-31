@@ -9,10 +9,13 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
-import com.forgestorm.client.io.ChunkLoader;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.RegionLoader;
+import com.forgestorm.shared.game.world.maps.Floors;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
+import com.forgestorm.shared.game.world.maps.Warp;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.io.ChunkLoader;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,7 +59,7 @@ public class GameWorld {
             for (int chunkX = clientChunkX - ClientConstants.CHUNK_RADIUS; chunkX < clientChunkX + ClientConstants.CHUNK_RADIUS + 1; chunkX++) {
                 fileManager.loadMapChunkData(worldName, (short) chunkX, (short) chunkY, true);
                 ChunkLoader.WorldChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, (short) chunkX, (short) chunkY);
-                if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunk());
+                if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunkFromDisk());
             }
         }
     }
@@ -128,7 +131,7 @@ public class GameWorld {
     public void loadChunk(short chunkX, short chunkY) {
         fileManager.loadMapChunkData(worldName, chunkX, chunkY, true);
         ChunkLoader.WorldChunkDataWrapper mapChunkData = fileManager.getMapChunkData(worldName, chunkX, chunkY);
-        if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunk());
+        if (mapChunkData != null) addChunkFromDisk(mapChunkData.getWorldChunkFromDisk());
     }
 
     public void unloadChunk(short chunkX, short chunkY) {
@@ -146,7 +149,7 @@ public class GameWorld {
         int localX = worldX - worldChunk.getChunkX() * ClientConstants.CHUNK_SIZE;
         int localY = worldY - worldChunk.getChunkY() * ClientConstants.CHUNK_SIZE;
 
-        return worldChunk.getTile(layerDefinition, localX, localY, Floors.getFloor(worldZ));
+        return worldChunk.getTile(layerDefinition, localX, localY, com.forgestorm.shared.game.world.maps.Floors.getFloor(worldZ));
     }
 
     Warp getWarp(int entityX, int entityY, short entityZ) {
@@ -213,7 +216,7 @@ public class GameWorld {
                 Gdx.graphics.getHeight() + parallaxBackground.getHeight() * 2);
     }
 
-    public void renderBottomLayers(Batch batch, Floors floor) {
+    public void renderBottomLayers(Batch batch, com.forgestorm.shared.game.world.maps.Floors floor) {
         // TODO: Check against camera before trying to render
         // Render layer from most bottom, going up.
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
@@ -221,13 +224,13 @@ public class GameWorld {
         }
     }
 
-    public void renderDecorationLayer(Batch batch, Floors floor) {
+    public void renderDecorationLayer(Batch batch, com.forgestorm.shared.game.world.maps.Floors floor) {
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
             chunk.renderDecorationLayer(batch, floor);
         }
     }
 
-    public void renderOverheadLayer(Batch batch, Floors floor) {
+    public void renderOverheadLayer(Batch batch, com.forgestorm.shared.game.world.maps.Floors floor) {
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
             chunk.renderOverheadLayer(batch, floor);
         }

@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.WorldObject;
-import com.forgestorm.client.game.world.maps.Floors;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.game.world.maps.Floors;
+import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.HashMap;
 import java.util.Map;

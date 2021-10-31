@@ -1,7 +1,7 @@
 package com.forgestorm.client.game.rpg;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.io.FactionLoader;
+import com.forgestorm.shared.io.FactionLoader;
 
 import java.util.Map;
 

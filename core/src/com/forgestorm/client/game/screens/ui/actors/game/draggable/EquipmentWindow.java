@@ -3,15 +3,8 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
-import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
-import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.rpg.Attributes;
 import com.forgestorm.client.game.rpg.SkillOpcodes;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
@@ -21,11 +14,18 @@ import com.forgestorm.client.game.screens.ui.actors.event.ExperienceUpdateListen
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.game.rpg.Attributes;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 import lombok.Getter;
 
@@ -33,16 +33,16 @@ import lombok.Getter;
 public class EquipmentWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
-    private EquipmentPreview equipmentPreview = new EquipmentPreview();
-    private ImageBuilder statIconBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
+    private final EquipmentPreview equipmentPreview = new EquipmentPreview();
+    private final ImageBuilder statIconBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
 
-    private VisLabel levelValue = new VisLabel("0");
-    private VisLabel armorValue = new VisLabel("0");
-    private VisLabel damageValue = new VisLabel("0");
-    private VisLabel fireValue = new VisLabel("0");
-    private VisLabel iceValue = new VisLabel("0");
-    private VisLabel lightningValue = new VisLabel("0");
-    private VisLabel poisonValue = new VisLabel("0");
+    private final VisLabel levelValue = new VisLabel("0");
+    private final VisLabel armorValue = new VisLabel("0");
+    private final VisLabel damageValue = new VisLabel("0");
+    private final VisLabel fireValue = new VisLabel("0");
+    private final VisLabel iceValue = new VisLabel("0");
+    private final VisLabel lightningValue = new VisLabel("0");
+    private final VisLabel poisonValue = new VisLabel("0");
 
     public EquipmentWindow() {
         super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);

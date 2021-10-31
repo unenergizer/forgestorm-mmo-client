@@ -10,14 +10,14 @@ import com.forgestorm.client.game.screens.ui.actors.game.EntityDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.EntityShopWindow;
 import com.forgestorm.client.game.world.item.BankActions;
-import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
-import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
 import com.forgestorm.client.network.game.packet.out.ClickActionPacketOut;
 import com.forgestorm.client.network.game.packet.out.EntityShopPacketOut;
 import com.forgestorm.client.network.game.packet.out.NPCDialoguePacketOut;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
 
 public class EntityInteract {
 

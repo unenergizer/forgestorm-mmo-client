@@ -1,11 +1,13 @@
 package com.forgestorm.client.game.world.item.trade;
 
+import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
+
 import lombok.Getter;
 
 @Getter
 public class TradePacketInfoOut {
 
-    private TradeStatusOpcode tradeStatusOpcode;
+    private final TradeStatusOpcode tradeStatusOpcode;
     private int tradeUUID;
     private short targetEntityUUID;
     private byte itemSlot;

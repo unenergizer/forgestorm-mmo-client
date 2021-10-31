@@ -3,8 +3,9 @@ package com.forgestorm.client.game.world.maps;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.TilePropertyTypes;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.Warp;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
 
 public class WorldUtil {
 
@@ -45,7 +46,7 @@ public class WorldUtil {
     }
 
     /**
-     * Checks to see if a {@link Warp} exists at this location.
+     * Checks to see if a {@link com.forgestorm.shared.game.world.maps.Warp} exists at this location.
      *
      * @param entityX The X location in world coordinates.
      * @param entityY The Y location in world coordinates.
@@ -57,7 +58,7 @@ public class WorldUtil {
     }
 
     /**
-     * Gets a {@link Warp} if it exists at this location.
+     * Gets a {@link com.forgestorm.shared.game.world.maps.Warp} if it exists at this location.
      *
      * @param entityX The X location in world coordinates.
      * @param entityY The Y location in world coordinates.

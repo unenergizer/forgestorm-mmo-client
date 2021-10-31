@@ -4,21 +4,21 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ExperienceBar;
+import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
-import com.forgestorm.client.game.world.item.inventory.InventoryConstants;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryConstants;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class BankWindow extends ItemSlotContainerWindow implements Buildable {
 

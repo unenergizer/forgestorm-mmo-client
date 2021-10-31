@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.maps.building.LayerDefinition;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.io.FileManager;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.game.world.maps.Floors;
+import com.forgestorm.shared.game.world.maps.Warp;
+import com.forgestorm.shared.game.world.maps.WarpLocation;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,10 +31,10 @@ public class WorldChunk {
     private final short chunkX, chunkY;
 
     @Getter
-    private final Map<Floors, Map<LayerDefinition, Tile[]>> floorLayers = new HashMap<Floors, Map<LayerDefinition, Tile[]>>();
+    private final Map<com.forgestorm.shared.game.world.maps.Floors, Map<LayerDefinition, Tile[]>> floorLayers = new HashMap<com.forgestorm.shared.game.world.maps.Floors, Map<LayerDefinition, Tile[]>>();
 
     @Getter
-    private final Map<WarpLocation, Warp> tileWarps = new HashMap<WarpLocation, Warp>();
+    private final Map<com.forgestorm.shared.game.world.maps.WarpLocation, com.forgestorm.shared.game.world.maps.Warp> tileWarps = new HashMap<com.forgestorm.shared.game.world.maps.WarpLocation, com.forgestorm.shared.game.world.maps.Warp>();
 
     public WorldChunk(String worldName, short chunkX, short chunkY) {
         this.worldName = worldName;
@@ -43,7 +46,7 @@ public class WorldChunk {
 
     private void initTileLayers() {
 
-        for (Floors floor : Floors.values()) {
+        for (com.forgestorm.shared.game.world.maps.Floors floor : com.forgestorm.shared.game.world.maps.Floors.values()) {
             Map<LayerDefinition, Tile[]> layers = new HashMap<LayerDefinition, Tile[]>();
 
             for (LayerDefinition layerDefinition : LayerDefinition.values()) {
@@ -72,7 +75,7 @@ public class WorldChunk {
 
     public void setChunkFromDisk(WorldChunk chunkFromDisk) {
         // Copy layers and floors
-        for (Floors floor : Floors.values()) {
+        for (com.forgestorm.shared.game.world.maps.Floors floor : com.forgestorm.shared.game.world.maps.Floors.values()) {
             for (Map.Entry<LayerDefinition, Tile[]> entry : chunkFromDisk.floorLayers.get(floor).entrySet()) {
                 LayerDefinition layerDefinition = entry.getKey();
                 Tile[] tiles = entry.getValue();
@@ -88,15 +91,15 @@ public class WorldChunk {
         }
 
         // Copy Warps
-        for (Map.Entry<WarpLocation, Warp> entry : chunkFromDisk.getTileWarps().entrySet()) {
-            WarpLocation warpLocation = entry.getKey();
-            Warp warp = entry.getValue();
+        for (Map.Entry<com.forgestorm.shared.game.world.maps.WarpLocation, com.forgestorm.shared.game.world.maps.Warp> entry : chunkFromDisk.getTileWarps().entrySet()) {
+            com.forgestorm.shared.game.world.maps.WarpLocation warpLocation = entry.getKey();
+            com.forgestorm.shared.game.world.maps.Warp warp = entry.getValue();
 
             addTileWarp(warpLocation, warp);
         }
     }
 
-    public void setNetworkTiles(Floors floor, LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
+    public void setNetworkTiles(com.forgestorm.shared.game.world.maps.Floors floor, LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
         for (int localX = 0; localX < tileImageIDs.length; localX++) {
 
             TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
@@ -111,16 +114,16 @@ public class WorldChunk {
         }
     }
 
-    public Tile getTile(LayerDefinition layerDefinition, int localX, int localY, Floors floor) {
+    public Tile getTile(LayerDefinition layerDefinition, int localX, int localY, com.forgestorm.shared.game.world.maps.Floors floor) {
         return floorLayers.get(floor).get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
     }
 
     public boolean isTraversable(int localX, int localY) {
         Location location = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
-        return isTraversable(Floors.getFloor(location.getZ()), localX, localY);
+        return isTraversable(com.forgestorm.shared.game.world.maps.Floors.getFloor(location.getZ()), localX, localY);
     }
 
-    private boolean isTraversable(Floors floor, int localX, int localY) {
+    private boolean isTraversable(com.forgestorm.shared.game.world.maps.Floors floor, int localX, int localY) {
         Tile[] tiles = floorLayers.get(floor).get(LayerDefinition.WORLD_OBJECTS);
         Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
         if (tile == null) return true;
@@ -133,9 +136,9 @@ public class WorldChunk {
     }
 
     public void removeTileWarp(int localX, int localY, short localZ) {
-        for (Iterator<Map.Entry<WarpLocation, Warp>> iterator = tileWarps.entrySet().iterator(); iterator.hasNext(); ) {
-            Map.Entry<WarpLocation, Warp> entry = iterator.next();
-            WarpLocation warpLocation = entry.getKey();
+        for (Iterator<Map.Entry<com.forgestorm.shared.game.world.maps.WarpLocation, com.forgestorm.shared.game.world.maps.Warp>> iterator = tileWarps.entrySet().iterator(); iterator.hasNext(); ) {
+            Map.Entry<com.forgestorm.shared.game.world.maps.WarpLocation, com.forgestorm.shared.game.world.maps.Warp> entry = iterator.next();
+            com.forgestorm.shared.game.world.maps.WarpLocation warpLocation = entry.getKey();
 
             if (warpLocation.getFromX() == localX
                     && warpLocation.getFromY() == localY
@@ -146,16 +149,16 @@ public class WorldChunk {
         }
     }
 
-    public void addTileWarp(int localX, int localY, short localZ, Warp warp) {
-        addTileWarp(new WarpLocation(localX, localY, localZ), warp);
+    public void addTileWarp(int localX, int localY, short localZ, com.forgestorm.shared.game.world.maps.Warp warp) {
+        addTileWarp(new com.forgestorm.shared.game.world.maps.WarpLocation(localX, localY, localZ), warp);
     }
 
-    public void addTileWarp(WarpLocation warpLocation, Warp warp) {
+    public void addTileWarp(com.forgestorm.shared.game.world.maps.WarpLocation warpLocation, com.forgestorm.shared.game.world.maps.Warp warp) {
         tileWarps.put(warpLocation, warp);
     }
 
-    Warp getWarp(int localX, int localY, short localZ) {
-        for (Map.Entry<WarpLocation, Warp> entry : tileWarps.entrySet()) {
+    com.forgestorm.shared.game.world.maps.Warp getWarp(int localX, int localY, short localZ) {
+        for (Map.Entry<com.forgestorm.shared.game.world.maps.WarpLocation, Warp> entry : tileWarps.entrySet()) {
             WarpLocation warpLocation = entry.getKey();
             if (warpLocation.getFromX() == localX
                     && warpLocation.getFromY() == localY
@@ -169,22 +172,22 @@ public class WorldChunk {
         return tileWarps.size();
     }
 
-    void renderBottomLayers(Batch batch, Floors floor) {
+    void renderBottomLayers(Batch batch, com.forgestorm.shared.game.world.maps.Floors floor) {
         // Render layer from most bottom, going up.
         renderLayer(floor, LayerDefinition.BACKGROUND, batch);
         renderLayer(floor, LayerDefinition.GROUND, batch);
         renderLayer(floor, LayerDefinition.GROUND_DECORATION, batch);
     }
 
-    void renderDecorationLayer(Batch batch, Floors floor) {
+    void renderDecorationLayer(Batch batch, com.forgestorm.shared.game.world.maps.Floors floor) {
         renderLayer(floor, LayerDefinition.WORLD_OBJECT_DECORATION, batch);
     }
 
-    void renderOverheadLayer(Batch batch, Floors floor) {
+    void renderOverheadLayer(Batch batch, com.forgestorm.shared.game.world.maps.Floors floor) {
         renderLayer(floor, LayerDefinition.OVERHEAD, batch);
     }
 
-    Tile[] getSortableTiles(Floors floor) {
+    Tile[] getSortableTiles(com.forgestorm.shared.game.world.maps.Floors floor) {
         return floorLayers.get(floor).get(LayerDefinition.WORLD_OBJECTS);
     }
 

@@ -1,12 +1,12 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.item;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.forgestorm.client.game.screens.ui.ImageBuilder;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-import com.forgestorm.client.game.screens.ui.ImageBuilder;
-import com.forgestorm.client.io.type.GameAtlas;
 
 class AmmoTab extends Tab {
 

@@ -9,9 +9,9 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditor
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.forgestorm.client.game.world.entities.AiEntity;
 import com.forgestorm.client.game.world.entities.Appearance;
-import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.util.RandomUtil;
-import com.forgestorm.client.util.color.LibGDXColorList;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
+import com.forgestorm.shared.util.RandomNumberUtil;
+import com.forgestorm.shared.util.color.LibGDXColorList;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -183,17 +183,17 @@ public class NPCAppearancePanel implements AppearancePanel {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 // Clothes
-                hairBodyPart.setData(RandomUtil.getNewRandom(0, MAX_HAIR_TEXTURES));
-                helmBodyPart.setData(RandomUtil.getNewRandom(0, MAX_HELM_TEXTURES));
-                chestBodyPart.setData(RandomUtil.getNewRandom(0, MAX_CHEST_TEXTURES));
-                pantsBodyPart.setData(RandomUtil.getNewRandom(0, MAX_PANTS_TEXTURES));
-                shoesBodyPart.setData(RandomUtil.getNewRandom(0, MAX_SHOES_TEXTURES));
+                hairBodyPart.setData(RandomNumberUtil.getNewRandom(0, MAX_HAIR_TEXTURES));
+                helmBodyPart.setData(RandomNumberUtil.getNewRandom(0, MAX_HELM_TEXTURES));
+                chestBodyPart.setData(RandomNumberUtil.getNewRandom(0, MAX_CHEST_TEXTURES));
+                pantsBodyPart.setData(RandomNumberUtil.getNewRandom(0, MAX_PANTS_TEXTURES));
+                shoesBodyPart.setData(RandomNumberUtil.getNewRandom(0, MAX_SHOES_TEXTURES));
 
                 // Skin and Hair
-                hairSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
-                eyeSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
-                skinSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
-                glovesSelectBox.setSelectedIndex(RandomUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                hairSelectBox.setSelectedIndex(RandomNumberUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                eyeSelectBox.setSelectedIndex(RandomNumberUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                skinSelectBox.setSelectedIndex(RandomNumberUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
+                glovesSelectBox.setSelectedIndex(RandomNumberUtil.getNewRandom(0, LibGDXColorList.values().length - 1));
 
                 // Rebuild the preview
                 characterPreview();

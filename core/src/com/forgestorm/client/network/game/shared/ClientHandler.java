@@ -1,8 +1,8 @@
 package com.forgestorm.client.network.game.shared;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.network.game.packet.out.AbstractClientPacketOut;
-import com.forgestorm.client.network.game.packet.out.ForgeStormOutputStream;
+import com.forgestorm.client.network.game.packet.out.AbstractPacketOut;
+import com.forgestorm.shared.network.game.GameOutputStream;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -20,7 +20,7 @@ import static com.forgestorm.client.util.Log.println;
 @Getter
 public class ClientHandler {
     private Socket socket;
-    private ForgeStormOutputStream forgeStormOutputStream;
+    private GameOutputStream gameOutputStream;
     private DataInputStream inputStream;
 
     @Setter
@@ -28,9 +28,9 @@ public class ClientHandler {
     @Setter
     private volatile long pingSendTime;
 
-    public ClientHandler(Socket socket, ForgeStormOutputStream forgeStormOutputStream, DataInputStream inputStream) {
+    public ClientHandler(Socket socket, GameOutputStream gameOutputStream, DataInputStream inputStream) {
         this.socket = socket;
-        this.forgeStormOutputStream = forgeStormOutputStream;
+        this.gameOutputStream = gameOutputStream;
         this.inputStream = inputStream;
     }
 
@@ -142,13 +142,13 @@ public class ClientHandler {
         return null;
     }
 
-    public int fillCurrentBuffer(AbstractClientPacketOut abstractClientPacketOut) {
-        return forgeStormOutputStream.fillCurrentBuffer(abstractClientPacketOut);
+    public int fillCurrentBuffer(AbstractPacketOut abstractPacketOut) {
+        return gameOutputStream.fillCurrentBuffer(abstractPacketOut);
     }
 
     public void writeBuffers() {
         try {
-            forgeStormOutputStream.writeBuffers();
+            gameOutputStream.writeBuffers();
         } catch (IOException e) {
             handleIOException(e);
         }
@@ -156,7 +156,7 @@ public class ClientHandler {
 
     public void flushBuffer() {
         try {
-            forgeStormOutputStream.flush();
+            gameOutputStream.flush();
         } catch (IOException e) {
             handleIOException(e);
         }
@@ -176,10 +176,10 @@ public class ClientHandler {
     public void closeConnection() {
         try {
             if (socket != null) socket.close();
-            if (forgeStormOutputStream != null) forgeStormOutputStream.close();
+            if (gameOutputStream != null) gameOutputStream.close();
             if (inputStream != null) inputStream.close();
             socket = null;
-            forgeStormOutputStream = null;
+            gameOutputStream = null;
             inputStream = null;
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,11 +1,12 @@
 package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.game.world.maps.DoorManager;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class DoorInteractPacketOut extends AbstractClientPacketOut {
+public class DoorInteractPacketOut extends AbstractPacketOut {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -22,7 +23,7 @@ public class DoorInteractPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         write.writeByte(DoorManager.DoorStatus.getByte(doorStatus));
         write.writeInt(tileX);
         write.writeInt(tileY);

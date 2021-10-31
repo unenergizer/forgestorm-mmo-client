@@ -1,11 +1,12 @@
 package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.game.world.entities.NPC;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
-public class NPCDialoguePacketOut extends AbstractClientPacketOut {
+public class NPCDialoguePacketOut extends AbstractPacketOut {
 
-    private short entityId;
+    private final short entityId;
 
     public NPCDialoguePacketOut(NPC npc) {
         super(Opcodes.NPC_DIALOGUE);
@@ -13,7 +14,7 @@ public class NPCDialoguePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         write.writeShort(entityId);
     }
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.io.NetworkSettingsLoader;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
 import com.forgestorm.client.network.game.LoginCredentials;
@@ -12,6 +11,7 @@ import com.forgestorm.client.network.game.packet.out.OutputStreamManager;
 import com.forgestorm.client.network.game.shared.EventBus;
 import com.forgestorm.client.network.login.ClientLoginConnection;
 import com.forgestorm.client.network.login.LoginState;
+import com.forgestorm.shared.io.NetworkSettingsLoader;
 
 import lombok.Getter;
 

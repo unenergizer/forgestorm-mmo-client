@@ -1,7 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.event;
 
 import com.badlogic.gdx.scenes.scene2d.Event;
-import com.forgestorm.client.game.rpg.Attributes;
+import com.forgestorm.shared.game.rpg.Attributes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,5 +9,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class StatsUpdateEvent extends Event {
-    private Attributes playerClientAttributes;
+    private final Attributes playerClientAttributes;
 }

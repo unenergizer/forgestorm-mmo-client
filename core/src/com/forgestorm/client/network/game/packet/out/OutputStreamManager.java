@@ -2,6 +2,7 @@ package com.forgestorm.client.network.game.packet.out;
 
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.network.game.shared.ClientHandler;
+import com.forgestorm.shared.network.game.GameOutputStream;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,16 +14,16 @@ public class OutputStreamManager implements Disposable {
     private static final boolean PRINT_DEBUG = false;
     private static final int MAX_BUFFER_SIZE = 500;
 
-    private final Queue<AbstractClientPacketOut> outputContexts = new LinkedList<AbstractClientPacketOut>();
+    private final Queue<AbstractPacketOut> outputContexts = new LinkedList<AbstractPacketOut>();
 
     public void sendPackets(ClientHandler clientHandler) {
         int bufferOffsetCheck = 0;
-        AbstractClientPacketOut abstractClientPacketOut;
-        while ((abstractClientPacketOut = outputContexts.poll()) != null) {
+        AbstractPacketOut abstractPacketOut;
+        while ((abstractPacketOut = outputContexts.poll()) != null) {
 
-            println(getClass(), "PACKET OUT: " + abstractClientPacketOut, false, PRINT_DEBUG);
+            println(getClass(), "PACKET OUT: " + abstractPacketOut, false, PRINT_DEBUG);
 
-            int thisBufferSize = clientHandler.fillCurrentBuffer(abstractClientPacketOut);
+            int thisBufferSize = clientHandler.fillCurrentBuffer(abstractPacketOut);
             bufferOffsetCheck += thisBufferSize;
 
             if (bufferOffsetCheck > MAX_BUFFER_SIZE) { // exceeds buffer limit so we should flush what we have written so far
@@ -33,7 +34,7 @@ public class OutputStreamManager implements Disposable {
 
                 bufferOffsetCheck = thisBufferSize;
 
-                clientHandler.getForgeStormOutputStream().createNewBuffers(abstractClientPacketOut);
+                clientHandler.getGameOutputStream().createNewBuffers(abstractPacketOut);
                 // This happened to be the last packet so we should add the
                 // to be written. Write and flush it.
                 if (outputContexts.peek() == null) {
@@ -43,18 +44,18 @@ public class OutputStreamManager implements Disposable {
 
             } else { // The current buffer fits into the current packet
 
-                ForgeStormOutputStream forgeStormOutputStream = clientHandler.getForgeStormOutputStream();
+                GameOutputStream gameOutputStream = clientHandler.getGameOutputStream();
 
-                if (!forgeStormOutputStream.currentBuffersInitialized()) {
-                    forgeStormOutputStream.createNewBuffers(abstractClientPacketOut);
+                if (!gameOutputStream.currentBuffersInitialized()) {
+                    gameOutputStream.createNewBuffers(abstractPacketOut);
                 } else {
 
-                    boolean opcodesMatch = forgeStormOutputStream.doOpcodesMatch(abstractClientPacketOut);
+                    boolean opcodesMatch = gameOutputStream.doOpcodesMatch(abstractPacketOut);
                     if (opcodesMatch) {
-                        forgeStormOutputStream.appendBewBuffer();
+                        gameOutputStream.appendBewBuffer();
                     } else {
                         clientHandler.writeBuffers();
-                        forgeStormOutputStream.createNewBuffers(abstractClientPacketOut);
+                        gameOutputStream.createNewBuffers(abstractPacketOut);
                     }
                 }
 
@@ -67,8 +68,8 @@ public class OutputStreamManager implements Disposable {
         }
     }
 
-    void addClientOutPacket(AbstractClientPacketOut abstractClientPacketOut) {
-        outputContexts.add(abstractClientPacketOut);
+    void addClientOutPacket(AbstractPacketOut abstractPacketOut) {
+        outputContexts.add(abstractPacketOut);
     }
 
     @Override

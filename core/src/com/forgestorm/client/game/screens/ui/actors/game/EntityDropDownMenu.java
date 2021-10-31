@@ -23,10 +23,10 @@ import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.NPC;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.packet.out.InspectPlayerPacketOut;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
 import com.kotcrab.vis.ui.widget.VisTable;
 
 import java.util.ArrayList;

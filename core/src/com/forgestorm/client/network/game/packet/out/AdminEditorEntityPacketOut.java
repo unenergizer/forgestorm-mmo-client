@@ -5,10 +5,11 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditor
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
-import com.forgestorm.client.game.world.entities.FirstInteraction;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.game.world.entities.FirstInteraction;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
-public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
+public class AdminEditorEntityPacketOut extends AbstractPacketOut {
 
     private final EntityEditorData entityEditorData;
 
@@ -18,7 +19,7 @@ public class AdminEditorEntityPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         if (entityEditorData == null) return;
 
         write.writeByte(entityEditorData.getEntityType().getEntityTypeByte());

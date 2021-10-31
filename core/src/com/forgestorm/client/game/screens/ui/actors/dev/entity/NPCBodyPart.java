@@ -2,12 +2,12 @@ package com.forgestorm.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.game.screens.ui.ImageBuilder;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.forgestorm.client.game.screens.ui.ImageBuilder;
-import com.forgestorm.client.io.type.GameAtlas;
 
 import lombok.Getter;
 

@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;

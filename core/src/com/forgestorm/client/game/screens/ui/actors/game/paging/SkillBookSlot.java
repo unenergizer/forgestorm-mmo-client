@@ -2,16 +2,16 @@ package com.forgestorm.client.game.screens.ui.actors.game.paging;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 class SkillBookSlot extends PagedWindowSlot {
 

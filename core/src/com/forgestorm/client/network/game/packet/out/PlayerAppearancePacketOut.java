@@ -1,8 +1,9 @@
 package com.forgestorm.client.network.game.packet.out;
 
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
-class PlayerAppearancePacketOut extends AbstractClientPacketOut {
+class PlayerAppearancePacketOut extends AbstractPacketOut {
 
     private final short headId, bodyId;
 
@@ -13,7 +14,7 @@ class PlayerAppearancePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         write.writeShort(headId);
         write.writeShort(bodyId);
     }

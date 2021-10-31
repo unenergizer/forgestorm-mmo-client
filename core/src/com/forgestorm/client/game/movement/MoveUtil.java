@@ -3,7 +3,7 @@ package com.forgestorm.client.game.movement;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MoveDirection;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
 
 public class MoveUtil {
 

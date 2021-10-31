@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.io.FileManager;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.VisUI;
 
 import java.io.IOException;

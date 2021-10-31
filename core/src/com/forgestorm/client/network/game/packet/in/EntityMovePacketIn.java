@@ -9,11 +9,11 @@ import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.client.util.MoveNode;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 

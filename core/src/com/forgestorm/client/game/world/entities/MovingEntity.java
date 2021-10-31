@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.GameTextures;
-import com.forgestorm.client.game.rpg.Attributes;
 import com.forgestorm.client.game.screens.GameScreen;
 import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
 import com.forgestorm.client.game.world.maps.Location;
-import com.forgestorm.client.game.world.maps.MoveDirection;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.util.GameTextUtil;
-import com.forgestorm.client.util.color.LibGDXColorList;
+import com.forgestorm.shared.game.rpg.Attributes;
+import com.forgestorm.shared.game.world.maps.MoveDirection;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.util.color.LibGDXColorList;
 
 import java.util.LinkedList;
 import java.util.Queue;

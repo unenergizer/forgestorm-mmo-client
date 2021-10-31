@@ -6,12 +6,12 @@ import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.io.type.GameAtlas;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.Getter;
 import lombok.Setter;

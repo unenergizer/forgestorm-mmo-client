@@ -14,18 +14,19 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemSlotInterfaceUtil;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.Player;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.inventory.InventoryConstants;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
 import com.forgestorm.client.game.world.item.trade.TradeManager;
 import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
-import com.forgestorm.client.game.world.item.trade.TradeStatusOpcode;
-import com.forgestorm.client.io.type.GameAtlas;
 import com.forgestorm.client.network.game.packet.out.PlayerTradePacketOut;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.inventory.InventoryConstants;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -46,14 +47,14 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
     private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
 
+    private final VisLabel playerTradeStatus = new VisLabel();
+    private final VisLabel targetTradeStatus = new VisLabel();
+
     private StageHandler stageHandler;
     private TradeManager tradeManager;
 
     private TextButton accept;
     private TextButton cancel;
-
-    private VisLabel playerTradeStatus = new VisLabel();
-    private VisLabel targetTradeStatus = new VisLabel();
 
     private boolean lockTrade = false;
     private boolean tradeWindowOpen = false;
@@ -348,8 +349,8 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         private VisImage tradeCell;
         private ItemStack itemStack;
 
-        private VisLabel amountLabel = new VisLabel();
-        private Stack stack = new Stack();
+        private final VisLabel amountLabel = new VisLabel();
+        private final Stack stack = new Stack();
 
         /**
          * We declare this when a {@link ItemStack} needs to be locked in place on the players bag.
@@ -403,7 +404,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             }
 
             stack.add(tradeCell); // Set next image
-            displayItemAmount();
+            if (itemStack != null) {
+                ItemSlotInterfaceUtil.displayItemAmount(itemStack, amountLabel, stack);
+            } else {
+                stack.removeActor(amountLabel);
+            }
 
             // Setup tool tips
             if (itemStack != null && tradeCell != null) {
@@ -417,25 +422,6 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
             // Setup click listener
             addClickListener();
-        }
-
-        private void displayItemAmount() {
-            if (itemStack != null) {
-                if (itemStack.getAmount() <= 1) return;
-                int itemStackAmount = itemStack.getAmount();
-                String displayText = String.valueOf(itemStackAmount);
-                if (itemStackAmount >= 100000 && itemStackAmount < 1000000) {
-                    displayText = itemStackAmount / 1000 + "K";
-                } else if (itemStackAmount >= 1000000) {
-                    displayText = itemStackAmount / 1000000 + "M";
-                }
-
-                amountLabel.setText(displayText);
-                amountLabel.setAlignment(Alignment.BOTTOM_RIGHT.getAlignment());
-                stack.add(amountLabel);
-            } else {
-                stack.removeActor(amountLabel);
-            }
         }
 
         void addClickListener() {

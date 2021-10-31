@@ -1,12 +1,14 @@
 package com.forgestorm.client.game.world.item.inventory;
 
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 public class InventoryActions {
 
-    private ActionType actionType;
+    private final ActionType actionType;
     private byte fromPosition;
     private byte toPosition;
     private byte fromWindow;
@@ -25,7 +27,7 @@ public class InventoryActions {
         this.slotIndex = slotIndex;
     }
 
-    public InventoryActions(ActionType actionType, InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
+    public InventoryActions(ActionType actionType, com.forgestorm.shared.game.world.item.inventory.InventoryType fromWindow, InventoryType toWindow, byte fromPosition, byte toPosition) {
         this.actionType = actionType;
         this.fromWindow = fromWindow.getInventoryTypeIndex();
         this.toWindow = toWindow.getInventoryTypeIndex();
@@ -81,7 +83,7 @@ public class InventoryActions {
         REMOVE((byte) 0x04),
         SET((byte) 0x05);
 
-        private byte getActionType;
+        private final byte getActionType;
 
         public static ActionType getActionType(byte inventoryActionType) {
             for (ActionType entityType : ActionType.values()) {

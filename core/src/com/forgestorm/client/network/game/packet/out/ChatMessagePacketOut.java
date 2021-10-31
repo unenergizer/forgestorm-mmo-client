@@ -2,14 +2,15 @@ package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class ChatMessagePacketOut extends AbstractClientPacketOut {
+public class ChatMessagePacketOut extends AbstractPacketOut {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -23,7 +24,7 @@ public class ChatMessagePacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         if (message == null) return;
         if (message.isEmpty()) return;
         if (message.contains(Character.toString('\n'))) return; // enter

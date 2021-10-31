@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties;
 
+import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 

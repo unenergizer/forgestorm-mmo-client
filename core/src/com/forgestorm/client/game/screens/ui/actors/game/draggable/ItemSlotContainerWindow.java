@@ -1,7 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
 
 import lombok.Getter;
 

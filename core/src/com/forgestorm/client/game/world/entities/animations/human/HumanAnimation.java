@@ -14,7 +14,7 @@ import java.util.List;
 import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
-import static com.forgestorm.client.util.RandomUtil.getNewRandom;
+import static com.forgestorm.shared.util.RandomNumberUtil.getNewRandom;
 
 public class HumanAnimation extends EntityAnimation {
 

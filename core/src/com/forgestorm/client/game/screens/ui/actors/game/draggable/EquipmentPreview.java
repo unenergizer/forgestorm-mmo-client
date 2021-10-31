@@ -3,15 +3,15 @@ package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisTable;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.character.CharacterPreviewer;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.Player;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
-import com.forgestorm.client.game.world.item.inventory.EquipmentSlotTypes;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.inventory.EquipmentSlotTypes;
+import com.kotcrab.vis.ui.building.utilities.Alignment;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 import lombok.Getter;
 

@@ -1,11 +1,11 @@
 package com.forgestorm.client.game.screens.ui.actors.game.draggable;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
-import com.forgestorm.client.game.world.item.inventory.InventoryMoveType;
-import com.forgestorm.client.game.world.item.inventory.InventoryMovementUtil;
 import com.forgestorm.client.network.game.packet.out.InventoryPacketOut;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.inventory.InventoryMoveType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryMovementUtil;
 
 import static com.forgestorm.client.util.Log.println;
 

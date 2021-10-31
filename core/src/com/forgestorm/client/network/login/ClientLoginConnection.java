@@ -1,8 +1,10 @@
 package com.forgestorm.client.network.login;
 
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.network.ConnectionManager;
 import com.forgestorm.client.network.game.LoginCredentials;
+import com.forgestorm.shared.network.login.LoginFailReason;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,7 +31,11 @@ public class ClientLoginConnection {
         this.connectionManager = connectionManager;
     }
 
-    public boolean openConnection(final String address, final int port) {
+    public boolean openConnection(String address, final int port) {
+
+        // Check if local host run
+        boolean forceLocalHost = ClientMain.getInstance().isForceLocalHost();
+        if (forceLocalHost) address = "localhost";
 
         println(getClass(), "Connecting to: " + address + ":" + port);
 
@@ -90,7 +96,7 @@ public class ClientLoginConnection {
 
             boolean loginSuccess = inputStream.readBoolean();
             if (!loginSuccess) {
-                LoginFailReason loginFailReason = LoginFailReason.getLoginFailReason(inputStream.readByte());
+                com.forgestorm.shared.network.login.LoginFailReason loginFailReason = com.forgestorm.shared.network.login.LoginFailReason.getLoginFailReason(inputStream.readByte());
                 println(getClass(), "Login Failed: " + loginFailReason.getFailReasonMessage());
                 loginState.failState(loginFailReason);
             } else {

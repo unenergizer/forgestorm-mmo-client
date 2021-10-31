@@ -1,11 +1,12 @@
 package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.game.rpg.ShopOpcodes;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
-public class EntityShopPacketOut extends AbstractClientPacketOut {
+public class EntityShopPacketOut extends AbstractPacketOut {
 
-    private ShopOpcodes shopOpcode;
+    private final ShopOpcodes shopOpcode;
     private short shopSlot;
     private short entityId;
 
@@ -33,7 +34,7 @@ public class EntityShopPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         write.writeByte(shopOpcode.getShopOpcodeByte());
 
         switch (shopOpcode) {

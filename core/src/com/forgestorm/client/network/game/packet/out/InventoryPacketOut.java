@@ -2,11 +2,12 @@ package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
 import com.forgestorm.client.game.world.item.inventory.InventorySyncher;
-import com.forgestorm.client.network.game.shared.Opcodes;
+import com.forgestorm.shared.network.game.GameOutputStream;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class InventoryPacketOut extends AbstractClientPacketOut {
+public class InventoryPacketOut extends AbstractPacketOut {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -32,7 +33,7 @@ public class InventoryPacketOut extends AbstractClientPacketOut {
     }
 
     @Override
-    protected void createPacket(ForgeStormOutputStream write) {
+    public void createPacket(GameOutputStream write) {
         InventoryActions.ActionType action = actionType;
         write.writeByte(action.getGetActionType());
 

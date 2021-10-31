@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.io.type.GameAtlas;
+import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisImage;
 
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})

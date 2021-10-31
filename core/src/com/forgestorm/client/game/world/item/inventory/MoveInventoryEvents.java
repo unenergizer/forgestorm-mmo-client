@@ -1,13 +1,12 @@
 package com.forgestorm.client.game.world.item.inventory;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
-import com.forgestorm.client.game.world.entities.AppearanceType;
 import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.WearableItemStack;
+import com.forgestorm.shared.game.world.entities.AppearanceType;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.WearableItemStack;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -17,23 +16,9 @@ public class MoveInventoryEvents {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private ItemSlotContainer getItemSlotContainer(byte inventoryByte) {
-        InventoryType inventoryType = InventoryType.values()[inventoryByte];
-        if (inventoryType == InventoryType.BAG_1) {
-            return ActorUtil.getStageHandler().getBagWindow().getItemSlotContainer();
-        } else if (inventoryType == InventoryType.BANK) {
-            return ActorUtil.getStageHandler().getBankWindow().getItemSlotContainer();
-        } else if (inventoryType == InventoryType.EQUIPMENT) {
-            return ActorUtil.getStageHandler().getEquipmentWindow().getItemSlotContainer();
-        } else if (inventoryType == InventoryType.HOT_BAR) {
-            return ActorUtil.getStageHandler().getHotBar().getItemSlotContainer();
-        }
-        throw new RuntimeException("Impossible Case!");
-    }
-
     public void changeEquipment(ItemStackSlot itemStackTargetSlot, ItemStackSlot sourceItemStackSlot) {
         println(getClass(), "changeEquipment()", true, PRINT_DEBUG);
-        if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
+        if (itemStackTargetSlot.getInventoryType() == com.forgestorm.shared.game.world.item.inventory.InventoryType.EQUIPMENT) {
             equipItem(itemStackTargetSlot, sourceItemStackSlot.getItemStack());
         } else if (sourceItemStackSlot.getInventoryType() == InventoryType.EQUIPMENT) {
             println(getClass(), "From equipment to other inventory", true, PRINT_DEBUG);

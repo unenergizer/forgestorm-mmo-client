@@ -15,11 +15,11 @@ import com.forgestorm.client.game.screens.ui.actors.game.draggable.BagWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.BankWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.InventoryMoveActions;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
-import com.forgestorm.client.game.world.item.ItemStack;
-import com.forgestorm.client.game.world.item.ItemStackType;
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
-import com.forgestorm.client.game.world.item.inventory.InventoryType;
 import com.forgestorm.client.network.game.packet.out.InventoryPacketOut;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.inventory.InventoryType;
 import com.kotcrab.vis.ui.widget.VisTable;
 
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class ItemDropDownMenu extends HideableVisWindow implements Buildable {
 
     private final ItemDropDownMenu itemDropDownMenu;
     private StageHandler stageHandler;
-    private VisTable dropDownTable = new VisTable();
+    private final VisTable dropDownTable = new VisTable();
 
     @Getter
     private InventoryType inventoryType;

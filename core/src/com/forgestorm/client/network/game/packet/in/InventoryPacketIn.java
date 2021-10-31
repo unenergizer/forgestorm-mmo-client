@@ -2,15 +2,15 @@ package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemSlotContainer;
-import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
 import com.forgestorm.client.game.world.item.inventory.InventorySyncher;
-import com.forgestorm.client.game.world.item.inventory.InventoryUtil;
 import com.forgestorm.client.network.game.shared.ClientHandler;
-import com.forgestorm.client.network.game.shared.Opcode;
-import com.forgestorm.client.network.game.shared.Opcodes;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.inventory.InventoryUtil;
+import com.forgestorm.shared.network.game.Opcode;
+import com.forgestorm.shared.network.game.Opcodes;
 
 import lombok.AllArgsConstructor;
 
@@ -129,10 +129,10 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
         private final int itemAmount;
         private final byte slotIndex;
 
-        private byte interactiveInventory;
-        private byte fromPosition;
-        private byte toPosition;
-        private byte fromWindow;
-        private byte toWindow;
+        private final byte interactiveInventory;
+        private final byte fromPosition;
+        private final byte toPosition;
+        private final byte fromWindow;
+        private final byte toWindow;
     }
 }

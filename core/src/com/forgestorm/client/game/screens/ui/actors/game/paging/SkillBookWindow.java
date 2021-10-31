@@ -1,9 +1,9 @@
 package com.forgestorm.client.game.screens.ui.actors.game.paging;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.item.ItemStack;
 import com.forgestorm.client.game.world.item.ItemStackManager;
-import com.forgestorm.client.game.world.item.ItemStackType;
+import com.forgestorm.shared.game.world.item.ItemStack;
+import com.forgestorm.shared.game.world.item.ItemStackType;
 
 import java.util.ArrayList;
 import java.util.List;
