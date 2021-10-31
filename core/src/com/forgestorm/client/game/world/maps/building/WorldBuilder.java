@@ -248,11 +248,15 @@ public class WorldBuilder {
 
         if (tile == null) return;
 
-        if (useEraser) {
+        if (textureId == ClientConstants.BLANK_TILE_ID) {
+            // Network delete tile
+            tile.removeTileImage();
+        } else if (useEraser) {
+            // Local user delete tile
             tile.removeTileImage();
             textureId = ClientConstants.BLANK_TILE_ID; // Set texture to erase
         } else {
-            if (textureId == null) return;
+            // Local && Network set tile
             tile.setTileImage(new TileImage(tileImageMap.get(textureId)));
         }
 
