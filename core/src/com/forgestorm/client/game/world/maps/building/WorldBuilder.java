@@ -247,7 +247,7 @@ public class WorldBuilder {
         Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY, worldZ);
 
         if (tile == null) return;
-
+        if (textureId == null) return;
         if (textureId == ClientConstants.BLANK_TILE_ID) {
             // Network delete tile
             tile.removeTileImage();
