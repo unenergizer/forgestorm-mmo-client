@@ -9,7 +9,6 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.forgestorm.client.game.world.entities.AiEntity;
@@ -31,6 +30,12 @@ import com.kotcrab.vis.ui.widget.VisValidatableTextField;
 
 import lombok.Getter;
 
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.checkBox;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.fadeInWindow;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.fadeOutWindow;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.selectBox;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.textField;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.valueSlider;
 import static com.forgestorm.client.util.Log.println;
 
 public class MonsterTab extends EditorTab {
@@ -174,8 +179,8 @@ public class MonsterTab extends EditorTab {
         textField(leftPane, "ExpDrop:", expDrop);
         textField(leftPane, "DropTable:", dropTable);
         textField(leftPane, "Walk Speed:", walkSpeed);
-        valueSlider(leftPane, "Probability Still:", probStill);
-        valueSlider(leftPane, "Probability Walk:", probWalk);
+        valueSlider(leftPane, "Probability Still:", probStill, getDecimalFormat());
+        valueSlider(leftPane, "Probability Walk:", probWalk, getDecimalFormat());
         textField(leftPane, "Shop ID:", shopId);
         checkBox(leftPane, "Set as Bank Keeper?", isBankKeeper);
 
@@ -332,7 +337,7 @@ public class MonsterTab extends EditorTab {
             public void changed(ChangeEvent event, Actor actor) {
                 new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
                 resetValues();
-                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
+                fadeOutWindow(getStageHandler().getEntityEditor());
             }
         });
 
@@ -351,26 +356,26 @@ public class MonsterTab extends EditorTab {
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
                 }
-                ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
+                fadeOutWindow(getStageHandler().getEntityEditor());
                 Dialogs.showOptionDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Are you sure you want to delete this entity? This can not be undone!", Dialogs.OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
                     @Override
                     public void yes() {
                         Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Entity deleted forever!");
                         new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
                         resetValues();
-                        ActorUtil.fadeOutWindow(getStageHandler().getEntityEditor());
+                        fadeOutWindow(getStageHandler().getEntityEditor());
                         ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
-                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
+                        fadeInWindow(getStageHandler().getEntityEditor());
                         ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
-                        ActorUtil.fadeInWindow(getStageHandler().getEntityEditor());
+                        fadeInWindow(getStageHandler().getEntityEditor());
                         ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });

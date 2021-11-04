@@ -21,6 +21,14 @@ public enum Floors {
     @Getter
     private final String name;
 
+    public static Floors getHighestFloor() {
+        return Floors.FLOOR_5;
+    }
+
+    public static Floors getLowestFloor() {
+        return Floors.UNDERGROUND_3;
+    }
+
     public static Floors getFloor(short worldZ) {
         for (Floors floor : Floors.values()) {
             if (floor.getWorldZ() == worldZ) return floor;

@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.world.maps;
 
+import com.forgestorm.shared.game.world.maps.Floors;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,19 +16,25 @@ public class Region {
     // Top Right point
     private int world2X, world2Y;
 
+    // Z axis
+    private short worldZ;
+
+    @Setter
+    private Boolean allowPVP, allowChat, fullHeal;
+
+    @Setter
+    private String greetingsChat, greetingsTitle, farewellChat, farewellTitle;
+
     @Setter
     private RegionManager.RegionType regionType = RegionManager.RegionType.BUILDING;
 
-    public Region(String worldName) {
-        this.worldName = worldName;
-    }
-
-    public Region(String worldName, int world1X, int world1Y, int world2X, int world2Y) {
+    public Region(String worldName, int world1X, int world1Y, int world2X, int world2Y, short worldZ) {
         this.worldName = worldName;
         this.world1X = world1X;
         this.world1Y = world1Y;
         this.world2X = world2X;
         this.world2Y = world2Y;
+        this.worldZ = worldZ;
     }
 
     public void setWorld1X(int world1X) {
@@ -47,6 +55,12 @@ public class Region {
     public void setWorld2Y(int world2Y) {
         if (world2Y <= world1Y) return;
         this.world2Y = world2Y;
+    }
+
+    public void setWorldZ(short worldZ) {
+        if (worldZ > Floors.getHighestFloor().getWorldZ()) return;
+        if (worldZ < Floors.getLowestFloor().getWorldZ()) return;
+        this.worldZ = worldZ;
     }
 
     public int getWidth() {

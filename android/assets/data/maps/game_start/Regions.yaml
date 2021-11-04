@@ -5,6 +5,13 @@
   x2: 17
   y2: 17
   z: 0
+  allowPVP: true
+  allowChat: true
+  fullHeal: true
+  greetingsChat: "greetings chat.."
+  greetingsTitle: "greetings Title"
+  farewellChat: "farewell Chat"
+  farewellTitle: "farewell Title"
 2:
   worldName: "game_start"
   x1: 11

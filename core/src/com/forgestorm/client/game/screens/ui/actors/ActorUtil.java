@@ -2,9 +2,20 @@ package com.forgestorm.client.game.screens.ui.actors;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
+import com.kotcrab.vis.ui.widget.VisSlider;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextField;
+
+import java.text.DecimalFormat;
 
 public class ActorUtil {
 
@@ -41,6 +52,78 @@ public class ActorUtil {
         if (!visibleStatus) hideableVisWindow.fadeIn(time).setVisible(true);
         hideableVisWindow.toFront();
         return visibleStatus;
+    }
+
+    public static void selectBox(VisTable mainTable, String labelName, VisSelectBox visSelectBox, Object[] items) {
+        //noinspection unchecked
+        visSelectBox.setItems(items);
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+        table.add(visLabel).grow().pad(1);
+        table.add(visSelectBox).pad(1);
+        mainTable.add(table).expandX().fillX().pad(1).row();
+
+        visSelectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+            }
+        });
+    }
+
+    public static void checkBox(VisTable mainTable, String labelName, VisCheckBox visCheckBox) {
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+        table.add(visLabel).grow().pad(1);
+        table.add(visCheckBox).pad(1);
+        mainTable.add(table).expandX().fillX().pad(1).row();
+
+        visCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+            }
+        });
+    }
+
+    public static void textField(VisTable mainTable, String labelName, VisTextField textField) {
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+        table.add(visLabel).grow().pad(1);
+        table.add(textField).pad(1);
+        mainTable.add(table).expandX().fillX().pad(1).row();
+
+        textField.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                return false;
+            }
+        });
+    }
+
+    public static void valueSlider(VisTable mainTable, String labelName, final VisSlider slider, final DecimalFormat decimalFormat) {
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+        final VisLabel sliderValue = new VisLabel(decimalFormat.format(slider.getValue()));
+        table.add(visLabel).grow().pad(1);
+        table.add(slider).pad(1);
+        table.add(sliderValue).pad(1);
+
+        slider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                sliderValue.setText(decimalFormat.format(slider.getValue()));
+            }
+        });
+
+        slider.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                return false;
+            }
+        });
+
+        mainTable.add(table).expandX().fillX().pad(1).row();
     }
 
     public static StageHandler getStageHandler() {

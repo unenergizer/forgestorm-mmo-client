@@ -23,7 +23,6 @@ public class RegionManager {
 
     private Map<Integer, Region> regionMap;
 
-
     @Getter
     @Setter
     private boolean editRegion = false;
@@ -43,6 +42,8 @@ public class RegionManager {
     public void setRegionMap(Map<Integer, Region> regionMap) {
         this.regionMap = regionMap;
         regionToEdit = regionMap.get(1);
+
+        ClientMain.getInstance().getStageHandler().getRegionEditor().showLoadedRegions(this.regionMap);
     }
 
     public void editRegion(ShapeDrawer shapeDrawer) {

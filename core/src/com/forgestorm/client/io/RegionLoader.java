@@ -59,8 +59,33 @@ public class RegionLoader extends SynchronousAssetLoader<RegionLoader.RegionData
             int y2 = (Integer) itemNode.get("y2");
             println(getClass(), "y2: " + y2, false, PRINT_DEBUG);
 
+            int z = (Integer) itemNode.get("z");
+            println(getClass(), "z: " + z, false, PRINT_DEBUG);
+
             // Create the TileImage
-            Region region = new Region(worldName, x1, y1, x2, y2);
+            Region region = new Region(worldName, x1, y1, x2, y2, (short) z);
+
+            // Add flags if they exist
+            Boolean allowPVP = (Boolean) itemNode.get("allowPVP");
+            if (allowPVP != null) region.setAllowPVP(allowPVP);
+
+            Boolean allowChat = (Boolean) itemNode.get("allowChat");
+            if (allowChat != null) region.setAllowChat(allowChat);
+
+            Boolean fullHeal = (Boolean) itemNode.get("fullHeal");
+            if (fullHeal != null) region.setFullHeal(fullHeal);
+
+            String greetingsChat = (String) itemNode.get("greetingsChat");
+            if (greetingsChat != null) region.setGreetingsChat(greetingsChat);
+
+            String greetingsTitle = (String) itemNode.get("greetingsTitle");
+            if (greetingsTitle != null) region.setGreetingsTitle(greetingsTitle);
+
+            String farewellChat = (String) itemNode.get("farewellChat");
+            if (farewellChat != null) region.setFarewellChat(farewellChat);
+
+            String farewellTitle = (String) itemNode.get("farewellTitle");
+            if (farewellTitle != null) region.setFarewellTitle(farewellTitle);
 
             println(PRINT_DEBUG);
 
