@@ -1,0 +1,33 @@
+1:
+  fileName: grass-dirt
+  type: TYPE_48
+2:
+  fileName: dirt-pathway
+  type: TYPE_48
+3:
+  fileName: dirt-darkdirt
+  type: TYPE_48
+4:
+  fileName: grass-sand
+  type: TYPE_48
+5:
+  fileName: rough-dirt
+  type: TYPE_48
+6:
+  fileName: brick-wall-building-h32
+  type: TYPE_16
+7:
+  fileName: wooden-fence
+  type: TYPE_16
+8:
+  fileName: iron-fence
+  type: TYPE_16
+9:
+  fileName: post-wooden-fence
+  type: TYPE_16
+10:
+  fileName: brick-wall
+  type: TYPE_16
+11:
+  fileName: wooden-wall-h32
+  type: TYPE_16
