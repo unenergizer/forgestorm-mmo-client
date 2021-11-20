@@ -25,7 +25,7 @@ public class WangPropertiesLoader extends SynchronousAssetLoader<WangPropertiesL
     static class WangPropertiesParameter extends AssetLoaderParameters<WangPropertiesDataWrapper> {
     }
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     WangPropertiesLoader(FileHandleResolver resolver) {
         super(resolver);
