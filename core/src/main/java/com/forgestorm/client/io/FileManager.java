@@ -62,13 +62,21 @@ public class FileManager {
         File homeDirectory = FindDesktopDirectoryUtil.getDirectory();
 
         if (!homeDirectory.exists()) {
-            if (homeDirectory.mkdir()) {
+            if (homeDirectory.mkdirs()) {
                 println(getClass(), "Created a ForgeStorm folder in the users home directory!", true);
             } else {
                 throw new RuntimeException("Couldn't create the ForgeStorm in the home directory!");
             }
+        } else {
+            println(getClass(), "Path: " + homeDirectory.getAbsolutePath(), true);
         }
         clientFilesDirectory = homeDirectory.getAbsolutePath();
+
+        try {
+            MoveFileOutJar.ExportResource("client-updater.jar");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Create the World Directory if it doesn't exist.
         File worldDirectory = new File(clientFilesDirectory + "/worldDirectory");

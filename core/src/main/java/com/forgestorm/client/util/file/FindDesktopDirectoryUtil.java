@@ -25,10 +25,11 @@ public class FindDesktopDirectoryUtil {
                 directory = System.getenv("APPDATA");
                 break;
             case LINUX:
-                directory = System.getenv("XDG_CONFIG_HOME");
-                if (!new File(directory).exists()) {
-                    directory = "~" + File.separator + ".config";
-                }
+                directory = System.getProperty("user.home");
+//                directory = System.getenv("XDG_CONFIG_HOME");
+//                if (!new File(directory).exists()) {
+//                    directory = "~" + File.separator + ".config";
+//                }
                 break;
             case MAC:
                 directory = "~/Library/Application Support/";
