@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.BrushSize;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 
@@ -54,12 +55,18 @@ public class WangPropertiesLoader extends SynchronousAssetLoader<WangPropertiesL
             String type = (String) itemNode.get("type");
             println(getClass(), "Type: " + type, false, PRINT_DEBUG);
 
-            // Create the TileImage
-            WangTile tileImage = new WangTile(wangId, routeName, WangType.valueOf(type));
+            WangTile wangTile = new WangTile(wangId, routeName, WangType.valueOf(type));
+
+            String brush = (String) itemNode.get("brushSize");
+            if (brush != null) {
+                BrushSize brushSize = BrushSize.valueOf(brush);
+                wangTile.setBrushSize(brushSize);
+                println(getClass(), "BrushSize: " + brushSize, false, PRINT_DEBUG);
+            }
 
             println(PRINT_DEBUG);
 
-            wangPropertiesDataWrapper.getWangImageMap().put(wangId, tileImage);
+            wangPropertiesDataWrapper.getWangImageMap().put(wangId, wangTile);
         }
 
         println(getClass(), "====== END LOADING WANG TILES ======", false, PRINT_DEBUG);

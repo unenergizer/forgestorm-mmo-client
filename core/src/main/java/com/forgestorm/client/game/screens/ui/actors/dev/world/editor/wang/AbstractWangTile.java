@@ -51,10 +51,11 @@ public abstract class AbstractWangTile {
         if (currentTileImage == null) return;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
-        if (worldBuilder.getCurrentWangId() == null) return;
+        if (worldBuilder.getWangTile() == null) return;
 
-        TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangRegionNamePrefix() + autoTileID);
+        TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangTile().getWangRegionNamePrefix() + autoTileID);
 
+        if (autoTileImage == null) return; // If null, this tile ID doesn't exist for this wang set
         if (currentTileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return;
         if (currentTileImage.getImageId() == autoTileImage.getImageId()) return;
 
@@ -64,7 +65,7 @@ public abstract class AbstractWangTile {
         if (wangTileFound != null) {
             // If the current wang tile ID is not the same as the one that was found,
             // we do not drawl a tile here. This prevents strange artifacts from occurring.
-            if (wangTileFound.getWangId() != worldBuilder.getCurrentWangId()) return;
+            if (wangTileFound.getWangId() != worldBuilder.getWangTile().getWangId()) return;
         }
 
         // Set new tile image
@@ -106,7 +107,7 @@ public abstract class AbstractWangTile {
 
         if (wangTile != null) {
             // Test for different wang tile types
-            if (wangTile.getWangId() != worldBuilder.getCurrentWangId()) return false;
+            if (wangTile.getWangId() != worldBuilder.getWangTile().getWangId()) return false;
         }
 
         return tileImage.containsProperty(TilePropertyTypes.WANG_TILE);

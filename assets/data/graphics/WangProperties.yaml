@@ -31,3 +31,7 @@
 11:
   fileName: wooden-wall-h32
   type: TYPE_16
+12:
+  fileName: mountian-dirt-test
+  type: TYPE_48
+  brushSize: FOUR

@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,6 +15,7 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.TileImage;
@@ -441,9 +444,15 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
                 // If the TileImage is a wang tile, only show one image of it
                 boolean isWangTile = false;
-                if (tileImage.getFileName().startsWith("BW4") || tileImage.getFileName().startsWith("BW16")) {
+                if (tileImage.getFileName().startsWith(WangType.TYPE_16.getPrefix())) {
                     isWangTile = true;
                     if (!tileImage.getFileName().endsWith("-0")) continue;
+//                    if (!tileImage.getFileName().endsWith("-12")) continue; // Corner piece "L"
+                }
+                if (tileImage.getFileName().startsWith(WangType.TYPE_48.getPrefix())) {
+                    isWangTile = true;
+//                    if (!tileImage.getFileName().endsWith("-0")) continue;
+                    if (!tileImage.getFileName().endsWith("-208")) continue; // Corner piece "L"
                 }
 
                 // Manually skip and ignore these images
@@ -474,12 +483,18 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                                 int id = entry.getKey();
                                 WangTile wangTile = entry.getValue();
 
-                                // This is a problematic way to figure out the correct wang id...
+                                ////// WARNING!!!!! ////////////////////////////////////////////////
+                                /// This is a problematic way to figure out the correct wang id...
+                                ////////////////////////////////////////////////////////////////////
                                 boolean containsName = tileImage.getFileName().contains(wangTile.getFileName());
                                 boolean isSameLength = tileImage.getFileName().length() == wangTile.getFileName().length() + 5 ||
-                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 6;
+                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 6 ||
+                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 8 ||
+                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 9;
                                 if (containsName && isSameLength) {
                                     worldBuilder.setCurrentWangId(id);
+                                } else {
+                                    println(getClass(), "Could not determine WangType. TileSelected: " + tileImage.getFileName(), true);
                                 }
                             }
                         } else {
