@@ -3,7 +3,7 @@
 Game client developed for Mobile and PC.
 
 Developer Program Args:
-ideRun muteIntroMusic username:NAME password:PASS forceLocalHost
+ideRun muteIntroMusic username:NAME password:PASS forceLocalHost ignoreRevisionNumber
 
 
 # libGDX
