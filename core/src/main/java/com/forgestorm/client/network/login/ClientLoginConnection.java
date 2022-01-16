@@ -54,7 +54,6 @@ public class ClientLoginConnection {
                 println(ClientLoginConnection.class, "Failed to connect! IOException");
                 connectionManager.threadSafeConnectionMessage("Failed to connect! IOException");
                 connectionManager.logout();
-                e.printStackTrace();
                 return false;
             } else {
                 e.printStackTrace();
