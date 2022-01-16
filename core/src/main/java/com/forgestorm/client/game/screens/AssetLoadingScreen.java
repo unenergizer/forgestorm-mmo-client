@@ -48,6 +48,9 @@ public class AssetLoadingScreen implements Screen {
 
     @Override
     public void show() {
+        // Copy the client-updater.jar
+        fileManager.copyClientUpdaterJar();
+
         // Front-load the assets needed to show the loading screen.
         fileManager.loadAtlas(GameAtlas.LOADING_SCREEN, true);
         TextureAtlas atlas = fileManager.getAtlas(GameAtlas.LOADING_SCREEN);

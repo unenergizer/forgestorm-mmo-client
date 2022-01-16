@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.login;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -51,16 +53,18 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 // TODO: COME BACK AND CLEAN THIS SHIT UP
 
-                String clientFiles = ClientMain.getInstance().getFileManager().getClientFilesDirectory() + File.separator;
+                String clientUpdaterJar = ClientMain.getInstance().getFileManager().getClientUpdaterJar();
+                println(getClass(), "Client Updater Path: " + clientUpdaterJar);
                 // Start client updater
                 try {
-                    if ((new File(clientFiles + "client-updater.jar")).exists()) {
+                    if ((new File(clientUpdaterJar)).exists()) {
                         // Windows
-                        Runtime.getRuntime().exec("java -jar " + clientFiles + "client-updater.jar");
+                        println(getClass(), "Command: java -jar " + clientUpdaterJar);
+                        Runtime.getRuntime().exec("java -jar " + clientUpdaterJar);
                     } else {
-                        File retroMMO = new File(clientFiles + "RetroMMO");
+                        File retroMMO = new File(clientUpdaterJar);
                         if (retroMMO.exists()) {
-                            Runtime.getRuntime().exec("java -jar " + clientFiles + "client-updater");
+                            Runtime.getRuntime().exec("java -jar " + clientUpdaterJar);
                         } else {
                             Runtime.getRuntime().exec("java -jar " + "../MacOS/client-updater");
                         }

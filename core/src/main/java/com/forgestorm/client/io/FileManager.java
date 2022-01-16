@@ -1,5 +1,7 @@
 package com.forgestorm.client.io;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.AssetLoader;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,6 +28,7 @@ import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GamePixmap;
 import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
+import com.forgestorm.client.util.file.FileUtils;
 import com.forgestorm.client.util.file.FindDesktopDirectoryUtil;
 import com.forgestorm.shared.io.AbilityLoader;
 import com.forgestorm.shared.io.ChunkLoader;
@@ -40,14 +44,14 @@ import java.io.IOException;
 
 import lombok.Getter;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class FileManager {
 
     private static final boolean PRINT_DEBUG = false;
 
     @Getter
-    private final String clientFilesDirectory;
+    private final String clientFilesDirectoryPath;
+    @Getter
+    private String clientUpdaterJar;
 
     @Getter
     private final String worldDirectory;
@@ -58,7 +62,6 @@ public class FileManager {
 
     public FileManager() {
         // Set the client home directory
-//        File homeDirectory = new File(System.getProperty("user.home") + File.separator + "ForgeStorm");
         File homeDirectory = FindDesktopDirectoryUtil.getDirectory();
 
         if (!homeDirectory.exists()) {
@@ -68,18 +71,13 @@ public class FileManager {
                 throw new RuntimeException("Couldn't create the ForgeStorm in the home directory!");
             }
         } else {
-            println(getClass(), "Path: " + homeDirectory.getAbsolutePath(), true);
+            println(getClass(), "Home directory: " + homeDirectory.getAbsolutePath(), true);
         }
-        clientFilesDirectory = homeDirectory.getAbsolutePath();
+        clientFilesDirectoryPath = homeDirectory.getAbsolutePath();
 
-        try {
-            MoveFileOutJar.ExportResource("client-updater.jar");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         // Create the World Directory if it doesn't exist.
-        File worldDirectory = new File(clientFilesDirectory + "/worldDirectory");
+        File worldDirectory = new File(clientFilesDirectoryPath + "/worldDirectory");
         if (!worldDirectory.exists()) {
             if (worldDirectory.mkdir()) {
                 println(getClass(), "The World directory didn't exist so one was created.", true);
@@ -92,8 +90,8 @@ public class FileManager {
 
         // Create Revision document and set the build to 0;
 //        if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
-        println(getClass(), "ClientFilesDirectory: " + clientFilesDirectory);
-        String path = clientFilesDirectory + "/Revision.txt";
+        println(getClass(), "ClientFilesDirectory: " + clientFilesDirectoryPath);
+        String path = clientFilesDirectoryPath + "/Revision.txt";
         File revision = new File(path);
         if (!revision.exists()) {
             println(getClass(), "Creating Revision.txt document since it does not exist.");
@@ -101,11 +99,19 @@ public class FileManager {
                 FileWriter myWriter = new FileWriter(path);
                 myWriter.write("0");
                 myWriter.close();
-                System.out.println("Successfully wrote to the file.");
+                println(getClass(), "Successfully wrote to the file.", false, PRINT_DEBUG);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void copyClientUpdaterJar() {
+        final String toolLocation = "tools/client-updater.jar";
+        final String toolDestination = clientFilesDirectoryPath + "/client-updater.jar";
+        FileHandle fileHandle = internalResolver.resolve(toolLocation);
+        FileUtils.copyFile(fileHandle.file(), new File(toolDestination));
+        clientUpdaterJar = toolDestination;
     }
 
     /**
@@ -147,12 +153,12 @@ public class FileManager {
     }
 
     public void loadRevisionDocumentData() {
-        String filePath = clientFilesDirectory + "/Revision.txt";
+        String filePath = clientFilesDirectoryPath + "/Revision.txt";
         abstractedLoad(filePath, true, true, RevisionDocumentLoader.RevisionDocumentWrapper.class, new RevisionDocumentLoader(absoluteResolver));
     }
 
     public RevisionDocumentLoader.RevisionDocumentWrapper getRevisionDocumentData() {
-        String filePath = clientFilesDirectory + "/Revision.txt";
+        String filePath = clientFilesDirectoryPath + "/Revision.txt";
         return abstractGet(filePath, true, RevisionDocumentLoader.RevisionDocumentWrapper.class);
     }
 
@@ -364,17 +370,17 @@ public class FileManager {
     }
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
-        String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
+        String filePath = clientFilesDirectoryPath + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
         abstractedLoad(filePath, forceFinishLoading, true, ChunkLoader.WorldChunkDataWrapper.class, new ChunkLoader(absoluteResolver, worldName));
     }
 
     public ChunkLoader.WorldChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {
-        String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
+        String filePath = clientFilesDirectoryPath + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
         return abstractGet(filePath, true, ChunkLoader.WorldChunkDataWrapper.class);
     }
 
     public void unloadMapChunkData(String worldName, short chunkX, short chunkY) {
-        String filePath = clientFilesDirectory + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
+        String filePath = clientFilesDirectoryPath + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
 
         if (!isFileLoaded(filePath)) {
             println(getClass(), "MapChunkData does not exist for this chunk. ChunkX: " + chunkX + ", ChunkY: " + chunkY, true, PRINT_DEBUG);
