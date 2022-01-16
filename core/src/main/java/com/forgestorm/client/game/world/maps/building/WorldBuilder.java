@@ -356,11 +356,14 @@ public class WorldBuilder {
             }
         }
 
-        TileImage tileImage = getTileImage(selectedWangTile.getWangRegionNamePrefix() + autoTileID);
+        String tileName = selectedWangTile.getWangRegionNamePrefix() + autoTileID;
+        TileImage tileImage = getTileImage(tileName);
 
         // If the tile is null, display an error message before we crash
-        if (tileImage == null)
-            System.err.println("Has this tile been added to TileProperties.yaml????");
+        if (tileImage == null) {
+            println(getClass(), "Has this tile been added to TileProperties.yaml???? " + tileName, true);
+            return;
+        }
 
         placeTile(currentLayer, tileImage.getImageId(), worldX, worldY, currentWorkingFloor.getWorldZ(), true);
     }
