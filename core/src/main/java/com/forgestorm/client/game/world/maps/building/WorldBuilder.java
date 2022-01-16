@@ -10,9 +10,10 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.BrushSize;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile4Bit;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileAnimation;
@@ -20,6 +21,7 @@ import com.forgestorm.client.game.world.maps.TileImage;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.HashMap;
@@ -32,6 +34,8 @@ import lombok.Setter;
 @Getter
 public class WorldBuilder {
 
+    private static final boolean PRINT_DEBUG = false;
+
     private final Map<Integer, TileAnimation> tileAnimationMap;
     private final WangTile4Bit wangTile16 = new WangTile4Bit();
     private final WangTile16Bit wangTile48 = new WangTile16Bit();
@@ -40,7 +44,6 @@ public class WorldBuilder {
     private final Array<TextureAtlas.AtlasRegion> regions;
     private final Map<LayerDefinition, Boolean> layerVisibilityMap;
     private final Map<Floors, Boolean> floorVisibilityMap;
-    private final Map<Integer, WangTile> wangImageMap;
 
     private LayerDefinition currentLayer = LayerDefinition.WORLD_OBJECTS;
     @Setter
@@ -55,7 +58,7 @@ public class WorldBuilder {
     @Setter
     private boolean useWangTile = false;
 
-    private WangTile wangTile;
+    private WangTileProperty selectedWangTile;
 
     @Setter
     private boolean allowClickToMove = true;
@@ -80,8 +83,8 @@ public class WorldBuilder {
             }
         }
 
-        // Load WangProperties.yaml
-        wangImageMap = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
+        // Process all wang tiles and dynamically apply the correct properties
+        parseWangTiles();
 
         // Load TileAnimations.yaml
         tileAnimationMap = ClientMain.getInstance().getFileManager().getTileAnimationData().getTileAnimationMap();
@@ -140,20 +143,68 @@ public class WorldBuilder {
         }
     }
 
-    public void setCurrentWangId(Integer selectedWangTile) {
-        if (selectedWangTile == null) return;
-        wangTile = wangImageMap.get(selectedWangTile);
+    private void parseWangTiles() {
 
-        println(getClass(), "WangType: " + wangTile.getWangType());
-        println(getClass(), "SelectedWangTile: " + wangTile.getWangId());
-        println(getClass(), "WangRegionNamePrefix: " + wangTile.getWangRegionNamePrefix());
+        int wangId = 0;
+        for (TileImage tileImage : tileImageMap.values()) {
+            if (tileImage.getFileName().startsWith(WangType.TYPE_16.getPrefix()) || tileImage.getFileName().startsWith(WangType.TYPE_48.getPrefix())) {
+                if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                    println(getClass(), "WANG TILE PROPERTY MISSING FOR : " + tileImage.getFileName());
+                    continue;
+                }
+
+                WangTileProperty wangTileProperty = (WangTileProperty) tileImage.getProperty(TilePropertyTypes.WANG_TILE);
+                WangType wangType = wangTileProperty.getWangType();
+
+                // Only get the "DefaultWangTileImageId" as this TileImage will have all the details
+                // for it filled out on the TileProperties.yaml file. Other wang tiles will not
+                // have the wang info filled out to save file space and time.
+                // The "DefaultWangTileImageId" is the ID of the TileImage shown in the
+                // TileBuildMenu class (other wang images of the same type not shown).
+                if (wangType == null) continue;
+                if (tileImage.getFileName().endsWith(wangType.getDefaultWangTileImageId())) {
+                    // Set transient values
+                    String rootFileName = tileImage.getFileName().replace(wangType.getPrefix(), "").replace(wangType.getDefaultWangTileImageId(), "");
+                    String wangRegionNamePrefix = wangType.getPrefix() + rootFileName + "=";
+
+                    wangTileProperty.setTemporaryWangId(wangId);
+                    wangTileProperty.setWangRegionNamePrefix(wangRegionNamePrefix);
+
+                    println(getClass(), "///////////////////////////////////////////////////////////", false, PRINT_DEBUG);
+                    println(getClass(), "Setting wang tile: " + tileImage.getFileName(), false, PRINT_DEBUG);
+                    if (PRINT_DEBUG) wangTileProperty.printDebug(getClass());
+
+                    println(getClass(), "Applying these properties to:", false, PRINT_DEBUG);
+                    applyWangIdNumberToTiles(wangTileProperty);
+                    wangId++;
+                }
+            }
+        }
     }
 
-    public WangTile findWangTile(TileImage tileImage) {
-        for (WangTile wangTile : wangImageMap.values()) {
-            if (tileImage.getFileName().contains(wangTile.getFileName())) return wangTile;
+    public void applyWangIdNumberToTiles(WangTileProperty wangTileProperty) {
+        for (TileImage tileImage : tileImageMap.values()) {
+            if (!tileImage.getFileName().contains(wangTileProperty.getWangRegionNamePrefix())) continue;
+            if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                println(getClass(), "POSSIBLE WANG TILE FOUND BUT IT HAS NO WANG TILE PROPERTY? " + tileImage.getFileName(), true, PRINT_DEBUG);
+                continue;
+            }
+            println(getClass(), " -> " + tileImage.getFileName(), false, PRINT_DEBUG);
+            WangTileProperty wangTilePropertyToUpdate = (WangTileProperty) tileImage.getProperty(TilePropertyTypes.WANG_TILE);
+            wangTilePropertyToUpdate.setTemporaryWangId(wangTileProperty.getTemporaryWangId());
+            wangTilePropertyToUpdate.setWangRegionNamePrefix(wangTileProperty.getWangRegionNamePrefix());
+            wangTilePropertyToUpdate.setWangType(wangTileProperty.getWangType());
+            wangTilePropertyToUpdate.setMinimalBrushSize(wangTileProperty.getMinimalBrushSize());
         }
-        return null;
+    }
+
+    public void setCurrentWangId(WangTileProperty selectedWangTile) {
+        if (selectedWangTile == null) return;
+        this.selectedWangTile = selectedWangTile;
+
+        println(getClass(), "WangType: " + selectedWangTile.getWangType());
+        println(getClass(), "SelectedWangTile: " + selectedWangTile.getTemporaryWangId());
+        println(getClass(), "WangRegionNamePrefix: " + selectedWangTile.getWangRegionNamePrefix());
     }
 
     public boolean toggleLayerVisibility(LayerDefinition layerDefinition) {
@@ -202,10 +253,10 @@ public class WorldBuilder {
         if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
 
         if (useWangTile) {
-            switch (wangTile.getWangType()) {
+            switch (selectedWangTile.getWangType()) {
                 ////// TYPE 16 ///////////////////////////////////////////////////////////////////
                 case TYPE_16:
-                    switch (wangTile.getBrushSize()) {
+                    switch (selectedWangTile.getMinimalBrushSize()) {
                         case SIX:
                             println(getClass(), "PLACING WANG 16 - BRUSH 6");
                             // Column 1
@@ -245,7 +296,7 @@ public class WorldBuilder {
                     break;
                 ////// TYPE 48 ///////////////////////////////////////////////////////////////////
                 case TYPE_48:
-                    switch (wangTile.getBrushSize()) {
+                    switch (selectedWangTile.getMinimalBrushSize()) {
                         case SIX:
                             println(getClass(), "PLACING WANG 48 - BRUSH 6");
                             // Column 1
@@ -294,8 +345,8 @@ public class WorldBuilder {
         // BUILDING USING WANG BRUSH, AUTO SELECT THE TILE!
 
         // If working with a brush size of one, enable the auto-tile surrounding that tile
-        if (wangTile.getBrushSize() == BrushSize.ONE) {
-            switch (wangTile.getWangType()) {
+        if (selectedWangTile.getMinimalBrushSize() == BrushSize.ONE) {
+            switch (selectedWangTile.getWangType()) {
                 case TYPE_16:
                     autoTileID = wangTile16.autoTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
                     break;
@@ -305,7 +356,7 @@ public class WorldBuilder {
             }
         }
 
-        TileImage tileImage = getTileImage(wangTile.getWangRegionNamePrefix() + autoTileID);
+        TileImage tileImage = getTileImage(selectedWangTile.getWangRegionNamePrefix() + autoTileID);
 
         // If the tile is null, display an error message before we crash
         if (tileImage == null)
@@ -315,9 +366,9 @@ public class WorldBuilder {
     }
 
     private void updateAroundWangTile(int worldX, int worldY) {
-        for (int x = 0; x < wangTile.getBrushSize().getSize() / 2; x++) {
-            for (int y = 0; y < wangTile.getBrushSize().getSize() / 2; y++) {
-                switch (wangTile.getWangType()) {
+        for (int x = 0; x < selectedWangTile.getMinimalBrushSize().getSize() / 2; x++) {
+            for (int y = 0; y < selectedWangTile.getMinimalBrushSize().getSize() / 2; y++) {
+                switch (selectedWangTile.getWangType()) {
                     case TYPE_16:
                         wangTile16.updateAroundTile(currentLayer, worldX + x, worldY + y, currentWorkingFloor.getWorldZ());
                         break;

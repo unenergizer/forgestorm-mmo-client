@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Tile;
 import com.forgestorm.client.game.world.maps.TileImage;
@@ -51,21 +52,26 @@ public abstract class AbstractWangTile {
         if (currentTileImage == null) return;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
-        if (worldBuilder.getWangTile() == null) return;
+        if (worldBuilder.getSelectedWangTile() == null) return;
 
-        TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getWangTile().getWangRegionNamePrefix() + autoTileID);
+        TileImage autoTileImage = worldBuilder.getTileImage(worldBuilder.getSelectedWangTile().getWangRegionNamePrefix() + autoTileID);
 
         if (autoTileImage == null) return; // If null, this tile ID doesn't exist for this wang set
         if (currentTileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return;
         if (currentTileImage.getImageId() == autoTileImage.getImageId()) return;
 
         // Check for different wang tiles
-        WangTile wangTileFound = worldBuilder.findWangTile(currentTileImage);
+        WangTileProperty wangTileProperty = null;
+        if (currentTileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+            wangTileProperty = (WangTileProperty) currentTileImage.getProperty(TilePropertyTypes.WANG_TILE);
+        }
 
-        if (wangTileFound != null) {
+        if (wangTileProperty != null) {
             // If the current wang tile ID is not the same as the one that was found,
             // we do not drawl a tile here. This prevents strange artifacts from occurring.
-            if (wangTileFound.getWangId() != worldBuilder.getWangTile().getWangId()) return;
+            if (wangTileProperty.getTemporaryWangId() != worldBuilder.getSelectedWangTile().getTemporaryWangId()) {
+                return;
+            }
         }
 
         // Set new tile image
@@ -103,11 +109,17 @@ public abstract class AbstractWangTile {
         if (tileImage.getImageId() == ClientConstants.BLANK_TILE_ID) return false;
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
-        WangTile wangTile = worldBuilder.findWangTile(tileImage);
+        WangTileProperty wangTileProperty = null;
+        if (tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+            wangTileProperty = (WangTileProperty) tileImage.getProperty(TilePropertyTypes.WANG_TILE);
+        }
 
-        if (wangTile != null) {
-            // Test for different wang tile types
-            if (wangTile.getWangId() != worldBuilder.getWangTile().getWangId()) return false;
+        if (wangTileProperty != null) {
+            // If the current wang tile ID is not the same as the one that was found,
+            // we do not drawl a tile here. This prevents strange artifacts from occurring.
+            if (wangTileProperty.getTemporaryWangId() != worldBuilder.getSelectedWangTile().getTemporaryWangId()) {
+                return false;
+            }
         }
 
         return tileImage.containsProperty(TilePropertyTypes.WANG_TILE);

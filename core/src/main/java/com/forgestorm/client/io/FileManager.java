@@ -311,14 +311,6 @@ public class FileManager {
         return abstractGet(FilePaths.TILE_PROPERTIES.getInternalFilePath(), false, TilePropertiesLoader.TilePropertiesDataWrapper.class);
     }
 
-    public void loadWangPropertiesData() {
-        abstractedLoad(FilePaths.WANG_PROPERTIES.getInternalFilePath(), false, false, WangPropertiesLoader.WangPropertiesDataWrapper.class, new WangPropertiesLoader(internalResolver));
-    }
-
-    public WangPropertiesLoader.WangPropertiesDataWrapper getWangPropertiesData() {
-        return abstractGet(FilePaths.WANG_PROPERTIES.getInternalFilePath(), false, WangPropertiesLoader.WangPropertiesDataWrapper.class);
-    }
-
     public void loadTileAnimationData() {
         abstractedLoad(FilePaths.TILE_ANIMATIONS.getInternalFilePath(), false, false, TileAnimationsLoader.TileAnimationsDataWrapper.class, new TileAnimationsLoader(internalResolver));
     }

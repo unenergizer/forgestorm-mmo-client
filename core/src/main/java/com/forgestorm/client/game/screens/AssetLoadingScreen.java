@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.screens;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,11 +19,8 @@ import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.VisUI;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-
-import static com.forgestorm.client.util.Log.println;
 
 /**
  * Loading Screen originally from: https://github.com/Matsemann/libgdx-loading-screen
@@ -109,7 +108,6 @@ public class AssetLoadingScreen implements Screen {
         fileManager.loadFactionData();
         fileManager.loadTileAnimationData();
         fileManager.loadTilePropertiesData();
-        fileManager.loadWangPropertiesData();
         fileManager.loadItemStackData();
         fileManager.loadEntityShopData();
         fileManager.loadAbilityData();
@@ -127,8 +125,6 @@ public class AssetLoadingScreen implements Screen {
             Scanner scanner = new Scanner(url.openStream());
             remoteRevisionNumber = scanner.nextInt();
             scanner.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

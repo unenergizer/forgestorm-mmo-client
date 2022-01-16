@@ -14,7 +14,7 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.maps.RegionManager;
@@ -48,6 +48,8 @@ import lombok.Getter;
 
 @Getter
 public class TileBuildMenu extends HideableVisWindow implements Buildable {
+
+    private static final boolean PRINT_DEBUG = false;
 
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final RegionManager regionManager = ClientMain.getInstance().getRegionManager();
@@ -319,7 +321,6 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
         // Clear the selected texture
         worldBuilder.setCurrentTextureId(null);
-        worldBuilder.setCurrentWangId(null);
 
         // Auto default this to false.
         // Inside the listener, change to true when activated
@@ -446,13 +447,13 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                 boolean isWangTile = false;
                 if (tileImage.getFileName().startsWith(WangType.TYPE_16.getPrefix())) {
                     isWangTile = true;
-                    if (!tileImage.getFileName().endsWith("-0")) continue;
-//                    if (!tileImage.getFileName().endsWith("-12")) continue; // Corner piece "L"
+                    if (!tileImage.getFileName().endsWith(WangType.TYPE_16.getDefaultWangTileImageId()))
+                        continue;
                 }
                 if (tileImage.getFileName().startsWith(WangType.TYPE_48.getPrefix())) {
                     isWangTile = true;
-//                    if (!tileImage.getFileName().endsWith("-0")) continue;
-                    if (!tileImage.getFileName().endsWith("-208")) continue; // Corner piece "L"
+                    if (!tileImage.getFileName().endsWith(WangType.TYPE_48.getDefaultWangTileImageId()))
+                        continue; // Corner piece "L"
                 }
 
                 // Manually skip and ignore these images
@@ -478,25 +479,11 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                         if (tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
                             activateTool(Tools.WANG);
 
-                            Map<Integer, WangTile> wangs = ClientMain.getInstance().getFileManager().getWangPropertiesData().getWangImageMap();
-                            for (Map.Entry<Integer, WangTile> entry : wangs.entrySet()) {
-                                int id = entry.getKey();
-                                WangTile wangTile = entry.getValue();
+                            WangTileProperty wangTileProperty = (WangTileProperty) tileImage.getProperty(TilePropertyTypes.WANG_TILE);
+                            worldBuilder.setCurrentWangId(wangTileProperty);
 
-                                ////// WARNING!!!!! ////////////////////////////////////////////////
-                                /// This is a problematic way to figure out the correct wang id...
-                                ////////////////////////////////////////////////////////////////////
-                                boolean containsName = tileImage.getFileName().contains(wangTile.getFileName());
-                                boolean isSameLength = tileImage.getFileName().length() == wangTile.getFileName().length() + 5 ||
-                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 6 ||
-                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 8 ||
-                                        tileImage.getFileName().length() == wangTile.getFileName().length() + 9;
-                                if (containsName && isSameLength) {
-                                    worldBuilder.setCurrentWangId(id);
-                                } else {
-                                    println(getClass(), "Could not determine WangType. TileSelected: " + tileImage.getFileName(), true);
-                                }
-                            }
+                            println(TileBuildMenu.class, "Setting Wang for TileImage: " + tileImage.getFileName(), false, PRINT_DEBUG);
+                            wangTileProperty.printDebug(TileBuildMenu.class);
                         } else {
                             activateTool(Tools.DRAWL);
                         }

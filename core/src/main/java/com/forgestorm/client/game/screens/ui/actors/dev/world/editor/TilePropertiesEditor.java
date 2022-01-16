@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,7 +18,9 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.character.CharacterCreation;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.BrushSize;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
+import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
@@ -171,14 +174,24 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             worldBuilder.addNewTile(tileImage);
         }
 
-        // Lets do some automated tasks for this TileImage
-        if (tileImage.getFileName().contains(WangType.TYPE_16.getPrefix())
-                || tileImage.getFileName().contains(WangType.TYPE_48.getPrefix())) {
+        // Automatically set wang-tile details
+        if (tileImage.getFileName().contains(WangType.TYPE_16.getPrefix())) {
             if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
                 tileImage.setLayerDefinition(LayerDefinition.GROUND);
-                AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
-                abstractTileProperty.setTileImage(tileImage);
-                tileImage.setCustomTileProperty(abstractTileProperty);
+                WangTileProperty wangTileProperty = (WangTileProperty) TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
+                wangTileProperty.setTileImage(tileImage);
+                wangTileProperty.setWangType(WangType.TYPE_16);
+                wangTileProperty.setMinimalBrushSize(BrushSize.ONE);
+                tileImage.setCustomTileProperty(wangTileProperty);
+            }
+        } else if (tileImage.getFileName().contains(WangType.TYPE_48.getPrefix())) {
+            if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                tileImage.setLayerDefinition(LayerDefinition.GROUND);
+                WangTileProperty wangTileProperty = (WangTileProperty) TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
+                wangTileProperty.setTileImage(tileImage);
+                wangTileProperty.setWangType(WangType.TYPE_48);
+                wangTileProperty.setMinimalBrushSize(BrushSize.ONE);
+                tileImage.setCustomTileProperty(wangTileProperty);
             }
         }
 
@@ -455,6 +468,20 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                 // Skip processed items, if they are found.
                 if (isProcessed && hideProcessedImages) continue;
 
+                // If the TileImage is a wang tile and the "main" wang tile, then highlight the image button
+                boolean isWangTile = false;
+                if (tileImageFound != null) {
+                    if (tileImageFound.getFileName().startsWith(WangType.TYPE_16.getPrefix())) {
+                        if (tileImageFound.getFileName().endsWith(WangType.TYPE_16.getDefaultWangTileImageId())) {
+                            isWangTile = true;
+                        }
+                    } else if (tileImageFound.getFileName().startsWith(WangType.TYPE_48.getPrefix())) {
+                        if (tileImageFound.getFileName().endsWith(WangType.TYPE_48.getDefaultWangTileImageId())) {
+                            isWangTile = true;
+                        }
+                    }
+                }
+
                 if (tilesAdded % 8 == 0) {
                     // Create a new table every X amount of images added for scrolling purposes
                     moduloTable = new VisTable();
@@ -462,6 +489,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                 }
                 tilesAdded++;
                 final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(gameAtlas, atlasRegion.name).setSize(32).buildTextureRegionDrawable());
+                if (isWangTile) visImageButton.setColor(Color.RED);
                 moduloTable.add(visImageButton);
 
                 visImageButton.addListener(new InputListener() {
