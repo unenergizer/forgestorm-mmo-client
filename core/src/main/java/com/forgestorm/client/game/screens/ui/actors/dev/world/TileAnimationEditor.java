@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -156,9 +158,9 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String filePath = ClientMain.getInstance().getFileManager().getClientFilesDirectory() + File.separator + "TileAnimations.yaml";
+                String filePath = ClientMain.getInstance().getFileManager().getClientFilesDirectoryPath() + File.separator + "TileAnimations.yaml";
                 YamlUtil.saveYamlToFile(worldBuilder.getTileAnimationMap(), filePath);
-                System.out.println(filePath);
+                println(getClass(), filePath);
             }
         });
 
