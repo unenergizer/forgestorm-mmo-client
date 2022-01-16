@@ -54,7 +54,7 @@ import lombok.Getter;
 @Getter
 public class TilePropertiesEditor extends HideableVisWindow implements Buildable {
 
-    private static final String FILE_PATH = ClientMain.getInstance().getFileManager().getClientFilesDirectory() + File.separator + "TileProperties.yaml";
+    private static final String FILE_PATH = ClientMain.getInstance().getFileManager().getClientFilesDirectoryPath() + File.separator + "TileProperties.yaml";
 
     private final TilePropertyDropDownMenu tilePropertyDropDownMenu = new TilePropertyDropDownMenu();
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
