@@ -1,8 +1,8 @@
-package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties;
+package com.forgestorm.client.game.world.maps.tile.properties;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 

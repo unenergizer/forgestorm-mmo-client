@@ -1,4 +1,4 @@
-package com.forgestorm.client.game.world.maps;
+package com.forgestorm.client.game.world.maps.tile;
 
 import java.util.HashMap;
 import java.util.Map;

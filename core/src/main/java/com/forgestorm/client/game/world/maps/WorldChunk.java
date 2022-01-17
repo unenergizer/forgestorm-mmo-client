@@ -7,6 +7,8 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
+import com.forgestorm.client.game.world.maps.tile.Tile;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.Warp;

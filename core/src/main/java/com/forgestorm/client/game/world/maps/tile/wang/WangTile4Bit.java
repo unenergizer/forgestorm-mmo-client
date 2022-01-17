@@ -1,4 +1,4 @@
-package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang;
+package com.forgestorm.client.game.world.maps.tile.wang;
 
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 

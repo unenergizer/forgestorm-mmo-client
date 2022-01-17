@@ -7,12 +7,12 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
+import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypeHelper;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypeHelper;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -46,7 +46,7 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
         Yaml yaml = new Yaml();
         Map<Integer, Map<String, Object>> root = yaml.load(file.read());
 
-        tilePropertiesDataWrapper.setWorldImageMap(new HashMap<Integer, TileImage>());
+        tilePropertiesDataWrapper.setWorldImageMap(new HashMap<>());
 
         for (Map.Entry<Integer, Map<String, Object>> entry : root.entrySet()) {
             Map<String, Object> itemNode = entry.getValue();

@@ -14,16 +14,16 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
+import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
+import com.forgestorm.shared.game.world.tile.wang.WangType;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.world.maps.RegionManager;
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -53,8 +53,8 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
     private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
     private final RegionManager regionManager = ClientMain.getInstance().getRegionManager();
-    private final Map<LayerDefinition, VisTextButton> layerButtonMap = new HashMap<LayerDefinition, VisTextButton>();
-    private final List<VisImageButton> editorButtonList = new ArrayList<VisImageButton>();
+    private final Map<LayerDefinition, VisTextButton> layerButtonMap = new HashMap<>();
+    private final List<VisImageButton> editorButtonList = new ArrayList<>();
 
     private VisImageButton drawlButton;
     private VisImageButton eraserButton;
@@ -223,7 +223,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         final VisTable floorSelectTable = new VisTable();
         floorSelectTable.add(new VisLabel("[YELLOW]Floor Select:")).colspan(2).align(Alignment.LEFT.getAlignment()).row();
 
-        final Map<Floors, LeftAlignTextButton> floorsVisTextButtonMap = new HashMap<Floors, LeftAlignTextButton>();
+        final Map<Floors, LeftAlignTextButton> floorsVisTextButtonMap = new HashMap<>();
 
         for (final Floors floor : Floors.values()) {
             // Floor visibility
@@ -399,7 +399,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             sortByTag.setChecked(false);
             if (tags.length > 0) contentTable.add(sortByTag);
 
-            final VisSelectBox<Tags> showTag = new VisSelectBox<Tags>();
+            final VisSelectBox<Tags> showTag = new VisSelectBox<>();
             showTag.setItems(tags);
             showTag.setDisabled(!sortByTag.isChecked());
             if (tags.length > 0) contentTable.add(showTag).row();

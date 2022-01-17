@@ -1,4 +1,4 @@
-package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang;
+package com.forgestorm.shared.game.world.tile.wang;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

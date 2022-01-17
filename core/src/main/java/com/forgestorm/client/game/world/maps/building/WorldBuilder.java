@@ -9,19 +9,19 @@ import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.BrushSize;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile16Bit;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangTile4Bit;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
+import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
+import com.forgestorm.shared.game.world.tile.wang.BrushSize;
+import com.forgestorm.client.game.world.maps.tile.wang.WangTile16Bit;
+import com.forgestorm.client.game.world.maps.tile.wang.WangTile4Bit;
+import com.forgestorm.shared.game.world.tile.wang.WangType;
 import com.forgestorm.client.game.world.maps.GameWorld;
-import com.forgestorm.client.game.world.maps.Tile;
-import com.forgestorm.client.game.world.maps.TileAnimation;
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.tile.Tile;
+import com.forgestorm.client.game.world.maps.tile.TileAnimation;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.HashMap;
@@ -131,13 +131,13 @@ public class WorldBuilder {
         }
 
         // Setup layer visibility
-        layerVisibilityMap = new HashMap<LayerDefinition, Boolean>();
+        layerVisibilityMap = new HashMap<>();
         for (LayerDefinition layerDefinition : LayerDefinition.values()) {
             layerVisibilityMap.put(layerDefinition, true);
         }
 
         // Setup floor visibility
-        floorVisibilityMap = new HashMap<Floors, Boolean>();
+        floorVisibilityMap = new HashMap<>();
         for (Floors floors : Floors.values()) {
             floorVisibilityMap.put(floors, true);
         }

@@ -1,8 +1,9 @@
-package com.forgestorm.client.game.world.maps;
+package com.forgestorm.client.game.world.maps.tile;
 
 import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
 import com.forgestorm.client.game.world.WorldObject;
+import com.forgestorm.client.game.world.maps.WorldChunk;
+import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.tile.properties.WorldEdit;
 
@@ -13,7 +14,7 @@ import lombok.Getter;
 
 public class Tile extends WorldObject {
 
-    private final transient List<Integer> collisionParents = new ArrayList<Integer>(0);
+    private final transient List<Integer> collisionParents = new ArrayList<>(0);
     private final LayerDefinition layerDefinition;
 
     @Getter

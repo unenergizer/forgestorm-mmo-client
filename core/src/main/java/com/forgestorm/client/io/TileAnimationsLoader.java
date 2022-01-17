@@ -7,7 +7,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-import com.forgestorm.client.game.world.maps.TileAnimation;
+import com.forgestorm.client.game.world.maps.tile.TileAnimation;
 
 import org.yaml.snakeyaml.Yaml;
 

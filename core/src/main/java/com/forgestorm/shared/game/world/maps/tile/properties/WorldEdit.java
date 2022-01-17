@@ -1,6 +1,6 @@
 package com.forgestorm.shared.game.world.tile.properties;
 
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 

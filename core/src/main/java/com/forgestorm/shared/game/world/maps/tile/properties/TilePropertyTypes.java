@@ -1,4 +1,4 @@
-package com.forgestorm.shared.game.world.tile.properties;
+package com.forgestorm.shared.game.world.maps.tile.properties;
 
 public enum TilePropertyTypes {
 

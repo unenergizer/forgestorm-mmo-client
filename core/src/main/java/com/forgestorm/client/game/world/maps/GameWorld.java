@@ -9,6 +9,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.RegionLoader;
 import com.forgestorm.shared.game.world.maps.Floors;

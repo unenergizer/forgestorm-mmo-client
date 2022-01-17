@@ -1,11 +1,11 @@
-package com.forgestorm.client.game.world.maps;
+package com.forgestorm.client.game.world.maps.tile;
 
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
+import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +78,7 @@ public class TileImage {
 
     public void addTag(Tags tag) {
         if (tag == Tags.AN_UNUSED_TAG) return;
-        if (tagsList == null) tagsList = new ArrayList<String>();
+        if (tagsList == null) tagsList = new ArrayList<>();
         if (containsTag(tag)) return;
         tagsList.add(tag.name());
     }
@@ -108,7 +108,7 @@ public class TileImage {
         // Doing so will keep the YAML saving code from producing empty brackets
         // in the TileProperties.yaml document.
         if (tileProperties == null) {
-            tileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>();
+            tileProperties = new HashMap<>();
         }
 
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {

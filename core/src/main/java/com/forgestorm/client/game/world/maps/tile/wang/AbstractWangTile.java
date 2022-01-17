@@ -1,14 +1,14 @@
-package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang;
+package com.forgestorm.client.game.world.maps.tile.wang;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
 import com.forgestorm.client.game.world.maps.GameWorld;
-import com.forgestorm.client.game.world.maps.Tile;
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.tile.Tile;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
+import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 
 public abstract class AbstractWangTile {
 

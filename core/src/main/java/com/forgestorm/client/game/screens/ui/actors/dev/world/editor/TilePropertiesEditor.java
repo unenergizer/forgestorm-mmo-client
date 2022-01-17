@@ -18,20 +18,20 @@ import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.LeftAlignTextButton;
 import com.forgestorm.client.game.screens.ui.actors.character.CharacterCreation;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.BrushSize;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.AbstractTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.WangTileProperty;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.wang.WangType;
+import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
+import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypeHelper;
+import com.forgestorm.shared.game.world.tile.wang.BrushSize;
+import com.forgestorm.shared.game.world.tile.wang.WangType;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.world.maps.TileImage;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.util.yaml.YamlUtil;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypeHelper;
-import com.forgestorm.shared.game.world.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
@@ -223,7 +223,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
         VisTable layerDefinitionTable = new VisTable(true);
         VisLabel layerDefinitionLabel = new VisLabel("Layer Definition:");
-        final VisSelectBox<LayerDefinition> layerDefinitionVisSelectBox = new VisSelectBox<LayerDefinition>();
+        final VisSelectBox<LayerDefinition> layerDefinitionVisSelectBox = new VisSelectBox<>();
         layerDefinitionVisSelectBox.setItems(LayerDefinition.values());
         layerDefinitionVisSelectBox.setSelected(LayerDefinition.WORLD_OBJECTS);
         if (layerDefinition != null) layerDefinitionVisSelectBox.setSelected(layerDefinition);
@@ -260,7 +260,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
         // Add table to let dev add properties to this TileImage
         VisTable addOptionsTable = new VisTable(true);
-        final VisSelectBox<TilePropertyTypes> tilePropertiesVisSelectBox = new VisSelectBox<TilePropertyTypes>();
+        final VisSelectBox<TilePropertyTypes> tilePropertiesVisSelectBox = new VisSelectBox<>();
         tilePropertiesVisSelectBox.setItems(TilePropertyTypes.values());
 
         VisTextButton addTileProperty = new VisTextButton("Add TileProperty");
@@ -310,7 +310,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         layerSpecificTagTable.clear();
 
         Tags[] tags = Tags.getLayerSpecificTags(workingLayerDefinition, false);
-        final VisSelectBox<Tags> tagsVisSelectBox = new VisSelectBox<Tags>();
+        final VisSelectBox<Tags> tagsVisSelectBox = new VisSelectBox<>();
         tagsVisSelectBox.setItems(tags);
         layerSpecificTagTable.add(tagsVisSelectBox);
         tagsVisSelectBox.addListener(new ChangeListener() {
@@ -326,7 +326,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
     private void buildTagsTable(final TileImage tileImage) {
         tagsTable.clear();
-        List<Tags> tagsList = new ArrayList<Tags>();
+        List<Tags> tagsList = new ArrayList<>();
         for (Tags tag : Tags.values()) if (tileImage.containsTag(tag)) tagsList.add(tag);
 
         int tagsAdded = 0;
@@ -403,7 +403,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             hideProcessedItems.setChecked(false);
             contentTable.add(hideProcessedItems);
 
-            final VisSelectBox<LayerDefinition> showLayer = new VisSelectBox<LayerDefinition>();
+            final VisSelectBox<LayerDefinition> showLayer = new VisSelectBox<>();
             showLayer.setItems(LayerDefinition.values());
             showLayer.setSelected(LayerDefinition.WORLD_OBJECTS);
             contentTable.add(showLayer).row();
@@ -548,7 +548,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     hideableVisWindow.fadeOut();
-                    copiedTileProperties = new HashMap<TilePropertyTypes, AbstractTileProperty>(tileImage.getTileProperties());
+                    copiedTileProperties = new HashMap<>(tileImage.getTileProperties());
                 }
             });
 

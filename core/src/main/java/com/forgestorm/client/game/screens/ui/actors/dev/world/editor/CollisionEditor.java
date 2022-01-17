@@ -1,4 +1,4 @@
-package com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.window;
+package com.forgestorm.client.game.screens.ui.actors.dev.world.editor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -10,8 +10,7 @@ import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.properties.CollisionBlockProperty;
+import com.forgestorm.client.game.world.maps.tile.properties.CollisionBlockProperty;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -22,7 +21,7 @@ import java.util.List;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class CollisionWindow extends HideableVisWindow {
+public class CollisionEditor extends HideableVisWindow {
 
     private static final boolean PRINT_DEBUG = false;
 
@@ -33,7 +32,7 @@ public class CollisionWindow extends HideableVisWindow {
     private CollisionBlockProperty collisionBlockProperty;
     private List<Boolean> collisionList;
 
-    public CollisionWindow() {
+    public CollisionEditor() {
         super("Collision Editor");
     }
 
@@ -109,7 +108,7 @@ public class CollisionWindow extends HideableVisWindow {
                             visImageButton.setColor(Color.WHITE);
                             visImageButton.getImage().setColor(Color.WHITE);
                         }
-                        println(CollisionWindow.class, "Row: " + finalRow + ", Col: " + finalColumn + ", Index: " + index + ", Collision: " + collisionList.get(index), false, PRINT_DEBUG);
+                        println(CollisionEditor.class, "Row: " + finalRow + ", Col: " + finalColumn + ", Index: " + index + ", Collision: " + collisionList.get(index), false, PRINT_DEBUG);
                     }
                 });
             }
