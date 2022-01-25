@@ -15,7 +15,6 @@ import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.game.world.maps.tile.TileAnimation;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
-import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.util.yaml.YamlUtil;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.util.StringUtil;
@@ -25,6 +24,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
@@ -86,6 +86,16 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         return this;
     }
 
+    private void setWorkingTileAnimation(TileAnimation tileAnimation) {
+        if (tileAnimation == null) return;
+        workingTileAnimation = tileAnimation;
+        setAnimationControls(TileAnimation.AnimationControls.PLAY_NORMAL_LOOPING);
+    }
+
+    private void setAnimationControls(TileAnimation.AnimationControls animationControls) {
+        workingTileAnimation.playAnimation(animationControls);
+    }
+
     public void render() {
         animatedTable.clear();
         if (workingTileAnimation == null) return;
@@ -134,7 +144,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                 }
 
                 tileAnimationMap.put(animationID, new TileAnimation(animationID));
-                workingTileAnimation = tileAnimationMap.get(animationID);
+                setWorkingTileAnimation(tileAnimationMap.get(animationID));
 
                 // Update view
                 updateAnimatedTileList();
@@ -149,7 +159,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                 int animationID = workingTileAnimation.getAnimationId();
                 worldBuilder.getTileAnimationMap().remove(animationID);
 
-                workingTileAnimation = worldBuilder.getTileAnimationMap().get(0);
+                setWorkingTileAnimation(worldBuilder.getTileAnimationMap().get(0));
 
                 updateEditorTableContent();
                 updateAnimatedTileList();
@@ -191,6 +201,28 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         editorTableContent.clear();
 
         if (workingTileAnimation == null) return;
+
+        // Set animation playback type
+        VisTable controlsTable = new VisTable(true);
+        VisLabel controls = new VisLabel("Playback Type: ");
+
+        VisSelectBox<TileAnimation.AnimationControls> animationControlsVisSelectBox = new VisSelectBox<>();
+        animationControlsVisSelectBox.setItems(TileAnimation.AnimationControls.values());
+        animationControlsVisSelectBox.setSelected(TileAnimation.AnimationControls.PLAY_NORMAL_LOOPING);
+
+        animationControlsVisSelectBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                setAnimationControls(animationControlsVisSelectBox.getSelected());
+            }
+        });
+
+        controlsTable.add(controls);
+        controlsTable.add(animationControlsVisSelectBox);
+
+        editorTableContent.add(controlsTable).align(Alignment.LEFT.getAlignment()).row();
+
+        // Add frames to table
         for (Map.Entry<Integer, TileAnimation.AnimationFrame> entry : workingTileAnimation.getAnimationFrames().entrySet()) {
             VisTable frameTable = new VisTable(true);
             final int frameId = entry.getKey();
@@ -323,7 +355,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     // Get the animation clicked
-                    workingTileAnimation = worldBuilder.getTileAnimationMap().get(animationID);
+                    setWorkingTileAnimation(worldBuilder.getTileAnimationMap().get(animationID));
 
                     // Now rebuild the animation editor settings
                     updateEditorTableContent();

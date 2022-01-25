@@ -10,7 +10,7 @@ import lombok.Setter;
 public class TileAnimation {
 
     @Getter
-    private final Map<Integer, AnimationFrame> animationFrames = new HashMap<Integer, AnimationFrame>();
+    private final Map<Integer, AnimationFrame> animationFrames = new HashMap<>();
 
     @Getter
     private transient final int animationId;
@@ -18,6 +18,8 @@ public class TileAnimation {
     private transient int activeFrame = 0;
 
     private transient AnimationControls animationControl = AnimationControls.STOP;
+
+    private transient boolean playForwards = true;
 
     public TileAnimation(int animationId) {
         this.animationId = animationId;
@@ -111,40 +113,59 @@ public class TileAnimation {
             // The duration of the frame has ended. Decide what is next.
             animationFrame.setDurationLeft(animationFrame.getDuration()); // Reset duration
 
-            if (animationControl == AnimationControls.PLAY_NORMAL || animationControl == AnimationControls.PLAY_NORMAL_LOOPING) {
+            if (animationControl == AnimationControls.PLAY_NORMAL
+                    || animationControl == AnimationControls.PLAY_NORMAL_LOOPING
+                    || (animationControl == AnimationControls.PING_PONG && playForwards)) {
                 // Animation playing normally (looping and non-looping)
                 int tempFrame = activeFrame + 1;
                 int totalFrames = animationFrames.size();
 
                 // Check we reached animation end
                 if (tempFrame == totalFrames) {
-                    if (animationControl != AnimationControls.PLAY_NORMAL_LOOPING) {
-                        // Stop animating, last frame reached
-                        animationControl = AnimationControls.STOP;
-                    } else if (animationControl == AnimationControls.PLAY_NORMAL_LOOPING) {
-                        // Continue to loop
-                        activeFrame = 0; // Go back to first frame
+                    switch (animationControl) {
+                        case PLAY_NORMAL:
+                            // Stop animating, last frame reached
+                            animationControl = AnimationControls.STOP;
+                            break;
+                        case PLAY_NORMAL_LOOPING:
+                            // Continue to loop
+                            activeFrame = 0; // Go back to first frame
+                            break;
+                        case PING_PONG:
+                            playForwards = false;
+                            activeFrame = animationFrames.size() - 1; // Go back to last frame
+                            break;
                     }
                 } else {
                     activeFrame++;
                 }
-            } else if (animationControl == AnimationControls.PLAY_BACKWARDS || animationControl == AnimationControls.PLAY_BACKWARDS_LOOPING) {
-                // Animation playing in reverse (looping and non-looping)
-                int tempFrame = activeFrame - 1;
+            } else //noinspection ConstantConditions - This thing trippin...
+                if (animationControl == AnimationControls.PLAY_BACKWARDS
+                        || animationControl == AnimationControls.PLAY_BACKWARDS_LOOPING
+                        || (animationControl == AnimationControls.PING_PONG && !playForwards)) {
+                    // Animation playing in reverse (looping and non-looping)
+                    int tempFrame = activeFrame - 1;
 
-                // Check we reached animation end
-                if (tempFrame < 0) {
-                    if (animationControl != AnimationControls.PLAY_BACKWARDS_LOOPING) {
-                        // Stop animating, last frame reached
-                        animationControl = AnimationControls.STOP;
-                    } else if (animationControl == AnimationControls.PLAY_BACKWARDS_LOOPING) {
-                        // Continue to loop
-                        activeFrame = animationFrames.size() - 1; // Go back to last frame
+                    // Check we reached animation end
+                    if (tempFrame < 0) {
+                        switch (animationControl) {
+                            case PLAY_BACKWARDS:
+                                // Stop animating, last frame reached
+                                animationControl = AnimationControls.STOP;
+                                break;
+                            case PLAY_BACKWARDS_LOOPING:
+                                // Continue to loop
+                                activeFrame = animationFrames.size() - 1; // Go back to last frame
+                                break;
+                            case PING_PONG:
+                                playForwards = true;
+                                activeFrame = 0; // Go back to first frame
+                                break;
+                        }
+                    } else {
+                        activeFrame--;
                     }
-                } else {
-                    activeFrame--;
                 }
-            }
         }
 
         return activeFrame;
@@ -202,7 +223,15 @@ public class TileAnimation {
         PLAY_NORMAL_LOOPING,
         PLAY_BACKWARDS,
         PLAY_BACKWARDS_LOOPING,
-        STOP
+        PING_PONG,
+        STOP;
+
+        public static AnimationControls getAnimationControl(int enumIndex) {
+            for (AnimationControls animationControls : AnimationControls.values()) {
+                if (animationControls.ordinal() == enumIndex) return animationControls;
+            }
+            throw new RuntimeException("AnimationControls type miss match! Index Received: " + enumIndex);
+        }
     }
 
     @Getter
