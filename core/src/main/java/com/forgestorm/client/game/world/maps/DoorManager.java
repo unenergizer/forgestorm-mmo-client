@@ -36,12 +36,12 @@ public class DoorManager {
             case OPEN:
                 // Set the door as closed
                 doorStatus = DoorStatus.CLOSED;
-                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.AnimationControls.PLAY_BACKWARDS);
+                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_BACKWARDS);
                 break;
             case CLOSED:
                 // Set the door as open
                 doorStatus = DoorStatus.OPEN;
-                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.AnimationControls.PLAY_NORMAL);
+                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_NORMAL);
                 break;
         }
 
@@ -65,10 +65,10 @@ public class DoorManager {
         // Play animation
         switch (doorStatus) {
             case OPEN:
-                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.AnimationControls.PLAY_NORMAL);
+                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_NORMAL);
                 break;
             case CLOSED:
-                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.AnimationControls.PLAY_BACKWARDS);
+                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_BACKWARDS);
                 break;
         }
 

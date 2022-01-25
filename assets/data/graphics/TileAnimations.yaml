@@ -1,5 +1,5 @@
 1:
-  playbackType: 0
+  playbackType: PING_PONG
   animationFrames:
     0:
       duration: 11
@@ -11,7 +11,7 @@
       duration: 11
       tileId: 1562
 2:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -23,7 +23,7 @@
       duration: 1
       tileId: 11
 3:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -35,7 +35,7 @@
       duration: 1
       tileId: 14
 4:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -47,7 +47,7 @@
       duration: 1
       tileId: 12
 5:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -59,7 +59,7 @@
       duration: 1
       tileId: 834
 6:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -71,7 +71,7 @@
       duration: 1
       tileId: 847
 7:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -83,7 +83,7 @@
       duration: 1
       tileId: 850
 8:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -95,7 +95,7 @@
       duration: 1
       tileId: 854
 9:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -107,7 +107,7 @@
       duration: 1
       tileId: 445
 10:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -116,7 +116,7 @@
       duration: 1
       tileId: 865
 11:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -125,7 +125,7 @@
       duration: 1
       tileId: 863
 12:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1
@@ -134,7 +134,7 @@
       duration: 1
       tileId: 856
 13:
-  playbackType: 0
+  playbackType: PLAY_NORMAL
   animationFrames:
     0:
       duration: 1

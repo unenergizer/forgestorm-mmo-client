@@ -44,7 +44,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
     private TileAnimation workingTileAnimation;
 
     private TileSelectWindow tileSelectWindow;
-    private final VisTextButton saveButton = new VisTextButton("Save Animation");
+    private final VisTextButton saveButton = new VisTextButton("Save All Animations");
     private final VisLabel errorLabel = new VisLabel();
     private final FormValidator validator = new FormValidator(saveButton, errorLabel);
 
@@ -87,13 +87,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
     }
 
     private void setWorkingTileAnimation(TileAnimation tileAnimation) {
-        if (tileAnimation == null) return;
-        workingTileAnimation = tileAnimation;
-        setAnimationControls(TileAnimation.AnimationControls.PLAY_NORMAL_LOOPING);
-    }
-
-    private void setAnimationControls(TileAnimation.AnimationControls animationControls) {
-        workingTileAnimation.playAnimation(animationControls);
+        if (tileAnimation != null) workingTileAnimation = tileAnimation;
     }
 
     public void render() {
@@ -143,7 +137,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                     break;
                 }
 
-                tileAnimationMap.put(animationID, new TileAnimation(animationID));
+                tileAnimationMap.put(animationID, new TileAnimation(animationID, TileAnimation.PlaybackType.PLAY_NORMAL_LOOPING));
                 setWorkingTileAnimation(tileAnimationMap.get(animationID));
 
                 // Update view
@@ -158,8 +152,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
 
                 int animationID = workingTileAnimation.getAnimationId();
                 worldBuilder.getTileAnimationMap().remove(animationID);
-
-                setWorkingTileAnimation(worldBuilder.getTileAnimationMap().get(0));
+                workingTileAnimation = null;
 
                 updateEditorTableContent();
                 updateAnimatedTileList();
@@ -206,14 +199,14 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         VisTable controlsTable = new VisTable(true);
         VisLabel controls = new VisLabel("Playback Type: ");
 
-        VisSelectBox<TileAnimation.AnimationControls> animationControlsVisSelectBox = new VisSelectBox<>();
-        animationControlsVisSelectBox.setItems(TileAnimation.AnimationControls.values());
-        animationControlsVisSelectBox.setSelected(TileAnimation.AnimationControls.PLAY_NORMAL_LOOPING);
+        VisSelectBox<TileAnimation.PlaybackType> animationControlsVisSelectBox = new VisSelectBox<>();
+        animationControlsVisSelectBox.setItems(TileAnimation.PlaybackType.values());
+        animationControlsVisSelectBox.setSelected(workingTileAnimation.getPlaybackType());
 
         animationControlsVisSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                setAnimationControls(animationControlsVisSelectBox.getSelected());
+                workingTileAnimation.playAnimation(animationControlsVisSelectBox.getSelected());
             }
         });
 
@@ -327,7 +320,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         VisScrollPane animatedScrollPane = new VisScrollPane(buttonTable);
         animatedScrollPane.setOverscroll(false, false);
         animatedScrollPane.setFlickScroll(false);
-        animatedScrollPane.setFadeScrollBars(true);
+        animatedScrollPane.setFadeScrollBars(false);
         animatedScrollPane.setScrollbarsOnTop(true);
         animatedScrollPane.setScrollingDisabled(true, false);
         animatedTileListContentTable.add(animatedScrollPane).prefHeight(1).grow().colspan(2);
@@ -335,9 +328,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         // QUERY SOME LIST OF ANIMATIONS AND POPULATE THIS "EXISTING" LIST VIEW
         Map<Integer, TileAnimation> tileAnimationMap = worldBuilder.getTileAnimationMap();
 
-        for (Map.Entry<Integer, TileAnimation> entrySet : tileAnimationMap.entrySet()) {
-            final int animationID = entrySet.getKey();
-            TileAnimation tileAnimation = entrySet.getValue();
+        for (TileAnimation tileAnimation : tileAnimationMap.values()) {
 
             // Test to see if we can use a tile image here for as an icon.
             String tileImageRegionName;
@@ -355,7 +346,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     // Get the animation clicked
-                    setWorkingTileAnimation(worldBuilder.getTileAnimationMap().get(animationID));
+                    setWorkingTileAnimation(tileAnimation);
 
                     // Now rebuild the animation editor settings
                     updateEditorTableContent();
@@ -461,6 +452,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
             }
 
             scrollPane.layout();
+            pack();
         }
     }
 }

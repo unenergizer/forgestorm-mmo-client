@@ -1,5 +1,7 @@
 package com.forgestorm.client.io;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
@@ -17,14 +19,12 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.forgestorm.client.util.Log.println;
-
 public class TileAnimationsLoader extends SynchronousAssetLoader<TileAnimationsLoader.TileAnimationsDataWrapper, TileAnimationsLoader.TileAnimationsParameter> {
 
     static class TileAnimationsParameter extends AssetLoaderParameters<TileAnimationsDataWrapper> {
     }
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     TileAnimationsLoader(FileHandleResolver resolver) {
         super(resolver);
@@ -33,23 +33,30 @@ public class TileAnimationsLoader extends SynchronousAssetLoader<TileAnimationsL
     @Override
     public TileAnimationsDataWrapper load(AssetManager assetManager, String fileName, FileHandle file, TileAnimationsParameter parameter) {
         TileAnimationsDataWrapper tileAnimationsDataWrapper = new TileAnimationsDataWrapper();
-        tileAnimationsDataWrapper.setTileAnimationMap(new HashMap<Integer, TileAnimation>());
+        tileAnimationsDataWrapper.setTileAnimationMap(new HashMap<>());
 
         println(getClass(), "====== START LOADING TILE ANIMATIONS ======", false, PRINT_DEBUG);
 
         Yaml yaml = new Yaml();
 
-        Map<Integer, Map<String, Map<Integer, Map<String, Integer>>>> root = yaml.load(file.read());
+        Map<Integer, Object> root = yaml.load(file.read());
 
         // Loop through all animations
-        for (Map.Entry<Integer, Map<String, Map<Integer, Map<String, Integer>>>> entry : root.entrySet()) {
+        for (Map.Entry<Integer, Object> entry : root.entrySet()) {
             int animationID = entry.getKey();
 
-            Map<String, Map<Integer, Map<String, Integer>>> animationFrameDataRoot = entry.getValue();
+            // Get the playback type for this animation
+            //noinspection unchecked
+            Map<String, String> playbackType = (Map<String, String>) entry.getValue();
+            TileAnimation.PlaybackType animationControls = TileAnimation.PlaybackType.valueOf(playbackType.get("playbackType"));
+            println(getClass(), "PlaybackType: " + animationControls, false, PRINT_DEBUG);
 
-            TileAnimation tileAnimation = new TileAnimation(animationID);
+            TileAnimation tileAnimation = new TileAnimation(animationID, animationControls);
             println(getClass(), "Animation ID: " + animationID, false, PRINT_DEBUG);
 
+            // Now get each individual frame for this animation
+            //noinspection unchecked
+            Map<String, Map<Integer, Map<String, Integer>>> animationFrameDataRoot = (Map<String, Map<Integer, Map<String, Integer>>>) entry.getValue();
             Map<Integer, Map<String, Integer>> animationFrameData = animationFrameDataRoot.get("animationFrames");
 
             // Loop through a particular animations frames and get info on each frame
@@ -82,6 +89,7 @@ public class TileAnimationsLoader extends SynchronousAssetLoader<TileAnimationsL
         return tileAnimationsDataWrapper;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, TileAnimationsParameter parameter) {
         return null;

@@ -17,16 +17,19 @@ public class TileAnimation {
 
     private transient int activeFrame = 0;
 
-    private transient AnimationControls animationControl = AnimationControls.STOP;
+    @Getter
+    private PlaybackType playbackType;
 
     private transient boolean playForwards = true;
 
-    public TileAnimation(int animationId) {
+    public TileAnimation(int animationId, PlaybackType playbackType) {
         this.animationId = animationId;
+        this.playbackType = playbackType;
     }
 
     public TileAnimation(TileAnimation tileAnimation) {
         this.animationId = tileAnimation.animationId;
+        this.playbackType = tileAnimation.playbackType;
 
         // Copy contents of the Animation frames over to this new animation
         for (Map.Entry<Integer, AnimationFrame> entry : tileAnimation.getAnimationFrames().entrySet()) {
@@ -67,7 +70,7 @@ public class TileAnimation {
         return true;
     }
 
-    public void playAnimation(AnimationControls animationControl) {
+    public void playAnimation(PlaybackType animationControl) {
         resetAnimationFrameDurations();
 
         switch (animationControl) {
@@ -83,7 +86,7 @@ public class TileAnimation {
                 break;
         }
 
-        this.animationControl = animationControl;
+        this.playbackType = animationControl;
     }
 
     private void resetAnimationFrameDurations() {
@@ -102,7 +105,7 @@ public class TileAnimation {
 
         // If no frames exist, return -1.
         if (animationFrame == null) return -1;
-        if (animationControl == AnimationControls.STOP) return activeFrame;
+        if (playbackType == PlaybackType.STOP) return activeFrame;
 
         int durationLeft = animationFrame.getDurationLeft() - 1;
 
@@ -113,19 +116,19 @@ public class TileAnimation {
             // The duration of the frame has ended. Decide what is next.
             animationFrame.setDurationLeft(animationFrame.getDuration()); // Reset duration
 
-            if (animationControl == AnimationControls.PLAY_NORMAL
-                    || animationControl == AnimationControls.PLAY_NORMAL_LOOPING
-                    || (animationControl == AnimationControls.PING_PONG && playForwards)) {
+            if (playbackType == PlaybackType.PLAY_NORMAL
+                    || playbackType == PlaybackType.PLAY_NORMAL_LOOPING
+                    || (playbackType == PlaybackType.PING_PONG && playForwards)) {
                 // Animation playing normally (looping and non-looping)
                 int tempFrame = activeFrame + 1;
                 int totalFrames = animationFrames.size();
 
                 // Check we reached animation end
                 if (tempFrame == totalFrames) {
-                    switch (animationControl) {
+                    switch (playbackType) {
                         case PLAY_NORMAL:
                             // Stop animating, last frame reached
-                            animationControl = AnimationControls.STOP;
+                            playbackType = PlaybackType.STOP;
                             break;
                         case PLAY_NORMAL_LOOPING:
                             // Continue to loop
@@ -140,18 +143,18 @@ public class TileAnimation {
                     activeFrame++;
                 }
             } else //noinspection ConstantConditions - This thing trippin...
-                if (animationControl == AnimationControls.PLAY_BACKWARDS
-                        || animationControl == AnimationControls.PLAY_BACKWARDS_LOOPING
-                        || (animationControl == AnimationControls.PING_PONG && !playForwards)) {
+                if (playbackType == PlaybackType.PLAY_BACKWARDS
+                        || playbackType == PlaybackType.PLAY_BACKWARDS_LOOPING
+                        || (playbackType == PlaybackType.PING_PONG && !playForwards)) {
                     // Animation playing in reverse (looping and non-looping)
                     int tempFrame = activeFrame - 1;
 
                     // Check we reached animation end
                     if (tempFrame < 0) {
-                        switch (animationControl) {
+                        switch (playbackType) {
                             case PLAY_BACKWARDS:
                                 // Stop animating, last frame reached
-                                animationControl = AnimationControls.STOP;
+                                playbackType = PlaybackType.STOP;
                                 break;
                             case PLAY_BACKWARDS_LOOPING:
                                 // Continue to loop
@@ -218,20 +221,13 @@ public class TileAnimation {
         return animationFrames.get(frameId);
     }
 
-    public enum AnimationControls {
+    public enum PlaybackType {
         PLAY_NORMAL,
         PLAY_NORMAL_LOOPING,
         PLAY_BACKWARDS,
         PLAY_BACKWARDS_LOOPING,
         PING_PONG,
-        STOP;
-
-        public static AnimationControls getAnimationControl(int enumIndex) {
-            for (AnimationControls animationControls : AnimationControls.values()) {
-                if (animationControls.ordinal() == enumIndex) return animationControls;
-            }
-            throw new RuntimeException("AnimationControls type miss match! Index Received: " + enumIndex);
-        }
+        STOP
     }
 
     @Getter
