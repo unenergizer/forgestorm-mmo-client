@@ -97,12 +97,12 @@
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 18:
   fileName: door-03-transition
   layerDefinition: WORLD_OBJECTS
@@ -1898,12 +1898,12 @@
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 236:
   fileName: stone-wall-middle-horizontal-crack
   layerDefinition: WORLD_OBJECTS
@@ -1913,62 +1913,62 @@
   fileName: BW4=iron-fence=1
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 238:
   fileName: BW4=iron-fence=10
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 239:
   fileName: BW4=iron-fence=11
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 240:
   fileName: BW4=iron-fence=12
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 241:
   fileName: BW4=iron-fence=13
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 242:
   fileName: BW4=iron-fence=14
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 243:
   fileName: stool-round-blue
   layerDefinition: WORLD_OBJECTS
@@ -2180,12 +2180,12 @@
   fileName: BW4=iron-fence=15
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 262:
   fileName: tree-medium-01
   layerDefinition: WORLD_OBJECTS
@@ -2903,12 +2903,12 @@
   fileName: BW4=iron-fence=2
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 356:
   fileName: stump-02
   layerDefinition: WORLD_OBJECTS
@@ -3371,12 +3371,12 @@
   fileName: BW4=iron-fence=3
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 447:
   fileName: wooden-support-03
   layerDefinition: WORLD_OBJECT_DECORATION
@@ -5649,12 +5649,12 @@
   fileName: BW4=iron-fence=4
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 790:
   fileName: well-egypt-filled
   layerDefinition: WORLD_OBJECTS
@@ -6395,592 +6395,592 @@
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 895:
   fileName: BW4=brick-wall-building-h32=1
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 896:
   fileName: BW4=brick-wall=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 897:
   fileName: BW4=brick-wall=1
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 898:
   fileName: BW4=brick-wall=10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 899:
   fileName: BW4=brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 900:
   fileName: BW4=brick-wall=12
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 901:
   fileName: BW4=brick-wall=13
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 902:
   fileName: BW4=brick-wall=14
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 903:
   fileName: BW4=brick-wall=15
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 904:
   fileName: BW4=brick-wall=2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 905:
   fileName: BW4=brick-wall=3
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 906:
   fileName: BW4=brick-wall=4
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 907:
   fileName: BW4=brick-wall=5
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 908:
   fileName: BW4=brick-wall=6
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 909:
   fileName: BW4=brick-wall=7
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 910:
   fileName: BW4=brick-wall=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 911:
   fileName: BW4=brick-wall=9
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 912:
   fileName: BW4=wooden-fence=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 913:
   fileName: BW4=wooden-fence=1
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 914:
   fileName: BW4=wooden-fence=10
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 915:
   fileName: BW4=wooden-fence=11
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 916:
   fileName: BW4=wooden-fence=12
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 917:
   fileName: BW4=wooden-fence=13
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 918:
   fileName: BW4=wooden-fence=14
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 919:
   fileName: BW4=wooden-fence=2
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 920:
   fileName: BW4=wooden-fence=3
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 921:
   fileName: BW4=wooden-fence=4
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 922:
   fileName: BW4=wooden-fence=5
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 923:
   fileName: BW4=wooden-fence=6
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 924:
   fileName: BW4=wooden-fence=7
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 925:
   fileName: BW4=wooden-fence=8
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 926:
   fileName: BW4=wooden-fence=9
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 927:
   fileName: BW4=wooden-fence=15
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 928:
   fileName: BW4=iron-fence=5
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 929:
   fileName: BW4=iron-fence=6
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 930:
   fileName: BW4=iron-fence=7
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 931:
   fileName: BW4=iron-fence=8
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 932:
   fileName: BW4=iron-fence=9
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 933:
   fileName: BW4=post-wooden-fence=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FENCE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 934:
   fileName: BW4=post-wooden-fence=1
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 935:
   fileName: BW4=post-wooden-fence=10
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 936:
   fileName: BW4=post-wooden-fence=11
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 937:
   fileName: BW4=post-wooden-fence=15
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 938:
   fileName: BW4=post-wooden-fence=12
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 939:
   fileName: BW4=post-wooden-fence=13
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 940:
   fileName: BW4=post-wooden-fence=14
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 941:
   fileName: BW4=post-wooden-fence=9
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 942:
   fileName: BW4=post-wooden-fence=8
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 943:
   fileName: BW4=post-wooden-fence=7
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 944:
   fileName: BW4=post-wooden-fence=6
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 945:
   fileName: BW4=post-wooden-fence=5
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 946:
   fileName: BW4=post-wooden-fence=4
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 947:
   fileName: BW4=post-wooden-fence=3
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 948:
   fileName: BW4=post-wooden-fence=2
   layerDefinition: WORLD_OBJECTS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 949:
   fileName: brick-wall-support-01
   layerDefinition: WORLD_OBJECT_DECORATION
@@ -7378,4554 +7378,4554 @@
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1023:
   fileName: BW4=brick-wall-building-h32=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1024:
   fileName: BW4=brick-wall-building-h32=12
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1025:
   fileName: BW4=brick-wall-building-h32=13
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1026:
   fileName: BW4=brick-wall-building-h32=14
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1027:
   fileName: BW4=brick-wall-building-h32=15
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1028:
   fileName: BW4=brick-wall-building-h32=2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1029:
   fileName: BW4=brick-wall-building-h32=3
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1030:
   fileName: BW4=brick-wall-building-h32=4
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1031:
   fileName: BW4=brick-wall-building-h32=5
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1032:
   fileName: BW4=brick-wall-building-h32=6
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1033:
   fileName: BW4=brick-wall-building-h32=7
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1034:
   fileName: BW4=brick-wall-building-h32=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1035:
   fileName: BW4=brick-wall-building-h32=9
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1036:
   fileName: BW4=wooden-wall-h32=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1037:
   fileName: BW4=wooden-wall-h32=1
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1038:
   fileName: BW4=wooden-wall-h32=10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1039:
   fileName: BW4=wooden-wall-h32=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1040:
   fileName: BW4=wooden-wall-h32=12
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1041:
   fileName: BW4=wooden-wall-h32=13
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1042:
   fileName: BW4=wooden-wall-h32=14
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1043:
   fileName: BW4=wooden-wall-h32=15
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1044:
   fileName: BW4=wooden-wall-h32=2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1045:
   fileName: BW4=wooden-wall-h32=3
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1046:
   fileName: BW4=wooden-wall-h32=4
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1047:
   fileName: BW4=wooden-wall-h32=5
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1048:
   fileName: BW4=wooden-wall-h32=6
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1049:
   fileName: BW4=wooden-wall-h32=7
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1050:
   fileName: BW4=wooden-wall-h32=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1051:
   fileName: BW4=wooden-wall-h32=9
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_16
     COLLISION_BLOCK:
       collisionList:
         - false
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_16
 1052:
   fileName: BW16=brown-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1053:
   fileName: BW16=brown-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1054:
   fileName: BW16=brown-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1055:
   fileName: BW16=brown-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1056:
   fileName: BW16=brown-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1057:
   fileName: BW16=brown-support-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1058:
   fileName: BW16=brown-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1059:
   fileName: BW16=brown-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1060:
   fileName: BW16=brown-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1061:
   fileName: BW16=brown-support-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1062:
   fileName: BW16=brown-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1063:
   fileName: BW16=brown-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1064:
   fileName: BW16=brown-support-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1065:
   fileName: BW16=brown-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1066:
   fileName: BW16=brown-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1067:
   fileName: BW16=brown-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1068:
   fileName: BW16=brown-support-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1069:
   fileName: BW16=brown-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1070:
   fileName: BW16=brown-support-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1071:
   fileName: BW16=mountain-wall-brown=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1072:
   fileName: BW16=brown-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1073:
   fileName: BW16=brown-support-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1074:
   fileName: BW16=brown-support-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1075:
   fileName: BW16=brown-support-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1076:
   fileName: BW16=brown-support-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1077:
   fileName: BW16=brown-support-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1078:
   fileName: BW16=brown-support-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1079:
   fileName: BW16=brown-support-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1080:
   fileName: BW16=brown-support-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1081:
   fileName: BW16=brown-support-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1082:
   fileName: BW16=brown-support-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1083:
   fileName: BW16=dark-gray-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1084:
   fileName: BW16=dark-gray-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1085:
   fileName: BW16=dark-gray-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1086:
   fileName: BW16=dark-gray-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1087:
   fileName: BW16=dark-gray-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1088:
   fileName: BW16=dark-gray-support-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1089:
   fileName: BW16=dark-gray-support-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1090:
   fileName: BW16=dark-gray-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1091:
   fileName: BW16=dark-gray-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1092:
   fileName: BW16=dark-gray-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1093:
   fileName: BW16=dark-gray-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1094:
   fileName: BW16=dark-gray-support-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1095:
   fileName: BW16=dark-gray-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1096:
   fileName: BW16=dark-gray-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1097:
   fileName: BW16=dark-gray-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1098:
   fileName: BW16=dark-gray-support-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1099:
   fileName: BW16=dark-gray-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1100:
   fileName: BW16=dark-gray-support-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1101:
   fileName: BW16=gray-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1102:
   fileName: BW16=gray-support-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1103:
   fileName: BW16=interior-wall-blue=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1104:
   fileName: BW16=interior-wall-gray=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1105:
   fileName: BW16=interior-wall-brown=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1106:
   fileName: BW16=dark-gray-support-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1107:
   fileName: BW16=dark-gray-support-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1108:
   fileName: BW16=dark-gray-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1109:
   fileName: BW16=red-support-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1110:
   fileName: BW16=red-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1111:
   fileName: BW16=mountain-wall-gray=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1112:
   fileName: BW16=lightgray-brick-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1113:
   fileName: BW16=interior-wall-red=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1114:
   fileName: BW16=dark-gray-support-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1115:
   fileName: BW16=dark-gray-support-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1116:
   fileName: BW16=dark-gray-support-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1117:
   fileName: BW16=dark-gray-support-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1118:
   fileName: BW16=dark-gray-support-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1119:
   fileName: BW16=dark-gray-support-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1120:
   fileName: BW16=dark-gray-support-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1121:
   fileName: BW16=dark-gray-support-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1122:
   fileName: BW16=grass-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1123:
   fileName: BW16=grass-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1124:
   fileName: BW16=grass-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1125:
   fileName: BW16=grass-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1126:
   fileName: BW16=grass-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1127:
   fileName: BW16=grass-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1128:
   fileName: BW16=grass-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1129:
   fileName: BW16=grass-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1130:
   fileName: BW16=grass-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1131:
   fileName: BW16=grass-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1132:
   fileName: BW16=grass-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1133:
   fileName: BW16=grass-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1134:
   fileName: BW16=grass-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1135:
   fileName: BW16=grass-wall=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1136:
   fileName: BW16=grass-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1137:
   fileName: BW16=gray-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1138:
   fileName: BW16=gray-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1139:
   fileName: BW16=gray-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1140:
   fileName: BW16=gray-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1141:
   fileName: BW16=gray-support-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1142:
   fileName: BW16=gray-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1143:
   fileName: BW16=gray-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1144:
   fileName: BW16=gray-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1145:
   fileName: BW16=gray-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1146:
   fileName: BW16=gray-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1147:
   fileName: BW16=gray-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1148:
   fileName: BW16=gray-support-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1149:
   fileName: BW16=gray-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1150:
   fileName: BW16=gray-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1151:
   fileName: BW16=gray-support-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1152:
   fileName: BW16=gray-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1153:
   fileName: BW16=gray-support-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1154:
   fileName: BW16=gray-support-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1155:
   fileName: BW16=gray-support-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1156:
   fileName: BW16=gray-support-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1157:
   fileName: BW16=gray-support-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1158:
   fileName: BW16=gray-support-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1159:
   fileName: BW16=gray-support-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1160:
   fileName: BW16=gray-support-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1161:
   fileName: BW16=gray-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1162:
   fileName: BW16=gray-support-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1163:
   fileName: BW16=gray-support-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1164:
   fileName: BW16=gray-support-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1165:
   fileName: BW16=interior-wall-blue=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1166:
   fileName: BW16=interior-wall-blue=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1167:
   fileName: BW16=interior-wall-blue=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1168:
   fileName: BW16=interior-wall-blue=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1169:
   fileName: BW16=interior-wall-blue=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1170:
   fileName: BW16=interior-wall-blue=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1171:
   fileName: BW16=interior-wall-blue=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1172:
   fileName: BW16=interior-wall-blue=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1173:
   fileName: BW16=interior-wall-blue=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1174:
   fileName: BW16=interior-wall-blue=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1175:
   fileName: BW16=interior-wall-blue=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1176:
   fileName: BW16=interior-wall-blue=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1177:
   fileName: BW16=interior-wall-blue=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1178:
   fileName: BW16=interior-wall-blue=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1179:
   fileName: BW16=interior-wall-brown=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1180:
   fileName: BW16=interior-wall-brown=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1181:
   fileName: BW16=interior-wall-brown=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1182:
   fileName: BW16=interior-wall-brown=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1183:
   fileName: BW16=interior-wall-brown=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1184:
   fileName: BW16=interior-wall-brown=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1185:
   fileName: BW16=interior-wall-brown=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1186:
   fileName: BW16=interior-wall-gray=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1187:
   fileName: BW16=interior-wall-brown=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1188:
   fileName: BW16=interior-wall-brown=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1189:
   fileName: BW16=interior-wall-brown=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1190:
   fileName: BW16=interior-wall-brown=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1191:
   fileName: BW16=interior-wall-brown=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1192:
   fileName: BW16=interior-wall-brown=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1193:
   fileName: BW16=interior-wall-brown=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1194:
   fileName: BW16=interior-wall-gray=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1195:
   fileName: BW16=interior-wall-gray=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1196:
   fileName: BW16=interior-wall-gray=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1197:
   fileName: BW16=interior-wall-gray=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1198:
   fileName: BW16=interior-wall-gray=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1199:
   fileName: BW16=interior-wall-gray=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1200:
   fileName: BW16=interior-wall-gray=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1201:
   fileName: BW16=interior-wall-gray=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1202:
   fileName: BW16=interior-wall-red=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1203:
   fileName: BW16=interior-wall-red=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1204:
   fileName: BW16=interior-wall-red=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1205:
   fileName: BW16=interior-wall-gray=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1206:
   fileName: BW16=interior-wall-gray=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1207:
   fileName: BW16=interior-wall-gray=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1208:
   fileName: BW16=interior-wall-gray=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1209:
   fileName: BW16=interior-wall-gray=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1210:
   fileName: BW16=interior-wall-red=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1211:
   fileName: BW16=interior-wall-red=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1212:
   fileName: BW16=interior-wall-red=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1213:
   fileName: BW16=interior-wall-red=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1214:
   fileName: BW16=interior-wall-red=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1215:
   fileName: BW16=interior-wall-red=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1216:
   fileName: BW16=interior-wall-red=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1217:
   fileName: BW16=interior-wall-red=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1218:
   fileName: BW16=lightgray-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1219:
   fileName: BW16=lightgray-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1220:
   fileName: BW16=lightgray-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1221:
   fileName: BW16=lightgray-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1222:
   fileName: BW16=lightgray-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1223:
   fileName: BW16=interior-wall-red=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1224:
   fileName: BW16=interior-wall-red=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1225:
   fileName: BW16=interior-wall-red=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1226:
   fileName: BW16=lightgray-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1227:
   fileName: BW16=lightgray-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1228:
   fileName: BW16=lightgray-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1229:
   fileName: BW16=lightgray-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1230:
   fileName: BW16=lightgray-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1231:
   fileName: BW16=lightgray-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1232:
   fileName: BW16=lightgray-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1233:
   fileName: BW16=lightgray-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1234:
   fileName: BW16=mountain-01=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1235:
   fileName: BW16=mountain-01=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1236:
   fileName: BW16=mountain-01=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1237:
   fileName: BW16=mountain-01=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1238:
   fileName: BW16=mountain-01=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1239:
   fileName: BW16=mountain-01=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1240:
   fileName: BW16=mountain-01=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1241:
   fileName: BW16=lightgray-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1242:
   fileName: BW16=mountain-01=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1243:
   fileName: BW16=mountain-01=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1244:
   fileName: BW16=mountain-01=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1245:
   fileName: BW16=mountain-01=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1246:
   fileName: BW16=mountain-01=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1247:
   fileName: BW16=mountain-01=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1248:
   fileName: BW16=mountain-01=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1249:
   fileName: BW16=mountain-04=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1250:
   fileName: BW16=mountain-03=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1251:
   fileName: BW16=mountain-02=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1252:
   fileName: BW16=mountain-02=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1253:
   fileName: BW16=mountain-03=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1254:
   fileName: BW16=mountain-02=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1255:
   fileName: BW16=mountain-02=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1256:
   fileName: BW16=mountain-02=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1257:
   fileName: BW16=mountain-01=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1258:
   fileName: BW16=mountain-02=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1259:
   fileName: BW16=mountain-02=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1260:
   fileName: BW16=mountain-02=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1261:
   fileName: BW16=mountain-02=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1262:
   fileName: BW16=mountain-03=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1263:
   fileName: BW16=mountain-02=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1264:
   fileName: BW16=mountain-03=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1265:
   fileName: BW16=mountain-02=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1266:
   fileName: BW16=mountain-03=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1267:
   fileName: BW16=mountain-03=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1268:
   fileName: BW16=mountain-03=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1269:
   fileName: BW16=mountain-02=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1270:
   fileName: BW16=mountain-03=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1271:
   fileName: BW16=mountain-02=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1272:
   fileName: BW16=mountain-02=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1273:
   fileName: BW16=mountain-02=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1274:
   fileName: BW16=mountain-03=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1275:
   fileName: BW16=mountain-03=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1276:
   fileName: BW16=mountain-03=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1277:
   fileName: BW16=mountain-03=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1278:
   fileName: BW16=mountain-03=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1279:
   fileName: BW16=mountain-03=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1280:
   fileName: BW16=mountain-03=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1281:
   fileName: BW16=mountain-04=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1282:
   fileName: BW16=mountain-04=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1283:
   fileName: BW16=mountain-04=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1284:
   fileName: BW16=mountain-04=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1285:
   fileName: BW16=mountain-04=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1286:
   fileName: BW16=mountain-04=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1287:
   fileName: BW16=mountain-04=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1288:
   fileName: BW16=mountain-04=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1289:
   fileName: BW16=mountain-04=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1290:
   fileName: BW16=mountain-04=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1291:
   fileName: BW16=mountain-04=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1292:
   fileName: BW16=mountain-04=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1293:
   fileName: BW16=mountain-04=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1294:
   fileName: BW16=mountain-04=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1295:
   fileName: BW16=mountain-05=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1296:
   fileName: BW16=mountain-05=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1297:
   fileName: BW16=mountain-05=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1298:
   fileName: BW16=mountain-05=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1299:
   fileName: BW16=mountain-05=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1300:
   fileName: BW16=mountain-05=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1301:
   fileName: BW16=mountain-05=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1302:
   fileName: BW16=mountain-07=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1303:
   fileName: BW16=mountain-06=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1304:
   fileName: BW16=mountain-05=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1305:
   fileName: BW16=mountain-05=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1306:
   fileName: BW16=mountain-05=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1307:
   fileName: BW16=mountain-06=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1308:
   fileName: BW16=mountain-07=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1309:
   fileName: BW16=mountain-05=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1310:
   fileName: BW16=mountain-05=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1311:
   fileName: BW16=mountain-05=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1312:
   fileName: BW16=mountain-05=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1313:
   fileName: BW16=mountain-06=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1314:
   fileName: BW16=mountain-07=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1315:
   fileName: BW16=mountain-06=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1316:
   fileName: BW16=mountain-06=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1317:
   fileName: BW16=mountain-06=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1318:
   fileName: BW16=mountain-07=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1319:
   fileName: BW16=mountain-06=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1320:
   fileName: BW16=mountain-05=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1321:
   fileName: BW16=mountain-07=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1322:
   fileName: BW16=mountain-06=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1323:
   fileName: BW16=mountain-07=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1324:
   fileName: BW16=mountain-06=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1325:
   fileName: BW16=mountain-06=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1326:
   fileName: BW16=mountain-06=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1327:
   fileName: BW16=mountain-07=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1328:
   fileName: BW16=mountain-06=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1329:
   fileName: BW16=mountain-07=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1330:
   fileName: BW16=mountain-07=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1331:
   fileName: BW16=mountain-07=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1332:
   fileName: BW16=mountain-07=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1333:
   fileName: BW16=mountain-07=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1334:
   fileName: BW16=mountain-06=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1335:
   fileName: BW16=mountain-07=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1336:
   fileName: BW16=mountain-06=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1337:
   fileName: BW16=mountain-06=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1338:
   fileName: BW16=mountain-07=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1339:
   fileName: BW16=mountain-07=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1340:
   fileName: BW16=mountain-wall-brown=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1341:
   fileName: BW16=mountain-wall-brown=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1342:
   fileName: BW16=mountain-wall-brown=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1343:
   fileName: BW16=mountain-wall-brown=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1344:
   fileName: BW16=mountain-wall-brown=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1345:
   fileName: BW16=mountain-wall-brown=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1346:
   fileName: BW16=mountain-wall-brown=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1347:
   fileName: BW16=mountain-wall-brown=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1348:
   fileName: BW16=mountain-wall-brown=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1349:
   fileName: BW16=mountain-wall-brown=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1350:
   fileName: BW16=mountain-wall-brown=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1351:
   fileName: BW16=mountain-wall-brown=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1352:
   fileName: BW16=mountain-wall-brown=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1353:
   fileName: BW16=mountain-wall-brown=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1354:
   fileName: BW16=mountain-wall-gray=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1355:
   fileName: BW16=mountain-wall-gray=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1356:
   fileName: BW16=mountain-wall-gray=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1357:
   fileName: BW16=mountain-wall-gray=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1358:
   fileName: BW16=mountain-wall-gray=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1359:
   fileName: BW16=mountain-wall-gray=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1360:
   fileName: BW16=mountain-wall-gray=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1361:
   fileName: BW16=mountain-wall-gray=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1362:
   fileName: BW16=red-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1363:
   fileName: BW16=red-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1364:
   fileName: BW16=mountain-wall-gray=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1365:
   fileName: BW16=mountain-wall-gray=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1366:
   fileName: BW16=mountain-wall-gray=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1367:
   fileName: BW16=mountain-wall-gray=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1368:
   fileName: BW16=mountain-wall-gray=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1369:
   fileName: BW16=mountain-wall-gray=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1370:
   fileName: BW16=red-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1371:
   fileName: BW16=red-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1372:
   fileName: BW16=red-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1373:
   fileName: BW16=red-support-brick-wall=127
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1374:
   fileName: BW16=red-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1375:
   fileName: BW16=red-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1376:
   fileName: BW16=red-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1377:
   fileName: BW16=red-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1378:
   fileName: BW16=red-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1379:
   fileName: BW16=red-support-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1380:
   fileName: BW16=red-brick-wall=254
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1381:
   fileName: BW16=red-support-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1382:
   fileName: BW16=red-brick-wall=251
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1383:
   fileName: BW16=red-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1384:
   fileName: BW16=red-support-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1385:
   fileName: BW16=red-brick-wall=223
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1386:
   fileName: BW16=red-support-brick-wall=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1387:
   fileName: BW16=red-support-brick-wall=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1388:
   fileName: BW16=red-support-brick-wall=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1389:
   fileName: BW16=red-support-brick-wall=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1390:
   fileName: BW16=red-support-brick-wall=126
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1391:
   fileName: BW16=red-support-brick-wall=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1392:
   fileName: BW16=red-support-brick-wall=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1393:
   fileName: BW16=red-support-brick-wall=219
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1394:
   fileName: BW16=red-support-brick-wall=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1395:
   fileName: BW16=red-support-brick-wall=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - WALLS
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: FOUR
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: FOUR
+      wangType: TYPE_48
 1396:
   fileName: BW16=wood-table=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1397:
   fileName: BW16=wood-table=66
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1398:
   fileName: BW16=wood-table=64
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1399:
   fileName: BW16=wood-table=31
   layerDefinition: GROUND
@@ -11939,252 +11939,252 @@
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1401:
   fileName: BW16=wood-table=10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1402:
   fileName: BW16=wood-table=18
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1403:
   fileName: BW16=wood-table=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1404:
   fileName: BW16=wood-table=24
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1405:
   fileName: BW16=wood-table=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1406:
   fileName: BW16=wood-table=80
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1407:
   fileName: BW16=wood-table=16
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1408:
   fileName: BW16=wood-table=2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1409:
   fileName: BW16=wood-table=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1410:
   fileName: BW16=wood-table=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1411:
   fileName: BW16=wood-table=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1412:
   fileName: BW16=wood-table=72
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1413:
   fileName: BW16=wood-table=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1414:
   fileName: BW16=wood-table=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1415:
   fileName: BW16=wood-table=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1416:
   fileName: BW16=smooth-wood-table=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1417:
   fileName: BW16=smooth-wood-table=66
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1418:
   fileName: BW16=smooth-wood-table=64
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1419:
   fileName: BW16=smooth-wood-table=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1420:
   fileName: BW16=smooth-wood-table=10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1421:
   fileName: BW16=smooth-wood-table=2
   layerDefinition: GROUND
@@ -12198,312 +12198,312 @@
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1423:
   fileName: BW16=smooth-wood-table=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1424:
   fileName: BW16=smooth-wood-table=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1425:
   fileName: BW16=smooth-wood-table=72
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1426:
   fileName: BW16=smooth-wood-table=24
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1427:
   fileName: BW16=smooth-wood-table=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1428:
   fileName: BW16=smooth-wood-table=18
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1429:
   fileName: BW16=smooth-wood-table=16
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1430:
   fileName: BW16=smooth-wood-table=80
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1431:
   fileName: BW16=smooth-wood-table=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1432:
   fileName: BW16=smooth-wood-table=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1433:
   fileName: BW16=smooth-wood-table=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1434:
   fileName: BW16=smooth-wood-table=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1435:
   fileName: BW16=smooth-wood-table=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1436:
   fileName: BW16=iron-table=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1437:
   fileName: BW16=iron-table=24
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1438:
   fileName: BW16=iron-table=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1439:
   fileName: BW16=iron-table=18
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1440:
   fileName: BW16=iron-table=10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1441:
   fileName: BW16=iron-table=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1442:
   fileName: BW16=iron-table=31
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1443:
   fileName: BW16=iron-table=64
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1444:
   fileName: BW16=iron-table=66
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1445:
   fileName: BW16=iron-table=72
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1446:
   fileName: BW16=iron-table=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1447:
   fileName: BW16=iron-table=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1448:
   fileName: BW16=iron-table=208
   layerDefinition: WORLD_OBJECTS
@@ -12511,60 +12511,60 @@
     - FURNITURE
     - KITCHEN
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1449:
   fileName: BW16=iron-table=2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1450:
   fileName: BW16=iron-table=16
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1451:
   fileName: BW16=iron-table=80
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1452:
   fileName: BW16=iron-table=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1453:
   fileName: panel-wall-04
   layerDefinition: WORLD_OBJECTS
@@ -12574,273 +12574,1260 @@
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1455:
   fileName: BW16=cloth-table=64
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1456:
   fileName: BW16=cloth-table=66
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1457:
   fileName: BW16=cloth-table=8
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1458:
   fileName: BW16=iron-table=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1459:
   fileName: BW16=iron-table=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1460:
   fileName: BW16=iron-table=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1461:
   fileName: BW16=cloth-table=255
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1462:
   fileName: BW16=cloth-table=10
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1463:
   fileName: BW16=cloth-table=18
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1464:
   fileName: BW16=cloth-table=248
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1465:
   fileName: BW16=cloth-table=24
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1466:
   fileName: BW16=cloth-table=72
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1467:
   fileName: BW16=cloth-table=22
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1468:
   fileName: BW16=cloth-table=214
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1469:
   fileName: BW16=cloth-table=0
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1470:
   fileName: BW16=cloth-table=104
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1471:
   fileName: BW16=cloth-table=107
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1472:
   fileName: BW16=cloth-table=11
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1473:
   fileName: BW16=cloth-table=80
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1474:
   fileName: BW16=cloth-table=16
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1475:
   fileName: BW16=cloth-table=2
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
 1476:
   fileName: BW16=cloth-table=208
   layerDefinition: WORLD_OBJECTS
   tagsList:
     - FURNITURE
   tileProperties:
-    WANG_TILE:
-      minimalBrushSize: ONE
-      wangType: TYPE_48
     COLLISION_BLOCK:
       collisionList:
         - true
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1477:
+  fileName: BW16=beach-water-frame-01=0
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1478:
+  fileName: BW16=beach-water-frame-01=10
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1479:
+  fileName: BW16=beach-water-frame-01=104
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1480:
+  fileName: BW16=beach-water-frame-01=106
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1481:
+  fileName: BW16=beach-water-frame-01=107
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1482:
+  fileName: BW16=beach-water-frame-01=11
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1483:
+  fileName: BW16=beach-water-frame-01=120
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1484:
+  fileName: BW16=beach-water-frame-01=122
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1485:
+  fileName: BW16=beach-water-frame-01=123
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1486:
+  fileName: BW16=beach-water-frame-01=126
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1487:
+  fileName: BW16=beach-water-frame-01=127
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1488:
+  fileName: BW16=beach-water-frame-01=16
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1489:
+  fileName: BW16=beach-water-frame-01=18
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1490:
+  fileName: BW16=beach-water-frame-01=2
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1491:
+  fileName: BW16=beach-water-frame-01=208
+  layerDefinition: GROUND_DECORATION
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1492:
+  fileName: BW16=beach-water-frame-01=210
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1493:
+  fileName: BW16=beach-water-frame-01=248
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1494:
+  fileName: BW16=beach-water-frame-01=250
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1495:
+  fileName: BW16=beach-water-frame-01=251
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1496:
+  fileName: BW16=beach-water-frame-01=254
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1497:
+  fileName: BW16=beach-water-frame-01=255
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1498:
+  fileName: BW16=beach-water-frame-01=26
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1499:
+  fileName: BW16=beach-water-frame-01=27
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1500:
+  fileName: BW16=beach-water-frame-01=30
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1501:
+  fileName: BW16=beach-water-frame-01=31
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1502:
+  fileName: BW16=beach-water-frame-01=64
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1503:
+  fileName: BW16=beach-water-frame-01=66
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1504:
+  fileName: BW16=beach-water-frame-01=72
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1505:
+  fileName: BW16=beach-water-frame-01=74
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1506:
+  fileName: BW16=beach-water-frame-01=75
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1507:
+  fileName: BW16=beach-water-frame-01=8
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1508:
+  fileName: BW16=beach-water-frame-01=80
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1509:
+  fileName: BW16=beach-water-frame-01=82
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1510:
+  fileName: BW16=beach-water-frame-01=86
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1511:
+  fileName: BW16=beach-water-frame-01=88
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1512:
+  fileName: BW16=beach-water-frame-01=90
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1513:
+  fileName: BW16=beach-water-frame-01=91
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1514:
+  fileName: BW16=beach-water-frame-01=94
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1515:
+  fileName: BW16=beach-water-frame-01=95
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1516:
+  fileName: BW16=beach-water-frame-02=0
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1517:
+  fileName: BW16=beach-water-frame-02=10
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1518:
+  fileName: BW16=beach-water-frame-02=104
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1519:
+  fileName: BW16=beach-water-frame-02=106
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1520:
+  fileName: BW16=beach-water-frame-02=107
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1521:
+  fileName: BW16=beach-water-frame-02=11
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1522:
+  fileName: BW16=beach-water-frame-02=120
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1523:
+  fileName: BW16=beach-water-frame-02=122
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1524:
+  fileName: BW16=beach-water-frame-02=123
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1525:
+  fileName: BW16=beach-water-frame-02=126
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1526:
+  fileName: BW16=beach-water-frame-02=127
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1527:
+  fileName: BW16=beach-water-frame-02=16
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1528:
+  fileName: BW16=beach-water-frame-02=18
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1529:
+  fileName: BW16=beach-water-frame-02=2
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1530:
+  fileName: BW16=beach-water-frame-02=208
+  layerDefinition: GROUND_DECORATION
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1531:
+  fileName: BW16=beach-water-frame-02=210
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1532:
+  fileName: BW16=beach-water-frame-02=214
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1533:
+  fileName: BW16=beach-water-frame-02=216
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1534:
+  fileName: BW16=beach-water-frame-02=218
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1535:
+  fileName: BW16=beach-water-frame-02=219
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1536:
+  fileName: BW16=beach-water-frame-02=22
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1537:
+  fileName: BW16=beach-water-frame-02=222
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1538:
+  fileName: BW16=beach-water-frame-02=223
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1539:
+  fileName: BW16=beach-water-frame-02=24
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1540:
+  fileName: BW16=beach-water-frame-02=248
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1541:
+  fileName: BW16=beach-water-frame-02=250
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1542:
+  fileName: BW16=beach-water-frame-02=251
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1543:
+  fileName: BW16=beach-water-frame-02=254
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1544:
+  fileName: BW16=beach-water-frame-02=255
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1545:
+  fileName: BW16=beach-water-frame-02=26
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1546:
+  fileName: BW16=beach-water-frame-02=27
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1547:
+  fileName: BW16=beach-water-frame-02=30
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1548:
+  fileName: BW16=beach-water-frame-02=31
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1549:
+  fileName: BW16=beach-water-frame-02=64
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1550:
+  fileName: BW16=beach-water-frame-02=72
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1551:
+  fileName: BW16=beach-water-frame-02=74
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1552:
+  fileName: BW16=beach-water-frame-02=75
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1553:
+  fileName: BW16=beach-water-frame-02=8
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1554:
+  fileName: BW16=beach-water-frame-02=80
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1555:
+  fileName: BW16=beach-water-frame-02=82
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1556:
+  fileName: BW16=beach-water-frame-02=86
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1557:
+  fileName: BW16=beach-water-frame-02=88
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1558:
+  fileName: BW16=beach-water-frame-02=90
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1559:
+  fileName: BW16=beach-water-frame-02=91
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1560:
+  fileName: BW16=beach-water-frame-02=94
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1561:
+  fileName: BW16=beach-water-frame-02=95
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1562:
+  fileName: BW16=beach-water-frame-03=0
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1563:
+  fileName: BW16=beach-water-frame-03=10
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1564:
+  fileName: BW16=beach-water-frame-03=104
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1565:
+  fileName: BW16=beach-water-frame-03=106
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1566:
+  fileName: BW16=beach-water-frame-03=107
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1567:
+  fileName: BW16=beach-water-frame-03=11
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1568:
+  fileName: BW16=beach-water-frame-03=120
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1569:
+  fileName: BW16=beach-water-frame-03=122
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1570:
+  fileName: BW16=beach-water-frame-03=123
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1571:
+  fileName: BW16=beach-water-frame-03=126
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1572:
+  fileName: BW16=beach-water-frame-03=127
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1573:
+  fileName: BW16=beach-water-frame-03=16
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1574:
+  fileName: BW16=beach-water-frame-03=18
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1575:
+  fileName: BW16=beach-water-frame-03=2
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1576:
+  fileName: BW16=beach-water-frame-03=208
+  layerDefinition: GROUND_DECORATION
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1577:
+  fileName: BW16=beach-water-frame-03=210
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1578:
+  fileName: BW16=beach-water-frame-03=214
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1579:
+  fileName: BW16=beach-water-frame-03=216
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1580:
+  fileName: BW16=beach-water-frame-03=218
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1581:
+  fileName: BW16=beach-water-frame-03=219
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1582:
+  fileName: BW16=beach-water-frame-03=22
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1583:
+  fileName: BW16=beach-water-frame-03=222
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1584:
+  fileName: BW16=beach-water-frame-03=223
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1585:
+  fileName: BW16=beach-water-frame-03=24
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1586:
+  fileName: BW16=beach-water-frame-03=248
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1587:
+  fileName: BW16=beach-water-frame-03=250
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1588:
+  fileName: BW16=beach-water-frame-03=251
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1589:
+  fileName: BW16=beach-water-frame-03=254
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1590:
+  fileName: BW16=beach-water-frame-03=255
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1591:
+  fileName: BW16=beach-water-frame-03=26
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1592:
+  fileName: BW16=beach-water-frame-03=27
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1593:
+  fileName: BW16=beach-water-frame-03=30
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1594:
+  fileName: BW16=beach-water-frame-03=31
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1595:
+  fileName: BW16=beach-water-frame-03=64
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1596:
+  fileName: BW16=beach-water-frame-03=66
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1597:
+  fileName: BW16=beach-water-frame-03=72
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1598:
+  fileName: BW16=beach-water-frame-03=74
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1599:
+  fileName: BW16=beach-water-frame-03=75
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1600:
+  fileName: BW16=beach-water-frame-03=8
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1601:
+  fileName: BW16=beach-water-frame-03=80
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1602:
+  fileName: BW16=beach-water-frame-03=82
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1603:
+  fileName: BW16=beach-water-frame-03=86
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1604:
+  fileName: BW16=beach-water-frame-03=88
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1605:
+  fileName: BW16=beach-water-frame-03=90
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1606:
+  fileName: BW16=beach-water-frame-03=91
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1607:
+  fileName: BW16=beach-water-frame-03=94
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1608:
+  fileName: BW16=beach-water-frame-03=95
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1609:
+  fileName: BW16=beach-water-frame-02=66
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1610:
+  fileName: BW16=beach-water-frame-01=214
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1611:
+  fileName: BW16=beach-water-frame-01=216
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1612:
+  fileName: BW16=beach-water-frame-01=218
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1613:
+  fileName: BW16=beach-water-frame-01=219
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1614:
+  fileName: BW16=beach-water-frame-01=22
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1615:
+  fileName: BW16=beach-water-frame-01=222
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1616:
+  fileName: BW16=beach-water-frame-01=223
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
+1617:
+  fileName: BW16=beach-water-frame-01=24
+  layerDefinition: GROUND
+  tileProperties:
+    WANG_TILE:
+      minimalBrushSize: ONE
+      wangType: TYPE_48
