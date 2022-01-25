@@ -12,6 +12,7 @@ import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
+import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.game.world.maps.tile.TileAnimation;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
