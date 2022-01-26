@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.animations.ColoredTextureRegion;
 import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
+import com.forgestorm.shared.util.RandomNumberUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -413,6 +415,7 @@ public class HumanAnimation extends EntityAnimation {
     }
 
     private List<ColoredTextureRegion> actIdleWest(List<ColoredTextureRegion> frameList, boolean maxTimeReached, float stateTime) {
+
         if (maxTimeReached) {
             if (showLeftHand)
                 frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 2, 2, 8, 8));
@@ -578,8 +581,30 @@ public class HumanAnimation extends EntityAnimation {
         }
     }
 
+    private boolean frameFinished = true;
+    private int lastPlayedSound = 30;
+
+    private void playWalkSound(Animation<TextureRegion> shoesOn, Animation<TextureRegion> shoesOff, float stateTime) {
+
+        int currentKeyFrame = -1; // key frame will never be -1. Start here to avoid bugs...
+
+        if (shoesOn != null) currentKeyFrame = shoesOn.getKeyFrameIndex(stateTime);
+        if (shoesOff != null) currentKeyFrame = shoesOff.getKeyFrameIndex(stateTime);
+
+        if (currentKeyFrame == 0 || currentKeyFrame == 2) {
+            if (!frameFinished) return;
+            short runSound = (short) RandomNumberUtil.getNewRandom(21, 30);
+            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HumanAnimation.class, (short) runSound);
+            System.out.println("Playing Sound File: " + runSound);
+            frameFinished = false;
+        } else {
+            frameFinished = true;
+        }
+    }
+
     @Override
     protected List<ColoredTextureRegion> actMoveNorth(float stateTime) {
+        playWalkSound(shoesUp, shoesUpNaked, stateTime);
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
         if (showLeftHand)
@@ -612,6 +637,7 @@ public class HumanAnimation extends EntityAnimation {
 
     @Override
     protected List<ColoredTextureRegion> actMoveSouth(float stateTime) {
+        playWalkSound(shoesDown, shoesDownNaked, stateTime);
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
         frameList.add(getColorTextureRegion(bodyBorderDown, stateTime, true, appearance.getBorderColor(), 0));
@@ -644,6 +670,7 @@ public class HumanAnimation extends EntityAnimation {
 
     @Override
     protected List<ColoredTextureRegion> actMoveWest(float stateTime) {
+        playWalkSound(shoesLeft, shoesLeftNaked, stateTime);
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
         if (showLeftHand)
@@ -676,6 +703,7 @@ public class HumanAnimation extends EntityAnimation {
 
     @Override
     protected List<ColoredTextureRegion> actMoveEast(float stateTime) {
+        playWalkSound(shoesRight, shoesRightNaked, stateTime);
         List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
 
         if (showRightHand)

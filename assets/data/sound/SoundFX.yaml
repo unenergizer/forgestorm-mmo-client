@@ -61,4 +61,33 @@
 20:
   fileName: "door/door_creak_short_05.wav"
   description: "Wooden door open"
- 
+21:
+  fileName: "footsteps/footstep_grass_run_01.wav"
+  description: "Footsteps grass run 01"
+22:
+  fileName: "footsteps/footstep_grass_run_02.wav"
+  description: "Footsteps grass run 02"
+23:
+  fileName: "footsteps/footstep_grass_run_03.wav"
+  description: "Footsteps grass run 03"
+24:
+  fileName: "footsteps/footstep_grass_run_04.wav"
+  description: "Footsteps grass run 04"
+25:
+  fileName: "footsteps/footstep_grass_run_05.wav"
+  description: "Footsteps grass run 05"
+26:
+  fileName: "footsteps/footstep_grass_run_06.wav"
+  description: "Footsteps grass run 06"
+27:
+  fileName: "footsteps/footstep_grass_run_07.wav"
+  description: "Footsteps grass run 07"
+28:
+  fileName: "footsteps/footstep_grass_run_08.wav"
+  description: "Footsteps grass run 08"
+29:
+  fileName: "footsteps/footstep_grass_run_09.wav"
+  description: "Footsteps grass run 09"
+30:
+  fileName: "footsteps/footstep_grass_run_10.wav"
+  description: "Footsteps grass run 10"

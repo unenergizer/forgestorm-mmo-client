@@ -9,6 +9,7 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.MovingEntity;
+import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.List;
