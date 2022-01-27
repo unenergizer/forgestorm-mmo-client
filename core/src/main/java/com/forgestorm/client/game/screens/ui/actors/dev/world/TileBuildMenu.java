@@ -440,6 +440,10 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
             VisTable moduloTable = null;
             for (final TileImage tileImage : worldBuilder.getTileImageMap().values()) {
 
+                if (tileImage.getFileName().contains("BW16=beach-water-frame-01=208")) {
+                    System.out.println("FOUND IT??");
+                }
+
                 // Sort by tag
                 if (sortByTag) if (!tileImage.containsTag(tag)) continue;
 

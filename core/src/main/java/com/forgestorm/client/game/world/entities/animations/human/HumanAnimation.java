@@ -8,7 +8,6 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.animations.ColoredTextureRegion;
 import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
-import com.forgestorm.shared.util.RandomNumberUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,90 +186,90 @@ public class HumanAnimation extends EntityAnimation {
     }
 
     private void loadEyes(TextureAtlas textureAtlas) {
-        eyesDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("eyes_down"), Animation.PlayMode.LOOP);
-        eyesLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("eyes_left"), Animation.PlayMode.LOOP);
-        eyesRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("eyes_right"), Animation.PlayMode.LOOP);
+        eyesDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("eyes_down"), Animation.PlayMode.LOOP);
+        eyesLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("eyes_left"), Animation.PlayMode.LOOP);
+        eyesRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("eyes_right"), Animation.PlayMode.LOOP);
     }
 
     public void loadHair(TextureAtlas textureAtlas, short hairId) {
-        hairDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_down_" + hairId), Animation.PlayMode.LOOP);
-        hairUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_up_" + hairId), Animation.PlayMode.LOOP);
-        hairLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_left_" + hairId), Animation.PlayMode.LOOP);
-        hairRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_right_" + hairId), Animation.PlayMode.LOOP);
+        hairDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_down_" + hairId), Animation.PlayMode.LOOP);
+        hairUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_up_" + hairId), Animation.PlayMode.LOOP);
+        hairLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_left_" + hairId), Animation.PlayMode.LOOP);
+        hairRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_right_" + hairId), Animation.PlayMode.LOOP);
 
-        hairDownBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_down_" + hairId), Animation.PlayMode.LOOP);
-        hairUpBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_up_" + hairId), Animation.PlayMode.LOOP);
-        hairLeftBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_left_" + hairId), Animation.PlayMode.LOOP);
-        hairRightBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_right_" + hairId), Animation.PlayMode.LOOP);
+        hairDownBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_down_" + hairId), Animation.PlayMode.LOOP);
+        hairUpBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_up_" + hairId), Animation.PlayMode.LOOP);
+        hairLeftBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_left_" + hairId), Animation.PlayMode.LOOP);
+        hairRightBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("hair_border_right_" + hairId), Animation.PlayMode.LOOP);
     }
 
     public void loadHelm(TextureAtlas textureAtlas, short helmId) {
-        helmDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_down_" + helmId), Animation.PlayMode.LOOP);
-        helmUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_up_" + helmId), Animation.PlayMode.LOOP);
-        helmLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_left_" + helmId), Animation.PlayMode.LOOP);
-        helmRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_right_" + helmId), Animation.PlayMode.LOOP);
+        helmDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_down_" + helmId), Animation.PlayMode.LOOP);
+        helmUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_up_" + helmId), Animation.PlayMode.LOOP);
+        helmLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_left_" + helmId), Animation.PlayMode.LOOP);
+        helmRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_right_" + helmId), Animation.PlayMode.LOOP);
 
-        helmDownBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_down_" + helmId), Animation.PlayMode.LOOP);
-        helmUpBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_up_" + helmId), Animation.PlayMode.LOOP);
-        helmLeftBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_left_" + helmId), Animation.PlayMode.LOOP);
-        helmRightBorder = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_right_" + helmId), Animation.PlayMode.LOOP);
+        helmDownBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_down_" + helmId), Animation.PlayMode.LOOP);
+        helmUpBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_up_" + helmId), Animation.PlayMode.LOOP);
+        helmLeftBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_left_" + helmId), Animation.PlayMode.LOOP);
+        helmRightBorder = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("helm_border_right_" + helmId), Animation.PlayMode.LOOP);
     }
 
     public void loadChest(TextureAtlas textureAtlas, short chestId) {
-        chestDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_down_" + chestId), Animation.PlayMode.LOOP);
-        chestUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_up_" + chestId), Animation.PlayMode.LOOP);
-        chestLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_left_" + chestId), Animation.PlayMode.LOOP);
-        chestRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_right_" + chestId), Animation.PlayMode.LOOP);
+        chestDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_down_" + chestId), Animation.PlayMode.LOOP);
+        chestUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_up_" + chestId), Animation.PlayMode.LOOP);
+        chestLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_left_" + chestId), Animation.PlayMode.LOOP);
+        chestRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_right_" + chestId), Animation.PlayMode.LOOP);
     }
 
     public void loadPants(TextureAtlas textureAtlas, short pantsId) {
-        pantsDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_down_" + pantsId), Animation.PlayMode.LOOP);
-        pantsUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_up_" + pantsId), Animation.PlayMode.LOOP);
-        pantsLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_left_" + pantsId), Animation.PlayMode.LOOP);
-        pantsRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_right_" + pantsId), Animation.PlayMode.LOOP);
+        pantsDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_down_" + pantsId), Animation.PlayMode.LOOP);
+        pantsUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_up_" + pantsId), Animation.PlayMode.LOOP);
+        pantsLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_left_" + pantsId), Animation.PlayMode.LOOP);
+        pantsRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_right_" + pantsId), Animation.PlayMode.LOOP);
     }
 
     public void loadShoes(TextureAtlas textureAtlas, short shoesId) {
-        shoesDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_down_" + shoesId), Animation.PlayMode.LOOP);
-        shoesUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_up_" + shoesId), Animation.PlayMode.LOOP);
-        shoesLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_left_" + shoesId), Animation.PlayMode.LOOP);
-        shoesRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_right_" + shoesId), Animation.PlayMode.LOOP);
+        shoesDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_down_" + shoesId), Animation.PlayMode.LOOP);
+        shoesUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_up_" + shoesId), Animation.PlayMode.LOOP);
+        shoesLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_left_" + shoesId), Animation.PlayMode.LOOP);
+        shoesRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_right_" + shoesId), Animation.PlayMode.LOOP);
     }
 
     private void loadGloves(TextureAtlas textureAtlas) {
-        glovesDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_down"), Animation.PlayMode.LOOP);
-        glovesUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_up"), Animation.PlayMode.LOOP);
-        glovesLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_left"), Animation.PlayMode.LOOP);
-        glovesRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("gloves_right"), Animation.PlayMode.LOOP);
+        glovesDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("gloves_down"), Animation.PlayMode.LOOP);
+        glovesUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("gloves_up"), Animation.PlayMode.LOOP);
+        glovesLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("gloves_left"), Animation.PlayMode.LOOP);
+        glovesRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("gloves_right"), Animation.PlayMode.LOOP);
     }
 
     private void loadNakedParts(TextureAtlas textureAtlas) {
-        headDownNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_down_naked"), Animation.PlayMode.LOOP);
-        headUpNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_up_naked"), Animation.PlayMode.LOOP);
-        headLeftNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_left_naked"), Animation.PlayMode.LOOP);
-        headRightNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("head_right_naked"), Animation.PlayMode.LOOP);
+        headDownNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("head_down_naked"), Animation.PlayMode.LOOP);
+        headUpNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("head_up_naked"), Animation.PlayMode.LOOP);
+        headLeftNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("head_left_naked"), Animation.PlayMode.LOOP);
+        headRightNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("head_right_naked"), Animation.PlayMode.LOOP);
 
-        chestDownNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_down_naked"), Animation.PlayMode.LOOP);
-        chestUpNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_up_naked"), Animation.PlayMode.LOOP);
-        chestLeftNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_left_naked"), Animation.PlayMode.LOOP);
-        chestRightNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("chest_right_naked"), Animation.PlayMode.LOOP);
+        chestDownNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_down_naked"), Animation.PlayMode.LOOP);
+        chestUpNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_up_naked"), Animation.PlayMode.LOOP);
+        chestLeftNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_left_naked"), Animation.PlayMode.LOOP);
+        chestRightNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("chest_right_naked"), Animation.PlayMode.LOOP);
 
-        pantsDownNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_down_naked"), Animation.PlayMode.LOOP);
-        pantsUpNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_up_naked"), Animation.PlayMode.LOOP);
-        pantsLeftNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_left_naked"), Animation.PlayMode.LOOP);
-        pantsRightNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("pants_right_naked"), Animation.PlayMode.LOOP);
+        pantsDownNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_down_naked"), Animation.PlayMode.LOOP);
+        pantsUpNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_up_naked"), Animation.PlayMode.LOOP);
+        pantsLeftNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_left_naked"), Animation.PlayMode.LOOP);
+        pantsRightNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("pants_right_naked"), Animation.PlayMode.LOOP);
 
-        shoesDownNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_down_naked"), Animation.PlayMode.LOOP);
-        shoesUpNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_up_naked"), Animation.PlayMode.LOOP);
-        shoesLeftNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_left_naked"), Animation.PlayMode.LOOP);
-        shoesRightNaked = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("shoes_right_naked"), Animation.PlayMode.LOOP);
+        shoesDownNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_down_naked"), Animation.PlayMode.LOOP);
+        shoesUpNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_up_naked"), Animation.PlayMode.LOOP);
+        shoesLeftNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_left_naked"), Animation.PlayMode.LOOP);
+        shoesRightNaked = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("shoes_right_naked"), Animation.PlayMode.LOOP);
     }
 
     private void loadBorder(TextureAtlas textureAtlas) {
-        bodyBorderDown = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_down_border"), Animation.PlayMode.LOOP);
-        bodyBorderUp = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_up_border"), Animation.PlayMode.LOOP);
-        bodyBorderLeft = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_left_border"), Animation.PlayMode.LOOP);
-        bodyBorderRight = new Animation<TextureRegion>(WALK_INTERVAL, textureAtlas.findRegions("body_right_border"), Animation.PlayMode.LOOP);
+        bodyBorderDown = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("body_down_border"), Animation.PlayMode.LOOP);
+        bodyBorderUp = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("body_up_border"), Animation.PlayMode.LOOP);
+        bodyBorderLeft = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("body_left_border"), Animation.PlayMode.LOOP);
+        bodyBorderRight = new Animation<>(WALK_INTERVAL, textureAtlas.findRegions("body_right_border"), Animation.PlayMode.LOOP);
     }
 
     public void loadLeftHand(TextureAtlas textureAtlas, short itemId) {
@@ -551,7 +550,7 @@ public class HumanAnimation extends EntityAnimation {
 
     @Override
     protected List<ColoredTextureRegion> actIdle(float stateTime) {
-        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        List<ColoredTextureRegion> frameList = new ArrayList<>();
 
         boolean maxTimeReached = idleAnimationWaitTime >= idleAnimationWaitMax;
 
@@ -582,7 +581,6 @@ public class HumanAnimation extends EntityAnimation {
     }
 
     private boolean frameFinished = true;
-    private int lastPlayedSound = 30;
 
     private void playWalkSound(Animation<TextureRegion> shoesOn, Animation<TextureRegion> shoesOff, float stateTime) {
 
@@ -593,9 +591,7 @@ public class HumanAnimation extends EntityAnimation {
 
         if (currentKeyFrame == 0 || currentKeyFrame == 2) {
             if (!frameFinished) return;
-            short runSound = (short) RandomNumberUtil.getNewRandom(21, 30);
-            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HumanAnimation.class, (short) runSound);
-            System.out.println("Playing Sound File: " + runSound);
+            ClientMain.getInstance().getAudioManager().getSoundManager().playWalkSound(this.getClass());
             frameFinished = false;
         } else {
             frameFinished = true;
@@ -605,7 +601,7 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     protected List<ColoredTextureRegion> actMoveNorth(float stateTime) {
         playWalkSound(shoesUp, shoesUpNaked, stateTime);
-        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        List<ColoredTextureRegion> frameList = new ArrayList<>();
 
         if (showLeftHand)
             frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 10, 1, 8, 8));
@@ -638,7 +634,7 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     protected List<ColoredTextureRegion> actMoveSouth(float stateTime) {
         playWalkSound(shoesDown, shoesDownNaked, stateTime);
-        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        List<ColoredTextureRegion> frameList = new ArrayList<>();
 
         frameList.add(getColorTextureRegion(bodyBorderDown, stateTime, true, appearance.getBorderColor(), 0));
         frameList.add(getColorTextureRegion(headDownNaked, stateTime, true, appearance.getSkinColor(), 0));
@@ -671,7 +667,7 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     protected List<ColoredTextureRegion> actMoveWest(float stateTime) {
         playWalkSound(shoesLeft, shoesLeftNaked, stateTime);
-        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        List<ColoredTextureRegion> frameList = new ArrayList<>();
 
         if (showLeftHand)
             frameList.add(getColoredTextureRegion(leftHandItem, Color.WHITE, 2, 2, 8, 8));
@@ -704,7 +700,7 @@ public class HumanAnimation extends EntityAnimation {
     @Override
     protected List<ColoredTextureRegion> actMoveEast(float stateTime) {
         playWalkSound(shoesRight, shoesRightNaked, stateTime);
-        List<ColoredTextureRegion> frameList = new ArrayList<ColoredTextureRegion>();
+        List<ColoredTextureRegion> frameList = new ArrayList<>();
 
         if (showRightHand)
             frameList.add(getColoredTextureRegion(rightHandItem, Color.WHITE, 6, 2, 8, 8));

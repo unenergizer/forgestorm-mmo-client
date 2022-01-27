@@ -58,11 +58,15 @@ public class TileWalkOverSoundProperty extends AbstractTileProperty {
         return this;
     }
 
-    enum TileWalkSound {
+    public enum TileWalkSound {
         NONE,
         BRICK,
+        DIRT,
         GRASS,
+        GRAVEL,
         SAND,
-        STONE
+        STONE,
+        WATER_SHALLOW,
+        WATER_DEEP,
     }
 }

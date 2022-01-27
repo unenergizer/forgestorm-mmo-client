@@ -13,6 +13,7 @@ import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileAnimation;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
+import com.forgestorm.client.game.world.maps.tile.properties.TileWalkOverSoundProperty;
 import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
 import com.forgestorm.client.game.world.maps.tile.wang.WangTile16Bit;
 import com.forgestorm.client.game.world.maps.tile.wang.WangTile4Bit;
@@ -34,7 +35,7 @@ import lombok.Setter;
 @Getter
 public class WorldBuilder {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     private final Map<Integer, TileAnimation> tileAnimationMap;
     private final WangTile4Bit wangTile16 = new WangTile4Bit();
@@ -144,7 +145,6 @@ public class WorldBuilder {
     }
 
     private void parseWangTiles() {
-
         int wangId = 0;
         for (TileImage tileImage : tileImageMap.values()) {
             if (tileImage.getFileName().startsWith(WangType.TYPE_16.getPrefix()) || tileImage.getFileName().startsWith(WangType.TYPE_48.getPrefix())) {
@@ -174,20 +174,33 @@ public class WorldBuilder {
                     println(getClass(), "Setting wang tile: " + tileImage.getFileName(), false, PRINT_DEBUG);
                     if (PRINT_DEBUG) wangTileProperty.printDebug(getClass());
 
-                    println(getClass(), "Applying these properties to:", false, PRINT_DEBUG);
+                    println(getClass(), "Applying wang properties to:", false, PRINT_DEBUG);
                     applyWangIdNumberToTiles(wangTileProperty);
+
+
+                    if (tileImage.containsProperty(TilePropertyTypes.WALK_OVER_SOUND)) {
+                        TileWalkOverSoundProperty tileWalkOverSoundProperty = (TileWalkOverSoundProperty) tileImage.getProperty(TilePropertyTypes.WALK_OVER_SOUND);
+                        println(getClass(), "Applying sound properties to" + tileWalkOverSoundProperty.getTileWalkSound() + " sound to: ", false, PRINT_DEBUG);
+                        applyWalkingSounds(wangRegionNamePrefix, tileWalkOverSoundProperty);
+                    }
+
                     wangId++;
                 }
             }
         }
     }
 
-    public void applyWangIdNumberToTiles(WangTileProperty wangTileProperty) {
+    /**
+     * This will apply the current wang property to other wang tiles with the same name prefix.
+     *
+     * @param wangTileProperty The property we intend to copy.
+     */
+    private void applyWangIdNumberToTiles(WangTileProperty wangTileProperty) {
         for (TileImage tileImage : tileImageMap.values()) {
             if (!tileImage.getFileName().contains(wangTileProperty.getWangRegionNamePrefix()))
                 continue;
             if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
-                println(getClass(), "POSSIBLE WANG TILE FOUND BUT IT HAS NO WANG TILE PROPERTY? " + tileImage.getFileName(), true, PRINT_DEBUG);
+                println(getClass(), "[WANG] POSSIBLE WANG TILE FOUND BUT IT HAS NO WANG TILE PROPERTY? " + tileImage.getFileName(), true, PRINT_DEBUG);
                 continue;
             }
             println(getClass(), " -> " + tileImage.getFileName(), false, PRINT_DEBUG);
@@ -196,6 +209,28 @@ public class WorldBuilder {
             wangTilePropertyToUpdate.setWangRegionNamePrefix(wangTileProperty.getWangRegionNamePrefix());
             wangTilePropertyToUpdate.setWangType(wangTileProperty.getWangType());
             wangTilePropertyToUpdate.setMinimalBrushSize(wangTileProperty.getMinimalBrushSize());
+        }
+    }
+
+    /**
+     * This will apply any applied walk over sound from the default wang tile to each wang tile
+     * in a wang tile set.
+     *
+     * @param wangRegionNamePrefix      The prefix name to look for in the loop below
+     * @param tileWalkOverSoundProperty The sound properties we intend to copy
+     */
+    private void applyWalkingSounds(String wangRegionNamePrefix, TileWalkOverSoundProperty tileWalkOverSoundProperty) {
+        for (TileImage tileImage : tileImageMap.values()) {
+            if (!tileImage.getFileName().contains(wangRegionNamePrefix))
+                continue;
+            if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
+                println(getClass(), "[WALK OVER SOUND] POSSIBLE WANG TILE FOUND BUT IT HAS NO WANG TILE PROPERTY? " + tileImage.getFileName(), true, PRINT_DEBUG);
+                continue;
+            }
+            println(getClass(), " -> " + tileImage.getFileName(), false, PRINT_DEBUG);
+            TileWalkOverSoundProperty walkOverSoundProperty = new TileWalkOverSoundProperty();
+            walkOverSoundProperty.setTileWalkSound(tileWalkOverSoundProperty.getTileWalkSound());
+            tileImage.setCustomTileProperty(walkOverSoundProperty);
         }
     }
 

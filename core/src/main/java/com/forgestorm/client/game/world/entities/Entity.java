@@ -5,6 +5,8 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
+import com.forgestorm.client.game.world.maps.tile.Tile;
+import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,5 +48,13 @@ public class Entity extends WorldObject {
 
     public GameWorld getGameMap() {
         return ClientMain.getInstance().getWorldManager().getGameWorld(worldName);
+    }
+
+    public Tile getGroundTile() {
+         return getGameMap().getTile(
+                 LayerDefinition.GROUND,
+                 currentMapLocation.getX(),
+                 currentMapLocation.getY(),
+                 currentMapLocation.getZ());
     }
 }

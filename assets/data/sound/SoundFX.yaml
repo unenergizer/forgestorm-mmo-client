@@ -91,3 +91,153 @@
 30:
   fileName: "footsteps/footstep_grass_run_10.wav"
   description: "Footsteps grass run 10"
+31:
+  fileName: "footsteps/footstep_dirt_land_01.wav"
+  description: "Footsteps dirt land 01"
+32:
+  fileName: "footsteps/footstep_dirt_land_02.wav"
+  description: "Footsteps dirt land 02"
+33:
+  fileName: "footsteps/footstep_dirt_land_03.wav"
+  description: "Footsteps dirt land 03"
+34:
+  fileName: "footsteps/footstep_dirt_land_04.wav"
+  description: "Footsteps dirt land 04"
+35:
+  fileName: "footsteps/footstep_dirt_land_05.wav"
+  description: "Footsteps dirt land 05"
+36:
+  fileName: "footsteps/footstep_dirt_land_06.wav"
+  description: "Footsteps dirt land 06"
+37:
+  fileName: "footsteps/footstep_dirt_land_07.wav"
+  description: "Footsteps dirt land 07"
+38:
+  fileName: "footsteps/footstep_dirt_land_08.wav"
+  description: "Footsteps dirt land 08"
+39:
+  fileName: "footsteps/footstep_dirt_land_09.wav"
+  description: "Footsteps dirt land 09"
+40:
+  fileName: "footsteps/footstep_dirt_land_10.wav"
+  description: "Footsteps dirt land 10"
+41:
+  fileName: "footsteps/footstep_sand_walk_01.wav"
+  description: "Footsteps sand walk 01"
+42:
+  fileName: "footsteps/footstep_sand_walk_02.wav"
+  description: "Footsteps sand walk 02"
+43:
+  fileName: "footsteps/footstep_sand_walk_03.wav"
+  description: "Footsteps sand walk 03"
+44:
+  fileName: "footsteps/footstep_sand_walk_04.wav"
+  description: "Footsteps sand walk 04"
+45:
+  fileName: "footsteps/footstep_sand_walk_05.wav"
+  description: "Footsteps sand walk 05"
+46:
+  fileName: "footsteps/footstep_sand_walk_06.wav"
+  description: "Footsteps sand walk 06"
+47:
+  fileName: "footsteps/footstep_sand_walk_07.wav"
+  description: "Footsteps sand walk 07"
+48:
+  fileName: "footsteps/footstep_sand_walk_08.wav"
+  description: "Footsteps sand walk 08"
+49:
+  fileName: "footsteps/footstep_sand_walk_09.wav"
+  description: "Footsteps sand walk 09"
+50:
+  fileName: "footsteps/footstep_sand_walk_10.wav"
+  description: "Footsteps sand walk 10"
+51:
+  fileName: "footsteps/footstep_concrete_walk_01.wav"
+  description: "Footsteps concrete walk 01"
+52:
+  fileName: "footsteps/footstep_concrete_walk_02.wav"
+  description: "Footsteps concrete walk 02"
+53:
+  fileName: "footsteps/footstep_concrete_walk_03.wav"
+  description: "Footsteps concrete walk 03"
+54:
+  fileName: "footsteps/footstep_concrete_walk_04.wav"
+  description: "Footsteps concrete walk 04"
+55:
+  fileName: "footsteps/footstep_concrete_walk_05.wav"
+  description: "Footsteps concrete walk 05"
+56:
+  fileName: "footsteps/footstep_concrete_walk_06.wav"
+  description: "Footsteps concrete walk 06"
+57:
+  fileName: "footsteps/footstep_concrete_walk_07.wav"
+  description: "Footsteps concrete walk 07"
+58:
+  fileName: "footsteps/footstep_concrete_walk_08.wav"
+  description: "Footsteps concrete walk 08"
+59:
+  fileName: "footsteps/footstep_concrete_walk_09.wav"
+  description: "Footsteps concrete walk 09"
+60:
+  fileName: "footsteps/footstep_concrete_walk_10.wav"
+  description: "Footsteps concrete walk 10"
+61:
+  fileName: "footsteps/footstep_gravel_walk_01.wav"
+  description: "Footsteps gravel walk 01"
+62:
+  fileName: "footsteps/footstep_gravel_walk_02.wav"
+  description: "Footsteps gravel walk 02"
+63:
+  fileName: "footsteps/footstep_gravel_walk_03.wav"
+  description: "Footsteps gravel walk 03"
+64:
+  fileName: "footsteps/footstep_gravel_walk_04.wav"
+  description: "Footsteps gravel walk 04"
+65:
+  fileName: "footsteps/footstep_gravel_walk_05.wav"
+  description: "Footsteps gravel walk 05"
+66:
+  fileName: "footsteps/footstep_gravel_walk_06.wav"
+  description: "Footsteps gravel walk 06"
+67:
+  fileName: "footsteps/footstep_gravel_walk_07.wav"
+  description: "Footsteps gravel walk 07"
+68:
+  fileName: "footsteps/footstep_gravel_walk_08.wav"
+  description: "Footsteps gravel walk 08"
+69:
+  fileName: "footsteps/footstep_gravel_walk_09.wav"
+  description: "Footsteps gravel walk 09"
+70:
+  fileName: "footsteps/footstep_gravel_walk_10.wav"
+  description: "Footsteps gravel walk 10"
+71:
+  fileName: "footsteps/footstep_water_walk_01.wav"
+  description: "Footsteps water walk 01"
+72:
+  fileName: "footsteps/footstep_water_walk_02.wav"
+  description: "Footsteps water walk 02"
+73:
+  fileName: "footsteps/footstep_water_walk_03.wav"
+  description: "Footsteps water walk 03"
+74:
+  fileName: "footsteps/footstep_water_walk_04.wav"
+  description: "Footsteps water walk 04"
+75:
+  fileName: "footsteps/footstep_water_walk_05.wav"
+  description: "Footsteps water walk 05"
+76:
+  fileName: "footsteps/footstep_water_walk_06.wav"
+  description: "Footsteps water walk 06"
+77:
+  fileName: "footsteps/footstep_water_walk_07.wav"
+  description: "Footsteps water walk 07"
+78:
+  fileName: "footsteps/footstep_water_walk_08.wav"
+  description: "Footsteps water walk 08"
+79:
+  fileName: "footsteps/footstep_water_walk_09.wav"
+  description: "Footsteps water walk 09"
+80:
+  fileName: "footsteps/footstep_water_walk_01.wav"
+  description: "Footsteps water walk 01 -- Repeat of 71.. Just a placeholder..."
