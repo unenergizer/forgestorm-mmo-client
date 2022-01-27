@@ -237,7 +237,9 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
             validator.integerNumber(duration, "Must contain an integer value.");
             validator.valueGreaterThan(duration, "Value must be greater than 0", 0);
 
-            durationTable.add(duration);
+            durationTable.add(duration).row();
+
+            durationTable.add("File: " + tileImage.getFileName()).colspan(2);
 
             duration.addListener(new ChangeListener() {
                 @Override
