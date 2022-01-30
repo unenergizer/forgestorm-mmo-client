@@ -28,7 +28,7 @@ public class TileWalkOverSoundProperty extends AbstractTileProperty {
     VisTable buildActors() {
         VisTable mainTable = new VisTable(true);
 
-        final VisSelectBox<TileWalkSound> tileWalkSoundVisSelectBox = new VisSelectBox<TileWalkSound>();
+        final VisSelectBox<TileWalkSound> tileWalkSoundVisSelectBox = new VisSelectBox<>();
         tileWalkSoundVisSelectBox.setItems(TileWalkSound.values());
         tileWalkSoundVisSelectBox.setSelected(TileWalkSound.NONE);
         if (tileWalkSound != null) tileWalkSoundVisSelectBox.setSelected(tileWalkSound);

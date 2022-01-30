@@ -35,7 +35,7 @@ import lombok.Setter;
 @Getter
 public class WorldBuilder {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final Map<Integer, TileAnimation> tileAnimationMap;
     private final WangTile4Bit wangTile16 = new WangTile4Bit();

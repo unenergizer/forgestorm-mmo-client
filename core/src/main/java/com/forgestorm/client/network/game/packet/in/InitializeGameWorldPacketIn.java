@@ -15,7 +15,7 @@ import static com.forgestorm.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.INIT_WORLD)
 public class InitializeGameWorldPacketIn implements PacketListener<InitializeGameWorldPacketIn.InitGameMapPacket> {
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -35,7 +35,7 @@ public class InitializeGameWorldPacketIn implements PacketListener<InitializeGam
     }
 
     @AllArgsConstructor
-    class InitGameMapPacket extends PacketData {
+    static class InitGameMapPacket extends PacketData {
         private final String gameMap;
     }
 }

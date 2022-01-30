@@ -24,7 +24,7 @@ public class TileAnimationsLoader extends SynchronousAssetLoader<TileAnimationsL
     static class TileAnimationsParameter extends AssetLoaderParameters<TileAnimationsDataWrapper> {
     }
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     TileAnimationsLoader(FileHandleResolver resolver) {
         super(resolver);
