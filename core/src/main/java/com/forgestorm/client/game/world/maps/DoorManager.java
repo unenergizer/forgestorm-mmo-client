@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.world.maps;
 
+import static jdk.nashorn.internal.objects.Global.println;
+
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
@@ -50,19 +52,26 @@ public class DoorManager {
         new DoorInteractPacketOut(doorStatus, tileX, tileY, playerLocation.getZ()).sendPacket();
     }
 
-    public void networkToggleDoor(DoorStatus doorStatus, int tileX, int tileY, short worldZ) {
+    public void networkToggleDoor(DoorStatus doorStatus, int tileX, int tileY, short worldZ, boolean playAnimation) {
         PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
         Tile tile = playerClient.getGameMap().getTile(LayerDefinition.WORLD_OBJECTS, tileX, tileY, worldZ);
         TileImage tileImage = tile.getTileImage();
 
-        if (tileImage == null) return;
-        if (!tileImage.containsProperty(TilePropertyTypes.DOOR)) return;
+        if (tileImage == null) {
+            println(getClass(), "TileImage null for door location. Location:" + tileX + "/" + tileY + tileX + "/" + worldZ, true);
+            return;
+        }
+        if (!tileImage.containsProperty(TilePropertyTypes.DOOR)) {
+            println(getClass(), "TileImage does not contain the door property. Location:" + tileX + "/" + tileY + tileX + "/" + worldZ, true);
+            return;
+        }
 
         // Set new door status
         DoorProperty doorProperty = (DoorProperty) tileImage.getProperty(TilePropertyTypes.DOOR);
         doorProperty.setDoorStatus(doorStatus);
 
         // Play animation
+        if (!playAnimation) return; // If we don't play the animation, we don't play the sound below
         switch (doorStatus) {
             case OPEN:
                 tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_NORMAL);

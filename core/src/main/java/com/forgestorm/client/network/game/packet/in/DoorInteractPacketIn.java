@@ -35,7 +35,7 @@ public class DoorInteractPacketIn implements PacketListener<DoorInteractPacketIn
         println(getClass(), "TileY: " + packetData.tileY, false, PRINT_DEBUG);
         println(getClass(), "TileZ: " + packetData.worldZ, false, PRINT_DEBUG);
 
-        ClientMain.getInstance().getDoorManager().networkToggleDoor(packetData.doorStatus, packetData.tileX, packetData.tileY, packetData.worldZ);
+        ClientMain.getInstance().getDoorManager().networkToggleDoor(packetData.doorStatus, packetData.tileX, packetData.tileY, packetData.worldZ, true);
     }
 
     @AllArgsConstructor

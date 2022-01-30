@@ -56,6 +56,7 @@ import com.forgestorm.client.network.game.packet.in.PingPacketIn;
 import com.forgestorm.client.network.game.packet.in.PlayerTradePacketIn;
 import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.forgestorm.client.network.game.packet.in.SkillExperiencePacketIn;
+import com.forgestorm.client.network.game.packet.in.TileImageStatusesPacketIn;
 import com.forgestorm.client.network.game.packet.in.TileWarpPacketIn;
 import com.forgestorm.client.network.game.packet.in.WorldBuilderPacketIn;
 import com.forgestorm.client.network.game.packet.in.WorldChunkPartPacketIn;
@@ -237,6 +238,7 @@ public class ClientMain extends Game {
                         eventBus.registerListener(new WorldChunkPartPacketIn());
                         eventBus.registerListener(new TileWarpPacketIn());
                         eventBus.registerListener(new DoorInteractPacketIn());
+                        eventBus.registerListener(new TileImageStatusesPacketIn());
                     }
                 });
     }
