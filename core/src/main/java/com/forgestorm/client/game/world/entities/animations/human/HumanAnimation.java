@@ -19,6 +19,8 @@ import static com.forgestorm.shared.util.RandomNumberUtil.getNewRandom;
 
 public class HumanAnimation extends EntityAnimation {
 
+    private static final boolean PRINT_DEBUG = false;
+
     @Setter
     boolean showHelm = false;
     @Setter
@@ -274,16 +276,16 @@ public class HumanAnimation extends EntityAnimation {
 
     public void loadLeftHand(TextureAtlas textureAtlas, short itemId) {
         leftHandItem = textureAtlas.findRegion("weapon_sword_" + itemId);
-        println(getClass(), "Equipping: weapon_sword_" + itemId);
+        println(getClass(), "Equipping: weapon_sword_" + itemId, false, PRINT_DEBUG);
         if (leftHandItem == null)
-            println(getClass(), "Equipping: weapon_sword_" + itemId + ", NOT FOUND!!");
+            println(getClass(), "Equipping: weapon_sword_" + itemId + ", NOT FOUND!!", false, PRINT_DEBUG);
     }
 
     public void loadRightHand(TextureAtlas textureAtlas, short itemId) {
         rightHandItem = textureAtlas.findRegion("shield_" + itemId);
-        println(getClass(), "Equipping: shield_" + itemId);
+        println(getClass(), "Equipping: shield_" + itemId, false, PRINT_DEBUG);
         if (rightHandItem == null)
-            println(getClass(), "Equipping: shield_" + itemId + ", NOT FOUND!!");
+            println(getClass(), "Equipping: shield_" + itemId + ", NOT FOUND!!", false, PRINT_DEBUG);
     }
 
     private List<ColoredTextureRegion> actIdleNorth(List<ColoredTextureRegion> frameList, boolean maxTimeReached, float stateTime) {

@@ -416,12 +416,12 @@ public class FileManager {
 
         // Load the asset
         if (fileHandleResolver.resolve(filePath).exists()) {
-            println(getClass(), "Loading File: " + filePath);
+            println(getClass(), "Loading File: " + filePath, false, PRINT_DEBUG);
             assetManager.setLoader(type, loader);
             assetManager.load(filePath, type);
             if (forceFinishLoading) assetManager.finishLoading();
         } else {
-            println(getClass(), "File doesn't exist: " + filePath, true);
+            println(getClass(), "File doesn't exist: " + filePath, true, PRINT_DEBUG);
         }
         return filePath;
     }

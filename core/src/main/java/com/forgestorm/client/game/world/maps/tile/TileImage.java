@@ -112,7 +112,7 @@ public class TileImage {
         }
 
         if (tileProperties.containsKey(customTileProperty.getTilePropertyType())) {
-            println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType());
+            println(getClass(), "TilePropertiesMap already contains this property: " + customTileProperty.getTilePropertyType(), false, PRINT_DEBUG);
         } else {
             tileProperties.put(customTileProperty.getTilePropertyType(), customTileProperty);
         }
@@ -124,7 +124,7 @@ public class TileImage {
             println(getClass(), "LayerDefinition: " + layerDefinition, false);
 
             for (AbstractTileProperty abstractTileProperty : tileProperties.values()) {
-                println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString());
+                println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString(), false, PRINT_DEBUG);
             }
         }
     }
