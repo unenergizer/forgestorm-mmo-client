@@ -53,7 +53,8 @@ public abstract class EntityAnimation {
         List<ColoredTextureRegion> frameList;
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
-            movingStateTime += delta;
+            movingStateTime = movingStateTime + delta * (movingEntity.getMoveSpeed() / 2);
+//            if (movingEntity instanceof PlayerClient) System.out.println("movingStateTime: " + movingStateTime);
             idleStateTime = 0f;
             frameList = movingAnimation();
         } else {
