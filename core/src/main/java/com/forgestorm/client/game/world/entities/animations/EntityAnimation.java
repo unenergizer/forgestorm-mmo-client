@@ -9,7 +9,6 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.shared.io.type.GameAtlas;
 
 import java.util.List;
@@ -73,10 +72,10 @@ public abstract class EntityAnimation {
 
             if (frame.getWidth() != 0 && frame.getHeight() != 0) {
                 spriteBatch.draw(textureRegion, movingEntity.getDrawX() + frame.getXAxisOffset(), movingEntity.getDrawY() + frame.getYAxisOffset(),
-                        frame.getWidth()+CORRECTION, frame.getHeight()+CORRECTION);
+                        frame.getWidth() + CORRECTION, frame.getHeight() + CORRECTION);
             } else {
                 spriteBatch.draw(textureRegion, movingEntity.getDrawX(), movingEntity.getDrawY() + frame.getYAxisOffset(),
-                        textureRegion.getRegionWidth()+CORRECTION, textureRegion.getRegionHeight()+CORRECTION);
+                        textureRegion.getRegionWidth() + CORRECTION, textureRegion.getRegionHeight() + CORRECTION);
             }
             spriteBatch.setColor(Color.WHITE);
         }

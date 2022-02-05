@@ -20,9 +20,17 @@ public class GameMechanicsTab extends Tab {
     @Getter
     private final VisCheckBox fpsCheckBox = new VisCheckBox("");
     @Getter
-    private final VisCheckBox usernameVisibleCheckBox = new VisCheckBox("");
+    private final VisCheckBox playerNameVisibleCheckBox = new VisCheckBox("");
     @Getter
-    private final VisCheckBox healthBarVisibleCheckBox = new VisCheckBox("");
+    private final VisCheckBox playerHealthBarVisibleCheckBox = new VisCheckBox("");
+    @Getter
+    private final VisCheckBox otherPlayerNameVisibleCheckBox = new VisCheckBox("");
+    @Getter
+    private final VisCheckBox otherPlayerHealthBarVisibleCheckBox = new VisCheckBox("");
+    @Getter
+    private final VisCheckBox entityNameVisibleCheckBox = new VisCheckBox("");
+    @Getter
+    private final VisCheckBox entityHealthBarVisibleCheckBox = new VisCheckBox("");
     private final String title;
     private Table content;
 
@@ -61,14 +69,14 @@ public class GameMechanicsTab extends Tab {
         });
 
         // Show players username over head
-        usernameVisibleCheckBox.setChecked(true);
+        playerNameVisibleCheckBox.setChecked(true);
 
         VisTable usernameVisibleTable = new VisTable();
         usernameVisibleTable.add(new VisLabel("Show My Username")).padRight(3);
-        usernameVisibleTable.add(usernameVisibleCheckBox).left();
+        usernameVisibleTable.add(playerNameVisibleCheckBox).left();
         content.add(usernameVisibleTable).row();
 
-        usernameVisibleCheckBox.addListener(new ChangeListener() {
+        playerNameVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
@@ -76,14 +84,75 @@ public class GameMechanicsTab extends Tab {
         });
 
         // Show players health bar over head
-        healthBarVisibleCheckBox.setChecked(true);
+        playerHealthBarVisibleCheckBox.setChecked(true);
 
         VisTable healthBarVisibleTable = new VisTable();
         healthBarVisibleTable.add(new VisLabel("Show My Health bar")).padRight(3);
-        healthBarVisibleTable.add(healthBarVisibleCheckBox).left();
+        healthBarVisibleTable.add(playerHealthBarVisibleCheckBox).left();
         content.add(healthBarVisibleTable).row();
 
-        healthBarVisibleCheckBox.addListener(new ChangeListener() {
+        playerHealthBarVisibleCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+            }
+        });
+
+        // Show entity username over head
+        entityNameVisibleCheckBox.setChecked(true);
+
+        VisTable entityNameVisibleTable = new VisTable();
+        entityNameVisibleTable.add(new VisLabel("Show Monster Usernames")).padRight(3);
+        entityNameVisibleTable.add(entityNameVisibleCheckBox).left();
+        content.add(entityNameVisibleTable).row();
+
+        entityNameVisibleCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+            }
+        });
+
+        // Show entity health bar over head
+        entityHealthBarVisibleCheckBox.setChecked(true);
+
+        VisTable entityHealthBarVisibleTable = new VisTable();
+        entityHealthBarVisibleTable.add(new VisLabel("Show Monster Health bars")).padRight(3);
+        entityHealthBarVisibleTable.add(entityHealthBarVisibleCheckBox).left();
+        content.add(entityHealthBarVisibleTable).row();
+
+        entityHealthBarVisibleCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+            }
+        });
+
+
+        // Show players username over head
+        otherPlayerNameVisibleCheckBox.setChecked(true);
+
+        VisTable otherPlayerNameVisibleTable = new VisTable();
+        otherPlayerNameVisibleTable.add(new VisLabel("Show Other Player Usernames")).padRight(3);
+        otherPlayerNameVisibleTable.add(otherPlayerNameVisibleCheckBox).left();
+        content.add(otherPlayerNameVisibleTable).row();
+
+        otherPlayerNameVisibleCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+            }
+        });
+
+        // Show players health bar over head
+        otherPlayerHealthBarVisibleCheckBox.setChecked(true);
+
+        VisTable otherPlayerHealthBarVisibleTable = new VisTable();
+        otherPlayerHealthBarVisibleTable.add(new VisLabel("Show Other Player Health bars")).padRight(3);
+        otherPlayerHealthBarVisibleTable.add(otherPlayerHealthBarVisibleCheckBox).left();
+        content.add(otherPlayerHealthBarVisibleTable).row();
+
+        otherPlayerHealthBarVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);

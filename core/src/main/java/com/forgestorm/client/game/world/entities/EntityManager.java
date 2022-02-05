@@ -1,8 +1,11 @@
 package com.forgestorm.client.game.world.entities;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.actors.settings.GameMechanicsTab;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.io.type.GameAtlas;
@@ -13,8 +16,6 @@ import java.util.PriorityQueue;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import static com.forgestorm.client.util.Log.println;
 
 public class EntityManager implements Disposable {
 
@@ -28,16 +29,16 @@ public class EntityManager implements Disposable {
 
     //  EntityId -> Entity
     @Getter
-    private final Map<Short, Player> playerEntityList = new HashMap<Short, Player>();
+    private final Map<Short, Player> playerEntityList = new HashMap<>();
 
     @Getter
-    private final Map<Short, AiEntity> aiEntityList = new HashMap<Short, AiEntity>();
+    private final Map<Short, AiEntity> aiEntityList = new HashMap<>();
 
     @Getter
-    private final Map<Short, StationaryEntity> stationaryEntityList = new HashMap<Short, StationaryEntity>();
+    private final Map<Short, StationaryEntity> stationaryEntityList = new HashMap<>();
 
     @Getter
-    private final Map<Short, ItemStackDrop> itemStackDropList = new HashMap<Short, ItemStackDrop>();
+    private final Map<Short, ItemStackDrop> itemStackDropList = new HashMap<>();
 
     private EntityManager() {
     }
@@ -134,13 +135,18 @@ public class EntityManager implements Disposable {
     }
 
     public void drawEntityNames(Floors floor) {
-        for (MovingEntity movingEntity : aiEntityList.values()) {
-            if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
-            movingEntity.drawEntityName();
+        GameMechanicsTab gameMechanicsTab = ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab();
+        if (gameMechanicsTab.getEntityNameVisibleCheckBox().isChecked()) {
+            for (MovingEntity movingEntity : aiEntityList.values()) {
+                if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+                movingEntity.drawEntityName();
+            }
         }
-        for (Player player : playerEntityList.values()) {
-            if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
-            player.drawEntityName();
+        if (gameMechanicsTab.getOtherPlayerNameVisibleCheckBox().isChecked()) {
+            for (Player player : playerEntityList.values()) {
+                if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+                player.drawEntityName();
+            }
         }
     }
 
@@ -156,13 +162,18 @@ public class EntityManager implements Disposable {
     }
 
     public void drawHealthBar(Floors floor) {
-        for (MovingEntity movingEntity : aiEntityList.values()) {
-            if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
-            movingEntity.drawEntityHpBar();
+        GameMechanicsTab gameMechanicsTab = ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab();
+        if (gameMechanicsTab.getEntityHealthBarVisibleCheckBox().isChecked()) {
+            for (MovingEntity movingEntity : aiEntityList.values()) {
+                if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+                movingEntity.drawEntityHpBar();
+            }
         }
-        for (Player player : playerEntityList.values()) {
-            if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
-            player.drawEntityHpBar();
+        if (gameMechanicsTab.getOtherPlayerHealthBarVisibleCheckBox().isChecked()) {
+            for (Player player : playerEntityList.values()) {
+                if (player.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+                player.drawEntityHpBar();
+            }
         }
     }
 

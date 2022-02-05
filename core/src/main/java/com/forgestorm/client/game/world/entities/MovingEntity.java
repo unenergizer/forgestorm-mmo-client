@@ -80,7 +80,7 @@ public class MovingEntity extends Entity {
         float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
         if (this.isPlayerClientTarget || this instanceof PlayerClient) {
-            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getUsernameVisibleCheckBox().isChecked())
+            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getPlayerNameVisibleCheckBox().isChecked())
                 return;
             GameTextUtil.drawMessage(getEntityName(), Color.WHITE, .5f, x, y);
         } else {
@@ -116,7 +116,7 @@ public class MovingEntity extends Entity {
 
     public void drawEntityHpBar() {
         if (this.isPlayerClientTarget || this instanceof PlayerClient) {
-            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getHealthBarVisibleCheckBox().isChecked())
+            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getPlayerHealthBarVisibleCheckBox().isChecked())
                 return;
         }
         float x = getDrawX() + 8;
