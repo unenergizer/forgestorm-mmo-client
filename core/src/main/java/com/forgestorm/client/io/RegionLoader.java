@@ -43,8 +43,8 @@ public class RegionLoader extends SynchronousAssetLoader<RegionLoader.RegionData
         for (Map.Entry<Integer, Map<String, Object>> entry : root.entrySet()) {
             Map<String, Object> itemNode = entry.getValue();
 
-            int regionId = entry.getKey();
-            println(getClass(), "ID: " + regionId, false, PRINT_DEBUG);
+            int regionID = entry.getKey();
+            println(getClass(), "ID: " + regionID, false, PRINT_DEBUG);
 
             String worldName = (String) itemNode.get("worldName");
             println(getClass(), "WorldName: " + worldName, false, PRINT_DEBUG);
@@ -63,33 +63,48 @@ public class RegionLoader extends SynchronousAssetLoader<RegionLoader.RegionData
             println(getClass(), "z: " + z, false, PRINT_DEBUG);
 
             // Create the TileImage
-            Region region = new Region(worldName, x1, y1, x2, y2, (short) z);
+            Region region = new Region(regionID, worldName, x1, y1, x2, y2, (short) z);
 
             // Add flags if they exist
             Boolean allowPVP = (Boolean) itemNode.get("allowPVP");
             if (allowPVP != null) region.setAllowPVP(allowPVP);
+            println(getClass(), "allowPVP: " + allowPVP, false, PRINT_DEBUG);
 
             Boolean allowChat = (Boolean) itemNode.get("allowChat");
             if (allowChat != null) region.setAllowChat(allowChat);
+            println(getClass(), "allowChat: " + allowChat, false, PRINT_DEBUG);
 
             Boolean fullHeal = (Boolean) itemNode.get("fullHeal");
             if (fullHeal != null) region.setFullHeal(fullHeal);
+            println(getClass(), "fullHeal: " + fullHeal, false, PRINT_DEBUG);
 
             String greetingsChat = (String) itemNode.get("greetingsChat");
             if (greetingsChat != null) region.setGreetingsChat(greetingsChat);
+            println(getClass(), "greetingsChat: " + greetingsChat, false, PRINT_DEBUG);
 
             String greetingsTitle = (String) itemNode.get("greetingsTitle");
             if (greetingsTitle != null) region.setGreetingsTitle(greetingsTitle);
+            println(getClass(), "greetingsTitle: " + greetingsTitle, false, PRINT_DEBUG);
 
             String farewellChat = (String) itemNode.get("farewellChat");
             if (farewellChat != null) region.setFarewellChat(farewellChat);
+            println(getClass(), "farewellChat: " + farewellChat, false, PRINT_DEBUG);
 
             String farewellTitle = (String) itemNode.get("farewellTitle");
             if (farewellTitle != null) region.setFarewellTitle(farewellTitle);
+            println(getClass(), "farewellTitle: " + farewellTitle, false, PRINT_DEBUG);
+
+            Integer backgroundMusicID = (Integer) itemNode.get("backgroundMusicID");
+            if (backgroundMusicID != null) region.setBackgroundMusicID(backgroundMusicID);
+            println(getClass(), "backgroundMusicID: " + backgroundMusicID, false, PRINT_DEBUG);
+
+            Integer ambianceSoundID = (Integer) itemNode.get("ambianceSoundID");
+            if (ambianceSoundID != null) region.setAmbianceSoundID(ambianceSoundID);
+            println(getClass(), "ambianceSoundID: " + ambianceSoundID, false, PRINT_DEBUG);
 
             println(PRINT_DEBUG);
 
-            regionDataWrapper.getRegionMap().put(regionId, region);
+            regionDataWrapper.getRegionMap().put(regionID, region);
         }
 
         println(getClass(), "====== END LOADING REGIONS ======", false, PRINT_DEBUG);

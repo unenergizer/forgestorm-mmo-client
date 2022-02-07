@@ -12,6 +12,8 @@
   greetingsTitle: "greetings Title"
   farewellChat: "farewell Chat"
   farewellTitle: "farewell Title"
+  backgroundMusicID: 99
+  ambianceSoundID: 66
 2:
   worldName: "game_start"
   x1: 11

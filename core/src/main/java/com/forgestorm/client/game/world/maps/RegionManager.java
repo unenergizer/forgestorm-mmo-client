@@ -7,7 +7,10 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
+import com.forgestorm.client.game.world.entities.EntityManager;
+import com.forgestorm.client.util.yaml.YamlUtil;
 
+import java.io.File;
 import java.util.Map;
 
 import lombok.Getter;
@@ -32,7 +35,6 @@ public class RegionManager {
     private boolean drawRegion = false;
 
     @Getter
-    @Setter
     private Region regionToEdit;
 
     private DragArea dragArea;
@@ -41,9 +43,70 @@ public class RegionManager {
 
     public void setRegionMap(Map<Integer, Region> regionMap) {
         this.regionMap = regionMap;
-        regionToEdit = regionMap.get(1);
+        changeRegion(1);
 
-        ClientMain.getInstance().getStageHandler().getRegionEditor().showLoadedRegions(this.regionMap);
+        ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
+    }
+
+    public void changeRegion(int regionID) {
+        this.regionToEdit = regionMap.get(regionID);
+
+        // Update UI
+        RegionEditor regionEditor = ClientMain.getInstance().getStageHandler().getRegionEditor();
+        if (regionEditor != null && regionEditor.isVisible()) regionEditor.updateFlagsTable(regionToEdit);
+    }
+
+    public void createRegion() {
+
+        // Find unused regionID;
+        int regionID = 0;
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            if (!regionMap.containsKey(i)) {
+                regionID = i;
+                break;
+            }
+        }
+
+        // Create the region
+        final int spacer = 3;
+        Location location = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+        Region region = new Region(
+                regionID,
+                location.getWorldName(),
+                location.getX() - spacer,
+                location.getY() - spacer,
+                location.getX() + spacer,
+                location.getY() + spacer,
+                location.getZ());
+
+        regionMap.put(regionID, region);
+        changeRegion(regionID);
+
+        // Update the region list
+        ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
+    }
+
+    public void deleteRegion() {
+        regionMap.entrySet().removeIf(regionEntry -> regionEntry.getValue().getRegionID() == regionToEdit.getRegionID());
+
+        if (regionMap.isEmpty()) {
+            createRegion();
+        } else {
+            for (Region region : regionMap.values()) {
+                if (region != null) {
+                    changeRegion(region.getRegionID());
+                    break;
+                }
+            }
+        }
+
+        // Update the region list
+        ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
+    }
+
+    public void saveRegionsToFile() {
+        String filePath = ClientMain.getInstance().getFileManager().getClientFilesDirectoryPath() + File.separator + "Regions.yaml";
+        YamlUtil.saveYamlToFile(regionMap, filePath);
     }
 
     public void editRegion(ShapeDrawer shapeDrawer) {
@@ -55,20 +118,20 @@ public class RegionManager {
         int mouseTileY = mouseManager.getMouseTileY();
 
         // Highlight requirements
-        boolean inBoundsX = mouseTileX >= regionToEdit.getWorld1X() && mouseTileX < regionToEdit.getWorld1X() + regionToEdit.getWorld2X();
-        boolean inBoundsY = mouseTileY >= regionToEdit.getWorld1Y() && mouseTileY < regionToEdit.getWorld1Y() + regionToEdit.getWorld2Y();
+        boolean inBoundsX = mouseTileX >= regionToEdit.getX1() && mouseTileX < regionToEdit.getX1() + regionToEdit.getX2();
+        boolean inBoundsY = mouseTileY >= regionToEdit.getY1() && mouseTileY < regionToEdit.getY1() + regionToEdit.getY2();
 
         // Get inside (-1) and outside edge
-        boolean topEdge = mouseTileY == regionToEdit.getWorld2Y() - 1 || mouseTileY == regionToEdit.getWorld2Y();
-        boolean bottomEdge = mouseTileY == regionToEdit.getWorld1Y() - 1 || mouseTileY == regionToEdit.getWorld1Y();
-        boolean leftEdge = mouseTileX == regionToEdit.getWorld1X() - 1 || mouseTileX == regionToEdit.getWorld1X();
-        boolean rightEdge = mouseTileX == regionToEdit.getWorld2X() - 1 || mouseTileX == regionToEdit.getWorld2X();
+        boolean topEdge = mouseTileY == regionToEdit.getY2() - 1 || mouseTileY == regionToEdit.getY2();
+        boolean bottomEdge = mouseTileY == regionToEdit.getY1() - 1 || mouseTileY == regionToEdit.getY1();
+        boolean leftEdge = mouseTileX == regionToEdit.getX1() - 1 || mouseTileX == regionToEdit.getX1();
+        boolean rightEdge = mouseTileX == regionToEdit.getX2() - 1 || mouseTileX == regionToEdit.getX2();
 
         // Are we inside the region?
-        boolean centerArea = mouseTileX > regionToEdit.getWorld1X()
-                && mouseTileX < regionToEdit.getWorld2X() - 1
-                && mouseTileY > regionToEdit.getWorld1Y()
-                && mouseTileY < regionToEdit.getWorld2Y() - 1;
+        boolean centerArea = mouseTileX > regionToEdit.getX1()
+                && mouseTileX < regionToEdit.getX2() - 1
+                && mouseTileY > regionToEdit.getY1()
+                && mouseTileY < regionToEdit.getY2() - 1;
 
         // Change region cords
         boolean leftPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
@@ -96,31 +159,31 @@ public class RegionManager {
                     int differenceMoveX = mouseTileX - lastMouseX;
                     int differenceMoveY = mouseTileY - lastMouseY;
 
-                    regionToEdit.setWorld1X(regionToEdit.getWorld1X() + differenceMoveX);
-                    regionToEdit.setWorld1Y(regionToEdit.getWorld1Y() + differenceMoveY);
-                    regionToEdit.setWorld2X(regionToEdit.getWorld2X() + differenceMoveX);
-                    regionToEdit.setWorld2Y(regionToEdit.getWorld2Y() + differenceMoveY);
+                    regionToEdit.setX1(regionToEdit.getX1() + differenceMoveX);
+                    regionToEdit.setY1(regionToEdit.getY1() + differenceMoveY);
+                    regionToEdit.setX2(regionToEdit.getX2() + differenceMoveX);
+                    regionToEdit.setY2(regionToEdit.getY2() + differenceMoveY);
                     break;
                 case TOP:
-                    regionToEdit.setWorld2Y(mouseTileY);
+                    regionToEdit.setY2(mouseTileY);
                     break;
                 case BOTTOM:
-                    regionToEdit.setWorld1Y(mouseTileY);
+                    regionToEdit.setY1(mouseTileY);
                     break;
                 case LEFT:
-                    regionToEdit.setWorld1X(mouseTileX);
+                    regionToEdit.setX1(mouseTileX);
                     break;
                 case RIGHT:
-                    regionToEdit.setWorld2X(mouseTileX);
+                    regionToEdit.setX2(mouseTileX);
                     break;
             }
         }
 
         // Draw cords
-        int drawX1 = regionToEdit.getWorld1X() * ClientConstants.TILE_SIZE;
-        int drawY1 = regionToEdit.getWorld1Y() * ClientConstants.TILE_SIZE;
-        int drawX2 = (regionToEdit.getWorld2X() + 1) * ClientConstants.TILE_SIZE;
-        int drawY2 = (regionToEdit.getWorld2Y() + 1) * ClientConstants.TILE_SIZE;
+        int drawX1 = regionToEdit.getX1() * ClientConstants.TILE_SIZE;
+        int drawY1 = regionToEdit.getY1() * ClientConstants.TILE_SIZE;
+        int drawX2 = (regionToEdit.getX2() + 1) * ClientConstants.TILE_SIZE;
+        int drawY2 = (regionToEdit.getY2() + 1) * ClientConstants.TILE_SIZE;
 
         // Select edge color
         // Right here we are assuming the center area is selected
