@@ -82,4 +82,8 @@ public class Region {
         boolean intersectY = worldY >= y1 && worldY <= y2;
         return intersectX && intersectY;
     }
+
+    public boolean doesIntersect(int worldX, int worldY, short worldZ) {
+        return worldZ == z && doesIntersect(worldX, worldY);
+    }
 }

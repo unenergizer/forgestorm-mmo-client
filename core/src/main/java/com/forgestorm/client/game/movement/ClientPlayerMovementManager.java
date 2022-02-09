@@ -91,6 +91,8 @@ public class ClientPlayerMovementManager {
         playerClient.setFacingDirection(moveDirection);
         playerClient.setWalkTime(0f);
 
+        ClientMain.getInstance().getRegionManager().playerEnterLocation(futureLocation);
+
         // Check chunk change
         WorldChunk currentChunk = currentLocation.getLocationChunk();
         WorldChunk futureChunk = futureLocation.getLocationChunk();

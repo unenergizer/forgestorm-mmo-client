@@ -5,8 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
+import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.util.yaml.YamlUtil;
 
@@ -41,6 +44,86 @@ public class RegionManager {
 
     private int lastMouseX, lastMouseY;
 
+    /**
+     * Current player region state
+     */
+    private Region playerCurrentRegion;
+    private boolean insideRegion = false;
+    private boolean outsideRegion = true;
+
+    public void playerEnterLocation(Location futureLocation) {
+        Region regionFound = findRegion(
+                futureLocation.getX(),
+                futureLocation.getY(),
+                futureLocation.getZ());
+
+        boolean isSameRegion = regionFound != null
+                && playerCurrentRegion != null
+                && regionFound.getRegionID() == playerCurrentRegion.getRegionID();
+
+        // Grab outer classes
+        ChatWindow chatWindow = ClientMain.getInstance().getStageHandler().getChatWindow();
+        MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+
+        // EXECUTE REGION TASKS!
+        if (!insideRegion && !isSameRegion && regionFound != null && playerCurrentRegion == null) {
+
+            // #################################
+            // ### DO ENTER TASKS ##############
+            // #################################
+
+            // GREETINGS CHAT MESSAGE
+            if (regionFound.getGreetingsChat() != null) {
+                chatWindow.appendChatMessage(ChatChannelType.GENERAL, "[PINK]" + regionFound.getGreetingsChat());
+            }
+
+            // PLAY BACKGROUND MUSIC
+            if (regionFound.getBackgroundMusicID() != null) {
+                musicManager.playMusic(getClass(), (short) (int) regionFound.getBackgroundMusicID());
+            }
+
+            // TODO: Next flag here..........
+
+            // Set found region...
+            // Set flip-flop booleans
+            playerCurrentRegion = regionFound;
+            insideRegion = true;
+            outsideRegion = false;
+        } else if (!outsideRegion && !isSameRegion && playerCurrentRegion != null) {
+
+            // #################################
+            // ### DO EXIT TASKS ###############
+            // #################################
+
+            // FAREWELL CHAT MESSAGE
+            if (playerCurrentRegion.getFarewellChat() != null) {
+                chatWindow.appendChatMessage(ChatChannelType.GENERAL, "[PINK]" + playerCurrentRegion.getFarewellChat());
+            }
+
+            // STOP BACKGROUND MUSIC
+            if (playerCurrentRegion.getBackgroundMusicID() != null) {
+                musicManager.stopMusic(true);
+            }
+
+            // TODO: Next flag here..........
+
+            // Set current region to null...
+            // Set flip-flop booleans
+            playerCurrentRegion = null;
+            insideRegion = false;
+            outsideRegion = true;
+        }
+    }
+
+    private Region findRegion(int x, int y, short z) {
+        for (Region region : regionMap.values()) {
+            if (region.doesIntersect(x, y, z)) {
+                return region;
+            }
+        }
+        return null;
+    }
+
     public void setRegionMap(Map<Integer, Region> regionMap) {
         this.regionMap = regionMap;
         changeRegion(1);
@@ -53,7 +136,8 @@ public class RegionManager {
 
         // Update UI
         RegionEditor regionEditor = ClientMain.getInstance().getStageHandler().getRegionEditor();
-        if (regionEditor != null && regionEditor.isVisible()) regionEditor.updateFlagsTable(regionToEdit);
+        if (regionEditor != null && regionEditor.isVisible())
+            regionEditor.updateFlagsTable(regionToEdit);
     }
 
     public void createRegion() {
