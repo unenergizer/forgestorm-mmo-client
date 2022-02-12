@@ -31,9 +31,9 @@ import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameWorld;
+import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
-import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameTexture;
@@ -79,6 +79,8 @@ public class GameScreen implements Screen {
 
     private ShapeDrawer shapeDrawer;
     private Texture shapeDrawerTexture;
+
+    private final PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<>();
 
     public GameScreen(StageHandler stageHandler) {
         this.stageHandler = stageHandler;
@@ -206,8 +208,6 @@ public class GameScreen implements Screen {
             //////////////////////////////////////////////////
             //// -------- COLLECT WORLD OBJECTS -------- /////
             //////////////////////////////////////////////////
-            // TODO : Possibly do not recreate this object ever frame...
-            PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<WorldObject>();
 
             if (isVisible) getGameMap().getSortableWorldObjects(ySortedWorldObjects, floor);
             EntityManager.getInstance().getSortableEntities(ySortedWorldObjects);
