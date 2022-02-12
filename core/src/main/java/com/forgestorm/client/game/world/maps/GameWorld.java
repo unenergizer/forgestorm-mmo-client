@@ -1,5 +1,7 @@
 package com.forgestorm.client.game.world.maps;
 
+import static com.forgestorm.client.util.Log.println;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,8 +28,6 @@ import java.util.PriorityQueue;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.forgestorm.client.util.Log.println;
-
 @Getter
 @Setter
 public class GameWorld {
@@ -39,7 +39,7 @@ public class GameWorld {
     private final String worldName;
     private final Color backgroundColor;
 
-    private final Map<Integer, WorldChunk> worldChunkDrawMap = new HashMap<Integer, WorldChunk>();
+    private final Map<Integer, WorldChunk> worldChunkDrawMap = new HashMap<>();
 
     private Texture parallaxBackground;
     private int parallaxX, parallaxY;
@@ -239,7 +239,10 @@ public class GameWorld {
 
     public void getSortableWorldObjects(PriorityQueue<WorldObject> worldObjectList, Floors floor) {
         for (WorldChunk chunk : worldChunkDrawMap.values()) {
-            worldObjectList.addAll(Arrays.asList(chunk.getSortableTiles(floor)));
+            Tile[] sortableTiles = chunk.getSortableTiles(floor);
+            if (sortableTiles == null) continue;
+
+            worldObjectList.addAll(Arrays.asList(sortableTiles));
         }
     }
 

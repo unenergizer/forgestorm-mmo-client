@@ -33,52 +33,57 @@ public class WorldChunk {
     private final short chunkX, chunkY;
 
     @Getter
-    private final Map<Floors, Map<LayerDefinition, Tile[]>> floorLayers = new HashMap<Floors, Map<LayerDefinition, Tile[]>>();
+    private final Map<Floors, Map<LayerDefinition, Tile[]>> floorLayers = new HashMap<>();
 
     @Getter
-    private final Map<WarpLocation, Warp> tileWarps = new HashMap<WarpLocation, Warp>();
+    private final Map<WarpLocation, Warp> tileWarps = new HashMap<>();
 
     public WorldChunk(String worldName, short chunkX, short chunkY) {
         this.worldName = worldName;
         this.chunkX = chunkX;
         this.chunkY = chunkY;
 
-        initTileLayers();
+        checkFloorAndInit(Floors.GROUND_FLOOR);
     }
 
-    private void initTileLayers() {
+    private void checkFloorAndInit(Floors floor) {
 
-        for (Floors floor : Floors.values()) {
-            Map<LayerDefinition, Tile[]> layers = new HashMap<LayerDefinition, Tile[]>();
+        // If this floor exists, do not regenerate
+        if (floorLayers.containsKey(floor)) return;
 
-            for (LayerDefinition layerDefinition : LayerDefinition.values()) {
+        Map<LayerDefinition, Tile[]> layers = new HashMap<>();
 
-                Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
+        for (LayerDefinition layerDefinition : LayerDefinition.values()) {
 
-                // Initialize all tiles
-                for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
-                    for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
+            Tile[] tiles = new Tile[ClientConstants.CHUNK_SIZE * ClientConstants.CHUNK_SIZE];
 
-                        tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
-                                worldName,
-                                this,
-                                localX + chunkX * ClientConstants.CHUNK_SIZE,
-                                localY + chunkY * ClientConstants.CHUNK_SIZE,
-                                floor.getWorldZ());
-                    }
+            // Initialize all tiles
+            for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
+                for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
+
+                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
+                            worldName,
+                            this,
+                            localX + chunkX * ClientConstants.CHUNK_SIZE,
+                            localY + chunkY * ClientConstants.CHUNK_SIZE,
+                            floor.getWorldZ());
                 }
-
-                layers.put(layerDefinition, tiles);
             }
 
-            floorLayers.put(floor, layers);
+            layers.put(layerDefinition, tiles);
         }
+
+        floorLayers.put(floor, layers);
     }
 
     public void setChunkFromDisk(WorldChunk chunkFromDisk) {
         // Copy layers and floors
         for (Floors floor : Floors.values()) {
-            for (Map.Entry<LayerDefinition, Tile[]> entry : chunkFromDisk.floorLayers.get(floor).entrySet()) {
+
+            Map<LayerDefinition, Tile[]> layerDefinitionMap = chunkFromDisk.floorLayers.get(floor);
+            if (layerDefinitionMap == null) continue;
+
+            for (Map.Entry<LayerDefinition, Tile[]> entry : layerDefinitionMap.entrySet()) {
                 LayerDefinition layerDefinition = entry.getKey();
                 Tile[] tiles = entry.getValue();
 
@@ -102,6 +107,8 @@ public class WorldChunk {
     }
 
     public void setNetworkTiles(Floors floor, LayerDefinition layerDefinition, byte section, int[] tileImageIDs) {
+        checkFloorAndInit(floor);
+
         for (int localX = 0; localX < tileImageIDs.length; localX++) {
 
             TileImage tileImage = worldBuilder.getTileImage(tileImageIDs[localX]);
@@ -190,12 +197,19 @@ public class WorldChunk {
     }
 
     Tile[] getSortableTiles(Floors floor) {
+        Map<LayerDefinition, Tile[]> layerDefinitionMap = floorLayers.get(floor);
+        if (layerDefinitionMap == null) return null;
+
         return floorLayers.get(floor).get(LayerDefinition.WORLD_OBJECTS);
     }
 
     private void renderLayer(Floors floor, LayerDefinition layerDefinition, Batch batch) {
         if (!worldBuilder.canDrawLayer(layerDefinition)) return;
-        Tile[] layerTiles = floorLayers.get(floor).get(layerDefinition);
+
+        Map<LayerDefinition, Tile[]> layerDefinitionMap = floorLayers.get(floor);
+        if (layerDefinitionMap == null) return;
+
+        Tile[] layerTiles = layerDefinitionMap.get(layerDefinition);
         if (layerTiles == null) return;
 
         // Make the width and height of a given tile just a tad bit larger

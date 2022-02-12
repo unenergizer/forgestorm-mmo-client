@@ -103,6 +103,9 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.WorldChunkD
 
         WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
         JsonValue floorRoot = root.get(Short.toString(floor.getWorldZ()));
+
+        if (floorRoot == null) return; // This floor doesn't exit on this chunk
+
         String layer = floorRoot.get(layerDefinition.getLayerName()).asString();
         String[] imageIds = layer.split(",");
         for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
