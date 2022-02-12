@@ -124,6 +124,7 @@ public class WorldChunk {
     }
 
     public Tile getTile(LayerDefinition layerDefinition, int localX, int localY, Floors floor) {
+        checkFloorAndInit(floor);
         return floorLayers.get(floor).get(layerDefinition)[localX + localY * ClientConstants.CHUNK_SIZE];
     }
 
@@ -133,7 +134,11 @@ public class WorldChunk {
     }
 
     private boolean isTraversable(Floors floor, int localX, int localY) {
-        Tile[] tiles = floorLayers.get(floor).get(LayerDefinition.WORLD_OBJECTS);
+
+        Map<LayerDefinition, Tile[]> layerDefinitionMap = floorLayers.get(floor);
+        if (layerDefinitionMap == null) return false;
+
+        Tile[] tiles = layerDefinitionMap.get(LayerDefinition.WORLD_OBJECTS);
         Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
         if (tile == null) return true;
         if (!ClientMain.getInstance().getDoorManager().isDoorwayTraversable(tile)) return false;
