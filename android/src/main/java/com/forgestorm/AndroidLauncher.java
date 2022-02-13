@@ -1,4 +1,4 @@
-package com.forgestorm
+package com.forgestorm;
 
 import android.os.Bundle;
 
