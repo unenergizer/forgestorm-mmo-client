@@ -7,13 +7,9 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.WarpEditor;
-import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
@@ -68,36 +64,14 @@ public class DevMenu extends VisTable implements Buildable {
         toolsMenu.addItem(worldSubmenu);
 
         final EntityEditor entityEditor = stageHandler.getEntityEditor();
-        toolsMenu.addItem(new MenuItem(entityEditor.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                entityEditor.resetValues();
-                ActorUtil.fadeInWindow(entityEditor);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
+        addMenuItem(toolsMenu, entityEditor, "", entityEditor::resetValues);
         toolsMenu.addItem(new MenuItem("Drop Table Editor"));
-
         final ItemStackEditor itemStackEditor = stageHandler.getItemStackEditor();
-        toolsMenu.addItem(new MenuItem(itemStackEditor.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                itemStackEditor.resetValues();
-                ActorUtil.fadeInWindow(itemStackEditor);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
+        addMenuItem(toolsMenu, itemStackEditor, "", itemStackEditor::resetValues);
         toolsMenu.addItem(new MenuItem("Professions Editor"));
         toolsMenu.addItem(new MenuItem("Factions Editor"));
-
-        final PixelFXTest pixelFXTest = stageHandler.getPixelFXTest();
-        toolsMenu.addItem(new MenuItem(pixelFXTest.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(pixelFXTest);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
+        addMenuItem(toolsMenu, stageHandler.getPixelFXTest(), "", null);
+        addMenuItem(toolsMenu, stageHandler.getSpellAnimationEditor(), "", null);
 
         return toolsMenu;
     }
@@ -105,52 +79,23 @@ public class DevMenu extends VisTable implements Buildable {
     private PopupMenu createWorldEditorMenus(final StageHandler stageHandler) {
         PopupMenu popupMenu = new PopupMenu();
 
-        final TileBuildMenu tileBuildMenu = stageHandler.getTileBuildMenu();
-        popupMenu.addItem(new MenuItem(tileBuildMenu.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(tileBuildMenu);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }).setShortcut("CTRL + B"));
-
-        final TilePropertiesEditor tilePropertiesEditor = stageHandler.getTilePropertiesEditor();
-        popupMenu.addItem(new MenuItem(tilePropertiesEditor.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(tilePropertiesEditor);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
-
-        final TileAnimationEditor tileAnimationEditor = stageHandler.getTileAnimationEditor();
-        popupMenu.addItem(new MenuItem(tileAnimationEditor.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(tileAnimationEditor);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
-
-        final WarpEditor warpEditor = stageHandler.getWarpEditor();
-        popupMenu.addItem(new MenuItem(warpEditor.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(warpEditor);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-            }
-        }));
-
-        final RegionEditor regionEditor = stageHandler.getRegionEditor();
-        popupMenu.addItem(new MenuItem(regionEditor.getTitleLabel().getText().toString(), new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.fadeInWindow(regionEditor);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
-                regionEditor.toggleOpenClose(true);
-            }
-        }));
+        addMenuItem(popupMenu, stageHandler.getTileBuildMenu(), "CTRL + B", null);
+        addMenuItem(popupMenu, stageHandler.getTilePropertiesEditor(), "", null);
+        addMenuItem(popupMenu, stageHandler.getTileAnimationEditor(), "", null);
+        addMenuItem(popupMenu, stageHandler.getWarpEditor(), "", null);
+        addMenuItem(popupMenu, stageHandler.getRegionEditor(), "", () -> stageHandler.getRegionEditor().toggleOpenClose(true));
 
         return popupMenu;
+    }
+
+    private void addMenuItem(PopupMenu menu, HideableVisWindow hideableVisWindow, String shortCut, CodeExecutor codeExecutor) {
+        menu.addItem(new MenuItem(hideableVisWindow.getTitleLabel().getText().toString(), new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (codeExecutor != null) codeExecutor.runCode();
+                ActorUtil.fadeInWindow(hideableVisWindow);
+                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+            }
+        }).setShortcut(shortCut));
     }
 }

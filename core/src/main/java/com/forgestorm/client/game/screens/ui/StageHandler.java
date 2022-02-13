@@ -23,6 +23,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.DevMenu;
 import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.forgestorm.client.game.screens.ui.actors.dev.spell.SpellAnimationEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
@@ -134,6 +135,7 @@ public class StageHandler implements Disposable {
     private final WarpEditor warpEditor = new WarpEditor();
     private final RegionEditor regionEditor = new RegionEditor();
     private final TileAnimationEditor tileAnimationEditor = new TileAnimationEditor();
+    private final SpellAnimationEditor spellAnimationEditor = new SpellAnimationEditor();
 
     // shared
     private final MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
@@ -212,6 +214,7 @@ public class StageHandler implements Disposable {
         stage.addActor(warpEditor.build(this));
         stage.addActor(regionEditor.build(this));
         stage.addActor(tileAnimationEditor.build(this));
+        stage.addActor(spellAnimationEditor.build(this));
     }
 
     public void render(float delta) {
