@@ -221,6 +221,11 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 humanEntity.setEntityAnimation(new HumanAnimation(humanEntity));
                 humanEntity.loadTextures(GameAtlas.ENTITY_CHARACTER);
 
+                // Process region stuff. Play sounds, music, etc...
+                if (packetData.entityType == EntityType.CLIENT_PLAYER) {
+                    ClientMain.getInstance().getRegionManager().playerEnterLocation(humanEntity.getCurrentMapLocation());
+                }
+
                 if (packetData.entityType == EntityType.CLIENT_PLAYER) {
                     ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
                     // TODO: Possible to relocate this for better performance...
@@ -317,14 +322,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String worldName) {
+        ClientMain clientMain = ClientMain.getInstance();
         PlayerClient playerClient = new PlayerClient();
-        AttachableCamera camera = ClientMain.getInstance().getGameScreen().getCamera();
+        AttachableCamera camera = clientMain.getGameScreen().getCamera();
 
         // Attach entity to camera
         camera.attachEntity(playerClient);
 
-        ClientMain.getInstance().getGameScreen().getKeyboard().getKeyboardMovement().setInvalidated(false);
-        ClientMain.getInstance().getMouseManager().setInvalidate(false);
+        clientMain.getGameScreen().getKeyboard().getKeyboardMovement().setInvalidated(false);
+        clientMain.getMouseManager().setInvalidate(false);
 
         setMovingEntityVars(playerClient, packetData, worldName);
 

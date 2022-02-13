@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
@@ -236,14 +237,26 @@ public class RegionEditor extends HideableVisWindow implements Buildable {
         backgroundMusicID.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                regionToEdit.setBackgroundMusicID(Integer.parseInt(backgroundMusicID.getText()));
+                try {
+                    if (regionManager.isPlayerCurrentRegion(regionToEdit)) {
+                        MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+                        musicManager.stopMusic(true);
+                    }
+                    regionToEdit.setBackgroundMusicID(Integer.parseInt(backgroundMusicID.getText()));
+                } catch (NumberFormatException e) {
+                    regionToEdit.setBackgroundMusicID(null);
+                }
             }
         });
 
         ambianceSoundID.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                regionToEdit.setAmbianceSoundID(Integer.parseInt(ambianceSoundID.getText()));
+                try {
+                    regionToEdit.setAmbianceSoundID(Integer.parseInt(ambianceSoundID.getText()));
+                } catch (NumberFormatException e) {
+                    regionToEdit.setAmbianceSoundID(null);
+                }
             }
         });
 

@@ -15,9 +15,11 @@
   backgroundMusicID: 0
   ambianceSoundID: 66
 2:
-  worldName: "game_start"
-  x1: 11
-  y1: 91
-  x2: 141
-  y2: 131
+  ambianceSoundID: 81
+  regionType: BUILDING
+  worldName: game_start
+  x1: -50
+  x2: 80
+  y1: -38
+  y2: 2
   z: 0

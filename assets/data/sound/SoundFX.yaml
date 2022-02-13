@@ -241,3 +241,6 @@
 80:
   fileName: "footsteps/footstep_water_walk_01.wav"
   description: "Footsteps water walk 01 -- Repeat of 71.. Just a placeholder..."
+81:
+  fileName: "ambient/Village 1 Loop.wav"
+  description: "Cafofo RPG & Dungeon sounds"

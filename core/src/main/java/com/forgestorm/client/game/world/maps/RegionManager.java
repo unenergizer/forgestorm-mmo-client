@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.audio.MusicManager;
+import com.forgestorm.client.game.audio.SoundManager;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
@@ -51,6 +52,10 @@ public class RegionManager {
     private boolean insideRegion = false;
     private boolean outsideRegion = true;
 
+    public boolean isPlayerCurrentRegion(Region region) {
+        return playerCurrentRegion.getRegionID() == region.getRegionID();
+    }
+
     public void playerEnterLocation(Location futureLocation) {
         Region regionFound = findRegion(
                 futureLocation.getX(),
@@ -64,6 +69,7 @@ public class RegionManager {
         // Grab outer classes
         ChatWindow chatWindow = ClientMain.getInstance().getStageHandler().getChatWindow();
         MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+        SoundManager soundManager = ClientMain.getInstance().getAudioManager().getSoundManager();
 
         // EXECUTE REGION TASKS!
         if (!insideRegion && !isSameRegion && regionFound != null && playerCurrentRegion == null) {
@@ -80,6 +86,11 @@ public class RegionManager {
             // PLAY BACKGROUND MUSIC
             if (regionFound.getBackgroundMusicID() != null) {
                 musicManager.playMusic(getClass(), (short) (int) regionFound.getBackgroundMusicID());
+            }
+
+            // PLAY AMBIENCE SOUND
+            if (regionFound.getAmbianceSoundID() != null) {
+                soundManager.playSoundFx(getClass(), (short) (int) regionFound.getAmbianceSoundID());
             }
 
             // TODO: Next flag here..........
@@ -103,6 +114,11 @@ public class RegionManager {
             // STOP BACKGROUND MUSIC
             if (playerCurrentRegion.getBackgroundMusicID() != null) {
                 musicManager.stopMusic(true);
+            }
+
+            // STOP AMBIENCE SOUND
+            if (playerCurrentRegion.getAmbianceSoundID() != null) {
+                soundManager.stopSoundFx(true);
             }
 
             // TODO: Next flag here..........
