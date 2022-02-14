@@ -23,6 +23,9 @@ public class ImageBuilder {
     private int row, column;
     private boolean useSplitTextureRegions = false;
 
+    private TextureRegion textureRegion;
+    private boolean useSingleTextureRegion = false;
+
     public ImageBuilder() {
     }
 
@@ -98,6 +101,12 @@ public class ImageBuilder {
         return this;
     }
 
+    public ImageBuilder setTextureRegion(TextureRegion textureRegion) {
+        this.textureRegion = textureRegion;
+        this.useSingleTextureRegion = true;
+        return this;
+    }
+
     public TextureRegionDrawable buildTextureRegionDrawable() {
         if (gameAtlas == null) throw new RuntimeException("GameAtlas must be defined.");
 
@@ -105,11 +114,16 @@ public class ImageBuilder {
         TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
         TextureRegionDrawable textureRegionDrawable;
 
-        if (!useSplitTextureRegions) {
+        if (!useSplitTextureRegions && !useSingleTextureRegion) {
             if (regionName == null || regionName.isEmpty()) {
                 throw new RuntimeException("Region Name must be defined.");
             }
             textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(regionName));
+        } else if (!useSplitTextureRegions && useSingleTextureRegion) {
+            if (textureRegion == null) {
+                throw new RuntimeException("TextureRegion must be defined.");
+            }
+            textureRegionDrawable = new TextureRegionDrawable(textureRegion);
         } else {
             if (textureRegions == null || textureRegions.length == 0) {
                 throw new RuntimeException("TextureRegions[][] must be defined.");
