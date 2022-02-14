@@ -1,4 +1,4 @@
-package com.forgestorm.client.game.screens.ui.actors.dev;
+package com.forgestorm.client.game.screens.ui.actors.dev.spell;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

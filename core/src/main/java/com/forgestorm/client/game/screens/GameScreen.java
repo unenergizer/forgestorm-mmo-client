@@ -23,7 +23,8 @@ import com.forgestorm.client.game.input.Keyboard;
 import com.forgestorm.client.game.input.Mouse;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
+import com.forgestorm.client.game.screens.ui.actors.dev.spell.PixelFXTest;
+import com.forgestorm.client.game.screens.ui.actors.dev.spell.SpellAnimationEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.entities.EntityManager;
@@ -301,6 +302,9 @@ public class GameScreen implements Screen {
 
         TileAnimationEditor tileAnimationEditor = ClientMain.getInstance().getStageHandler().getTileAnimationEditor();
         if (tileAnimationEditor != null) tileAnimationEditor.render();
+
+        SpellAnimationEditor spellAnimationEditor = ClientMain.getInstance().getStageHandler().getSpellAnimationEditor();
+        if (spellAnimationEditor != null) spellAnimationEditor.renderAllAnimationPartDataTables(delta);
 
         ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
 

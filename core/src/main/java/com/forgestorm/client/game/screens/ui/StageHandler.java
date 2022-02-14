@@ -20,7 +20,7 @@ import com.forgestorm.client.game.screens.ui.actors.character.CharacterSelectMen
 import com.forgestorm.client.game.screens.ui.actors.character.DeleteCharacter;
 import com.forgestorm.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.forgestorm.client.game.screens.ui.actors.dev.DevMenu;
-import com.forgestorm.client.game.screens.ui.actors.dev.PixelFXTest;
+import com.forgestorm.client.game.screens.ui.actors.dev.spell.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.spell.SpellAnimationEditor;
