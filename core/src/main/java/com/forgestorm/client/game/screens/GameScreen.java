@@ -304,7 +304,7 @@ public class GameScreen implements Screen {
         if (tileAnimationEditor != null) tileAnimationEditor.render();
 
         SpellAnimationEditor spellAnimationEditor = ClientMain.getInstance().getStageHandler().getSpellAnimationEditor();
-        if (spellAnimationEditor != null) spellAnimationEditor.renderAllAnimationPartDataTables(delta);
+        if (spellAnimationEditor != null) spellAnimationEditor.getAnimationEffect().renderAllAnimationPartDataTables(delta);
 
         ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
 

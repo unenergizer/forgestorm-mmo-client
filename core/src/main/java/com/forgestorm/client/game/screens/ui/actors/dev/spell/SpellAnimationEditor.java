@@ -34,7 +34,8 @@ import lombok.Getter;
 
 public class SpellAnimationEditor extends HideableVisWindow implements Buildable {
 
-    private final List<AnimationPartData> animationPartList = new ArrayList<>();
+    @Getter
+    private final AnimationEffect animationEffect = new AnimationEffect();
 
     private TextureAtlas spellTextureAtlas;
     private Array<TextureAtlas.AtlasRegion> list;
@@ -59,17 +60,13 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         ActorUtil.textField(infoTable, "Spell Name: ", new VisTextField());
 
         // Cast Animation Table
-        addAnimationParts(new AnimationPartData(id, AnimationType.CAST));
-        addAnimationParts(new AnimationPartData(id, AnimationType.PROJECTILE));
-        addAnimationParts(new AnimationPartData(id, AnimationType.IMPACT));
+        animationEffect.addAnimationPartData(new AnimationPartData(id, AnimationType.CAST));
+        animationEffect.addAnimationPartData(new AnimationPartData(id, AnimationType.PROJECTILE));
+        animationEffect.addAnimationPartData(new AnimationPartData(id, AnimationType.IMPACT));
 
         // Loop through and add all parts to the UI
         VisTable animationTable = new VisTable();
-        animationTable.addSeparator(true);
-        for (AnimationPartData partData : animationPartList) {
-            animationTable.add(partData.getDataTable()).align(Alignment.TOP.getAlignment());
-            animationTable.addSeparator(true);
-        }
+        animationEffect.buildAnimationPartTable(animationTable);
 
         // Finalize Buttons
         VisTable buttonsTable = new VisTable(true);
@@ -105,16 +102,6 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         setVisible(false);
         setResizable(true);
         return this;
-    }
-
-    private void addAnimationParts(AnimationPartData animationPartData) {
-        animationPartList.add(animationPartData);
-    }
-
-    public void renderAllAnimationPartDataTables(float deltaTime) {
-        for (AnimationPartData partData : animationPartList) {
-            partData.render(deltaTime);
-        }
     }
 
     class AnimationPartData {
@@ -250,6 +237,32 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
                     ActorUtil.checkBox(dataTable, "Entity Hit Flash:", new VisCheckBox(""));
                     break;
             }
+        }
+    }
+
+    public class AnimationEffect {
+        private final List<AnimationPartData> animationPartList = new ArrayList<>();
+
+        public void renderAllAnimationPartDataTables(float deltaTime) {
+            for (AnimationPartData partData : animationPartList) {
+                partData.render(deltaTime);
+            }
+        }
+
+        public void buildAnimationPartTable(VisTable animationTable) {
+            animationTable.addSeparator(true);
+            for (AnimationPartData partData : animationPartList) {
+                animationTable.add(partData.getDataTable()).align(Alignment.TOP.getAlignment());
+                animationTable.addSeparator(true);
+            }
+        }
+
+        public void addAnimationPartData(AnimationPartData animationPartData) {
+            animationPartList.add(animationPartData);
+        }
+
+        public void removeAnimationPartData(AnimationPartData animationPartData) {
+            animationPartList.remove(animationPartData);
         }
     }
 
