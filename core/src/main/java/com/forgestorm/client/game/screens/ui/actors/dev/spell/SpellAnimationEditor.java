@@ -226,7 +226,7 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
                 }
             });
 
-            ActorUtil.textField(dataTable, "Sound ID: ", soundIDTextField);
+            ActorUtil.soundField(dataTable, "Sound ID: ", soundIDTextField, getClass());
             ActorUtil.textField(dataTable, "Speed: ", animationSpeedTextField);
             animationSpeedTextField.setText(Float.toString(animationSpeed));
             dataTable.addSeparator().row();

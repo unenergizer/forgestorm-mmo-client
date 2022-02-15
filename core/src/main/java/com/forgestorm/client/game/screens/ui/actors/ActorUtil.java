@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.screens.ui.actors;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -7,12 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.audio.AudioManager;
+import com.forgestorm.client.game.audio.MusicManager;
+import com.forgestorm.client.game.audio.SoundManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 
 import java.text.DecimalFormat;
@@ -124,6 +129,91 @@ public class ActorUtil {
         });
 
         mainTable.add(table).expandX().fillX().pad(1).row();
+    }
+
+    public static void musicField(VisTable mainTable, String labelName, VisTextField textField, Class clazz) {
+        AudioManager audioManager = ClientMain.getInstance().getAudioManager();
+        MusicManager musicManager = audioManager.getMusicManager();
+
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+
+        VisTextButton playButton = new VisTextButton(">");
+        playButton.setColor(Color.GREEN);
+        VisTextButton stopButton = new VisTextButton("X");
+        stopButton.setColor(Color.RED);
+
+        table.add(visLabel).grow().pad(1);
+        table.add(textField).pad(1);
+        table.add(playButton).pad(1);
+        table.add(stopButton).pad(1);
+        mainTable.add(table).expandX().fillX().pad(1).row();
+
+        playButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                try {
+                    musicManager.playMusic(clazz, Short.parseShort(textField.getText()));
+                } catch (NumberFormatException e) {
+                }
+            }
+        });
+
+        stopButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                musicManager.stopMusic(false);
+            }
+        });
+
+        textField.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                audioManager.getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                return false;
+            }
+        });
+    }
+
+    public static void soundField(VisTable mainTable, String labelName, VisTextField textField, Class clazz) {
+        SoundManager audioManager = ClientMain.getInstance().getAudioManager().getSoundManager();
+
+        VisTable table = new VisTable();
+        VisLabel visLabel = new VisLabel(labelName);
+
+        VisTextButton playButton = new VisTextButton(">");
+        playButton.setColor(Color.GREEN);
+        VisTextButton stopButton = new VisTextButton("X");
+        stopButton.setColor(Color.RED);
+
+        table.add(visLabel).grow().pad(1);
+        table.add(textField).pad(1);
+        table.add(playButton).pad(1);
+        table.add(stopButton).pad(1);
+        mainTable.add(table).expandX().fillX().pad(1).row();
+
+        playButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                try {
+                    audioManager.playSoundFx(clazz, Short.parseShort(textField.getText()));
+                } catch (NumberFormatException e) {
+                }
+            }
+        });
+
+        stopButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                audioManager.stopSoundFx(false);
+            }
+        });
+
+        textField.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                audioManager.playSoundFx(ActorUtil.class, (short) 0);
+                return false;
+            }
+        });
     }
 
     public static StageHandler getStageHandler() {

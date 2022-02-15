@@ -170,8 +170,8 @@ public class RegionEditor extends HideableVisWindow implements Buildable {
         ActorUtil.textField(table2, "Farewell Title:", farewellTitle = new VisTextField());
 
         VisTable table3 = new VisTable(true);
-        ActorUtil.textField(table3, "Background Music ID:", backgroundMusicID = new VisTextField());
-        ActorUtil.textField(table3, "Ambiance Sound ID:", ambianceSoundID = new VisTextField());
+        ActorUtil.musicField(table3, "Background Music ID:", backgroundMusicID = new VisTextField(), getClass());
+        ActorUtil.soundField(table3, "Ambiance Sound ID:", ambianceSoundID = new VisTextField(), getClass());
 
         //Build Table
         flagSelectTable.add(table1).align(Alignment.TOP.getAlignment());
