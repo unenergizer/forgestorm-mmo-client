@@ -113,12 +113,12 @@ public class RegionManager {
 
             // STOP BACKGROUND MUSIC
             if (playerCurrentRegion.getBackgroundMusicID() != null) {
-                musicManager.stopMusic(true);
+                musicManager.stopMusic(false);
             }
 
             // STOP AMBIENCE SOUND
             if (playerCurrentRegion.getAmbianceSoundID() != null) {
-                soundManager.stopSoundFx(true);
+                soundManager.stopSoundFx(false);
             }
 
             // TODO: Next flag here..........

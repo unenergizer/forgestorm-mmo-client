@@ -240,7 +240,7 @@ public class RegionEditor extends HideableVisWindow implements Buildable {
                 try {
                     if (regionManager.isPlayerCurrentRegion(regionToEdit)) {
                         MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
-                        musicManager.stopMusic(true);
+                        musicManager.stopMusic(false);
                     }
                     regionToEdit.setBackgroundMusicID(Integer.parseInt(backgroundMusicID.getText()));
                 } catch (NumberFormatException e) {
