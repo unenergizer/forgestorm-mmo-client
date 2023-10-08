@@ -24,7 +24,7 @@ public class SoundManager implements Disposable {
 
     private static final float MAX_DISTANCE = ClientConstants.CHUNK_SIZE;
 
-    private static final boolean PRINT_DEBUG = true;
+    private static final boolean PRINT_DEBUG = false;
 
     private final Map<Short, AudioData> soundFX;
 
