@@ -60,6 +60,11 @@ class PostStageEvent implements InputProcessor {
     }
 
     @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }

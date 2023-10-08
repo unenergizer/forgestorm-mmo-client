@@ -66,6 +66,7 @@ public class MovingEntity extends Entity {
     private int dropTable;
     private float probWalkStill;
     private float probWalkStart;
+    private int walkRadius;
 
     /**
      * Entity is the playerClientTarget

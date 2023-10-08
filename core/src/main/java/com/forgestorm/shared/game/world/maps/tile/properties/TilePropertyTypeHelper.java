@@ -45,4 +45,24 @@ public class TilePropertyTypeHelper {
                 throw new RuntimeException("TRIED TO ADD A PROPERTY THAT IS NOT IN THE SWITCH STATEMENT! ADD THE PROPERTY TO THE SWITCH!");
         }
     }
+
+    public static boolean isPropertyStatefulSpecific(TilePropertyTypes tilePropertyTypes) {
+        switch (tilePropertyTypes) {
+            case DOOR:
+            case INTERACTIVE_CONTAINER:
+                return true;
+            case BLOCK_MOVE_DIRECTION:
+            case COLLISION_BLOCK:
+            case CURSOR_DRAW_OVER_TILE:
+            case INTERACT_DAMAGE:
+            case INTERIOR_STAIRS_PROPERTY:
+            case JUMP_TO_DIRECTION:
+            case LADDER:
+            case WALK_OVER_SOUND:
+            case WATER:
+            case WANG_TILE:
+            default:
+                return false;
+        }
+    }
 }

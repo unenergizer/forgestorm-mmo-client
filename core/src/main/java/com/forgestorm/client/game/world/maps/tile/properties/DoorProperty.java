@@ -16,15 +16,20 @@ import lombok.Setter;
 import static com.forgestorm.client.util.Log.println;
 
 @Getter
-@Setter
 public class DoorProperty extends AbstractTileProperty {
 
     // Must match the game-server
     private transient DoorManager.DoorStatus doorStatus = DoorManager.DoorStatus.CLOSED;
+    @Setter
     private Integer magicLockingLevel;
 
     public DoorProperty() {
         super(TilePropertyTypes.DOOR);
+    }
+
+    public void setDoorStatus(DoorManager.DoorStatus doorStatus) {
+        this.doorStatus = doorStatus;
+        println(getClass(), "Setting door status: " + doorStatus + ", ID: " + this);
     }
 
     @Override

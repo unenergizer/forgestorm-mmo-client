@@ -110,7 +110,6 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         private final transient VisTable dataTable = new VisTable();
         private final transient VisTable imageTable = new VisTable();
 
-        private final int animationID;
         private final AnimationType animationType;
 
         private TextureAtlas.AtlasRegion animationRegion;
@@ -123,7 +122,6 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         private transient float stateTime = 0f;
 
         public AnimationPartData(int animationID, AnimationType animationType) {
-            this.animationID = animationID;
             this.animationType = animationType;
 
             makeAnimationTable();

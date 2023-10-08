@@ -5,15 +5,15 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypeHelper;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -59,12 +59,20 @@ public class TileImage {
 
         if (tileImage.getTileAnimation() != null) {
             this.tileAnimation = new TileAnimation(tileImage.tileAnimation);
+            tileAnimation.setActiveFrame(0); // reset?
         }
 
         // Copy tile properties
         if (tileImage.getTileProperties() != null) {
             for (AbstractTileProperty entry : tileImage.getTileProperties().values()) {
-                setCustomTileProperty(entry);
+                boolean stateSpecific = TilePropertyTypeHelper.isPropertyStatefulSpecific(entry.getTilePropertyType());
+
+                // Make sure we create a brand-new tile property here!
+                if (stateSpecific) {
+                    setCustomTileProperty(TilePropertyTypeHelper.getNewAbstractTileProperty(entry.getTilePropertyType()));
+                } else {
+                    setCustomTileProperty(entry);
+                }
             }
         }
 

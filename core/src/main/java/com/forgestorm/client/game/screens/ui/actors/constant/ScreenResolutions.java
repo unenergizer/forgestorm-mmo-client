@@ -35,8 +35,9 @@ public enum ScreenResolutions {
     DESKTOP_3440_1440(3440, 1440, Application.ApplicationType.Desktop),
     DESKTOP_3840_2160(3840, 2160, Application.ApplicationType.Desktop);
 
-    private int width, height;
-    private Application.ApplicationType applicationType;
+    private final int width;
+    private final int height;
+    private final Application.ApplicationType applicationType;
 
     @Override
     public String toString() {

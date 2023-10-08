@@ -1,6 +1,6 @@
 login:
-  ip: vps.forgestorm.com
+  ip: forgestorm.com
   port: 13337
 game:
-  ip: vps.forgestorm.com
+  ip: forgestorm.com
   port: 25565

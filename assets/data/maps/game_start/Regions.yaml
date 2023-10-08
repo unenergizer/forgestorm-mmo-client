@@ -1,21 +1,21 @@
 1:
   worldName: "game_start"
-  x1: 3
-  y1: 8
-  x2: 17
-  y2: 17
+  x1: 0
+  y1: 14
+  x2: 11
+  y2: 22
   z: 0
-  allowPVP: true
+  allowPVP: false
   allowChat: true
   fullHeal: true
-  greetingsChat: "greetings chat.."
+  greetingsChat: "Welcome to the Inn"
   greetingsTitle: "greetings Title"
-  farewellChat: "farewell Chat"
+  farewellChat: "Now leaving the Inn"
   farewellTitle: "farewell Title"
   backgroundMusicID: 0
   ambianceSoundID: 66
 2:
-  ambianceSoundID: 81
+  ambianceSoundID: 101
   regionType: BUILDING
   worldName: game_start
   x1: -50

@@ -197,6 +197,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
 
         // Set animation playback type
         VisTable controlsTable = new VisTable(true);
+        VisLabel animationID = new VisLabel("ID: " + workingTileAnimation.getAnimationId());
         VisLabel controls = new VisLabel("Playback Type: ");
 
         VisSelectBox<TileAnimation.PlaybackType> animationControlsVisSelectBox = new VisSelectBox<>();
@@ -213,6 +214,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         controlsTable.add(controls);
         controlsTable.add(animationControlsVisSelectBox);
 
+        editorTableContent.add(animationID).align(Alignment.LEFT.getAlignment()).row();
         editorTableContent.add(controlsTable).align(Alignment.LEFT.getAlignment()).row();
 
         // Add frames to table

@@ -1,41 +1,47 @@
 buildscript {
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		google()
-		gradlePluginPortal()
-		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-	}
-	dependencies {
-		classpath "com.android.tools.build:gradle:$androidPluginVersion"
-		classpath "com.mobidevelop.robovm:robovm-gradle-plugin:$robovmVersion"
-	}
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    google()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:$androidPluginVersion"
+    classpath "io.freefair.gradle:lombok-plugin:6.5.0.3"
+
+  }
 }
 
 allprojects {
-	apply plugin: 'eclipse'
-	apply plugin: 'idea'
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
 }
 
 configure(subprojects - project(':android')) {
-	apply plugin: 'java-library'
-	sourceCompatibility = 1.8
-	compileJava {
-		options.incremental = true
-	}
+  apply plugin: 'java-library'
+  apply plugin: 'io.freefair.lombok'
+  sourceCompatibility = 11
+  compileJava {
+    options.incremental = true
+  }
 }
 
 subprojects {
-	version = '0.0.1'
-	ext.appName = 'forgestorm-mmo-client'
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		gradlePluginPortal()
-		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-		maven { url 'https://jitpack.io' }
-		maven { url 'https://s01.oss.sonatype.org' }
-	}
+  version = '1.0.0'
+  ext.appName = 'forgestorm-mmo-client'
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    // You may want to remove the following line if you have errors downloading dependencies.
+    mavenLocal()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
+  }
 }
 
 eclipse.project.name = 'forgestorm-mmo-client' + '-parent'

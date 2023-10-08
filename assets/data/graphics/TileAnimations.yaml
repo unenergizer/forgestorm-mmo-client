@@ -57,7 +57,7 @@
     2:
       duration: 1
       tileId: 834
-  playbackType: PLAY_NORMAL
+  playbackType: STOP
 6:
   animationFrames:
     0:
@@ -69,7 +69,7 @@
     2:
       duration: 1
       tileId: 847
-  playbackType: PLAY_NORMAL
+  playbackType: STOP
 7:
   animationFrames:
     0:
@@ -93,7 +93,7 @@
     2:
       duration: 1
       tileId: 854
-  playbackType: PLAY_NORMAL
+  playbackType: STOP
 9:
   animationFrames:
     0:
@@ -105,7 +105,7 @@
     2:
       duration: 1
       tileId: 445
-  playbackType: PLAY_NORMAL
+  playbackType: STOP
 10:
   animationFrames:
     0:
@@ -123,7 +123,7 @@
     1:
       duration: 1
       tileId: 863
-  playbackType: PLAY_NORMAL
+  playbackType: STOP
 12:
   animationFrames:
     0:
@@ -132,7 +132,7 @@
     1:
       duration: 1
       tileId: 856
-  playbackType: PLAY_NORMAL
+  playbackType: STOP
 13:
   animationFrames:
     0:

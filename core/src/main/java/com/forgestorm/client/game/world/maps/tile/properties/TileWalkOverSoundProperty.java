@@ -68,5 +68,6 @@ public class TileWalkOverSoundProperty extends AbstractTileProperty {
         STONE,
         WATER_SHALLOW,
         WATER_DEEP,
+        WOOD
     }
 }

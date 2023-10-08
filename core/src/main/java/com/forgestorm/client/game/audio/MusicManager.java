@@ -19,7 +19,6 @@ public class MusicManager implements Disposable {
     @Getter
     private AudioPreferences audioPreferences = new AudioPreferences();
     private Music currentSong;
-    private AudioData audioData;
     private boolean isMusicPaused = false;
 
     MusicManager() {
@@ -34,8 +33,6 @@ public class MusicManager implements Disposable {
             println(getClass(), "AudioID is null: " + audioId, true, PRINT_DEBUG);
             return;
         }
-
-        this.audioData = audioData;
 
         if (currentSong != null) {
             if (currentSong.isPlaying()) currentSong.stop();

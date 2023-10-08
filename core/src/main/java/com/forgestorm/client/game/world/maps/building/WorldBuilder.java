@@ -1,11 +1,11 @@
 package com.forgestorm.client.game.world.maps.building;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import com.forgestorm.autotile.AutoTiler;
+import com.forgestorm.autotile.TileGetterSetter;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.MouseManager;
@@ -15,31 +15,29 @@ import com.forgestorm.client.game.world.maps.tile.TileAnimation;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.tile.properties.TileWalkOverSoundProperty;
 import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
-import com.forgestorm.client.game.world.maps.tile.wang.WangTile16Bit;
-import com.forgestorm.client.game.world.maps.tile.wang.WangTile4Bit;
 import com.forgestorm.client.network.game.packet.out.WorldBuilderPacketOut;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.game.world.maps.tile.wang.WangType;
-import com.forgestorm.shared.game.world.tile.wang.BrushSize;
 import com.forgestorm.shared.io.type.GameAtlas;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import lombok.Getter;
-import lombok.Setter;
+import static com.forgestorm.client.util.Log.println;
 
 @Getter
-public class WorldBuilder {
+public class WorldBuilder implements TileGetterSetter {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final AutoTiler autoTiler = new AutoTiler(this);
+
     private final Map<Integer, TileAnimation> tileAnimationMap;
-    private final WangTile4Bit wangTile16 = new WangTile4Bit();
-    private final WangTile16Bit wangTile48 = new WangTile16Bit();
     private final Map<Integer, TileImage> tileImageMap;
     private final TextureAtlas worldTileImages;
     private final Array<TextureAtlas.AtlasRegion> regions;
@@ -63,6 +61,7 @@ public class WorldBuilder {
 
     @Setter
     private boolean allowClickToMove = true;
+
 
     public WorldBuilder() {
 
@@ -283,139 +282,38 @@ public class WorldBuilder {
         return tileImage;
     }
 
+    @Override
+    public String getTile(int x, int y) {
+        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        Tile tile = gameWorld.getTile(currentLayer, x, y, currentWorkingFloor.getWorldZ());
+
+        if (tile == null) return null;
+        if (tile.getTileImage() == null) return null;
+        return tile.getTileImage().getFileName();
+    }
+
+    @Override
+    public void setTile(String tileName, int x, int y) {
+        TileImage tileImage = getTileImage(tileName);
+        if (tileImage == null) {
+            println(getClass(), "AutoTiler tile does not exist: " + tileName);
+            return;
+        }
+        placeTile(currentLayer, tileImage.getImageId(), x, y, currentWorkingFloor.getWorldZ(), true);
+    }
+
     public void placeTile(int worldX, int worldY) {
 
         // Only allow tile place if the World Builder is open
         if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
 
         if (useWangTile) {
-            switch (selectedWangTile.getWangType()) {
-                ////// TYPE 16 ///////////////////////////////////////////////////////////////////
-                case TYPE_16:
-                    switch (selectedWangTile.getMinimalBrushSize()) {
-                        case SIX:
-                            println(getClass(), "PLACING WANG 16 - BRUSH 6");
-                            // Column 1
-                            placeWangTile(worldX, worldY + 2, 5); // Top left
-                            placeWangTile(worldX, worldY + 1, 13);
-                            placeWangTile(worldX, worldY, 12); // Bottom left
-
-                            // Column 2
-                            placeWangTile(worldX + 1, worldY + 2, 7); // Top Middle
-                            placeWangTile(worldX + 1, worldY + 1, 15); // Center
-                            placeWangTile(worldX + 1, worldY, 14); // Bottom Middle
-
-                            // Column 3
-                            placeWangTile(worldX + 2, worldY + 2, 3); // Top Right
-                            placeWangTile(worldX + 2, worldY + 1, 11);
-                            placeWangTile(worldX + 2, worldY, 10); // Bottom Right
-                            updateAroundWangTile(worldX, worldY);
-                            break;
-                        case FOUR:
-                            println(getClass(), "PLACING WANG 16 - BRUSH 4");
-                            // Column 1
-                            placeWangTile(worldX, worldY + 1, 5); // Top Left
-                            placeWangTile(worldX, worldY, 12); // Bottom Left
-
-                            // Column 2
-                            placeWangTile(worldX + 1, worldY + 1, 3); // Top Right
-                            placeWangTile(worldX + 1, worldY, 10); // Bottom Right
-                            updateAroundWangTile(worldX, worldY);
-                            break;
-                        case ONE:
-                        default:
-                            println(getClass(), "PLACING WANG 16 - BRUSH 1");
-                            placeWangTile(worldX, worldY, 0); // Single
-                            wangTile16.updateAroundTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
-                            break;
-                    }
-                    break;
-                ////// TYPE 48 ///////////////////////////////////////////////////////////////////
-                case TYPE_48:
-                    switch (selectedWangTile.getMinimalBrushSize()) {
-                        case SIX:
-                            println(getClass(), "PLACING WANG 48 - BRUSH 6");
-                            // Column 1
-                            placeWangTile(worldX, worldY + 2, 22); // Top left
-                            placeWangTile(worldX, worldY + 1, 214);
-                            placeWangTile(worldX, worldY, 208); // Bottom left
-
-                            // Column 2
-                            placeWangTile(worldX + 1, worldY + 2, 31); // Top Middle
-                            placeWangTile(worldX + 1, worldY + 1, 255); // Center
-                            placeWangTile(worldX + 1, worldY, 248); // Bottom Middle
-
-                            // Column 3
-                            placeWangTile(worldX + 2, worldY + 2, 11); // Top Right
-                            placeWangTile(worldX + 2, worldY + 1, 107);
-                            placeWangTile(worldX + 2, worldY, 104); // Bottom Right
-                            updateAroundWangTile(worldX, worldY);
-                            break;
-                        case FOUR:
-                            println(getClass(), "PLACING WANG 48 - BRUSH 4");
-                            // Column 1
-                            placeWangTile(worldX, worldY + 1, 22); // Top Left
-                            placeWangTile(worldX, worldY, 208); // Bottom Left
-
-                            // Column 2
-                            placeWangTile(worldX + 1, worldY + 1, 11); // Top Right
-                            placeWangTile(worldX + 1, worldY, 104); // Bottom Right
-                            updateAroundWangTile(worldX, worldY);
-                            break;
-                        case ONE:
-                        default:
-                            println(getClass(), "PLACING WANG 48 - BRUSH 1");
-                            placeWangTile(worldX, worldY, 0); // Single
-                            wangTile48.updateAroundTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
-                            break;
-                    }
-                    break;
-            }
+            TileImage tileImage = new TileImage(tileImageMap.get(currentTextureId));
+            boolean tileSet = autoTiler.autoTile(tileImage.getFileName(), worldX, worldY);
+            println(getClass(), "AutoTiler place tile: " + tileSet);
         } else {
             // BUILDING USING DRAW BRUSH, USE USER SELECTED TILE!
             placeTile(currentLayer, currentTextureId, worldX, worldY, currentWorkingFloor.getWorldZ(), true);
-        }
-    }
-
-    public void placeWangTile(int worldX, int worldY, int autoTileID) {
-        // BUILDING USING WANG BRUSH, AUTO SELECT THE TILE!
-
-        // If working with a brush size of one, enable the auto-tile surrounding that tile
-        if (selectedWangTile.getMinimalBrushSize() == BrushSize.ONE) {
-            switch (selectedWangTile.getWangType()) {
-                case TYPE_16:
-                    autoTileID = wangTile16.autoTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
-                    break;
-                case TYPE_48:
-                    autoTileID = wangTile48.autoTile(currentLayer, worldX, worldY, currentWorkingFloor.getWorldZ());
-                    break;
-            }
-        }
-
-        String tileName = selectedWangTile.getWangRegionNamePrefix() + autoTileID;
-        TileImage tileImage = getTileImage(tileName);
-
-        // If the tile is null, display an error message before we crash
-        if (tileImage == null) {
-            println(getClass(), "Has this tile been added to TileProperties.yaml???? " + tileName, true);
-            return;
-        }
-
-        placeTile(currentLayer, tileImage.getImageId(), worldX, worldY, currentWorkingFloor.getWorldZ(), true);
-    }
-
-    private void updateAroundWangTile(int worldX, int worldY) {
-        for (int x = 0; x < selectedWangTile.getMinimalBrushSize().getSize() / 2; x++) {
-            for (int y = 0; y < selectedWangTile.getMinimalBrushSize().getSize() / 2; y++) {
-                switch (selectedWangTile.getWangType()) {
-                    case TYPE_16:
-                        wangTile16.updateAroundTile(currentLayer, worldX + x, worldY + y, currentWorkingFloor.getWorldZ());
-                        break;
-                    case TYPE_48:
-                        wangTile48.updateAroundTile(currentLayer, worldX + x, worldY + y, currentWorkingFloor.getWorldZ());
-                        break;
-                }
-            }
         }
     }
 

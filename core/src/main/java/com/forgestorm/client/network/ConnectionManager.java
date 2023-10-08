@@ -12,7 +12,6 @@ import com.forgestorm.client.network.game.shared.EventBus;
 import com.forgestorm.client.network.login.ClientLoginConnection;
 import com.forgestorm.client.network.login.LoginState;
 import com.forgestorm.shared.io.NetworkSettingsLoader;
-
 import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
@@ -130,10 +129,10 @@ public class ConnectionManager {
             }
 
             clientGameConnection.openConnection(
-                    loginState.getUuid(),
-                    networkSettingsData.getGameIp(),
-                    networkSettingsData.getGamePort(),
-                    registerListeners);
+                loginState.getUuid(),
+                networkSettingsData.getGameIp(),
+                networkSettingsData.getGamePort(),
+                registerListeners);
         }
     }
 }

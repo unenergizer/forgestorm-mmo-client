@@ -39,6 +39,18 @@ public class TileAnimation {
         }
     }
 
+    public void setActiveFrame(int frame) {
+        this.activeFrame = frame;
+    }
+
+    public int getFirstFrameTileID() {
+        return animationFrames.get(0).getFrameId();
+    }
+
+    public int getLastFrameTileID() {
+        return animationFrames.get(animationFrames.size() - 1).getFrameId();
+    }
+
     /**
      * A simple method to swap frames around. Or in other words a method to
      * rearrange frames.
@@ -236,7 +248,7 @@ public class TileAnimation {
         MOVE_UP(-1),
         MOVE_DOWN(1);
 
-        public transient int getDirection;
+        public final transient int getDirection;
     }
 
     @Getter

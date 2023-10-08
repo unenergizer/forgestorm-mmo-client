@@ -53,6 +53,7 @@ public class AdminEditorEntityPacketOut extends AbstractPacketOut {
                 write.writeFloat(npcData.getProbWalk());
                 write.writeShort(npcData.getShopId());
                 write.writeBoolean(npcData.isBankKeeper());
+                write.writeInt(npcData.getWalkRadius());
 
                 // Appearance data
                 write.writeByte(npcData.getHairTexture());
@@ -80,6 +81,7 @@ public class AdminEditorEntityPacketOut extends AbstractPacketOut {
                 write.writeFloat(monsterData.getProbWalk());
                 write.writeShort(monsterData.getShopId());
                 write.writeBoolean(monsterData.isBankKeeper());
+                write.writeInt(monsterData.getWalkRadius());
 
                 // Appearance data
                 write.writeByte(monsterData.getSingleBodyTexture());

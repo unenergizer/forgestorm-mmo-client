@@ -65,6 +65,7 @@ public class MonsterTab extends EditorTab {
     private final VisValidatableTextField mapX = new VisValidatableTextField();
     private final VisValidatableTextField mapY = new VisValidatableTextField();
     private final VisSelectBox<Floors> mapZ = new VisSelectBox<Floors>();
+    private final VisValidatableTextField walkRadius = new VisValidatableTextField();
     private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
@@ -106,6 +107,7 @@ public class MonsterTab extends EditorTab {
         mapX.setText("");
         mapY.setText("");
         mapZ.setSelected(Floors.GROUND_FLOOR);
+        walkRadius.setText("");
 
         deleteButton.setDisabled(true);
 
@@ -134,6 +136,7 @@ public class MonsterTab extends EditorTab {
         mapX.setText(Integer.toString(aiEntity.getDefaultSpawnLocation().getX()));
         mapY.setText(Integer.toString(aiEntity.getDefaultSpawnLocation().getY()));
         mapZ.setSelected(Floors.getFloor(aiEntity.getDefaultSpawnLocation().getZ()));
+        walkRadius.setText(Integer.toString(aiEntity.getWalkRadius()));
 
         // Load Appearance
         appearanceTable.clear();
@@ -197,6 +200,7 @@ public class MonsterTab extends EditorTab {
         validator.notEmpty(worldName, "Map name must not be empty.");
         validator.integerNumber(mapX, "Map X must be a valid number.");
         validator.integerNumber(mapY, "Map Y must be a valid number.");
+        validator.integerNumber(walkRadius, "Walk Radius must be a valid number.");
 
         // Spawn location Selection
         worldName.setDisabled(true);
@@ -249,6 +253,11 @@ public class MonsterTab extends EditorTab {
             }
 
             @Override
+            public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+                return false;
+            }
+
+            @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 if (!selectSpawnActivated) return false;
                 mapX.setText(Integer.toString(mouseManager.getMouseTileX()));
@@ -291,6 +300,11 @@ public class MonsterTab extends EditorTab {
         mapZTable.add(new VisLabel("Spawn Z:")).grow().pad(1);
         mapZTable.add(mapZ).pad(1);
         leftPane.add(mapZTable).expandX().fillX().pad(1).row();
+
+        VisTable walkRadiusTable = new VisTable();
+        walkRadiusTable.add(new VisLabel("Walk Radius:")).grow().pad(1);
+        walkRadiusTable.add(walkRadius).pad(1);
+        leftPane.add(walkRadiusTable).expandX().fillX().pad(1).row();
 
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
@@ -410,6 +424,7 @@ public class MonsterTab extends EditorTab {
         ((MonsterData) entityEditorData).setProbWalk(probWalk.getValue());
         ((MonsterData) entityEditorData).setShopId(Short.parseShort(shopId.getText()));
         ((MonsterData) entityEditorData).setBankKeeper(isBankKeeper.isChecked());
+        ((MonsterData) entityEditorData).setWalkRadius(Integer.parseInt(walkRadius.getText()));
 
         // Appearance
         entityEditorData = appearancePanel.getDataOut(entityEditorData);

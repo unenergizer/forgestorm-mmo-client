@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.screens;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -48,7 +46,7 @@ public class AssetLoadingScreen implements Screen {
     @Override
     public void show() {
         // Copy the client-updater.jar
-        fileManager.copyClientUpdaterJar();
+        // TODO: fileManager.copyClientUpdaterJar();
 
         // Front-load the assets needed to show the loading screen.
         fileManager.loadAtlas(GameAtlas.LOADING_SCREEN, true);
@@ -130,16 +128,17 @@ public class AssetLoadingScreen implements Screen {
         }
 
         // Check local revision
-        int localRevisionNumber = fileManager.getRevisionDocumentData().getRevisionNumber();
-        ClientMain.getInstance().setRemoteRevisionNumber(remoteRevisionNumber);
-
-        if (remoteRevisionNumber != localRevisionNumber) {
-            println(getClass(), "REVISION NUMBERS DO NOT MATCH, UPDATER SHOULD BE STARTED!");
-            ClientMain.getInstance().setNeedsUpdate(true);
-        } else {
-            println(getClass(), "REVISION NUMBERS MATCH, CLIENT DOES NOT NEED AN UPDATE!");
-            ClientMain.getInstance().setNeedsUpdate(false);
-        }
+        // TODO: SET TO TRUE FOR NOW TO SKIP UPDATE DOWNLOADS!
+//        int localRevisionNumber = fileManager.getRevisionDocumentData().getRevisionNumber();
+//        ClientMain.getInstance().setRemoteRevisionNumber(remoteRevisionNumber);
+//
+//        if (remoteRevisionNumber != localRevisionNumber) {
+//            println(getClass(), "REVISION NUMBERS DO NOT MATCH, UPDATER SHOULD BE STARTED!");
+//            ClientMain.getInstance().setNeedsUpdate(true);
+//        } else {
+//            println(getClass(), "REVISION NUMBERS MATCH, CLIENT DOES NOT NEED AN UPDATE!");
+//            ClientMain.getInstance().setNeedsUpdate(false);
+//        }
     }
 
     @Override

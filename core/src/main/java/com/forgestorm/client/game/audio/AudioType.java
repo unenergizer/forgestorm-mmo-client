@@ -9,5 +9,5 @@ public enum AudioType {
     SOUND_FX("audio/sounds/"),
     GAME_MUSIC("audio/music/");
 
-    private String filePath;
+    private final String filePath;
 }

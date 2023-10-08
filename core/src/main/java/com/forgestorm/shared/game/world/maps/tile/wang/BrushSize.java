@@ -1,4 +1,4 @@
-package com.forgestorm.shared.game.world.tile.wang;
+package com.forgestorm.shared.game.world.maps.tile.wang;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

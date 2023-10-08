@@ -1,8 +1,6 @@
 package com.forgestorm.client.game.screens.ui.actors.dialogue;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 //import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 import com.forgestorm.client.game.screens.ui.StageHandler;

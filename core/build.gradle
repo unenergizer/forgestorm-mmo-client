@@ -2,18 +2,16 @@
 eclipse.project.name = appName + '-core'
 
 dependencies {
-
-	implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-	api "com.badlogicgames.gdx:gdx:$gdxVersion"
-	api "com.kotcrab.vis:vis-ui:$visUiVersion"
-	api "org.yaml:snakeyaml:1.23:android"
-	api "com.rometools:rome:1.15.0"
-	api "org.jsoup:jsoup:1.12.1"
-	api "commons-codec:commons-codec:1.12"
-	implementation "space.earlygrey:shapedrawer:2.5.0"
-	api "org.projectlombok:lombok:$lombokVersion"
-	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-
-//        compile "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
-
+  implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "com.kotcrab.vis:vis-ui:$visUiVersion"
+  api "org.yaml:snakeyaml:1.23:android"
+  api "com.rometools:rome:1.18.0"
+  api "org.jsoup:jsoup:1.15.3"
+  api "commons-codec:commons-codec:1.13"
+  implementation "space.earlygrey:shapedrawer:2.6.0"
+  annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+  compileOnly "org.projectlombok:lombok:$lombokVersion"
+  annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+  api "com.github.unenergizer:JavaAutoTile:master-SNAPSHOT"
 }

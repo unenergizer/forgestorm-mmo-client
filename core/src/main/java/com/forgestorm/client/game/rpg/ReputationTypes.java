@@ -16,6 +16,6 @@ public enum ReputationTypes {
     HOSTILE(4000, AttackStatus.ATTACK_ON_SIGHT),
     ABOMINATION(6000, AttackStatus.ATTACK_ON_SIGHT);
 
-    private int range;
-    private AttackStatus attackStatus;
+    private final int range;
+    private final AttackStatus attackStatus;
 }

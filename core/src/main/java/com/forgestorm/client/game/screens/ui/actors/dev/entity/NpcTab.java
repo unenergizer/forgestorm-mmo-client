@@ -74,6 +74,7 @@ public class NpcTab extends EditorTab {
     private final VisValidatableTextField mapX = new VisValidatableTextField();
     private final VisValidatableTextField mapY = new VisValidatableTextField();
     private final VisSelectBox<Floors> mapZ = new VisSelectBox<Floors>();
+    private final VisValidatableTextField walkRadius = new VisValidatableTextField();
     private final VisTextButton deleteButton = new VisTextButton("Delete");
 
     @Getter
@@ -118,6 +119,7 @@ public class NpcTab extends EditorTab {
         mapX.setText("");
         mapY.setText("");
         mapZ.setSelected(Floors.GROUND_FLOOR);
+        walkRadius.setText("");
 
         deleteButton.setDisabled(true);
 
@@ -150,6 +152,7 @@ public class NpcTab extends EditorTab {
         mapX.setText(Integer.toString(npc.getDefaultSpawnLocation().getX()));
         mapY.setText(Integer.toString(npc.getDefaultSpawnLocation().getY()));
         mapZ.setSelected(Floors.getFloor(npc.getDefaultSpawnLocation().getZ()));
+        walkRadius.setText(Integer.toString(npc.getWalkRadius()));
 
         // Load Appearance
         appearanceTable.clear();
@@ -230,6 +233,7 @@ public class NpcTab extends EditorTab {
         validator.notEmpty(worldName, "Map name must not be empty.");
         validator.integerNumber(mapX, "Map X must be a valid number.");
         validator.integerNumber(mapY, "Map Y must be a valid number.");
+        validator.integerNumber(walkRadius, "Walk Radius must be a valid number.");
 
         // Spawn location Selection
         worldName.setDisabled(true);
@@ -282,6 +286,11 @@ public class NpcTab extends EditorTab {
             }
 
             @Override
+            public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+                return false;
+            }
+
+            @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 if (!selectSpawnActivated) return false;
                 mapX.setText(Integer.toString(mouseManager.getMouseTileX()));
@@ -325,6 +334,11 @@ public class NpcTab extends EditorTab {
         mapZTable.add(mapZ).pad(1);
         leftPane.add(mapZTable).expandX().fillX().pad(1).row();
 
+        VisTable walkRadiusTable = new VisTable();
+        walkRadiusTable.add(new VisLabel("Walk Radius:")).grow().pad(1);
+        walkRadiusTable.add(walkRadius).pad(1);
+        leftPane.add(walkRadiusTable).expandX().fillX().pad(1).row();
+
         VisTable texturePrintTable = new VisTable();
         VisLabel textures = new VisLabel("DEBUG:");
         VisTextButton textButton = new VisTextButton("Print Details to Console");
@@ -350,6 +364,7 @@ public class NpcTab extends EditorTab {
                 println(NpcTab.class, "ShopID: " + shopId.getText());
                 println(NpcTab.class, "IsBanker: " + isBankKeeper.isChecked());
                 println(NpcTab.class, "SpawnLocation: " + worldName.getText() + ", X: " + mapX.getText() + ", Y: " + mapY.getText() + ", Z: " + mapZ.getSelected().getWorldZ());
+                println(NpcTab.class, "Walk Radius: " + walkRadius.getText());
                 println(NpcTab.class, "--- Appearance ---");
 
                 appearancePanel.printDebug();
@@ -490,6 +505,7 @@ public class NpcTab extends EditorTab {
         ((NPCData) entityEditorData).setProbWalk(probWalk.getValue());
         ((NPCData) entityEditorData).setShopId(Short.parseShort(shopId.getText()));
         ((NPCData) entityEditorData).setBankKeeper(isBankKeeper.isChecked());
+        ((NPCData) entityEditorData).setWalkRadius(Integer.parseInt(walkRadius.getText()));
 
         // Appearance
         entityEditorData = appearancePanel.getDataOut(entityEditorData);

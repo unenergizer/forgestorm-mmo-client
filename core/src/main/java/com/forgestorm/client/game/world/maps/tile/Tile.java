@@ -5,11 +5,11 @@ import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.game.world.tile.properties.WorldEdit;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.forgestorm.shared.game.world.maps.tile.properties.WorldEdit;
 import lombok.Getter;
 
 public class Tile extends WorldObject {

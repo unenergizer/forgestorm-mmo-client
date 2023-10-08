@@ -8,7 +8,7 @@ import static com.forgestorm.client.util.Log.println;
 
 public class DoorInteractPacketOut extends AbstractPacketOut {
 
-    private static final boolean PRINT_DEBUG = false;
+    private static final boolean PRINT_DEBUG = true;
 
     private final DoorManager.DoorStatus doorStatus;
     private final int tileX, tileY;

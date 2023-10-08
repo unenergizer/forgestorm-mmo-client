@@ -15,7 +15,7 @@ import static com.forgestorm.client.util.Log.println;
 @Opcode(getOpcode = Opcodes.DOOR_INTERACT)
 public class DoorInteractPacketIn implements PacketListener<DoorInteractPacketIn.DoorStatusPacket> {
 
-    private final static boolean PRINT_DEBUG = false;
+    private final static boolean PRINT_DEBUG = true;
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {

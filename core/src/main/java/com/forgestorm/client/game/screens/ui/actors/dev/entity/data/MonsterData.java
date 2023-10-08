@@ -25,6 +25,7 @@ public class MonsterData extends EntityEditorData {
     private float probWalk;
     private short shopId;
     private boolean bankKeeper;
+    private int walkRadius;
 
     // Monster Appearance
     private byte singleBodyTexture;

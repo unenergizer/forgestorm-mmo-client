@@ -242,5 +242,65 @@
   fileName: "footsteps/footstep_water_walk_01.wav"
   description: "Footsteps water walk 01 -- Repeat of 71.. Just a placeholder..."
 81:
+  fileName: "footsteps/footstep_wood_walk_01.wav"
+  description: "Footsteps wood walk 01"
+82:
+  fileName: "footsteps/footstep_wood_walk_02.wav"
+  description: "Footsteps wood walk 02"
+83:
+  fileName: "footsteps/footstep_wood_walk_03.wav"
+  description: "Footsteps wood walk 03"
+84:
+  fileName: "footsteps/footstep_wood_walk_04.wav"
+  description: "Footsteps wood walk 04"
+85:
+  fileName: "footsteps/footstep_wood_walk_05.wav"
+  description: "Footsteps wood walk 05"
+86:
+  fileName: "footsteps/footstep_wood_walk_06.wav"
+  description: "Footsteps wood walk 06"
+87:
+  fileName: "footsteps/footstep_wood_walk_07.wav"
+  description: "Footsteps wood walk 07"
+88:
+  fileName: "footsteps/footstep_wood_walk_08.wav"
+  description: "Footsteps wood walk 08"
+89:
+  fileName: "footsteps/footstep_wood_walk_09.wav"
+  description: "Footsteps wood walk 09"
+90:
+  fileName: "footsteps/footstep_wood_walk_10.wav"
+  description: "Footsteps wood walk 10"
+91:
+  fileName: "footsteps/footstep_wood_walk_11.wav"
+  description: "Footsteps wood walk 11"
+92:
+  fileName: "footsteps/footstep_wood_walk_12.wav"
+  description: "Footsteps wood walk 12"
+93:
+  fileName: "footsteps/footstep_wood_walk_13.wav"
+  description: "Footsteps wood walk 13"
+94:
+  fileName: "footsteps/footstep_wood_walk_14.wav"
+  description: "Footsteps wood walk 14"
+95:
+  fileName: "footsteps/footstep_wood_walk_15.wav"
+  description: "Footsteps wood walk 15"
+96:
+  fileName: "footsteps/footstep_wood_walk_16.wav"
+  description: "Footsteps wood walk 16"
+97:
+  fileName: "footsteps/footstep_wood_walk_17.wav"
+  description: "Footsteps wood walk 17"
+98:
+  fileName: "footsteps/footstep_wood_walk_18.wav"
+  description: "Footsteps wood walk 18"
+99:
+  fileName: "footsteps/footstep_wood_walk_19.wav"
+  description: "Footsteps wood walk 19"
+100:
+  fileName: "footsteps/footstep_wood_walk_20.wav"
+  description: "Footsteps wood walk 20"
+101:
   fileName: "ambient/Village 1 Loop.wav"
   description: "Cafofo RPG & Dungeon sounds"

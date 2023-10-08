@@ -119,6 +119,7 @@ public class WorldChunk {
                 int localY = section; // Defined for readability...
                 Tile tile = getTile(layerDefinition, localX, localY, floor);
                 tile.setTileImage(new TileImage(tileImage));
+
             }
         }
     }

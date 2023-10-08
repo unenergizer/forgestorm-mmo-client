@@ -43,7 +43,7 @@ public enum Tags {
     WINDOW(new LayerDefinition[]{LayerDefinition.WORLD_OBJECT_DECORATION});
 
     @Getter
-    public LayerDefinition[] tagLayerDefinitions;
+    public final LayerDefinition[] tagLayerDefinitions;
 
     /**
      * Hacky way to do a ValueOf implementation. Tags here could

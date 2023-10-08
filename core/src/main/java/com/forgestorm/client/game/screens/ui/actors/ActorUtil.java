@@ -154,7 +154,7 @@ public class ActorUtil {
             public void changed(ChangeEvent event, Actor actor) {
                 try {
                     musicManager.playMusic(clazz, Short.parseShort(textField.getText()));
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
         });
@@ -196,7 +196,7 @@ public class ActorUtil {
             public void changed(ChangeEvent event, Actor actor) {
                 try {
                     audioManager.playSoundFx(clazz, Short.parseShort(textField.getText()));
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException ignored) {
                 }
             }
         });

@@ -54,6 +54,11 @@ public class Keyboard implements InputProcessor {
         return false;
     }
 
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
     public boolean touchDragged(int x, int y, int pointer) {
         return false;
     }

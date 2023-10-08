@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.world.maps;
 
-import static jdk.nashorn.internal.objects.Global.println;
-
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
@@ -13,6 +11,8 @@ import com.forgestorm.client.game.world.maps.tile.properties.DoorProperty;
 import com.forgestorm.client.network.game.packet.out.DoorInteractPacketOut;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
+
+import static com.forgestorm.client.util.Log.println;
 
 public class DoorManager {
 
@@ -69,21 +69,33 @@ public class DoorManager {
         // Set new door status
         DoorProperty doorProperty = (DoorProperty) tileImage.getProperty(TilePropertyTypes.DOOR);
         doorProperty.setDoorStatus(doorStatus);
+        println(getClass(), "Door status: " + doorStatus);
 
         // Play animation
-        if (!playAnimation) return; // If we don't play the animation, we don't play the sound below
+        TileAnimation tileAnimation = tile.getTileImage().getTileAnimation();
+
         switch (doorStatus) {
             case OPEN:
-                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_NORMAL);
+                if (playAnimation) {
+                    tileAnimation.playAnimation(TileAnimation.PlaybackType.PLAY_NORMAL);
+                } else {
+                    // Set the visible animation frame to the image of a door/gate that is open.
+                    tileAnimation.setActiveFrame(tileAnimation.getLastFrameTileID());
+                }
                 break;
             case CLOSED:
-                tile.getTileImage().getTileAnimation().playAnimation(TileAnimation.PlaybackType.PLAY_BACKWARDS);
+                if (playAnimation) {
+                    tileAnimation.playAnimation(TileAnimation.PlaybackType.PLAY_BACKWARDS);
+                } else {
+                    // Set the visible animation frame to the image of a door/gate that is closed.
+                    tileAnimation.setActiveFrame(tileAnimation.getFirstFrameTileID());
+                }
                 break;
         }
 
         // Don't play the sound if the user is too far away from the door
-        if (isTooFarAway(playerClient.getCurrentMapLocation(), tileX, tileY)) return;
-        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20);
+        if (!playAnimation || isTooFarAway(playerClient.getCurrentMapLocation(), tileX, tileY)) return;
+        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20, tileX, tileY, worldZ);
     }
 
     private boolean isTooFarAway(Location playerClientLocation, int x1, int y1) {

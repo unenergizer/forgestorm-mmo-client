@@ -11,7 +11,7 @@ public enum ChatChannelType {
     STAFF(true);
 
     @Getter
-    private boolean canSendMessages;
+    private final boolean canSendMessages;
 
     public static ChatChannelType getChannelType(byte enumIndex) {
         for (ChatChannelType chatChannelType : ChatChannelType.values()) {

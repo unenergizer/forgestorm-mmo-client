@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.forgestorm.autotile.BrushType;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
@@ -162,8 +163,36 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         buttonTable.add(allowRunningButton);
         buttonTable.add(regionSelectButton);
 
+        // AutoTile options
+        VisCheckBox autoTileFixNeighborTiles = new VisCheckBox(": Fix neighbor auto-tiles");
+        boolean defaultOption = true;
+        autoTileFixNeighborTiles.setChecked(defaultOption);
+        worldBuilder.getAutoTiler().setFixNeighborTiles(defaultOption);
+        autoTileFixNeighborTiles.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                worldBuilder.getAutoTiler().setFixNeighborTiles(autoTileFixNeighborTiles.isChecked());
+            }
+        });
+
+        VisTable brushTypeTable = new VisTable();
+        VisSelectBox<BrushType> autoTileBrushType = new VisSelectBox<>();
+        autoTileBrushType.setItems(BrushType.values());
+        autoTileBrushType.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                worldBuilder.getAutoTiler().setBrushType(autoTileBrushType.getSelected());
+            }
+        });
+
+        brushTypeTable.add(new VisLabel("Brush Type: "));
+        brushTypeTable.add(autoTileBrushType);
+
+
         toolsTable.add(new VisLabel("[YELLOW]Tools:")).align(Alignment.LEFT.getAlignment()).row();
         toolsTable.add(buttonTable).align(Alignment.LEFT.getAlignment()).row();
+        toolsTable.add(autoTileFixNeighborTiles).align(Alignment.LEFT.getAlignment()).row();
+        toolsTable.add(brushTypeTable).align(Alignment.LEFT.getAlignment()).row();
         toolsTable.addSeparator();
 
         // LAYER SELECT
