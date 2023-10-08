@@ -125,7 +125,7 @@ public class ClientMain extends Game {
     @Setter
     private boolean playIntroMusic;
 
-    private ClientMain() {
+    public ClientMain() {
     }
 
     public static ClientMain getInstance() {
