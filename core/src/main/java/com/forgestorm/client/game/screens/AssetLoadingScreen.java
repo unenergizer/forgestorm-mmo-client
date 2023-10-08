@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
+import static com.forgestorm.client.util.Log.println;
+
 /**
  * Loading Screen originally from: https://github.com/Matsemann/libgdx-loading-screen
  */
@@ -45,9 +47,6 @@ public class AssetLoadingScreen implements Screen {
 
     @Override
     public void show() {
-        // Copy the client-updater.jar
-        // TODO: fileManager.copyClientUpdaterJar();
-
         // Front-load the assets needed to show the loading screen.
         fileManager.loadAtlas(GameAtlas.LOADING_SCREEN, true);
         TextureAtlas atlas = fileManager.getAtlas(GameAtlas.LOADING_SCREEN);
@@ -128,17 +127,16 @@ public class AssetLoadingScreen implements Screen {
         }
 
         // Check local revision
-        // TODO: SET TO TRUE FOR NOW TO SKIP UPDATE DOWNLOADS!
-//        int localRevisionNumber = fileManager.getRevisionDocumentData().getRevisionNumber();
-//        ClientMain.getInstance().setRemoteRevisionNumber(remoteRevisionNumber);
-//
-//        if (remoteRevisionNumber != localRevisionNumber) {
-//            println(getClass(), "REVISION NUMBERS DO NOT MATCH, UPDATER SHOULD BE STARTED!");
-//            ClientMain.getInstance().setNeedsUpdate(true);
-//        } else {
-//            println(getClass(), "REVISION NUMBERS MATCH, CLIENT DOES NOT NEED AN UPDATE!");
-//            ClientMain.getInstance().setNeedsUpdate(false);
-//        }
+        int localRevisionNumber = fileManager.getRevisionDocumentData().getRevisionNumber();
+        ClientMain.getInstance().setRemoteRevisionNumber(remoteRevisionNumber);
+
+        if (remoteRevisionNumber != localRevisionNumber) {
+            println(getClass(), "REVISION NUMBERS DO NOT MATCH, UPDATER SHOULD BE STARTED!");
+            ClientMain.getInstance().setNeedsUpdate(true);
+        } else {
+            println(getClass(), "REVISION NUMBERS MATCH, CLIENT DOES NOT NEED AN UPDATE!");
+            ClientMain.getInstance().setNeedsUpdate(false);
+        }
     }
 
     @Override

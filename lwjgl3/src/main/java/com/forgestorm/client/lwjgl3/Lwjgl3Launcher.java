@@ -16,7 +16,7 @@ public class Lwjgl3Launcher {
         boolean forceLocalHost = false;
         boolean ideRun = false;
         boolean playIntroMusic = true;
-        boolean ignoreRevisionNumber = true; // TODO: SET TO TRUE FOR NOW TO SKIP UPDATE DOWNLOADS!
+        boolean ignoreRevisionNumber = false;
         String username = null;
         String password = null;
 

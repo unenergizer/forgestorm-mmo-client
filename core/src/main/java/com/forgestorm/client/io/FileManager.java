@@ -1,23 +1,12 @@
 package com.forgestorm.client.io;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.AssetLoader;
-import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.MusicLoader;
-import com.badlogic.gdx.assets.loaders.PixmapLoader;
-import com.badlogic.gdx.assets.loaders.SkinLoader;
-import com.badlogic.gdx.assets.loaders.SoundLoader;
-import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
-import com.badlogic.gdx.assets.loaders.TextureLoader;
+import com.badlogic.gdx.assets.loaders.*;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -28,21 +17,14 @@ import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GamePixmap;
 import com.forgestorm.client.io.type.GameSkin;
 import com.forgestorm.client.io.type.GameTexture;
-import com.forgestorm.client.util.file.FileUtils;
 import com.forgestorm.client.util.file.FindDesktopDirectoryUtil;
-import com.forgestorm.shared.io.AbilityLoader;
-import com.forgestorm.shared.io.ChunkLoader;
-import com.forgestorm.shared.io.FactionLoader;
-import com.forgestorm.shared.io.ItemStackLoader;
-import com.forgestorm.shared.io.NetworkSettingsLoader;
-import com.forgestorm.shared.io.TilePropertiesLoader;
+import com.forgestorm.shared.io.*;
 import com.forgestorm.shared.io.type.GameAtlas;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import lombok.Getter;
+
+import java.io.*;
+
+import static com.forgestorm.client.util.Log.println;
 
 public class FileManager {
 
@@ -51,7 +33,7 @@ public class FileManager {
     @Getter
     private final String clientFilesDirectoryPath;
     @Getter
-    private String clientUpdaterJar;
+    private final String clientUpdaterJar;
 
     @Getter
     private final String worldDirectory;
@@ -77,7 +59,7 @@ public class FileManager {
 
 
         // Create the World Directory if it doesn't exist.
-        File worldDirectory = new File(clientFilesDirectoryPath + "/worldDirectory");
+        File worldDirectory = new File(clientFilesDirectoryPath + "/worldDirectory/");
         if (!worldDirectory.exists()) {
             if (worldDirectory.mkdir()) {
                 println(getClass(), "The World directory didn't exist so one was created.", true);
@@ -85,6 +67,27 @@ public class FileManager {
                 throw new RuntimeException("Couldn't create the World directory!");
             }
         }
+
+        File gameWorldDirectory = new File(clientFilesDirectoryPath + "/worldDirectory/game_start/");
+        if (!gameWorldDirectory.exists()) {
+            if (gameWorldDirectory.mkdir()) {
+                println(getClass(), "The game_start directory didn't exist so one was created.", true);
+            } else {
+                throw new RuntimeException("Couldn't create the game_start directory!");
+            }
+        }
+
+        // Copy assets to client files directory
+        try {
+            copyResourceToFile("/tools/client-updater.jar", clientFilesDirectoryPath + "/client-updater.jar");
+            copyResourceToFile("/data/maps/game_start/62.64.json", gameWorldDirectory.getAbsoluteFile() + "/62.64.json");
+            copyResourceToFile("/data/maps/game_start/62.65.json", gameWorldDirectory.getAbsoluteFile() + "/62.65.json");
+            copyResourceToFile("/data/maps/game_start/63.64.json", gameWorldDirectory.getAbsoluteFile() + "/63.64.json");
+            copyResourceToFile("/data/maps/game_start/63.65.json", gameWorldDirectory.getAbsoluteFile() + "/63.65.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        clientUpdaterJar = clientFilesDirectoryPath + "/client-updater.jar";
 
         this.worldDirectory = worldDirectory.getAbsolutePath();
 
@@ -106,12 +109,17 @@ public class FileManager {
         }
     }
 
-    public void copyClientUpdaterJar() {
-        final String toolLocation = "tools/client-updater.jar";
-        final String toolDestination = clientFilesDirectoryPath + "/client-updater.jar";
-        FileHandle fileHandle = internalResolver.resolve(toolLocation);
-        FileUtils.copyFile(fileHandle.file(), new File(toolDestination));
-        clientUpdaterJar = toolDestination;
+    public void copyResourceToFile(String resourcePath, String outputFile) throws IOException {
+        println(getClass(), "Copying file : " + resourcePath + " to: " + outputFile);
+        try (InputStream in = FileManager.class.getResourceAsStream(resourcePath);
+             OutputStream out = new FileOutputStream(outputFile)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        }
     }
 
     /**
