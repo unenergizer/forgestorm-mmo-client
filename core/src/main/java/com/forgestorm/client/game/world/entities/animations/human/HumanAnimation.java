@@ -593,7 +593,7 @@ public class HumanAnimation extends EntityAnimation {
 
         if (currentKeyFrame == 0 || currentKeyFrame == 2) {
             if (!frameFinished) return;
-            println(getClass(), "MOVING ENTITY: " + movingEntity.getEntityName() + ", Location: " + movingEntity.getFutureMapLocation(), PRINT_DEBUG);
+            println(getClass(), "MOVING ENTITY: " + movingEntity.getEntityName() + ", Location: " + movingEntity.getFutureMapLocation(), false, PRINT_DEBUG);
             ClientMain.getInstance().getAudioManager().getSoundManager().playWalkSound(this.getClass(), movingEntity);
             frameFinished = false;
         } else {
