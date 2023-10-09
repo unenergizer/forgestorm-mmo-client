@@ -228,8 +228,8 @@ public class GameScreen implements Screen {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) worldObject;
                     if (itemStackDrop.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
 
-                    ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
-                    spriteBatch.draw(itemStack.getTextureRegion(),
+                    TextureRegion textureRegion = ClientMain.getInstance().getItemStackManager().getItemStackTextureRegion(itemStackDrop.getAppearance().getSingleBodyTexture());
+                    spriteBatch.draw(textureRegion,
                             itemStackDrop.getDrawX() + 4,
                             itemStackDrop.getDrawY(),
                             8,

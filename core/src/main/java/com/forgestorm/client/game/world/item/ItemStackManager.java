@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.world.item;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.shared.game.world.item.ItemStack;
 
@@ -32,6 +33,10 @@ public class ItemStackManager {
         ItemStack itemStack = (ItemStack) itemStacks[id].clone();
         itemStack.setAmount(amount);
         return itemStack;
+    }
+
+    public TextureRegion getItemStackTextureRegion(int id) {
+        return itemStacks[id].getTextureRegion();
     }
 
     public int getItemStackArraySize() {
