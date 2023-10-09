@@ -1,12 +1,16 @@
 package com.forgestorm.client.game.world.maps.tile;
 
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
+import com.forgestorm.client.io.FileManager;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypeHelper;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
+import com.forgestorm.shared.io.type.GameAtlas;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,10 +46,17 @@ public class TileImage {
     @Setter
     private LayerDefinition layerDefinition;
 
+    @Getter
+    private final TextureRegion textureRegion;
+
     public TileImage(int imageId, String fileName, LayerDefinition layerDefinition) {
         this.imageId = imageId;
         this.fileName = fileName;
         this.layerDefinition = layerDefinition;
+
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
+        textureRegion = atlas.findRegion(fileName);
 
         println(getClass(), "---- NEW TILE IMAGE CREATED ----", false, PRINT_DEBUG);
         println(getClass(), "ImageID: " + imageId, false, PRINT_DEBUG);
@@ -56,6 +67,10 @@ public class TileImage {
         this.imageId = tileImage.getImageId();
         this.fileName = tileImage.getFileName();
         this.layerDefinition = tileImage.getLayerDefinition();
+
+        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
+        textureRegion = atlas.findRegion(fileName);
 
         if (tileImage.getTileAnimation() != null) {
             this.tileAnimation = new TileAnimation(tileImage.tileAnimation);

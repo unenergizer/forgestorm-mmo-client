@@ -235,9 +235,7 @@ public class GameScreen implements Screen {
                     TileImage tileImage = tile.getTileImage();
                     if (tileImage == null) continue;
 
-                    FileManager fileManager = ClientMain.getInstance().getFileManager();
-                    TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
-                    TextureRegion textureRegion = atlas.findRegion(tileImage.getAnimationFrame().getFileName());
+                    TextureRegion textureRegion = tileImage.getTextureRegion();
 
                     final float TILE_SIZE_FIX = 0.005F;
                     spriteBatch.draw(textureRegion,
