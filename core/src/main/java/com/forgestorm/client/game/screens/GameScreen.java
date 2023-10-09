@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.screens;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -10,7 +8,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Timer;
@@ -40,17 +37,16 @@ import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GameTexture;
 import com.forgestorm.client.util.GraphicsUtils;
 import com.forgestorm.client.util.PixmapUtil;
-import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.Warp;
 import com.forgestorm.shared.game.world.maps.WarpLocation;
-import com.forgestorm.shared.io.type.GameAtlas;
+import lombok.Getter;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import lombok.Getter;
-import space.earlygrey.shapedrawer.ShapeDrawer;
+import static com.forgestorm.client.util.Log.println;
 
 @Getter
 public class GameScreen implements Screen {
@@ -308,7 +304,8 @@ public class GameScreen implements Screen {
         if (tileAnimationEditor != null) tileAnimationEditor.render();
 
         SpellAnimationEditor spellAnimationEditor = ClientMain.getInstance().getStageHandler().getSpellAnimationEditor();
-        if (spellAnimationEditor != null) spellAnimationEditor.getAnimationEffect().renderAllAnimationPartDataTables(delta);
+        if (spellAnimationEditor != null)
+            spellAnimationEditor.getAnimationEffect().renderAllAnimationPartDataTables(delta);
 
         ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
 
