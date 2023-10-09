@@ -66,11 +66,11 @@ public class ItemStackSource extends DragAndDrop.Source {
         }
 
         // The image to display when the item is picked up and is being moved to valid locations
-        VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
+        VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegionName(), DRAG_IMAGE_SIZE).buildVisImage();
         inventoryPayload.setDragActor(image);
 
         // The image to display when the item is being placed over an invalid location
-        image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegion(), DRAG_IMAGE_SIZE).buildVisImage();
+        image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegionName(), DRAG_IMAGE_SIZE).buildVisImage();
         image.setColor(Color.RED);
         inventoryPayload.setInvalidDragActor(image);
 

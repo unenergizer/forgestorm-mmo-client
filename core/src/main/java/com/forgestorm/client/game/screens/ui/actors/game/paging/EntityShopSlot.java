@@ -47,7 +47,7 @@ class EntityShopSlot extends PagedWindowSlot {
         VisImage itemStackImage;
         if (itemStack != null) {
             // Here were setting up the slot and locking the ItemStackSlot
-            itemStackImage = imageBuilder.setRegionName(itemStack.getTextureRegion()).buildVisImage();
+            itemStackImage = imageBuilder.setRegionName(itemStack.getTextureRegionName()).buildVisImage();
         } else {
             // Set empty slot
             itemStackImage = imageBuilder.setRegionName("clear").buildVisImage();

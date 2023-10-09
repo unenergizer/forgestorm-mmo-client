@@ -1,5 +1,6 @@
 package com.forgestorm.shared.game.world.item;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.shared.game.rpg.Attributes;
 import com.forgestorm.shared.io.type.GameAtlas;
 
@@ -17,7 +18,8 @@ public class ItemStack implements Cloneable, Serializable {
     private transient String description;
     private transient ItemStackType itemStackType;
     private transient GameAtlas gameAtlas;
-    private transient String textureRegion;
+    private transient TextureRegion textureRegion;
+    private transient String textureRegionName;
     private transient int stackable;
     private int amount;
     private transient boolean isConsumable;
@@ -56,6 +58,7 @@ public class ItemStack implements Cloneable, Serializable {
         itemStack.setItemStackType(itemStackType);
         itemStack.setGameAtlas(gameAtlas);
         itemStack.setTextureRegion(textureRegion);
+        itemStack.setTextureRegionName(textureRegionName);
         itemStack.setStackable(stackable);
         itemStack.setAttributes(attributes);
         if (keepAmount) itemStack.setAmount(amount);

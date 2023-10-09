@@ -313,7 +313,7 @@ public class ItemStackSlot extends VisTable {
         this.itemStack = itemStack;
         emptyCellImage.remove();
         amountLabel.remove();
-        itemStackImage = new ImageBuilder(GameAtlas.ITEMS, iconSize).setRegionName(itemStack.getTextureRegion()).buildVisImage();
+        itemStackImage = new ImageBuilder(GameAtlas.ITEMS, iconSize).setRegionName(itemStack.getTextureRegionName()).buildVisImage();
         stack.add(itemStackImage);
 
         // Setup tool tip

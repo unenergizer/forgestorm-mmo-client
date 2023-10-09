@@ -6,7 +6,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.shared.game.rpg.Attributes;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.item.ItemStackType;
@@ -61,7 +63,7 @@ public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.Ite
             String desc = (String) itemNode.get("desc");
             ItemStackType type = ItemStackType.valueOf((String) itemNode.get("type"));
             GameAtlas atlas = GameAtlas.valueOf((String) itemNode.get("atlas"));
-            String region = (String) itemNode.get("region");
+            String textureRegionName = (String) itemNode.get("region");
             Integer stackable = (Integer) itemNode.get("stackable");
             boolean isConsumable = (Boolean) itemNode.get("consume");
 
@@ -104,7 +106,10 @@ public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.Ite
             itemStack.setDescription(desc);
             itemStack.setItemStackType(type);
             itemStack.setGameAtlas(atlas);
-            itemStack.setTextureRegion(region);
+
+            TextureRegion textureRegion = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(textureRegionName);
+            itemStack.setTextureRegion(textureRegion);
+            itemStack.setTextureRegionName(textureRegionName);
 
             if (stackable != null) {
                 itemStack.setStackable(stackable);
@@ -121,7 +126,7 @@ public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.Ite
             println(getClass(), "Description: " + desc, false, PRINT_DEBUG);
             println(getClass(), "ItemStackType: " + type, false, PRINT_DEBUG);
             println(getClass(), "Atlas: " + atlas, false, PRINT_DEBUG);
-            println(getClass(), "Region: " + region, false, PRINT_DEBUG);
+            println(getClass(), "Region: " + textureRegionName, false, PRINT_DEBUG);
             println(getClass(), "Damage: " + attributes.getDamage(), false, PRINT_DEBUG && attributes.getDamage() != 0);
             println(getClass(), "Armor: " + attributes.getArmor(), false, PRINT_DEBUG && attributes.getArmor() != 0);
             if (itemStack instanceof WearableItemStack) {

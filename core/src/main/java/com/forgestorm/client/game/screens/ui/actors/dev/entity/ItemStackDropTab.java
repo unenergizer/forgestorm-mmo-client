@@ -387,7 +387,7 @@ public class ItemStackDropTab extends EditorTab {
         ItemStack itemStack = itemStackManager.makeItemStack(itemStackIDNum, 0);
         itemStackName.setText(itemStack.getName());
         itemStackId.setText(Integer.toString(itemStackIDNum));
-        itemStackPreview.setDrawable(new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegion()).buildVisImage().getDrawable());
+        itemStackPreview.setDrawable(new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegionName()).buildVisImage().getDrawable());
         scrollProgress.setText(itemStackIDNum + " / " + (amount - 1));
 
         // Prevent illegal stack size setting

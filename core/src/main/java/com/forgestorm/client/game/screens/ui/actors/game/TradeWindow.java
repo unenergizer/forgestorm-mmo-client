@@ -383,7 +383,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                  * Here were setting up the slot and locking the ItemStackSlot
                  */
                 this.itemStack = itemStack;
-                tradeCell = imageBuilder.setRegionName(itemStack.getTextureRegion()).buildVisImage();
+                tradeCell = imageBuilder.setRegionName(itemStack.getTextureRegionName()).buildVisImage();
 
                 if (lockedItemStackSlot != null) {
                     this.lockedItemStackSlot = lockedItemStackSlot;

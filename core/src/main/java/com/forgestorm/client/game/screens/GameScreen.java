@@ -227,8 +227,14 @@ public class GameScreen implements Screen {
                 } else if (worldObject instanceof ItemStackDrop) {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) worldObject;
                     if (itemStackDrop.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
+
                     ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
-                    spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY(), 8, 8);
+                    spriteBatch.draw(itemStack.getTextureRegion(),
+                            itemStackDrop.getDrawX() + 4,
+                            itemStackDrop.getDrawY(),
+                            8,
+                            8);
+
                 } else if (worldObject instanceof Tile) {
 
                     Tile tile = (Tile) worldObject;
