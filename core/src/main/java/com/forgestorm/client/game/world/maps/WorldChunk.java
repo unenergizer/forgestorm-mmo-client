@@ -1,7 +1,6 @@
 package com.forgestorm.client.game.world.maps;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
@@ -9,18 +8,15 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
-import com.forgestorm.client.io.FileManager;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.Warp;
 import com.forgestorm.shared.game.world.maps.WarpLocation;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-import com.forgestorm.shared.io.type.GameAtlas;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import lombok.Getter;
 
 public class WorldChunk {
 
