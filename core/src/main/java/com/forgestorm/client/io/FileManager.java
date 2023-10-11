@@ -50,7 +50,7 @@ public class FileManager {
             if (homeDirectory.mkdirs()) {
                 println(getClass(), "Created a ForgeStorm folder in the users home directory!", true);
             } else {
-                throw new RuntimeException("Couldn't create the ForgeStorm in the home directory!");
+                throw new RuntimeException("Couldn't create the ForgeStorm folder in the home directory!");
             }
         } else {
             println(getClass(), "Home directory: " + homeDirectory.getAbsolutePath(), true);
