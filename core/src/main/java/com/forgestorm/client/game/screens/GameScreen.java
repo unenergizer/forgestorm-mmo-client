@@ -28,8 +28,7 @@ import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.maps.GameWorld;
-import com.forgestorm.client.game.world.maps.WorldChunk;
+import com.forgestorm.client.game.world.maps.*;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.io.FileManager;
@@ -234,6 +233,11 @@ public class GameScreen implements Screen {
                 } else if (worldObject instanceof Tile) {
 
                     Tile tile = (Tile) worldObject;
+
+                    // TODO CHANGE LOCATION!
+                    Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+                    if (!renderRegion(playerLocation, tile)) continue;
+
                     TileImage tileImage = tile.getTileImage();
                     if (tileImage == null) continue;
 
@@ -313,6 +317,19 @@ public class GameScreen implements Screen {
         ClientMain.getInstance().getRegionManager().editRegion(shapeDrawer);
 
         spriteBatch.end();
+    }
+
+    private boolean renderRegion(Location playerLocation, Tile tile) {
+        // Region management
+        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        Region region = regionManager.getRegionToEdit();
+
+        if (region == null) return true;
+
+        boolean playerIntersect = region.doesIntersect(playerLocation.getX(), playerLocation.getY());
+        boolean tileIntersect = region.doesIntersect(tile.getWorldX(), tile.getWorldY());
+
+        return !playerIntersect || !tileIntersect || tile.getWorldZ() <= playerLocation.getZ();
     }
 
     private GameWorld getGameMap() {

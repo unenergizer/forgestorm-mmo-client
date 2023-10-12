@@ -214,6 +214,8 @@ public class WorldChunk {
         Tile[] layerTiles = layerDefinitionMap.get(layerDefinition);
         if (layerTiles == null) return;
 
+        Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+
         // Make the width and height of a given tile just a tad bit larger
         // than it normally would be to prevent most tearing issues.
         final float TILE_SIZE_FIX = 0.005F;
@@ -228,17 +230,9 @@ public class WorldChunk {
                 TileImage tileImage = tile.getTileImage();
                 if (tileImage == null) continue;
 
-                RegionManager regionManager = ClientMain.getInstance().getRegionManager();
-                Region region = regionManager.getRegionToEdit();
+                if (!renderRegion(playerLocation, tile, layerDefinition)) continue;
 
-                if (region.getRegionType() == RegionManager.RegionType.BUILDING) {
-                    Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
-                    boolean playerIntersect = region.doesIntersect(playerLocation.getX(), playerLocation.getY());
-                    boolean tileIntersect = region.doesIntersect(tile.getWorldX(), tile.getWorldY());
-                    if (playerIntersect && tileIntersect && layerDefinition == LayerDefinition.OVERHEAD)
-                        continue;
-                }
-
+                // Render textures
                 TextureRegion textureRegion = tileImage.getTextureRegion();
 
                 float rx = (x + chunkX * ClientConstants.CHUNK_SIZE) * ClientConstants.TILE_SIZE;
@@ -251,5 +245,18 @@ public class WorldChunk {
                         textureRegion.getRegionHeight() + TILE_SIZE_FIX);
             }
         }
+    }
+
+    private boolean renderRegion(Location playerLocation, Tile tile, LayerDefinition layerDefinition) {
+        // Region management
+        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        Region region = regionManager.getRegionToEdit();
+
+        if (region == null) return true;
+
+        boolean playerIntersect = region.doesIntersect(playerLocation.getX(), playerLocation.getY());
+        boolean tileIntersect = region.doesIntersect(tile.getWorldX(), tile.getWorldY());
+
+        return !playerIntersect || !tileIntersect || (layerDefinition != LayerDefinition.OVERHEAD && tile.getWorldZ() <= playerLocation.getZ());
     }
 }

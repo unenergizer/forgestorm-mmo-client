@@ -13,13 +13,12 @@ import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.util.yaml.YamlUtil;
-
-import java.io.File;
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+
+import java.io.File;
+import java.util.Map;
 
 @SuppressWarnings("DanglingJavadoc")
 public class RegionManager {
@@ -142,7 +141,7 @@ public class RegionManager {
 
     public void setRegionMap(Map<Integer, Region> regionMap) {
         this.regionMap = regionMap;
-        changeRegion(1);
+        changeRegion(0);
 
         ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
     }
