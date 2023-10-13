@@ -112,7 +112,7 @@ public class ItemStackToolTip extends HideableVisWindow {
         }
 
         if (stageHandler.getClientMain().isAdmin() || stageHandler.getClientMain().isContentDeveloper())
-            debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId() + "");
+            debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId());
     }
 
     /**

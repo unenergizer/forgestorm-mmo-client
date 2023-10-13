@@ -56,10 +56,8 @@ class PreStageEvent implements InputProcessor {
          * Toggle Chat Box Focus
          */
         if (keycode == KeyBinds.CHAT_BOX_FOCUS) {
-            if (!stageHandler.getChatWindow().isChatToggled()) {
-                stageHandler.getChatWindow().toggleChatWindowActive(true);
-                return true;
-            }
+            stageHandler.getChatWindow().toggleChatWindowActive(true);
+            return true;
         }
 
         // Fade out the chat window

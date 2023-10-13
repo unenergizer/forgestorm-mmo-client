@@ -9,12 +9,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class GameWorldListLoader extends AsynchronousAssetLoader<GameWorldListLoader.GameWorldListDataWrapper, GameWorldListLoader.GameWorldParameter> {
 
@@ -29,7 +28,6 @@ public class GameWorldListLoader extends AsynchronousAssetLoader<GameWorldListLo
 
     @Override
     public void loadAsync(AssetManager manager, String fileName, FileHandle file, GameWorldParameter parameter) {
-        gameWorldListDataWrapper = null;
         gameWorldListDataWrapper = new GameWorldListDataWrapper();
 
         JsonValue root = new JsonReader().parse(file.reader());

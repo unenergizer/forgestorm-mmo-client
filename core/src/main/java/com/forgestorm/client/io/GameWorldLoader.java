@@ -30,7 +30,6 @@ public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.Gam
 
     @Override
     public void loadAsync(AssetManager manager, String fileName, FileHandle file, GameWorldParameter parameter) {
-        gameWorldDataWrapper = null;
         gameWorldDataWrapper = new GameWorldDataWrapper();
 
         JsonValue root = new JsonReader().parse(file.reader());

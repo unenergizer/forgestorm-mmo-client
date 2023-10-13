@@ -28,6 +28,7 @@ public class BetterCameraZoom {
         return DEFAULT_ZOOM.getZoomValue();
     }
 
+    @Getter
     @SuppressWarnings("unused")
     @AllArgsConstructor
     public enum ZoomValues {
@@ -40,7 +41,6 @@ public class BetterCameraZoom {
         ZOOM_5(2f),
         ZOOM_6(4f);
 
-        @Getter
         private final float zoomValue;
 
         private static final ZoomValues[] values = values();

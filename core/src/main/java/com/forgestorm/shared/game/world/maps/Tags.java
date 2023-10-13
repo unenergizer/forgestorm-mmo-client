@@ -2,13 +2,13 @@ package com.forgestorm.shared.game.world.maps;
 
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.util.StringUtil;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
+@Getter
 @AllArgsConstructor
 public enum Tags {
 
@@ -42,7 +42,6 @@ public enum Tags {
     WALLS(new LayerDefinition[]{LayerDefinition.WORLD_OBJECTS}),
     WINDOW(new LayerDefinition[]{LayerDefinition.WORLD_OBJECT_DECORATION});
 
-    @Getter
     public final LayerDefinition[] tagLayerDefinitions;
 
     /**

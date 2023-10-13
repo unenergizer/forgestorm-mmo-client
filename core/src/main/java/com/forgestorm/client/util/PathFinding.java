@@ -152,15 +152,10 @@ public class PathFinding {
 
         finish();
 
-
-        if (currentClosestNode != null) {
-            Collections.reverse(currentShortestPath);
-            @SuppressWarnings("unchecked") Queue<MoveNode> queuePath = (Queue<MoveNode>) currentShortestPath;
-            queuePath.remove(); // Removing the node the player is standing on.
-            return new PathSolution(false, queuePath);
-        }
-
-        return new PathSolution(false, new LinkedList<MoveNode>());
+        Collections.reverse(currentShortestPath);
+        @SuppressWarnings("unchecked") Queue<MoveNode> queuePath = (Queue<MoveNode>) currentShortestPath;
+        queuePath.remove(); // Removing the node the player is standing on.
+        return new PathSolution(false, queuePath);
     }
 
     private List<MoveNode> makePath(MoveNode node) {

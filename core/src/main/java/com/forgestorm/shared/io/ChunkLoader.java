@@ -49,7 +49,6 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.WorldChunkD
         println(getClass(), "Directory Name: " + file.name(), false, PRINT_DEBUG);
         println(PRINT_DEBUG);
 
-        worldChunkDataWrapper = null;
         worldChunkDataWrapper = new WorldChunkDataWrapper();
         WorldChunk worldChunk = parseChunk(file);
         worldChunkDataWrapper.setWorldChunkFromDisk(worldChunk);

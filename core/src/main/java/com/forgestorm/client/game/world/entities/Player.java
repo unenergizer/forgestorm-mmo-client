@@ -32,6 +32,10 @@ public class Player extends MovingEntity {
 
         switch (appearanceType) {
             case SINGLE_BODY_TEXTURE:
+            case HAIR_COLOR:
+            case EYE_COLOR:
+            case SKIN_COLOR:
+            case BORDER_COLOR:
                 break;
             case HAIR_TEXTURE:
                 humanAnimation.loadHair(characterTextureAtlas, (short) textureId);
@@ -57,17 +61,9 @@ public class Player extends MovingEntity {
                 humanAnimation.setShowShoes(true);
                 appearance.setShoesTexture((byte) textureId);
                 break;
-            case HAIR_COLOR:
-                break;
-            case EYE_COLOR:
-                break;
-            case SKIN_COLOR:
-                break;
             case GLOVES_COLOR:
                 humanAnimation.setShowGloves(true);
                 appearance.setGlovesColor(new Color(textureId));
-                break;
-            case BORDER_COLOR:
                 break;
             case LEFT_HAND:
                 humanAnimation.loadLeftHand(characterTextureAtlas, (short) textureId);

@@ -3,6 +3,7 @@ package com.forgestorm.shared.game.world.maps;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public enum Floors {
 
@@ -15,10 +16,8 @@ public enum Floors {
     UNDERGROUND_2((short) -2, "Underground 2"),
     UNDERGROUND_3((short) -3, "Underground 3");
 
-    @Getter
     private final short worldZ;
 
-    @Getter
     private final String name;
 
     public static Floors getHighestFloor() {

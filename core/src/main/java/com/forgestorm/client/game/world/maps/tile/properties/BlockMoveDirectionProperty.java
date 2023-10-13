@@ -5,17 +5,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisTable;
-
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 import static com.forgestorm.client.util.Log.println;
 
+@Getter
 public class BlockMoveDirectionProperty extends AbstractTileProperty {
 
-    @Getter
     @Setter
     private Boolean blockWalkNorth, blockWalkSouth, blockWalkWest, blockWalkEast;
 

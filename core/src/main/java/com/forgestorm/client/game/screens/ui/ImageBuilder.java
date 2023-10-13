@@ -126,7 +126,7 @@ public class ImageBuilder {
                 throw new RuntimeException("Region Name must be defined.");
             }
             textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(regionName));
-        } else if (!useSplitTextureRegions && useSingleTextureRegion) {
+        } else if (!useSplitTextureRegions) {
             if (textureRegion == null) {
                 throw new RuntimeException("TextureRegion must be defined.");
             }

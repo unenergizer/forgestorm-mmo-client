@@ -137,7 +137,7 @@ public class CharacterPreviewer {
         }
 
         // Gloves
-        imageStack.add(imageTable(width, 6 * this.previewScale, 4 * this.previewScale, "gloves_" + direction + "", lastUsedAppearance.getGlovesColor()));
+        imageStack.add(imageTable(width, 6 * this.previewScale, 4 * this.previewScale, "gloves_" + direction, lastUsedAppearance.getGlovesColor()));
 
         // Pants
         imageStack.add(imageTable(width, 3 * this.previewScale, this.previewScale, "pants_" + direction + "_naked", lastUsedAppearance.getSkinColor()));
@@ -155,7 +155,7 @@ public class CharacterPreviewer {
         if (previewDirection != MoveDirection.NORTH) {
             // Note: no eye image exist for north facing eyes (eyes not visible, as back
             // of head is shown). This will prevent NullPointerException.
-            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "eyes_" + direction + "", lastUsedAppearance.getEyeColor()));
+            imageStack.add(imageTable(width, 16 * this.previewScale, this.previewScale, "eyes_" + direction, lastUsedAppearance.getEyeColor()));
         }
 
         // Helmet & Hair

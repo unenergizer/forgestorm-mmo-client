@@ -260,13 +260,13 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         }
     }
 
+    @Getter
     @AllArgsConstructor
     enum AnimationType {
         CAST("Cast Animation"),
         PROJECTILE("Projectile Animation"),
         IMPACT("Impact Animation");
 
-        @Getter
         private final String animationTypeName;
     }
 

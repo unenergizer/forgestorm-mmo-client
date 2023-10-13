@@ -273,7 +273,7 @@ public class StageHandler implements Disposable {
             stage.dispose();
             stage = null;
         }
-        if (colorPickerController != null && !colorPickerController.isDisposed())
+        if (!colorPickerController.isDisposed())
             colorPickerController.dispose();
         if (bgPixmap != null && !bgPixmap.isDisposed()) bgPixmap.dispose();
         bitmapFont.dispose();

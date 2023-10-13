@@ -155,26 +155,24 @@ public class MouseManager {
 
     private void clickAIEntities() {
         if (foundClick) return;
-        for (final MovingEntity movingEntity : entityManager.getAiEntityList().values()) {
+        for (final AiEntity movingEntity : entityManager.getAiEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                if (movingEntity instanceof AiEntity) {
-                    switch (((AiEntity) movingEntity).getFirstInteraction()) {
-                        case TALK:
-                            EntityInteract.talkNPC(clientMain, (NPC) movingEntity);
-                            break;
-                        case SHOP:
-                            EntityInteract.openShop(clientMain, (AiEntity) movingEntity);
-                            break;
-                        case BANK:
-                            EntityInteract.openBank(clientMain, movingEntity);
-                            break;
-                        case ATTACK:
-                        default:
-                            clientMain.getEntityTracker().follow(movingEntity);
-                            break;
-                    }
-                    entityManager.getPlayerClient().setTargetEntity(movingEntity);
+                switch (movingEntity.getFirstInteraction()) {
+                    case TALK:
+                        EntityInteract.talkNPC(clientMain, (NPC) movingEntity);
+                        break;
+                    case SHOP:
+                        EntityInteract.openShop(clientMain, movingEntity);
+                        break;
+                    case BANK:
+                        EntityInteract.openBank(clientMain, movingEntity);
+                        break;
+                    case ATTACK:
+                    default:
+                        clientMain.getEntityTracker().follow(movingEntity);
+                        break;
                 }
+                entityManager.getPlayerClient().setTargetEntity(movingEntity);
                 foundClick = true;
                 return;
             }

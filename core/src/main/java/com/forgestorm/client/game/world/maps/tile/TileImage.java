@@ -151,7 +151,7 @@ public class TileImage {
             println(getClass(), "LayerDefinition: " + layerDefinition, false);
 
             for (AbstractTileProperty abstractTileProperty : tileProperties.values()) {
-                println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString(), false, PRINT_DEBUG);
+                println(getClass(), "Property: " + abstractTileProperty.getTilePropertyType().toString(), false);
             }
         }
     }

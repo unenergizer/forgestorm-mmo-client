@@ -135,7 +135,7 @@ public class ClientHandler {
             println(getClass(), "Tried to read data, but socket closed!", true);
         } catch (IOException e) {
 
-            if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
+            if (e instanceof EOFException || e instanceof SocketTimeoutException) {
                 clientMain.getConnectionManager().logout();
             }
 

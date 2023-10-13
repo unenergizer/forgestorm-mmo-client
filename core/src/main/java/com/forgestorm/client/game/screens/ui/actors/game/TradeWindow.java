@@ -140,7 +140,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
                 stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
                     new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
-                } else if (lockTrade) {
+                } else {
                     new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_UNCONFIRM, tradeManager.getTradeUUID())).sendPacket();
                 }
             }

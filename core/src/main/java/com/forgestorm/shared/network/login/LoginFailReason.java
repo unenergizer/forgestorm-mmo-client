@@ -3,6 +3,7 @@ package com.forgestorm.shared.network.login;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 @SuppressWarnings("unused")
 @AllArgsConstructor
 public enum LoginFailReason {
@@ -11,7 +12,6 @@ public enum LoginFailReason {
     INCORRECT_ACCOUNT_DETAILS("[YELLOW]Invalid username/password combination."),
     FAILED_TO_CONNECT("[YELLOW]Failed to connect to the server.");
 
-    @Getter
     private final String failReasonMessage;
 
     public static LoginFailReason getLoginFailReason(byte enumIndex) {

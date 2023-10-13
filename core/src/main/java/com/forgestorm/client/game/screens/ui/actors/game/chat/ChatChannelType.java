@@ -3,6 +3,7 @@ package com.forgestorm.client.game.screens.ui.actors.game.chat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public enum ChatChannelType {
     GENERAL(true),
@@ -10,7 +11,6 @@ public enum ChatChannelType {
     TRADE(true),
     STAFF(true);
 
-    @Getter
     private final boolean canSendMessages;
 
     public static ChatChannelType getChannelType(byte enumIndex) {

@@ -150,10 +150,7 @@ public class ClientPlayerMovementManager {
         int futureX = playerClient.getFutureMapLocation().getX();
         int futureY = playerClient.getFutureMapLocation().getY();
 
-        int slowDown = 1;
-        if (movesSentToServer.size() > 1) {
-            slowDown = movesSentToServer.size();
-        }
+        int slowDown = Math.max(movesSentToServer.size(), 1);
 
         // TODO: Include delta variable in calculation
 

@@ -256,7 +256,7 @@ public class RegionManager {
             } else {
                 dragArea = null;
             }
-        } else if (editRegion && leftPressed && dragArea != null) {
+        } else if (editRegion && dragArea != null) {
             /** Set the drag edge */
             switch (dragArea) {
                 case CENTER:
