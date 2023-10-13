@@ -9,14 +9,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.forgestorm.shared.game.abilities.Ability;
 import com.forgestorm.shared.game.abilities.AbilityType;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -91,7 +89,7 @@ public class AbilityLoader extends AsynchronousAssetLoader<AbilityLoader.Ability
     @SuppressWarnings("WeakerAccess")
     @Setter
     @Getter
-    public class AbilityDataWrapper {
+    public static class AbilityDataWrapper {
         private Map<Short, Ability> combatAbilitiesMap = null;
     }
 }

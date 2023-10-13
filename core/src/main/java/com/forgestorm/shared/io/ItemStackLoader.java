@@ -155,7 +155,7 @@ public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.Ite
     @SuppressWarnings("WeakerAccess")
     @Setter
     @Getter
-    public class ItemStackData {
+    public static class ItemStackData {
         private List<ItemStack> itemStackList = null;
     }
 }

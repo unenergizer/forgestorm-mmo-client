@@ -89,7 +89,7 @@ public class NameGenerator {
 
         while (line != null) {
             line = bufRead.readLine();
-            if (line != null && !line.equals("")) {
+            if (line != null && !line.isEmpty()) {
                 if (line.charAt(0) == '-') {
                     pre.add(line.substring(1).toLowerCase());
                 } else if (line.charAt(0) == '+') {

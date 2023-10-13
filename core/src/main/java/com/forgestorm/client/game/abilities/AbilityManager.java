@@ -152,7 +152,7 @@ public class AbilityManager implements GameQuitReset, Disposable {
         }
     }
 
-    private class Cooldown {
+    private static class Cooldown {
         private final ItemStackSlot sourceSlot;
         private int remaining;
 

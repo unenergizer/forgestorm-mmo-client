@@ -8,16 +8,14 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.game.world.item.inventory.ShopItemStackInfo;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class EntityShopLoader extends AsynchronousAssetLoader<EntityShopLoader.EntityShopDataWrapper, EntityShopLoader.EntityShopParameter> {
 
@@ -65,7 +63,7 @@ public class EntityShopLoader extends AsynchronousAssetLoader<EntityShopLoader.E
     @SuppressWarnings("WeakerAccess")
     @Setter
     @Getter
-    public class EntityShopDataWrapper {
+    public static class EntityShopDataWrapper {
         private Map<Short, List<ShopItemStackInfo>> shopItemListMap = null;
     }
 }

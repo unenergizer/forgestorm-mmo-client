@@ -12,13 +12,12 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class RssFeedLoader extends AsynchronousAssetLoader<RssFeedLoader.RssFeedWrapper, RssFeedLoader.RssFeedParameter> {
 
@@ -63,7 +62,7 @@ public class RssFeedLoader extends AsynchronousAssetLoader<RssFeedLoader.RssFeed
 
     @Setter
     @Getter
-    public class RssFeedWrapper {
+    public static class RssFeedWrapper {
         private List<SyndEntry> feedData;
     }
 }

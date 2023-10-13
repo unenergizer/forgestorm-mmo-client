@@ -9,14 +9,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.forgestorm.client.game.audio.AudioData;
 import com.forgestorm.client.game.audio.AudioType;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -82,7 +80,7 @@ public class MusicDataLoader extends AsynchronousAssetLoader<MusicDataLoader.Mus
     @SuppressWarnings("WeakerAccess")
     @Setter
     @Getter
-    public class MusicDataWrapper {
+    public static class MusicDataWrapper {
         private Map<Short, AudioData> musicDataMap = null;
     }
 }

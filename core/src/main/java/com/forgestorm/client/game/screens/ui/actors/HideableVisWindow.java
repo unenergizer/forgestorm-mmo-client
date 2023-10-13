@@ -103,7 +103,7 @@ public class HideableVisWindow extends VisWindow {
             titleTable.getCell(titleLabel).padLeft(closeButton.getWidth() * 2);
     }
 
-    public abstract class CloseButtonCallBack {
+    public abstract static class CloseButtonCallBack {
         public abstract void closeButtonClicked();
     }
 }

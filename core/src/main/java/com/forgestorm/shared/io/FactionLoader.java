@@ -7,17 +7,15 @@ import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -95,7 +93,7 @@ public class FactionLoader extends AsynchronousAssetLoader<FactionLoader.Faction
     }
 
     @AllArgsConstructor
-    private class LoadFactionData {
+    private static class LoadFactionData {
         private final String factionName;
         private final byte factionId;
         private final List<String> enemyFactions;
@@ -103,7 +101,7 @@ public class FactionLoader extends AsynchronousAssetLoader<FactionLoader.Faction
 
     @Getter
     @AllArgsConstructor
-    public class FactionData {
+    public static class FactionData {
         private final String factionName;
         private final byte[] enemyFactions;
     }
