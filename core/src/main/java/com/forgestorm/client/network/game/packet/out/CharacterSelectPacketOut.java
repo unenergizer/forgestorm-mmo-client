@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.shared.network.game.GameOutputStream;
 import com.forgestorm.shared.network.game.Opcodes;
 
@@ -11,8 +12,8 @@ public class CharacterSelectPacketOut extends AbstractPacketOut {
 
     private final byte characterId;
 
-    public CharacterSelectPacketOut(final byte characterId) {
-        super(Opcodes.CHARACTER_SELECT);
+    public CharacterSelectPacketOut(ClientMain clientMain, final byte characterId) {
+        super(clientMain, Opcodes.CHARACTER_SELECT);
         this.characterId = characterId;
     }
 

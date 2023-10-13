@@ -20,10 +20,12 @@ import com.forgestorm.client.game.world.maps.Location;
 
 class PreStageEvent implements InputProcessor {
 
+    private final ClientMain clientMain;
     private final StageHandler stageHandler;
     private boolean userInterfaceDebug = false;
 
     PreStageEvent(StageHandler stageHandler) {
+        this.clientMain = stageHandler.getClientMain();
         this.stageHandler = stageHandler;
     }
 
@@ -61,7 +63,7 @@ class PreStageEvent implements InputProcessor {
         }
 
         // Fade out the chat window
-        ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
+        ChatWindow chatWindow = stageHandler.getChatWindow();
         if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
 
         /*
@@ -84,7 +86,7 @@ class PreStageEvent implements InputProcessor {
          * TODO: REMOVE ME. THIS IS FOR DEBUGGING ONLY!
          */
         if (keycode == Input.Keys.MINUS) {
-            stageHandler.getPlayerProfileWindow().requestPlayerProfile(EntityManager.getInstance().getPlayerClient());
+            stageHandler.getPlayerProfileWindow().requestPlayerProfile(stageHandler.getClientMain().getEntityManager().getPlayerClient());
         }
 
         /*
@@ -123,12 +125,12 @@ class PreStageEvent implements InputProcessor {
              * Interacting with environment
              */
             if (keycode == KeyBinds.INTERACT) {
-                EntityManager entityManager = EntityManager.getInstance();
+                EntityManager entityManager = clientMain.getEntityManager();
 
                 PlayerClient playerClient = entityManager.getPlayerClient();
                 Location possibleNpcTile = new Location(playerClient.getCurrentMapLocation()).add(playerClient.getFacingDirection());
 
-                NPC npc = new NPC();
+                NPC npc = new NPC(clientMain);
                 npc.chat();
 
                 for (AiEntity aiEntity : entityManager.getAiEntityList().values()) {
@@ -168,7 +170,7 @@ class PreStageEvent implements InputProcessor {
          * Toggle Full Screen
          */
         if (keycode == KeyBinds.FULLSCREEN) {
-            WindowManager windowManager = ClientMain.getInstance().getWindowManager();
+            WindowManager windowManager = stageHandler.getClientMain().getWindowManager();
             if (windowManager.getCurrentWindowMode() != WindowModes.WINDOW) {
                 stageHandler.getMainSettingsWindow().getGraphicsTab().setWindowMode(WindowModes.WINDOW);
             } else {
@@ -198,7 +200,7 @@ class PreStageEvent implements InputProcessor {
     public boolean keyDown(int keycode) {
         boolean bool;
         bool = anyScreenKeys(keycode);
-        if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+        if (stageHandler.getClientMain().getUserInterfaceType() == UserInterfaceType.GAME) {
             bool = gameScreenOnlyKeys(keycode);
         }
         return bool;
@@ -216,9 +218,9 @@ class PreStageEvent implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+        if (stageHandler.getClientMain().getUserInterfaceType() == UserInterfaceType.GAME) {
             // Fade out the chat window
-            ChatWindow chatWindow = ActorUtil.getStageHandler().getChatWindow();
+            ChatWindow chatWindow = stageHandler.getChatWindow();
             if (!chatWindow.isWindowFaded()) chatWindow.toggleChatWindowInactive(true, true);
         }
         return false;

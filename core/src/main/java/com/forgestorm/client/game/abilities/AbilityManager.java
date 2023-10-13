@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.GameQuitReset;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.forgestorm.client.game.world.entities.EntityManager;
@@ -19,11 +18,7 @@ import com.forgestorm.shared.game.abilities.Ability;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.io.type.GameAtlas;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -31,6 +26,8 @@ public class AbilityManager implements GameQuitReset, Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
     private final TextureAtlas textureAtlas;
 
     private final Map<Short, Cooldown> cooldowns = new HashMap<Short, Cooldown>();
@@ -39,25 +36,27 @@ public class AbilityManager implements GameQuitReset, Disposable {
 
     private final List<AbilityAnimation> abilityAnimationList = new ArrayList<AbilityAnimation>();
 
-    public AbilityManager() {
-        combatAbilities = ClientMain.getInstance().getFileManager().getAbilityData().getCombatAbilitiesMap();
+    public AbilityManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+        combatAbilities = clientMain.getFileManager().getAbilityData().getCombatAbilitiesMap();
 
         // Get Atlas
-        textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.PIXEL_FX);
+        textureAtlas = clientMain.getFileManager().getAtlas(GameAtlas.PIXEL_FX);
     }
 
     public void toggleAbility(ItemStackSlot sourceSlot, ItemStack itemStack) {
         short abilityID = (short) (int) itemStack.getSkillID();
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = entityManager.getPlayerClient();
         if (playerClient.getTargetEntity() == null) {
-            ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You need to select a target first.");
+            clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You need to select a target first.");
             return;
         }
 
         Ability ability = combatAbilities.get(abilityID);
         if (cooldowns.containsKey(abilityID)) return;
 
-        MovingEntity targetEntity = EntityManager.getInstance().getPlayerClient().getTargetEntity();
+        MovingEntity targetEntity = entityManager.getPlayerClient().getTargetEntity();
 
         Location playerLocation = playerClient.getFutureMapLocation();
         Location targetLocation = targetEntity.getFutureMapLocation();
@@ -66,20 +65,20 @@ public class AbilityManager implements GameQuitReset, Disposable {
 
             int distanceAway = playerLocation.getDistanceAway(targetLocation);
             if (distanceAway < ability.getDistanceMin()) {
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too close to " + targetEntity.getEntityName() + " to do this.");
+                clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too close to " + targetEntity.getEntityName() + " to do this.");
                 return;
             } else if (distanceAway > ability.getDistanceMax()) {
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
+                clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
                 return;
             }
         } else {
             if (!playerLocation.isWithinDistance(targetLocation, (short) 1)) { // TODO: This should be based on weapon distance reach
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
+                clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[RED]You are too far away from " + targetEntity.getEntityName() + " to do this.");
                 return;
             }
         }
 
-        new AbilityRequestPacketOut(abilityID, EntityManager.getInstance().getPlayerClient().getTargetEntity()).sendPacket();
+        new AbilityRequestPacketOut(clientMain, abilityID, entityManager.getPlayerClient().getTargetEntity()).sendPacket();
 
         // Play ability animation instantly for client (regardless of successful hit
         abilityAnimationList.add(new AbilityAnimation(targetEntity, ability));

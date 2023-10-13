@@ -5,11 +5,11 @@ import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.Entity;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.tile.properties.TileWalkOverSoundProperty;
+import com.forgestorm.client.io.FileManager;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.util.RandomNumberUtil;
@@ -26,6 +26,8 @@ public class SoundManager implements Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+    private final FileManager fileManager;
     private final Map<Short, AudioData> soundFX;
 
     @Getter
@@ -33,8 +35,10 @@ public class SoundManager implements Disposable {
     private Sound currentSound;
     private AudioData audioData;
 
-    SoundManager() {
-        this.soundFX = ClientMain.getInstance().getFileManager().getSoundData().getSoundDataMap();
+    SoundManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.fileManager = clientMain.getFileManager();
+        this.soundFX = fileManager.getSoundData().getSoundDataMap();
     }
 
     /**
@@ -49,7 +53,7 @@ public class SoundManager implements Disposable {
     }
 
     public void playSoundFx(Class clazz, short audioId, int x2, int y2, short z2) {
-        Location playerClientLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+        Location playerClientLocation = clientMain.getEntityManager().getPlayerClient().getCurrentMapLocation();
 
         int x1 = playerClientLocation.getX();
         int y1 = playerClientLocation.getY();
@@ -98,8 +102,8 @@ public class SoundManager implements Disposable {
             currentSound.dispose();
         }
 
-        ClientMain.getInstance().getFileManager().loadSound(audioData);
-        currentSound = ClientMain.getInstance().getFileManager().getSound(audioData);
+        fileManager.loadSound(audioData);
+        currentSound = fileManager.getSound(audioData);
         long id = currentSound.play();
         float finalVolume = audioPreferences.getSoundEffectsVolume() * volume;
         currentSound.setVolume(id, finalVolume);

@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.DoorManager;
 import com.forgestorm.shared.network.game.GameOutputStream;
 import com.forgestorm.shared.network.game.Opcodes;
@@ -14,8 +15,8 @@ public class DoorInteractPacketOut extends AbstractPacketOut {
     private final int tileX, tileY;
     private final short worldZ;
 
-    public DoorInteractPacketOut(DoorManager.DoorStatus doorStatus, int tileX, int tileY, short worldZ) {
-        super(Opcodes.DOOR_INTERACT);
+    public DoorInteractPacketOut(ClientMain clientMain, DoorManager.DoorStatus doorStatus, int tileX, int tileY, short worldZ) {
+        super(clientMain, Opcodes.DOOR_INTERACT);
         this.doorStatus = doorStatus;
         this.tileX = tileX;
         this.tileY = tileY;

@@ -12,11 +12,16 @@ import com.forgestorm.shared.game.world.maps.Warp;
 import com.forgestorm.shared.game.world.maps.WarpLocation;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.WORLD_CHUNK_WARP)
 public class TileWarpPacketIn implements PacketListener<TileWarpPacketIn.ChunkWarpDataPacket> {
+
+    private final ClientMain clientMain;
+
+    public TileWarpPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -31,7 +36,7 @@ public class TileWarpPacketIn implements PacketListener<TileWarpPacketIn.ChunkWa
         int toY = clientHandler.readInt();
         short toZ = clientHandler.readShort();
         byte facingDirection = clientHandler.readByte();
-        Warp warp = new Warp(new Location(worldName, toX, toY, toZ), MoveDirection.getDirection(facingDirection));
+        Warp warp = new Warp(new Location(clientMain, worldName, toX, toY, toZ), MoveDirection.getDirection(facingDirection));
 
         return new ChunkWarpDataPacket(clearWarps, new WarpLocation(fromX, fromY, fromZ), warp);
     }
@@ -39,7 +44,7 @@ public class TileWarpPacketIn implements PacketListener<TileWarpPacketIn.ChunkWa
     @Override
     public void onEvent(ChunkWarpDataPacket packetData) {
         Location warpLocation = packetData.warp.getWarpDestination();
-        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.findChunk(warpLocation.getX(), warpLocation.getY());
 
         if (packetData.clearWarps) worldChunk.clearTileWarps();

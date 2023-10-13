@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
@@ -14,13 +13,7 @@ import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.io.type.GameTexture;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
-
+import com.kotcrab.vis.ui.widget.*;
 import lombok.Getter;
 
 @Getter
@@ -30,10 +23,10 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
     private static final String USERNAME = "username";
 
     private StageHandler stageHandler;
-    private VisTextField usernameField = new VisTextField();
-    private VisTextField passwordField = new VisTextField();
-    private VisTextButton loginButton = new VisTextButton("");
-    private Preferences appPreferences = Gdx.app.getPreferences("RetroMMO-LoginInfo");
+    private final VisTextField usernameField = new VisTextField();
+    private final VisTextField passwordField = new VisTextField();
+    private final VisTextButton loginButton = new VisTextButton("");
+    private final Preferences appPreferences = Gdx.app.getPreferences("RetroMMO-LoginInfo");
 
     @Override
     public Actor build(final StageHandler stageHandler) {
@@ -41,13 +34,13 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
 
         VisTable mainTable = new VisTable(true);
         VisTable logoTable = new VisTable(true);
-        HideableVisWindow loginWindow = new HideableVisWindow("");
+        HideableVisWindow loginWindow = new HideableVisWindow(stageHandler.getClientMain(), "");
         loginWindow.pad(3);
         loginWindow.setMovable(false);
         final VisTable loginTable = new VisTable(true);
 
         // create login widgets
-        Texture logoTexture = ClientMain.getInstance().getFileManager().getTexture(GameTexture.LOGO_BIG);
+        Texture logoTexture = stageHandler.getClientMain().getFileManager().getTexture(GameTexture.LOGO_BIG);
         VisImage logoImage = new VisImage(logoTexture);
         logoTable.add(logoImage).minSize(logoTexture.getWidth(), logoTexture.getHeight()).maxSize(logoTexture.getWidth(), logoTexture.getHeight());
         VisLabel accountLabel = new VisLabel("Username");
@@ -64,8 +57,8 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         passwordField.setMaxLength(16);
 
         // Set prefilled credentials
-        usernameField.setText(ClientMain.getInstance().getLoginCredentials().getUsername());
-        passwordField.setText(ClientMain.getInstance().getLoginCredentials().getPassword());
+        usernameField.setText(stageHandler.getClientMain().getLoginCredentials().getUsername());
+        passwordField.setText(stageHandler.getClientMain().getLoginCredentials().getPassword());
 
         loginButton.setText("Login");
 
@@ -112,7 +105,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
                     appPreferences.flush();
                 }
                 attemptLogin();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 11);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 11);
             }
         });
 
@@ -130,7 +123,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
                     appPreferences.putString(USERNAME, "");
                     appPreferences.flush();
                 }
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(LoginTable.class, (short) 0);
             }
         });
 
@@ -148,7 +141,7 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
 
     @Override
     public void dispose() {
-        ClientMain.getInstance().getFileManager().unloadAsset(GameTexture.LOGO_BIG.getFilePath());
+        stageHandler.getClientMain().getFileManager().unloadAsset(GameTexture.LOGO_BIG.getFilePath());
     }
 
     /**
@@ -166,22 +159,21 @@ public class LoginTable extends VisTable implements Buildable, Disposable {
         loginButton.setDisabled(true);
         loginButton.setText("Logging in...");
 
-        if (!ClientMain.getInstance().getConnectionManager().getClientGameConnection().isConnected()) {
-            ClientMain.getInstance().getLoginCredentials().setUsername(username);
-            ClientMain.getInstance().getLoginCredentials().setPassword(password);
-            ClientMain.getInstance().getConnectionManager().connect();
+        if (!stageHandler.getClientMain().getConnectionManager().getClientGameConnection().isConnected()) {
+            stageHandler.getClientMain().getLoginCredentials().setUsername(username);
+            stageHandler.getClientMain().getLoginCredentials().setPassword(password);
+            stageHandler.getClientMain().getConnectionManager().connect();
         }
     }
 
     public void resetButton() {
         loginButton.setDisabled(false);
         loginButton.setText("Login");
-        passwordField.setText(ClientMain.getInstance().getLoginCredentials().getPassword());
+        passwordField.setText(stageHandler.getClientMain().getLoginCredentials().getPassword());
     }
 
     /*****************************************************************
      * !!! TEXT FIELD LISTENERS !!!
-     *
      * WARNING!!! Watch for following characters...
      * Backspace = \b
      * Enter = \n

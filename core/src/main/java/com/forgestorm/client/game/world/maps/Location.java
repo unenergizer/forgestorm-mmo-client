@@ -3,7 +3,6 @@ package com.forgestorm.client.game.world.maps;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +11,14 @@ import lombok.Setter;
 @SuppressWarnings("unused")
 public class Location {
 
+    private final ClientMain clientMain;
     private String worldName;
     private int x;
     private int y;
     private short z;
 
-    public Location(String worldName, int x, int y, short z) {
+    public Location(ClientMain clientMain, String worldName, int x, int y, short z) {
+        this.clientMain = clientMain;
         this.worldName = worldName;
         this.x = x;
         this.y = y;
@@ -25,6 +26,7 @@ public class Location {
     }
 
     public Location(Location location) {
+        this.clientMain = location.clientMain;
         this.worldName = location.worldName;
         this.x = location.x;
         this.y = location.y;
@@ -37,7 +39,7 @@ public class Location {
      * @return The map data that relates to this location object.
      */
     public GameWorld getGameWorld() {
-        return ClientMain.getInstance().getWorldManager().getGameWorld(worldName);
+        return clientMain.getWorldManager().getGameWorld(worldName);
     }
 
     public WorldChunk getLocationChunk() {

@@ -10,8 +10,8 @@ import java.util.List;
 
 public class SkillBookWindow extends PagedWindow {
 
-    public SkillBookWindow() {
-        super("Skill Book - NOT FUNCTIONAL", 2, 6);
+    public SkillBookWindow(ClientMain clientMain) {
+        super(clientMain, "Skill Book - NOT FUNCTIONAL", 2, 6);
     }
 
     public void openWindow() {
@@ -24,7 +24,7 @@ public class SkillBookWindow extends PagedWindow {
 
     @Override
     List<PagedWindowSlot> loadPagedWindowSlots() {
-        ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
+        ItemStackManager itemStackManager = stageHandler.getClientMain().getItemStackManager();
         int size = itemStackManager.getItemStackArraySize();
 
         // Generate shop slots

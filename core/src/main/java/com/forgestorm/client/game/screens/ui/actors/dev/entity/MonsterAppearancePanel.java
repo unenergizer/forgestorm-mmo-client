@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.entity;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
 import com.forgestorm.client.game.world.entities.AiEntity;
@@ -14,10 +15,10 @@ public class MonsterAppearancePanel implements AppearancePanel {
     private ImageData bodyData = new ImageData();
     private MonsterBodyPart monsterBodyPart;
 
-    MonsterAppearancePanel(MonsterTab monsterTab) {
+    MonsterAppearancePanel(ClientMain clientMain, MonsterTab monsterTab) {
         this.monsterTab = monsterTab;
         int textureSelectScale = 3;
-        monsterBodyPart = new MonsterBodyPart(monsterTab, monsterTab.getAppearanceTable(), 89, 16 * textureSelectScale, 16 * textureSelectScale, bodyData, false);
+        monsterBodyPart = new MonsterBodyPart(clientMain, monsterTab, monsterTab.getAppearanceTable(), 89, 16 * textureSelectScale, 16 * textureSelectScale, bodyData, false);
         monsterBodyPart.build();
     }
 

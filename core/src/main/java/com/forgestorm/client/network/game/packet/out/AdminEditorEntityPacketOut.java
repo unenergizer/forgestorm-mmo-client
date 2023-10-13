@@ -1,6 +1,7 @@
 package com.forgestorm.client.network.game.packet.out;
 
 import com.badlogic.gdx.graphics.Color;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.MonsterData;
@@ -13,8 +14,8 @@ public class AdminEditorEntityPacketOut extends AbstractPacketOut {
 
     private final EntityEditorData entityEditorData;
 
-    public AdminEditorEntityPacketOut(EntityEditorData entityEditorData) {
-        super(Opcodes.ADMIN_EDITOR_ENTITY);
+    public AdminEditorEntityPacketOut(ClientMain clientMain, EntityEditorData entityEditorData) {
+        super(clientMain, Opcodes.ADMIN_EDITOR_ENTITY);
         this.entityEditorData = entityEditorData;
     }
 

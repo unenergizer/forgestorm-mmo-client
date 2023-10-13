@@ -25,6 +25,8 @@ import static com.forgestorm.client.util.Log.println;
 public class TileImage {
 
     private static final transient boolean PRINT_DEBUG = false;
+    
+    private final transient ClientMain clientMain;
 
     @Getter
     private final transient int imageId;
@@ -49,12 +51,13 @@ public class TileImage {
     @Getter
     private final TextureRegion textureRegion;
 
-    public TileImage(int imageId, String fileName, LayerDefinition layerDefinition) {
+    public TileImage(ClientMain clientMain, int imageId, String fileName, LayerDefinition layerDefinition) {
+        this.clientMain = clientMain;
         this.imageId = imageId;
         this.fileName = fileName;
         this.layerDefinition = layerDefinition;
 
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        FileManager fileManager = clientMain.getFileManager();
         TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
         textureRegion = atlas.findRegion(fileName);
 
@@ -64,11 +67,12 @@ public class TileImage {
     }
 
     public TileImage(TileImage tileImage) {
+        this.clientMain = tileImage.clientMain;
         this.imageId = tileImage.getImageId();
         this.fileName = tileImage.getFileName();
         this.layerDefinition = tileImage.getLayerDefinition();
 
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        FileManager fileManager = clientMain.getFileManager();
         TextureAtlas atlas = fileManager.getAtlas(GameAtlas.TILES);
         textureRegion = atlas.findRegion(fileName);
 
@@ -84,7 +88,7 @@ public class TileImage {
 
                 // Make sure we create a brand-new tile property here!
                 if (stateSpecific) {
-                    setCustomTileProperty(TilePropertyTypeHelper.getNewAbstractTileProperty(entry.getTilePropertyType()));
+                    setCustomTileProperty(TilePropertyTypeHelper.getNewAbstractTileProperty(clientMain, entry.getTilePropertyType()));
                 } else {
                     setCustomTileProperty(entry);
                 }
@@ -160,14 +164,14 @@ public class TileImage {
         // Return if their is no active frame
         if (activeFrame == -1) return this;
 
-        return ClientMain.getInstance().getWorldBuilder().getTileImage(tileAnimation.getAnimationFrame(activeFrame).getTileId());
+        return clientMain.getWorldBuilder().getTileImage(tileAnimation.getAnimationFrame(activeFrame).getTileId());
     }
 
     public int getWidth() {
-        return ClientMain.getInstance().getWorldBuilder().getWorldTileImages().findRegion(fileName).originalWidth;
+        return clientMain.getWorldBuilder().getWorldTileImages().findRegion(fileName).originalWidth;
     }
 
     public int getHeight() {
-        return ClientMain.getInstance().getWorldBuilder().getWorldTileImages().findRegion(fileName).originalHeight;
+        return clientMain.getWorldBuilder().getWorldTileImages().findRegion(fileName).originalHeight;
     }
 }

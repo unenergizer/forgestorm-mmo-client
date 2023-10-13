@@ -10,7 +10,6 @@ import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.ItemStackDropData;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.ItemStackDrop;
 import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.maps.Location;
@@ -21,23 +20,16 @@ import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-
+import com.kotcrab.vis.ui.widget.*;
 import lombok.Getter;
 
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.fadeInWindow;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.fadeOutWindow;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.textField;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.*;
 import static com.forgestorm.client.util.Log.println;
 
 public class ItemStackDropTab extends EditorTab {
 
-    private final ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
+    private final ClientMain clientMain = getStageHandler().getClientMain();
+    private final ItemStackManager itemStackManager = clientMain.getItemStackManager();
     private final int amount = itemStackManager.getItemStackArraySize();
     private final String title;
     private VisTable content;
@@ -134,10 +126,10 @@ public class ItemStackDropTab extends EditorTab {
 
         leftPane.add(entityIdTable).row();
 
-        textField(leftPane, "ItemStack ID:", itemStackId);
-        textField(leftPane, "ItemStack Amount:", stackSize);
-        textField(leftPane, "Minimal Respawn Time (minutes):", respawnTimeMin);
-        textField(leftPane, "Maximal Respawn Time (minutes):", respawnTimeMax);
+        textField(clientMain, leftPane, "ItemStack ID:", itemStackId);
+        textField(clientMain, leftPane, "ItemStack Amount:", stackSize);
+        textField(clientMain, leftPane, "Minimal Respawn Time (minutes):", respawnTimeMin);
+        textField(clientMain, leftPane, "Maximal Respawn Time (minutes):", respawnTimeMax);
         itemStackId.setDisabled(true);
 
         validator.valueGreaterThan(stackSize, "Stack size must be greater than 0.", 1, true);
@@ -153,16 +145,16 @@ public class ItemStackDropTab extends EditorTab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectSpawnActivated = true;
-                worldName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getWorldName());
+                worldName.setText(clientMain.getEntityManager().getPlayerClient().getCurrentMapLocation().getWorldName());
                 selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
-                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(true);
+                clientMain.getMouseManager().setHighlightHoverTile(true);
             }
         });
 
-        ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
+        clientMain.getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+            private final MouseManager mouseManager = clientMain.getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
@@ -193,7 +185,7 @@ public class ItemStackDropTab extends EditorTab {
                 mapX.setText(Integer.toString(mouseManager.getLeftClickTileX()));
                 mapY.setText(Integer.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
-                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(false);
+                clientMain.getMouseManager().setHighlightHoverTile(false);
                 return true;
             }
 
@@ -280,7 +272,7 @@ public class ItemStackDropTab extends EditorTab {
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
+                new AdminEditorEntityPacketOut(clientMain, generateDataOut(true, false)).sendPacket();
                 resetValues();
                 fadeOutWindow(getStageHandler().getEntityEditor());
             }
@@ -296,7 +288,7 @@ public class ItemStackDropTab extends EditorTab {
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
@@ -306,22 +298,22 @@ public class ItemStackDropTab extends EditorTab {
                     @Override
                     public void yes() {
                         Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Entity deleted forever!");
-                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+                        new AdminEditorEntityPacketOut(clientMain, generateDataOut(false, true)).sendPacket();
                         resetValues();
                         fadeOutWindow(getStageHandler().getEntityEditor());
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                        clientMain.getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
                         fadeInWindow(getStageHandler().getEntityEditor());
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                        clientMain.getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
                         fadeInWindow(getStageHandler().getEntityEditor());
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
+                        clientMain.getAudioManager().getSoundManager().playSoundFx(MonsterTab.class, (short) 0);
                     }
                 });
             }
@@ -387,7 +379,7 @@ public class ItemStackDropTab extends EditorTab {
         ItemStack itemStack = itemStackManager.makeItemStack(itemStackIDNum, 0);
         itemStackName.setText(itemStack.getName());
         itemStackId.setText(Integer.toString(itemStackIDNum));
-        itemStackPreview.setDrawable(new ImageBuilder(GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegionName()).buildVisImage().getDrawable());
+        itemStackPreview.setDrawable(new ImageBuilder(clientMain, GameAtlas.ITEMS).setWidth(imgSize).setHeight(imgSize).setRegionName(itemStack.getTextureRegionName()).buildVisImage().getDrawable());
         scrollProgress.setText(itemStackIDNum + " / " + (amount - 1));
 
         // Prevent illegal stack size setting
@@ -400,7 +392,7 @@ public class ItemStackDropTab extends EditorTab {
     }
 
     private ItemStackDropData generateDataOut(boolean save, boolean delete) {
-        Location location = new Location(
+        Location location = new Location(clientMain,
                 worldName.getText(),
                 Integer.parseInt(mapX.getText()),
                 Integer.parseInt(mapY.getText()),

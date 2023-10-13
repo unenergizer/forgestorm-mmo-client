@@ -7,21 +7,20 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.Tags;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypeHelper;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -33,8 +32,10 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
 
     private static final boolean PRINT_DEBUG = false;
 
-    public TilePropertiesLoader(FileHandleResolver resolver) {
+    private final ClientMain clientMain;
+    public TilePropertiesLoader(ClientMain clientMain, FileHandleResolver resolver) {
         super(resolver);
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
             println(getClass(), "LayerDefinition: " + layerDefinition, false, PRINT_DEBUG);
 
             // Create the TileImage
-            TileImage tileImage = new TileImage(imageId, name, layerDefinition);
+            TileImage tileImage = new TileImage(clientMain, imageId, name, layerDefinition);
 
             // Load tile tags
             List<String> tagsList = (List<String>) itemNode.get("tagsList");
@@ -85,7 +86,7 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
                 for (Map.Entry<String, Object> entrySet : mapOfTileProperties.entrySet()) {
                     TilePropertyTypes tilePropertyType = TilePropertyTypes.valueOf(entrySet.getKey());
                     Map<String, Object> abstractPropertyFieldsMap = (Map<String, Object>) entrySet.getValue();
-                    AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(tilePropertyType);
+                    AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(clientMain, tilePropertyType);
 
                     // If we find the property, lets get it setup!
                     //noinspection ConstantConditions

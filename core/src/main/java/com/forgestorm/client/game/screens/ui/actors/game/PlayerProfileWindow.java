@@ -5,29 +5,30 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.login.ButtonTable;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
 import com.forgestorm.client.network.game.packet.out.ProfileRequestPacketOut;
 import com.forgestorm.client.util.ImageDownloader;
+import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.forgestorm.client.util.Log.println;
 
-public class PlayerProfileWindow extends VisWindow implements Buildable, Disposable {
+public class PlayerProfileWindow extends HideableVisWindow implements Buildable, Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
     private final ImageDownloader imageDownloader = new ImageDownloader();
 
     private final Map<String, Texture> profilePicturesCache = new HashMap<String, Texture>();
@@ -42,8 +43,9 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
 
     private String currentPlayer;
 
-    public PlayerProfileWindow() {
-        super("NULL : WINDOW NAME NOT SET");
+    public PlayerProfileWindow(ClientMain clientMain) {
+        super(clientMain, "NULL : WINDOW NAME NOT SET");
+        this.clientMain = clientMain;
     }
 
     /**
@@ -53,7 +55,7 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
      */
     public void requestPlayerProfile(Player playerToGetProfileFor) {
         currentPlayer = playerToGetProfileFor.getEntityName();
-        new ProfileRequestPacketOut(playerToGetProfileFor.getServerEntityID()).sendPacket();
+        new ProfileRequestPacketOut(clientMain, playerToGetProfileFor.getServerEntityID()).sendPacket();
     }
 
     /**
@@ -124,7 +126,7 @@ public class PlayerProfileWindow extends VisWindow implements Buildable, Disposa
         profileURLButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(profileURL);
             }
         });

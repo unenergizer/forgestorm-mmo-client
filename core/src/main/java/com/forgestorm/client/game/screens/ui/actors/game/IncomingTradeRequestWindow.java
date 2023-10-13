@@ -18,10 +18,12 @@ import com.kotcrab.vis.ui.VisUI;
 
 public class IncomingTradeRequestWindow extends HideableVisWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private IncomingTradeRequestWindow incomingTradeRequestWindow;
 
-    public IncomingTradeRequestWindow() {
-        super("Incoming Trade Request");
+    public IncomingTradeRequestWindow(ClientMain clientMain) {
+        super(clientMain, "Incoming Trade Request");
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -37,18 +39,18 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(IncomingTradeRequestWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(IncomingTradeRequestWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(incomingTradeRequestWindow);
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_ACCEPT, ClientMain.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+                new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_ACCEPT, stageHandler.getClientMain().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
 
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(IncomingTradeRequestWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(IncomingTradeRequestWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(incomingTradeRequestWindow);
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_DECLINE, ClientMain.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+                new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_REQUEST_TARGET_DECLINE, stageHandler.getClientMain().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
 
@@ -56,7 +58,7 @@ public class IncomingTradeRequestWindow extends HideableVisWindow implements Bui
         addListener(new ForceCloseWindowListener() {
             @Override
             public void handleClose() {
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, ClientMain.getInstance().getTradeManager().getTradeUUID())).sendPacket();
+                new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, stageHandler.getClientMain().getTradeManager().getTradeUUID())).sendPacket();
             }
         });
 

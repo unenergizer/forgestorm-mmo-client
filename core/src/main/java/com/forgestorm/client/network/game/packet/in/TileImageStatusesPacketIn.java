@@ -1,7 +1,5 @@
 package com.forgestorm.client.network.game.packet.in;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.DoorManager;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -9,17 +7,23 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import static com.forgestorm.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.TILE_IMAGE_STATUSES)
 public class TileImageStatusesPacketIn implements PacketListener<TileImageStatusesPacketIn.TileImageStatusesPacket> {
 
     private final static boolean PRINT_DEBUG = true;
+    private final ClientMain clientMain;
+
+    public TileImageStatusesPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -46,12 +50,12 @@ public class TileImageStatusesPacketIn implements PacketListener<TileImageStatus
             println(getClass(), "TileZ: " + tileStatusData.worldZ, false, PRINT_DEBUG);
             println(getClass(), "DoorStatus: " + tileStatusData.doorStatus, false, PRINT_DEBUG);
 
-            ClientMain.getInstance().getDoorManager().networkToggleDoor(tileStatusData.doorStatus, tileStatusData.tileX, tileStatusData.tileY, tileStatusData.worldZ, false);
+            clientMain.getDoorManager().networkToggleDoor(tileStatusData.doorStatus, tileStatusData.tileX, tileStatusData.tileY, tileStatusData.worldZ, false);
         }
     }
 
     @AllArgsConstructor
-    class TileImageStatusesPacket extends PacketData {
+    static class TileImageStatusesPacket extends PacketData {
         private final List<TileStatusData> tilesWithStatuses;
     }
 

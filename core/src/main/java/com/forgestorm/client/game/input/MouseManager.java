@@ -12,19 +12,9 @@ import com.forgestorm.client.game.movement.ClientMovementProcessor;
 import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileBuildMenu;
-import com.forgestorm.client.game.world.entities.AiEntity;
-import com.forgestorm.client.game.world.entities.Entity;
-import com.forgestorm.client.game.world.entities.EntityInteract;
-import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.entities.ItemStackDrop;
-import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.entities.NPC;
-import com.forgestorm.client.game.world.entities.Player;
-import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.entities.StationaryEntity;
+import com.forgestorm.client.game.world.entities.*;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.RegionManager;
 import com.forgestorm.client.game.world.maps.WorldUtil;
@@ -34,13 +24,12 @@ import com.forgestorm.client.util.FadeOut;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.shared.game.world.maps.CursorDrawType;
 import com.forgestorm.shared.io.type.GameAtlas;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -49,6 +38,9 @@ public class MouseManager {
     private static final boolean PRINT_DEBUG = false;
 
     public static final int NUM_TICKS_TO_FADE_MOUSE = 60;
+
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
 
     private final Vector3 clickLocation = new Vector3();
 
@@ -70,6 +62,11 @@ public class MouseManager {
     private boolean highlightHoverTile = false;
 
     private boolean foundClick = false;
+
+    public MouseManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+    }
 
     void mouseMove(final int screenX, final int screenY) {
         final Vector3 tiledMapCoordinates = cameraXYtoTiledMapXY(screenX, screenY);
@@ -101,7 +98,7 @@ public class MouseManager {
 
         // Place tile in world
         if (buttonDown == Input.Buttons.LEFT) {
-            ClientMain.getInstance().getWorldBuilder().placeTile(getMouseTileX(), getMouseTileY());
+            clientMain.getWorldBuilder().placeTile(getMouseTileX(), getMouseTileY());
         }
     }
 
@@ -117,7 +114,7 @@ public class MouseManager {
     }
 
     private Vector3 cameraXYtoTiledMapXY(final int screenX, final int screenY) {
-        return ClientMain.getInstance().getGameScreen().getCamera().unproject(clickLocation.set(screenX, screenY, 0));
+        return clientMain.getGameScreen().getCamera().unproject(clickLocation.set(screenX, screenY, 0));
     }
 
     private boolean entityClickTest(float drawX, float drawY) {
@@ -134,20 +131,20 @@ public class MouseManager {
         this.leftClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         // Clear scroll focus so map zooming can resume.
-        ClientMain.getInstance().getStageHandler().getStage().setScrollFocus(null);
+        clientMain.getStageHandler().getStage().setScrollFocus(null);
 
         // Place tile in world
-        ClientMain.getInstance().getWorldBuilder().placeTile(getMouseTileX(), getMouseTileY());
+        clientMain.getWorldBuilder().placeTile(getMouseTileX(), getMouseTileY());
 
         // If setting the spawn of an entity, prevent the mouse from making the player walk.
-        EntityEditor entityEditor = ActorUtil.getStageHandler().getEntityEditor();
+        EntityEditor entityEditor = clientMain.getStageHandler().getEntityEditor();
         if (entityEditor != null) {
             if (entityEditor.getNpcTab().isSelectSpawnActivated()) return;
             if (entityEditor.getMonsterTab().isSelectSpawnActivated()) return;
         }
 
         // Toggle clicked door
-        ClientMain.getInstance().getDoorManager().playerClientToggleDoor(leftClickTileX, leftClickTileY);
+        clientMain.getDoorManager().playerClientToggleDoor(leftClickTileX, leftClickTileY);
 
         clickAIEntities();
         clickPlayerEntities();
@@ -158,25 +155,25 @@ public class MouseManager {
 
     private void clickAIEntities() {
         if (foundClick) return;
-        for (final MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
+        for (final MovingEntity movingEntity : entityManager.getAiEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
                 if (movingEntity instanceof AiEntity) {
                     switch (((AiEntity) movingEntity).getFirstInteraction()) {
                         case TALK:
-                            EntityInteract.talkNPC((NPC) movingEntity);
+                            EntityInteract.talkNPC(clientMain, (NPC) movingEntity);
                             break;
                         case SHOP:
-                            EntityInteract.openShop((AiEntity) movingEntity);
+                            EntityInteract.openShop(clientMain, (AiEntity) movingEntity);
                             break;
                         case BANK:
-                            EntityInteract.openBank(movingEntity);
+                            EntityInteract.openBank(clientMain, movingEntity);
                             break;
                         case ATTACK:
                         default:
-                            ClientMain.getInstance().getEntityTracker().follow(movingEntity);
+                            clientMain.getEntityTracker().follow(movingEntity);
                             break;
                     }
-                    EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
+                    entityManager.getPlayerClient().setTargetEntity(movingEntity);
                 }
                 foundClick = true;
                 return;
@@ -186,10 +183,10 @@ public class MouseManager {
 
     private void clickPlayerEntities() {
         if (foundClick) return;
-        for (MovingEntity movingEntity : EntityManager.getInstance().getPlayerEntityList().values()) {
+        for (MovingEntity movingEntity : entityManager.getPlayerEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
-                ClientMain.getInstance().getEntityTracker().follow(movingEntity);
-                EntityManager.getInstance().getPlayerClient().setTargetEntity(movingEntity);
+                clientMain.getEntityTracker().follow(movingEntity);
+                entityManager.getPlayerClient().setTargetEntity(movingEntity);
                 foundClick = true;
                 return;
             }
@@ -200,7 +197,7 @@ public class MouseManager {
 //        if (foundClick) return;
         // Skill nodes like Mining and Fishing etc
 //        Queue<MoveNode> moveNodes = null;
-//        for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
+//        for (StationaryEntity stationaryEntity : entityManager.getStationaryEntityList().values()) {
 //            if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
 //                Location location = stationaryEntity.getCurrentMapLocation();
 //
@@ -211,7 +208,7 @@ public class MouseManager {
 //                    }
 //                } else {
 //                    // New Entity click so lets cancelFollow entityTracker
-//                    ClientMain.getInstance().getEntityTracker().cancelFollow();
+//                    clientMain.getEntityTracker().cancelFollow();
 //
 //                    // Top right quad
 //                    Queue<MoveNode> testMoveNodes = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), leftClickTileX, leftClickTileY, clientLocation.getWorldName(), true);
@@ -231,9 +228,9 @@ public class MouseManager {
     private void clickItemStackDrops() {
         if (foundClick) return;
         // Picking up ItemStacks from the ground
-        for (ItemStackDrop itemStackDrop : EntityManager.getInstance().getItemStackDropList().values()) {
+        for (ItemStackDrop itemStackDrop : entityManager.getItemStackDropList().values()) {
             if (entityClickTest(itemStackDrop.getDrawX(), itemStackDrop.getDrawY())) {
-                EntityInteract.pickUpItemStackDrop(itemStackDrop);
+                EntityInteract.pickUpItemStackDrop(clientMain, itemStackDrop);
                 foundClick = true;
                 break;
             }
@@ -243,24 +240,24 @@ public class MouseManager {
     private void clickToWalkToPath() {
         if (foundClick) return;
 
-        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        RegionManager regionManager = clientMain.getRegionManager();
 
-        StageHandler stageHandler = ClientMain.getInstance().getStageHandler();
+        StageHandler stageHandler = clientMain.getStageHandler();
         TileBuildMenu tileBuildMenu = stageHandler.getTileBuildMenu();
 
         // See if we need to stop click to walk
         if (tileBuildMenu != null && tileBuildMenu.isVisible()) {
-            WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+            WorldBuilder worldBuilder = clientMain.getWorldBuilder();
             if (!worldBuilder.isAllowClickToMove()) return;
         }
 
         if (regionManager.isEditRegion()) return;
 
         // Click to walk path finding
-        ClientMain.getInstance().getEntityTracker().walkTo(
+        clientMain.getEntityTracker().walkTo(
                 getLeftClickTileX(),
                 getLeftClickTileY(),
-                EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getZ(),
+                entityManager.getPlayerClient().getCurrentMapLocation().getZ(),
                 false);
     }
 
@@ -274,26 +271,26 @@ public class MouseManager {
         this.rightClickTileY = (int) (tiledMapCoordinates.y / ClientConstants.TILE_SIZE);
 
         // Toggle clicked door
-        ClientMain.getInstance().getDoorManager().playerClientToggleDoor(rightClickTileX, rightClickTileY);
+        clientMain.getDoorManager().playerClientToggleDoor(rightClickTileX, rightClickTileY);
 
         /*
          * Build right click menu!
          */
         final List<Entity> entityList = new ArrayList<Entity>();
 
-        for (Player player : EntityManager.getInstance().getPlayerEntityList().values()) {
+        for (Player player : entityManager.getPlayerEntityList().values()) {
             if (entityClickTest(player.getDrawX(), player.getDrawY())) {
                 entityList.add(player);
             }
         }
 
-        for (MovingEntity movingEntity : EntityManager.getInstance().getAiEntityList().values()) {
+        for (MovingEntity movingEntity : entityManager.getAiEntityList().values()) {
             if (entityClickTest(movingEntity.getDrawX(), movingEntity.getDrawY())) {
                 entityList.add(movingEntity);
             }
         }
 
-        for (ItemStackDrop itemStackDrop : EntityManager.getInstance().getItemStackDropList().values()) {
+        for (ItemStackDrop itemStackDrop : entityManager.getItemStackDropList().values()) {
             if (entityClickTest(itemStackDrop.getDrawX(), itemStackDrop.getDrawY())) {
                 entityList.add(itemStackDrop);
             }
@@ -301,25 +298,25 @@ public class MouseManager {
 
         // Send list of entities to the EntityDropDownMenu!
         if (!entityList.isEmpty()) {
-            if (ActorUtil.getStageHandler().getTradeWindow().isVisible()) return;
-            ActorUtil.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, ClientMain.getInstance().getGameScreen().getCamera().viewportHeight - screenY);
+            if (clientMain.getStageHandler().getTradeWindow().isVisible()) return;
+            clientMain.getStageHandler().getEntityDropDownMenu().toggleMenu(entityList, screenX, clientMain.getGameScreen().getCamera().viewportHeight - screenY);
         }
 
         /*
          * Right clicked stationary node...
          */
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = entityManager.getPlayerClient();
         Location clientLocation = playerClient.getCurrentMapLocation();
 
-        for (StationaryEntity stationaryEntity : EntityManager.getInstance().getStationaryEntityList().values()) {
+        for (StationaryEntity stationaryEntity : entityManager.getStationaryEntityList().values()) {
             if (entityClickTest(stationaryEntity.getDrawX(), stationaryEntity.getDrawY())) {
                 Location location = stationaryEntity.getCurrentMapLocation();
 
                 if (!MoveUtil.isEntityMoving(playerClient)) {
                     if (clientLocation.isWithinDistance(location, (short) 1)) {
                         // The player is requesting to interact with the entity.
-                        new ClickActionPacketOut(new ClickAction(ClickAction.RIGHT, stationaryEntity)).sendPacket();
+                        new ClickActionPacketOut(clientMain, new ClickAction(ClickAction.RIGHT, stationaryEntity)).sendPacket();
                     }
                 }
             }
@@ -359,10 +356,10 @@ public class MouseManager {
     }
 
     public void drawMoveNodes(SpriteBatch spriteBatch) {
-        if (ClientMain.getInstance().getClientMovementProcessor().getCurrentMovementInput() == ClientMovementProcessor.MovementInput.MOUSE) {
-            Queue<MoveNode> remainingMoveNodes = ClientMain.getInstance().getClientPlayerMovementManager().getMovements();
+        if (clientMain.getClientMovementProcessor().getCurrentMovementInput() == ClientMovementProcessor.MovementInput.MOUSE) {
+            Queue<MoveNode> remainingMoveNodes = clientMain.getClientPlayerMovementManager().getMovements();
             for (MoveNode moveNode : remainingMoveNodes) {
-                spriteBatch.draw(new ImageBuilder(GameAtlas.CURSOR, "path_find").buildTextureRegionDrawable().getRegion(), moveNode.getWorldX() * ClientConstants.TILE_SIZE, moveNode.getWorldY() * ClientConstants.TILE_SIZE);
+                spriteBatch.draw(new ImageBuilder(clientMain, GameAtlas.CURSOR, "path_find").buildTextureRegionDrawable().getRegion(), moveNode.getWorldX() * ClientConstants.TILE_SIZE, moveNode.getWorldY() * ClientConstants.TILE_SIZE);
             }
         }
     }
@@ -371,7 +368,7 @@ public class MouseManager {
         if (isHighlightHoverTile()) {
             float x = getMouseTileX() * ClientConstants.TILE_SIZE;
             float y = getMouseTileY() * ClientConstants.TILE_SIZE;
-            if (WorldUtil.isTraversable(Math.round(getMouseTileX()), Math.round(getMouseTileY()))) {
+            if (WorldUtil.isTraversable(clientMain, Math.round(getMouseTileX()), Math.round(getMouseTileY()))) {
                 spriteBatch.draw(validTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
             } else {
                 spriteBatch.draw(invalidTileLocationTexture, x, y, ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);

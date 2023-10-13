@@ -8,20 +8,21 @@ import com.forgestorm.client.game.world.item.ItemStackManager;
 import com.forgestorm.client.game.world.item.inventory.ShopItemStackInfo;
 import com.forgestorm.client.network.game.packet.out.EntityShopPacketOut;
 import com.forgestorm.shared.game.world.item.ItemStack;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-
 public class EntityShopWindow extends PagedWindow {
 
+    private final ClientMain clientMain;
     @Getter
     private MovingEntity shopOwnerEntity;
     private short shopID;
 
-    public EntityShopWindow() {
-        super("NULL", 2, 6);
+    public EntityShopWindow(ClientMain clientMain) {
+        super(clientMain, "NULL", 2, 6);
+        this.clientMain = clientMain;
     }
 
     public void openWindow(MovingEntity movingEntity, short shopID) {
@@ -32,15 +33,15 @@ public class EntityShopWindow extends PagedWindow {
 
     @Override
     void windowClosedAction() {
-        new EntityShopPacketOut(ShopOpcodes.STOP_SHOPPING).sendPacket();
+        new EntityShopPacketOut(clientMain, ShopOpcodes.STOP_SHOPPING).sendPacket();
         shopOwnerEntity = null;
         shopID = -1;
     }
 
     @Override
     List<PagedWindowSlot> loadPagedWindowSlots() {
-        EntityShopManager entityShopManager = ClientMain.getInstance().getEntityShopManager();
-        ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
+        EntityShopManager entityShopManager = stageHandler.getClientMain().getEntityShopManager();
+        ItemStackManager itemStackManager = stageHandler.getClientMain().getItemStackManager();
 
         // Generate shop slots
         List<PagedWindowSlot> windowSlots = new ArrayList<PagedWindowSlot>();

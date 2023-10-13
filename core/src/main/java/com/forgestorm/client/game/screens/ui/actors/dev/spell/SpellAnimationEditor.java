@@ -18,21 +18,16 @@ import com.forgestorm.client.io.FileManager;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public class SpellAnimationEditor extends HideableVisWindow implements Buildable {
+
+    private final ClientMain clientMain;
 
     @Getter
     private final AnimationEffect animationEffect = new AnimationEffect();
@@ -40,8 +35,9 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
     private TextureAtlas spellTextureAtlas;
     private Array<TextureAtlas.AtlasRegion> list;
 
-    public SpellAnimationEditor() {
-        super("Spell Animation Editor");
+    public SpellAnimationEditor(ClientMain clientMain) {
+        super(clientMain, "Spell Animation Editor");
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -49,7 +45,7 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         TableUtils.setSpacingDefaults(this);
 
         // Load Atlas
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        FileManager fileManager = stageHandler.getClientMain().getFileManager();
         spellTextureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
         list = spellTextureAtlas.getRegions();
 
@@ -57,7 +53,7 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         int id = 0; // TODO: REPLACE ME WITH AUTO GEN ID!
         VisLabel idNumber = new VisLabel("ID: " + id);
         infoTable.add(idNumber);
-        ActorUtil.textField(infoTable, "Spell Name: ", new VisTextField());
+        ActorUtil.textField(clientMain, infoTable, "Spell Name: ", new VisTextField());
 
         // Cast Animation Table
         animationEffect.addAnimationPartData(new AnimationPartData(id, AnimationType.CAST));
@@ -150,7 +146,7 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
             TextureRegion currentFrame = runningAnimation.getKeyFrame(stateTime);
 
             imageTable.clear();
-            VisImage visImage = new ImageBuilder(GameAtlas.PIXEL_FX).setTextureRegion(currentFrame).buildVisImage();
+            VisImage visImage = new ImageBuilder(clientMain, GameAtlas.PIXEL_FX).setTextureRegion(currentFrame).buildVisImage();
             imageTable.add(visImage);
         }
 
@@ -166,7 +162,7 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
 
             // Animation chooser
             final VisSelectBox<TextureAtlas.AtlasRegion> regionSelectBox = new VisSelectBox<>();
-            ActorUtil.selectBox(dataTable, "Animation", regionSelectBox, list.toArray());
+            ActorUtil.selectBox(clientMain, dataTable, "Animation", regionSelectBox, list.toArray());
             regionSelectBox.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -176,7 +172,7 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
             });
 
             final VisSelectBox<Animation.PlayMode> playModeSelectBox = new VisSelectBox<>();
-            ActorUtil.selectBox(dataTable, "Play Mode", playModeSelectBox, Animation.PlayMode.values());
+            ActorUtil.selectBox(clientMain, dataTable, "Play Mode", playModeSelectBox, Animation.PlayMode.values());
             playModeSelectBox.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -211,8 +207,8 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
                 }
             });
 
-            ActorUtil.soundField(dataTable, "Sound ID: ", soundIDTextField, getClass());
-            ActorUtil.textField(dataTable, "Speed: ", animationSpeedTextField);
+            ActorUtil.soundField(clientMain, dataTable, "Sound ID: ", soundIDTextField, getClass());
+            ActorUtil.textField(clientMain, dataTable, "Speed: ", animationSpeedTextField);
             animationSpeedTextField.setText(Float.toString(animationSpeed));
             dataTable.addSeparator().row();
         }
@@ -220,19 +216,19 @@ public class SpellAnimationEditor extends HideableVisWindow implements Buildable
         private void buildAnimationTypeOptions() {
             switch (animationType) {
                 case CAST:
-                    ActorUtil.checkBox(dataTable, "Hide Weapon:", new VisCheckBox(""));
-                    ActorUtil.checkBox(dataTable, "Hide Shield:", new VisCheckBox(""));
+                    ActorUtil.checkBox(clientMain, dataTable, "Hide Weapon:", new VisCheckBox(""));
+                    ActorUtil.checkBox(clientMain, dataTable, "Hide Shield:", new VisCheckBox(""));
 
                     final VisSelectBox<CharacterPose> poseSelectBox = new VisSelectBox<>();
-                    ActorUtil.selectBox(dataTable, "Character Pose:", poseSelectBox, CharacterPose.values());
+                    ActorUtil.selectBox(clientMain, dataTable, "Character Pose:", poseSelectBox, CharacterPose.values());
                     break;
                 case PROJECTILE:
                     final VisSelectBox<ProjectileType> projectileTypeSelectBox = new VisSelectBox<>();
-                    ActorUtil.selectBox(dataTable, "Projectile Type:", projectileTypeSelectBox, ProjectileType.values());
-                    ActorUtil.checkBox(dataTable, "Repeat Sound:", new VisCheckBox(""));
+                    ActorUtil.selectBox(clientMain, dataTable, "Projectile Type:", projectileTypeSelectBox, ProjectileType.values());
+                    ActorUtil.checkBox(clientMain, dataTable, "Repeat Sound:", new VisCheckBox(""));
                     break;
                 case IMPACT:
-                    ActorUtil.checkBox(dataTable, "Entity Hit Flash:", new VisCheckBox(""));
+                    ActorUtil.checkBox(clientMain, dataTable, "Entity Hit Flash:", new VisCheckBox(""));
                     break;
             }
         }

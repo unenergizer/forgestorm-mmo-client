@@ -4,15 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.animations.ColoredTextureRegion;
 import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 import static com.forgestorm.shared.util.RandomNumberUtil.getNewRandom;
@@ -594,7 +592,7 @@ public class HumanAnimation extends EntityAnimation {
         if (currentKeyFrame == 0 || currentKeyFrame == 2) {
             if (!frameFinished) return;
             println(getClass(), "MOVING ENTITY: " + movingEntity.getEntityName() + ", Location: " + movingEntity.getFutureMapLocation(), false, PRINT_DEBUG);
-            ClientMain.getInstance().getAudioManager().getSoundManager().playWalkSound(this.getClass(), movingEntity);
+            movingEntity.getClientMain().getAudioManager().getSoundManager().playWalkSound(this.getClass(), movingEntity);
             frameFinished = false;
         } else {
             frameFinished = true;

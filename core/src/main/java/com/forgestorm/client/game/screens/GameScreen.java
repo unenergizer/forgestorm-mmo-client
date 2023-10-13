@@ -52,8 +52,10 @@ public class GameScreen implements Screen {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
     private final StageHandler stageHandler;
-    private final FileManager fileManager = ClientMain.getInstance().getFileManager();
+    private final FileManager fileManager;
 
     private AttachableCamera camera;
     private ScreenViewport screenViewport;
@@ -61,7 +63,7 @@ public class GameScreen implements Screen {
 
     private boolean gameFocused = true;
 
-    private final Keyboard keyboard = new Keyboard();
+    private final Keyboard keyboard;
 
     private BitmapFont font;
 
@@ -78,8 +80,12 @@ public class GameScreen implements Screen {
 
     private final PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<>();
 
-    public GameScreen(StageHandler stageHandler) {
-        this.stageHandler = stageHandler;
+    public GameScreen(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+        this.stageHandler = clientMain.getStageHandler();
+        this.fileManager = clientMain.getFileManager();
+        this.keyboard = new Keyboard(clientMain);
     }
 
     @Override
@@ -87,7 +93,7 @@ public class GameScreen implements Screen {
         spriteBatch = new SpriteBatch();
 
         // Setup camera
-        camera = new AttachableCamera(ClientConstants.SCREEN_RESOLUTION, ClientConstants.ZOOM_DEFAULT);
+        camera = new AttachableCamera(clientMain, ClientConstants.SCREEN_RESOLUTION, ClientConstants.ZOOM_DEFAULT);
         screenViewport = new ScreenViewport();
         stageHandler.setViewport(screenViewport);
 
@@ -113,12 +119,12 @@ public class GameScreen implements Screen {
 //        Gdx.graphics.setCursor(Gdx.graphics.newCursor(fileManager.getPixmap(GamePixmap.CURSOR_1), 0, 0));
 
         // Setup input controls
-        InputMultiplexer inputMultiplexer = ClientMain.getInstance().getInputMultiplexer();
+        InputMultiplexer inputMultiplexer = clientMain.getInputMultiplexer();
         inputMultiplexer.addProcessor(stageHandler.getPreStageEvent());
         inputMultiplexer.addProcessor(stageHandler.getStage());
         inputMultiplexer.addProcessor(stageHandler.getPostStageEvent());
         inputMultiplexer.addProcessor(keyboard);
-        inputMultiplexer.addProcessor(new Mouse());
+        inputMultiplexer.addProcessor(new Mouse(clientMain));
 
         // Create HealthBar textures
         final int width = 1;
@@ -155,7 +161,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (ClientMain.getInstance().getWorldManager().getCurrentGameWorld() != null) {
+        if (clientMain.getWorldManager().getCurrentGameWorld() != null) {
             renderGame(delta);
         } else {
             renderAccountInformation();
@@ -175,11 +181,11 @@ public class GameScreen implements Screen {
     }
 
     private void renderGame(float delta) {
-        if (ClientMain.getInstance().getWorldManager().getCurrentGameWorld() == null) return;
-        GraphicsUtils.clearScreen(ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getBackgroundColor());
+        if (clientMain.getWorldManager().getCurrentGameWorld() == null) return;
+        GraphicsUtils.clearScreen(clientMain.getWorldManager().getCurrentGameWorld().getBackgroundColor());
 
-        if (EntityManager.getInstance().getPlayerClient() == null) return;
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        if (clientMain.getEntityManager().getPlayerClient() == null) return;
+        PlayerClient playerClient = entityManager.getPlayerClient();
         tickGameLogic(delta);
 
         camera.clampCamera(screenViewport, getGameMap());
@@ -194,19 +200,19 @@ public class GameScreen implements Screen {
         Floors[] values = Floors.values();
         for (int i = values.length - 1; i >= 0; i--) {
             Floors floor = values[i];
-            boolean isVisible = ClientMain.getInstance().getWorldBuilder().isFloorVisible(floor);
+            boolean isVisible = clientMain.getWorldBuilder().isFloorVisible(floor);
 
             if (isVisible) getGameMap().renderBottomLayers(spriteBatch, floor);
 
-            EntityManager.getInstance().drawEntityShadows(spriteBatch, floor);
-            EntityManager.getInstance().drawGroundEntities(spriteBatch);
+            entityManager.drawEntityShadows(spriteBatch, floor);
+            entityManager.drawGroundEntities(spriteBatch);
 
             //////////////////////////////////////////////////
             //// -------- COLLECT WORLD OBJECTS -------- /////
             //////////////////////////////////////////////////
 
             if (isVisible) getGameMap().getSortableWorldObjects(ySortedWorldObjects, floor);
-            EntityManager.getInstance().getSortableEntities(ySortedWorldObjects);
+            entityManager.getSortableEntities(ySortedWorldObjects);
             ySortedWorldObjects.add(playerClient);
 
             //////////////////////////////////////////////////////
@@ -223,7 +229,7 @@ public class GameScreen implements Screen {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) worldObject;
                     if (itemStackDrop.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
 
-                    TextureRegion textureRegion = ClientMain.getInstance().getItemStackManager().getItemStackTextureRegion(itemStackDrop.getAppearance().getSingleBodyTexture());
+                    TextureRegion textureRegion = clientMain.getItemStackManager().getItemStackTextureRegion(itemStackDrop.getAppearance().getSingleBodyTexture());
                     spriteBatch.draw(textureRegion,
                             itemStackDrop.getDrawX() + 4,
                             itemStackDrop.getDrawY(),
@@ -235,7 +241,7 @@ public class GameScreen implements Screen {
                     Tile tile = (Tile) worldObject;
 
                     // TODO CHANGE LOCATION!
-                    Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+                    Location playerLocation = entityManager.getPlayerClient().getCurrentMapLocation();
                     if (!renderRegion(playerLocation, tile)) continue;
 
                     TileImage tileImage = tile.getTileImage();
@@ -258,11 +264,11 @@ public class GameScreen implements Screen {
             if (isVisible) getGameMap().renderDecorationLayer(spriteBatch, floor);
 
             // Draw damage animations
-            ClientMain.getInstance().getAbilityManager().drawAnimation(delta, spriteBatch);
+            clientMain.getAbilityManager().drawAnimation(delta, spriteBatch);
 
             // Render warp texture
             if (stageHandler.getWarpEditor() != null && stageHandler.getWarpEditor().isVisible()) {
-                for (WorldChunk worldChunk : ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldChunkDrawMap().values()) {
+                for (WorldChunk worldChunk : clientMain.getWorldManager().getCurrentGameWorld().getWorldChunkDrawMap().values()) {
                     for (Map.Entry<WarpLocation, Warp> entry : worldChunk.getTileWarps().entrySet()) {
                         float fromX = entry.getKey().getFromX() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
                         float fromY = entry.getKey().getFromY() * ClientConstants.TILE_SIZE * ClientConstants.CHUNK_SIZE;
@@ -275,15 +281,15 @@ public class GameScreen implements Screen {
             }
 
             // Draw Names
-            EntityManager.getInstance().drawEntityNames(floor);
+            entityManager.drawEntityNames(floor);
             playerClient.drawEntityName();
 
             // Draw HP Bar
-            EntityManager.getInstance().drawHealthBar(floor);
+            entityManager.drawHealthBar(floor);
             playerClient.drawEntityHpBar();
 
             // Draw damage indicators
-            EntityManager.getInstance().drawDamageNumbers(floor);
+            entityManager.drawDamageNumbers(floor);
             playerClient.drawFloatingNumbers();
 
             // Draw Level up messages
@@ -294,34 +300,34 @@ public class GameScreen implements Screen {
         }
 
         // Draw mouse
-        MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+        MouseManager mouseManager = clientMain.getMouseManager();
         mouseManager.drawMoveNodes(spriteBatch);
         mouseManager.drawMouseHoverIcon(spriteBatch, validTileLocationTexture, invalidTileLocationTexture);
 
         // Draw World Builder
-        ClientMain.getInstance().getWorldBuilder().drawMouse(spriteBatch);
+        clientMain.getWorldBuilder().drawMouse(spriteBatch);
 
-        PixelFXTest pixelFXTest = ClientMain.getInstance().getStageHandler().getPixelFXTest();
+        PixelFXTest pixelFXTest = clientMain.getStageHandler().getPixelFXTest();
         if (pixelFXTest != null) pixelFXTest.render(delta, spriteBatch);
 
-        TileAnimationEditor tileAnimationEditor = ClientMain.getInstance().getStageHandler().getTileAnimationEditor();
+        TileAnimationEditor tileAnimationEditor = clientMain.getStageHandler().getTileAnimationEditor();
         if (tileAnimationEditor != null) tileAnimationEditor.render();
 
-        SpellAnimationEditor spellAnimationEditor = ClientMain.getInstance().getStageHandler().getSpellAnimationEditor();
+        SpellAnimationEditor spellAnimationEditor = clientMain.getStageHandler().getSpellAnimationEditor();
         if (spellAnimationEditor != null)
             spellAnimationEditor.getAnimationEffect().renderAllAnimationPartDataTables(delta);
 
-        ClientMain.getInstance().getMouseManager().drawMovingMouse(playerClient, spriteBatch);
+        clientMain.getMouseManager().drawMovingMouse(playerClient, spriteBatch);
 
         // TODO: TEST DRAWLING REGION
-        ClientMain.getInstance().getRegionManager().editRegion(shapeDrawer);
+        clientMain.getRegionManager().editRegion(shapeDrawer);
 
         spriteBatch.end();
     }
 
     private boolean renderRegion(Location playerLocation, Tile tile) {
         // Region management
-        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        RegionManager regionManager = clientMain.getRegionManager();
         Region region = regionManager.getRegionToEdit();
 
         if (region == null) return true;
@@ -333,16 +339,16 @@ public class GameScreen implements Screen {
     }
 
     private GameWorld getGameMap() {
-        return ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        return clientMain.getWorldManager().getCurrentGameWorld();
     }
 
     private void tickGameLogic(float delta) {
-        ClientMain.getInstance().getClientMovementProcessor().processMovement(EntityManager.getInstance().getPlayerClient());
-        ClientMain.getInstance().getClientPlayerMovementManager().processMoveNodes(EntityManager.getInstance().getPlayerClient());
-        ClientMain.getInstance().getEntityMovementManager().tick(delta);
-        ClientMain.getInstance().getEntityTracker().followTick();
-        ClientMain.getInstance().getEntityTracker().walkToTick();
-        ClientMain.getInstance().getAbilityManager().updateCooldowns();
+        clientMain.getClientMovementProcessor().processMovement(entityManager.getPlayerClient());
+        clientMain.getClientPlayerMovementManager().processMoveNodes(entityManager.getPlayerClient());
+        clientMain.getEntityMovementManager().tick(delta);
+        clientMain.getEntityTracker().followTick();
+        clientMain.getEntityTracker().walkToTick();
+        clientMain.getAbilityManager().updateCooldowns();
     }
 
     @Override
@@ -354,13 +360,13 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         gameFocused = false;
-        ClientMain.getInstance().getAudioManager().getMusicManager().pauseMusic();
+        clientMain.getAudioManager().getMusicManager().pauseMusic();
     }
 
     @Override
     public void resume() {
         // Resume game music, if applicable
-        final MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+        final MusicManager musicManager = clientMain.getAudioManager().getMusicManager();
         if (musicManager.isMusicPaused()) musicManager.resumeMusic();
 
         /*

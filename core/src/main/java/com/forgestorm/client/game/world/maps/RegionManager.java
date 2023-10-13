@@ -11,7 +11,6 @@ import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.util.yaml.YamlUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +25,8 @@ public class RegionManager {
     private static final Color BACKGROUND_COLOR = new Color(255, 0, 0, .4f);
     private static final Color BORDER_COLOR = Color.RED;
     private static final Color HIGHLIGHT_EDGE_COLOR = Color.YELLOW;
+
+    private final ClientMain clientMain;
 
     private Map<Integer, Region> regionMap;
 
@@ -51,6 +52,10 @@ public class RegionManager {
     private boolean insideRegion = false;
     private boolean outsideRegion = true;
 
+    public RegionManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
     public boolean isPlayerCurrentRegion(Region region) {
         return playerCurrentRegion.getRegionID() == region.getRegionID();
     }
@@ -66,9 +71,9 @@ public class RegionManager {
                 && regionFound.getRegionID() == playerCurrentRegion.getRegionID();
 
         // Grab outer classes
-        ChatWindow chatWindow = ClientMain.getInstance().getStageHandler().getChatWindow();
-        MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
-        SoundManager soundManager = ClientMain.getInstance().getAudioManager().getSoundManager();
+        ChatWindow chatWindow = clientMain.getStageHandler().getChatWindow();
+        MusicManager musicManager = clientMain.getAudioManager().getMusicManager();
+        SoundManager soundManager = clientMain.getAudioManager().getSoundManager();
 
         // EXECUTE REGION TASKS!
         if (!insideRegion && !isSameRegion && regionFound != null && playerCurrentRegion == null) {
@@ -143,14 +148,14 @@ public class RegionManager {
         this.regionMap = regionMap;
         changeRegion(0);
 
-        ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
+        clientMain.getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
     }
 
     public void changeRegion(int regionID) {
         this.regionToEdit = regionMap.get(regionID);
 
         // Update UI
-        RegionEditor regionEditor = ClientMain.getInstance().getStageHandler().getRegionEditor();
+        RegionEditor regionEditor = clientMain.getStageHandler().getRegionEditor();
         if (regionEditor != null && regionEditor.isVisible())
             regionEditor.updateFlagsTable(regionToEdit);
     }
@@ -168,7 +173,7 @@ public class RegionManager {
 
         // Create the region
         final int spacer = 3;
-        Location location = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+        Location location = clientMain.getEntityManager().getPlayerClient().getCurrentMapLocation();
         Region region = new Region(
                 regionID,
                 location.getWorldName(),
@@ -182,7 +187,7 @@ public class RegionManager {
         changeRegion(regionID);
 
         // Update the region list
-        ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
+        clientMain.getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
     }
 
     public void deleteRegion() {
@@ -200,11 +205,11 @@ public class RegionManager {
         }
 
         // Update the region list
-        ClientMain.getInstance().getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
+        clientMain.getStageHandler().getRegionEditor().updateRegionSelectionList(this.regionMap);
     }
 
     public void saveRegionsToFile() {
-        String filePath = ClientMain.getInstance().getFileManager().getClientFilesDirectoryPath() + File.separator + "Regions.yaml";
+        String filePath = clientMain.getFileManager().getClientFilesDirectoryPath() + File.separator + "Regions.yaml";
         YamlUtil.saveYamlToFile(regionMap, filePath);
     }
 
@@ -212,7 +217,7 @@ public class RegionManager {
 
         if (!drawRegion) return;
 
-        MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+        MouseManager mouseManager = clientMain.getMouseManager();
         int mouseTileX = mouseManager.getMouseTileX();
         int mouseTileY = mouseManager.getMouseTileY();
 
@@ -305,7 +310,7 @@ public class RegionManager {
         lastMouseY = mouseTileY;
 
         // Update UI
-        RegionEditor regionEditor = ClientMain.getInstance().getStageHandler().getRegionEditor();
+        RegionEditor regionEditor = clientMain.getStageHandler().getRegionEditor();
         if (regionEditor != null && regionEditor.isVisible()) regionEditor.updateRegionInfo();
     }
 

@@ -7,7 +7,6 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -16,6 +15,11 @@ import static com.forgestorm.client.util.Log.println;
 public class DoorInteractPacketIn implements PacketListener<DoorInteractPacketIn.DoorStatusPacket> {
 
     private final static boolean PRINT_DEBUG = true;
+    private final ClientMain clientMain;
+
+    public DoorInteractPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -35,7 +39,7 @@ public class DoorInteractPacketIn implements PacketListener<DoorInteractPacketIn
         println(getClass(), "TileY: " + packetData.tileY, false, PRINT_DEBUG);
         println(getClass(), "TileZ: " + packetData.worldZ, false, PRINT_DEBUG);
 
-        ClientMain.getInstance().getDoorManager().networkToggleDoor(packetData.doorStatus, packetData.tileX, packetData.tileY, packetData.worldZ, true);
+        clientMain.getDoorManager().networkToggleDoor(packetData.doorStatus, packetData.tileX, packetData.tileY, packetData.worldZ, true);
     }
 
     @AllArgsConstructor

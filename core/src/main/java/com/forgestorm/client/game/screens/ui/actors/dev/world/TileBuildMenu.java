@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -29,31 +27,27 @@ import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
+import static com.forgestorm.client.util.Log.println;
 
 @Getter
 public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
-    private final RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+    private final ClientMain clientMain;
+    private final WorldBuilder worldBuilder;
+    private final RegionManager regionManager;
     private final Map<LayerDefinition, VisTextButton> layerButtonMap = new HashMap<>();
     private final List<VisImageButton> editorButtonList = new ArrayList<>();
 
@@ -64,8 +58,11 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
 
     private TabbedPane tabbedPane;
 
-    public TileBuildMenu() {
-        super("World Build Menu");
+    public TileBuildMenu(ClientMain clientMain) {
+        super(clientMain, "World Build Menu");
+        this.clientMain = clientMain;
+        worldBuilder = clientMain.getWorldBuilder();
+        regionManager = clientMain.getRegionManager();
     }
 
     @Override
@@ -80,7 +77,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
         });
         setResizable(true);
 
-        final ImageBuilder imageBuilder = new ImageBuilder();
+        final ImageBuilder imageBuilder = new ImageBuilder(clientMain);
         final Drawable drawl = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_pencil").setSize(32).buildTextureRegionDrawable();
         final Drawable eraser = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_eraser").setSize(32).buildTextureRegionDrawable();
         final Drawable wangBrush = imageBuilder.setGameAtlas(GameAtlas.TOOLS).setRegionName("tool_wang").setSize(32).buildTextureRegionDrawable();
@@ -497,7 +494,7 @@ public class TileBuildMenu extends HideableVisWindow implements Buildable {
                     buttonTable.add(moduloTable).align(Alignment.LEFT.getAlignment()).row();
                 }
                 tilesAdded++;
-                VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildTextureRegionDrawable());
+                VisImageButton visImageButton = new VisImageButton(new ImageBuilder(clientMain, GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildTextureRegionDrawable());
                 if (isWangTile) visImageButton.setColor(Color.PINK);
                 moduloTable.add(visImageButton);
 

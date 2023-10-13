@@ -2,28 +2,32 @@ package com.forgestorm.client.game.movement;
 
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.KeyBinds;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
-
-import java.util.Queue;
-
 import lombok.Setter;
+
+import java.util.Arrays;
+import java.util.Queue;
 
 import static com.forgestorm.client.util.Preconditions.checkNotNull;
 
 public class KeyboardMovement {
 
+    private final ClientMain clientMain;
     private final MoveDirection[] moveKeys = new MoveDirection[4];
 
     @Setter
     private boolean invalidated = true;
 
+    public KeyboardMovement(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
     public void keyDown(int keycode) {
         if (invalidated) return;
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
 
         MoveDirection moveDirection = null;
         switch (keycode) {
@@ -48,11 +52,11 @@ public class KeyboardMovement {
         if (moveDirection == null) return;
 
         // New Entity click so lets cancelFollow entityTracker
-        ClientMain.getInstance().getEntityTracker().cancelFollow();
+        clientMain.getEntityTracker().cancelFollow();
 
         addMoveKey(moveDirection);
 
-        ClientMovementProcessor clientMovementProcessor = ClientMain.getInstance().getClientMovementProcessor();
+        ClientMovementProcessor clientMovementProcessor = clientMain.getClientMovementProcessor();
 
         Queue<MoveNode> futureMoveNode = clientMovementProcessor.getNodeForDirection(
                 playerClient,
@@ -97,12 +101,12 @@ public class KeyboardMovement {
 
         if (letOffDirection == null) return;
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
 
         MoveDirection remainingMoveDirection = getRemainingMoveKey();
         // The player is no longer pressing any keys
         if (remainingMoveDirection == null) {
-            ClientMain.getInstance().getClientMovementProcessor().letOffAllKeys(playerClient);
+            clientMain.getClientMovementProcessor().letOffAllKeys(playerClient);
             return;
         }
 
@@ -146,9 +150,7 @@ public class KeyboardMovement {
     }
 
     void invalidateKeys() {
-        for (int i = 0; i < moveKeys.length; i++) {
-            moveKeys[i] = null;
-        }
+        Arrays.fill(moveKeys, null);
         invalidated = true;
     }
 }

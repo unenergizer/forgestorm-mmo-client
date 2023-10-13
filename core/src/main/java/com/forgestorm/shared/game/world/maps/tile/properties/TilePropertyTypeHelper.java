@@ -1,28 +1,17 @@
 package com.forgestorm.shared.game.world.maps.tile.properties;
 
-import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.BlockMoveDirectionProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.CollisionBlockProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.ContainerProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.CursorDrawOverTileProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.DoorProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.InteractDamageProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.InteriorStairsProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.JumpToDirectionProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.LadderProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.TileWalkOverSoundProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.WangTileProperty;
-import com.forgestorm.client.game.world.maps.tile.properties.WaterProperty;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.world.maps.tile.properties.*;
 
 public class TilePropertyTypeHelper {
-    public static AbstractTileProperty getNewAbstractTileProperty(TilePropertyTypes tilePropertyTypes) {
+    public static AbstractTileProperty getNewAbstractTileProperty(ClientMain clientMain, TilePropertyTypes tilePropertyTypes) {
         switch (tilePropertyTypes) {
             case BLOCK_MOVE_DIRECTION:
                 return new BlockMoveDirectionProperty();
             case COLLISION_BLOCK:
-                return new CollisionBlockProperty();
+                return new CollisionBlockProperty(clientMain);
             case CURSOR_DRAW_OVER_TILE:
-                return new CursorDrawOverTileProperty();
+                return new CursorDrawOverTileProperty(clientMain);
             case DOOR:
                 return new DoorProperty();
             case INTERACTIVE_CONTAINER:
@@ -30,7 +19,7 @@ public class TilePropertyTypeHelper {
             case INTERACT_DAMAGE:
                 return new InteractDamageProperty();
             case INTERIOR_STAIRS_PROPERTY:
-                return new InteriorStairsProperty();
+                return new InteriorStairsProperty(clientMain);
             case JUMP_TO_DIRECTION:
                 return new JumpToDirectionProperty();
             case LADDER:

@@ -2,20 +2,21 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.util.TableUtils;
-import com.kotcrab.vis.ui.widget.LinkLabel;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.kotcrab.vis.ui.util.TableUtils;
+import com.kotcrab.vis.ui.widget.LinkLabel;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 public class CreditsWindow extends HideableVisWindow implements Buildable {
 
-    public CreditsWindow() {
-        super("Credits");
+    public CreditsWindow(ClientMain clientMain) {
+        super(clientMain, "Credits");
     }
 
     @Override

@@ -1,14 +1,12 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -17,6 +15,11 @@ import static com.forgestorm.client.util.Log.println;
 public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacketIn.EntityDespawnPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public EntityDespawnPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -37,25 +40,25 @@ public class EntityDespawnPacketIn implements PacketListener<EntityDespawnPacket
                 println(getClass(), "Tried to despawn CLIENT_PLAYER type!", true);
                 break;
             case PLAYER:
-                EntityManager.getInstance().removePlayerEntity(packetData.entityId);
+                clientMain.getEntityManager().removePlayerEntity(packetData.entityId);
                 break;
             case MONSTER:
             case NPC:
-                EntityManager.getInstance().removeAiEntity(packetData.entityId);
+                clientMain.getEntityManager().removeAiEntity(packetData.entityId);
                 break;
             case ITEM_STACK:
-                EntityManager.getInstance().removeItemStackDrop(packetData.entityId);
+                clientMain.getEntityManager().removeItemStackDrop(packetData.entityId);
                 break;
             case SKILL_NODE:
-                EntityManager.getInstance().removeStationaryEntity(packetData.entityId);
+                clientMain.getEntityManager().removeStationaryEntity(packetData.entityId);
                 break;
         }
-        ClientMain.getInstance().getStageHandler().getEntityDropDownMenu().closeDropDownMenu(packetData.entityType, packetData.entityId);
-        ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(packetData.entityId);
+        clientMain.getStageHandler().getEntityDropDownMenu().closeDropDownMenu(packetData.entityType, packetData.entityId);
+        clientMain.getStageHandler().getTargetStatusBar().hideTargetStatusBar(packetData.entityId);
     }
 
     @AllArgsConstructor
-    class EntityDespawnPacket extends PacketData {
+    static class EntityDespawnPacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
     }

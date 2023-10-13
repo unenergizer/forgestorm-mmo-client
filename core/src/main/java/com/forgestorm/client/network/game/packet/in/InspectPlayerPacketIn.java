@@ -1,13 +1,12 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -16,6 +15,11 @@ import static com.forgestorm.client.util.Log.println;
 public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacketIn.InspectPlayerPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public InspectPlayerPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -38,11 +42,11 @@ public class InspectPlayerPacketIn implements PacketListener<InspectPlayerPacket
             println(getClass(), stringBuilder.toString(), false, true);
         }
 
-        ActorUtil.getStageHandler().getCharacterInspectionWindow().inspectCharacter(packetData.itemIds);
+        clientMain.getStageHandler().getCharacterInspectionWindow().inspectCharacter(packetData.itemIds);
     }
 
     @AllArgsConstructor
-    class InspectPlayerPacket extends PacketData {
+    static class InspectPlayerPacket extends PacketData {
         private final int[] itemIds;
     }
 }

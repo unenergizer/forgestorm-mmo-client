@@ -11,7 +11,6 @@ import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.item.inventory.InventoryUtil;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -20,6 +19,13 @@ import static com.forgestorm.client.util.Log.println;
 public class InventoryPacketIn implements PacketListener<InventoryPacketIn.InventoryActionsPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+
+    private final ClientMain clientMain;
+
+    public InventoryPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -79,7 +85,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
 
         switch (packetData.actionType) {
             case MOVE:
-                /*ClientMain.getInstance().getMoveInventoryEvents().moveItems(new InventoryMoveData(
+                /*clientMain.getMoveInventoryEvents().moveItems(new InventoryMoveData(
                         packetData.fromPosition,
                         packetData.toPosition,
                         packetData.fromWindow,
@@ -90,7 +96,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 ));*/
                 break;
             case CONSUME:
-                // ClientMain.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
+                // clientMain.getMoveInventoryEvents().receivedNonMoveRequest();
                 println(getClass(), "The client consumed an item!", false, PRINT_DEBUG);
                 // TODO: later on we would change the visible display of the itemstack to represent
                 // TODO: the amount of consumption left on the item
@@ -99,15 +105,15 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
                 // TODO
                 break;
             case REMOVE:
-                //ClientMain.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                ItemSlotContainer removeContainer = InventoryUtil.getItemSlotContainer(packetData.interactiveInventory);
+                //clientMain.getMoveInventoryEvents().receivedNonMoveRequest();
+                ItemSlotContainer removeContainer = InventoryUtil.getItemSlotContainer(clientMain, packetData.interactiveInventory);
                 removeContainer.removeItemStack(packetData.slotIndex);
                 println(getClass(), packetData.actionType + ": Removing the item at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
             case SET:
-                //ClientMain.getInstance().getMoveInventoryEvents().receivedNonMoveRequest();
-                itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
-                ItemSlotContainer setContainer = InventoryUtil.getItemSlotContainer(packetData.interactiveInventory);
+                //clientMain.getMoveInventoryEvents().receivedNonMoveRequest();
+                itemStack = clientMain.getItemStackManager().makeItemStack(packetData.itemId, packetData.itemAmount);
+                ItemSlotContainer setContainer = InventoryUtil.getItemSlotContainer(clientMain, packetData.interactiveInventory);
                 setContainer.setItemStack(packetData.slotIndex, itemStack);
                 println(getClass(), packetData.actionType + ": Setting the item: " + itemStack + " at slot index: " + packetData.slotIndex, false, PRINT_DEBUG);
                 break;
@@ -123,7 +129,7 @@ public class InventoryPacketIn implements PacketListener<InventoryPacketIn.Inven
     }
 
     @AllArgsConstructor
-    class InventoryActionsPacket extends PacketData {
+    static class InventoryActionsPacket extends PacketData {
         private final InventoryActions.ActionType actionType;
         private final int itemId;
         private final int itemAmount;

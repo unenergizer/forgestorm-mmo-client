@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.shared.network.game.GameOutputStream;
 import com.forgestorm.shared.network.game.Opcodes;
 
@@ -15,8 +16,8 @@ public class CharacterCreatorPacketOut extends AbstractPacketOut {
     private final byte eyeColor;
     private final byte skinColor;
 
-    public CharacterCreatorPacketOut(String characterName, byte hairTexture, byte hairColor, byte eyeColor, byte skinColor) {
-        super(Opcodes.CHARACTER_CREATOR);
+    public CharacterCreatorPacketOut(ClientMain clientMain, String characterName, byte hairTexture, byte hairColor, byte eyeColor, byte skinColor) {
+        super(clientMain, Opcodes.CHARACTER_CREATOR);
         this.characterName = characterName;
         this.hairTexture = hairTexture;
         this.hairColor = hairColor;

@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.network.game.GameOutputStream;
 import com.forgestorm.shared.network.game.Opcodes;
@@ -16,8 +17,8 @@ public class WorldBuilderPacketOut extends AbstractPacketOut {
     private final int tileX, tileY;
     private final short worldZ;
 
-    public WorldBuilderPacketOut(LayerDefinition layerDefinition, int textureId, int tileX, int tileY, short worldZ) {
-        super(Opcodes.WORLD_BUILDER);
+    public WorldBuilderPacketOut(ClientMain clientMain, LayerDefinition layerDefinition, int textureId, int tileX, int tileY, short worldZ) {
+        super(clientMain, Opcodes.WORLD_BUILDER);
         this.layerDefinition = layerDefinition;
         this.textureId = textureId;
         this.tileX = tileX;

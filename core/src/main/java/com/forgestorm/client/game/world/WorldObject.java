@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.world;
 
+import com.forgestorm.client.ClientMain;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,10 +8,16 @@ import lombok.Setter;
 @Setter
 public class WorldObject implements Comparable<WorldObject> {
 
+    private final ClientMain clientMain;
+
     /**
      * The actual sprite position on the screen.
      */
     private float drawX, drawY;
+
+    public WorldObject(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
 
     @Override

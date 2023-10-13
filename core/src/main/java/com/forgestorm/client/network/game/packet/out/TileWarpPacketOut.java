@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.forgestorm.shared.network.game.GameOutputStream;
 import com.forgestorm.shared.network.game.Opcodes;
@@ -13,8 +14,8 @@ public class TileWarpPacketOut extends AbstractPacketOut {
     private final short toZ;
     private final MoveDirection facingDirection;
 
-    public TileWarpPacketOut(int fromX, int fromY, short fromZ, String toWorldName, int toX, int toY, short toZ, MoveDirection facingDirection) {
-        super(Opcodes.WORLD_CHUNK_WARP);
+    public TileWarpPacketOut(ClientMain clientMain, int fromX, int fromY, short fromZ, String toWorldName, int toX, int toY, short toZ, MoveDirection facingDirection) {
+        super(clientMain, Opcodes.WORLD_CHUNK_WARP);
         this.fromX = fromX;
         this.fromY = fromY;
         this.fromZ = fromZ;

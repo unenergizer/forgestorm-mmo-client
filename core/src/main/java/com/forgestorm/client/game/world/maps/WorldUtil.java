@@ -17,8 +17,8 @@ public class WorldUtil {
      * @param entityY The Y grid coordinate a entity is attempting to playerMove to.
      * @return True if the tile/coordinate is walkable. False otherwise.
      */
-    public static boolean isTraversable(int entityX, int entityY) {
-        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+    public static boolean isTraversable(ClientMain clientMain, int entityX, int entityY) {
+        GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
         WorldChunk worldChunk = gameWorld.findChunk(entityX, entityY);
         // TODO: Setting true so player can walk into new chunk. Not all worlds can generate chunks.
         //  So distinguish those here.
@@ -38,8 +38,8 @@ public class WorldUtil {
      * @param worldZ  The Z axis an entity is already on.
      * @return True if the tile/coordinate is a door. False otherwise.
      */
-    public static boolean isDoor(int entityX, int entityY, short worldZ) {
-        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+    public static boolean isDoor(ClientMain clientMain, int entityX, int entityY, short worldZ) {
+        GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
         Tile tile = gameWorld.getTile(LayerDefinition.WORLD_OBJECTS, entityX, entityY, worldZ);
         if (tile == null) return false;
         if (tile.getTileImage() == null) return false;
@@ -54,8 +54,8 @@ public class WorldUtil {
      * @param entityZ The Z location in world coordinates.
      * @return True if a warp exists, and false otherwise.
      */
-    public static boolean isWarp(int entityX, int entityY, short entityZ) {
-        return getWarp(entityX, entityY, entityZ) != null;
+    public static boolean isWarp(ClientMain clientMain, int entityX, int entityY, short entityZ) {
+        return getWarp(clientMain, entityX, entityY, entityZ) != null;
     }
 
     /**
@@ -66,8 +66,8 @@ public class WorldUtil {
      * @param entityZ The Z location in world coordinates.
      * @return Returns a Warp if one exists.
      */
-    public static Warp getWarp(int entityX, int entityY, short entityZ) {
-        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+    public static Warp getWarp(ClientMain clientMain, int entityX, int entityY, short entityZ) {
+        GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
         return gameWorld.getWarp(entityX, entityY, entityZ);
     }
 }

@@ -31,7 +31,7 @@ public class Lwjgl3Launcher {
 
         Lwjgl3ApplicationConfiguration config = getLwjgl3ApplicationConfiguration();
 
-        ClientMain clientMain = ClientMain.getInstance();
+        ClientMain clientMain = new ClientMain();
         clientMain.setIdeRun(ideRun);
         clientMain.setForceLocalHost(forceLocalHost);
         clientMain.setPlayIntroMusic(playIntroMusic);

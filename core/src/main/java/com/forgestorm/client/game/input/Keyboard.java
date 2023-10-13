@@ -6,20 +6,25 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.movement.KeyboardMovement;
 import com.forgestorm.client.game.screens.UserInterfaceType;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-
 import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
 public class Keyboard implements InputProcessor {
 
+    private final ClientMain clientMain;
     @Getter
-    private final KeyboardMovement keyboardMovement = new KeyboardMovement();
+    private final KeyboardMovement keyboardMovement;
+
+    public Keyboard(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        keyboardMovement = new KeyboardMovement(clientMain);
+    }
+
 
     public boolean keyDown(int keycode) {
-        if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
-        if (ActorUtil.getStageHandler().getChatWindow().isChatToggled()) return false;
+        if (clientMain.getUserInterfaceType() != UserInterfaceType.GAME) return false;
+        if (clientMain.getStageHandler().getChatWindow().isChatToggled()) return false;
 
         /*
          * Movement Debug
@@ -37,7 +42,7 @@ public class Keyboard implements InputProcessor {
     }
 
     public boolean keyUp(int keycode) {
-        if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) return false;
+        if (clientMain.getUserInterfaceType() != UserInterfaceType.GAME) return false;
         keyboardMovement.keyUp(keycode);
         return false;
     }

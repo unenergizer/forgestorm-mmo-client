@@ -10,7 +10,6 @@ import com.forgestorm.client.game.world.item.BankActions;
 import com.forgestorm.client.network.game.packet.out.BankManagePacketOut;
 import com.forgestorm.client.util.GameTextUtil;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +17,7 @@ import lombok.Setter;
 @Setter
 public class PlayerClient extends Player {
 
+    private final ClientMain clientMain;
     private boolean isWarping = false;
 
     private boolean isBankOpen = false;
@@ -33,21 +33,26 @@ public class PlayerClient extends Player {
     private boolean showLevelUpMessage = false;
     private float distanceMoved = 0;
 
+    public PlayerClient(ClientMain clientMain) {
+        super(clientMain);
+        this.clientMain = clientMain;
+    }
+
     public void closeBankWindow() {
         if (!isBankOpen) return;
-        ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Bank window closed because you moved.");
-        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getBankWindow());
+        getClientMain().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Bank window closed because you moved.");
+        ActorUtil.fadeOutWindow(getClientMain().getStageHandler().getBankWindow());
         isBankOpen = false;
-        new BankManagePacketOut(BankActions.PLAYER_REQUEST_CLOSE).sendPacket();
+        new BankManagePacketOut(clientMain, BankActions.PLAYER_REQUEST_CLOSE).sendPacket();
     }
 
     public void drawLevelUpMessage() {
         if (!showLevelUpMessage) return;
         float x = getDrawX() + 8;
         float y = getDrawY() + 18 + distanceMoved;
-        String level = "Level " + ClientMain.getInstance().getSkills().getSkill(SkillOpcodes.MELEE).getCurrentLevel();
+        String level = "Level " + getClientMain().getSkills().getSkill(SkillOpcodes.MELEE).getCurrentLevel();
 
-        GameTextUtil.drawMessage(level, Color.YELLOW, 1f, x, y);
+        GameTextUtil.drawMessage(clientMain, level, Color.YELLOW, 1f, x, y);
 
         distanceMoved = distanceMoved + 0.11f;
         if (distanceMoved >= 9) {
@@ -57,7 +62,7 @@ public class PlayerClient extends Player {
     }
 
     public void setTargetEntity(MovingEntity movingEntity) {
-        StageHandler stageHandler = ActorUtil.getStageHandler();
+        StageHandler stageHandler = getClientMain().getStageHandler();
         if (targetEntity == movingEntity || movingEntity == null) {
             stageHandler.getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[YELLOW]No longer targeting " + targetEntity.getEntityName() + ".");
             stageHandler.getTargetStatusBar().setVisible(false);

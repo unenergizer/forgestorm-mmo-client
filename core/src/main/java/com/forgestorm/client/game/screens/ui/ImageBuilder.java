@@ -11,6 +11,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue", "unused"})
 public class ImageBuilder {
 
+    private final ClientMain clientMain;
     private String regionName;
     private GameAtlas gameAtlas;
     private float width = 0;
@@ -26,30 +27,36 @@ public class ImageBuilder {
     private TextureRegion textureRegion;
     private boolean useSingleTextureRegion = false;
 
-    public ImageBuilder() {
+    public ImageBuilder(ClientMain clientMain) {
+        this.clientMain = clientMain;
     }
 
-    public ImageBuilder(GameAtlas gameAtlas) {
+    public ImageBuilder(ClientMain clientMain, GameAtlas gameAtlas) {
+        this.clientMain = clientMain;
         setGameAtlas(gameAtlas);
     }
 
-    public ImageBuilder(GameAtlas gameAtlas, float size) {
+    public ImageBuilder(ClientMain clientMain, GameAtlas gameAtlas, float size) {
+        this.clientMain = clientMain;
         setGameAtlas(gameAtlas);
         setSize(size);
     }
 
-    public ImageBuilder(GameAtlas gameAtlas, String regionName) {
+    public ImageBuilder(ClientMain clientMain, GameAtlas gameAtlas, String regionName) {
+        this.clientMain = clientMain;
         setGameAtlas(gameAtlas);
         setRegionName(regionName);
     }
 
-    public ImageBuilder(GameAtlas gameAtlas, String regionName, float size) {
+    public ImageBuilder(ClientMain clientMain, GameAtlas gameAtlas, String regionName, float size) {
+        this.clientMain = clientMain;
         setGameAtlas(gameAtlas);
         setRegionName(regionName);
         setSize(size);
     }
 
-    public ImageBuilder(GameAtlas gameAtlas, String regionName, float width, float height) {
+    public ImageBuilder(ClientMain clientMain, GameAtlas gameAtlas, String regionName, float width, float height) {
+        this.clientMain = clientMain;
         setGameAtlas(gameAtlas);
         setRegionName(regionName);
         setWidth(width);
@@ -110,8 +117,8 @@ public class ImageBuilder {
     public TextureRegionDrawable buildTextureRegionDrawable() {
         if (gameAtlas == null) throw new RuntimeException("GameAtlas must be defined.");
 
-        ClientMain.getInstance().getFileManager().loadAtlas(gameAtlas, true);
-        TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
+        clientMain.getFileManager().loadAtlas(gameAtlas, true);
+        TextureAtlas textureAtlas = clientMain.getFileManager().getAtlas(gameAtlas);
         TextureRegionDrawable textureRegionDrawable;
 
         if (!useSplitTextureRegions && !useSingleTextureRegion) {

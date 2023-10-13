@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.shared.network.game.GameOutputStream;
@@ -11,8 +12,8 @@ public class AbilityRequestPacketOut extends AbstractPacketOut {
     private final EntityType entityType;
     private final short serverEntityID;
 
-    public AbilityRequestPacketOut(short abilityId, MovingEntity movingEntity) {
-        super(Opcodes.ABILITY_REQUEST);
+    public AbilityRequestPacketOut(ClientMain clientMain, short abilityId, MovingEntity movingEntity) {
+        super(clientMain, Opcodes.ABILITY_REQUEST);
         this.abilityId = abilityId;
         this.entityType = movingEntity.getEntityType();
         this.serverEntityID = movingEntity.getServerEntityID();

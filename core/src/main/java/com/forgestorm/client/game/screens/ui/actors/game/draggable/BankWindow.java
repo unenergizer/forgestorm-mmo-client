@@ -11,7 +11,6 @@ import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ExperienceBar;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.item.ItemStackType;
 import com.forgestorm.shared.game.world.item.inventory.InventoryConstants;
@@ -22,10 +21,12 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class BankWindow extends ItemSlotContainerWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private StageHandler stageHandler;
 
-    public BankWindow() {
-        super("Bank", InventoryConstants.BANK_SIZE, InventoryType.BANK);
+    public BankWindow(ClientMain clientMain) {
+        super(clientMain, "Bank", InventoryConstants.BANK_SIZE, InventoryType.BANK);
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -35,7 +36,7 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
         addCloseButton(new CloseButtonCallBack() {
             @Override
             public void closeButtonClicked() {
-                ItemDropDownMenu itemDropDownMenu = ClientMain.getInstance().getStageHandler().getItemDropDownMenu();
+                ItemDropDownMenu itemDropDownMenu = stageHandler.getItemDropDownMenu();
                 if (itemDropDownMenu.getInventoryType() == getInventoryType()) itemDropDownMenu.cleanUpDropDownMenu(true);
             }
         });
@@ -47,12 +48,12 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
         for (byte i = 0; i < InventoryConstants.BANK_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.BANK, 32, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(stageHandler.getClientMain(), getItemSlotContainer(), InventoryType.BANK, 32, i);
             itemStackSlot.build(stageHandler);
 
             slotTable.add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
-            dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
+            dragAndDrop.addTarget(new ItemStackTarget(stageHandler.getClientMain(), itemStackSlot));
 
             getItemSlotContainer().itemStackSlots[i] = itemStackSlot;
             columnCount++;
@@ -127,9 +128,9 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
 
             if (targetItemStackSlot != null) {
                 ItemStack targetItemStack = targetItemStackSlot.getItemStack();
-                new InventoryMoveActions().moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), targetItemStack);
+                new InventoryMoveActions(clientMain).moveItems(itemStackSlot, targetItemStackSlot, itemStackSlot.getItemStack(), targetItemStack);
             } else {
-                new InventoryMoveActions().moveItems(itemStackSlot, null, itemStackSlot.getItemStack(), null);
+                new InventoryMoveActions(clientMain).moveItems(itemStackSlot, null, itemStackSlot.getItemStack(), null);
             }
         }
     }
@@ -170,6 +171,6 @@ public class BankWindow extends ItemSlotContainerWindow implements Buildable {
 
     @Override
     protected void close() {
-        EntityManager.getInstance().getPlayerClient().closeBankWindow();
+        clientMain.getEntityManager().getPlayerClient().closeBankWindow();
     }
 }

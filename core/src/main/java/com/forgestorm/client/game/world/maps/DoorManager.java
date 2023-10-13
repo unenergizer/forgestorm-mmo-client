@@ -15,9 +15,17 @@ import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import static com.forgestorm.client.util.Log.println;
 
 public class DoorManager {
+    
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
+    
+    public DoorManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+    }
 
     public void playerClientToggleDoor(int tileX, int tileY) {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = entityManager.getPlayerClient();
         GameWorld gameWorld = playerClient.getGameMap();
         Location playerLocation = playerClient.getCurrentMapLocation();
 
@@ -47,13 +55,13 @@ public class DoorManager {
                 break;
         }
 
-        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20);
+        clientMain.getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20);
         doorProperty.setDoorStatus(doorStatus);
-        new DoorInteractPacketOut(doorStatus, tileX, tileY, playerLocation.getZ()).sendPacket();
+        new DoorInteractPacketOut(clientMain, doorStatus, tileX, tileY, playerLocation.getZ()).sendPacket();
     }
 
     public void networkToggleDoor(DoorStatus doorStatus, int tileX, int tileY, short worldZ, boolean playAnimation) {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = entityManager.getPlayerClient();
         Tile tile = playerClient.getGameMap().getTile(LayerDefinition.WORLD_OBJECTS, tileX, tileY, worldZ);
         TileImage tileImage = tile.getTileImage();
 
@@ -95,7 +103,7 @@ public class DoorManager {
 
         // Don't play the sound if the user is too far away from the door
         if (!playAnimation || isTooFarAway(playerClient.getCurrentMapLocation(), tileX, tileY)) return;
-        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20, tileX, tileY, worldZ);
+        clientMain.getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 20, tileX, tileY, worldZ);
     }
 
     private boolean isTooFarAway(Location playerClientLocation, int x1, int y1) {

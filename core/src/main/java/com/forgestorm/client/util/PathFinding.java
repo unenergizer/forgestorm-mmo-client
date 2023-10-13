@@ -1,16 +1,14 @@
 package com.forgestorm.client.util;
 
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.WorldUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class PathFinding {
 
+    private final ClientMain clientMain;
     private final List<MoveNode> closedSet = new ArrayList<MoveNode>();
     private final List<MoveNode> openSet = new ArrayList<MoveNode>();
 
@@ -20,6 +18,10 @@ public class PathFinding {
     private final MoveNode[][] grid = new MoveNode[GRID_LENGTH][GRID_LENGTH];
 
     private List<MoveNode> currentShortestPath;
+
+    public PathFinding(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     private int calculateHeuristic(int ax, int ay, int bx, int by) {
         return Math.abs(bx - ax) + Math.abs(by - ay);
@@ -42,7 +44,7 @@ public class PathFinding {
                 int worldX = (bottomX + i);
                 int worldY = (bottomY + j);
 
-                boolean isTraversable = WorldUtil.isTraversable(worldX, worldY);
+                boolean isTraversable = WorldUtil.isTraversable(clientMain, worldX, worldY);
 
                 if (isTraversable) {
                     grid[i][j] = new MoveNode(worldX, worldY, i, j);
@@ -73,8 +75,8 @@ public class PathFinding {
     private boolean initialConditions(int startX, int startY, int finalX, int finalY, boolean ignoreFinalCollision) {
         if (startX == finalX && startY == finalY) return false;
 
-        boolean startTileTraversable = WorldUtil.isTraversable(startX, startY);
-        boolean endTileTraversable = WorldUtil.isTraversable(finalX, finalY);
+        boolean startTileTraversable = WorldUtil.isTraversable(clientMain, startX, startY);
+        boolean endTileTraversable = WorldUtil.isTraversable(clientMain, finalX, finalY);
 
         if (!startTileTraversable) return false;
         if (!ignoreFinalCollision && !endTileTraversable) return false;

@@ -17,7 +17,6 @@ import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemSlotInterfaceUtil;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackSlot;
 import com.forgestorm.client.game.screens.ui.actors.game.draggable.ItemStackToolTip;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.client.game.world.item.trade.TradeManager;
 import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
@@ -33,7 +32,6 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,7 +40,8 @@ import static com.forgestorm.client.util.Preconditions.checkNotNull;
 
 public class TradeWindow extends HideableVisWindow implements Buildable {
 
-    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+    private final ClientMain clientMain;
+    private final ImageBuilder imageBuilder;
 
     private final TradeWindowSlot[] playerClientTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
     private final TradeWindowSlot[] targetPlayerTradeSlots = new TradeWindowSlot[InventoryConstants.BAG_SIZE];
@@ -63,8 +62,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     @Getter
     private Player tradeTarget;
 
-    public TradeWindow() {
-        super("Trade Window");
+    public TradeWindow(ClientMain clientMain) {
+        super(clientMain, "Trade Window");
+        this.clientMain = clientMain;
+        imageBuilder = new ImageBuilder(clientMain, GameAtlas.ITEMS, 32);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         TableUtils.setSpacingDefaults(this);
         setResizable(false);
 
-        tradeManager = ClientMain.getInstance().getTradeManager();
+        tradeManager = stageHandler.getClientMain().getTradeManager();
 
         // Setup notify table
         VisTable statusTable = new VisTable();
@@ -125,10 +126,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         accept.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
                     // First accept check (trade confirmed)
-                    new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_CONFIRM, tradeManager.getTradeUUID())).sendPacket();
+                    new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_CONFIRM, tradeManager.getTradeUUID())).sendPacket();
                 }
             }
         });
@@ -136,11 +137,11 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         cancel.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(TradeWindow.class, (short) 0);
                 if (!lockTrade) {
-                    new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
+                    new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
                 } else if (lockTrade) {
-                    new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_UNCONFIRM, tradeManager.getTradeUUID())).sendPacket();
+                    new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_OFFER_UNCONFIRM, tradeManager.getTradeUUID())).sendPacket();
                 }
             }
         });
@@ -150,7 +151,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
         addListener(new ForceCloseWindowListener() {
             @Override
             public void handleClose() {
-                new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
+                new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_CANCELED, tradeManager.getTradeUUID())).sendPacket();
                 closeTradeWindow();
             }
         });
@@ -168,7 +169,7 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
     }
 
     public void confirmTradeUI(short playerUUID) {
-        if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == playerUUID) {
+        if (clientMain.getEntityManager().getPlayerClient().getServerEntityID() == playerUUID) {
             // Player client confirmed trade, lock our left pane.
 
             println(getClass(), "PlayerClient has confirmed the trade!", true);
@@ -179,15 +180,15 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             cancel.setText("Cancel Confirmation");
 
             playerTradeStatus.setText("[GREEN]You Confirmed!");
-            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 0);
+            stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 0);
         } else {
             targetTradeStatus.setText("[GREEN]Target Confirmed!");
-            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 16);
+            stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 16);
         }
     }
 
     public void unconfirmTradeUI(short playerUUID) {
-        if (EntityManager.getInstance().getPlayerClient().getServerEntityID() == playerUUID) {
+        if (clientMain.getEntityManager().getPlayerClient().getServerEntityID() == playerUUID) {
             // Player client confirmed trade, lock our left pane.
 
             println(getClass(), "PlayerClient has unconfirmed the trade!", true);
@@ -198,10 +199,10 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             cancel.setText("Cancel");
 
             playerTradeStatus.setText("[RED]You have not confirmed.");
-            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 0);
+            stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 0);
         } else {
             targetTradeStatus.setText("[RED]Target not confirmed.");
-            ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 18);
+            stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(getClass(), (short) 18);
         }
     }
 
@@ -254,20 +255,20 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
 
         println(getClass(), "Slot index being sent = " + lockedItemStackSlot.getSlotIndex());
 
-        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getSlotIndex())).sendPacket();
+        new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_ADD, tradeManager.getTradeUUID(), lockedItemStackSlot.getSlotIndex())).sendPacket();
 
         // Play sound of the item clicked
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+        stageHandler.getClientMain().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
     }
 
     public void addItemFromPacket(int itemStackUUID, int itemAmount) {
         // Find an empty trade slot
-        ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackUUID, itemAmount);
+        ItemStack itemStack = stageHandler.getClientMain().getItemStackManager().makeItemStack(itemStackUUID, itemAmount);
         TradeWindowSlot tradeWindowSlot = findEmptySlot(false);
         tradeWindowSlot.setTradeCell(itemStack, null);
 
         // Play sound of item added
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+        stageHandler.getClientMain().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
     }
 
     public void removeItemFromPacket(byte itemSlot) {
@@ -429,12 +430,12 @@ public class TradeWindow extends HideableVisWindow implements Buildable {
             stack.addListener(clickListener = new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TradeWindowSlot.class, (short) 0);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(TradeWindowSlot.class, (short) 0);
                     if (itemStack != null && isClientPlayerSlot && !lockTrade) {
                         println(getClass(), "removed item from trade window");
 
                         // Send other player info that we are removing an item from trade
-                        new PlayerTradePacketOut(new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), slotIndex)).sendPacket();
+                        new PlayerTradePacketOut(clientMain, new TradePacketInfoOut(TradeStatusOpcode.TRADE_ITEM_REMOVE, tradeManager.getTradeUUID(), slotIndex)).sendPacket();
 
                         // Remove trade item and gameQuitReset the slot image
                         setTradeCell(null, null);

@@ -16,6 +16,14 @@ public class MoveInventoryEvents {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
+
+    public MoveInventoryEvents(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+    }
+
     public void changeEquipment(ItemStackSlot itemStackTargetSlot, ItemStackSlot sourceItemStackSlot) {
         println(getClass(), "changeEquipment()", true, PRINT_DEBUG);
         if (itemStackTargetSlot.getInventoryType() == InventoryType.EQUIPMENT) {
@@ -29,56 +37,56 @@ public class MoveInventoryEvents {
 
                 switch (sourceItemStackSlot.getAcceptedItemStackTypes()[0]) {
                     case HELM:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.HELM_TEXTURE);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.HELM_TEXTURE);
                         break;
                     case CHEST:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.CHEST_TEXTURE);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.CHEST_TEXTURE);
                         break;
                     case PANTS:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.PANTS_TEXTURE);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.PANTS_TEXTURE);
                         break;
                     case SHOES:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.SHOES_TEXTURE);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.SHOES_TEXTURE);
                         break;
                     case BOW:
                     case SWORD:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.LEFT_HAND);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.LEFT_HAND);
                         break;
                     case SHIELD:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.RIGHT_HAND);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.RIGHT_HAND);
                         break;
                     case GLOVES:
-                        EntityManager.getInstance().getPlayerClient().removeBodyPart(AppearanceType.GLOVES_COLOR);
+                        entityManager.getPlayerClient().removeBodyPart(AppearanceType.GLOVES_COLOR);
                         break;
                 }
             }
         }
-        ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
+        clientMain.getStageHandler().getEquipmentWindow().rebuildPreviewTable();
     }
 
     private void equipItem(ItemStackSlot itemStackSlot, ItemStack equipItem) {
         switch (itemStackSlot.getAcceptedItemStackTypes()[0]) {
             case HELM:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.HELM_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.HELM_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case CHEST:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.CHEST_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.CHEST_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case PANTS:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.PANTS_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.PANTS_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case SHOES:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.SHOES_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.SHOES_TEXTURE, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case BOW:
             case SWORD:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.LEFT_HAND, ((WearableItemStack) equipItem).getTextureId());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.LEFT_HAND, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case SHIELD:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.RIGHT_HAND, ((WearableItemStack) equipItem).getTextureId());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.RIGHT_HAND, ((WearableItemStack) equipItem).getTextureId());
                 break;
             case GLOVES:
-                EntityManager.getInstance().getPlayerClient().setBodyPart(AppearanceType.GLOVES_COLOR, ((WearableItemStack) equipItem).getColor());
+                entityManager.getPlayerClient().setBodyPart(AppearanceType.GLOVES_COLOR, ((WearableItemStack) equipItem).getColor());
                 break;
         }
     }

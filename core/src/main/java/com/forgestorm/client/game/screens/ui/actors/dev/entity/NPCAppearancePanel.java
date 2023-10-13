@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
@@ -45,15 +46,15 @@ public class NPCAppearancePanel implements AppearancePanel {
     private ColorPickerColorHandler skinColor;
     private ColorPickerColorHandler glovesColor;
 
-    NPCAppearancePanel(NpcTab npcTab) {
+    NPCAppearancePanel(ClientMain clientMain, NpcTab npcTab) {
         this.npcTab = npcTab;
         int textureSelectScale = 3;
 
-        hairBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "hair", MAX_HAIR_TEXTURES, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
-        helmBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "helm", MAX_HELM_TEXTURES, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
-        chestBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "chest", MAX_CHEST_TEXTURES, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
-        pantsBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "pants", MAX_PANTS_TEXTURES, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
-        shoesBodyPart = new NPCBodyPart(npcTab, npcTab.getAppearanceTable(), "shoes", MAX_SHOES_TEXTURES, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
+        hairBodyPart = new NPCBodyPart(clientMain, npcTab, npcTab.getAppearanceTable(), "hair", MAX_HAIR_TEXTURES, 16 * textureSelectScale, 16 * textureSelectScale, hairData, false);
+        helmBodyPart = new NPCBodyPart(clientMain, npcTab, npcTab.getAppearanceTable(), "helm", MAX_HELM_TEXTURES, 16 * textureSelectScale, 16 * textureSelectScale, helmData, true);
+        chestBodyPart = new NPCBodyPart(clientMain, npcTab, npcTab.getAppearanceTable(), "chest", MAX_CHEST_TEXTURES, 16 * textureSelectScale, 6 * textureSelectScale, chestData, true);
+        pantsBodyPart = new NPCBodyPart(clientMain, npcTab, npcTab.getAppearanceTable(), "pants", MAX_PANTS_TEXTURES, 16 * textureSelectScale, 3 * textureSelectScale, pantsData, true);
+        shoesBodyPart = new NPCBodyPart(clientMain, npcTab, npcTab.getAppearanceTable(), "shoes", MAX_SHOES_TEXTURES, 16 * textureSelectScale, 1 * textureSelectScale, shoesData, true);
 
         hairBodyPart.build();
         helmBodyPart.build();

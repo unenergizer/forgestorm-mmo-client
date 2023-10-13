@@ -3,7 +3,6 @@ package com.forgestorm.client.network;
 import com.badlogic.gdx.Gdx;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.UserInterfaceType;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
 import com.forgestorm.client.network.game.LoginCredentials;
@@ -18,13 +17,14 @@ import static com.forgestorm.client.util.Log.println;
 
 public class ConnectionManager {
 
+    private final ClientMain clientMain;
     private final NetworkSettingsLoader.NetworkSettingsData networkSettingsData;
     private final LoginCredentials loginCredentials;
     private final Consumer<EventBus> registerListeners;
 
     @Getter
-    private final ClientGameConnection clientGameConnection = new ClientGameConnection(this);
-    private final ClientLoginConnection clientLoginConnection = new ClientLoginConnection(this);
+    private final ClientGameConnection clientGameConnection;
+    private final ClientLoginConnection clientLoginConnection;
 
     private NetworkThread networkThread;
     private int networkThreadsCreated = 0;
@@ -32,11 +32,15 @@ public class ConnectionManager {
     @Getter
     private OutputStreamManager outputStreamManager;
 
-    public ConnectionManager(final NetworkSettingsLoader.NetworkSettingsData networkSettingsData, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
-        println(getClass(), "Force LocalHost: " + ClientMain.getInstance().isForceLocalHost());
+    public ConnectionManager(ClientMain clientMain, final NetworkSettingsLoader.NetworkSettingsData networkSettingsData, final LoginCredentials loginCredentials, final Consumer<EventBus> registerListeners) {
+        this.clientMain = clientMain;
         this.networkSettingsData = networkSettingsData;
         this.loginCredentials = loginCredentials;
         this.registerListeners = registerListeners;
+
+        clientGameConnection = new ClientGameConnection(clientMain,this);
+        clientLoginConnection = new ClientLoginConnection(clientMain, this);
+        println(getClass(), "Force LocalHost: " + clientMain.isForceLocalHost());
     }
 
     /**
@@ -80,7 +84,7 @@ public class ConnectionManager {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.LOGIN);
+                clientMain.getStageHandler().setUserInterface(UserInterfaceType.LOGIN);
             }
         });
     }
@@ -98,7 +102,7 @@ public class ConnectionManager {
                 Gdx.app.postRunnable(new Runnable() {
                     @Override
                     public void run() {
-                        ClientMain.getInstance().getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
+                        clientMain.getStageHandler().getConnectionStatusWindow().setStatusMessage(infoMessage);
                     }
                 });
             }
@@ -129,10 +133,10 @@ public class ConnectionManager {
             }
 
             clientGameConnection.openConnection(
-                loginState.getUuid(),
-                networkSettingsData.getGameIp(),
-                networkSettingsData.getGamePort(),
-                registerListeners);
+                    loginState.getUuid(),
+                    networkSettingsData.getGameIp(),
+                    networkSettingsData.getGamePort(),
+                    registerListeners);
         }
     }
 }

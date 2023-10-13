@@ -11,13 +11,12 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.maps.tile.Tile;
-import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.building.WorldBuilder;
+import com.forgestorm.client.game.world.maps.tile.Tile;
+import com.forgestorm.client.game.world.maps.tile.TileImage;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,12 +30,14 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.WorldChunkD
     private static final boolean PRINT_DEBUG = false;
     private static final String EXTENSION_TYPE = ".json";
 
+    private final ClientMain clientMain;
     private final String worldName;
 
     private WorldChunkDataWrapper worldChunkDataWrapper = null;
 
-    public ChunkLoader(FileHandleResolver resolver, String worldName) {
+    public ChunkLoader(ClientMain clientMain, FileHandleResolver resolver, String worldName) {
         super(resolver);
+        this.clientMain = clientMain;
         this.worldName = worldName;
     }
 
@@ -74,7 +75,7 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.WorldChunkD
         short chunkX = Short.parseShort(parts[0]);
         short chunkY = Short.parseShort(parts[1]);
 
-        WorldChunk chunk = new WorldChunk(worldName, chunkX, chunkY);
+        WorldChunk chunk = new WorldChunk(clientMain, worldName, chunkX, chunkY);
 
         // Process Tile Layers
         for (Floors floor : Floors.values()) {
@@ -99,9 +100,9 @@ public class ChunkLoader extends AsynchronousAssetLoader<ChunkLoader.WorldChunkD
         return chunk;
     }
 
-    private static void readLayer(Floors floor, LayerDefinition layerDefinition, JsonValue root, WorldChunk chunk) {
+    private void readLayer(Floors floor, LayerDefinition layerDefinition, JsonValue root, WorldChunk chunk) {
 
-        WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+        WorldBuilder worldBuilder = clientMain.getWorldBuilder();
         JsonValue floorRoot = root.get(Short.toString(floor.getWorldZ()));
 
         if (floorRoot == null) return; // This floor doesn't exit on this chunk

@@ -3,9 +3,9 @@ package com.forgestorm.client.game.world.maps.tile.properties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
-import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
@@ -13,22 +13,24 @@ import com.forgestorm.shared.game.world.maps.tile.properties.WorldEdit;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
-
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
 
 import static com.forgestorm.client.util.Log.println;
 
 @Getter
 @Setter
 public class InteriorStairsProperty extends AbstractTileProperty implements WorldEdit {
+    
+    private final transient ClientMain clientMain;
 
     private Integer stairsDownImageID;
 
-    public InteriorStairsProperty() {
+    public InteriorStairsProperty(ClientMain clientMain) {
         super(TilePropertyTypes.INTERIOR_STAIRS_PROPERTY);
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class InteriorStairsProperty extends AbstractTileProperty implements Worl
 
     @Override
     public void applyPropertyToWorld(WorldChunk worldChunk, TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
-        TileImage stairsDownImage = ClientMain.getInstance().getWorldBuilder().getTileImage(stairsDownImageID);
+        TileImage stairsDownImage = clientMain.getWorldBuilder().getTileImage(stairsDownImageID);
         short worldYup = (short) (worldY + 1);
         short worldZup = (short) (worldZ + 1);
 
@@ -92,7 +94,7 @@ public class InteriorStairsProperty extends AbstractTileProperty implements Worl
 
     @Override
     public void removePropertyFromWorld(WorldChunk worldChunk, TileImage tileImage, LayerDefinition layerDefinition, String worldName, int worldX, int worldY, short worldZ) {
-        TileImage stairsDownImage = ClientMain.getInstance().getWorldBuilder().getTileImage(stairsDownImageID);
+        TileImage stairsDownImage = clientMain.getWorldBuilder().getTileImage(stairsDownImageID);
         short worldYup = (short) (worldY + 1);
         short worldZup = (short) (worldZ + 1);
 

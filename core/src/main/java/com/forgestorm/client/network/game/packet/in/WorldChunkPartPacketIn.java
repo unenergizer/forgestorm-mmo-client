@@ -12,7 +12,6 @@ import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -22,7 +21,11 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final WorldManager worldManager = ClientMain.getInstance().getWorldManager();
+    private final WorldManager worldManager;
+
+    public WorldChunkPartPacketIn(ClientMain clientMain) {
+        this.worldManager = clientMain.getWorldManager();
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -57,7 +60,7 @@ public class WorldChunkPartPacketIn implements PacketListener<WorldChunkPartPack
     }
 
     @AllArgsConstructor
-    class WorldChunkPartPacket extends PacketData {
+    static class WorldChunkPartPacket extends PacketData {
         private final short chunkX, chunkY;
         private final Floors floor;
         private final LayerDefinition layerDefinition;

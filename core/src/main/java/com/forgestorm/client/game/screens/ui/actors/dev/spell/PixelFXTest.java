@@ -12,7 +12,6 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.io.FileManager;
 import com.forgestorm.shared.io.type.GameAtlas;
@@ -24,6 +23,7 @@ import static com.forgestorm.client.util.Log.println;
 
 public class PixelFXTest extends HideableVisWindow implements Buildable, Disposable {
 
+    private final ClientMain clientMain;
     private Animation<TextureRegion> runningAnimation;
 
     /**
@@ -33,14 +33,15 @@ public class PixelFXTest extends HideableVisWindow implements Buildable, Disposa
 
     private TextureAtlas textureAtlas;
 
-    public PixelFXTest() {
-        super("Animation Test");
+    public PixelFXTest(ClientMain clientMain) {
+        super(clientMain, "Animation Test");
+        this.clientMain = clientMain;
     }
 
     @Override
     public Actor build(StageHandler stageHandler) {
         // Load Atlas
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
+        FileManager fileManager = stageHandler.getClientMain().getFileManager();
         textureAtlas = fileManager.getAtlas(GameAtlas.PIXEL_FX);
         Array<TextureAtlas.AtlasRegion> list = textureAtlas.getRegions();
 
@@ -88,7 +89,7 @@ public class PixelFXTest extends HideableVisWindow implements Buildable, Disposa
         if (!isVisible()) return;
         stateTime += deltaTime;
         TextureRegion currentFrame = runningAnimation.getKeyFrame(stateTime, true);
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         spriteBatch.draw(currentFrame, playerClient.getDrawX(), playerClient.getDrawY() + 16);
     }
 

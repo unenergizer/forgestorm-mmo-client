@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.item.trade.TradePacketInfoOut;
 import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.shared.network.game.GameOutputStream;
@@ -14,8 +15,8 @@ public class PlayerTradePacketOut extends AbstractPacketOut {
     private final short targetEntityUUID;
     private final byte itemSlot;
 
-    public PlayerTradePacketOut(TradePacketInfoOut tradePacketInfoOut) {
-        super(Opcodes.PLAYER_TRADE);
+    public PlayerTradePacketOut(ClientMain clientMain, TradePacketInfoOut tradePacketInfoOut) {
+        super(clientMain, Opcodes.PLAYER_TRADE);
         tradeStatusOpcode = tradePacketInfoOut.getTradeStatusOpcode();
         tradeUUID = tradePacketInfoOut.getTradeUUID();
         targetEntityUUID = tradePacketInfoOut.getTargetEntityUUID();

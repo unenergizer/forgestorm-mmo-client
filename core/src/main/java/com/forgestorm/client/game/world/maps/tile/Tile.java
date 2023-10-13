@@ -1,16 +1,16 @@
 package com.forgestorm.client.game.world.maps.tile;
 
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.tile.properties.AbstractTileProperty;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
+import com.forgestorm.shared.game.world.maps.tile.properties.WorldEdit;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.forgestorm.shared.game.world.maps.tile.properties.WorldEdit;
-import lombok.Getter;
 
 public class Tile extends WorldObject {
 
@@ -32,7 +32,8 @@ public class Tile extends WorldObject {
     @Getter
     private TileImage tileImage;
 
-    public Tile(LayerDefinition layerDefinition, String worldName, WorldChunk worldChunk, int worldX, int worldY, short worldZ) {
+    public Tile(ClientMain clientMain, LayerDefinition layerDefinition, String worldName, WorldChunk worldChunk, int worldX, int worldY, short worldZ) {
+        super(clientMain);
         this.layerDefinition = layerDefinition;
         this.worldName = worldName;
         this.worldChunk = worldChunk;

@@ -5,25 +5,25 @@ import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.io.FileManager;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
 public class WorldManager implements Disposable {
 
     private static final boolean PRINT_DEBUG = false;
-
+    private final ClientMain clientMain;
     private final Map<String, GameWorld> gameWorlds = new HashMap<String, GameWorld>();
 
     @Getter
     private GameWorld currentGameWorld;
 
-    public WorldManager() {
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
+    public WorldManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        FileManager fileManager = clientMain.getFileManager();
         for (String worldName : fileManager.getGameWorldListData().getGameWorlds()) {
             println(getClass(), "Adding: " + worldName, false, PRINT_DEBUG);
             gameWorlds.put(worldName.replace(".json", ""), fileManager.getGameWorldData(worldName).getGameWorld());
@@ -42,7 +42,7 @@ public class WorldManager implements Disposable {
         if (gameWorlds.containsKey(worldName)) {
             return gameWorlds.get(worldName);
         } else {
-            new GameWorld(worldName, Color.BLUE);
+            new GameWorld(clientMain, worldName, Color.BLUE);
         }
         return null;
     }
@@ -61,7 +61,7 @@ public class WorldManager implements Disposable {
         currentGameWorld.loadRegions();
 
         // Map loaded, now fade it in!
-        ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+        ActorUtil.fadeOutWindow(clientMain.getStageHandler().getFadeWindow(), 0.2f);
     }
 
     @Override

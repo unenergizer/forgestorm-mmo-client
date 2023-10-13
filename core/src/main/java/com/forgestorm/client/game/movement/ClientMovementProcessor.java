@@ -2,17 +2,15 @@ package com.forgestorm.client.game.movement;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 import static com.forgestorm.client.util.Preconditions.checkArgument;
@@ -20,12 +18,17 @@ import static com.forgestorm.client.util.Preconditions.checkNotNull;
 
 public class ClientMovementProcessor {
 
+    private final ClientMain clientMain;
     private InputData inputData;
 
     @Getter
     @Setter
     private MovementInput currentMovementInput = MovementInput.NONE;
 
+    public ClientMovementProcessor(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+    
     public void postProcessMovement(InputData latestInput) {
         this.inputData = latestInput;
     }
@@ -61,13 +64,13 @@ public class ClientMovementProcessor {
             checkArgument(inputData.getMoveNodes().size() == 1, "The input nodes was not one for keyboard input.");
 
             playerClient.setPredictedMoveDirection(getPredictedDirection(playerClient, playerClient.getCurrentMapLocation()));
-            ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            clientMain.getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
 
             currentMovementInput = MovementInput.KEYBOARD;
 
         } else if (inputData.getMovementInput() == MovementInput.MOUSE) {
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-            ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
+            clientMain.getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
 
             currentMovementInput = MovementInput.MOUSE;
         }
@@ -87,7 +90,7 @@ public class ClientMovementProcessor {
                 checkArgument(predictedDirection != MoveDirection.NONE, "Move direction was NONE when it is not suppose to be.");
 
                 playerClient.setPredictedMoveDirection(predictedDirection);
-                ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
+                clientMain.getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes(), inputData.getAbstractPostProcessor());
 
             } else if (currentMovementInput == MovementInput.KEYBOARD) {
                 MoveDirection predictedDirection = getPredictedDirection(playerClient, playerClient.getFutureMapLocation());
@@ -99,7 +102,7 @@ public class ClientMovementProcessor {
         } else if (inputData.getMovementInput() == MovementInput.MOUSE) {
             // This just overwrite the current queue
             playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-            ClientMain.getInstance().getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
+            clientMain.getClientPlayerMovementManager().playerMove(playerClient, inputData.getMoveNodes());
 
             currentMovementInput = MovementInput.MOUSE;
         }
@@ -108,7 +111,7 @@ public class ClientMovementProcessor {
     private MoveDirection getPredictedDirection(PlayerClient playerClient, Location currentLocation) {
         MoveNode moveNode = inputData.getMoveNodes().peek();
         checkNotNull(moveNode, "The move node was null!");
-        Location predictedFutureMapLocation = new Location(playerClient.getWorldName(), moveNode.getWorldX(), moveNode.getWorldY(), currentLocation.getZ());
+        Location predictedFutureMapLocation = new Location(clientMain, playerClient.getWorldName(), moveNode.getWorldX(), moveNode.getWorldY(), currentLocation.getZ());
         return MoveUtil.getMoveDirection(currentLocation, predictedFutureMapLocation);
     }
 
@@ -122,9 +125,9 @@ public class ClientMovementProcessor {
     void invalidateAllInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
-        ClientMain.getInstance().getGameScreen().getKeyboard().getKeyboardMovement().invalidateKeys();
-        ClientMain.getInstance().getMouseManager().invalidateMouse();
-        if (EntityManager.getInstance().getPlayerClient() != null) {
+        clientMain.getGameScreen().getKeyboard().getKeyboardMovement().invalidateKeys();
+        clientMain.getMouseManager().invalidateMouse();
+        if (clientMain.getEntityManager().getPlayerClient() != null) {
             clearPlayerClientInput();
         }
     }
@@ -132,17 +135,17 @@ public class ClientMovementProcessor {
     public void resetInput() {
         inputData = null;
         currentMovementInput = MovementInput.NONE;
-        if (EntityManager.getInstance().getPlayerClient() != null) {
+        if (clientMain.getEntityManager().getPlayerClient() != null) {
             clearPlayerClientInput();
         }
     }
 
     // TODO this may still be wrong
     private void clearPlayerClientInput() {
-        ClientPlayerMovementManager manager = ClientMain.getInstance().getClientPlayerMovementManager();
+        ClientPlayerMovementManager manager = clientMain.getClientPlayerMovementManager();
         manager.getMovements().clear();
         manager.getMovesSentToServer().clear();
-        EntityManager.getInstance().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
+        clientMain.getEntityManager().getPlayerClient().setPredictedMoveDirection(MoveDirection.NONE);
     }
 
     public enum MovementInput {

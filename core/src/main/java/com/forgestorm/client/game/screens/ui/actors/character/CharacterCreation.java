@@ -22,22 +22,22 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.Random;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class CharacterCreation extends HideableVisWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private final NameGenerator nameGenerator = new NameGenerator();
     private final Random random = new Random();
     private final CharacterCreation characterCreation;
     private final int maxHairStyles = 14;
 
     private StageHandler stageHandler;
-    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer(15);
+    private final CharacterPreviewer characterPreviewer;
     private VisValidatableTextField characterName;
     private final Appearance appearance;
 
@@ -49,9 +49,11 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     private final VisTextButton submit = new VisTextButton("Submit");
     private final VisLabel errorLabel = new VisLabel();
 
-    public CharacterCreation() {
-        super("Create a Character");
+    public CharacterCreation(ClientMain clientMain) {
+        super(clientMain, "Create a Character");
+        this.clientMain = clientMain;
         this.characterCreation = this;
+        characterPreviewer = new CharacterPreviewer(clientMain, 15);
 
         // Build default appearance;
         this.appearance = characterPreviewer.generateBasicAppearance();
@@ -90,7 +92,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 randomizeCharacter();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 19);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 19);
             }
         });
 
@@ -98,7 +100,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetCharacter();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
             }
         });
 
@@ -157,7 +159,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 characterName.setText(nameGenerator.compose(2 + random.nextInt(3)));
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 19);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 19);
             }
         });
 
@@ -175,7 +177,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                 resetCharacter();
                 ActorUtil.fadeOutWindow(characterCreation);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 18);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 18);
             }
         });
 
@@ -183,8 +185,8 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 submit.setDisabled(true);
-                new CharacterCreatorPacketOut(characterName.getText(), hairStyleOption.optionValue, hairColorOption.optionValue, eyeColorOption.optionValue, skinColorOption.optionValue).sendPacket();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 16);
+                new CharacterCreatorPacketOut(clientMain, characterName.getText(), hairStyleOption.optionValue, hairColorOption.optionValue, eyeColorOption.optionValue, skinColorOption.optionValue).sendPacket();
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 16);
             }
         });
 
@@ -197,7 +199,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
     public void creationSuccess() {
         ActorUtil.fadeOutWindow(characterCreation);
         ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+        stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
         resetCharacter(); // Clear current design, so next character creation is cleared.
         submit.setDisabled(false);
         errorLabel.setText("");
@@ -242,7 +244,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                     characterOption.setOptionValue(characterOption.getMaxOptions());
                 }
                 rebuildPreviewTable();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
         right.addListener(new ChangeListener() {
@@ -256,7 +258,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
                     characterOption.setOptionValue((byte) 0);
                 }
                 rebuildPreviewTable();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
 
@@ -282,7 +284,7 @@ public class CharacterCreation extends HideableVisWindow implements Buildable {
 
     @Getter
     @Setter
-    class CharacterOption {
+    static class CharacterOption {
         private final String optionName;
         private final byte maxOptions;
         private final byte defaultOption;

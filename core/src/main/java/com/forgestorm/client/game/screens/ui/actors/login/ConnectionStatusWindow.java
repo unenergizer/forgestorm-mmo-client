@@ -2,11 +2,11 @@ package com.forgestorm.client.game.screens.ui.actors.login;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.kotcrab.vis.ui.widget.VisLabel;
-
 import lombok.Getter;
 
 @Getter
@@ -15,8 +15,8 @@ public class ConnectionStatusWindow extends HideableVisWindow implements Buildab
     private StageHandler stageHandler;
     private VisLabel statusMessage;
 
-    public ConnectionStatusWindow() {
-        super("Connection Status:", "dialog");
+    public ConnectionStatusWindow(ClientMain clientMain) {
+        super(clientMain, "Connection Status:", "dialog");
     }
 
     @Override

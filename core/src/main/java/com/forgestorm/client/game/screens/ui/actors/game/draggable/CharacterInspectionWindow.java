@@ -13,7 +13,6 @@ import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
 import com.forgestorm.client.game.world.entities.Player;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.item.inventory.InventoryType;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +25,8 @@ public class CharacterInspectionWindow extends ItemSlotContainerWindow implement
     @Setter
     private Player playerToInspect;
 
-    public CharacterInspectionWindow() {
-        super("Inspect Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);
+    public CharacterInspectionWindow(ClientMain clientMain) {
+        super(clientMain, "Inspect Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class CharacterInspectionWindow extends ItemSlotContainerWindow implement
         // Set Items
         for (int itemId : itemIds) {
             if (itemId == -1) continue;
-            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemId, 0);
+            ItemStack itemStack = stageHandler.getClientMain().getItemStackManager().makeItemStack(itemId, 0);
             ItemStackSlot targetSlot = equipmentPreview.getItemStackSlot(itemStack.getItemStackType());
             targetSlot.setCharacterInspectionSlot(true); // Prevent Item from being moved
             targetSlot.setItemStack(itemStack);

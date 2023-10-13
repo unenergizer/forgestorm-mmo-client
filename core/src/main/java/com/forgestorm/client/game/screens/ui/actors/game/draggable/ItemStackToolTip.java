@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
@@ -31,7 +30,7 @@ public class ItemStackToolTip extends HideableVisWindow {
     private final boolean showEquipHowTo;
 
     public ItemStackToolTip(StageHandler stageHandler, ItemStackSlot itemStackSlot, ItemStack itemStack, Actor itemStackActor, boolean showEquipHowTo) {
-        super("");
+        super(stageHandler.getClientMain(), "");
         this.stageHandler = stageHandler;
         this.itemStackSlot = itemStackSlot;
         this.itemStackToolTip = this;
@@ -112,7 +111,7 @@ public class ItemStackToolTip extends HideableVisWindow {
             }
         }
 
-        if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper())
+        if (stageHandler.getClientMain().isAdmin() || stageHandler.getClientMain().isContentDeveloper())
             debugInfo.setText("[GRAY]ItemStackID: " + itemStack.getItemId() + "");
     }
 

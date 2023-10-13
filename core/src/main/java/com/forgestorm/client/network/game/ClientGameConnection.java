@@ -6,24 +6,20 @@ import com.forgestorm.client.network.ConnectionManager;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.EventBus;
 import com.forgestorm.shared.network.game.GameOutputStream;
+import lombok.Getter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
+import java.net.*;
 import java.util.UUID;
-
-import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
 @Getter
 public class ClientGameConnection {
 
+    private final ClientMain clientMain;
     private final ConnectionManager connectionManager;
     private final EventBus eventBus = new EventBus();
 
@@ -31,7 +27,8 @@ public class ClientGameConnection {
     private ClientHandler clientHandler;
     private volatile boolean connected;
 
-    public ClientGameConnection(final ConnectionManager connectionManager) {
+    public ClientGameConnection(ClientMain clientMain, final ConnectionManager connectionManager) {
+        this.clientMain = clientMain;
         this.connectionManager = connectionManager;
     }
 
@@ -45,7 +42,7 @@ public class ClientGameConnection {
     public void openConnection(final UUID uuid, String address, final int port, final Consumer<EventBus> registerListeners) {
 
         // Check if local host run
-        boolean forceLocalHost = ClientMain.getInstance().isForceLocalHost();
+        boolean forceLocalHost = clientMain.isForceLocalHost();
         if (forceLocalHost) address = "localhost";
 
         this.uuid = uuid;
@@ -117,7 +114,7 @@ public class ClientGameConnection {
         }
 
         // Create our server handler
-        clientHandler = new ClientHandler(socket, new GameOutputStream(outputStream), inputStream);
+        clientHandler = new ClientHandler(clientMain, socket, new GameOutputStream(outputStream), inputStream);
 
         println(ClientGameConnection.class, "Connection established! Receiving packets!");
         connectionManager.threadSafeConnectionMessage("Connection established! Receiving packets!");

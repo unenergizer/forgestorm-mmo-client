@@ -24,6 +24,8 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class CharacterPreviewer {
 
+    private ClientMain clientMain;
+
     /**
      * The multiplied scale of the Character preview.
      */
@@ -52,7 +54,8 @@ public class CharacterPreviewer {
     /**
      * @param previewScale How large the preview should be.
      */
-    public CharacterPreviewer(int previewScale) {
+    public CharacterPreviewer(ClientMain clientMain, int previewScale) {
+        this.clientMain = clientMain;
         this.previewScale = previewScale;
     }
 
@@ -75,7 +78,7 @@ public class CharacterPreviewer {
                     moveDirectionByte = 3;
                 }
                 generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
         rotateRight.addListener(new ChangeListener() {
@@ -87,7 +90,7 @@ public class CharacterPreviewer {
                     moveDirectionByte = 0;
                 }
                 generateCharacterPreview(lastUsedAppearance, MoveDirection.getDirection(moveDirectionByte));
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 17);
             }
         });
 
@@ -184,7 +187,7 @@ public class CharacterPreviewer {
     private VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
         VisTable innerTable = new VisTable();
 
-        TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
+        TextureAtlas textureAtlas = clientMain.getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(region));
         textureRegionDrawable.setMinWidth(width);
         textureRegionDrawable.setMinHeight(height);
@@ -207,7 +210,7 @@ public class CharacterPreviewer {
 
     Appearance generateBasicAppearance() {
 
-        ItemStackManager itemStackManager = ClientMain.getInstance().getItemStackManager();
+        ItemStackManager itemStackManager = clientMain.getItemStackManager();
         WearableItemStack chest = (WearableItemStack) itemStackManager.makeItemStack(ClientConstants.STARTER_GEAR_CHEST_ID, 1);
         WearableItemStack pants = (WearableItemStack) itemStackManager.makeItemStack(ClientConstants.STARTER_GEAR_PANTS_ID, 1);
         WearableItemStack shoes = (WearableItemStack) itemStackManager.makeItemStack(ClientConstants.STARTER_GEAR_SHOES_ID, 1);

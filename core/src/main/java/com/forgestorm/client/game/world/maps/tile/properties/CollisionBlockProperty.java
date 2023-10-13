@@ -5,34 +5,36 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.CollisionEditor;
+import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.client.game.world.maps.tile.TileImage;
-import com.forgestorm.client.game.world.maps.WorldChunk;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
 import com.forgestorm.shared.game.world.maps.tile.properties.WorldEdit;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
 public class CollisionBlockProperty extends AbstractTileProperty implements WorldEdit {
 
-    private final transient CollisionEditor collisionEditor = new CollisionEditor();
+    private final transient ClientMain clientMain;
+    private final transient CollisionEditor collisionEditor;
 
     @Getter
     @Setter
     private List<Boolean> collisionList;
 
-    public CollisionBlockProperty() {
+    public CollisionBlockProperty(ClientMain clientMain) {
         super(TilePropertyTypes.COLLISION_BLOCK);
+        this.clientMain = clientMain;
+        collisionEditor = new CollisionEditor(clientMain);
     }
 
     @Override
@@ -49,13 +51,13 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
         visTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                collisionEditor.loadTileImage(collisionBlockProperty, collisionList, ClientMain.getInstance().getWorldBuilder().getWorldTileImages().findRegion(getTileImage().getFileName()));
+                collisionEditor.loadTileImage(collisionBlockProperty, collisionList, clientMain.getWorldBuilder().getWorldTileImages().findRegion(getTileImage().getFileName()));
                 collisionEditor.setVisible(true);
             }
         });
 
         // Add collisionWindow to stage
-        ClientMain.getInstance().getStageHandler().getStage().addActor(collisionEditor.build());
+        clientMain.getStageHandler().getStage().addActor(collisionEditor.build());
 
         return mainTable;
     }
@@ -99,7 +101,7 @@ public class CollisionBlockProperty extends AbstractTileProperty implements Worl
 
                     int tileX = worldX + column;
                     int tileY = worldY + tilesTall - row - 1;
-                    Tile tileParent = ClientMain.getInstance().getWorldManager()
+                    Tile tileParent = clientMain.getWorldManager()
                             .getGameWorld(worldName)
                             .getTile(layerDefinition, tileX, tileY, worldZ);
 

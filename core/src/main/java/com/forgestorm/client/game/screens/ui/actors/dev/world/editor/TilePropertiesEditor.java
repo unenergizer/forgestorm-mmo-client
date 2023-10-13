@@ -34,17 +34,11 @@ import com.forgestorm.shared.game.world.maps.tile.wang.BrushSize;
 import com.forgestorm.shared.game.world.maps.tile.wang.WangType;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.*;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
+import lombok.Getter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,16 +46,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import lombok.Getter;
-
 @Getter
 public class TilePropertiesEditor extends HideableVisWindow implements Buildable {
 
-    private static final String FILE_PATH = ClientMain.getInstance().getFileManager().getClientFilesDirectoryPath() + File.separator + "TileProperties.yaml";
+    private final ClientMain clientMain;
+    private final String filePath;
 
     private final TilePropertyDropDownMenu tilePropertyDropDownMenu = new TilePropertyDropDownMenu();
-    private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
-    private final ImageBuilder imageBuilder = new ImageBuilder();
+    private final WorldBuilder worldBuilder;
+    private final ImageBuilder imageBuilder;
     private final VisTable rightTable = new VisTable(true);
     private final VisTable propertiesTable = new VisTable(true);
 
@@ -72,8 +65,12 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
     private TileImage tileImage;
     private Map<TilePropertyTypes, AbstractTileProperty> copiedTileProperties;
 
-    public TilePropertiesEditor() {
-        super("Tile Properties Editor");
+    public TilePropertiesEditor(ClientMain clientMain) {
+        super(clientMain, "Tile Properties Editor");
+        this.clientMain = clientMain;
+        filePath = clientMain.getFileManager().getClientFilesDirectoryPath() + File.separator + "TileProperties.yaml";
+        worldBuilder = clientMain.getWorldBuilder();
+        imageBuilder = new ImageBuilder(clientMain);
     }
 
     @Override
@@ -166,7 +163,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             }
 
             // Initialize new TileImage
-            tileImage = new TileImage(
+            tileImage = new TileImage(clientMain,
                     id,
                     atlasRegion.name,
                     LayerDefinition.WORLD_OBJECTS
@@ -178,7 +175,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         if (tileImage.getFileName().contains(WangType.TYPE_16.getPrefix())) {
             if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
                 tileImage.setLayerDefinition(LayerDefinition.GROUND);
-                WangTileProperty wangTileProperty = (WangTileProperty) TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
+                WangTileProperty wangTileProperty = (WangTileProperty) TilePropertyTypeHelper.getNewAbstractTileProperty(clientMain, TilePropertyTypes.WANG_TILE);
                 wangTileProperty.setTileImage(tileImage);
                 wangTileProperty.setWangType(WangType.TYPE_16);
                 wangTileProperty.setMinimalBrushSize(BrushSize.ONE);
@@ -187,7 +184,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         } else if (tileImage.getFileName().contains(WangType.TYPE_48.getPrefix())) {
             if (!tileImage.containsProperty(TilePropertyTypes.WANG_TILE)) {
                 tileImage.setLayerDefinition(LayerDefinition.GROUND);
-                WangTileProperty wangTileProperty = (WangTileProperty) TilePropertyTypeHelper.getNewAbstractTileProperty(TilePropertyTypes.WANG_TILE);
+                WangTileProperty wangTileProperty = (WangTileProperty) TilePropertyTypeHelper.getNewAbstractTileProperty(clientMain, TilePropertyTypes.WANG_TILE);
                 wangTileProperty.setTileImage(tileImage);
                 wangTileProperty.setWangType(WangType.TYPE_48);
                 wangTileProperty.setMinimalBrushSize(BrushSize.ONE);
@@ -275,12 +272,12 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
 
                 // Check to make sure the TileImage does not already contain this property.
                 if (tileProperties != null && tileProperties.containsKey(selectedProperty)) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(TilePropertiesEditor.class, (short) 10);
+                    clientMain.getAudioManager().getSoundManager().playSoundFx(TilePropertiesEditor.class, (short) 10);
                     return;
                 }
 
                 // Now add the property and rebuild the options table
-                AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(selectedProperty);
+                AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(clientMain, selectedProperty);
 
                 abstractTileProperty.setTileImage(tileImage);
                 tileImage.setCustomTileProperty(abstractTileProperty);
@@ -299,9 +296,9 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         saveFile.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ActorUtil.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[PINK]Tile Properties has been saved to " + FILE_PATH);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 19);
-                YamlUtil.saveYamlToFile(worldBuilder.getTileImageMap(), FILE_PATH);
+                clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[PINK]Tile Properties has been saved to " + filePath);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 19);
+                YamlUtil.saveYamlToFile(worldBuilder.getTileImageMap(), filePath);
             }
         });
     }
@@ -390,7 +387,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         TileBuildTab(GameAtlas gameAtlas) {
             super(false, false);
             this.gameAtlas = gameAtlas;
-            this.textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
+            this.textureAtlas = clientMain.getFileManager().getAtlas(gameAtlas);
             this.title = " " + gameAtlas.name() + " ";
             contentTable = new VisTable(true);
             build();
@@ -488,7 +485,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
                     buttonTable.add(moduloTable).align(Alignment.LEFT.getAlignment()).row();
                 }
                 tilesAdded++;
-                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(gameAtlas, atlasRegion.name).setSize(32).buildTextureRegionDrawable());
+                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(clientMain, gameAtlas, atlasRegion.name).setSize(32).buildTextureRegionDrawable());
                 if (isWangTile) visImageButton.setColor(Color.RED);
                 moduloTable.add(visImageButton);
 
@@ -528,7 +525,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
         private final HideableVisWindow hideableVisWindow;
 
         TilePropertyDropDownMenu() {
-            super("Choose Option");
+            super(clientMain, "Choose Option");
             this.hideableVisWindow = this;
         }
 
@@ -570,7 +567,7 @@ public class TilePropertiesEditor extends HideableVisWindow implements Buildable
             cancelButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
+                    clientMain.getAudioManager().getSoundManager().playSoundFx(ItemDropDownMenu.class, (short) 0);
                     hideableVisWindow.fadeOut();
                 }
             });

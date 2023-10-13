@@ -10,6 +10,7 @@ import static com.forgestorm.client.util.Log.println;
 
 public class ItemStackTarget extends DragAndDrop.Target {
 
+    private final ClientMain clientMain;
     /**
      * The slot that at {@link ItemStack} is being dragged too.
      */
@@ -17,8 +18,9 @@ public class ItemStackTarget extends DragAndDrop.Target {
 
     private static final boolean PRINT_DEBUG = false;
 
-    ItemStackTarget(ItemStackSlot itemStackTargetSlot) {
+    ItemStackTarget(ClientMain clientMain, ItemStackSlot itemStackTargetSlot) {
         super(itemStackTargetSlot);
+        this.clientMain = clientMain;
         this.itemStackTargetSlot = itemStackTargetSlot;
     }
 
@@ -76,7 +78,7 @@ public class ItemStackTarget extends DragAndDrop.Target {
         ItemStackSlot sourceItemStackSlot = itemStackSource.getItemStackSlot();
 
         // Play Sound FX
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        clientMain.getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         // The client is simply picking up and placing down the item in the exact same position.
         if (sourceItemStackSlot.getSlotIndex() == itemStackTargetSlot.getSlotIndex() &&
@@ -87,6 +89,6 @@ public class ItemStackTarget extends DragAndDrop.Target {
             return;
         }
 
-        new InventoryMoveActions().moveItems(sourceItemStackSlot, itemStackTargetSlot, sourceItemStack, targetItemStack);
+        new InventoryMoveActions(clientMain).moveItems(sourceItemStackSlot, itemStackTargetSlot, sourceItemStack, targetItemStack);
     }
 }

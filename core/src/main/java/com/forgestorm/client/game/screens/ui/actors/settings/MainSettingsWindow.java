@@ -2,36 +2,36 @@ package com.forgestorm.client.game.screens.ui.actors.settings;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
+import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
+import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.Buildable;
-import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
-import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
-
 import lombok.Getter;
 
 @Getter
 public class MainSettingsWindow extends HideableVisWindow implements Buildable {
 
     private final WelcomeTab welcomeTab;
-    private GameMechanicsTab gameMechanicsTab;
-    private GraphicsTab graphicsTab;
-    private AudioTab audioTab = new AudioTab();
-    private TestTab controlsTab = new TestTab("Controls");
-    private TestTab socialTab = new TestTab("Social");
+    private final GameMechanicsTab gameMechanicsTab;
+    private final GraphicsTab graphicsTab;
+    private final AudioTab audioTab;
+    private final TestTab controlsTab = new TestTab("Controls");
+    private final TestTab socialTab = new TestTab("Social");
 
     public MainSettingsWindow(StageHandler stageHandler) {
-        super("Client Settings");
+        super(stageHandler.getClientMain(), "Client Settings");
 
-        this.welcomeTab = new WelcomeTab();
+        this.welcomeTab = new WelcomeTab(stageHandler.getClientMain());
         this.gameMechanicsTab = new GameMechanicsTab(stageHandler);
         this.graphicsTab = new GraphicsTab(stageHandler);
+        audioTab = new AudioTab(stageHandler.getClientMain());
     }
 
     @Override
@@ -88,7 +88,7 @@ public class MainSettingsWindow extends HideableVisWindow implements Buildable {
         return this;
     }
 
-    private class TestTab extends Tab {
+    private static class TestTab extends Tab {
 
         private final String title;
         private final Table content;

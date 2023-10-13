@@ -7,7 +7,6 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -16,6 +15,11 @@ import static com.forgestorm.client.util.Log.println;
 public class SkillExperiencePacketIn implements PacketListener<SkillExperiencePacketIn.SkillExperiencePacket> {
 
     private final static boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public SkillExperiencePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -30,13 +34,13 @@ public class SkillExperiencePacketIn implements PacketListener<SkillExperiencePa
         println(getClass(), "Opcode: " + SkillOpcodes.getSkillOpcode(packetData.skillOpcode), false, PRINT_DEBUG);
         println(getClass(), "Experience: " + packetData.experienceGained, false, PRINT_DEBUG);
 
-        ClientMain.getInstance().getSkills()
+        clientMain.getSkills()
                 .getSkill(SkillOpcodes.getSkillOpcode(packetData.skillOpcode))
                 .addExperience(packetData.experienceGained);
     }
 
     @AllArgsConstructor
-    class SkillExperiencePacket extends PacketData {
+    static class SkillExperiencePacket extends PacketData {
         private final byte skillOpcode;
         private final int experienceGained;
     }

@@ -1,14 +1,13 @@
 package com.forgestorm.client.network.game.packet.in;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.world.entities.AiEntity;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.AI_ENTITY_UPDATE_OUT)
@@ -16,6 +15,11 @@ public class AiEntityDataPacketIn implements PacketListener<AiEntityDataPacketIn
 
     private static final byte ALIGNMENT_INDEX = 0x01;
     private static final byte BANK_KEEPER_INDEX = 0x02;
+    private final ClientMain clientMain;
+
+    public AiEntityDataPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -35,7 +39,7 @@ public class AiEntityDataPacketIn implements PacketListener<AiEntityDataPacketIn
 
     @Override
     public void onEvent(AiEntityData packetData) {
-        AiEntity aiEntity = EntityManager.getInstance().getAiEntity(packetData.entityId);
+        AiEntity aiEntity = clientMain.getEntityManager().getAiEntity(packetData.entityId);
 
         if ((packetData.dataBits & ALIGNMENT_INDEX) != 0) {
             aiEntity.setAlignment(packetData.entityAlignment);
@@ -45,7 +49,7 @@ public class AiEntityDataPacketIn implements PacketListener<AiEntityDataPacketIn
     }
 
     @AllArgsConstructor
-    class AiEntityData extends PacketData {
+    static class AiEntityData extends PacketData {
         private final short entityId;
         private final byte dataBits;
         private final EntityAlignment entityAlignment;

@@ -12,17 +12,14 @@ import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.maps.Region;
 import com.forgestorm.client.game.world.maps.RegionManager;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
 
 import java.util.Map;
 
 public class RegionEditor extends HideableVisWindow implements Buildable {
 
-    private final RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+    private final ClientMain clientMain;
+    private final RegionManager regionManager;
     private final VisTable regionInfoTable = new VisTable(true);
     private final VisTable flagSelectTable = new VisTable(true);
     private final VisTable resultRows = new VisTable(true);
@@ -39,8 +36,10 @@ public class RegionEditor extends HideableVisWindow implements Buildable {
     private VisTextField backgroundMusicID;
     private VisTextField ambianceSoundID;
 
-    public RegionEditor() {
-        super("Region Editor");
+    public RegionEditor(ClientMain clientMain) {
+        super(clientMain, "Region Editor");
+        this.clientMain = clientMain;
+        regionManager = clientMain.getRegionManager();
     }
 
     @Override
@@ -159,19 +158,19 @@ public class RegionEditor extends HideableVisWindow implements Buildable {
 
         // Build Flag Components
         VisTable table1 = new VisTable(true);
-        ActorUtil.checkBox(table1, "Allow PVP:", allowPVP = new VisCheckBox(""));
-        ActorUtil.checkBox(table1, "Allow Chat:", allowChat = new VisCheckBox(""));
-        ActorUtil.checkBox(table1, "Full Heal:", fullHeal = new VisCheckBox(""));
+        ActorUtil.checkBox(clientMain, table1, "Allow PVP:", allowPVP = new VisCheckBox(""));
+        ActorUtil.checkBox(clientMain, table1, "Allow Chat:", allowChat = new VisCheckBox(""));
+        ActorUtil.checkBox(clientMain, table1, "Full Heal:", fullHeal = new VisCheckBox(""));
 
         VisTable table2 = new VisTable(true);
-        ActorUtil.textField(table2, "Greetings Chat:", greetingsChat = new VisTextField());
-        ActorUtil.textField(table2, "Greetings Title:", greetingsTitle = new VisTextField());
-        ActorUtil.textField(table2, "Farewell Chat:", farewellChat = new VisTextField());
-        ActorUtil.textField(table2, "Farewell Title:", farewellTitle = new VisTextField());
+        ActorUtil.textField(clientMain, table2, "Greetings Chat:", greetingsChat = new VisTextField());
+        ActorUtil.textField(clientMain, table2, "Greetings Title:", greetingsTitle = new VisTextField());
+        ActorUtil.textField(clientMain, table2, "Farewell Chat:", farewellChat = new VisTextField());
+        ActorUtil.textField(clientMain, table2, "Farewell Title:", farewellTitle = new VisTextField());
 
         VisTable table3 = new VisTable(true);
-        ActorUtil.musicField(table3, "Background Music ID:", backgroundMusicID = new VisTextField(), getClass());
-        ActorUtil.soundField(table3, "Ambiance Sound ID:", ambianceSoundID = new VisTextField(), getClass());
+        ActorUtil.musicField(clientMain, table3, "Background Music ID:", backgroundMusicID = new VisTextField(), getClass());
+        ActorUtil.soundField(clientMain, table3, "Ambiance Sound ID:", ambianceSoundID = new VisTextField(), getClass());
 
         //Build Table
         flagSelectTable.add(table1).align(Alignment.TOP.getAlignment());
@@ -239,7 +238,7 @@ public class RegionEditor extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 try {
                     if (regionManager.isPlayerCurrentRegion(regionToEdit)) {
-                        MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+                        MusicManager musicManager = clientMain.getAudioManager().getMusicManager();
                         musicManager.stopMusic(false);
                     }
                     regionToEdit.setBackgroundMusicID(Integer.parseInt(backgroundMusicID.getText()));

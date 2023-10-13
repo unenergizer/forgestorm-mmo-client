@@ -7,7 +7,6 @@ import com.forgestorm.client.game.world.entities.animations.human.HumanAnimation
 import com.forgestorm.shared.game.world.entities.AppearanceType;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.util.color.LibGDXColorList;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,9 +16,13 @@ public class Player extends MovingEntity {
 
     private TextureAtlas characterTextureAtlas;
 
+    public Player(ClientMain clientMain) {
+        super(clientMain);
+    }
+
     @Override
     public void loadTextures(GameAtlas gameAtlas) {
-        characterTextureAtlas = ClientMain.getInstance().getFileManager().getAtlas(gameAtlas);
+        characterTextureAtlas = getClientMain().getFileManager().getAtlas(gameAtlas);
         getEntityAnimation().loadAll(gameAtlas);
     }
 

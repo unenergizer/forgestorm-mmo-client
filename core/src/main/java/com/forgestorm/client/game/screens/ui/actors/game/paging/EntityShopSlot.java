@@ -18,8 +18,9 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 class EntityShopSlot extends PagedWindowSlot {
 
+    private final ClientMain clientMain;
     private final StageHandler stageHandler;
-    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+    private final ImageBuilder imageBuilder;
 
     /**
      * The {@link ItemStack} that is being sold by the vendor
@@ -36,7 +37,9 @@ class EntityShopSlot extends PagedWindowSlot {
     private final short slotID;
 
     EntityShopSlot(StageHandler stageHandler, ItemStack itemStack, int price, short slotID) {
+        this.clientMain = stageHandler.getClientMain();
         this.stageHandler = stageHandler;
+        this.imageBuilder = new ImageBuilder(clientMain, GameAtlas.ITEMS, 32);
         this.itemStack = itemStack;
         this.price = price;
         this.slotID = slotID;
@@ -63,7 +66,7 @@ class EntityShopSlot extends PagedWindowSlot {
             VisTable priceTable = new VisTable();
             VisTextButton button = new VisTextButton("Buy");
             priceTable.add(button);
-            priceTable.add(new ImageBuilder(GameAtlas.ITEMS, 16).setRegionName("drops_44").buildVisImage());
+            priceTable.add(new ImageBuilder(clientMain, GameAtlas.ITEMS, 16).setRegionName("drops_44").buildVisImage());
             priceTable.add(new VisLabel(Integer.toString(price)));
             slotTable.add(priceTable).growX().align(Alignment.BOTTOM_RIGHT.getAlignment());
 
@@ -72,9 +75,9 @@ class EntityShopSlot extends PagedWindowSlot {
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                    clientMain.getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
                     // Send packet here
-                    new EntityShopPacketOut(ShopOpcodes.BUY, slotID).sendPacket();
+                    new EntityShopPacketOut(clientMain, ShopOpcodes.BUY, slotID).sendPacket();
                 }
             });
 

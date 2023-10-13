@@ -1,9 +1,9 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.badlogic.gdx.graphics.Color;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.Entity;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -12,7 +12,6 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +22,11 @@ import static com.forgestorm.client.util.Log.println;
 public class EntityAppearancePacketIn implements PacketListener<EntityAppearancePacketIn.EntityAppearancePacket> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public EntityAppearancePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -97,16 +101,16 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
                 // NOTE: We do the appearance change locally on the client!
                 break;
             case PLAYER:
-                entity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                entity = clientMain.getEntityManager().getPlayerEntity(packetData.entityId);
                 break;
             case ITEM_STACK:
                 break;
             case NPC:
             case MONSTER:
-                entity = EntityManager.getInstance().getAiEntity(packetData.entityId);
+                entity = clientMain.getEntityManager().getAiEntity(packetData.entityId);
                 break;
             case SKILL_NODE:
-                entity = EntityManager.getInstance().getStationaryEntity(packetData.entityId);
+                entity = clientMain.getEntityManager().getStationaryEntity(packetData.entityId);
                 break;
         }
 
@@ -156,7 +160,7 @@ public class EntityAppearancePacketIn implements PacketListener<EntityAppearance
 
     @Getter
     @Setter
-    class EntityAppearancePacket extends PacketData {
+    static class EntityAppearancePacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
 

@@ -11,7 +11,6 @@ import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-
 import lombok.Getter;
 
 public class GameMechanicsTab extends Tab {
@@ -38,10 +37,10 @@ public class GameMechanicsTab extends Tab {
         super(false, false);
         this.stageHandler = stageHandler;
         title = " Game Mechanics ";
-        build();
+        build(stageHandler.getClientMain());
     }
 
-    private void build() {
+    private void build(ClientMain clientMain) {
         content = new VisTable(true);
 
         // Show FPS
@@ -55,8 +54,8 @@ public class GameMechanicsTab extends Tab {
         fpsCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
-                if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                if (clientMain.getUserInterfaceType() == UserInterfaceType.GAME) {
                     stageHandler.getFpsTable().setVisible(fpsCheckBox.isChecked());
                     if (fpsCheckBox.isChecked())
                         stageHandler.getDebugTable().setVisible(false);
@@ -79,7 +78,7 @@ public class GameMechanicsTab extends Tab {
         playerNameVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
             }
         });
 
@@ -94,7 +93,7 @@ public class GameMechanicsTab extends Tab {
         playerHealthBarVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
             }
         });
 
@@ -109,7 +108,7 @@ public class GameMechanicsTab extends Tab {
         entityNameVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
             }
         });
 
@@ -124,7 +123,7 @@ public class GameMechanicsTab extends Tab {
         entityHealthBarVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
             }
         });
 
@@ -140,7 +139,7 @@ public class GameMechanicsTab extends Tab {
         otherPlayerNameVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
             }
         });
 
@@ -155,7 +154,7 @@ public class GameMechanicsTab extends Tab {
         otherPlayerHealthBarVisibleCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(GameMechanicsTab.class, (short) 0);
             }
         });
     }

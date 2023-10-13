@@ -37,8 +37,8 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
 
     StageHandler stageHandler;
 
-    PagedWindow(String windowTitle, int slotsWide, int slotsVertical) {
-        super(windowTitle);
+    PagedWindow(ClientMain clientMain, String windowTitle, int slotsWide, int slotsVertical) {
+        super(clientMain, windowTitle);
         this.slotsWide = slotsWide;
         this.windowSize = slotsWide * slotsVertical;
     }
@@ -67,7 +67,7 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
         previousPage.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
 
                 if (currentPageIndex > 0) {
                     currentPageIndex--;
@@ -81,7 +81,7 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
         nextPage.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
 
                 if (currentPageIndex < pages.size() - 1) {
                     currentPageIndex++;
@@ -124,7 +124,7 @@ public abstract class PagedWindow extends HideableVisWindow implements Buildable
             stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]" + getTitleLabel().getText() + " closed because you moved.");
         }
 
-        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+        stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
 
         ActorUtil.fadeOutWindow(this);
 

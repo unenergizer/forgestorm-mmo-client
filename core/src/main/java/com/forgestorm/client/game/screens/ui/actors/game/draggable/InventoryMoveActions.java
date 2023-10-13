@@ -13,6 +13,12 @@ public class InventoryMoveActions {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+
+    public InventoryMoveActions(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
     public void moveItems(ItemStackSlot sourceItemStackSlot, ItemStackSlot itemStackTargetSlot,
                           ItemStack sourceItemStack, ItemStack targetItemStack) {
 
@@ -20,7 +26,7 @@ public class InventoryMoveActions {
         if (itemStackTargetSlot == null) return;
 
         /*if (sourceItemStackSlot.isCharacterInspectionSlot() || sourceItemStackSlot.isTradeSlotLocked() || itemStackTargetSlot.isTradeSlotLocked()
-                || sourceItemStackSlot.isMoveSlotLocked() || ClientMain.getInstance().getMoveInventoryEvents().isSyncingInventory()) {
+                || sourceItemStackSlot.isMoveSlotLocked() || clientMain.getMoveInventoryEvents().isSyncingInventory()) {
             return;
         }*/
 
@@ -49,7 +55,8 @@ public class InventoryMoveActions {
             println(getClass(), "toItemStack  = null", false, PRINT_DEBUG);
         }
 
-        new InventoryPacketOut(new InventoryActions(
+        new InventoryPacketOut(clientMain, 
+                new InventoryActions(
                 InventoryActions.ActionType.MOVE,
                 inventoryMoveType.getFromWindow(),
                 inventoryMoveType.getToWindow(),
@@ -57,7 +64,7 @@ public class InventoryMoveActions {
                 itemStackTargetSlot.getSlotIndex()
         )).sendPacket();
 
-        /*ClientMain.getInstance().getMoveInventoryEvents().addPreviousMovement(
+        /*clientMain.getMoveInventoryEvents().addPreviousMovement(
                 new InventoryMoveData(
                         sourceItemStackSlot.getSlotIndex(),
                         itemStackTargetSlot.getSlotIndex(),
@@ -67,7 +74,7 @@ public class InventoryMoveActions {
                         sourceItemStack.getAmount()
                 ));*/
 
-        ClientMain.getInstance().getMoveInventoryEvents().changeEquipment(itemStackTargetSlot, sourceItemStackSlot);
+        clientMain.getMoveInventoryEvents().changeEquipment(itemStackTargetSlot, sourceItemStackSlot);
 
         if (targetItemStack != null) {
 

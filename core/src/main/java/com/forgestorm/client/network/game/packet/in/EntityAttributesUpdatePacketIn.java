@@ -1,9 +1,8 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.event.StatsUpdateEvent;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -12,7 +11,6 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.game.rpg.Attributes;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -21,6 +19,11 @@ import static com.forgestorm.client.util.Log.println;
 public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttributesUpdatePacketIn.EntityAttributesUpdatePacket> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public EntityAttributesUpdatePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -47,14 +50,14 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerClient();
+                movingEntity = clientMain.getEntityManager().getPlayerClient();
                 break;
             case PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getPlayerEntity(packetData.entityId);
                 break;
             case NPC:
             case MONSTER:
-                movingEntity = EntityManager.getInstance().getAiEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getAiEntity(packetData.entityId);
                 break;
         }
 
@@ -67,14 +70,14 @@ public class EntityAttributesUpdatePacketIn implements PacketListener<EntityAttr
         // Update UI values
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             StatsUpdateEvent statsUpdateEvent = new StatsUpdateEvent(attributes);
-            for (Actor actor : ActorUtil.getStage().getActors()) {
+            for (Actor actor : clientMain.getStageHandler().getStage().getActors()) {
                 actor.fire(statsUpdateEvent);
             }
         }
     }
 
     @AllArgsConstructor
-    class EntityAttributesUpdatePacket extends PacketData {
+    static class EntityAttributesUpdatePacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
         private final Attributes attributes;

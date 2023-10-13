@@ -1,7 +1,7 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.badlogic.gdx.graphics.Color;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.character.GameCharacter;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -9,7 +9,6 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -18,6 +17,11 @@ import static com.forgestorm.client.util.Log.println;
 public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenuLoadPacketIn.CharacterData> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public CharactersMenuLoadPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -84,11 +88,11 @@ public class CharactersMenuLoadPacketIn implements PacketListener<CharactersMenu
 
     @Override
     public void onEvent(CharacterData packetData) {
-        ActorUtil.getStageHandler().getCharacterSelectMenu().characterListPacketIn(packetData.characters);
+        clientMain.getStageHandler().getCharacterSelectMenu().characterListPacketIn(packetData.characters);
     }
 
     @AllArgsConstructor
-    class CharacterData extends PacketData {
+    static class CharacterData extends PacketData {
         private final GameCharacter[] characters;
     }
 }

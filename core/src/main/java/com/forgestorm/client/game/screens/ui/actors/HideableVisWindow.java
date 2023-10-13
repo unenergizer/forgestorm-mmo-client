@@ -1,12 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors;
 
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -21,14 +16,17 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 
 public class HideableVisWindow extends VisWindow {
 
+    private final ClientMain clientMain;
     private boolean fadeOutActionRunning;
 
-    public HideableVisWindow(String title) {
+    public HideableVisWindow(ClientMain clientMain, String title) {
         super(title);
+        this.clientMain = clientMain;
     }
 
-    public HideableVisWindow(String title, String styleName) {
+    public HideableVisWindow(ClientMain clientMain, String title, String styleName) {
         super(title, styleName);
+        this.clientMain = clientMain;
     }
 
     /**
@@ -87,10 +85,10 @@ public class HideableVisWindow extends VisWindow {
             public void changed(ChangeEvent event, Actor actor) {
                 fadeOut(FADE_TIME);
                 if (closeButtonCallBack != null) closeButtonCallBack.closeButtonClicked();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 15);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 15);
 
                 // Clear scroll focus so map zooming can resume.
-                ClientMain.getInstance().getStageHandler().getStage().setScrollFocus(null);
+                clientMain.getStageHandler().getStage().setScrollFocus(null);
             }
         });
         closeButton.addListener(new ClickListener() {

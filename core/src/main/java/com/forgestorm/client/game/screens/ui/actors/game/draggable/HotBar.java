@@ -14,7 +14,6 @@ import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListen
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.EscapeWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.SkillBookWindow;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
 import com.forgestorm.client.network.game.packet.out.InventoryPacketOut;
 import com.forgestorm.shared.game.world.item.ItemStack;
@@ -25,7 +24,6 @@ import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
-
 import lombok.Getter;
 
 public class HotBar extends VisTable implements Buildable {
@@ -33,17 +31,23 @@ public class HotBar extends VisTable implements Buildable {
     private static final int BUTTON_PADDING = 3;
     private static final int BUTTON_TO_BUTTON_SPACE = 5;
 
+    private final ClientMain clientMain;
     private StageHandler stageHandler;
 
     @Getter
-    private final ItemSlotContainer itemSlotContainer = new ItemSlotContainer(this, InventoryConstants.HOT_BAR_SIZE);
+    private ItemSlotContainer itemSlotContainer;
 
     @Getter
     private float itemStackTableWidth;
 
+    public HotBar(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
     @Override
     public Actor build(final StageHandler stageHandler) {
         this.stageHandler = stageHandler;
+        itemSlotContainer = new ItemSlotContainer(stageHandler.getClientMain(), this, InventoryConstants.HOT_BAR_SIZE);
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         final VisTable otherTable = buildOtherButtons(stageHandler);
 
@@ -52,12 +56,12 @@ public class HotBar extends VisTable implements Buildable {
         for (byte i = 0; i < InventoryConstants.HOT_BAR_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(itemSlotContainer, InventoryType.HOT_BAR, 48, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(stageHandler.getClientMain(), itemSlotContainer, InventoryType.HOT_BAR, 48, i);
             itemStackSlot.build(stageHandler);
 
             itemStackTable.add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
-            dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
+            dragAndDrop.addTarget(new ItemStackTarget(stageHandler.getClientMain(), itemStackSlot));
 
             itemSlotContainer.itemStackSlots[i] = itemStackSlot;
             columnCount++;
@@ -105,7 +109,7 @@ public class HotBar extends VisTable implements Buildable {
     private VisTable buildOtherButtons(final StageHandler stageHandler) {
         VisTable buttonTable = new VisTable();
 
-        ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 28);
+        ImageBuilder imageBuilder = new ImageBuilder(stageHandler.getClientMain(), GameAtlas.ITEMS, 28);
         VisImageButton escMenuButton = new VisImageButton(imageBuilder.setRegionName("drops_50").buildTextureRegionDrawable(), "Main Menu (" + KeyBinds.printKey(KeyBinds.ESCAPE_ACTION) + ")");
         VisImageButton spellBookButton = new VisImageButton(imageBuilder.setRegionName("quest_165").buildTextureRegionDrawable(), "Spell Book & Abilities (" + KeyBinds.printKey(KeyBinds.SPELL_BOOK) + ")");
         VisImageButton characterButton = new VisImageButton(imageBuilder.setRegionName("skill_168").buildTextureRegionDrawable(), "Character (" + KeyBinds.printKey(KeyBinds.EQUIPMENT_WINDOW) + ")");
@@ -119,7 +123,7 @@ public class HotBar extends VisTable implements Buildable {
         escMenuButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 EscapeWindow escapeWindow = stageHandler.getEscapeWindow();
                 if (!escapeWindow.isVisible()) {
 
@@ -127,7 +131,7 @@ public class HotBar extends VisTable implements Buildable {
                     ActorUtil.fadeOutWindow(stageHandler.getMainSettingsWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getBagWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getEquipmentWindow());
-                    EntityManager.getInstance().getPlayerClient().closeBankWindow();
+                    clientMain.getEntityManager().getPlayerClient().closeBankWindow();
                     stageHandler.getPagedItemStackWindow().closePagedWindow(false);
                     ActorUtil.fadeOutWindow(stageHandler.getHelpWindow());
                     ActorUtil.fadeOutWindow(stageHandler.getCreditsWindow());
@@ -145,7 +149,7 @@ public class HotBar extends VisTable implements Buildable {
         spellBookButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 SkillBookWindow skillBookWindow = stageHandler.getSpellBookWindow();
                 if (!skillBookWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     skillBookWindow.openWindow();
@@ -158,7 +162,7 @@ public class HotBar extends VisTable implements Buildable {
         characterButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 EquipmentWindow equipmentWindow = stageHandler.getEquipmentWindow();
                 if (!equipmentWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     equipmentWindow.openWindow();
@@ -172,7 +176,7 @@ public class HotBar extends VisTable implements Buildable {
         inventoryButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(HotBar.class, (short) 0);
                 BagWindow bagWindow = stageHandler.getBagWindow();
                 if (!bagWindow.isVisible() && !stageHandler.getEscapeWindow().isVisible()) {
                     stageHandler.getBagWindow().openWindow();
@@ -195,11 +199,11 @@ public class HotBar extends VisTable implements Buildable {
         ItemStackType itemStackType = itemStack.getItemStackType();
 
         if (itemStackType.isEquipable()) {
-            ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+            stageHandler.getClientMain().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
             stageHandler.getEquipmentWindow().equipItem(itemStack, sourceSlot);
         } else if (itemStackType.isConsumable()) {
-            ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
-            new InventoryPacketOut(new InventoryActions(
+            stageHandler.getClientMain().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStack);
+            new InventoryPacketOut(clientMain, new InventoryActions(
                     InventoryActions.ActionType.CONSUME,
                     InventoryType.HOT_BAR.getInventoryTypeIndex(),
                     slotIndex)).sendPacket();

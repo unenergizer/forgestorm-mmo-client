@@ -4,18 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.settings.MainSettingsWindow;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
+import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class ButtonTable extends VisTable implements Buildable {
 
@@ -27,7 +26,7 @@ public class ButtonTable extends VisTable implements Buildable {
          * Play Login Screen Music Toggle
          */
         VisTable musicTable = new VisTable();
-        final MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+        final MusicManager musicManager = stageHandler.getClientMain().getAudioManager().getMusicManager();
         final VisCheckBox playLoginMusicCheckBox = new VisCheckBox("");
         playLoginMusicCheckBox.setChecked(musicManager.getAudioPreferences().isPlayLoginScreenMusic());
         musicTable.add(new VisLabel("Play Music")).padRight(3).right();
@@ -58,7 +57,7 @@ public class ButtonTable extends VisTable implements Buildable {
         playLoginMusicCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 musicManager.getAudioPreferences().setPlayLoginScreenMusic(playLoginMusicCheckBox.isChecked());
                 if (!playLoginMusicCheckBox.isChecked()) {
                     musicManager.stopMusic(true);
@@ -75,7 +74,7 @@ public class ButtonTable extends VisTable implements Buildable {
         registerButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(ClientConstants.WEB_REGISTER);
             }
         });
@@ -84,7 +83,7 @@ public class ButtonTable extends VisTable implements Buildable {
         forgotPasswordButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.net.openURI(ClientConstants.WEB_LOST_PASSWORD);
             }
         });
@@ -93,7 +92,7 @@ public class ButtonTable extends VisTable implements Buildable {
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 MainSettingsWindow mainSettingsWindow = stageHandler.getMainSettingsWindow();
                 if (!mainSettingsWindow.isVisible()) ActorUtil.fadeInWindow(mainSettingsWindow);
                 else ActorUtil.fadeOutWindow(mainSettingsWindow);
@@ -104,7 +103,7 @@ public class ButtonTable extends VisTable implements Buildable {
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ButtonTable.class, (short) 0);
                 Gdx.app.exit();
             }
         });

@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.maps.tile.properties.CollisionBlockProperty;
 import com.forgestorm.shared.io.type.GameAtlas;
@@ -25,6 +25,7 @@ public class CollisionEditor extends HideableVisWindow {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
     private final VisTextButton confirmButton = new VisTextButton("Confirm");
     private final VisTextButton cancelButton = new VisTextButton("Cancel");
     private final VisTable editorTable = new VisTable();
@@ -32,8 +33,9 @@ public class CollisionEditor extends HideableVisWindow {
     private CollisionBlockProperty collisionBlockProperty;
     private List<Boolean> collisionList;
 
-    public CollisionEditor() {
-        super("Collision Editor");
+    public CollisionEditor(ClientMain clientMain) {
+        super(clientMain, "Collision Editor");
+        this.clientMain = clientMain;
     }
 
     public Actor build() {
@@ -88,7 +90,7 @@ public class CollisionEditor extends HideableVisWindow {
                 final int finalRow = row, finalColumn = column;
                 final int index = finalRow + finalColumn * tilesTall;
 
-                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
+                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(clientMain, GameAtlas.TILES).setSize(ClientConstants.TILE_SIZE * 2).setTextureRegions(textureRegions, row, column).buildTextureRegionDrawable());
                 visImageButton.setSize(ClientConstants.TILE_SIZE, ClientConstants.TILE_SIZE);
                 if (collisionList.get(index)) {
                     visImageButton.setColor(Color.YELLOW);
@@ -122,7 +124,7 @@ public class CollisionEditor extends HideableVisWindow {
 
     private void findPosition() {
         toFront();
-        TilePropertiesEditor window = ActorUtil.getStageHandler().getTilePropertiesEditor();
+        TilePropertiesEditor window = clientMain.getStageHandler().getTilePropertiesEditor();
         // Set it to the top right of the editor window
         setPosition(window.getX() + window.getWidth() + StageHandler.WINDOW_PAD_X,
                 window.getY() + window.getHeight() - getHeight());

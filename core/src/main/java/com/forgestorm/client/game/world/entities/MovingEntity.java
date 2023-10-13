@@ -13,16 +13,17 @@ import com.forgestorm.shared.game.rpg.Attributes;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.util.color.LibGDXColorList;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter
 @Setter
 public class MovingEntity extends Entity {
+
+    private final ClientMain clientMain;
 
     /**
      * The exact tile location of the entity on the tile grid.
@@ -73,6 +74,11 @@ public class MovingEntity extends Entity {
      */
     private boolean isPlayerClientTarget;
 
+    public MovingEntity(ClientMain clientMain) {
+        super(clientMain);
+        this.clientMain = clientMain;
+    }
+
     /**
      * Entity name drawing
      */
@@ -81,11 +87,11 @@ public class MovingEntity extends Entity {
         float y = getDrawY() + 16 + ClientConstants.namePlateDistanceInPixels;
 
         if (this.isPlayerClientTarget || this instanceof PlayerClient) {
-            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getPlayerNameVisibleCheckBox().isChecked())
+            if (!getClientMain().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getPlayerNameVisibleCheckBox().isChecked())
                 return;
-            GameTextUtil.drawMessage(getEntityName(), Color.WHITE, .5f, x, y);
+            GameTextUtil.drawMessage(clientMain, getEntityName(), Color.WHITE, .5f, x, y);
         } else {
-            GameTextUtil.drawMessage(getEntityName(), Color.LIGHT_GRAY, .5f, x, y);
+            GameTextUtil.drawMessage(clientMain, getEntityName(), Color.LIGHT_GRAY, .5f, x, y);
         }
     }
 
@@ -99,9 +105,9 @@ public class MovingEntity extends Entity {
         float y = getDrawY() + 8 + distanceMoved;
 
         if (damageTaken <= 0) {
-            GameTextUtil.drawMessage("miss", Color.RED, .5f, x, y);
+            GameTextUtil.drawMessage(clientMain, "miss", Color.RED, .5f, x, y);
         } else {
-            GameTextUtil.drawMessage(Integer.toString(damageTaken), Color.RED, .5f, x, y);
+            GameTextUtil.drawMessage(clientMain, Integer.toString(damageTaken), Color.RED, .5f, x, y);
         }
 
         distanceMoved = distanceMoved + 0.11f;
@@ -117,14 +123,14 @@ public class MovingEntity extends Entity {
 
     public void drawEntityHpBar() {
         if (this.isPlayerClientTarget || this instanceof PlayerClient) {
-            if (!ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getPlayerHealthBarVisibleCheckBox().isChecked())
+            if (!getClientMain().getStageHandler().getMainSettingsWindow().getGameMechanicsTab().getPlayerHealthBarVisibleCheckBox().isChecked())
                 return;
         }
         float x = getDrawX() + 8;
         float y = getDrawY() + 16;
         float width = 14;
         float xPos = x - (width / 2);
-        GameScreen gameScreen = ClientMain.getInstance().getGameScreen();
+        GameScreen gameScreen = getClientMain().getGameScreen();
         gameScreen.getSpriteBatch().draw(gameScreen.getHpBase(), xPos, y, width, 1);
         gameScreen.getSpriteBatch().draw(gameScreen.getHpArea(), xPos, y, width * ((float) currentHealth / maxHealth), 1);
     }
@@ -144,7 +150,7 @@ public class MovingEntity extends Entity {
      * @param spriteBatch Used to render the texture.
      */
     void drawShadow(SpriteBatch spriteBatch) {
-        MovingEntity playerTargetEntity = EntityManager.getInstance().getPlayerClient().getTargetEntity();
+        MovingEntity playerTargetEntity = clientMain.getEntityManager().getPlayerClient().getTargetEntity();
         if (playerTargetEntity == this) {
             spriteBatch.setColor(LibGDXColorList.ENTITY_SHADOW_RED.getColor());
         } else {

@@ -1,13 +1,12 @@
 package com.forgestorm.client.network.game.packet.in;
 
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -16,6 +15,12 @@ import static com.forgestorm.client.util.Log.println;
 public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.ChatMessagePacket> {
 
     private final static boolean PRINT_DEBUG = false;
+
+    private final ClientMain clientMain;
+
+    public ChatMessagePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -38,11 +43,11 @@ public class ChatMessagePacketIn implements PacketListener<ChatMessagePacketIn.C
     @Override
     public void onEvent(ChatMessagePacket packetData) {
         println(getClass(), "Channel: " + packetData.chatChannelType + ", Message: " + packetData.chatMessage, false, PRINT_DEBUG);
-        ActorUtil.getStageHandler().getChatWindow().appendChatMessage(packetData.chatChannelType, packetData.chatMessage);
+        clientMain.getStageHandler().getChatWindow().appendChatMessage(packetData.chatChannelType, packetData.chatMessage);
     }
 
     @AllArgsConstructor
-    class ChatMessagePacket extends PacketData {
+    static class ChatMessagePacket extends PacketData {
         private final ChatChannelType chatChannelType;
         private final String chatMessage;
     }

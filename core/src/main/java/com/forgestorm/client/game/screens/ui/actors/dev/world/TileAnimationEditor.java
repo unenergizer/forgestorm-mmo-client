@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,21 +18,17 @@ import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.util.StringUtil;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import com.kotcrab.vis.ui.widget.*;
 
 import java.io.File;
 import java.util.Map;
 
+import static com.forgestorm.client.util.Log.println;
+
 public class TileAnimationEditor extends HideableVisWindow implements Buildable {
 
-    private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+    private final ClientMain clientMain;
+    private final WorldBuilder worldBuilder;
     private final TextureAtlas gameAtlas;
 
     private final VisTable animatedTileListContentTable = new VisTable();
@@ -48,9 +42,11 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
     private final VisLabel errorLabel = new VisLabel();
     private final FormValidator validator = new FormValidator(saveButton, errorLabel);
 
-    public TileAnimationEditor() {
-        super("Tile Animation Editor");
-        this.gameAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+    public TileAnimationEditor(ClientMain clientMain) {
+        super(clientMain, "Tile Animation Editor");
+        this.clientMain = clientMain;
+        worldBuilder = clientMain.getWorldBuilder();
+        this.gameAtlas = clientMain.getFileManager().getAtlas(GameAtlas.TILES);
     }
 
     @Override
@@ -102,7 +98,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         if (activeFrame == -1) return;
 
         TileImage tileImage = worldBuilder.getTileImage(workingTileAnimation.getAnimationFrame(activeFrame).getTileId());
-        animatedTable.add(new ImageBuilder(GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildVisImage());
+        animatedTable.add(new ImageBuilder(clientMain, GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildVisImage());
     }
 
     private VisTable buildMainTableButtons() {
@@ -162,7 +158,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                String filePath = ClientMain.getInstance().getFileManager().getClientFilesDirectoryPath() + File.separator + "TileAnimations.yaml";
+                String filePath = clientMain.getFileManager().getClientFilesDirectoryPath() + File.separator + "TileAnimations.yaml";
                 YamlUtil.saveYamlToFile(worldBuilder.getTileAnimationMap(), filePath);
                 println(getClass(), filePath);
             }
@@ -227,7 +223,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
 
             // Build image
             TileImage tileImage = worldBuilder.getTileImage(animationFrame.getTileId());
-            final VisImage visImageButton = new VisImage(new ImageBuilder(GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildTextureRegionDrawable());
+            final VisImage visImageButton = new VisImage(new ImageBuilder(clientMain, GameAtlas.TILES, tileImage.getFileName()).setSize(32).buildTextureRegionDrawable());
 
             // Duration
             VisTable durationTable = new VisTable();
@@ -343,7 +339,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                 tileImageRegionName = worldBuilder.getTileImage(tileAnimation.getAnimationFrame(0).getTileId()).getFileName();
             }
 
-            final VisImageButton animationImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES, tileImageRegionName).setSize(32).buildTextureRegionDrawable());
+            final VisImageButton animationImageButton = new VisImageButton(new ImageBuilder(clientMain, GameAtlas.TILES, tileImageRegionName).setSize(32).buildTextureRegionDrawable());
             buttonTable.add(animationImageButton).row();
 
             animationImageButton.addListener(new ChangeListener() {
@@ -370,7 +366,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
         private TileImage tileSelected;
 
         public TileSelectWindow(StageHandler stageHandler) {
-            super("Tile Select");
+            super(stageHandler.getClientMain(), "Tile Select");
             build(stageHandler);
         }
 
@@ -442,7 +438,7 @@ public class TileAnimationEditor extends HideableVisWindow implements Buildable 
                     buttonTable.add(moduloTable).align(Alignment.LEFT.getAlignment()).row();
                 }
                 tilesAdded++;
-                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(GameAtlas.TILES, atlasRegion.name).setSize(32).buildTextureRegionDrawable());
+                final VisImageButton visImageButton = new VisImageButton(new ImageBuilder(clientMain, GameAtlas.TILES, atlasRegion.name).setSize(32).buildTextureRegionDrawable());
                 moduloTable.add(visImageButton);
 
 

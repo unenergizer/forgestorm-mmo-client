@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
@@ -19,11 +20,12 @@ import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-
 import lombok.Getter;
 import lombok.Setter;
 
 public class ItemStackSlot extends VisTable {
+
+    private final ClientMain clientMain;
 
     /**
      * Used to places images in the UserInterface
@@ -113,21 +115,23 @@ public class ItemStackSlot extends VisTable {
     @Getter
     private boolean magicItemActivated = false;
 
-    ItemStackSlot(ItemSlotContainer itemSlotContainer, InventoryType inventoryType, float iconSize, byte slotIndex) {
+    ItemStackSlot(ClientMain clientMain, ItemSlotContainer itemSlotContainer, InventoryType inventoryType, float iconSize, byte slotIndex) {
+        this.clientMain = clientMain;
         this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = inventoryType;
         this.slotIndex = slotIndex;
         this.iconSize = iconSize;
-        this.imageBuilder = new ImageBuilder(GameAtlas.ITEMS, iconSize);
+        this.imageBuilder = new ImageBuilder(clientMain, GameAtlas.ITEMS, iconSize);
     }
 
-    ItemStackSlot(ItemSlotContainer itemSlotContainer, float iconSize, byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
+    ItemStackSlot(ClientMain clientMain, ItemSlotContainer itemSlotContainer, float iconSize, byte slotIndex, ItemStackType[] acceptedItemStackTypes) {
+        this.clientMain = clientMain;
         this.itemSlotContainer = itemSlotContainer;
         this.inventoryType = InventoryType.EQUIPMENT;
         this.iconSize = iconSize;
         this.slotIndex = slotIndex;
         this.acceptedItemStackTypes = acceptedItemStackTypes;
-        this.imageBuilder = new ImageBuilder(GameAtlas.ITEMS, iconSize);
+        this.imageBuilder = new ImageBuilder(clientMain, GameAtlas.ITEMS, iconSize);
     }
 
     public Actor build(final StageHandler stageHandler) {
@@ -313,7 +317,7 @@ public class ItemStackSlot extends VisTable {
         this.itemStack = itemStack;
         emptyCellImage.remove();
         amountLabel.remove();
-        itemStackImage = new ImageBuilder(GameAtlas.ITEMS, iconSize).setRegionName(itemStack.getTextureRegionName()).buildVisImage();
+        itemStackImage = new ImageBuilder(clientMain, GameAtlas.ITEMS, iconSize).setRegionName(itemStack.getTextureRegionName()).buildVisImage();
         stack.add(itemStackImage);
 
         // Setup tool tip

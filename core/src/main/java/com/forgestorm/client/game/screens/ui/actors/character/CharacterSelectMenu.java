@@ -10,7 +10,6 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.world.entities.Appearance;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.network.game.packet.out.CharacterLogoutPacketOut;
 import com.forgestorm.client.network.game.packet.out.CharacterSelectPacketOut;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
@@ -23,8 +22,9 @@ import java.util.Arrays;
 
 public class CharacterSelectMenu extends HideableVisWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private final CharacterSelectMenu characterSelectMenu;
-    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer(20);
+    private final CharacterPreviewer characterPreviewer;
 
     private StageHandler stageHandler;
 
@@ -38,9 +38,11 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
     private VisTextButton deleteButton;
 
 
-    public CharacterSelectMenu() {
-        super("");
+    public CharacterSelectMenu(ClientMain clientMain) {
+        super(clientMain, "");
+        this.clientMain = clientMain;
         this.characterSelectMenu = this;
+        characterPreviewer = new CharacterPreviewer(clientMain, 20);
 
         // Build default appearance;
         this.appearance = characterPreviewer.generateInvisibleAppearance();
@@ -67,7 +69,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
                 ActorUtil.fadeInWindow(stageHandler.getCharacterCreation());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 16);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 16);
             }
         });
 
@@ -92,14 +94,14 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                new CharacterSelectPacketOut(selectedCharacter.getCharacterId()).sendPacket();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 12);
+                new CharacterSelectPacketOut(clientMain, selectedCharacter.getCharacterId()).sendPacket();
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 12);
 
                 // Load map?
-                EntityManager.getInstance().dispose(); // quick clear existing entities
-                ClientMain.getInstance().getWorldManager().setGameWorld(selectedCharacter.getWorldName());
-                ClientMain.getInstance().getClientMovementProcessor().resetInput();
-                ClientMain.getInstance().getStageHandler().getTargetStatusBar().hideTargetStatusBar(null);
+                stageHandler.getClientMain().getEntityManager().dispose(); // quick clear existing entities
+                stageHandler.getClientMain().getWorldManager().setGameWorld(selectedCharacter.getWorldName());
+                stageHandler.getClientMain().getClientMovementProcessor().resetInput();
+                stageHandler.getClientMain().getStageHandler().getTargetStatusBar().hideTargetStatusBar(null);
             }
         });
 
@@ -109,16 +111,16 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                 ActorUtil.fadeOutWindow(stageHandler.getCharacterSelectMenu());
                 ActorUtil.fadeInWindow(stageHandler.getDeleteCharacter());
                 stageHandler.getDeleteCharacter().toggleDeleteWindow(selectedCharacter.getName(), selectedCharacter.getCharacterId());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 9);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 9);
             }
         });
 
         logoutButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
-                ClientMain.getInstance().getConnectionManager().logout();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 13);
+                new CharacterLogoutPacketOut(clientMain, CharacterLogout.LOGOUT_SERVER).sendPacket();
+                stageHandler.getClientMain().getConnectionManager().logout();
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 13);
             }
         });
         setVisible(false);
@@ -161,7 +163,7 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
                         activeButton = addCharacterButton;
                         activeButton.setColor(Color.GREEN);
                         characterPreviewer.generateCharacterPreview(selectedCharacter.getAppearance(), MoveDirection.SOUTH);
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 14);
+                        stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterSelectMenu.class, (short) 14);
                     }
                 });
 
@@ -187,7 +189,6 @@ public class CharacterSelectMenu extends HideableVisWindow implements Buildable 
     }
 
     private boolean doesAccountHaveCharacters() {
-        if (gameCharacterList.length == 0) return false;
         for (GameCharacter gameCharacter : gameCharacterList) {
             if (gameCharacter != null) return true;
         }

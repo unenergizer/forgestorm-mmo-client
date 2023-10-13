@@ -1,6 +1,7 @@
 package com.forgestorm.client.network.game.packet.out;
 
 import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.shared.network.game.GameOutputStream;
 import com.forgestorm.shared.network.game.Opcodes;
@@ -17,8 +18,8 @@ public class ChatMessagePacketOut extends AbstractPacketOut {
     private final ChatChannelType chatChannelType;
     private final String message;
 
-    public ChatMessagePacketOut(ChatChannelType chatChannelType, String message) {
-        super(Opcodes.CHAT);
+    public ChatMessagePacketOut(ClientMain clientMain, ChatChannelType chatChannelType, String message) {
+        super(clientMain, Opcodes.CHAT);
         this.chatChannelType = chatChannelType;
         this.message = message.trim();
     }

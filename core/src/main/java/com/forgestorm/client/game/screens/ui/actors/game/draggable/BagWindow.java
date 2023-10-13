@@ -16,8 +16,8 @@ public class BagWindow extends ItemSlotContainerWindow implements Buildable {
 
     private StageHandler stageHandler;
 
-    public BagWindow() {
-        super("Inventory", InventoryConstants.BAG_SIZE, InventoryType.BAG_1);
+    public BagWindow(ClientMain clientMain) {
+        super(clientMain,"Inventory", InventoryConstants.BAG_SIZE, InventoryType.BAG_1);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class BagWindow extends ItemSlotContainerWindow implements Buildable {
         for (byte i = 0; i < InventoryConstants.BAG_SIZE; i++) {
 
             // Create a slot for items
-            ItemStackSlot itemStackSlot = new ItemStackSlot(getItemSlotContainer(), InventoryType.BAG_1, 32, i);
+            ItemStackSlot itemStackSlot = new ItemStackSlot(stageHandler.getClientMain(), getItemSlotContainer(), InventoryType.BAG_1, 32, i);
             itemStackSlot.build(stageHandler);
 
             add(itemStackSlot); // Add slot to BagWindow
             dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
-            dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
+            dragAndDrop.addTarget(new ItemStackTarget(stageHandler.getClientMain(), itemStackSlot));
 
             getItemSlotContainer().itemStackSlots[i] = itemStackSlot;
             columnCount++;
@@ -83,7 +83,7 @@ public class BagWindow extends ItemSlotContainerWindow implements Buildable {
     public void closeWindow() {
         ActorUtil.fadeOutWindow(this);
         stageHandler.getBankWindow().findWindowPosition(true);
-        ItemDropDownMenu itemDropDownMenu = ClientMain.getInstance().getStageHandler().getItemDropDownMenu();
+        ItemDropDownMenu itemDropDownMenu = stageHandler.getItemDropDownMenu();
         if (itemDropDownMenu.getInventoryType() == getInventoryType()) {
             itemDropDownMenu.cleanUpDropDownMenu(true);
         }

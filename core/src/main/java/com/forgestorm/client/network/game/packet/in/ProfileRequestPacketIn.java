@@ -1,12 +1,11 @@
 package com.forgestorm.client.network.game.packet.in;
 
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,6 +15,11 @@ import static com.forgestorm.client.util.Log.println;
 public class ProfileRequestPacketIn implements PacketListener<ProfileRequestPacketIn.XenforoProfilePacket> {
 
     private final static boolean PRINT_DEBUG = false;
+
+    private final ClientMain clientMain;
+    public ProfileRequestPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -38,7 +42,7 @@ public class ProfileRequestPacketIn implements PacketListener<ProfileRequestPack
         println(getClass(), "GravatarHash: " + packetData.gravatarHash, false, PRINT_DEBUG);
         println(getClass(), "ReactionScore: " + packetData.reactionScore, false, PRINT_DEBUG);
 
-        ActorUtil.getStageHandler().getPlayerProfileWindow().packetResponse(packetData);
+        clientMain.getStageHandler().getPlayerProfileWindow().packetResponse(packetData);
     }
 
     @Getter

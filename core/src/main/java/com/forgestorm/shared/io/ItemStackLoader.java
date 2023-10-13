@@ -14,15 +14,13 @@ import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.item.ItemStackType;
 import com.forgestorm.shared.game.world.item.WearableItemStack;
 import com.forgestorm.shared.io.type.GameAtlas;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -35,10 +33,12 @@ public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.Ite
     }
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
     private ItemStackData itemStackData = null;
 
-    public ItemStackLoader(FileHandleResolver resolver) {
+    public ItemStackLoader(ClientMain clientMain, FileHandleResolver resolver) {
         super(resolver);
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class ItemStackLoader extends AsynchronousAssetLoader<ItemStackLoader.Ite
             itemStack.setItemStackType(type);
             itemStack.setGameAtlas(atlas);
 
-            TextureRegion textureRegion = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(textureRegionName);
+            TextureRegion textureRegion = clientMain.getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(textureRegionName);
             itemStack.setTextureRegion(textureRegion);
             itemStack.setTextureRegionName(textureRegionName);
 

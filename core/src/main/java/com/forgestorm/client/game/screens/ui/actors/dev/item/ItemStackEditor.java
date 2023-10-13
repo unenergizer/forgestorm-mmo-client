@@ -1,29 +1,33 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.item;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
+import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
+import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPane;
 import com.kotcrab.vis.ui.widget.tabbedpane.TabbedPaneAdapter;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.Buildable;
-import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
-import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
-
 import lombok.Getter;
 
 @Getter
 public class ItemStackEditor extends HideableVisWindow implements Buildable {
 
-    private WearableTab wearableTab = new WearableTab();
-    private AmmoTab ammoTab = new AmmoTab();
-    private ConsumableTab consumableTab = new ConsumableTab();
+    private final WearableTab wearableTab;
+    private final AmmoTab ammoTab;
+    private final ConsumableTab consumableTab;
 
-    public ItemStackEditor() {
-        super("ItemStack Editor");
+    public ItemStackEditor(ClientMain clientMain) {
+        super(clientMain, "ItemStack Editor");
+
+        wearableTab = new WearableTab(clientMain);
+        ammoTab = new AmmoTab(clientMain);
+        consumableTab = new ConsumableTab(clientMain);
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.WorldChunk;
@@ -17,7 +16,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 public class DebugTable extends VisTable implements Buildable {
 
-    private final ClientMain clientMain = ClientMain.getInstance();
+    private final ClientMain clientMain;
     private final VisLabel fps = new VisLabel();
     private final VisLabel connection = new VisLabel();
     private final VisLabel playerWorld = new VisLabel();
@@ -29,6 +28,10 @@ public class DebugTable extends VisTable implements Buildable {
     private final VisLabel damage = new VisLabel();
 
     private StageHandler stageHandler;
+
+    public DebugTable(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
@@ -85,7 +88,7 @@ public class DebugTable extends VisTable implements Buildable {
     public void refresh(float delta) {
         if (!isVisible()) return;
 
-        final PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        final PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         final MouseManager mouseManager = clientMain.getMouseManager();
 
         if (clientMain.getUserInterfaceType() != null && clientMain.getUserInterfaceType() == UserInterfaceType.GAME) {

@@ -2,6 +2,7 @@ package com.forgestorm.client.game.world.maps.tile.properties;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.shared.game.world.maps.CursorDrawType;
 import com.forgestorm.shared.game.world.maps.tile.properties.TilePropertyTypes;
@@ -10,11 +11,10 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
-
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Map;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -22,11 +22,13 @@ import static com.forgestorm.client.util.Log.println;
 @Setter
 public class CursorDrawOverTileProperty extends AbstractTileProperty {
 
+    private final transient ClientMain clientMain;
     private CursorDrawType cursorDrawType = CursorDrawType.NO_DRAWABLE;
     private VisTable imageTable;
 
-    public CursorDrawOverTileProperty() {
+    public CursorDrawOverTileProperty(ClientMain clientMain) {
         super(TilePropertyTypes.CURSOR_DRAW_OVER_TILE);
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class CursorDrawOverTileProperty extends AbstractTileProperty {
     public void buildVisImage() {
         imageTable.clear();
         if (cursorDrawType == null || cursorDrawType == CursorDrawType.NO_DRAWABLE) return;
-        VisImage cursorPreview = new ImageBuilder(
+        VisImage cursorPreview = new ImageBuilder(clientMain,
                 GameAtlas.CURSOR,
                 cursorDrawType.getDrawableRegion(),
                 cursorDrawType.getSize() * 2

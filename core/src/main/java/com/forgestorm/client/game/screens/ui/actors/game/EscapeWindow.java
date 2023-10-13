@@ -20,10 +20,12 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class EscapeWindow extends HideableVisWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private EscapeWindow escapeWindow;
 
-    public EscapeWindow() {
-        super("");
+    public EscapeWindow(ClientMain clientMain) {
+        super(clientMain, "");
+        this.clientMain = clientMain;
     }
 
     private final VisTextButton help = new VisTextButton("Help");
@@ -81,7 +83,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         help.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getHelpWindow());
                 return true;
@@ -90,7 +92,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         credits.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getCreditsWindow());
                 return true;
@@ -99,7 +101,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         settings.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 ActorUtil.fadeInWindow(stageHandler.getMainSettingsWindow());
                 return true;
@@ -108,24 +110,24 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         logout.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 13);
-                new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_CHARACTER).sendPacket();
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 13);
+                new CharacterLogoutPacketOut(clientMain, CharacterLogout.LOGOUT_CHARACTER).sendPacket();
 
                 // Waiting on server to do its thing... Fade in the big black window..
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+                ActorUtil.fadeInWindow(stageHandler.getFadeWindow(), 0.2f);
                 disableButtons(true);
 
                 // Reset
-                ClientMain.getInstance().gameWorldQuit();
+                stageHandler.getClientMain().gameWorldQuit();
                 return true;
             }
         });
 
         exitGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
-                new CharacterLogoutPacketOut(CharacterLogout.LOGOUT_SERVER).sendPacket();
-                ClientMain.getInstance().getConnectionManager().disconnect();
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                new CharacterLogoutPacketOut(clientMain, CharacterLogout.LOGOUT_SERVER).sendPacket();
+                stageHandler.getClientMain().getConnectionManager().disconnect();
                 Gdx.app.exit();
                 return true;
             }
@@ -133,7 +135,7 @@ public class EscapeWindow extends HideableVisWindow implements Buildable {
 
         returnToGame.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EscapeWindow.class, (short) 0);
                 ActorUtil.fadeOutWindow(escapeWindow);
                 return true;
             }

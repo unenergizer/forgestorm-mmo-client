@@ -10,8 +10,8 @@ public class EntityShopManager {
 
     private final Map<Short, List<ShopItemStackInfo>> map;
 
-    public EntityShopManager() {
-        map = ClientMain.getInstance().getFileManager().getEntityShopData().getShopItemListMap();
+    public EntityShopManager(ClientMain clientMain) {
+        map = clientMain.getFileManager().getEntityShopData().getShopItemListMap();
     }
 
     public Integer getItemIdForShop(short shopID, int itemStackShopSlot) {

@@ -9,17 +9,14 @@ import com.forgestorm.shared.network.login.LoginFailReason;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
+import java.net.*;
 import java.util.UUID;
 
 import static com.forgestorm.client.util.Log.println;
 
 public class ClientLoginConnection {
 
+    private final ClientMain clientMain;
     private final ConnectionManager connectionManager;
 
     private Socket socket;
@@ -27,14 +24,15 @@ public class ClientLoginConnection {
     private DataOutputStream outputStream;
 
 
-    public ClientLoginConnection(final ConnectionManager connectionManager) {
+    public ClientLoginConnection(ClientMain clientMain, final ConnectionManager connectionManager) {
+        this.clientMain = clientMain;
         this.connectionManager = connectionManager;
     }
 
     public boolean openConnection(String address, final int port) {
 
         // Check if local host run
-        boolean forceLocalHost = ClientMain.getInstance().isForceLocalHost();
+        boolean forceLocalHost = clientMain.isForceLocalHost();
         if (forceLocalHost) address = "localhost";
 
         println(getClass(), "Connecting to: " + address + ":" + port);

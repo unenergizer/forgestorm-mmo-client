@@ -3,7 +3,6 @@ package com.forgestorm.client.game.screens.ui.actors.dev;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
@@ -11,18 +10,16 @@ import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.kotcrab.vis.ui.widget.Menu;
-import com.kotcrab.vis.ui.widget.MenuBar;
-import com.kotcrab.vis.ui.widget.MenuItem;
-import com.kotcrab.vis.ui.widget.PopupMenu;
-import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.*;
 
 public class DevMenu extends VisTable implements Buildable {
 
     private final MenuBar menuBar = new MenuBar();
+    private StageHandler stageHandler;
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.stageHandler = stageHandler;
         VisTable menuTable = new VisTable();
 
         menuTable.add(menuBar.getTable()).expandX().row();
@@ -94,7 +91,7 @@ public class DevMenu extends VisTable implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 if (codeExecutor != null) codeExecutor.runCode();
                 ActorUtil.fadeInWindow(hideableVisWindow);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(DevMenu.class, (short) 0);
             }
         }).setShortcut(shortCut));
     }

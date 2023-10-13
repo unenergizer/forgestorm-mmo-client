@@ -12,16 +12,13 @@ import com.forgestorm.client.network.game.packet.out.CharacterDeletePacketOut;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.util.RandomNumberUtil;
 import com.kotcrab.vis.ui.FocusManager;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
 
 public class DeleteCharacter extends HideableVisWindow implements Buildable {
 
     private final DeleteCharacter deleteCharacterWindow;
 
+    private final ClientMain clientMain;
     private StageHandler stageHandler;
     private final VisTextField deleteCodeBox = new VisTextField();
     private final VisLabel characterNameLabel = new VisLabel();
@@ -29,8 +26,9 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
     private String deleteCode;
     private byte characterListIndex;
 
-    public DeleteCharacter() {
-        super("Delete Character");
+    public DeleteCharacter(ClientMain clientMain) {
+        super(clientMain, "Delete Character");
+        this.clientMain = clientMain;
         this.deleteCharacterWindow = this;
     }
 
@@ -40,7 +38,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
         confirmStringLabel = new VisLabel("", stageHandler.getMarkupStyle());
 
         VisTable layoutTable = new VisTable();
-        VisImage visImage = new ImageBuilder(GameAtlas.ITEMS, "skill_165", 16 * 3).buildVisImage();
+        VisImage visImage = new ImageBuilder(stageHandler.getClientMain(), GameAtlas.ITEMS, "skill_165", 16 * 3).buildVisImage();
 
         layoutTable.add(visImage).pad(3);
 
@@ -82,8 +80,8 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
                 ActorUtil.fadeOutWindow(deleteCharacterWindow);
                 ActorUtil.fadeInWindow(characterSelectMenu);
                 characterSelectMenu.reprocessCharacterButtons(characterListIndex);
-                new CharacterDeletePacketOut(characterListIndex).sendPacket();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 10);
+                new CharacterDeletePacketOut(clientMain, characterListIndex).sendPacket();
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 10);
                 confirm.setDisabled(true);
             }
         });
@@ -93,7 +91,7 @@ public class DeleteCharacter extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 ActorUtil.fadeOutWindow(deleteCharacterWindow);
                 ActorUtil.fadeInWindow(stageHandler.getCharacterSelectMenu());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(CharacterCreation.class, (short) 0);
                 confirm.setDisabled(true);
             }
         });

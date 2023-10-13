@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.world.entities;
 
+import com.forgestorm.client.ClientMain;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,10 @@ public class NPC extends AiEntity {
 
     private byte faction;
     private int scriptId;
+
+    public NPC(ClientMain clientMain) {
+        super(clientMain);
+    }
 
     /**
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

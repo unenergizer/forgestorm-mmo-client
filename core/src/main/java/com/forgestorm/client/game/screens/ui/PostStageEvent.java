@@ -2,7 +2,6 @@ package com.forgestorm.client.game.screens.ui;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.input.KeyBinds;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
@@ -29,7 +28,7 @@ class PostStageEvent implements InputProcessor {
             if (forceCloseEvent.isHandled()) return true; // break here, do not open escape menu!
 
             //Finally... Open the Escape menu!
-            if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
+            if (stageHandler.getClientMain().getUserInterfaceType() == UserInterfaceType.GAME) {
                 if (!stageHandler.getEscapeWindow().isVisible()) {
                     ActorUtil.fadeInWindow(stageHandler.getEscapeWindow());
                 }

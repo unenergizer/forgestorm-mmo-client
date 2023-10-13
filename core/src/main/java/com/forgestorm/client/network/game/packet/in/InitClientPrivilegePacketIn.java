@@ -8,14 +8,18 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-
 @Opcode(getOpcode = Opcodes.INIT_CLIENT_PRIVILEGE)
 public class InitClientPrivilegePacketIn implements PacketListener<InitClientPrivilegePacketIn.ClientPrivilegePacket> {
+    private final ClientMain clientMain;
+
+    public InitClientPrivilegePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -35,7 +39,6 @@ public class InitClientPrivilegePacketIn implements PacketListener<InitClientPri
 
     @Override
     public void onEvent(ClientPrivilegePacket packetData) {
-        ClientMain clientMain = ClientMain.getInstance();
         clientMain.setContentDeveloper(isContentDeveloper(packetData.secondaryGroupIds));
         clientMain.setAdmin(packetData.isAdmin);
         clientMain.setModerator(packetData.isMod);
@@ -54,7 +57,7 @@ public class InitClientPrivilegePacketIn implements PacketListener<InitClientPri
     }
 
     @AllArgsConstructor
-    class ClientPrivilegePacket extends PacketData {
+    static class ClientPrivilegePacket extends PacketData {
         List<Byte> secondaryGroupIds;
         boolean isAdmin;
         boolean isMod;

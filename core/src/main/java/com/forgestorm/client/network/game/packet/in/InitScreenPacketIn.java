@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.in;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.UserInterfaceType;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -7,7 +8,6 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -16,6 +16,12 @@ import static com.forgestorm.client.util.Log.println;
 public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.InitCharacterSessionPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+
+    private final ClientMain clientMain;
+
+    public InitScreenPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -30,25 +36,25 @@ public class InitScreenPacketIn implements PacketListener<InitScreenPacketIn.Ini
 
         switch (packetData.userInterfaceType) {
             case LOGIN:
-                ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.LOGIN);
+                clientMain.getStageHandler().setUserInterface(UserInterfaceType.LOGIN);
                 break;
             case CHARACTER_SELECT:
                 // Network connection was successful.
 //                ClientMain.getInstance().getConnectionManager().threadSafeConnectionMessage("Connection successful!");
-                ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.CHARACTER_SELECT);
+                clientMain.getStageHandler().setUserInterface(UserInterfaceType.CHARACTER_SELECT);
 
                 // Fade this screen in!
-                ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
-                ActorUtil.getStageHandler().getEscapeWindow().disableButtons(false);
+                ActorUtil.fadeOutWindow(clientMain.getStageHandler().getFadeWindow(), 0.2f);
+                clientMain.getStageHandler().getEscapeWindow().disableButtons(false);
                 break;
             case GAME:
-                ActorUtil.getStageHandler().setUserInterface(UserInterfaceType.GAME);
+                clientMain.getStageHandler().setUserInterface(UserInterfaceType.GAME);
                 break;
         }
     }
 
     @AllArgsConstructor
-    class InitCharacterSessionPacket extends PacketData {
+    static class InitCharacterSessionPacket extends PacketData {
         private final UserInterfaceType userInterfaceType;
     }
 }

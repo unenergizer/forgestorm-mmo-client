@@ -18,18 +18,12 @@ import com.forgestorm.client.network.game.packet.out.ChatMessagePacketOut;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
-import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -38,6 +32,8 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
 
     private static final boolean PRINT_DEBUG = false;
     private static final String ENTER_MESSAGE = "Press Enter to send a message...";
+
+    private final ClientMain clientMain;
 
     private StageHandler stageHandler;
     private ChatWindow chatWindow;
@@ -61,8 +57,9 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
     // Active Chat Channel
     private ChatChannel activeChatChannel;
 
-    public ChatWindow() {
-        super("");
+    public ChatWindow(ClientMain clientMain) {
+        super(clientMain, "");
+        this.clientMain = clientMain;
     }
 
     public void showChannel(ChatChannelType chatChannelType) {
@@ -111,7 +108,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
         chatChannelWrapperTable.add(chatChannelList.get(0)).growX().expandY();
 
         // Setup message input area
-        VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
+        VisImageButton chatMenuButton = new VisImageButton(new ImageBuilder(stageHandler.getClientMain(), GameAtlas.ITEMS, "skill_156").buildTextureRegionDrawable(), "Chat Menu");
 
         messageInput = new VisTextField(ENTER_MESSAGE, "chat-box");
         messageInput.setFocusTraversal(false);
@@ -140,7 +137,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 // TODO: Remove lines below. Add pop-up menu like wow to interact with chat.
                 toggleChatWindowActive(true);
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ChatWindow.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(ChatWindow.class, (short) 0);
                 return true;
             }
         });
@@ -180,7 +177,7 @@ public class ChatWindow extends HideableVisWindow implements Buildable, GameQuit
                             previousMessages.push(message);
 
                             currentBufferString = "";
-                            new ChatMessagePacketOut(activeChatChannel.chatChannelType, message).sendPacket();
+                            new ChatMessagePacketOut(clientMain, activeChatChannel.chatChannelType, message).sendPacket();
                         }
 
                         // Clear the players message.

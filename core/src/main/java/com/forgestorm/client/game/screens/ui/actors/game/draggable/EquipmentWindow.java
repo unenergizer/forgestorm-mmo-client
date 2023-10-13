@@ -16,7 +16,6 @@ import com.forgestorm.client.game.screens.ui.actors.event.StatsUpdateListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.shared.game.rpg.Attributes;
 import com.forgestorm.shared.game.world.item.ItemStack;
@@ -26,15 +25,15 @@ import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-
 import lombok.Getter;
 
 @Getter
 public class EquipmentWindow extends ItemSlotContainerWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private StageHandler stageHandler;
     private final EquipmentPreview equipmentPreview = new EquipmentPreview();
-    private final ImageBuilder statIconBuilder = new ImageBuilder(GameAtlas.ITEMS, 16);
+    private final ImageBuilder statIconBuilder;
 
     private final VisLabel levelValue = new VisLabel("0");
     private final VisLabel armorValue = new VisLabel("0");
@@ -44,8 +43,10 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
     private final VisLabel lightningValue = new VisLabel("0");
     private final VisLabel poisonValue = new VisLabel("0");
 
-    public EquipmentWindow() {
-        super("Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);
+    public EquipmentWindow(ClientMain clientMain) {
+        super(clientMain, "Character", ClientConstants.EQUIPMENT_INVENTORY_SIZE, InventoryType.EQUIPMENT);
+        this.clientMain = clientMain;
+        statIconBuilder = new ImageBuilder(clientMain, GameAtlas.ITEMS, 16);
     }
 
     public void equipItem(ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
@@ -60,9 +61,9 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
             targetSlot = equipmentPreview.getItemStackSlot(sourceItemStack.getItemStackType());
         }
 
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        stageHandler.getClientMain().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
         boolean targetContainsItem = targetSlot.getItemStack() != null;
-        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+        new InventoryMoveActions(clientMain).moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
 
         if (!targetContainsItem) {
             sourceSlot.setEmptyCellImage();
@@ -71,14 +72,14 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
 
     public void unequipItem(ItemSlotContainer itemSlotContainer, ItemStack sourceItemStack, ItemStackSlot sourceSlot) {
         if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
-            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL,"[RED]Cannot unequip because your bag is full!");
+            stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Cannot unequip because your bag is full!");
             return;
         }
 
         ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
 
-        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        new InventoryMoveActions(clientMain).moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+        stageHandler.getClientMain().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         sourceSlot.setEmptyCellImage();
     }
@@ -89,8 +90,9 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
         addCloseButton(new CloseButtonCallBack() {
             @Override
             public void closeButtonClicked() {
-                ItemDropDownMenu itemDropDownMenu = ClientMain.getInstance().getStageHandler().getItemDropDownMenu();
-                if (itemDropDownMenu.getInventoryType() == getInventoryType()) itemDropDownMenu.cleanUpDropDownMenu(true);
+                ItemDropDownMenu itemDropDownMenu = stageHandler.getItemDropDownMenu();
+                if (itemDropDownMenu.getInventoryType() == getInventoryType())
+                    itemDropDownMenu.cleanUpDropDownMenu(true);
             }
         });
         setResizable(false);
@@ -162,12 +164,12 @@ public class EquipmentWindow extends ItemSlotContainerWindow implements Buildabl
     }
 
     public void rebuildPreviewTable() {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         equipmentPreview.rebuildPreviewTable(playerClient);
     }
 
     public void openWindow() {
-        getTitleLabel().setText(EntityManager.getInstance().getPlayerClient().getEntityName());
+        getTitleLabel().setText(clientMain.getEntityManager().getPlayerClient().getEntityName());
         equipmentPreview.resetFacingDirection();
         rebuildPreviewTable();
         if (!isVisible()) ActorUtil.fadeInWindow(this);

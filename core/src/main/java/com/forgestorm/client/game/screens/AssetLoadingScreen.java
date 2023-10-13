@@ -23,10 +23,12 @@ import java.util.Scanner;
 import static com.forgestorm.client.util.Log.println;
 
 /**
- * Loading Screen originally from: https://github.com/Matsemann/libgdx-loading-screen
+ * Loading Screen originally from:
+ * <a href="https://github.com/Matsemann/libgdx-loading-screen">libgdx loading screen example</a>
  */
 public class AssetLoadingScreen implements Screen {
 
+    private final ClientMain clientMain;
     private final FileManager fileManager;
 
     private Stage stage;
@@ -41,8 +43,9 @@ public class AssetLoadingScreen implements Screen {
 
     private Actor loadingBar;
 
-    public AssetLoadingScreen(FileManager fileManager) {
-        this.fileManager = fileManager;
+    public AssetLoadingScreen(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.fileManager = clientMain.getFileManager();
     }
 
     @Override
@@ -128,14 +131,14 @@ public class AssetLoadingScreen implements Screen {
 
         // Check local revision
         int localRevisionNumber = fileManager.getRevisionDocumentData().getRevisionNumber();
-        ClientMain.getInstance().setRemoteRevisionNumber(remoteRevisionNumber);
+        clientMain.setRemoteRevisionNumber(remoteRevisionNumber);
 
         if (remoteRevisionNumber != localRevisionNumber) {
             println(getClass(), "REVISION NUMBERS DO NOT MATCH, UPDATER SHOULD BE STARTED!");
-            ClientMain.getInstance().setNeedsUpdate(true);
+            clientMain.setNeedsUpdate(true);
         } else {
             println(getClass(), "REVISION NUMBERS MATCH, CLIENT DOES NOT NEED AN UPDATE!");
-            ClientMain.getInstance().setNeedsUpdate(false);
+            clientMain.setNeedsUpdate(false);
         }
     }
 
@@ -179,7 +182,7 @@ public class AssetLoadingScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // update() returns true when loading is finished.
-        if (fileManager.update()) ClientMain.getInstance().initGameManagers();
+        if (fileManager.update()) clientMain.initGameManagers();
 
         // Interpolate the percentage to make it more smooth
         percent = Interpolation.linear.apply(percent, fileManager.getProgress(), 0.1f);

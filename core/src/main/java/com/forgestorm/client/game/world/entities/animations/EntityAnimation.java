@@ -5,15 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.movement.MoveUtil;
 import com.forgestorm.client.game.world.entities.Appearance;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.shared.io.type.GameAtlas;
+import lombok.Getter;
 
 import java.util.List;
-
-import lombok.Getter;
 
 public abstract class EntityAnimation {
 
@@ -33,7 +31,7 @@ public abstract class EntityAnimation {
     }
 
     public void loadAll(GameAtlas gameAtlas) {
-        load(ClientMain.getInstance().getFileManager().getAtlas(gameAtlas));
+        load(movingEntity.getClientMain().getFileManager().getAtlas(gameAtlas));
     }
 
     protected abstract void load(TextureAtlas textureAtlas);

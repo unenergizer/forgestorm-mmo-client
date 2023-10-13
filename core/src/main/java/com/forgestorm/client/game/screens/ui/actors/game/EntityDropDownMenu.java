@@ -13,16 +13,7 @@ import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.event.ForceCloseWindowListener;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.world.entities.AiEntity;
-import com.forgestorm.client.game.world.entities.Entity;
-import com.forgestorm.client.game.world.entities.EntityInteract;
-import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.entities.EntityType;
-import com.forgestorm.client.game.world.entities.ItemStackDrop;
-import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.entities.NPC;
-import com.forgestorm.client.game.world.entities.Player;
-import com.forgestorm.client.game.world.entities.PlayerClient;
+import com.forgestorm.client.game.world.entities.*;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.packet.out.InspectPlayerPacketOut;
 import com.forgestorm.shared.game.world.item.ItemStack;
@@ -33,20 +24,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
-
     private final EntityDropDownMenu dropDownMenu;
-    private StageHandler stageHandler;
     private final VisTable dropDownTable = new VisTable();
+    private ClientMain clientMain;
+    private StageHandler stageHandler;
 
     private final List<Entity> entityArray = new ArrayList<Entity>();
 
-    public EntityDropDownMenu() {
-        super("Choose Option");
+    public EntityDropDownMenu(ClientMain clientMain) {
+        super(clientMain, "Choose Option");
         this.dropDownMenu = this;
     }
 
     @Override
     public Actor build(final StageHandler stageHandler) {
+        this.clientMain = stageHandler.getClientMain();
         this.stageHandler = stageHandler;
         add(dropDownTable).grow();
 
@@ -96,8 +88,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         walkHereButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                ClientMain.getInstance().getEntityTracker().walkTo(toLocation.getX(), toLocation.getY(), toLocation.getZ(), false);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                stageHandler.getClientMain().getEntityTracker().walkTo(toLocation.getX(), toLocation.getY(), toLocation.getZ(), false);
                 cleanUpDropDownMenu(true);
             }
         });
@@ -110,7 +102,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         cancelButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                 cleanUpDropDownMenu(true);
             }
         });
@@ -146,8 +138,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
         }
 
         private void addEditEntityButton() {
-            if (clickedEntity.getEntityType() == EntityType.PLAYER || clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER) return;
-            if (!ClientMain.getInstance().isAdmin() && !ClientMain.getInstance().isContentDeveloper()) return;
+            if (clickedEntity.getEntityType() == EntityType.PLAYER || clickedEntity.getEntityType() == EntityType.CLIENT_PLAYER)
+                return;
+            if (!stageHandler.getClientMain().isAdmin() && !stageHandler.getClientMain().isContentDeveloper()) return;
             if (clickedEntity.getEntityType() == EntityType.ITEM_STACK) {
                 // If this ItemStackDrop spawned from an Entity Kill, then don't allow editor button
                 if (((ItemStackDrop) clickedEntity).isSpawnedFromDropTable()) return;
@@ -160,7 +153,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             editEntityButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
                     EntityEditor entityEditor = stageHandler.getEntityEditor();
                     if (clickedEntity.getEntityType() == EntityType.MONSTER) {
@@ -185,7 +178,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
     class MenuEntry extends VisTable {
 
         private MovingEntity clickedMovingEntity;
-        private final PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        private final PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         private final String entityName;
 
         MenuEntry(Entity clickedEntity) {
@@ -224,7 +217,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             openPlayerProfileButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     stageHandler.getPlayerProfileWindow().requestPlayerProfile((Player) clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
@@ -233,7 +226,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
 
         private void addPickupButton(final ItemStackDrop itemStackDrop) {
             // This is only used to get data about the ItemStack drop
-            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getItemStackId(), 1);
+            ItemStack itemStack = stageHandler.getClientMain().getItemStackManager().makeItemStack(itemStackDrop.getItemStackId(), 1);
 
             LeftAlignTextButton pickupButton;
             if (itemStack.getItemStackType() == ItemStackType.GOLD) {
@@ -249,7 +242,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
                 public void changed(ChangeEvent event, Actor actor) {
                     // Picking up ItemStacks from the ground
 
-                    EntityInteract.pickUpItemStackDrop(itemStackDrop);
+                    EntityInteract.pickUpItemStackDrop(clientMain, itemStackDrop);
                     cleanUpDropDownMenu(true);
                 }
 
@@ -266,7 +259,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             talkButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    EntityInteract.talkNPC((NPC) clickedMovingEntity);
+                    EntityInteract.talkNPC(clientMain, (NPC) clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -281,9 +274,9 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             inspectPlayerButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
 
-                    new InspectPlayerPacketOut(clickedMovingEntity.getServerEntityID()).sendPacket();
+                    new InspectPlayerPacketOut(clientMain, clickedMovingEntity.getServerEntityID()).sendPacket();
                     stageHandler.getCharacterInspectionWindow().setPlayerToInspect((Player) clickedMovingEntity);
 
                     stageHandler.getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[YELLOW]Inspecting player [GOLD]" + clickedMovingEntity.getEntityName() + "s [YELLOW]equipment.");
@@ -303,7 +296,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             openBankButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent changeEvent, Actor actor) {
-                    EntityInteract.openBank(clickedMovingEntity);
+                    EntityInteract.openBank(clientMain, clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -316,7 +309,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             attackButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
                     playerClient.setTargetEntity(clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
@@ -331,7 +324,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             tradeButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    EntityInteract.trade(stageHandler, (Player) clickedMovingEntity);
+                    EntityInteract.trade(clientMain, stageHandler, (Player) clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -346,7 +339,7 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             shopButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    EntityInteract.openShop((AiEntity) clickedMovingEntity);
+                    EntityInteract.openShop(clientMain, (AiEntity) clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });
@@ -362,8 +355,8 @@ public class EntityDropDownMenu extends HideableVisWindow implements Buildable {
             followButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
-                    ClientMain.getInstance().getEntityTracker().follow(clickedMovingEntity);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(EntityDropDownMenu.class, (short) 0);
+                    stageHandler.getClientMain().getEntityTracker().follow(clickedMovingEntity);
                     cleanUpDropDownMenu(true);
                 }
             });

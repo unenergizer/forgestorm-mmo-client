@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.out;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.item.inventory.InventoryActions;
 import com.forgestorm.client.game.world.item.inventory.InventorySyncher;
 import com.forgestorm.shared.network.game.GameOutputStream;
@@ -19,8 +20,8 @@ public class InventoryPacketOut extends AbstractPacketOut {
     private final byte interactInventory;
     private final byte slotIndex;
 
-    public InventoryPacketOut(InventoryActions inventoryAction) {
-        super(Opcodes.INVENTORY_UPDATE);
+    public InventoryPacketOut(ClientMain clientMain, InventoryActions inventoryAction) {
+        super(clientMain, Opcodes.INVENTORY_UPDATE);
         InventorySyncher.addPreviousAction(inventoryAction);
 
         this.actionType = inventoryAction.getActionType();

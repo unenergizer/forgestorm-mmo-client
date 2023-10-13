@@ -22,15 +22,15 @@ public class MoveUtil {
 
     static Location getLocation(GameWorld gameWorld, MoveDirection direction, short worldZ) {
         if (direction == MoveDirection.SOUTH)
-            return new Location(gameWorld.getWorldName(), 0, -1, worldZ);
+            return new Location(gameWorld.getClientMain(), gameWorld.getWorldName(), 0, -1, worldZ);
         if (direction == MoveDirection.NORTH)
-            return new Location(gameWorld.getWorldName(), 0, 1, worldZ);
+            return new Location(gameWorld.getClientMain(), gameWorld.getWorldName(), 0, 1, worldZ);
         if (direction == MoveDirection.WEST)
-            return new Location(gameWorld.getWorldName(), -1, 0, worldZ);
+            return new Location(gameWorld.getClientMain(), gameWorld.getWorldName(), -1, 0, worldZ);
         if (direction == MoveDirection.EAST)
-            return new Location(gameWorld.getWorldName(), 1, 0, worldZ);
+            return new Location(gameWorld.getClientMain(), gameWorld.getWorldName(), 1, 0, worldZ);
         if (direction == MoveDirection.NONE)
-            return new Location(gameWorld.getWorldName(), 0, 0, worldZ);
+            return new Location(gameWorld.getClientMain(), gameWorld.getWorldName(), 0, 0, worldZ);
         throw new RuntimeException("Tried to get a location, but direction could not be determined. worldName: " + gameWorld.getWorldName() + ", MoveDirection: " + direction);
     }
 

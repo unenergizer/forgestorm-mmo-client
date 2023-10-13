@@ -5,19 +5,7 @@ import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.rpg.EntityAlignment;
 import com.forgestorm.client.game.screens.AttachableCamera;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-import com.forgestorm.client.game.world.entities.AiEntity;
-import com.forgestorm.client.game.world.entities.Appearance;
-import com.forgestorm.client.game.world.entities.Entity;
-import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.entities.EntityType;
-import com.forgestorm.client.game.world.entities.ItemStackDrop;
-import com.forgestorm.client.game.world.entities.Monster;
-import com.forgestorm.client.game.world.entities.MovingEntity;
-import com.forgestorm.client.game.world.entities.NPC;
-import com.forgestorm.client.game.world.entities.Player;
-import com.forgestorm.client.game.world.entities.PlayerClient;
-import com.forgestorm.client.game.world.entities.SkillNode;
+import com.forgestorm.client.game.world.entities.*;
 import com.forgestorm.client.game.world.entities.animations.MonsterAnimation;
 import com.forgestorm.client.game.world.entities.animations.human.HumanAnimation;
 import com.forgestorm.client.game.world.maps.Location;
@@ -29,7 +17,6 @@ import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
@@ -38,6 +25,11 @@ import static com.forgestorm.client.util.Log.println;
 public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.EntitySpawnPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public EntitySpawnPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -56,7 +48,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case ITEM_STACK:
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper()) {
                     entitySpawnPacket.setSpawnedFromDropTable(clientHandler.readBoolean());
                     entitySpawnPacket.setItemStackId(clientHandler.readInt());
                     entitySpawnPacket.setStackSize(clientHandler.readInt());
@@ -66,8 +58,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case MONSTER:
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
-                    println(getClass(), "Reading in extra MONSTER data.", false, (ClientMain.getInstance().isAdmin() && PRINT_DEBUG) || (ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG));
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper()) {
+                    println(getClass(), "Reading in extra MONSTER data.", false, (clientMain.isAdmin() && PRINT_DEBUG) || (clientMain.isContentDeveloper() && PRINT_DEBUG));
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -77,7 +69,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     int x = clientHandler.readInt();
                     int y = clientHandler.readInt();
                     short worldZ = clientHandler.readShort();
-                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y, worldZ));
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(clientMain, worldName, x, y, worldZ));
                 }
 
                 entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
@@ -94,8 +86,8 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 entitySpawnPacket.setBodyTexture(clientHandler.readByte());
                 break;
             case NPC:
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
-                    println(getClass(), "Reading in extra NPC data.", false, (ClientMain.getInstance().isAdmin() && PRINT_DEBUG) || (ClientMain.getInstance().isContentDeveloper() && PRINT_DEBUG));
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper()) {
+                    println(getClass(), "Reading in extra NPC data.", false, (clientMain.isAdmin() && PRINT_DEBUG) || (clientMain.isContentDeveloper() && PRINT_DEBUG));
                     entitySpawnPacket.setDamage(clientHandler.readInt());
                     entitySpawnPacket.setExpDrop(clientHandler.readInt());
                     entitySpawnPacket.setDropTable(clientHandler.readInt());
@@ -105,7 +97,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                     int x = clientHandler.readInt();
                     int y = clientHandler.readInt();
                     short worldZ = clientHandler.readShort();
-                    entitySpawnPacket.setDefaultSpawnLocation(new Location(worldName, x, y, worldZ));
+                    entitySpawnPacket.setDefaultSpawnLocation(new Location(clientMain, worldName, x, y, worldZ));
                 }
 
                 entitySpawnPacket.setFirstInteraction(FirstInteraction.getFirstInteraction(clientHandler.readByte()));
@@ -161,7 +153,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
     @Override
     public void onEvent(EntitySpawnPacket packetData) {
-        String worldName = ClientMain.getInstance().getWorldManager().getCurrentGameWorld().getWorldName();
+        String worldName = clientMain.getWorldManager().getCurrentGameWorld().getWorldName();
         Entity entity = null;
         if (packetData.entityType == EntityType.CLIENT_PLAYER) {
             entity = spawnClientPlayer(packetData, worldName);
@@ -181,7 +173,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
         entity.setServerEntityID(packetData.entityId);
         entity.setEntityName(packetData.entityName);
         entity.setWorldName(worldName);
-        entity.setCurrentMapLocation(new Location(entity.getWorldName(), packetData.tileX, packetData.tileY, packetData.worldZ));
+        entity.setCurrentMapLocation(new Location(clientMain, entity.getWorldName(), packetData.tileX, packetData.tileY, packetData.worldZ));
         entity.setDrawX(packetData.tileX * ClientConstants.TILE_SIZE);
         entity.setDrawY(packetData.tileY * ClientConstants.TILE_SIZE);
 
@@ -223,15 +215,15 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
                 // Process region stuff. Play sounds, music, etc...
                 if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-                    ClientMain.getInstance().getRegionManager().playerEnterLocation(humanEntity.getCurrentMapLocation());
+                    clientMain.getRegionManager().playerEnterLocation(humanEntity.getCurrentMapLocation());
                 }
 
                 if (packetData.entityType == EntityType.CLIENT_PLAYER) {
-                    ClientMain.getInstance().getStageHandler().getEquipmentWindow().rebuildPreviewTable();
+                    clientMain.getStageHandler().getEquipmentWindow().rebuildPreviewTable();
                     // TODO: Possible to relocate this for better performance...
 
                     // Load the map for the player
-                    ClientMain.getInstance().getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
+                    clientMain.getWorldManager().getCurrentGameWorld().loadAroundPlayer((PlayerClient) entity);
                 }
 
                 println(getClass(), "Hair: " + appearance.getHairTexture(), false, PRINT_DEBUG);
@@ -248,7 +240,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
                 break;
             case NPC:
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper()) {
                     NPC npc = (NPC) entity;
                     npc.setDamage(packetData.damage);
                     npc.setExpDrop(packetData.expDrop);
@@ -288,7 +280,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 println(getClass(), "RightHand: " + appearance.getRightHandTexture(), false, PRINT_DEBUG);
                 break;
             case MONSTER:
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper()) {
                     Monster monster = (Monster) entity;
                     monster.setDamage(packetData.damage);
                     monster.setExpDrop(packetData.expDrop);
@@ -308,7 +300,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
                 appearance.setSingleBodyTexture(packetData.bodyTexture);
                 break;
             case ITEM_STACK:
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper()) {
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper()) {
                     ItemStackDrop itemStackDrop = (ItemStackDrop) entity;
                     itemStackDrop.setSpawnedFromDropTable(packetData.spawnedFromDropTable);
                     itemStackDrop.setItemStackId(packetData.itemStackId);
@@ -322,8 +314,7 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
     }
 
     private Entity spawnClientPlayer(EntitySpawnPacket packetData, String worldName) {
-        ClientMain clientMain = ClientMain.getInstance();
-        PlayerClient playerClient = new PlayerClient();
+        PlayerClient playerClient = new PlayerClient(clientMain);
         AttachableCamera camera = clientMain.getGameScreen().getCamera();
 
         // Attach entity to camera
@@ -334,56 +325,56 @@ public class EntitySpawnPacketIn implements PacketListener<EntitySpawnPacketIn.E
 
         setMovingEntityVars(playerClient, packetData, worldName);
 
-        EntityManager.getInstance().setPlayerClient(playerClient);
+        clientMain.getEntityManager().setPlayerClient(playerClient);
 
-        ActorUtil.getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
+        clientMain.getStageHandler().getStatusBar().initHealth(packetData.currentHealth, packetData.maxHealth);
 
         return playerClient;
     }
 
     private Entity spawnPlayer(EntitySpawnPacket packetData, String worldName) {
-        Player player = new Player();
+        Player player = new Player(clientMain);
         setMovingEntityVars(player, packetData, worldName);
-        EntityManager.getInstance().addPlayerEntity(packetData.entityId, player);
+        clientMain.getEntityManager().addPlayerEntity(packetData.entityId, player);
         return player;
     }
 
     private Entity spawnMonster(EntitySpawnPacket packetData, String worldName) {
-        AiEntity entity = new Monster();
+        AiEntity entity = new Monster(clientMain);
         entity.setFirstInteraction(packetData.firstInteraction);
         entity.setShopID(packetData.shopID);
         entity.setAlignment(packetData.entityAlignment);
         setMovingEntityVars(entity, packetData, worldName);
-        EntityManager.getInstance().addAiEntity(packetData.entityId, entity);
+        clientMain.getEntityManager().addAiEntity(packetData.entityId, entity);
         return entity;
     }
 
     private Entity spawnNPC(EntitySpawnPacket packetData, String worldName) {
-        NPC npc = new NPC();
+        NPC npc = new NPC(clientMain);
         npc.setFirstInteraction(packetData.firstInteraction);
         npc.setShopID(packetData.shopID);
         npc.setBankKeeper(packetData.isBankKeeper);
         npc.setAlignment(packetData.entityAlignment);
         npc.setFaction(packetData.entityFaction);
         setMovingEntityVars(npc, packetData, worldName);
-        EntityManager.getInstance().addAiEntity(packetData.entityId, npc);
+        clientMain.getEntityManager().addAiEntity(packetData.entityId, npc);
         return npc;
     }
 
     private Entity spawnSkillNode(EntitySpawnPacket packetData) {
-        SkillNode skillNode = new SkillNode();
-        EntityManager.getInstance().addStationaryEntity(packetData.entityId, skillNode);
+        SkillNode skillNode = new SkillNode(clientMain);
+        clientMain.getEntityManager().addStationaryEntity(packetData.entityId, skillNode);
         return skillNode;
     }
 
     private Entity spawnItemStackDrop(EntitySpawnPacket packetData) {
-        ItemStackDrop itemStackDrop = new ItemStackDrop();
-        EntityManager.getInstance().addItemStackDrop(packetData.entityId, itemStackDrop);
+        ItemStackDrop itemStackDrop = new ItemStackDrop(clientMain);
+        clientMain.getEntityManager().addItemStackDrop(packetData.entityId, itemStackDrop);
         return itemStackDrop;
     }
 
     private void setMovingEntityVars(MovingEntity entity, EntitySpawnPacket packetData, String worldName) {
-        entity.setFutureMapLocation(new Location(worldName, packetData.tileX, packetData.tileY, packetData.worldZ));
+        entity.setFutureMapLocation(new Location(clientMain, worldName, packetData.tileX, packetData.tileY, packetData.worldZ));
         MoveDirection facingDirection = packetData.moveDirection;
 
         if (facingDirection == MoveDirection.NONE) {

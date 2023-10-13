@@ -4,7 +4,6 @@ package com.forgestorm.client.network.game.packet.in;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.movement.ClientPlayerMovementManager;
 import com.forgestorm.client.game.movement.MoveUtil;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.maps.Location;
@@ -14,13 +13,18 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
 
 @Opcode(getOpcode = Opcodes.ENTITY_MOVE_UPDATE)
 public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.EntityMovePacket> {
+
+    private final ClientMain clientMain;
+
+    public EntityMovePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -40,7 +44,7 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
 
-                ClientPlayerMovementManager movementManager = ClientMain.getInstance().getClientPlayerMovementManager();
+                ClientPlayerMovementManager movementManager = clientMain.getClientPlayerMovementManager();
 
                 MoveNode moveNode = movementManager.getMovesSentToServer().poll();
                 if (moveNode == null) {
@@ -54,11 +58,11 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
 
                 return;
             case PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getPlayerEntity(packetData.entityId);
                 break;
             case NPC:
             case MONSTER:
-                movingEntity = EntityManager.getInstance().getAiEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getAiEntity(packetData.entityId);
                 break;
         }
 
@@ -69,9 +73,9 @@ public class EntityMovePacketIn implements PacketListener<EntityMovePacketIn.Ent
         }
 
         if (MoveUtil.isEntityMoving(movingEntity)) {
-            movingEntity.addLocationToFutureQueue(new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ));
+            movingEntity.addLocationToFutureQueue(new Location(clientMain, movingEntity.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ));
         } else {
-            ClientMain.getInstance().getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(movingEntity.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ));
+            clientMain.getEntityMovementManager().updateEntityFutureLocation(movingEntity, new Location(clientMain, movingEntity.getWorldName(), packetData.futureX, packetData.futureY, packetData.futureZ));
         }
     }
 

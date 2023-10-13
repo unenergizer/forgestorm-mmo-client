@@ -5,20 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.audio.AudioManager;
 import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.audio.SoundManager;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisSlider;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.*;
 
 import java.text.DecimalFormat;
 
@@ -59,7 +51,7 @@ public class ActorUtil {
         return visibleStatus;
     }
 
-    public static void selectBox(VisTable mainTable, String labelName, VisSelectBox visSelectBox, Object[] items) {
+    public static void selectBox(ClientMain clientMain, VisTable mainTable, String labelName, VisSelectBox visSelectBox, Object[] items) {
         //noinspection unchecked
         visSelectBox.setItems(items);
         VisTable table = new VisTable();
@@ -71,12 +63,12 @@ public class ActorUtil {
         visSelectBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
             }
         });
     }
 
-    public static void checkBox(VisTable mainTable, String labelName, VisCheckBox visCheckBox) {
+    public static void checkBox(ClientMain clientMain, VisTable mainTable, String labelName, VisCheckBox visCheckBox) {
         VisTable table = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
         table.add(visLabel).grow().pad(1);
@@ -86,12 +78,12 @@ public class ActorUtil {
         visCheckBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
             }
         });
     }
 
-    public static void textField(VisTable mainTable, String labelName, VisTextField textField) {
+    public static void textField(ClientMain clientMain, VisTable mainTable, String labelName, VisTextField textField) {
         VisTable table = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
         table.add(visLabel).grow().pad(1);
@@ -100,13 +92,13 @@ public class ActorUtil {
 
         textField.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
                 return false;
             }
         });
     }
 
-    public static void valueSlider(VisTable mainTable, String labelName, final VisSlider slider, final DecimalFormat decimalFormat) {
+    public static void valueSlider(ClientMain clientMain, VisTable mainTable, String labelName, final VisSlider slider, final DecimalFormat decimalFormat) {
         VisTable table = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
         final VisLabel sliderValue = new VisLabel(decimalFormat.format(slider.getValue()));
@@ -123,7 +115,7 @@ public class ActorUtil {
 
         slider.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
+                clientMain.getAudioManager().getSoundManager().playSoundFx(ActorUtil.class, (short) 0);
                 return false;
             }
         });
@@ -131,8 +123,8 @@ public class ActorUtil {
         mainTable.add(table).expandX().fillX().pad(1).row();
     }
 
-    public static void musicField(VisTable mainTable, String labelName, VisTextField textField, Class clazz) {
-        AudioManager audioManager = ClientMain.getInstance().getAudioManager();
+    public static void musicField(ClientMain clientMain, VisTable mainTable, String labelName, VisTextField textField, Class clazz) {
+        AudioManager audioManager = clientMain.getAudioManager();
         MusicManager musicManager = audioManager.getMusicManager();
 
         VisTable table = new VisTable();
@@ -174,8 +166,8 @@ public class ActorUtil {
         });
     }
 
-    public static void soundField(VisTable mainTable, String labelName, VisTextField textField, Class clazz) {
-        SoundManager audioManager = ClientMain.getInstance().getAudioManager().getSoundManager();
+    public static void soundField(ClientMain clientMain, VisTable mainTable, String labelName, VisTextField textField, Class clazz) {
+        SoundManager audioManager = clientMain.getAudioManager().getSoundManager();
 
         VisTable table = new VisTable();
         VisLabel visLabel = new VisLabel(labelName);
@@ -214,13 +206,5 @@ public class ActorUtil {
                 return false;
             }
         });
-    }
-
-    public static StageHandler getStageHandler() {
-        return ClientMain.getInstance().getStageHandler();
-    }
-
-    public static Stage getStage() {
-        return getStageHandler().getStage();
     }
 }

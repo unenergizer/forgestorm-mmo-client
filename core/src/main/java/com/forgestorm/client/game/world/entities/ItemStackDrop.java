@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.world.entities;
 
+import com.forgestorm.client.ClientMain;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,8 @@ public class ItemStackDrop extends Entity {
     private int stackSize;
     private int respawnTimeMin;
     private int respawnTimeMax;
+
+    public ItemStackDrop(ClientMain clientMain) {
+        super(clientMain);
+    }
 }

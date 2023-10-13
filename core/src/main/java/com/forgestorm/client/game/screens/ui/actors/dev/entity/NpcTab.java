@@ -15,7 +15,6 @@ import com.forgestorm.client.game.screens.ui.actors.dev.ColorPickerColorHandler;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.EntityEditorData;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.data.NPCData;
 import com.forgestorm.client.game.world.entities.AiEntity;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.NPC;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.packet.out.AdminEditorEntityPacketOut;
@@ -26,23 +25,10 @@ import com.forgestorm.shared.util.color.LibGDXColorList;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogAdapter;
 import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisSlider;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
-
+import com.kotcrab.vis.ui.widget.*;
 import lombok.Getter;
 
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.checkBox;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.fadeInWindow;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.fadeOutWindow;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.selectBox;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.textField;
-import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.valueSlider;
+import static com.forgestorm.client.game.screens.ui.actors.ActorUtil.*;
 import static com.forgestorm.client.util.Log.println;
 
 public class NpcTab extends EditorTab {
@@ -92,7 +78,7 @@ public class NpcTab extends EditorTab {
         title = " NPC ";
 
         // SETUP DEFAULT CASE
-        appearancePanel = new NPCAppearancePanel(this);
+        appearancePanel = new NPCAppearancePanel(stageHandler.getClientMain(), this);
         appearancePanel.buildAppearancePanel();
 
         build();
@@ -138,7 +124,7 @@ public class NpcTab extends EditorTab {
 
         name.setText(npc.getEntityName());
         firstInteraction.setSelected(npc.getFirstInteraction());
-        faction.setText(ClientMain.getInstance().getFactionManager().getFactionFromByte(npc.getFaction()));
+        faction.setText(stageHandler.getClientMain().getFactionManager().getFactionFromByte(npc.getFaction()));
         health.setText(Integer.toString(npc.getMaxHealth()));
         damage.setText(Integer.toString(npc.getDamage()));
         expDrop.setText(Integer.toString(npc.getExpDrop()));
@@ -156,7 +142,7 @@ public class NpcTab extends EditorTab {
 
         // Load Appearance
         appearanceTable.clear();
-        appearancePanel = new NPCAppearancePanel(this);
+        appearancePanel = new NPCAppearancePanel(stageHandler.getClientMain(), this);
         appearancePanel.buildAppearancePanel();
         appearancePanel.load(npc);
         appearancePanel.characterPreview();
@@ -206,18 +192,19 @@ public class NpcTab extends EditorTab {
             }
         });
 
-        textField(leftPane, "Name:", name);
-        selectBox(leftPane, "FirstInteraction:", firstInteraction, FirstInteraction.values());
-        textField(leftPane, "Faction:", faction);
-        textField(leftPane, "Health:", health);
-        textField(leftPane, "Damage:", damage);
-        textField(leftPane, "ExpDrop:", expDrop);
-        textField(leftPane, "DropTable:", dropTable);
-        textField(leftPane, "Walk Speed:", walkSpeed);
-        valueSlider(leftPane, "Probability Still:", probStill, getDecimalFormat());
-        valueSlider(leftPane, "Probability Walk:", probWalk, getDecimalFormat());
-        textField(leftPane, "Shop ID:", shopId);
-        checkBox(leftPane, "Set as Bank Keeper?", isBankKeeper);
+        ClientMain clientMain = stageHandler.getClientMain();
+        textField(clientMain, leftPane, "Name:", name);
+        selectBox(clientMain, leftPane, "FirstInteraction:", firstInteraction, FirstInteraction.values());
+        textField(clientMain, leftPane, "Faction:", faction);
+        textField(clientMain, leftPane, "Health:", health);
+        textField(clientMain, leftPane, "Damage:", damage);
+        textField(clientMain, leftPane, "ExpDrop:", expDrop);
+        textField(clientMain, leftPane, "DropTable:", dropTable);
+        textField(clientMain, leftPane, "Walk Speed:", walkSpeed);
+        valueSlider(clientMain, leftPane, "Probability Still:", probStill, getDecimalFormat());
+        valueSlider(clientMain, leftPane, "Probability Walk:", probWalk, getDecimalFormat());
+        textField(clientMain, leftPane, "Shop ID:", shopId);
+        checkBox(clientMain, leftPane, "Set as Bank Keeper?", isBankKeeper);
 
         validator.notEmpty(name, "Name must not be empty.");
         validator.notEmpty(faction, "Faction must not be empty.");
@@ -241,16 +228,16 @@ public class NpcTab extends EditorTab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 selectSpawnActivated = true;
-                worldName.setText(EntityManager.getInstance().getPlayerClient().getCurrentMapLocation().getWorldName());
+                worldName.setText(stageHandler.getClientMain().getEntityManager().getPlayerClient().getCurrentMapLocation().getWorldName());
                 selectSpawn.setText("Left Click Map to Set Spawn");
                 selectSpawn.setDisabled(true);
-                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(true);
+                stageHandler.getClientMain().getMouseManager().setHighlightHoverTile(true);
             }
         });
 
-        ClientMain.getInstance().getInputMultiplexer().addProcessor(new InputProcessor() {
+        stageHandler.getClientMain().getInputMultiplexer().addProcessor(new InputProcessor() {
 
-            private final MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+            private final MouseManager mouseManager = stageHandler.getClientMain().getMouseManager();
 
             @Override
             public boolean keyDown(int keycode) {
@@ -281,7 +268,7 @@ public class NpcTab extends EditorTab {
                 mapX.setText(Integer.toString(mouseManager.getLeftClickTileX()));
                 mapY.setText(Integer.toString(mouseManager.getLeftClickTileY()));
                 selectSpawnActivated = false;
-                ClientMain.getInstance().getMouseManager().setHighlightHoverTile(false);
+                stageHandler.getClientMain().getMouseManager().setHighlightHoverTile(false);
                 return true;
             }
 
@@ -384,10 +371,10 @@ public class NpcTab extends EditorTab {
         saveButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                new AdminEditorEntityPacketOut(generateDataOut(true, false)).sendPacket();
+                new AdminEditorEntityPacketOut(clientMain, generateDataOut(true, false)).sendPacket();
                 resetValues();
                 fadeOutWindow(getStageHandler().getEntityEditor());
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
 
@@ -395,14 +382,14 @@ public class NpcTab extends EditorTab {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 resetValues();
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
             }
         });
 
         deleteButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                 String id = entityID.getText().toString();
                 if (id.equals("-1")) {
                     Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "An entity with ID -1 can not be deleted!");
@@ -412,22 +399,22 @@ public class NpcTab extends EditorTab {
                     @Override
                     public void yes() {
                         Dialogs.showOKDialog(getStageHandler().getStage(), "EDITOR WARNING!", "Entity deleted forever!");
-                        new AdminEditorEntityPacketOut(generateDataOut(false, true)).sendPacket();
+                        new AdminEditorEntityPacketOut(clientMain, generateDataOut(false, true)).sendPacket();
                         resetValues();
                         fadeOutWindow(getStageHandler().getEntityEditor());
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
 
                     @Override
                     public void no() {
                         fadeInWindow(getStageHandler().getEntityEditor());
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
 
                     @Override
                     public void cancel() {
                         fadeInWindow(getStageHandler().getEntityEditor());
-                        ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
+                        stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(NpcTab.class, (short) 0);
                     }
                 });
             }
@@ -469,7 +456,7 @@ public class NpcTab extends EditorTab {
     VisTable imageTable(int width, int height, int padBottom, String region, Color color) {
         VisTable innerTable = new VisTable();
 
-        TextureAtlas textureAtlas = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
+        TextureAtlas textureAtlas = stageHandler.getClientMain().getFileManager().getAtlas(GameAtlas.ENTITY_CHARACTER);
         TextureRegionDrawable textureRegionDrawable = new TextureRegionDrawable(textureAtlas.findRegion(region));
         textureRegionDrawable.setMinWidth(width);
         textureRegionDrawable.setMinHeight(height);
@@ -484,7 +471,7 @@ public class NpcTab extends EditorTab {
     }
 
     private EntityEditorData generateDataOut(boolean save, boolean delete) {
-        Location location = new Location(
+        Location location = new Location(stageHandler.getClientMain(),
                 worldName.getText(),
                 Integer.parseInt(mapX.getText()),
                 Integer.parseInt(mapY.getText()),

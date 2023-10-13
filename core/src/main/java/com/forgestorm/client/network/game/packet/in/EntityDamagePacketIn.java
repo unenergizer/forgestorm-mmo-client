@@ -1,7 +1,6 @@
 package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -9,7 +8,6 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -18,6 +16,11 @@ import static com.forgestorm.client.util.Log.println;
 public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn.EntityDamagePacket> {
 
     private final static boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public EntityDamagePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -35,17 +38,17 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerClient();
+                movingEntity = clientMain.getEntityManager().getPlayerClient();
                 movingEntity.setDamageTaken(movingEntity.getDamageTaken() + packetData.damageTaken);
-                ClientMain.getInstance().getStageHandler().getStatusBar().updateHealth(packetData.health);
+                clientMain.getStageHandler().getStatusBar().updateHealth(packetData.health);
                 break;
             case PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getPlayerEntity(packetData.entityId);
                 movingEntity.setDamageTaken(packetData.damageTaken);
                 break;
             case NPC:
             case MONSTER:
-                movingEntity = EntityManager.getInstance().getAiEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getAiEntity(packetData.entityId);
                 movingEntity.setDamageTaken(packetData.damageTaken);
                 break;
         }
@@ -55,11 +58,11 @@ public class EntityDamagePacketIn implements PacketListener<EntityDamagePacketIn
         movingEntity.setCurrentHealth(packetData.health);
         println(getClass(), "[" + movingEntity.getEntityName() + "] Health After: " + movingEntity.getCurrentHealth(), false, PRINT_DEBUG);
 
-        ClientMain.getInstance().getStageHandler().getTargetStatusBar().updateHealth(movingEntity);
+        clientMain.getStageHandler().getTargetStatusBar().updateHealth(movingEntity);
     }
 
     @AllArgsConstructor
-    class EntityDamagePacket extends PacketData {
+    static class EntityDamagePacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
         private final int health;

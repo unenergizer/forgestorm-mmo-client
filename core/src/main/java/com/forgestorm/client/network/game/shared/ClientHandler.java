@@ -3,6 +3,8 @@ package com.forgestorm.client.network.game.shared;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.network.game.packet.out.AbstractPacketOut;
 import com.forgestorm.shared.network.game.GameOutputStream;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -11,14 +13,12 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import static com.forgestorm.client.util.Log.println;
 
-@SuppressWarnings({"ConstantConditions", "unused"})
+@SuppressWarnings({"unused"})
 @Getter
 public class ClientHandler {
+    private final ClientMain clientMain;
     private Socket socket;
     private GameOutputStream gameOutputStream;
     private DataInputStream inputStream;
@@ -28,7 +28,8 @@ public class ClientHandler {
     @Setter
     private volatile long pingSendTime;
 
-    public ClientHandler(Socket socket, GameOutputStream gameOutputStream, DataInputStream inputStream) {
+    public ClientHandler(ClientMain clientMain, Socket socket, GameOutputStream gameOutputStream, DataInputStream inputStream) {
+        this.clientMain = clientMain;
         this.socket = socket;
         this.gameOutputStream = gameOutputStream;
         this.inputStream = inputStream;
@@ -135,7 +136,7 @@ public class ClientHandler {
         } catch (IOException e) {
 
             if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-                ClientMain.getInstance().getConnectionManager().logout();
+                clientMain.getConnectionManager().logout();
             }
 
         }
@@ -164,7 +165,7 @@ public class ClientHandler {
 
     private void handleIOException(IOException e) {
         if (e instanceof EOFException || e instanceof SocketException || e instanceof SocketTimeoutException) {
-            ClientMain.getInstance().getConnectionManager().logout();
+            clientMain.getConnectionManager().logout();
         }
         e.printStackTrace();
     }

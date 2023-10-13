@@ -20,9 +20,9 @@ import com.forgestorm.client.game.screens.ui.actors.character.CharacterSelectMen
 import com.forgestorm.client.game.screens.ui.actors.character.DeleteCharacter;
 import com.forgestorm.client.game.screens.ui.actors.dev.ColorPickerController;
 import com.forgestorm.client.game.screens.ui.actors.dev.DevMenu;
-import com.forgestorm.client.game.screens.ui.actors.dev.spell.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.entity.EntityEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.item.ItemStackEditor;
+import com.forgestorm.client.game.screens.ui.actors.dev.spell.PixelFXTest;
 import com.forgestorm.client.game.screens.ui.actors.dev.spell.SpellAnimationEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.RegionEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.TileAnimationEditor;
@@ -31,42 +31,18 @@ import com.forgestorm.client.game.screens.ui.actors.dev.world.WarpEditor;
 import com.forgestorm.client.game.screens.ui.actors.dev.world.editor.TilePropertiesEditor;
 import com.forgestorm.client.game.screens.ui.actors.dialogue.ChatDialogue;
 import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeEvent;
-import com.forgestorm.client.game.screens.ui.actors.game.CreditsWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.DebugTable;
-import com.forgestorm.client.game.screens.ui.actors.game.EntityDropDownMenu;
-import com.forgestorm.client.game.screens.ui.actors.game.EscapeWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.ExperienceBar;
-import com.forgestorm.client.game.screens.ui.actors.game.FadeWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.HelpWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.IncomingTradeRequestWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.ItemDropDownMenu;
-import com.forgestorm.client.game.screens.ui.actors.game.Ping;
-import com.forgestorm.client.game.screens.ui.actors.game.PlayerProfileWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.StatusBar;
-import com.forgestorm.client.game.screens.ui.actors.game.TargetStatusBar;
-import com.forgestorm.client.game.screens.ui.actors.game.TradeWindow;
+import com.forgestorm.client.game.screens.ui.actors.game.*;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.draggable.BagWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.draggable.BankWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.draggable.CharacterInspectionWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.draggable.EquipmentWindow;
-import com.forgestorm.client.game.screens.ui.actors.game.draggable.HotBar;
+import com.forgestorm.client.game.screens.ui.actors.game.draggable.*;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.EntityShopWindow;
 import com.forgestorm.client.game.screens.ui.actors.game.paging.SkillBookWindow;
-import com.forgestorm.client.game.screens.ui.actors.login.ButtonTable;
-import com.forgestorm.client.game.screens.ui.actors.login.ClientUpdateWindow;
-import com.forgestorm.client.game.screens.ui.actors.login.ConnectionStatusWindow;
-import com.forgestorm.client.game.screens.ui.actors.login.CopyrightTable;
-import com.forgestorm.client.game.screens.ui.actors.login.LoginTable;
-import com.forgestorm.client.game.screens.ui.actors.login.RssAnnouncements;
-import com.forgestorm.client.game.screens.ui.actors.login.VersionTable;
+import com.forgestorm.client.game.screens.ui.actors.login.*;
 import com.forgestorm.client.game.screens.ui.actors.settings.FPSTable;
 import com.forgestorm.client.game.screens.ui.actors.settings.MainSettingsWindow;
 import com.kotcrab.vis.ui.FocusManager;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.PopupMenu;
-
 import lombok.Getter;
 
 @Getter
@@ -75,6 +51,8 @@ public class StageHandler implements Disposable {
     public final static float WINDOW_PAD_X = 5;
     public final static float WINDOW_PAD_Y = 10;
 
+    private final ClientMain clientMain;
+    
     private Stage stage = new Stage();
     private final PreStageEvent preStageEvent = new PreStageEvent(this);
     private final PostStageEvent postStageEvent = new PostStageEvent(this);
@@ -87,39 +65,39 @@ public class StageHandler implements Disposable {
     private final VersionTable versionTable = new VersionTable();
     private final CopyrightTable copyrightTable = new CopyrightTable();
     private final LoginTable loginTable = new LoginTable();
-    private final ConnectionStatusWindow connectionStatusWindow = new ConnectionStatusWindow();
+    private final ConnectionStatusWindow connectionStatusWindow;
     private final RssAnnouncements rssAnnouncements = new RssAnnouncements();
-    private final ClientUpdateWindow clientUpdateWindow = new ClientUpdateWindow();
+    private final ClientUpdateWindow clientUpdateWindow;
 
     // character select
-    private final CharacterSelectMenu characterSelectMenu = new CharacterSelectMenu();
-    private final CharacterCreation characterCreation = new CharacterCreation();
-    private final DeleteCharacter deleteCharacter = new DeleteCharacter();
+    private final CharacterSelectMenu characterSelectMenu;
+    private final CharacterCreation characterCreation;
+    private final DeleteCharacter deleteCharacter;
 
     // game
-    private final FadeWindow fadeWindow = new FadeWindow();
-    private final HelpWindow helpWindow = new HelpWindow();
-    private final CreditsWindow creditsWindow = new CreditsWindow();
-    private final EscapeWindow escapeWindow = new EscapeWindow();
-    private final BagWindow bagWindow = new BagWindow();
-    private final BankWindow bankWindow = new BankWindow();
-    private final EquipmentWindow equipmentWindow = new EquipmentWindow();
-    private final HotBar hotBar = new HotBar();
+    private final FadeWindow fadeWindow;
+    private final HelpWindow helpWindow;
+    private final CreditsWindow creditsWindow;
+    private final EscapeWindow escapeWindow;
+    private final BagWindow bagWindow;
+    private final BankWindow bankWindow;
+    private final EquipmentWindow equipmentWindow;
+    private final HotBar hotBar;
     private final ExperienceBar experienceBar = new ExperienceBar();
-    private final ChatWindow chatWindow = new ChatWindow();
-    private final DebugTable debugTable = new DebugTable();
+    private final ChatWindow chatWindow;
+    private final DebugTable debugTable;
     private final FPSTable fpsTable = new FPSTable();
-    private final EntityDropDownMenu entityDropDownMenu = new EntityDropDownMenu();
-    private final ItemDropDownMenu itemDropDownMenu = new ItemDropDownMenu();
-    private final TradeWindow tradeWindow = new TradeWindow();
-    private final IncomingTradeRequestWindow incomingTradeRequestWindow = new IncomingTradeRequestWindow();
-    private final EntityShopWindow pagedItemStackWindow = new EntityShopWindow();
-    private final SkillBookWindow spellBookWindow = new SkillBookWindow();
-    private final StatusBar statusBar = new StatusBar();
+    private final EntityDropDownMenu entityDropDownMenu;
+    private final ItemDropDownMenu itemDropDownMenu;
+    private final TradeWindow tradeWindow;
+    private final IncomingTradeRequestWindow incomingTradeRequestWindow;
+    private final EntityShopWindow pagedItemStackWindow;
+    private final SkillBookWindow spellBookWindow;
+    private final StatusBar statusBar;
     private final TargetStatusBar targetStatusBar = new TargetStatusBar();
-    private final ChatDialogue chatDialogue = new ChatDialogue();
-    private final CharacterInspectionWindow characterInspectionWindow = new CharacterInspectionWindow();
-    private final PlayerProfileWindow playerProfileWindow = new PlayerProfileWindow();
+    private final ChatDialogue chatDialogue;
+    private final CharacterInspectionWindow characterInspectionWindow;
+    private final PlayerProfileWindow playerProfileWindow;
     private final Ping ping = new Ping();
 
     private Pixmap bgPixmap;
@@ -127,23 +105,69 @@ public class StageHandler implements Disposable {
 
     // developer
     private final DevMenu devMenu = new DevMenu();
-    private final EntityEditor entityEditor = new EntityEditor();
-    private final ItemStackEditor itemStackEditor = new ItemStackEditor();
-    private final PixelFXTest pixelFXTest = new PixelFXTest();
-    private final TilePropertiesEditor tilePropertiesEditor = new TilePropertiesEditor();
-    private final TileBuildMenu tileBuildMenu = new TileBuildMenu();
-    private final WarpEditor warpEditor = new WarpEditor();
-    private final RegionEditor regionEditor = new RegionEditor();
-    private final TileAnimationEditor tileAnimationEditor = new TileAnimationEditor();
-    private final SpellAnimationEditor spellAnimationEditor = new SpellAnimationEditor();
+    private final EntityEditor entityEditor;
+    private final ItemStackEditor itemStackEditor;
+    private final PixelFXTest pixelFXTest;
+    private final TilePropertiesEditor tilePropertiesEditor;
+    private final TileBuildMenu tileBuildMenu;
+    private final WarpEditor warpEditor;
+    private final RegionEditor regionEditor;
+    private final TileAnimationEditor tileAnimationEditor;
+    private final SpellAnimationEditor spellAnimationEditor;
 
     // shared
-    private final MainSettingsWindow mainSettingsWindow = new MainSettingsWindow(this);
+    private final MainSettingsWindow mainSettingsWindow;
     private final ColorPickerController colorPickerController = new ColorPickerController();
 
-    public StageHandler() {
+    public StageHandler(ClientMain clientMain) {
+        this.clientMain = clientMain;
         dragAndDrop.setDragTime(0);
         bitmapFont.getData().markupEnabled = true;
+
+        // login
+        connectionStatusWindow = new ConnectionStatusWindow(clientMain);
+        clientUpdateWindow = new ClientUpdateWindow(clientMain);
+
+        // character select
+        characterSelectMenu = new CharacterSelectMenu(clientMain);
+        characterCreation = new CharacterCreation(clientMain);
+        deleteCharacter = new DeleteCharacter(clientMain);
+
+        // game
+        fadeWindow = new FadeWindow(clientMain);
+        helpWindow = new HelpWindow(clientMain);
+        creditsWindow = new CreditsWindow(clientMain);
+        escapeWindow = new EscapeWindow(clientMain);
+        bagWindow = new BagWindow(clientMain);
+        bankWindow = new BankWindow(clientMain);
+        equipmentWindow = new EquipmentWindow(clientMain);
+        hotBar = new HotBar(clientMain);
+        chatWindow = new ChatWindow(clientMain);
+        debugTable = new DebugTable(clientMain);
+        entityDropDownMenu = new EntityDropDownMenu(clientMain);
+        itemDropDownMenu = new ItemDropDownMenu(clientMain);
+        tradeWindow = new TradeWindow(clientMain);
+        incomingTradeRequestWindow = new IncomingTradeRequestWindow(clientMain);
+        pagedItemStackWindow = new EntityShopWindow(clientMain);
+        spellBookWindow = new SkillBookWindow(clientMain);
+        statusBar = new StatusBar(clientMain);
+        chatDialogue = new ChatDialogue(clientMain);
+        characterInspectionWindow = new CharacterInspectionWindow(clientMain);
+        playerProfileWindow = new PlayerProfileWindow(clientMain);
+
+        // developer
+        entityEditor = new EntityEditor(clientMain);
+        itemStackEditor = new ItemStackEditor(clientMain);
+        pixelFXTest = new PixelFXTest(clientMain);
+        tilePropertiesEditor = new TilePropertiesEditor(clientMain);
+        tileBuildMenu = new TileBuildMenu(clientMain);
+        warpEditor = new WarpEditor(clientMain);
+        regionEditor = new RegionEditor(clientMain);
+        tileAnimationEditor = new TileAnimationEditor(clientMain);
+        spellAnimationEditor = new SpellAnimationEditor(clientMain);
+
+        // shared
+        mainSettingsWindow = new MainSettingsWindow(this);
 
         // WARNING! Only add actors after markup has been enabled!
         addActors();
@@ -256,28 +280,28 @@ public class StageHandler implements Disposable {
     }
 
     public void setUserInterface(UserInterfaceType userInterfaceType) {
-        ClientMain.getInstance().setUserInterfaceType(userInterfaceType);
+        clientMain.setUserInterfaceType(userInterfaceType);
         hideAllUI();
-        MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+        MusicManager musicManager = clientMain.getAudioManager().getMusicManager();
 
         switch (userInterfaceType) {
             case LOGIN:
-                if (ClientMain.getInstance().isNeedsUpdate() && !ClientMain.getInstance().isIgnoreRevisionNumber()) {
+                if (clientMain.isNeedsUpdate() && !clientMain.isIgnoreRevisionNumber()) {
                     //GAME CLIENT IS OUT OF DATE!
-                    clientUpdateWindow.showRevisionWindow(ClientMain.getInstance().getRemoteRevisionNumber());
+                    clientUpdateWindow.showRevisionWindow(clientMain.getRemoteRevisionNumber());
                 } else {
                     // GAME CLIENT IS UP TO DATE!
                     // Play audio
                     if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                        if (!musicManager.isMusicPlaying() && ClientMain.getInstance().getGameScreen().isGameFocused()) {
+                        if (!musicManager.isMusicPlaying() && clientMain.getGameScreen().isGameFocused()) {
                             musicManager.playMusic(getClass(), (short) 0);
                         }
                     }
 
-                    ClientMain.getInstance().gameWorldQuit();
+                    clientMain.gameWorldQuit();
 
                     buttonTable.setVisible(true);
-                    versionTable.setVersionLabel(ClientMain.getInstance().getRemoteRevisionNumber());
+                    versionTable.setVersionLabel(clientMain.getRemoteRevisionNumber());
                     versionTable.setVisible(true);
                     copyrightTable.setVisible(true);
                     loginTable.setVisible(true);
@@ -292,12 +316,12 @@ public class StageHandler implements Disposable {
             case CHARACTER_SELECT:
                 // Play audio
                 if (musicManager.getAudioPreferences().isPlayLoginScreenMusic()) {
-                    if (!musicManager.isMusicPlaying() && ClientMain.getInstance().getGameScreen().isGameFocused()) {
+                    if (!musicManager.isMusicPlaying() && clientMain.getGameScreen().isGameFocused()) {
                         musicManager.playMusic(getClass(), (short) 0);
                     }
                 }
 
-                ClientMain.getInstance().gameWorldQuit();
+                clientMain.gameWorldQuit();
 
                 connectionStatusWindow.setVisible(false);
                 characterSelectMenu.setVisible(true);
@@ -306,9 +330,9 @@ public class StageHandler implements Disposable {
             case GAME:
                 musicManager.stopMusic(true);
 
-//                ClientMain.getInstance().getScriptProcessor().setNPCTextDialog(npcTextDialog);
+//                clientMain.getScriptProcessor().setNPCTextDialog(npcTextDialog);
 
-                if (ClientMain.getInstance().isAdmin() || ClientMain.getInstance().isContentDeveloper())
+                if (clientMain.isAdmin() || clientMain.isContentDeveloper())
                     devMenu.setVisible(true);
                 chatWindow.setVisible(true);
                 chatWindow.showChannel(ChatChannelType.GENERAL);

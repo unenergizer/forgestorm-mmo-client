@@ -2,24 +2,21 @@ package com.forgestorm.client.game.screens.ui.actors.dev.world;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.network.game.packet.out.TileWarpPacketOut;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.kotcrab.vis.ui.util.form.FormValidator;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisValidatableTextField;
+import com.kotcrab.vis.ui.widget.*;
 
 public class WarpEditor extends HideableVisWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private final VisValidatableTextField fromWorldX = new VisValidatableTextField();
     private final VisValidatableTextField fromWorldY = new VisValidatableTextField();
     private final VisSelectBox<Floors> fromWorldZ = new VisSelectBox<Floors>();
@@ -29,8 +26,9 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
     private final VisSelectBox<Floors> toWorldZ = new VisSelectBox<Floors>();
     private final VisSelectBox<MoveDirection> facingDirection = new VisSelectBox<MoveDirection>();
 
-    public WarpEditor() {
-        super("Warp Editor");
+    public WarpEditor(ClientMain clientMain) {
+        super(clientMain, "Warp Editor");
+        this.clientMain = clientMain;
     }
 
     private void resetFields() {
@@ -41,7 +39,7 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
         toWorldY.setText("");
         facingDirection.setSelected(MoveDirection.NONE);
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         if (playerClient != null) {
             Location location = playerClient.getCurrentMapLocation();
             if (location != null) {
@@ -64,6 +62,7 @@ public class WarpEditor extends HideableVisWindow implements Buildable {
                     errorLabel.setText("[RED]Facing direction can not be NONE!");
                 } else {
                     new TileWarpPacketOut(
+                            clientMain,
                             Integer.parseInt(fromWorldX.getText()),
                             Integer.parseInt(fromWorldY.getText()),
                             fromWorldZ.getSelected().getWorldZ(),

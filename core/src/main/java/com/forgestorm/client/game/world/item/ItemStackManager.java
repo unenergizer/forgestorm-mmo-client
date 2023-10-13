@@ -15,9 +15,9 @@ public class ItemStackManager {
      */
     private final ItemStack[] itemStacks;
 
-    public ItemStackManager() {
+    public ItemStackManager(ClientMain clientMain) {
         // Load all items from file and store in memory for quick reference.
-        List<ItemStack> loadedItemStacks = ClientMain.getInstance().getFileManager().getItemStackData().getItemStackList();
+        List<ItemStack> loadedItemStacks = clientMain.getFileManager().getItemStackData().getItemStackList();
         itemStacks = new ItemStack[loadedItemStacks.size()];
         loadedItemStacks.toArray(itemStacks);
     }

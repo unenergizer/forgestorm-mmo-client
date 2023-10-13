@@ -4,12 +4,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.forgestorm.client.game.world.entities.Entity;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.util.BetterCameraZoom;
-
 import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
@@ -18,13 +17,15 @@ public class AttachableCamera extends OrthographicCamera {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
     @Getter
     private float lastZoomLevel;
     private Entity following;
 
-    AttachableCamera(ScreenResolutions screenResolutions, float zoom) {
+    AttachableCamera(ClientMain clientMain, ScreenResolutions screenResolutions, float zoom) {
         super.setToOrtho(false, screenResolutions.getWidth(), screenResolutions.getHeight());
         super.update();
+        this.clientMain = clientMain;
         this.zoom = zoom;
         this.lastZoomLevel = zoom;
     }
@@ -71,7 +72,7 @@ public class AttachableCamera extends OrthographicCamera {
     public void changeZoomLevel(float amount) {
         zoom = amount;
         lastZoomLevel = amount;
-        ActorUtil.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
+        clientMain.getStageHandler().getMainSettingsWindow().getGraphicsTab().setZoomLevel(zoom);
         println(getClass(), "[Change] Zoom: " + zoom + ", Last Zoom: " + lastZoomLevel, false, PRINT_DEBUG);
     }
 

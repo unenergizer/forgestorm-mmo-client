@@ -1,19 +1,19 @@
 package com.forgestorm.client.game.screens.ui.actors.dialogue;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.kotcrab.vis.ui.widget.VisTextButton;
-//import com.rafaskoberg.gdx.typinglabel.TypingLabel;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.game.screens.ui.actors.HideableVisWindow;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class ChatDialogue extends HideableVisWindow implements Buildable {
 
     private VisTextButton button;
 //    private TypingLabel messageDialogue;
 
-    public ChatDialogue() {
-        super("");
+    public ChatDialogue(ClientMain clientMain) {
+        super(clientMain, "");
     }
 
     public void drawText(String text) {

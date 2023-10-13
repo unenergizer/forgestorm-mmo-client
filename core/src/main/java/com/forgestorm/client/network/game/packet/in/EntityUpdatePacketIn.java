@@ -1,5 +1,6 @@
 package com.forgestorm.client.network.game.packet.in;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.network.game.shared.ClientHandler;
@@ -7,11 +8,16 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.ENTITY_UPDATE_SPEED)
 public class EntityUpdatePacketIn implements PacketListener<EntityUpdatePacketIn.EntitySpeedPacket> {
+
+    private final ClientMain clientMain;
+
+    public EntityUpdatePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -24,7 +30,7 @@ public class EntityUpdatePacketIn implements PacketListener<EntityUpdatePacketIn
 
     @Override
     public void onEvent(EntitySpeedPacket packetData) {
-        EntityManager entityManager = EntityManager.getInstance();
+        EntityManager entityManager = clientMain.getEntityManager();
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
                 entityManager.getPlayerClient().setMoveSpeed(packetData.runSpeed);
@@ -40,7 +46,7 @@ public class EntityUpdatePacketIn implements PacketListener<EntityUpdatePacketIn
     }
 
     @AllArgsConstructor
-    class EntitySpeedPacket extends PacketData {
+    static class EntitySpeedPacket extends PacketData {
         private final short entityUUID;
         private final EntityType entityType;
         private final float runSpeed;

@@ -15,12 +15,20 @@ import static com.forgestorm.client.util.Log.println;
 
 public class EntityMovementManager {
 
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
+
+    public EntityMovementManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+    }
+
     public void tick(float delta) {
-        for (Player player : EntityManager.getInstance().getPlayerEntityList().values()) {
+        for (Player player : entityManager.getPlayerEntityList().values()) {
             if (!MoveUtil.isEntityMoving(player)) continue;
             updateEntitiesPosition(player, delta);
         }
-        for (MovingEntity entity : EntityManager.getInstance().getAiEntityList().values()) {
+        for (MovingEntity entity : entityManager.getAiEntityList().values()) {
             if (!MoveUtil.isEntityMoving(entity)) continue;
             updateEntitiesPosition(entity, delta);
         }
@@ -46,8 +54,8 @@ public class EntityMovementManager {
 
         // Check if entity shop should close
         if (!(entity instanceof PlayerClient)) {
-            PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
-            StageHandler stageHandler = ClientMain.getInstance().getStageHandler();
+            PlayerClient playerClient = entityManager.getPlayerClient();
+            StageHandler stageHandler = clientMain.getStageHandler();
             MovingEntity shopOwner = stageHandler.getPagedItemStackWindow().getShopOwnerEntity();
             if (entity != shopOwner) return;
             // The

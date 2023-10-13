@@ -2,6 +2,7 @@ package com.forgestorm.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -10,6 +11,7 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 public class MonsterBodyPart {
 
+    private final ClientMain clientMain;
     private final MonsterTab monsterTab;
     private final VisTable visTable;
     private final int maxTextures;
@@ -22,7 +24,8 @@ public class MonsterBodyPart {
     private VisLabel textureId;
     private int currentTexture = 0;
 
-    MonsterBodyPart(MonsterTab monsterTab, VisTable visTable, int maxTextures, int width, int height, ImageData imageData, boolean useCheckBox) {
+    MonsterBodyPart(ClientMain clientMain, MonsterTab monsterTab, VisTable visTable, int maxTextures, int width, int height, ImageData imageData, boolean useCheckBox) {
+        this.clientMain = clientMain;
         this.monsterTab = monsterTab;
         this.visTable = visTable;
         this.maxTextures = maxTextures;
@@ -41,7 +44,7 @@ public class MonsterBodyPart {
         imageArea.clearChildren();
         imageArea.setWidth(width);
         imageArea.setHeight(height);
-        imageArea.add(new ImageBuilder(GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
+        imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
 
         if (currentTexture > 9) {
             textureId.setText("ID: " + currentTexture + "/" + maxTextures);
@@ -56,7 +59,7 @@ public class MonsterBodyPart {
         imageArea = new VisTable();
         imageArea.setWidth(width);
         imageArea.setHeight(height);
-        imageArea.add(new ImageBuilder(GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
+        imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
         final VisTextButton next = new VisTextButton(">");
         textureId = new VisLabel("");
         if (currentTexture > 9) {
@@ -80,7 +83,7 @@ public class MonsterBodyPart {
                     currentTexture = currentTexture - 1;
                 }
                 imageArea.clearChildren();
-                imageArea.add(new ImageBuilder(GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
+                imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
                 imageData.setData(currentTexture);
                 if (currentTexture > 9) {
                     textureId.setText("ID: " + currentTexture + "/" + maxTextures);
@@ -101,7 +104,7 @@ public class MonsterBodyPart {
                     currentTexture = currentTexture + 1;
                 }
                 imageArea.clearChildren();
-                imageArea.add(new ImageBuilder(GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
+                imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_MONSTER).setWidth(width).setHeight(height).setRegionName("monster_down_" + currentTexture).buildVisImage());
                 imageData.setData(currentTexture);
                 if (currentTexture > 9) {
                     textureId.setText("ID: " + currentTexture + "/" + maxTextures);

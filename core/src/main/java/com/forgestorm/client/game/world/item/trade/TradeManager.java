@@ -1,17 +1,22 @@
 package com.forgestorm.client.game.world.item.trade;
 
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.GameQuitReset;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
-
 import lombok.Data;
 
 @Data
 public class TradeManager implements GameQuitReset {
 
+    private final ClientMain clientMain;
+
     public Integer tradeUUID = null;
 
+    public TradeManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
     public boolean isTradeActive() {
-        return ActorUtil.getStageHandler().getTradeWindow().isVisible();
+        return clientMain.getStageHandler().getTradeWindow().isVisible();
     }
 
     @Override

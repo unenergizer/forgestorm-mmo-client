@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.world.maps.GameWorld;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,10 +20,12 @@ public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.Gam
     static class GameWorldParameter extends AssetLoaderParameters<GameWorldDataWrapper> {
     }
 
+    private final ClientMain clientMain;
     private GameWorldDataWrapper gameWorldDataWrapper = null;
 
-    GameWorldLoader(FileHandleResolver resolver) {
+    GameWorldLoader(ClientMain clientMain, FileHandleResolver resolver) {
         super(resolver);
+        this.clientMain = clientMain;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class GameWorldLoader extends AsynchronousAssetLoader<GameWorldLoader.Gam
         int blue = root.get("backgroundBlue").asInt();
         int alpha = root.get("backgroundAlpha").asInt();
 
-        GameWorld gameWorld = new GameWorld(
+        GameWorld gameWorld = new GameWorld(clientMain,
                 worldName,
                 new Color(red / 255f, green / 255f, blue / 255f, alpha));
 

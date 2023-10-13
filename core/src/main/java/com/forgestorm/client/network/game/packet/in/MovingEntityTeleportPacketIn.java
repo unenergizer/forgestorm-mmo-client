@@ -2,7 +2,6 @@ package com.forgestorm.client.network.game.packet.in;
 
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.EntityType;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.maps.Location;
@@ -12,7 +11,6 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -21,6 +19,12 @@ import static com.forgestorm.client.util.Log.println;
 public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntityTeleportPacketIn.MovingEntityTeleportPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+
+    private ClientMain clientMain;
+
+    public MovingEntityTeleportPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -37,7 +41,7 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
         println(getClass(), "y: " + y, false, PRINT_DEBUG);
         println(getClass(), "worldZ: " + worldZ, false, PRINT_DEBUG);
 
-        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(worldName, x, y, worldZ), MoveDirection.getDirection(facingDirection));
+        return new MovingEntityTeleportPacket(entityId, EntityType.getEntityType(entityType), new Location(clientMain, worldName, x, y, worldZ), MoveDirection.getDirection(facingDirection));
     }
 
     @Override
@@ -46,15 +50,15 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
 
         switch (packetData.entityType) {
             case CLIENT_PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerClient();
-                ClientMain.getInstance().getClientMovementProcessor().resetInput();
+                movingEntity = clientMain.getEntityManager().getPlayerClient();
+                clientMain.getClientMovementProcessor().resetInput();
                 break;
             case PLAYER:
-                movingEntity = EntityManager.getInstance().getPlayerEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getPlayerEntity(packetData.entityId);
                 break;
             case NPC:
             case MONSTER:
-                movingEntity = EntityManager.getInstance().getAiEntity(packetData.entityId);
+                movingEntity = clientMain.getEntityManager().getAiEntity(packetData.entityId);
                 break;
         }
 
@@ -79,7 +83,7 @@ public class MovingEntityTeleportPacketIn implements PacketListener<MovingEntity
     }
 
     @AllArgsConstructor
-    class MovingEntityTeleportPacket extends PacketData {
+    static class MovingEntityTeleportPacket extends PacketData {
         private final short entityId;
         private final EntityType entityType;
         private final Location teleportLocation;

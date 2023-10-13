@@ -8,11 +8,16 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.CharacterCreatorResponses;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.CHARACTER_CREATOR_ERROR)
 public class CharacterCreatorPacketIn implements PacketListener<CharacterCreatorPacketIn.CharacterCreatorError> {
+
+    private final ClientMain clientMain;
+
+    public CharacterCreatorPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -21,7 +26,7 @@ public class CharacterCreatorPacketIn implements PacketListener<CharacterCreator
 
     @Override
     public void onEvent(CharacterCreatorError packetData) {
-        CharacterCreation characterCreation = ClientMain.getInstance().getStageHandler().getCharacterCreation();
+        CharacterCreation characterCreation = clientMain.getStageHandler().getCharacterCreation();
         switch (packetData.characterCreatorResponses) {
             case SUCCESS:
                 characterCreation.creationSuccess();
@@ -35,7 +40,7 @@ public class CharacterCreatorPacketIn implements PacketListener<CharacterCreator
     }
 
     @AllArgsConstructor
-    class CharacterCreatorError extends PacketData {
+    static class CharacterCreatorError extends PacketData {
         private final CharacterCreatorResponses characterCreatorResponses;
     }
 }

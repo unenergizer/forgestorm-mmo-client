@@ -3,17 +3,15 @@ package com.forgestorm.client.game.movement;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.GameQuitReset;
 import com.forgestorm.client.game.world.entities.Entity;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.game.world.entities.MovingEntity;
 import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.client.util.PathFinding;
 import com.forgestorm.client.util.PathSolution;
+import lombok.Setter;
 
 import java.util.Queue;
-
-import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
@@ -21,7 +19,8 @@ public class EntityTracker implements GameQuitReset {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final PathFinding pathFinding = new PathFinding();
+    private final ClientMain clientMain;
+    private final PathFinding pathFinding;
     private Location previousLocation;
     private Entity entityToTrack;
     private AbstractPostProcessor abstractPostProcessor;
@@ -32,6 +31,11 @@ public class EntityTracker implements GameQuitReset {
     private enum TrackType {
         WALK_TO,
         FOLLOW
+    }
+
+    public EntityTracker(ClientMain clientMain) {
+        this.clientMain = clientMain;
+        this.pathFinding = new PathFinding(clientMain);
     }
 
     private TrackType trackType = TrackType.FOLLOW;
@@ -64,7 +68,7 @@ public class EntityTracker implements GameQuitReset {
 
         println(getClass(), "walkToTileLocation()", false, PRINT_DEBUG);
 
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         Location clientLocation = playerClient.getFutureMapLocation();
 
         PathSolution pathSolution = pathFinding.findPath(clientLocation.getX(), clientLocation.getY(), tileX, tileY, clientLocation.getWorldName(), ignoreFinalTile);
@@ -74,14 +78,14 @@ public class EntityTracker implements GameQuitReset {
             if (distanceCheck > 0) {
                 println(getClass(), "CHECKING DISTANCE", false, PRINT_DEBUG);
 
-                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY, worldZ), distanceCheck)) {
+                if (clientLocation.isWithinDistance(new Location(clientMain, clientLocation.getWorldName(), tileX, tileY, worldZ), distanceCheck)) {
                     if (abstractPostProcessor != null)
                         abstractPostProcessor.postMoveAction();
                     if (trackType != TrackType.FOLLOW)
                         cancelFollow();
                 }
             } else {
-                if (clientLocation.isWithinDistance(new Location(clientLocation.getWorldName(), tileX, tileY, worldZ), 1)) {
+                if (clientLocation.isWithinDistance(new Location(clientMain, clientLocation.getWorldName(), tileX, tileY, worldZ), 1)) {
                     if (abstractPostProcessor != null)
                         abstractPostProcessor.postMoveAction();
                     if (trackType != TrackType.FOLLOW)
@@ -110,7 +114,7 @@ public class EntityTracker implements GameQuitReset {
         }
 
         println(getClass(), "ABSTRACT POST PROCESSOR = " + abstractPostProcessor, false, PRINT_DEBUG);
-        ClientMain.getInstance().getClientMovementProcessor().postProcessMovement(
+        clientMain.getClientMovementProcessor().postProcessMovement(
                 new InputData(ClientMovementProcessor.MovementInput.MOUSE, moveNodes, abstractPostProcessor));
 
         return false;

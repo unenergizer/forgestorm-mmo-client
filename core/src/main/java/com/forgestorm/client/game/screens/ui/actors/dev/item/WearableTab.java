@@ -1,6 +1,7 @@
 package com.forgestorm.client.game.screens.ui.actors.dev.item;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisImage;
@@ -13,15 +14,15 @@ class WearableTab extends Tab {
     private final String title;
     private Table content;
 
-    WearableTab() {
+    WearableTab(ClientMain clientMain) {
         super(false, false);
         title = " Wearables ";
-        build();
+        build(clientMain);
     }
 
-    private void build() {
+    private void build(ClientMain clientMain) {
         content = new VisTable(true);
-        VisImage visImage = new ImageBuilder(GameAtlas.ITEMS, "skill_165", 16 * 3).buildVisImage();
+        VisImage visImage = new ImageBuilder(clientMain, GameAtlas.ITEMS, "skill_165", 16 * 3).buildVisImage();
 
         VisTable labelTable = new VisTable(true);
         VisLabel visTextArea1 = new VisLabel("Click the tabs above to change your games settings.");

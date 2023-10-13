@@ -15,14 +15,17 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 
 class SkillBookSlot extends PagedWindowSlot {
 
+    private final ClientMain clientMain;
     private final StageHandler stageHandler;
-    private final ImageBuilder imageBuilder = new ImageBuilder(GameAtlas.ITEMS, 32);
+    private final ImageBuilder imageBuilder;
     private final ItemStack itemStack;
 
     private ItemStackToolTip itemStackToolTip;
 
     SkillBookSlot(StageHandler stageHandler, ItemStack itemStack) {
+        this.clientMain = stageHandler.getClientMain();
         this.stageHandler = stageHandler;
+        this.imageBuilder = new ImageBuilder(clientMain, GameAtlas.ITEMS, 32);
         this.itemStack = itemStack;
     }
 
@@ -54,7 +57,7 @@ class SkillBookSlot extends PagedWindowSlot {
             button.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
+                    clientMain.getAudioManager().getSoundManager().playSoundFx(PagedWindow.class, (short) 0);
                     // TODO: Send packet here
                     // TODO: Send spell_book slot update here
                 }

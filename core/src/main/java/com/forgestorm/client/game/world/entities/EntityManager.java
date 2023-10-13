@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.world.entities;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
@@ -9,23 +7,24 @@ import com.forgestorm.client.game.screens.ui.actors.settings.GameMechanicsTab;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.shared.game.world.maps.Floors;
 import com.forgestorm.shared.io.type.GameAtlas;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import lombok.Getter;
-import lombok.Setter;
+import static com.forgestorm.client.util.Log.println;
 
 public class EntityManager implements Disposable {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+
     @Getter
     @Setter
     private PlayerClient playerClient;
-
-    private static EntityManager instance;
 
     //  EntityId -> Entity
     @Getter
@@ -40,12 +39,8 @@ public class EntityManager implements Disposable {
     @Getter
     private final Map<Short, ItemStackDrop> itemStackDropList = new HashMap<>();
 
-    private EntityManager() {
-    }
-
-    public static EntityManager getInstance() {
-        if (instance == null) instance = new EntityManager();
-        return instance;
+    public EntityManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
     }
 
     public void addPlayerEntity(short entityId, Player player) {
@@ -106,12 +101,12 @@ public class EntityManager implements Disposable {
     public void drawGroundEntities(SpriteBatch spriteBatch) {
         // Draw Items on ground
 //        for (ItemStackDrop itemStackDrop : itemStackDropList.values()) {
-//            ItemStack itemStack = ClientMain.getInstance().getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
-//            spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
+//            ItemStack itemStack = clientMain.getItemStackManager().makeItemStack(itemStackDrop.getAppearance().getSingleBodyTexture(), 1);
+//            spriteBatch.draw(clientMain.getFileManager().getAtlas(GameAtlas.ITEMS).findRegion(itemStack.getTextureRegion()), itemStackDrop.getDrawX() + 4, itemStackDrop.getDrawY() + 4, 8, 8);
 //        }
         // Draw over items
         for (StationaryEntity stationaryEntity : stationaryEntityList.values()) {
-            spriteBatch.draw(ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getSingleBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
+            spriteBatch.draw(clientMain.getFileManager().getAtlas(GameAtlas.SKILL_NODES).findRegion("ore_00_0" + stationaryEntity.getAppearance().getSingleBodyTexture()), stationaryEntity.getDrawX(), stationaryEntity.getDrawY());
         }
     }
 
@@ -135,7 +130,7 @@ public class EntityManager implements Disposable {
     }
 
     public void drawEntityNames(Floors floor) {
-        GameMechanicsTab gameMechanicsTab = ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab();
+        GameMechanicsTab gameMechanicsTab = clientMain.getStageHandler().getMainSettingsWindow().getGameMechanicsTab();
         if (gameMechanicsTab.getEntityNameVisibleCheckBox().isChecked()) {
             for (MovingEntity movingEntity : aiEntityList.values()) {
                 if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;
@@ -162,7 +157,7 @@ public class EntityManager implements Disposable {
     }
 
     public void drawHealthBar(Floors floor) {
-        GameMechanicsTab gameMechanicsTab = ClientMain.getInstance().getStageHandler().getMainSettingsWindow().getGameMechanicsTab();
+        GameMechanicsTab gameMechanicsTab = clientMain.getStageHandler().getMainSettingsWindow().getGameMechanicsTab();
         if (gameMechanicsTab.getEntityHealthBarVisibleCheckBox().isChecked()) {
             for (MovingEntity movingEntity : aiEntityList.values()) {
                 if (movingEntity.getCurrentMapLocation().getZ() != floor.getWorldZ()) continue;

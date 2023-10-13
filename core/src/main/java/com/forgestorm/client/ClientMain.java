@@ -31,37 +31,8 @@ import com.forgestorm.client.network.ConnectionManager;
 import com.forgestorm.client.network.game.ClientGameConnection;
 import com.forgestorm.client.network.game.Consumer;
 import com.forgestorm.client.network.game.LoginCredentials;
-import com.forgestorm.client.network.game.packet.in.AiEntityDataPacketIn;
-import com.forgestorm.client.network.game.packet.in.BankManagePacketIn;
-import com.forgestorm.client.network.game.packet.in.CharacterCreatorPacketIn;
-import com.forgestorm.client.network.game.packet.in.CharactersMenuLoadPacketIn;
-import com.forgestorm.client.network.game.packet.in.ChatMessagePacketIn;
-import com.forgestorm.client.network.game.packet.in.ClientMoveResyncPacketIn;
-import com.forgestorm.client.network.game.packet.in.DoorInteractPacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityAppearancePacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityAttributesUpdatePacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityDamagePacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityDespawnPacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityHealthPacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityMovePacketIn;
-import com.forgestorm.client.network.game.packet.in.EntitySpawnPacketIn;
-import com.forgestorm.client.network.game.packet.in.EntityUpdatePacketIn;
-import com.forgestorm.client.network.game.packet.in.InitClientPrivilegePacketIn;
-import com.forgestorm.client.network.game.packet.in.InitScreenPacketIn;
-import com.forgestorm.client.network.game.packet.in.InitializeGameWorldPacketIn;
-import com.forgestorm.client.network.game.packet.in.InspectPlayerPacketIn;
-import com.forgestorm.client.network.game.packet.in.InventoryPacketIn;
-import com.forgestorm.client.network.game.packet.in.MovingEntityTeleportPacketIn;
-import com.forgestorm.client.network.game.packet.in.PingPacketIn;
-import com.forgestorm.client.network.game.packet.in.PlayerTradePacketIn;
-import com.forgestorm.client.network.game.packet.in.ProfileRequestPacketIn;
-import com.forgestorm.client.network.game.packet.in.SkillExperiencePacketIn;
-import com.forgestorm.client.network.game.packet.in.TileImageStatusesPacketIn;
-import com.forgestorm.client.network.game.packet.in.TileWarpPacketIn;
-import com.forgestorm.client.network.game.packet.in.WorldBuilderPacketIn;
-import com.forgestorm.client.network.game.packet.in.WorldChunkPartPacketIn;
+import com.forgestorm.client.network.game.packet.in.*;
 import com.forgestorm.client.network.game.shared.EventBus;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -70,7 +41,6 @@ public class ClientMain extends Game {
 
     private final LoginCredentials loginCredentials = new LoginCredentials();
 
-    private static ClientMain clientMain;
     private ConnectionManager connectionManager;
     private GameScreen gameScreen;
 
@@ -88,7 +58,7 @@ public class ClientMain extends Game {
     @Setter
     private boolean isModerator = false;
 
-    private final FileManager fileManager = new FileManager();
+    private FileManager fileManager;
     private AssetLoadingScreen assetLoadingScreen;
 
     private AudioManager audioManager;
@@ -110,6 +80,7 @@ public class ClientMain extends Game {
     private TradeManager tradeManager;
     private DoorManager doorManager;
     private RegionManager regionManager;
+    private EntityManager entityManager;
 
     private InputMultiplexer inputMultiplexer;
 
@@ -128,15 +99,13 @@ public class ClientMain extends Game {
     public ClientMain() {
     }
 
-    public static ClientMain getInstance() {
-        if (clientMain == null) clientMain = new ClientMain();
-        return clientMain;
-    }
-
     @Override
     public void create() {
+        Gdx.app.log("ForgeStorm", "Create called!");
         // front load all assets
-        setScreen(assetLoadingScreen = new AssetLoadingScreen(fileManager));
+        fileManager = new FileManager(this);
+        fileManager.initFileManager();
+        setScreen(assetLoadingScreen = new AssetLoadingScreen(this));
     }
 
     public void initGameManagers() {
@@ -145,30 +114,32 @@ public class ClientMain extends Game {
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         // load managers
-        audioManager = new AudioManager();
-        factionManager = new FactionManager();
-        worldBuilder = new WorldBuilder();
-        worldManager = new WorldManager();
+        entityManager = new EntityManager(this);
+        audioManager = new AudioManager(this);
+        factionManager = new FactionManager(this);
+        worldBuilder = new WorldBuilder(this);
+        worldManager = new WorldManager(this);
         windowManager = new WindowManager();
-        clientMovementProcessor = new ClientMovementProcessor();
-        clientPlayerMovementManager = new ClientPlayerMovementManager();
-        entityMovementManager = new EntityMovementManager();
-        mouseManager = new MouseManager();
-        itemStackManager = new ItemStackManager();
-        skills = new Skills();
-        entityTracker = new EntityTracker();
-        tradeManager = new TradeManager();
-        entityShopManager = new EntityShopManager();
-        moveInventoryEvents = new MoveInventoryEvents();
-        abilityManager = new AbilityManager();
-        doorManager = new DoorManager();
-        regionManager = new RegionManager();
+        clientMovementProcessor = new ClientMovementProcessor(this);
+        clientPlayerMovementManager = new ClientPlayerMovementManager(this);
+        entityMovementManager = new EntityMovementManager(this);
+        mouseManager = new MouseManager(this);
+        itemStackManager = new ItemStackManager(this);
+        skills = new Skills(this);
+        entityTracker = new EntityTracker(this);
+        tradeManager = new TradeManager(this);
+        entityShopManager = new EntityShopManager(this);
+        moveInventoryEvents = new MoveInventoryEvents(this);
+        abilityManager = new AbilityManager(this);
+        doorManager = new DoorManager(this);
+        regionManager = new RegionManager(this);
 
         // load screens
-        stageHandler = new StageHandler();
-        gameScreen = new GameScreen(stageHandler);
+        stageHandler = new StageHandler(this);
+        gameScreen = new GameScreen(this);
         setScreen(gameScreen);
         stageHandler.setUserInterface(UserInterfaceType.LOGIN);
+
 
         initializeNetwork();
     }
@@ -195,7 +166,7 @@ public class ClientMain extends Game {
     @Override
     public void dispose() {
         connectionManager.disconnect();
-        EntityManager.getInstance().dispose();
+        entityManager.dispose();
         abilityManager.dispose();
         stageHandler.dispose();
         gameScreen.dispose();
@@ -204,41 +175,42 @@ public class ClientMain extends Game {
     }
 
     private void initializeNetwork() {
-        connectionManager = new ConnectionManager(
+        final ClientMain clientMain = this;
+        connectionManager = new ConnectionManager(clientMain,
                 fileManager.getNetworkSettingsData(),
                 loginCredentials,
                 new Consumer<EventBus>() {
                     @Override
                     public void accept(EventBus eventBus) {
-                        eventBus.registerListener(new PingPacketIn());
-                        eventBus.registerListener(new InitScreenPacketIn());
-                        eventBus.registerListener(new EntityMovePacketIn());
-                        eventBus.registerListener(new EntitySpawnPacketIn());
-                        eventBus.registerListener(new EntityDespawnPacketIn());
-                        eventBus.registerListener(new InitializeGameWorldPacketIn());
-                        eventBus.registerListener(new ChatMessagePacketIn());
-                        eventBus.registerListener(new EntityAppearancePacketIn());
-                        eventBus.registerListener(new InventoryPacketIn());
-                        eventBus.registerListener(new SkillExperiencePacketIn());
-                        eventBus.registerListener(new EntityAttributesUpdatePacketIn());
-                        eventBus.registerListener(new MovingEntityTeleportPacketIn());
-                        eventBus.registerListener(new EntityDamagePacketIn());
-                        eventBus.registerListener(new EntityHealthPacketIn());
-                        eventBus.registerListener(new PlayerTradePacketIn());
-                        eventBus.registerListener(new AiEntityDataPacketIn());
-                        eventBus.registerListener(new CharactersMenuLoadPacketIn());
-                        eventBus.registerListener(new BankManagePacketIn());
-                        eventBus.registerListener(new EntityUpdatePacketIn());
-                        eventBus.registerListener(new InitClientPrivilegePacketIn());
-                        eventBus.registerListener(new InspectPlayerPacketIn());
-                        eventBus.registerListener(new ProfileRequestPacketIn());
-                        eventBus.registerListener(new ClientMoveResyncPacketIn());
-                        eventBus.registerListener(new CharacterCreatorPacketIn());
-                        eventBus.registerListener(new WorldBuilderPacketIn());
-                        eventBus.registerListener(new WorldChunkPartPacketIn());
-                        eventBus.registerListener(new TileWarpPacketIn());
-                        eventBus.registerListener(new DoorInteractPacketIn());
-                        eventBus.registerListener(new TileImageStatusesPacketIn());
+                        eventBus.registerListener(new PingPacketIn(clientMain));
+                        eventBus.registerListener(new InitScreenPacketIn(clientMain));
+                        eventBus.registerListener(new EntityMovePacketIn(clientMain));
+                        eventBus.registerListener(new EntitySpawnPacketIn(clientMain));
+                        eventBus.registerListener(new EntityDespawnPacketIn(clientMain));
+                        eventBus.registerListener(new InitializeGameWorldPacketIn(clientMain));
+                        eventBus.registerListener(new ChatMessagePacketIn(clientMain));
+                        eventBus.registerListener(new EntityAppearancePacketIn(clientMain));
+                        eventBus.registerListener(new InventoryPacketIn(clientMain));
+                        eventBus.registerListener(new SkillExperiencePacketIn(clientMain));
+                        eventBus.registerListener(new EntityAttributesUpdatePacketIn(clientMain));
+                        eventBus.registerListener(new MovingEntityTeleportPacketIn(clientMain));
+                        eventBus.registerListener(new EntityDamagePacketIn(clientMain));
+                        eventBus.registerListener(new EntityHealthPacketIn(clientMain));
+                        eventBus.registerListener(new PlayerTradePacketIn(clientMain));
+                        eventBus.registerListener(new AiEntityDataPacketIn(clientMain));
+                        eventBus.registerListener(new CharactersMenuLoadPacketIn(clientMain));
+                        eventBus.registerListener(new BankManagePacketIn(clientMain));
+                        eventBus.registerListener(new EntityUpdatePacketIn(clientMain));
+                        eventBus.registerListener(new InitClientPrivilegePacketIn(clientMain));
+                        eventBus.registerListener(new InspectPlayerPacketIn(clientMain));
+                        eventBus.registerListener(new ProfileRequestPacketIn(clientMain));
+                        eventBus.registerListener(new ClientMoveResyncPacketIn(clientMain));
+                        eventBus.registerListener(new CharacterCreatorPacketIn(clientMain));
+                        eventBus.registerListener(new WorldBuilderPacketIn(clientMain));
+                        eventBus.registerListener(new WorldChunkPartPacketIn(clientMain));
+                        eventBus.registerListener(new TileWarpPacketIn(clientMain));
+                        eventBus.registerListener(new DoorInteractPacketIn(clientMain));
+                        eventBus.registerListener(new TileImageStatusesPacketIn(clientMain));
                     }
                 });
     }
@@ -250,6 +222,6 @@ public class ClientMain extends Game {
         abilityManager.gameQuitReset();
         tradeManager.gameQuitReset();
         stageHandler.resetUI();
-        EntityManager.getInstance().dispose();
+        entityManager.dispose();
     }
 }

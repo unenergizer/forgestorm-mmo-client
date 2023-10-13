@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.Buildable;
 import com.forgestorm.client.io.RssFeedLoader;
@@ -29,7 +28,7 @@ public class RssAnnouncements extends VisTable implements Buildable {
         add(new VisLabel("Announcements:")).align(Alignment.TOP_LEFT.getAlignment()).padBottom(5).row();
         add(rssFeedTable);
 
-        createClickableEntryBox();
+        createClickableEntryBox(stageHandler);
 
         setPosition(10, 40);
         pack();
@@ -37,8 +36,8 @@ public class RssAnnouncements extends VisTable implements Buildable {
         return this;
     }
 
-    private void createClickableEntryBox() {
-        RssFeedLoader.RssFeedWrapper rssFeedWrapper = ClientMain.getInstance().getFileManager().getRssFeedData();
+    private void createClickableEntryBox(StageHandler stageHandler) {
+        RssFeedLoader.RssFeedWrapper rssFeedWrapper = stageHandler.getClientMain().getFileManager().getRssFeedData();
 
         if (rssFeedWrapper == null) return;
         if (rssFeedWrapper.getFeedData() == null) return;
@@ -55,7 +54,7 @@ public class RssAnnouncements extends VisTable implements Buildable {
             visTextButton.addListener(new InputListener() {
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     Gdx.net.openURI(syndEntry.getLink());
-                    ClientMain.getInstance().getAudioManager().getSoundManager().playSoundFx(RssAnnouncements.class, (short) 0);
+                    stageHandler.getClientMain().getAudioManager().getSoundManager().playSoundFx(RssAnnouncements.class, (short) 0);
                     return true;
                 }
 

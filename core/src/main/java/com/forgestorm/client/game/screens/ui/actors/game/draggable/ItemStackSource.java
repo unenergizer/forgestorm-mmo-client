@@ -10,13 +10,13 @@ import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisImage;
-
 import lombok.Getter;
 
 public class ItemStackSource extends DragAndDrop.Source {
 
     private static final int DRAG_IMAGE_SIZE = 24;
 
+    private final ClientMain clientMain;
     private final StageHandler stageHandler;
     private final DragAndDrop dragManager;
     @Getter
@@ -27,6 +27,7 @@ public class ItemStackSource extends DragAndDrop.Source {
 
     ItemStackSource(StageHandler stageHandler, DragAndDrop dragManager, ItemStackSlot itemStackSlot) {
         super(itemStackSlot);
+        this.clientMain = stageHandler.getClientMain();
         this.stageHandler = stageHandler;
         this.dragManager = dragManager;
         this.itemStackSlot = itemStackSlot;
@@ -49,7 +50,7 @@ public class ItemStackSource extends DragAndDrop.Source {
         if (itemStackSlot.isCharacterInspectionSlot()) return null;
         if (itemStackSlot.isTradeSlotLocked()) return null;
         if (itemStackSlot.isMagicItemActivated()) return null;
-        if (ClientMain.getInstance().getTradeManager().isTradeActive()) return null;
+        if (clientMain.getTradeManager().isTradeActive()) return null;
 
         ItemStack itemStack = itemStackSlot.getItemStack();
 
@@ -66,11 +67,11 @@ public class ItemStackSource extends DragAndDrop.Source {
         }
 
         // The image to display when the item is picked up and is being moved to valid locations
-        VisImage image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegionName(), DRAG_IMAGE_SIZE).buildVisImage();
+        VisImage image = new ImageBuilder(clientMain, GameAtlas.ITEMS, itemStack.getTextureRegionName(), DRAG_IMAGE_SIZE).buildVisImage();
         inventoryPayload.setDragActor(image);
 
         // The image to display when the item is being placed over an invalid location
-        image = new ImageBuilder(GameAtlas.ITEMS, itemStack.getTextureRegionName(), DRAG_IMAGE_SIZE).buildVisImage();
+        image = new ImageBuilder(clientMain, GameAtlas.ITEMS, itemStack.getTextureRegionName(), DRAG_IMAGE_SIZE).buildVisImage();
         image.setColor(Color.RED);
         inventoryPayload.setInvalidDragActor(image);
 
@@ -84,7 +85,7 @@ public class ItemStackSource extends DragAndDrop.Source {
         dragManager.setDragActorPosition(image.getWidth() / 2, -image.getHeight() / 2);
 
         // Play Sound FX
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStackSlot.getItemStack());
+        clientMain.getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), itemStackSlot.getItemStack());
 
         return inventoryPayload;
     }

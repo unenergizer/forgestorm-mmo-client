@@ -1,5 +1,6 @@
 package com.forgestorm.client.io;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.*;
@@ -7,11 +8,13 @@ import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.audio.AudioData;
 import com.forgestorm.client.io.type.GameFont;
 import com.forgestorm.client.io.type.GamePixmap;
@@ -30,19 +33,57 @@ public class FileManager {
 
     private static final boolean PRINT_DEBUG = false;
 
-    @Getter
-    private final String clientFilesDirectoryPath;
-    @Getter
-    private final String clientUpdaterJar;
+    private final ClientMain clientMain;
 
     @Getter
-    private final String worldDirectory;
+    private String clientFilesDirectoryPath;
+    @Getter
+    private String clientUpdaterJar;
+    @Getter
+    private String worldDirectory;
 
     private final AssetManager assetManager = new AssetManager();
     private final FileHandleResolver internalResolver = new InternalFileHandleResolver();
     private final FileHandleResolver absoluteResolver = new AbsoluteFileHandleResolver();
 
-    public FileManager() {
+    public FileManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
+    public void initFileManager() {
+        switch (Gdx.app.getType()) {
+
+            case Android:
+                initAndroid();
+                break;
+            case Desktop:
+                initDesktop();
+                break;
+            case iOS:
+                initIOS();
+                break;
+        }
+    }
+
+    private void initAndroid() {
+        FileHandle homeDirectory = Gdx.files.external("ForgeStorm");
+
+        if (!homeDirectory.exists()) {
+            println(getClass(), "The ForgeStorm home directory does not exist. Creating it now.");
+            homeDirectory.mkdirs();
+            initAndroid();
+        } else {
+            println(getClass(), "The ForgeStorm home directory exists.");
+        }
+        clientFilesDirectoryPath = homeDirectory.file().getAbsolutePath();
+    }
+
+    private void initIOS() {
+
+    }
+
+    private void initDesktop() {
+
         // Set the client home directory
         File homeDirectory = FindDesktopDirectoryUtil.getDirectory();
 
@@ -92,7 +133,6 @@ public class FileManager {
         this.worldDirectory = worldDirectory.getAbsolutePath();
 
         // Create Revision document and set the build to 0;
-//        if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
         println(getClass(), "ClientFilesDirectory: " + clientFilesDirectoryPath);
         String path = clientFilesDirectoryPath + "/Revision.txt";
         File revision = new File(path);
@@ -264,7 +304,7 @@ public class FileManager {
     }
 
     public void loadItemStackData() {
-        abstractedLoad(FilePaths.ITEM_STACK.getInternalFilePath(), false, false, ItemStackLoader.ItemStackData.class, new ItemStackLoader(internalResolver));
+        abstractedLoad(FilePaths.ITEM_STACK.getInternalFilePath(), false, false, ItemStackLoader.ItemStackData.class, new ItemStackLoader(clientMain, internalResolver));
     }
 
     public ItemStackLoader.ItemStackData getItemStackData() {
@@ -312,7 +352,7 @@ public class FileManager {
     }
 
     public void loadTilePropertiesData() {
-        abstractedLoad(FilePaths.TILE_PROPERTIES.getInternalFilePath(), false, false, TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(internalResolver));
+        abstractedLoad(FilePaths.TILE_PROPERTIES.getInternalFilePath(), false, false, TilePropertiesLoader.TilePropertiesDataWrapper.class, new TilePropertiesLoader(clientMain, internalResolver));
     }
 
     public TilePropertiesLoader.TilePropertiesDataWrapper getTilePropertiesData() {
@@ -361,7 +401,7 @@ public class FileManager {
 
     public void loadGameWorldData(String worldName) {
         String filePath = FilePaths.MAP_DIRECTORY.getInternalFilePath() + "/" + worldName;
-        abstractedLoad(filePath, false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(internalResolver));
+        abstractedLoad(filePath, false, false, GameWorldLoader.GameWorldDataWrapper.class, new GameWorldLoader(clientMain, internalResolver));
     }
 
     public GameWorldLoader.GameWorldDataWrapper getGameWorldData(String worldName) {
@@ -371,7 +411,7 @@ public class FileManager {
 
     public void loadMapChunkData(String worldName, short chunkX, short chunkY, boolean forceFinishLoading) {
         String filePath = clientFilesDirectoryPath + File.separator + "worldDirectory" + File.separator + worldName + File.separator + chunkX + "." + chunkY + ".json";
-        abstractedLoad(filePath, forceFinishLoading, true, ChunkLoader.WorldChunkDataWrapper.class, new ChunkLoader(absoluteResolver, worldName));
+        abstractedLoad(filePath, forceFinishLoading, true, ChunkLoader.WorldChunkDataWrapper.class, new ChunkLoader(clientMain, absoluteResolver, worldName));
     }
 
     public ChunkLoader.WorldChunkDataWrapper getMapChunkData(String worldName, short chunkX, short chunkY) {

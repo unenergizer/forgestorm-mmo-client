@@ -20,7 +20,9 @@ import java.util.Map;
 
 public class WorldChunk {
 
-    private final WorldBuilder worldBuilder = ClientMain.getInstance().getWorldBuilder();
+    private final ClientMain clientMain;
+    private final EntityManager entityManager;
+    private final WorldBuilder worldBuilder;
 
     @Getter
     private final String worldName;
@@ -34,7 +36,10 @@ public class WorldChunk {
     @Getter
     private final Map<WarpLocation, Warp> tileWarps = new HashMap<>();
 
-    public WorldChunk(String worldName, short chunkX, short chunkY) {
+    public WorldChunk(ClientMain clientMain, String worldName, short chunkX, short chunkY) {
+        this.clientMain = clientMain;
+        this.entityManager = clientMain.getEntityManager();
+        this.worldBuilder = clientMain.getWorldBuilder();
         this.worldName = worldName;
         this.chunkX = chunkX;
         this.chunkY = chunkY;
@@ -57,7 +62,8 @@ public class WorldChunk {
             for (int localX = 0; localX < ClientConstants.CHUNK_SIZE; localX++) {
                 for (int localY = 0; localY < ClientConstants.CHUNK_SIZE; localY++) {
 
-                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(layerDefinition,
+                    tiles[localX + localY * ClientConstants.CHUNK_SIZE] = new Tile(clientMain,
+                            layerDefinition,
                             worldName,
                             this,
                             localX + chunkX * ClientConstants.CHUNK_SIZE,
@@ -126,7 +132,7 @@ public class WorldChunk {
     }
 
     public boolean isTraversable(int localX, int localY) {
-        Location location = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+        Location location = entityManager.getPlayerClient().getCurrentMapLocation();
         return isTraversable(Floors.getFloor(location.getZ()), localX, localY);
     }
 
@@ -138,7 +144,7 @@ public class WorldChunk {
         Tile[] tiles = layerDefinitionMap.get(LayerDefinition.WORLD_OBJECTS);
         Tile tile = tiles[localX + localY * ClientConstants.CHUNK_SIZE];
         if (tile == null) return true;
-        if (!ClientMain.getInstance().getDoorManager().isDoorwayTraversable(tile)) return false;
+        if (!clientMain.getDoorManager().isDoorwayTraversable(tile)) return false;
         return !tile.hasCollision();
     }
 
@@ -214,7 +220,7 @@ public class WorldChunk {
         Tile[] layerTiles = layerDefinitionMap.get(layerDefinition);
         if (layerTiles == null) return;
 
-        Location playerLocation = EntityManager.getInstance().getPlayerClient().getCurrentMapLocation();
+        Location playerLocation = entityManager.getPlayerClient().getCurrentMapLocation();
 
         // Make the width and height of a given tile just a tad bit larger
         // than it normally would be to prevent most tearing issues.
@@ -249,7 +255,7 @@ public class WorldChunk {
 
     private boolean renderRegion(Location playerLocation, Tile tile, LayerDefinition layerDefinition) {
         // Region management
-        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        RegionManager regionManager = clientMain.getRegionManager();
         Region region = regionManager.getRegionToEdit();
 
         if (region == null) return true;

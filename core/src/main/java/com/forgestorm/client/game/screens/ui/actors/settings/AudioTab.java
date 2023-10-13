@@ -3,30 +3,30 @@ package com.forgestorm.client.game.screens.ui.actors.settings;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientConstants;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.audio.AudioPreferences;
+import com.forgestorm.client.game.audio.MusicManager;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
-import com.forgestorm.client.ClientConstants;
-import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.audio.AudioPreferences;
-import com.forgestorm.client.game.audio.MusicManager;
 
 class AudioTab extends Tab {
 
     private final String title;
     private Table content;
 
-    AudioTab() {
+    AudioTab(ClientMain clientMain) {
         super(false, false);
         title = " Audio ";
-        build();
+        build(clientMain);
     }
 
-    private void build() {
+    private void build(ClientMain clientMain) {
         content = new VisTable(true);
-        final MusicManager musicManager = ClientMain.getInstance().getAudioManager().getMusicManager();
+        final MusicManager musicManager = clientMain.getAudioManager().getMusicManager();
         final AudioPreferences audioPreferences = musicManager.getAudioPreferences();
 
         /*

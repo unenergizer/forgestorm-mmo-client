@@ -9,8 +9,8 @@ public class FactionManager {
 
     private final Map<Byte, FactionLoader.FactionData> factionDataMap;
 
-    public FactionManager() {
-        this.factionDataMap = ClientMain.getInstance().getFileManager().getFactionData().getByteFactionDataMap();
+    public FactionManager(ClientMain clientMain) {
+        this.factionDataMap = clientMain.getFileManager().getFactionData().getByteFactionDataMap();
     }
 
     public Byte getFactionByName(String factionName) {

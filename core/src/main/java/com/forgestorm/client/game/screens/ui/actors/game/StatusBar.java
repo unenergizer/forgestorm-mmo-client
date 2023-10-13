@@ -3,27 +3,29 @@ package com.forgestorm.client.game.screens.ui.actors.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.game.screens.ui.StageHandler;
+import com.forgestorm.client.game.screens.ui.actors.Buildable;
+import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
+import com.forgestorm.client.game.world.entities.PlayerClient;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.forgestorm.client.game.screens.ui.StageHandler;
-import com.forgestorm.client.game.screens.ui.actors.Buildable;
-import com.forgestorm.client.game.screens.ui.actors.event.WindowResizeListener;
-import com.forgestorm.client.game.world.entities.EntityManager;
-import com.forgestorm.client.game.world.entities.PlayerClient;
 
 public class StatusBar extends VisWindow implements Buildable {
 
+    private final ClientMain clientMain;
     private final VisLabel hpLabel = new VisLabel();
     private final VisProgressBar hpBar = new VisProgressBar(0, 100, 1, false);
 
     private final VisLabel mpLabel = new VisLabel();
     private final VisProgressBar mpBar = new VisProgressBar(0, 100, 1, false);
 
-    public StatusBar() {
+    public StatusBar(ClientMain clientMain) {
         super("");
+        this.clientMain = clientMain;
     }
 
     public void initHealth(int health, int maxHealth) {
@@ -33,7 +35,7 @@ public class StatusBar extends VisWindow implements Buildable {
     }
 
     public void updateHealth(int health) {
-        PlayerClient playerClient = EntityManager.getInstance().getPlayerClient();
+        PlayerClient playerClient = clientMain.getEntityManager().getPlayerClient();
         hpBar.setValue(health);
         hpLabel.setText(health + "/" + playerClient.getMaxHealth());
     }

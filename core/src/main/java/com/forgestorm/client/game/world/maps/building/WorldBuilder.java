@@ -35,6 +35,8 @@ public class WorldBuilder implements TileGetterSetter {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+
     private final AutoTiler autoTiler = new AutoTiler(this);
 
     private final Map<Integer, TileAnimation> tileAnimationMap;
@@ -63,14 +65,15 @@ public class WorldBuilder implements TileGetterSetter {
     private boolean allowClickToMove = true;
 
 
-    public WorldBuilder() {
+    public WorldBuilder(ClientMain clientMain) {
+        this.clientMain = clientMain;
 
         // Load Tiles atlas
-        worldTileImages = ClientMain.getInstance().getFileManager().getAtlas(GameAtlas.TILES);
+        worldTileImages = clientMain.getFileManager().getAtlas(GameAtlas.TILES);
         regions = worldTileImages.getRegions();
 
         // Load AbstractTileProperty.yaml
-        tileImageMap = ClientMain.getInstance().getFileManager().getTilePropertiesData().getWorldImageMap();
+        tileImageMap = clientMain.getFileManager().getTilePropertiesData().getWorldImageMap();
 
         // Validate and remove any TileImages that are missing from the Tiles.Atlas file.
         // This will happen if graphics are removed or renamed in the Tiles.Atlas file.
@@ -87,7 +90,7 @@ public class WorldBuilder implements TileGetterSetter {
         parseWangTiles();
 
         // Load TileAnimations.yaml
-        tileAnimationMap = ClientMain.getInstance().getFileManager().getTileAnimationData().getTileAnimationMap();
+        tileAnimationMap = clientMain.getFileManager().getTileAnimationData().getTileAnimationMap();
 
         // Removing broken animations
         for (Iterator<Map.Entry<Integer, TileAnimation>> iteratorEntry = tileAnimationMap.entrySet().iterator(); iteratorEntry.hasNext(); ) {
@@ -264,7 +267,7 @@ public class WorldBuilder implements TileGetterSetter {
 
     public void setCurrentLayer(LayerDefinition layerDefinition) {
         this.currentLayer = layerDefinition;
-        ClientMain.getInstance().getStageHandler().getTileBuildMenu().setSelectedLayerButton(layerDefinition);
+        clientMain.getStageHandler().getTileBuildMenu().setSelectedLayerButton(layerDefinition);
     }
 
     public TileImage getTileImage(int tileImageID) {
@@ -284,7 +287,7 @@ public class WorldBuilder implements TileGetterSetter {
 
     @Override
     public String getTile(int x, int y) {
-        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
         Tile tile = gameWorld.getTile(currentLayer, x, y, currentWorkingFloor.getWorldZ());
 
         if (tile == null) return null;
@@ -305,7 +308,7 @@ public class WorldBuilder implements TileGetterSetter {
     public void placeTile(int worldX, int worldY) {
 
         // Only allow tile place if the World Builder is open
-        if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
+        if (!clientMain.getStageHandler().getTileBuildMenu().isVisible()) return;
 
         if (useWangTile) {
             TileImage tileImage = new TileImage(tileImageMap.get(currentTextureId));
@@ -318,7 +321,7 @@ public class WorldBuilder implements TileGetterSetter {
     }
 
     public void placeTile(LayerDefinition layerDefinition, Integer textureId, int worldX, int worldY, short worldZ, boolean sendPacket) {
-        GameWorld gameWorld = ClientMain.getInstance().getWorldManager().getCurrentGameWorld();
+        GameWorld gameWorld = clientMain.getWorldManager().getCurrentGameWorld();
         Tile tile = gameWorld.getTile(layerDefinition, worldX, worldY, worldZ);
 
         if (tile == null) return;
@@ -336,15 +339,15 @@ public class WorldBuilder implements TileGetterSetter {
         }
 
         if (sendPacket) {
-            new WorldBuilderPacketOut(currentLayer, textureId, worldX, worldY, worldZ).sendPacket();
+            new WorldBuilderPacketOut(clientMain, currentLayer, textureId, worldX, worldY, worldZ).sendPacket();
         }
     }
 
     public void drawMouse(SpriteBatch spriteBatch) {
-        if (!ClientMain.getInstance().getStageHandler().getTileBuildMenu().isVisible()) return;
+        if (!clientMain.getStageHandler().getTileBuildMenu().isVisible()) return;
         if (currentTextureId == null && !useEraser) return;
 
-        MouseManager mouseManager = ClientMain.getInstance().getMouseManager();
+        MouseManager mouseManager = clientMain.getMouseManager();
         int x = mouseManager.getMouseTileX() * 16;
         int y = mouseManager.getMouseTileY() * 16;
 
@@ -353,7 +356,7 @@ public class WorldBuilder implements TileGetterSetter {
         spriteBatch.setColor(color.r, color.g, color.b, .5f);
 
         if (useEraser) {
-            spriteBatch.draw(ClientMain.getInstance().getGameScreen().getInvalidTileLocationTexture(), x, y);
+            spriteBatch.draw(clientMain.getGameScreen().getInvalidTileLocationTexture(), x, y);
         } else {
             TextureAtlas.AtlasRegion region = worldTileImages.findRegion(tileImageMap.get(currentTextureId).getFileName());
             spriteBatch.draw(region, x, y, region.getRegionWidth(), region.getRegionHeight());

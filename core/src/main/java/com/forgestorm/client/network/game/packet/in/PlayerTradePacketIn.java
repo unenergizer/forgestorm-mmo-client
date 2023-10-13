@@ -4,14 +4,12 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.game.TradeWindow;
-import com.forgestorm.client.game.world.entities.EntityManager;
 import com.forgestorm.client.network.game.shared.ClientHandler;
 import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.game.world.item.trade.TradeStatusOpcode;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 import static com.forgestorm.client.util.Log.println;
@@ -20,6 +18,11 @@ import static com.forgestorm.client.util.Log.println;
 public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.TradeRequestPacket> {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
+
+    public PlayerTradePacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -71,7 +74,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
     @Override
     public void onEvent(TradeRequestPacket packetData) {
-        StageHandler stageHandler = ActorUtil.getStageHandler();
+        StageHandler stageHandler = clientMain.getStageHandler();
 
         println(getClass(), "Opcode: " + packetData.tradeStatusOpcode, false, PRINT_DEBUG);
 
@@ -79,12 +82,12 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
 
             // Stage 1: Init trade
             case TRADE_REQUEST_INIT_SENDER:
-                ClientMain.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
+                clientMain.getTradeManager().setTradeUUID(packetData.tradeUUID);
                 break;
             case TRADE_REQUEST_INIT_TARGET:
-                ClientMain.getInstance().getTradeManager().setTradeUUID(packetData.tradeUUID);
+                clientMain.getTradeManager().setTradeUUID(packetData.tradeUUID);
                 ActorUtil.fadeInWindow(stageHandler.getIncomingTradeRequestWindow());
-                ActorUtil.getStageHandler().getTradeWindow().setTradeTarget(EntityManager.getInstance().getPlayerEntity(packetData.tradeTargetUUID));
+                stageHandler.getTradeWindow().setTradeTarget(clientMain.getEntityManager().getPlayerEntity(packetData.tradeTargetUUID));
                 break;
 
             // Stage 2: Wait for TargetPlayer response or time out
@@ -125,7 +128,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
                 // Server will send items in different packet to client
                 // Close and gameQuitReset trade window
                 stageHandler.getTradeWindow().closeTradeWindow();
-                ClientMain.getInstance().getTradeManager().setTradeUUID(null); // Reset trade UUID
+                clientMain.getTradeManager().setTradeUUID(null); // Reset trade UUID
                 break;
 
             // Generic trade cancel
@@ -145,7 +148,7 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
     }
 
     @AllArgsConstructor
-    class TradeRequestPacket extends PacketData {
+    static class TradeRequestPacket extends PacketData {
         private final TradeStatusOpcode tradeStatusOpcode;
         private final int tradeUUID;
         private final short tradeTargetUUID;

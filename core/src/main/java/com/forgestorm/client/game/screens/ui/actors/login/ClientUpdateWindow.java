@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.screens.ui.actors.login;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -17,12 +15,14 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import java.io.File;
 import java.io.IOException;
 
+import static com.forgestorm.client.util.Log.println;
+
 public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
 
     private final VisLabel revisionLabel = new VisLabel("ERROR, SHOULD NOT BE BLANK!");
 
-    public ClientUpdateWindow() {
-        super("Client Update Available");
+    public ClientUpdateWindow(ClientMain clientMain) {
+        super(clientMain, "Client Update Available");
     }
 
     public void showRevisionWindow(int revisionNumber) {
@@ -53,7 +53,7 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
             public void changed(ChangeEvent event, Actor actor) {
                 // TODO: COME BACK AND CLEAN THIS SHIT UP
 
-                String clientUpdaterJar = ClientMain.getInstance().getFileManager().getClientUpdaterJar();
+                String clientUpdaterJar = stageHandler.getClientMain().getFileManager().getClientUpdaterJar();
                 println(getClass(), "Client Updater Path: " + clientUpdaterJar);
                 // Start client updater
                 try {
@@ -81,7 +81,7 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
         closeGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ClientMain.getInstance().dispose();
+                stageHandler.getClientMain().dispose();
                 Gdx.app.exit();
             }
         });
@@ -93,7 +93,7 @@ public class ClientUpdateWindow extends HideableVisWindow implements Buildable {
         addCloseButton(new CloseButtonCallBack() {
             @Override
             public void closeButtonClicked() {
-                ClientMain.getInstance().dispose();
+                stageHandler.getClientMain().dispose();
                 Gdx.app.exit();
             }
         });

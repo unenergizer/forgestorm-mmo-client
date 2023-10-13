@@ -7,11 +7,15 @@ import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.WORLD_BUILDER)
 public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn.WorldBuilderPacket> {
+    private final ClientMain clientMain;
+
+    public WorldBuilderPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -25,7 +29,7 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
 
     @Override
     public void onEvent(WorldBuilderPacket packetData) {
-        ClientMain.getInstance().getWorldBuilder().placeTile(
+        clientMain.getWorldBuilder().placeTile(
                 packetData.layerDefinition,
                 packetData.textureId,
                 packetData.tileX,
@@ -35,7 +39,7 @@ public class WorldBuilderPacketIn implements PacketListener<WorldBuilderPacketIn
     }
 
     @AllArgsConstructor
-    class WorldBuilderPacket extends PacketData {
+    static class WorldBuilderPacket extends PacketData {
         private final LayerDefinition layerDefinition;
         private final int textureId;
         private final int tileX;

@@ -7,13 +7,17 @@ import com.forgestorm.client.network.game.shared.PacketData;
 import com.forgestorm.client.network.game.shared.PacketListener;
 import com.forgestorm.shared.network.game.Opcode;
 import com.forgestorm.shared.network.game.Opcodes;
-
 import lombok.AllArgsConstructor;
 
 @Opcode(getOpcode = Opcodes.PING)
 public class PingPacketIn implements PacketListener<PingPacketIn.PingInPacket> {
-
+    private final ClientMain clientMain;
     private ClientHandler clientHandler;
+
+    public PingPacketIn(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
+
 
     @Override
     public PacketData decodePacket(ClientHandler clientHandler) {
@@ -30,12 +34,12 @@ public class PingPacketIn implements PacketListener<PingPacketIn.PingInPacket> {
         clientHandler.setClientPing(ping);
 
 //        println(getClass(), "Ping: " + ping);
-        ClientMain.getInstance().getStageHandler().getPing().setPing(ping);
-        new PingPacketOut(clientHandler).sendPacket();
+        clientMain.getStageHandler().getPing().setPing(ping);
+        new PingPacketOut(clientMain, clientHandler).sendPacket();
     }
 
     @AllArgsConstructor
-    class PingInPacket extends PacketData {
+    static class PingInPacket extends PacketData {
         private final long packetReceivedTime;
     }
 }

@@ -1,7 +1,5 @@
 package com.forgestorm.client.game.world.maps;
 
-import static com.forgestorm.client.util.Log.println;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,14 +17,15 @@ import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.forgestorm.shared.game.world.maps.Warp;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
 import com.forgestorm.shared.io.ChunkLoader;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import lombok.Getter;
-import lombok.Setter;
+import static com.forgestorm.client.util.Log.println;
 
 @Getter
 @Setter
@@ -34,7 +33,8 @@ public class GameWorld {
 
     private static final boolean PRINT_DEBUG = false;
 
-    private final FileManager fileManager = ClientMain.getInstance().getFileManager();
+    private final ClientMain clientMain;
+    private final FileManager fileManager;
 
     private final String worldName;
     private final Color backgroundColor;
@@ -44,7 +44,9 @@ public class GameWorld {
     private Texture parallaxBackground;
     private int parallaxX, parallaxY;
 
-    public GameWorld(String worldName, Color backgroundColor) {
+    public GameWorld(ClientMain clientMain, String worldName, Color backgroundColor) {
+        this.clientMain = clientMain;
+        this.fileManager = clientMain.getFileManager();
         this.worldName = worldName;
         this.backgroundColor = backgroundColor;
     }
@@ -117,13 +119,12 @@ public class GameWorld {
 
     public void loadRegions() {
         // Load game world regions
-        FileManager fileManager = ClientMain.getInstance().getFileManager();
         String removeMe = "data/";
         String filePath = removeMe + "maps/" + worldName + "/Regions.yaml";
         fileManager.loadRegionData(filePath);
 
         // Set the gameworld regions
-        RegionManager regionManager = ClientMain.getInstance().getRegionManager();
+        RegionManager regionManager = clientMain.getRegionManager();
         RegionLoader.RegionDataWrapper regionDataWrapper = fileManager.getRegionData(filePath);
         Map<Integer, Region> regionMap = regionDataWrapper.getRegionMap();
         regionManager.setRegionMap(regionMap);
@@ -187,7 +188,7 @@ public class GameWorld {
 
         // Create the chunk if it doesn't exist
         if (worldChunk == null) {
-            worldChunk = new WorldChunk(worldName, chunkX, chunkY);
+            worldChunk = new WorldChunk(clientMain, worldName, chunkX, chunkY);
             setChunk(worldChunk);
         }
 
@@ -249,7 +250,7 @@ public class GameWorld {
     void clearData() {
         // Remove world chunks from asset manager
         for (WorldChunk worldChunk : worldChunkDrawMap.values()) {
-            ClientMain.getInstance().getFileManager().unloadMapChunkData(worldName, worldChunk.getChunkX(), worldChunk.getChunkY());
+            getFileManager().unloadMapChunkData(worldName, worldChunk.getChunkX(), worldChunk.getChunkY());
         }
 
         // Clear arrays and maps

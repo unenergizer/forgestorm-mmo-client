@@ -1,13 +1,11 @@
 package com.forgestorm.client.game.world.entities;
 
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.world.WorldObject;
 import com.forgestorm.client.game.world.maps.GameWorld;
 import com.forgestorm.client.game.world.maps.Location;
 import com.forgestorm.client.game.world.maps.tile.Tile;
 import com.forgestorm.shared.game.world.maps.building.LayerDefinition;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,12 +40,16 @@ public class Entity extends WorldObject {
      */
     private Appearance appearance;
 
+    public Entity(ClientMain clientMain) {
+        super(clientMain);
+    }
+
     public void say(String text) {
-        ActorUtil.getStageHandler().getChatDialogue().drawText(text);
+        getClientMain().getStageHandler().getChatDialogue().drawText(text);
     }
 
     public GameWorld getGameMap() {
-        return ClientMain.getInstance().getWorldManager().getGameWorld(worldName);
+        return getClientMain().getWorldManager().getGameWorld(worldName);
     }
 
     public Tile getGroundTile() {

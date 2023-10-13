@@ -2,11 +2,8 @@ package com.forgestorm.client.game.rpg;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.screens.ui.actors.ActorUtil;
 import com.forgestorm.client.game.screens.ui.actors.event.ExperienceUpdateEvent;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
-import com.forgestorm.client.game.world.entities.EntityManager;
-
 import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
@@ -14,9 +11,11 @@ import static com.forgestorm.client.util.Log.println;
 public class Skill {
 
     private static final boolean PRINT_DEBUG = false;
+    private final ClientMain clientMain;
     private final SkillOpcodes skillOpcodes;
 
-    Skill(SkillOpcodes skillOpcodes) {
+    Skill(ClientMain clientMain, SkillOpcodes skillOpcodes) {
+        this.clientMain = clientMain;
         this.skillOpcodes = skillOpcodes;
     }
 
@@ -64,12 +63,12 @@ public class Skill {
 
         // Update UI
         if (skillOpcodes == SkillOpcodes.MELEE) {
-            ClientMain.getInstance().getStageHandler().getExperienceBar().updateExp(barPercent, experience, currentLevel, nextLevelExp);
+            clientMain.getStageHandler().getExperienceBar().updateExp(barPercent, experience, currentLevel, nextLevelExp);
         }
 
         // Update UI values
         ExperienceUpdateEvent experienceUpdateEvent = new ExperienceUpdateEvent(skillOpcodes, currentLevel);
-        for (Actor actor : ActorUtil.getStage().getActors()) {
+        for (Actor actor : clientMain.getStageHandler().getStage().getActors()) {
             actor.fire(experienceUpdateEvent);
         }
 
@@ -78,10 +77,10 @@ public class Skill {
             println(getClass(), "The player has leveled up!", false, PRINT_DEBUG);
 
             // TODO: TELL TO SHOW MESSAGE
-            EntityManager.getInstance().getPlayerClient().setShowLevelUpMessage(true);
+            clientMain.getEntityManager().getPlayerClient().setShowLevelUpMessage(true);
 
             // check if they have gained a level and do skill level animation effect / send chat msg ect..
-            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[GREEN]You are now level " + currentLevel);
+            clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.COMBAT, "[GREEN]You are now level " + currentLevel);
         }
 
         if (!initialized) {

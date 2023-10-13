@@ -2,17 +2,18 @@ package com.forgestorm.client.game.screens.ui.actors.dev.entity;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.ImageBuilder;
 import com.forgestorm.shared.io.type.GameAtlas;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-
 import lombok.Getter;
 
 public class NPCBodyPart {
 
+    private final ClientMain clientMain;
     private final NpcTab npcTab;
     private final VisTable visTable;
     private final String texture;
@@ -28,7 +29,8 @@ public class NPCBodyPart {
     private VisLabel textureId;
     private int currentTexture = 0;
 
-    NPCBodyPart(NpcTab npcTab, VisTable visTable, String texture, int maxTextures, int width, int height, ImageData imageData, boolean useCheckBox) {
+    NPCBodyPart(ClientMain clientMain, NpcTab npcTab, VisTable visTable, String texture, int maxTextures, int width, int height, ImageData imageData, boolean useCheckBox) {
+        this.clientMain = clientMain;
         this.npcTab = npcTab;
         this.visTable = visTable;
         this.texture = texture;
@@ -56,7 +58,7 @@ public class NPCBodyPart {
         imageArea.clearChildren();
         imageArea.setWidth(width);
         imageArea.setHeight(height);
-        imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+        imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
 
         if (currentTexture > 9) {
             textureId.setText("ID: " + currentTexture + "/" + maxTextures);
@@ -72,7 +74,7 @@ public class NPCBodyPart {
         imageArea = new VisTable();
         imageArea.setWidth(width);
         imageArea.setHeight(height);
-        imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+        imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
         final VisTextButton next = new VisTextButton(">");
         textureId = new VisLabel("");
         if (currentTexture > 9) {
@@ -112,7 +114,7 @@ public class NPCBodyPart {
                     currentTexture = currentTexture - 1;
                 }
                 imageArea.clearChildren();
-                imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+                imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
                 imageData.setData(currentTexture);
                 if (currentTexture > 9) {
                     textureId.setText("ID: " + currentTexture + "/" + maxTextures);
@@ -133,7 +135,7 @@ public class NPCBodyPart {
                     currentTexture = currentTexture + 1;
                 }
                 imageArea.clearChildren();
-                imageArea.add(new ImageBuilder(GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
+                imageArea.add(new ImageBuilder(clientMain, GameAtlas.ENTITY_CHARACTER).setWidth(width).setHeight(height).setRegionName(texture + "_down_" + currentTexture).buildVisImage());
                 imageData.setData(currentTexture);
                 if (currentTexture > 9) {
                     textureId.setText("ID: " + currentTexture + "/" + maxTextures);

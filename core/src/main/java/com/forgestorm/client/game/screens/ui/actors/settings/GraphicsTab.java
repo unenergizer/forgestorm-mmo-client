@@ -5,13 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.kotcrab.vis.ui.util.dialog.Dialogs;
-import com.kotcrab.vis.ui.widget.VisCheckBox;
-import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisSelectBox;
-import com.kotcrab.vis.ui.widget.VisSlider;
-import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.UserInterfaceType;
@@ -19,6 +12,9 @@ import com.forgestorm.client.game.screens.WindowManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
 import com.forgestorm.client.game.screens.ui.actors.constant.ScreenResolutions;
 import com.forgestorm.client.game.screens.ui.actors.constant.WindowModes;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.widget.*;
+import com.kotcrab.vis.ui.widget.tabbedpane.Tab;
 
 import static com.forgestorm.client.util.ApplicationUtil.userOnMobile;
 
@@ -36,12 +32,12 @@ public class GraphicsTab extends Tab {
         super(false, false);
         this.stageHandler = stageHandler;
         title = " Graphics ";
-        build();
+        build(stageHandler.getClientMain());
     }
 
-    private void build() {
+    private void build(ClientMain clientMain) {
         content = new VisTable(true);
-        final WindowManager windowManager = ClientMain.getInstance().getWindowManager();
+        final WindowManager windowManager = clientMain.getWindowManager();
 
         /*
          * Zoom Level
@@ -53,7 +49,7 @@ public class GraphicsTab extends Tab {
 
         slider.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (ClientMain.getInstance().getUserInterfaceType() != UserInterfaceType.GAME) {
+                if (clientMain.getUserInterfaceType() != UserInterfaceType.GAME) {
                     Dialogs.showOKDialog(stageHandler.getStage(), "Error!", "Option can only be set in-game.");
                     return true;
                 }
@@ -64,8 +60,8 @@ public class GraphicsTab extends Tab {
         slider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (ClientMain.getInstance().getUserInterfaceType() == UserInterfaceType.GAME) {
-                    ClientMain.getInstance().getGameScreen().getCamera().changeZoomLevel(slider.getValue());
+                if (clientMain.getUserInterfaceType() == UserInterfaceType.GAME) {
+                    clientMain.getGameScreen().getCamera().changeZoomLevel(slider.getValue());
                 } else {
                     event.cancel();
                 }

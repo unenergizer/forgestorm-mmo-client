@@ -5,17 +5,19 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.screens.ui.actors.game.chat.ChatChannelType;
 import com.forgestorm.shared.game.world.item.ItemStack;
 import com.forgestorm.shared.game.world.item.inventory.InventoryType;
-
 import lombok.Getter;
 
 public class ItemSlotContainer {
 
+    private final ClientMain clientMain;
+    
     @Getter
     private final Actor parentActor;
     final ItemStackSlot[] itemStackSlots;
     private final int containerSize;
 
-    ItemSlotContainer(Actor parentActor, int containerSize) {
+    ItemSlotContainer(ClientMain clientMain, Actor parentActor, int containerSize) {
+        this.clientMain = clientMain;
         this.parentActor = parentActor;
         itemStackSlots = new ItemStackSlot[containerSize];
         this.containerSize = containerSize;
@@ -78,20 +80,20 @@ public class ItemSlotContainer {
 
     void swapInventories(ItemStack sourceItemStack, ItemStackSlot sourceSlot, ItemSlotContainer itemSlotContainer) {
         if (itemSlotContainer.isInventoryFull(sourceItemStack)) {
-            ClientMain.getInstance().getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Cannot transfer item because the inventory is full!");
+            clientMain.getStageHandler().getChatWindow().appendChatMessage(ChatChannelType.GENERAL, "[RED]Cannot transfer item because the inventory is full!");
             return;
         }
 
         ItemStackSlot targetSlot = itemSlotContainer.getFreeItemStackSlot(sourceItemStack);
 
-        new InventoryMoveActions().moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
-        ClientMain.getInstance().getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
+        new InventoryMoveActions(clientMain).moveItems(sourceSlot, targetSlot, sourceItemStack, targetSlot.getItemStack());
+        clientMain.getAudioManager().getSoundManager().playItemStackSoundFX(getClass(), sourceItemStack);
 
         sourceSlot.setEmptyCellImage();
     }
 
     void magicItemInteract(ItemStackSlot sourceSlot, ItemStack itemStack) {
         if (sourceSlot.getInventoryType() == InventoryType.BANK) return;
-        ClientMain.getInstance().getAbilityManager().toggleAbility(sourceSlot, itemStack);
+        clientMain.getAbilityManager().toggleAbility(sourceSlot, itemStack);
     }
 }

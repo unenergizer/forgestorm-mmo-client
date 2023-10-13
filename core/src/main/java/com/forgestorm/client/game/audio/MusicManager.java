@@ -3,27 +3,28 @@ package com.forgestorm.client.game.audio;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
 import com.forgestorm.client.ClientMain;
+import com.forgestorm.client.io.FileManager;
+import lombok.Getter;
 
 import java.util.Map;
-
-import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 
 public class MusicManager implements Disposable {
 
     private static final boolean PRINT_DEBUG = false;
-
+    private final FileManager fileManager;
     private final Map<Short, AudioData> gameMusic;
 
     @Getter
-    private AudioPreferences audioPreferences = new AudioPreferences();
+    private final AudioPreferences audioPreferences = new AudioPreferences();
     private Music currentSong;
     private boolean isMusicPaused = false;
 
-    MusicManager() {
-        this.gameMusic = ClientMain.getInstance().getFileManager().getMusicData().getMusicDataMap();
-        audioPreferences.setPlayLoginScreenMusic(ClientMain.getInstance().isPlayIntroMusic());
+    MusicManager(ClientMain clientMain) {
+        this.fileManager = clientMain.getFileManager();
+        this.gameMusic = fileManager.getMusicData().getMusicDataMap();
+        audioPreferences.setPlayLoginScreenMusic(clientMain.isPlayIntroMusic());
     }
 
     public void playMusic(Class clazz, short audioId) {
@@ -39,8 +40,8 @@ public class MusicManager implements Disposable {
             currentSong.dispose();
         }
 
-        ClientMain.getInstance().getFileManager().loadMusic(audioData);
-        currentSong = ClientMain.getInstance().getFileManager().getMusic(audioData);
+        fileManager.loadMusic(audioData);
+        currentSong = fileManager.getMusic(audioData);
         currentSong.setVolume(audioPreferences.getMusicVolume());
         currentSong.play();
 

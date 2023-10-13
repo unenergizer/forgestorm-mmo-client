@@ -15,11 +15,10 @@ import com.forgestorm.client.util.FadeOut;
 import com.forgestorm.client.util.MoveNode;
 import com.forgestorm.shared.game.world.maps.MoveDirection;
 import com.forgestorm.shared.game.world.maps.Warp;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import lombok.Getter;
 
 import static com.forgestorm.client.util.Log.println;
 import static com.forgestorm.client.util.Preconditions.checkArgument;
@@ -28,16 +27,22 @@ public class ClientPlayerMovementManager {
 
     private static final boolean PRINT_DEBUG = false;
 
+    private final ClientMain clientMain;
+    
     @Getter
     private Queue<MoveNode> movements = new LinkedList<MoveNode>();
     private AbstractPostProcessor abstractPostProcessor;
 
     @Getter
     private final Queue<MoveNode> movesSentToServer = new LinkedList<MoveNode>();
+    
+    public ClientPlayerMovementManager(ClientMain clientMain) {
+        this.clientMain = clientMain;
+    }
 
     void playerMove(PlayerClient playerClient, Queue<MoveNode> movements) {
         playerClient.closeBankWindow();
-        ActorUtil.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
+        clientMain.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
         playerMove(playerClient, movements, null);
     }
 
@@ -55,7 +60,7 @@ public class ClientPlayerMovementManager {
     private boolean checkSingleNode(PlayerClient playerClient) {
         if (movements.size() == 1) {
             MoveNode node = movements.peek();
-            if (!WorldUtil.isTraversable(node.getWorldX(), node.getWorldY())) {
+            if (!WorldUtil.isTraversable(clientMain, node.getWorldX(), node.getWorldY())) {
                 movements.clear();
                 playerClient.setPredictedMoveDirection(MoveDirection.NONE);
                 return false;
@@ -66,7 +71,7 @@ public class ClientPlayerMovementManager {
 
     private void processNextNode(PlayerClient playerClient) {
         playerClient.closeBankWindow();
-        ActorUtil.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
+        clientMain.getStageHandler().getPagedItemStackWindow().closePagedWindow(true);
 
         println(getClass(), "Processing next node", true, ClientConstants.MONITOR_MOVEMENT_CHECKS);
 
@@ -75,7 +80,7 @@ public class ClientPlayerMovementManager {
         playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
         GameWorld gameWorld = playerClient.getGameMap();
         Location currentLocation = playerClient.getCurrentMapLocation();
-        Location futureLocation = new Location(playerClient.getWorldName(), nextNode.getWorldX(), nextNode.getWorldY(), currentLocation.getZ());
+        Location futureLocation = new Location(clientMain, playerClient.getWorldName(), nextNode.getWorldX(), nextNode.getWorldY(), currentLocation.getZ());
         playerClient.setFutureMapLocation(futureLocation);
         MoveDirection moveDirection = MoveUtil.getMoveDirection(currentLocation, futureLocation);
 
@@ -91,7 +96,7 @@ public class ClientPlayerMovementManager {
         playerClient.setFacingDirection(moveDirection);
         playerClient.setWalkTime(0f);
 
-        ClientMain.getInstance().getRegionManager().playerEnterLocation(futureLocation);
+        clientMain.getRegionManager().playerEnterLocation(futureLocation);
 
         // Check chunk change
         WorldChunk currentChunk = currentLocation.getLocationChunk();
@@ -101,32 +106,32 @@ public class ClientPlayerMovementManager {
         }
 
         // Warp checks
-        if (WorldUtil.isWarp(futureLocation.getX(), futureLocation.getY(), futureLocation.getZ())) {
+        if (WorldUtil.isWarp(clientMain, futureLocation.getX(), futureLocation.getY(), futureLocation.getZ())) {
             println(getClass(), "We hit a tile that is a warp.", false, true);
 
-            Warp warp = WorldUtil.getWarp(futureLocation.getX(), futureLocation.getY(), futureLocation.getZ());
+            Warp warp = WorldUtil.getWarp(clientMain, futureLocation.getX(), futureLocation.getY(), futureLocation.getZ());
             println(getClass(), warp.getWarpDestination().toString());
             println(getClass(), warp.getDirectionToFace().getDirectionName());
 
             movements.clear();
 //            playerClient.setWarping(true);
-            ClientMain.getInstance().getClientMovementProcessor().invalidateAllInput();
+            clientMain.getClientMovementProcessor().invalidateAllInput();
 
             // Since we are warping, fade out the screen!
             if (playerClient.getCurrentMapLocation().getWorldName().equals(warp.getWarpDestination().getWorldName())) {
                 println(getClass(), "WARP LOCATION WORLD NAME AND CURRENT WORLD NAME MATCH", true);
             } else {
-                ActorUtil.fadeInWindow(ActorUtil.getStageHandler().getFadeWindow(), 0.2f);
+                ActorUtil.fadeInWindow(clientMain.getStageHandler().getFadeWindow(), 0.2f);
             }
 
             // Close windows
-            ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getItemDropDownMenu());
-            ActorUtil.fadeOutWindow(ActorUtil.getStageHandler().getEntityDropDownMenu());
+            ActorUtil.fadeOutWindow(clientMain.getStageHandler().getItemDropDownMenu());
+            ActorUtil.fadeOutWindow(clientMain.getStageHandler().getEntityDropDownMenu());
         }
 
         movesSentToServer.add(nextNode);
 
-        new PlayerMovePacketOut(futureLocation).sendPacket();
+        new PlayerMovePacketOut(clientMain, futureLocation).sendPacket();
     }
 
     public void processMoveNodes(PlayerClient playerClient) {
@@ -134,7 +139,7 @@ public class ClientPlayerMovementManager {
         if (!MoveUtil.isEntityMoving(playerClient)) return;
 
         // Fades the mouse out as soon as the player starts moving.
-        FadeOut mouseFadeOut = ClientMain.getInstance().getMouseManager().getFadeOut();
+        FadeOut mouseFadeOut = clientMain.getMouseManager().getFadeOut();
         if (!mouseFadeOut.isFading()) {
             mouseFadeOut.startFade(MouseManager.NUM_TICKS_TO_FADE_MOUSE);
         }
@@ -178,13 +183,13 @@ public class ClientPlayerMovementManager {
                 // Setting the future here to prevent the snapping forward of
                 // the player on the next follow.
                 playerClient.getCurrentMapLocation().set(playerClient.getFutureMapLocation());
-                Queue<MoveNode> singleMoveNode = ClientMain.getInstance().getClientMovementProcessor().getNodeForDirection(
+                Queue<MoveNode> singleMoveNode = clientMain.getClientMovementProcessor().getNodeForDirection(
                         playerClient,
                         playerClient.getFutureMapLocation(),
                         playerClient.getPredictedMoveDirection());
 
                 MoveNode possibleMove = singleMoveNode.peek();
-                if (possibleMove != null && !WorldUtil.isTraversable(possibleMove.getWorldX(), possibleMove.getWorldY())) {
+                if (possibleMove != null && !WorldUtil.isTraversable(clientMain, possibleMove.getWorldX(), possibleMove.getWorldY())) {
                     finishMove(playerClient);
                 } else {
                     playerMove(playerClient, singleMoveNode);
@@ -208,7 +213,7 @@ public class ClientPlayerMovementManager {
 
         // The player is no longer moving.
         playerClient.setPredictedMoveDirection(MoveDirection.NONE);
-        ClientMain.getInstance().getClientMovementProcessor().setCurrentMovementInput(ClientMovementProcessor.MovementInput.NONE);
+        clientMain.getClientMovementProcessor().setCurrentMovementInput(ClientMovementProcessor.MovementInput.NONE);
 
         if (abstractPostProcessor != null) {
             abstractPostProcessor.postMoveAction();

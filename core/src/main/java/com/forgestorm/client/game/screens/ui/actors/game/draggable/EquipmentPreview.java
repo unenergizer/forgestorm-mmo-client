@@ -12,13 +12,12 @@ import com.forgestorm.shared.game.world.item.ItemStackType;
 import com.forgestorm.shared.game.world.item.inventory.EquipmentSlotTypes;
 import com.kotcrab.vis.ui.building.utilities.Alignment;
 import com.kotcrab.vis.ui.widget.VisTable;
-
 import lombok.Getter;
 
 @Getter
 public class EquipmentPreview extends VisTable {
 
-    private final CharacterPreviewer characterPreviewer = new CharacterPreviewer(8);
+    private CharacterPreviewer characterPreviewer;
 
     private StageHandler stageHandler;
 
@@ -41,6 +40,7 @@ public class EquipmentPreview extends VisTable {
 
     public Actor build(final StageHandler stageHandler, ItemSlotContainer itemSlotContainer, ItemStackSlot[] itemStackSlots) {
         this.stageHandler = stageHandler;
+        characterPreviewer = new CharacterPreviewer(stageHandler.getClientMain(), 8);
 
         // Left side table
         VisTable leftTable = new VisTable();
@@ -105,11 +105,11 @@ public class EquipmentPreview extends VisTable {
      * @return A {@link ItemStackSlot} to place in this {@link EquipmentPreview}
      */
     private ItemStackSlot buildSlot(ItemSlotContainer itemSlotContainer, EquipmentSlotTypes equipmentSlotTypes) {
-        ItemStackSlot itemStackSlot = new ItemStackSlot(itemSlotContainer, 32, equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
+        ItemStackSlot itemStackSlot = new ItemStackSlot(stageHandler.getClientMain(), itemSlotContainer, 32, equipmentSlotTypes.getSlotIndex(), equipmentSlotTypes.getAcceptedItemStackTypes());
         itemStackSlot.build(stageHandler);
         DragAndDrop dragAndDrop = stageHandler.getDragAndDrop();
         dragAndDrop.addSource(new ItemStackSource(stageHandler, dragAndDrop, itemStackSlot));
-        dragAndDrop.addTarget(new ItemStackTarget(itemStackSlot));
+        dragAndDrop.addTarget(new ItemStackTarget(stageHandler.getClientMain(), itemStackSlot));
         return itemStackSlot;
     }
 
