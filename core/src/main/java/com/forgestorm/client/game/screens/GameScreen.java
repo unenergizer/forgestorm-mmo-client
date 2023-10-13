@@ -78,6 +78,9 @@ public class GameScreen implements Screen {
     private ShapeDrawer shapeDrawer;
     private Texture shapeDrawerTexture;
 
+    @Getter
+    private GameTextures entityShadow;
+
     private final PriorityQueue<WorldObject> ySortedWorldObjects = new PriorityQueue<>();
 
     public GameScreen(ClientMain clientMain) {
@@ -112,7 +115,7 @@ public class GameScreen implements Screen {
         generator.dispose();
 
         // Setting global textures
-        GameTextures.entityShadow = fileManager.getTexture(GameTexture.SHADOW);
+        entityShadow = new GameTextures(fileManager.getTexture(GameTexture.SHADOW));
 
         // TODO: Change mouse cursor
 //        fileManager.loadPixmap(GamePixmap.CURSOR_1);
@@ -398,7 +401,7 @@ public class GameScreen implements Screen {
         if (validTileLocationTexture != null) validTileLocationTexture.dispose();
         if (warpTileLocationTexture != null) warpTileLocationTexture.dispose();
         if (shapeDrawerTexture != null) shapeDrawerTexture.dispose();
-        GameTextures.dispose();
+        entityShadow.dispose();
         stageHandler.dispose();
     }
 }

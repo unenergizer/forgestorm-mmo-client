@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.forgestorm.client.ClientConstants;
 import com.forgestorm.client.ClientMain;
-import com.forgestorm.client.game.GameTextures;
 import com.forgestorm.client.game.screens.GameScreen;
 import com.forgestorm.client.game.world.entities.animations.EntityAnimation;
 import com.forgestorm.client.game.world.maps.Location;
@@ -157,7 +156,7 @@ public class MovingEntity extends Entity {
             spriteBatch.setColor(LibGDXColorList.ENTITY_SHADOW_GRAY.getColor());
         }
 
-        spriteBatch.draw(GameTextures.entityShadow, getDrawX(), getDrawY() - 3);
+        spriteBatch.draw(clientMain.getGameScreen().getEntityShadow().entityShadow, getDrawX(), getDrawY() - 3);
 
         // RESET COLOR - This SpriteBatch is used in other places and on other textures!
         spriteBatch.setColor(Color.WHITE);
