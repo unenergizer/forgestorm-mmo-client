@@ -36,7 +36,6 @@ public class PlayerTradePacketIn implements PacketListener<PlayerTradePacketIn.T
         int itemAmount = 1;
         byte itemSlot = -5;
 
-        //noinspection ConstantConditions
         switch (tradeStatusOpcode) {
             case TRADE_REQUEST_INIT_SENDER:
             case TRADE_REQUEST_INIT_TARGET:

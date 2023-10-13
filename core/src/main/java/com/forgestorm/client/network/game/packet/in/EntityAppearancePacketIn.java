@@ -17,7 +17,6 @@ import lombok.Setter;
 
 import static com.forgestorm.client.util.Log.println;
 
-@SuppressWarnings("ConstantConditions")
 @Opcode(getOpcode = Opcodes.APPEARANCE)
 public class EntityAppearancePacketIn implements PacketListener<EntityAppearancePacketIn.EntityAppearancePacket> {
 

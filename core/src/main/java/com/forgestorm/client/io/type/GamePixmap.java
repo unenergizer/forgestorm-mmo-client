@@ -1,6 +1,6 @@
 package com.forgestorm.client.io.type;
 
-@SuppressWarnings({"SameParameterValue", "SpellCheckingInspection", "unused"})
+@SuppressWarnings({"SameParameterValue", "unused"})
 public enum GamePixmap {
 
     CURSOR_1("cursor1.png");

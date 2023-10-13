@@ -89,7 +89,6 @@ public class TilePropertiesLoader extends SynchronousAssetLoader<TilePropertiesL
                     AbstractTileProperty abstractTileProperty = TilePropertyTypeHelper.getNewAbstractTileProperty(clientMain, tilePropertyType);
 
                     // If we find the property, lets get it setup!
-                    //noinspection ConstantConditions
                     if (abstractTileProperty != null) {
                         abstractTileProperty.setTileImage(tileImage);
                         tileImage.setCustomTileProperty(abstractTileProperty.load(abstractPropertyFieldsMap, PRINT_DEBUG));
