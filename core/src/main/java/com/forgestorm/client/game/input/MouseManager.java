@@ -118,10 +118,9 @@ public class MouseManager {
     }
 
     private boolean entityClickTest(float drawX, float drawY) {
-        if (mouseWorldX >= drawX && mouseWorldX < drawX + 16) {
-            return mouseWorldY >= drawY && mouseWorldY < drawY + 16;
-        }
-        return false;
+        boolean withinX = mouseWorldX >= drawX && mouseWorldX < drawX + ClientConstants.TILE_SIZE;
+        boolean withinY = mouseWorldY >= drawY && mouseWorldY < drawY + ClientConstants.TILE_SIZE;
+        return withinX && withinY;
     }
 
     private void left(final int screenX, final int screenY) {

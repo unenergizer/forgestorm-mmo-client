@@ -1,5 +1,6 @@
 package com.forgestorm.client.game.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -17,6 +18,7 @@ import com.forgestorm.client.ClientMain;
 import com.forgestorm.client.game.GameTextures;
 import com.forgestorm.client.game.audio.MusicManager;
 import com.forgestorm.client.game.input.Keyboard;
+import com.forgestorm.client.game.input.LongPressListener;
 import com.forgestorm.client.game.input.Mouse;
 import com.forgestorm.client.game.input.MouseManager;
 import com.forgestorm.client.game.screens.ui.StageHandler;
@@ -64,6 +66,7 @@ public class GameScreen implements Screen {
     private boolean gameFocused = true;
 
     private final Keyboard keyboard;
+    private final LongPressListener longPressListener;
 
     private BitmapFont font;
 
@@ -89,6 +92,7 @@ public class GameScreen implements Screen {
         this.stageHandler = clientMain.getStageHandler();
         this.fileManager = clientMain.getFileManager();
         this.keyboard = new Keyboard(clientMain);
+        this.longPressListener = new LongPressListener(clientMain);
     }
 
     @Override
@@ -127,6 +131,7 @@ public class GameScreen implements Screen {
         inputMultiplexer.addProcessor(stageHandler.getStage());
         inputMultiplexer.addProcessor(stageHandler.getPostStageEvent());
         inputMultiplexer.addProcessor(keyboard);
+        if (Gdx.app.getType() == Application.ApplicationType.Android) inputMultiplexer.addProcessor(longPressListener);
         inputMultiplexer.addProcessor(new Mouse(clientMain));
 
         // Create HealthBar textures
@@ -184,6 +189,7 @@ public class GameScreen implements Screen {
     }
 
     private void renderGame(float delta) {
+        longPressListener.update();
         if (clientMain.getWorldManager().getCurrentGameWorld() == null) return;
         GraphicsUtils.clearScreen(clientMain.getWorldManager().getCurrentGameWorld().getBackgroundColor());
 
